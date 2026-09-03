@@ -45,17 +45,43 @@ const popupText=popup?await popup.textContent():"";
 ok(`map pin opens popup (${pins.length} pins) — ${popupText.trim().slice(0,40)}`, !!popup);
 await page.close();
 
-// 4. geolocation "near me"
+// 4. geolocation is requested automatically on landing, no click needed
 const ctx=await b.newContext({permissions:["geolocation"],geolocation:{latitude:24.5551,longitude:-81.78},viewport:{width:1200,height:900}});
 page=await ctx.newPage();
-await page.goto("http://localhost:8099/");
-await page.click("[data-near-button]");
-await page.waitForTimeout(1400);
+await page.goto("http://localhost:8099/",{waitUntil:"load"});
+await page.waitForTimeout(1800);
 const label=await page.textContent("[data-near-label]");
 const first=await page.textContent(".carousel__track .slide .slide__name");
 const badge=await page.textContent(".carousel__track .slide .slide__badge");
-ok(`near-me carousel: "${label.trim()}" -> ${first.trim()} (${badge.trim()})`, /Closest/.test(label)&&/mi away/.test(badge));
+ok(`homepage auto-locates: "${label.trim()}" -> ${first.trim()} (${badge.trim()})`, /Closest/.test(label)&&/mi away/.test(badge));
 await page.close(); await ctx.close();
+
+// 4b. declining location still leaves a usable carousel
+const denied=await b.newContext({permissions:[],viewport:{width:1200,height:900}});
+page=await denied.newPage();
+await page.goto("http://localhost:8099/",{waitUntil:"load"});
+await page.waitForTimeout(1500);
+const fallbackSlides=await page.$$eval(".carousel__track .slide",n=>n.length);
+ok(`declined location falls back to ${fallbackSlides} featured slides`, fallbackSlides>0);
+await page.close(); await denied.close();
+
+// 4c. hero images keep one height whatever the source photo's aspect ratio is
+page=await b.newPage({viewport:{width:1280,height:900}});
+await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(400);
+const svg=(w,h)=>"data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#204080"/></svg>`);
+const heights=await page.evaluate(([tall,wide])=>{
+  document.querySelectorAll(".carousel__track .slide__media").forEach((box,i)=>{
+    box.querySelectorAll("img").forEach((n)=>n.remove());
+    const im=document.createElement("img");
+    im.src=i%2?tall:wide; im.alt="";
+    box.appendChild(im);
+  });
+  return new Promise(res=>setTimeout(()=>res([...new Set([...document.querySelectorAll(".carousel__track .slide__media")]
+    .map(m=>Math.round(m.getBoundingClientRect().height)))]),500));
+},[svg(600,900),svg(1600,600)]);
+ok(`hero images share one height (${heights.join(", ")}px) across aspect ratios`, heights.length===1);
+await page.close();
 
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});

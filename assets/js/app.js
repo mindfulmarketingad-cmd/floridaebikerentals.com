@@ -189,6 +189,14 @@
     var track = $(".carousel__track", nearRoot);
     var label = $("[data-near-label]", nearRoot);
     var button = $("[data-near-button]", nearRoot);
+    var DISMISS_KEY = "fer:geo-dismissed";
+
+    var remember = function (value) {
+      try { window.sessionStorage.setItem(DISMISS_KEY, value); } catch (err) { /* private mode */ }
+    };
+    var wasDismissed = function () {
+      try { return window.sessionStorage.getItem(DISMISS_KEY) === "1"; } catch (err) { return false; }
+    };
 
     var render = function (rows, withDistance) {
       if (!track) return;
@@ -196,29 +204,73 @@
       rows.forEach(function (row) { track.appendChild(slideFor(row, withDistance ? row._d : null)); });
     };
 
-    var locate = function () {
-      if (!navigator.geolocation) { if (label) label.textContent = "Location is not available in this browser"; return; }
-      if (label) label.textContent = "Finding rentals near you…";
-      if (button) button.disabled = true;
-      navigator.geolocation.getCurrentPosition(function (pos) {
-        listings().then(function (rows) {
-          var lat = pos.coords.latitude, lng = pos.coords.longitude;
-          var scored = rows.filter(function (r) { return num(r.lat) !== null && num(r.lng) !== null; })
-            .map(function (r) { r._d = milesBetween(lat, lng, r.lat, r.lng); return r; })
-            .sort(function (a, b) { return a._d - b._d; })
-            .slice(0, 12);
-          if (!scored.length) { if (label) label.textContent = "No listings matched your location"; return; }
-          if (label) label.textContent = "Closest e-bike rentals to you";
-          if (button) { button.hidden = true; }
-          render(scored, true);
-        });
-      }, function () {
-        if (label) label.textContent = "Location unavailable — showing Florida's top rated rentals";
-        if (button) button.disabled = false;
-      }, { enableHighAccuracy: false, timeout: 9000, maximumAge: 600000 });
+    var showNearest = function (pos) {
+      listings().then(function (rows) {
+        var lat = pos.coords.latitude, lng = pos.coords.longitude;
+        var scored = rows.filter(function (r) { return num(r.lat) !== null && num(r.lng) !== null; })
+          .map(function (r) { r._d = milesBetween(lat, lng, r.lat, r.lng); return r; })
+          .sort(function (a, b) { return a._d - b._d; })
+          .slice(0, 12);
+        if (!scored.length) { if (label) label.textContent = "No listings matched your location"; return; }
+        if (label) label.textContent = "Closest e-bike rentals to you";
+        if (button) button.hidden = true;
+        remember("0");
+        render(scored, true);
+      });
     };
 
-    if (button) button.addEventListener("click", locate);
+    var failed = function (auto) {
+      return function (error) {
+        // A denial or a dismissed prompt should not be re-asked on every page.
+        if (!error || error.code !== 3) remember("1");
+        if (label) {
+          label.textContent = error && error.code === 1
+            ? "Location off — showing Florida's top rated rentals"
+            : "Location unavailable — showing Florida's top rated rentals";
+        }
+        if (button) {
+          button.disabled = false;
+          button.hidden = false;
+          if (!auto) button.textContent = "Try my location again";
+        }
+      };
+    };
+
+    var locate = function (auto) {
+      if (!navigator.geolocation) {
+        if (label) label.textContent = "Location is not available in this browser";
+        if (button) button.hidden = true;
+        return;
+      }
+      if (label) label.textContent = "Finding rentals near you\u2026";
+      if (button) button.disabled = true;
+      navigator.geolocation.getCurrentPosition(showNearest, failed(auto), {
+        enableHighAccuracy: false,
+        timeout: auto ? 12000 : 9000,
+        maximumAge: 600000,
+      });
+    };
+
+    if (button) button.addEventListener("click", function () { locate(false); });
+
+    /* Ask on landing so the homepage is tailored to where the visitor is.
+       An already-granted permission resolves with no prompt at all; a visitor
+       who declined once is not asked again for the rest of the session. */
+    var autoLocate = function () {
+      if (wasDismissed()) return;
+      if (!navigator.permissions || !navigator.permissions.query) { locate(true); return; }
+      navigator.permissions.query({ name: "geolocation" }).then(function (status) {
+        if (status.state === "denied") {
+          if (label) label.textContent = "Location off — showing Florida's top rated rentals";
+          return;
+        }
+        locate(true);
+        status.onchange = function () { if (status.state === "granted") locate(true); };
+      }).catch(function () { locate(true); });
+    };
+
+    if (d.readyState === "complete") autoLocate();
+    else window.addEventListener("load", autoLocate, { once: true });
   }
 
   /* ----------------------------------------------------------- maps */

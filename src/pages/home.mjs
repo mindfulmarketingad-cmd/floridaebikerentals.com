@@ -106,6 +106,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         <div class="carousel__track">${slideMarkup}</div>
         <div class="hero__actions" style="margin-top:.9rem">
           <button class="btn btn--ghost btn--sm" type="button" data-near-button>Show rentals near me</button>
+          <span class="small" style="color:#c9d9fd;align-self:center">Allow location to sort by distance from you</span>
         </div>
       </div>
     </div>
