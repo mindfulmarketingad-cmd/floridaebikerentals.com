@@ -115,6 +115,61 @@ export function homePage(site, { listings, index, blog, stats }) {
   </div>
 </section>
 
+<section class="nav-tiles-section">
+  <div class="wrap">
+    <div class="nav-tiles">
+      <a class="nav-tile" href="/find/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 6.5-9 12.5-9 12.5S3 16.5 3 10a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Find a Shop</span>
+        <span class="nav-tile__text">Every Florida region and town in the directory.</span>
+      </a>
+      <a class="nav-tile" href="/shop/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Shop</span>
+        <span class="nav-tile__text">E-bikes, scooters and gear worth owning.</span>
+      </a>
+      <a class="nav-tile" href="/trails/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3Z"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Trails</span>
+        <span class="nav-tile__text">Where to actually ride once you have the bike.</span>
+      </a>
+      <a class="nav-tile" href="/reviews/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2Z"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Reviews</span>
+        <span class="nav-tile__text">Star breakdowns for every rated shop.</span>
+      </a>
+      <a class="nav-tile" href="/search/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Search</span>
+        <span class="nav-tile__text">Search every page on the site at once.</span>
+      </a>
+      <a class="nav-tile" href="/blog/">
+        <span class="nav-tile__top">
+          <svg class="nav-tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
+          <span class="nav-tile__arrow" aria-hidden="true">&#8250;</span>
+        </span>
+        <span class="nav-tile__title">Blog</span>
+        <span class="nav-tile__text">Law, pricing, classes and routes worth reading first.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     ${banner(photoFor("home"), {
