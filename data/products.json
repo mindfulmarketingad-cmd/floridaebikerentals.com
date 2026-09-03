@@ -24,32 +24,6 @@
  ],
  "products": [
   {
-   "slug": "soltera-2-5",
-   "name": "Soltera 2.5",
-   "brand": "Aventon",
-   "category": "electric-bikes",
-   "price": 1299,
-   "compareAtPrice": 1999,
-   "availability": "InStock",
-   "variants": [
-    "Small",
-    "Medium",
-    "Large"
-   ],
-   "image": "/assets/img/shop/aventon-soltera-2-5.jpg",
-   "url": "",
-   "cta": "Check availability",
-   "summary": "A lightweight commuter e-bike with a torque sensor, hydraulic brakes, faster-rolling tyres and integrated turn signals.",
-   "description": "Revolutionize your ride with the Soltera 2.5. Designed for performance and versatility, the exceptional handling and upgraded componentry puts you in command of every ride. Now with hydraulic brakes and faster rolling tires, the Soltera 2.5 is sure to elevate every ride. The lightweight frame design and advanced torque sensor technology pair perfectly to ensure you can seamlessly conquer your commutes or take a cruise through the city with maximized efficiency. Integrated turn signals ensure you stay visible and safe, giving motorists and pedestrians clear communication, day or night. Hop on the Soltera 2.5 and put your pedals to the pavement, more road awaits.",
-   "specs": {
-    "Top speed": "20 mph",
-    "Range": "up to 46 miles",
-    "Payload": "300 lbs"
-   },
-   "imageWidth": 1400,
-   "imageHeight": 945
-  },
-  {
    "slug": "fat-tire-moped-ebike",
    "name": "Fat Tire Moped-Style E-Bike with App",
    "brand": "",
@@ -90,6 +64,34 @@
    "imageWidth": 1000,
    "imageHeight": 933,
    "summary": "Off-road electric dirt bike on knobby tyres with inverted forks and no pedals. Ships with a combination cable lock."
+  },
+  {
+   "slug": "razor-e90-kids-electric-scooter",
+   "name": "Razor E90 Electric Scooter",
+   "brand": "Razor",
+   "category": "electric-scooters",
+   "affiliate": true,
+   "url": "https://amzn.to/4iI8UkC",
+   "cta": "Check Price",
+   "badge": "For kids",
+   "image": "/assets/img/shop/razor-e90-electric-scooter.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 1000,
+   "summary": "Kick-to-start electric scooter on a steel deck with urethane wheels and a rear fender brake. Sized for younger riders."
+  },
+  {
+   "slug": "segway-ninebot-max-g3",
+   "name": "Segway Ninebot Max G3 Electric Scooter",
+   "brand": "Segway",
+   "category": "electric-scooters",
+   "affiliate": true,
+   "url": "https://amzn.to/4iI8UkC",
+   "cta": "Check Price",
+   "badge": "Commuter",
+   "image": "/assets/img/shop/segway-ninebot-max-g3.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 1000,
+   "summary": "Folding commuter scooter with pneumatic tyres, front and rear disc brakes and front suspension."
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",

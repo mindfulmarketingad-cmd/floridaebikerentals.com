@@ -88,10 +88,10 @@ function variantList(product) {
  * A product tile.
  *
  * Two kinds. Ours links to its own detail page and shows the price we sell it
- * at. An affiliate item links straight out to the retailer and shows no price
- * or rating: the Amazon Associates terms only allow displaying prices pulled
- * live from their Product Advertising API, which is exactly what the
- * "Check Price" call to action exists to avoid.
+ * at. An affiliate item links straight out to the retailer and deliberately
+ * shows no price and no rating: affiliate programme terms only permit
+ * displaying prices pulled live from the retailer's product API, and a stale
+ * price is worse than none. "Check Price" sends the visitor to the live one.
  */
 export function productCard(product, currency) {
   const external = product.affiliate;
@@ -113,7 +113,7 @@ export function productCard(product, currency) {
       <a class="btn btn--primary btn--sm btn--block" href="${attr(href)}"${linkAttrs}>${esc(
         product.cta || (external ? "Check Price" : "Details")
       )}</a>
-      ${external ? '<span class="product-card__note">Price and availability on Amazon</span>' : ""}
+      ${external ? '<span class="product-card__note">Current price at the retailer</span>' : ""}
     </div>
   </div>
 </article>`;
@@ -449,11 +449,17 @@ ${breadcrumbs(crumbs)}
       <h1>${esc(category.name)}</h1>
       <p>${esc(category.description)}</p>
     </div>
-    ${figure(hero, {
-      alt: `Riding in Florida - ${hero.alt}`,
-      caption: `Illustrative photo of e-bike riding in Florida, not of a product sold in ${category.name}.`,
-      className: "figure--stock",
-    })}
+    ${
+      // A results page leads with the products. The library photo only stands in
+      // while a category has nothing in it yet.
+      items.length
+        ? ""
+        : figure(hero, {
+            alt: `Riding in Florida - ${hero.alt}`,
+            caption: `Illustrative photo of riding in Florida, not of a product sold in ${category.name}.`,
+            className: "figure--stock",
+          })
+    }
   </div>
 </section>
 
