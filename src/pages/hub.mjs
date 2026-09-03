@@ -49,6 +49,27 @@ export function authorCard(author) {
 </aside>`;
 }
 
+/**
+ * Official Ride with GPS route embed. Declared in front matter as `rwgps: <id>`.
+ * Lazy-loaded, sandboxed, and always paired with a plain link so the route is
+ * still reachable if the frame is blocked.
+ */
+function routeEmbed(entry) {
+  const id = String(entry.rwgps || "").trim();
+  if (!/^\d+$/.test(id)) return "";
+  const href = `https://ridewithgps.com/routes/${id}`;
+  return `<figure class="route-embed">
+  <iframe src="https://ridewithgps.com/embeds?type=route&amp;id=${attr(id)}&amp;sampleGraph=true"
+    title="${attr(entry.title)} route map and elevation profile on Ride with GPS"
+    loading="lazy" scrolling="no" referrerpolicy="no-referrer"
+    sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+  <figcaption>Route map and elevation profile for the ${esc(entry.title)}, hosted by
+    <a href="${attr(href)}" rel="noopener nofollow" target="_blank">Ride with GPS</a>.
+    ${entry.distance ? esc(entry.distance) : ""}${entry.elevation ? ` · ${esc(entry.elevation)}` : ""}.
+  </figcaption>
+</figure>`;
+}
+
 function tocFor(headings) {
   if (headings.length < 3) return "";
   return `<nav class="toc" aria-label="On this page">
@@ -161,6 +182,7 @@ export function contentEntry(site, hub, entry, ctx) {
 
   const facts = [
     entry.distance ? { value: entry.distance, label: "Distance" } : null,
+    entry.elevation ? { value: entry.elevation, label: "Elevation" } : null,
     entry.surface ? { value: entry.surface, label: "Surface" } : null,
     entry.difficulty ? { value: entry.difficulty, label: "Difficulty" } : null,
     entry.region ? { value: entry.region, label: "Region" } : null,
@@ -181,7 +203,8 @@ export function contentEntry(site, hub, entry, ctx) {
 <article class="post-body">
   <div class="wrap wrap-narrow">
     ${banner(hero, { alt: `${entry.title} - ${hero.alt}` })}
-    ${facts.length ? `<div class="mt-2">${statRow(facts)}</div>` : ""}
+    ${facts.length ? `<div class="mt-2">${statRow(facts).replace('class="stat-row"', 'class="stat-row stat-row--facts"')}</div>` : ""}
+    ${routeEmbed(entry)}
     ${tocFor(entry.headings)}
     <div class="prose">${entry.html}</div>
     ${figure(extra, { alt: `${entry.title} - ${extra.alt}`, className: "mt-3" })}
@@ -233,6 +256,7 @@ ${adSlotScript(site, 1)}
     body,
     ogType: "article",
     ogImage: hero.src,
+    embeds: entry.rwgps ? ["ridewithgps"] : [],
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),

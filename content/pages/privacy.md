@@ -44,6 +44,9 @@ Third parties on this site may set cookies or use similar identifiers:
 - **Map tiles** are loaded from OpenStreetMap when you open a map view. Your browser requests those
   images directly from OpenStreetMap's servers, which receive your IP address as part of any normal
   web request.
+- **Route maps** on some trail guides are embedded from Ride with GPS. The embed only loads when you
+  scroll to it, and your browser requests it directly from Ride with GPS, which receives your IP
+  address and may set its own cookies under its own privacy policy.
 - **Listing photographs** are loaded from Google's image servers for the same reason.
 
 ## Advertising and Google AdSense

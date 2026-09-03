@@ -773,3 +773,34 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .product-detail__media { border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--blue-50); overflow: hidden; }
 .product-detail__media img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; padding: 1.2rem; }
 .product-detail__price { font-family: var(--font-display); font-weight: 800; font-size: 2rem; color: var(--blue-700); margin: .2rem 0 1rem; }
+
+/* Embedded route map (Ride with GPS). Sized generously on desktop, shorter on
+   phones where the vertical space matters more than the elevation profile. */
+.route-embed { margin: 1.8rem 0; }
+.route-embed iframe {
+  width: 1px; min-width: 100%; height: 620px; border: 1px solid var(--line);
+  border-radius: var(--radius-l); background: var(--blue-50); display: block;
+}
+.route-embed figcaption { margin-top: .5rem; font-size: .88rem; color: var(--ink-mute); }
+@media (max-width: 620px) { .route-embed iframe { height: 460px; } }
+
+/* Trailhead table on trail guides. */
+.prose .table-scroll table td:first-child { font-weight: 700; color: var(--ink); }
+
+/* Trail and cost facts are short strings ("Paved", "+418 ft / -488 ft") rather
+   than headline numbers, so they get a tighter treatment than a stat tile. */
+.stat-row--facts { grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: .7rem; }
+.stat-row--facts .stat { padding: .8rem .9rem; }
+.stat-row--facts .stat strong {
+  font-size: 1.02rem; line-height: 1.3; font-weight: 800; letter-spacing: -.01em;
+}
+.stat-row--facts .stat span { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; }
+
+/* Message sits behind the embed, so a blocked or slow frame is not a blank box. */
+.route-embed { position: relative; }
+.route-embed::before {
+  content: "Loading the route map from Ride with GPS…";
+  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  padding: 1.5rem; color: var(--ink-mute); font-size: .92rem; z-index: 0;
+}
+.route-embed iframe { position: relative; z-index: 1; }

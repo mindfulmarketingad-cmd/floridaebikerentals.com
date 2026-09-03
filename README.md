@@ -21,7 +21,7 @@ zero-dependency Node build script.
 | Reviews hub (paginated) | `/reviews/`, `/reviews/page/N/` | 9 |
 | Review pages | `/reviews/<business>/` | 561 |
 | Blog hub + guides | `/blog/`, `/blog/<slug>/` | 14 |
-| Trails hub + guides | `/trails/`, `/trails/<slug>/` | 4 |
+| Trails hub + guides | `/trails/`, `/trails/<slug>/` | 5 |
 | Costs hub + guides | `/costs/`, `/costs/<slug>/` | 5 |
 | Shop hub + products | `/shop/`, `/shop/<slug>/` | 1 + products |
 | Author profiles | `/authors/`, `/authors/<slug>/` | 4 |
@@ -69,9 +69,11 @@ matters for a listing that already ranks, add a redirect in your host config.
   picked up automatically and added to the hub, sitemap and search index.
 - **Trail and cost guides** — Markdown in `content/trails/` and `content/costs/`. Same front
   matter, plus optional `towns` (an array of town slugs, which generates a "rent nearby" listicle
-  and map at the foot of the guide) and display facts such as `distance`, `surface`, `difficulty`,
-  `typical` and `range`. Add a hub by adding an entry to `CONTENT_HUBS` in `src/data.mjs` and a
-  matching content directory.
+  and map at the foot of the guide) and display facts such as `distance`, `elevation`, `surface`,
+  `difficulty`, `typical` and `range`. Add `rwgps: <route id>` to embed that Ride with GPS route's
+  map and elevation profile — the embed is lazy-loaded and the host is added to that page's CSP
+  `frame-src` only, so pages without a route stay locked down. Add a hub by adding an entry to
+  `CONTENT_HUBS` in `src/data.mjs` and a matching content directory.
 - **Authors** — Markdown in `content/authors/`, with `name`, `role`, `expertise`, `short` and a
   bio in the body. Reference one from a post with `author: <filename-slug>` and the byline, author
   card, profile page and `Person` schema are generated automatically.

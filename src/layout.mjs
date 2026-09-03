@@ -47,7 +47,11 @@ function sha256(text) {
  * so clickjacking is covered by X-Frame-Options in _headers / vercel.json /
  * .htaccess, alongside HSTS and the other transport-level headers.
  */
-function cspMeta(inlineScripts, { ads }) {
+const EMBED_HOSTS = {
+  ridewithgps: "https://ridewithgps.com",
+};
+
+function cspMeta(inlineScripts, { ads, embeds = [] }) {
   const hashes = inlineScripts.map(sha256);
   const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : [])];
   const img = [
@@ -71,7 +75,14 @@ function cspMeta(inlineScripts, { ads }) {
     `img-src ${img.join(" ")}`,
     "font-src 'self'",
     `connect-src 'self'${ads ? ` ${ADSENSE_HOSTS.join(" ")}` : ""}`,
-    `frame-src ${ads ? "https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com" : "'none'"}`,
+    `frame-src ${
+      [
+        ...(ads
+          ? ["https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com", "https://www.google.com"]
+          : []),
+        ...embeds.map((name) => EMBED_HOSTS[name]).filter(Boolean),
+      ].join(" ") || "'none'"
+    }`,
     "manifest-src 'self'",
     "upgrade-insecure-requests",
   ].join("; ");
@@ -178,6 +189,7 @@ export function page(site, opts) {
     inlineScripts = [],
     prev = "",
     next = "",
+    embeds = [],
   } = opts;
 
   const canonical = `${site.url}${path}`;
@@ -194,7 +206,7 @@ export function page(site, opts) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-${cspMeta(allInline, { ads })}
+${cspMeta(allInline, { ads, embeds })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>${esc(title)}</title>
@@ -222,6 +234,7 @@ ${next ? `<link rel="next" href="${attr(site.url + next)}">` : ""}
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
+${embeds.includes("ridewithgps") ? '<link rel="preconnect" href="https://ridewithgps.com">' : ""}
 <link rel="stylesheet" href="/assets/css/main.css">
 ${headExtra}
 ${schemaTags.join("\n")}
