@@ -71,7 +71,11 @@ export function homePage(site, { listings, index, blog, stats }) {
     .join("");
 
   const body = `
-<section class="hero">
+<section class="hero hero--video">
+  <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="/assets/img/home-hero-poster.jpg" aria-hidden="true">
+    <source src="/assets/video/home-hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero__video-overlay" aria-hidden="true"></div>
   <div class="bubbles" aria-hidden="true">
     <i style="width:180px;height:180px;left:4%;top:12%"></i>
     <i style="width:90px;height:90px;left:22%;top:64%"></i>

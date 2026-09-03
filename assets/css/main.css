@@ -148,6 +148,28 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   background: linear-gradient(150deg, var(--blue-800) 0%, var(--blue-600) 52%, var(--blue-500) 100%);
 }
 /*
+ * A muted, looping background video on the homepage hero. The video and its
+ * dark overlay are inserted as the first two children with no z-index of
+ * their own, so plain DOM order stacks them below .bubbles (z-index:1) and
+ * .hero__inner (z-index:2) while the ::after curve - later in paint order at
+ * the same unset level - still masks the video's bottom edge. Giving these
+ * an explicit z-index instead would fight that ordering (see the product
+ * card badge fix elsewhere in this file for what that bug looks like).
+ */
+.hero__video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.hero__video-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(150deg, rgba(8, 22, 58, .74) 0%, rgba(15, 46, 120, .64) 52%, rgba(29, 75, 168, .58) 100%);
+}
+/* Autoplaying motion is exactly what this preference asks to avoid; the
+   gradient .hero background alone (no poster, no motion) takes over. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video, .hero__video-overlay { display: none; }
+}
+
+/*
  * A shallow white arc bitten out of the hero's bottom edge, so the band ends
  * in a curve instead of a hard line. A wide, short ellipse (width way past
  * the viewport, height a few rem) reads as a gentle wave rather than a dome:
