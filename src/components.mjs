@@ -120,7 +120,7 @@ export function photo(listing, { className = "", sizes = "", eager = false } = {
 export function adSlot(site, slotId) {
   if (!site.adsense?.enabled || !site.adsense.publisherId) return "";
   return `<div class="ad-slot wrap">
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-${attr(site.adsense.publisherId)}"${
+  <ins class="adsbygoogle" data-ad-client="ca-${attr(site.adsense.publisherId)}"${
     slotId ? ` data-ad-slot="${attr(slotId)}"` : ""
   } data-ad-format="auto" data-full-width-responsive="true"></ins>
 </div>`;

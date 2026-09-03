@@ -517,11 +517,14 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .toc li { margin-bottom: .25rem; }
 
 /* ---------- ads ---------- */
-.ad-slot { margin: 2rem auto; text-align: center; min-height: 90px; }
-.ad-slot::before {
-  content: "Advertisement"; display: block; font-size: .68rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink-mute); margin-bottom: .3rem;
-}
+/*
+ * An ad unit occupies no space until AdSense actually fills it. No label and no
+ * reserved height, so a page with nothing served reads as if the slot were not
+ * there: AdSense stamps data-ad-status on the unit once it has decided.
+ */
+.ad-slot { text-align: center; }
+.ad-slot ins { display: none; }
+.ad-slot ins[data-ad-status="filled"] { display: block; margin: 2rem auto; }
 
 /* ---------- CTA band ---------- */
 .cta-band {
