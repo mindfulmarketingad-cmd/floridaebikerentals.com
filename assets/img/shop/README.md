@@ -10,4 +10,4 @@ falls back to a library photo, captioned as illustrative.
 
 Expected for the current catalogue:
 
-- `aventon-soltera-2-5.jpg` — Aventon Soltera 2.5
+- `aventon-soltera-2-5.jpg` — Aventon Soltera 2.5 (in place, 1400x945)

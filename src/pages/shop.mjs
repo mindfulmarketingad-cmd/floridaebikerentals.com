@@ -22,10 +22,16 @@ function priceOf(product, currency) {
   })}`;
 }
 
+/** The product photo's source: an allowed external URL, or a site-relative path. */
+function imageSrc(product) {
+  return safeUrl(product.image) || (product.image && product.image.startsWith("/") ? product.image : "");
+}
+
 function productImage(product, { eager = false } = {}) {
-  const src = safeUrl(product.image) || (product.image && product.image.startsWith("/") ? product.image : "");
+  const src = imageSrc(product);
   if (!src) return "";
-  return `<img src="${attr(src)}" alt="${attr(product.name)}" loading="${eager ? "eager" : "lazy"}"
+  const alt = `${product.brand ? `${product.brand} ` : ""}${product.name} electric bike`;
+  return `<img src="${attr(src)}" alt="${attr(alt)}" loading="${eager ? "eager" : "lazy"}"
     decoding="async" referrerpolicy="no-referrer" width="${attr(product.imageWidth || 800)}"
     height="${attr(product.imageHeight || 800)}" data-fallback="1">`;
 }
@@ -374,7 +380,7 @@ ${adSlotScript(site, 1)}
     path: product.url_internal,
     body,
     ogType: "product",
-    ogImage: safeUrl(product.image) || hero.src,
+    ogImage: imageSrc(product) || hero.src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -385,7 +391,7 @@ ${adSlotScript(site, 1)}
         description: product.summary || product.description || undefined,
         brand: product.brand ? { "@type": "Brand", name: product.brand } : undefined,
         sku: product.sku || undefined,
-        image: safeUrl(product.image) || `${site.url}${hero.src}`,
+        image: safeUrl(product.image) || `${site.url}${imageSrc(product) || hero.src}`,
         url: `${site.url}${product.url_internal}`,
         offers:
           product.price !== undefined && product.price !== null && product.price !== ""

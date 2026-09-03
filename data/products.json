@@ -45,7 +45,9 @@
     "Top speed": "20 mph",
     "Range": "up to 46 miles",
     "Payload": "300 lbs"
-   }
+   },
+   "imageWidth": 1400,
+   "imageHeight": 945
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",
