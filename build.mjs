@@ -267,7 +267,7 @@ for (const category of shop.categories) {
     },
   });
 }
-for (const product of shop.products) {
+for (const product of shop.products.filter((p) => p.url_internal)) {
   write(product.url_internal, productPage(site, product, shop, ctx), {
     priority: 0.6,
     changefreq: "weekly",

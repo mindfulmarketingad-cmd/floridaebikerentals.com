@@ -84,18 +84,36 @@ function variantList(product) {
 </div>`;
 }
 
+/**
+ * A product tile.
+ *
+ * Two kinds. Ours links to its own detail page and shows the price we sell it
+ * at. An affiliate item links straight out to the retailer and shows no price
+ * or rating: the Amazon Associates terms only allow displaying prices pulled
+ * live from their Product Advertising API, which is exactly what the
+ * "Check Price" call to action exists to avoid.
+ */
 export function productCard(product, currency) {
-  return `<article class="product-card">
-  <a class="product-card__media" href="${attr(product.url_internal)}">
+  const external = product.affiliate;
+  const href = external ? safeUrl(product.url) : product.url_internal;
+  if (!href) return "";
+  const linkAttrs = external ? ' rel="nofollow sponsored noopener" target="_blank"' : "";
+
+  return `<article class="product-card${external ? " product-card--out" : ""}">
+  ${product.badge ? `<span class="product-card__badge">${esc(product.badge)}</span>` : ""}
+  <a class="product-card__media" href="${attr(href)}"${linkAttrs} tabindex="-1" aria-hidden="true">
     ${productImage(product) || '<span class="product-card__placeholder" aria-hidden="true"></span>'}
   </a>
   <div class="product-card__body">
     ${product.brand ? `<span class="product-card__brand">${esc(product.brand)}</span>` : ""}
-    <h3><a href="${attr(product.url_internal)}">${esc(product.name)}</a></h3>
-    ${product.summary ? `<p>${esc(clamp(product.summary, 120))}</p>` : ""}
+    <h3><a href="${attr(href)}"${linkAttrs}>${esc(product.name)}</a></h3>
+    ${product.summary ? `<p>${esc(clamp(product.summary, 130))}</p>` : ""}
     <div class="product-card__foot">
-      ${priceBlock(product, currency, { className: "product-card__price" })}
-      <a class="card__more" href="${attr(product.url_internal)}">Details</a>
+      ${external ? "" : priceBlock(product, currency, { className: "product-card__price" })}
+      <a class="btn btn--primary btn--sm btn--block" href="${attr(href)}"${linkAttrs}>${esc(
+        product.cta || (external ? "Check Price" : "Details")
+      )}</a>
+      ${external ? '<span class="product-card__note">Price and availability on Amazon</span>' : ""}
     </div>
   </div>
 </article>`;
@@ -443,7 +461,11 @@ ${breadcrumbs(crumbs)}
   <div class="wrap">
     ${
       items.length
-        ? `<h2>${items.length} ${esc(plural(items.length, "product"))} in ${esc(category.name)}</h2>
+        ? `<div class="results-head">
+             <h2>${items.length} ${esc(plural(items.length, "result"))} in ${esc(category.name)}</h2>
+             <p class="results-head__note">Sponsored links. We earn a commission on qualifying
+             purchases at no extra cost to you.</p>
+           </div>
            <div class="product-grid mt-2">${items.map((p) => productCard(p, shop.currency)).join("")}</div>`
         : `<h2>Products are being added</h2>
            <p class="muted">Nothing is listed in ${esc(category.name)} yet — we would rather show

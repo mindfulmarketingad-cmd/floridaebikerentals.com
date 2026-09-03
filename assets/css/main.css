@@ -767,7 +767,7 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .product-card h3 a { color: var(--ink); text-decoration: none; }
 .product-card h3 a:hover { color: var(--blue-700); }
 .product-card p { font-size: .92rem; color: var(--ink-soft); margin: 0; }
-.product-card__foot { margin-top: auto; padding-top: .7rem; display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.product-card__foot { margin-top: auto; padding-top: .8rem; display: flex; flex-direction: column; align-items: stretch; gap: .5rem; }
 .product-card__price { font-family: var(--font-display); font-weight: 800; font-size: 1.2rem; color: var(--blue-700); }
 
 .product-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.4rem, 3vw, 3rem); align-items: start; }
@@ -966,3 +966,27 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .tag--link { text-decoration: none; }
 .tag--link:hover { border-color: var(--blue-400); background: var(--blue-100); color: var(--blue-700); }
 .listicle__facts a { color: var(--blue-700); }
+
+/* ---------- marketplace-style results grid ---------- */
+.results-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem 1rem; }
+.results-head h2 { margin: 0; }
+.results-head__note { margin: 0; color: var(--ink-mute); font-size: .82rem; }
+
+/* Denser tiles than the default card grid, so a category reads as a results page. */
+.product-grid { grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: .9rem; }
+.product-card { position: relative; }
+.product-card__media { background: var(--white); }
+.product-card__badge {
+  position: absolute; top: .55rem; left: .55rem; z-index: 2;
+  background: var(--ink); color: #fff; border-radius: var(--radius-s);
+  padding: .18rem .5rem; font-size: .7rem; font-weight: 800;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.product-card__body { padding: .85rem .95rem 1rem; gap: .35rem; }
+.product-card h3 { font-size: .98rem; line-height: 1.35; }
+.product-card p { font-size: .85rem; line-height: 1.45; }
+.product-card__note { color: var(--ink-mute); font-size: .76rem; text-align: center; }
+
+/* An outbound tile leads to the retailer, so the whole tile reads as clickable. */
+.product-card--out:hover { border-color: var(--blue-400); }
+.product-card--out h3 a::after { content: " \2197"; color: var(--ink-mute); font-weight: 400; }

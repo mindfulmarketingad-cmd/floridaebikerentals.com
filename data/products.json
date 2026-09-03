@@ -48,6 +48,48 @@
    },
    "imageWidth": 1400,
    "imageHeight": 945
+  },
+  {
+   "slug": "fat-tire-moped-ebike",
+   "name": "Fat Tire Moped-Style E-Bike with App",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Popular",
+   "image": "/assets/img/shop/fat-tire-moped-ebike.jpg",
+   "imageWidth": 955,
+   "imageHeight": 1000,
+   "summary": "Moped-style frame on 20-inch fat tyres, with a padded bench saddle, front suspension and a phone app. Ships with a spare seat cushion and pedals."
+  },
+  {
+   "slug": "jasion-52v-fat-tire-ebike",
+   "name": "Jasion 52V Fat Tire Electric Bike",
+   "brand": "Jasion",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Dual suspension",
+   "image": "/assets/img/shop/jasion-52v-fat-tire-ebike.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 987,
+   "summary": "A 52-volt fat-tyre cruiser with a long bench seat, rear shock and knobby tyres. Ships with mirrors and a spare seat pad."
+  },
+  {
+   "slug": "electric-dirt-bike",
+   "name": "Electric Dirt Bike with Cable Lock",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Off-road",
+   "image": "/assets/img/shop/electric-dirt-bike.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 933,
+   "summary": "Off-road electric dirt bike on knobby tyres with inverted forks and no pedals. Ships with a combination cable lock."
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",
