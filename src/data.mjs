@@ -105,6 +105,37 @@ export const TOPICS = [
   },
 ];
 
+/**
+ * Tag-and-city cross pages: a page per city per tag, built only where that
+ * city actually has at least one matching listing. A city with zero golf cart
+ * shops gets no golf-cart page rather than a thin one with nothing in it.
+ */
+export const CITY_TOPICS = [
+  {
+    key: "golf-carts",
+    tag: "Golf carts",
+    label: "Golf Cart Rentals",
+    noun: "golf cart rental",
+    slugPrefix: "golf-cart-rentals-near",
+    statewideUrl: "/find/golf-cart-and-ebike-rentals-in-florida/",
+    intro: (cityName) =>
+      `Shops near ${cityName} that rent golf carts alongside e-bikes. In the island and beach towns ` +
+      `where carts are street legal, a cart for the luggage and bikes for everyone else is how most ` +
+      `families staying near ${cityName} actually get around.`,
+  },
+  {
+    key: "scooters",
+    tag: "Scooters",
+    label: "Scooter Rentals",
+    noun: "scooter rental",
+    slugPrefix: "scooter-rentals-near",
+    statewideUrl: "/find/ebike-and-scooter-rentals-in-florida/",
+    intro: (cityName) =>
+      `Shops near ${cityName} that rent scooters or mopeds alongside e-bikes. Useful when a group ` +
+      `cannot agree, or when you want two wheels with a bit more range than a bike gives you.`,
+  },
+];
+
 /** Curated search landing pages: real queries with their own indexable page. */
 export const SEARCH_QUERIES = [
   "ebike rentals near me", "florida ebike rentals", "30a ebike rentals", "key west ebike rental",
@@ -404,12 +435,43 @@ export function buildIndex(listings) {
     return { ...topic, url: `/find/${topic.slug}/`, listings: matched };
   }).filter((t) => t.listings.length >= 5);
 
+  const sortedCities = Array.from(cities.values()).sort(
+    (a, b) => b.listings.length - a.listings.length || a.name.localeCompare(b.name)
+  );
+
+  // One page per city per tag, and only where that city actually has a listing
+  // carrying the tag - see the comment on CITY_TOPICS.
+  const cityTopics = CITY_TOPICS.map((ct) => {
+    const pages = sortedCities
+      .map((city) => ({
+        city,
+        listings: city.listings.filter((l) => (l.tags || []).includes(ct.tag)),
+      }))
+      .filter((p) => p.listings.length > 0)
+      .map((p) => {
+        const slug = `${ct.slugPrefix}-${p.city.slug}-florida`;
+        return { ...ct, city: p.city, listings: p.listings, slug, url: `/find/${slug}/` };
+      });
+    return { ...ct, pages };
+  });
+  const cityTopicPages = cityTopics.flatMap((ct) => ct.pages);
+  const cityTopicsByCitySlug = new Map();
+  for (const ct of cityTopics) {
+    for (const pg of ct.pages) {
+      if (!cityTopicsByCitySlug.has(pg.city.slug)) cityTopicsByCitySlug.set(pg.city.slug, []);
+      cityTopicsByCitySlug.get(pg.city.slug).push(pg);
+    }
+  }
+
   return {
-    cities: Array.from(cities.values()).sort((a, b) => b.listings.length - a.listings.length || a.name.localeCompare(b.name)),
+    cities: sortedCities,
     citiesBySlug: cities,
     regions: Array.from(regions.values()).sort((a, b) => b.listings.length - a.listings.length),
     regionsBySlug: regions,
     topics,
+    cityTopics,
+    cityTopicPages,
+    cityTopicsByCitySlug,
   };
 }
 

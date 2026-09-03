@@ -16,7 +16,7 @@ import {
   buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
-import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
+import { findHub, findRegion, findCity, findTopic, findCityTopic } from "./src/pages/find.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
@@ -126,6 +126,23 @@ for (const topic of index.topics) {
     changefreq: "weekly",
     group: "find",
     search: { u: topic.url, t: topic.title, s: "Find", d: topic.intro.slice(0, 120), k: topic.title.toLowerCase(), w: 8 },
+  });
+}
+
+for (const ctPage of index.cityTopicPages) {
+  const title = `${ctPage.label} near ${ctPage.city.name}, Florida`;
+  write(ctPage.url, findCityTopic(site, ctPage, ctx), {
+    priority: 0.6,
+    changefreq: "weekly",
+    group: "find",
+    search: {
+      u: ctPage.url,
+      t: title,
+      s: "Find",
+      d: `${ctPage.listings.length} ${ctPage.noun}${ctPage.listings.length === 1 ? "" : "s"} near ${ctPage.city.name}.`,
+      k: `${ctPage.label} ${ctPage.city.name} ${ctPage.city.region}`.toLowerCase(),
+      w: 5,
+    },
   });
 }
 

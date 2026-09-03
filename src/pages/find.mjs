@@ -306,6 +306,7 @@ export function findCity(site, city, { index, listings, blog }) {
   const openSeven = local.filter((l) => (l.hours || []).filter((h) => !h.closed).length === 7);
 
   const nearbyPool = near.flatMap((c) => c.listings.slice(0, 2)).slice(0, 8);
+  const cityCrossPages = index.cityTopicsByCitySlug.get(city.slug) || [];
 
   const faqs = [
     {
@@ -463,6 +464,23 @@ ${adSlot(site, "")}
     <a class="btn btn--outline btn--sm" href="/find/">All Florida towns</a></p>
   </div>
 </section>
+
+${
+  cityCrossPages.length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Other things to rent near ${esc(city.name)}</h2>
+    ${linkCloud(
+      cityCrossPages.map((p) => ({
+        href: p.url,
+        label: `${p.label} near ${city.name}`,
+        count: p.listings.length,
+      }))
+    )}
+  </div>
+</section>`
+    : ""
+}
 ${adSlotScript(site, 1)}
 `;
 
@@ -485,6 +503,145 @@ ${adSlotScript(site, 1)}
   });
 }
 
+/* ------------------------------------------------------ city topic page */
+
+/**
+ * A tag-and-city cross page: e.g. "Golf Cart Rentals near Key West, Florida".
+ * Built only for a city that actually has at least one matching listing (see
+ * CITY_TOPICS in data.mjs), so this never renders an empty result set.
+ */
+export function findCityTopic(site, ctPage, { index }) {
+  const { city, listings: local, label, noun, statewideUrl } = ctPage;
+  const stats = statsFor(local);
+  const crumbs = [
+    HOME_CRUMB,
+    FIND_CRUMB,
+    { href: city.url, label: city.name },
+    { href: ctPage.url, label },
+  ];
+  const best = local[0];
+
+  // Other towns with the same service, nearest first, so a reader whose town
+  // has no golf carts or scooters can find the closest place that does.
+  const siblingBySlug = new Map(
+    index.cityTopics.find((t) => t.key === ctPage.key).pages.map((p) => [p.city.slug, p])
+  );
+  const nearSiblings = nearbyCities(city, index.cities, 12)
+    .map((c) => siblingBySlug.get(c.slug))
+    .filter(Boolean)
+    .slice(0, 8);
+
+  const faqs = [
+    {
+      q: `Where can I rent a ${noun} near ${city.name}, Florida?`,
+      a: `<p>${
+        local.length === 1
+          ? `We track one shop near ${esc(city.name)} that offers this: ${esc(best.name)}${
+              best.rating ? `, rated ${best.rating.toFixed(1)} from ${formatReviews(best.reviews)} Google reviews` : ""
+            }.`
+          : `We track ${local.length} shops near ${esc(city.name)} that offer this, led by ${esc(
+              best.name
+            )}${best.rating ? ` at ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""}.`
+      } Every listing shows the address, phone number and opening hours.</p>`,
+    },
+    {
+      q: `Do I need a licence for this in Florida?`,
+      a: ctPage.key === "golf-carts"
+        ? `<p>Florida sets a statewide framework for low-speed vehicles, but whether a golf cart is street
+        legal on a given road is decided locally, and age and safety-equipment rules vary by county and
+        town. Ask the shop about the local rules before you rent, and confirm what identification a
+        driver needs to bring.</p>`
+        : `<p>Rules depend on what kind of scooter you mean. A stand-up electric scooter is generally
+        treated like a bicycle in Florida with no licence required, while a moped or gas scooter capable
+        of higher speeds is a motor vehicle that needs a valid driver's licence and, in most cases,
+        registration and insurance. Confirm which kind the shop is renting before you book.</p>`,
+    },
+    {
+      q: `What does it cost to rent a ${noun} near ${city.name}?`,
+      a: `<p>Pricing varies by shop, season and how long you rent for. Call ahead for a current quote,
+      and ask what the deposit or card hold is before you commit — it is usually the biggest surprise in
+      a rental agreement. Our <a href="/blog/ebike-rental-checklist/">pre-rental checklist</a> covers
+      what else to confirm.</p>`,
+    },
+  ];
+
+  const body = `
+${breadcrumbs(crumbs)}
+<section class="section" style="padding-top:1.2rem">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow">${esc(city.region)}</span>
+      <h1>${esc(label)} near ${esc(city.name)}, Florida</h1>
+      <p>${esc(ctPage.intro(city.name))}</p>
+    </div>
+    ${statRow([
+      { value: String(stats.total), label: plural(stats.total, "Shop") },
+      { value: stats.avgRating, label: "Average rating" },
+      { value: formatReviews(stats.reviews), label: "Google reviews" },
+    ])}
+    ${banner(photoFor(ctPage.slug), { alt: `${label} near ${city.name}, Florida - ${photoFor(ctPage.slug).alt}` })}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>${esc(label)} near ${esc(city.name)}</h2>
+      <p>Ranked by Google star rating weighted against review volume.</p>
+    </div>
+    ${mapPanel(local, { id: `map-${attr(ctPage.slug)}`, zoom: 11 })}
+    ${listicle(local)}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    ${figure(secondPhotoFor(ctPage.slug), { alt: `Riding near ${city.name}, Florida - ${secondPhotoFor(ctPage.slug).alt}` })}
+    <h2>${esc(label)} FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <h2>More ways to search</h2>
+    ${
+      nearSiblings.length
+        ? `<p class="muted">${esc(label)} in nearby towns.</p>
+    ${linkCloud(nearSiblings.map((p) => ({ href: p.url, label: p.city.name, count: p.listings.length })))}`
+        : ""
+    }
+    <p class="mt-2"><a class="btn btn--outline btn--sm" href="${attr(city.url)}">All e-bike rentals in ${esc(
+      city.name
+    )}</a>
+    <a class="btn btn--outline btn--sm" href="${attr(statewideUrl)}">All ${esc(label.toLowerCase())} in Florida</a>
+    <a class="btn btn--outline btn--sm" href="/find/">All Florida towns</a></p>
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `${label} near ${city.name}, FL - ${local.length} ${plural(local.length, "Shop")}`,
+    description: clamp(
+      `${local.length} ${plural(local.length, noun)} near ${city.name}, Florida. Compare hours, Google ratings and phone numbers${
+        best ? `, starting with ${best.name}` : ""
+      }.`
+    ),
+    path: ctPage.url,
+    body,
+    ogImage: best && best.photo ? best.photo : photoFor(ctPage.slug).src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(faqs),
+      itemListSchema(site, local, { name: `${label} near ${city.name}, Florida`, url: ctPage.url }),
+    ],
+  });
+}
+
 /* ---------------------------------------------------------- topic page */
 
 export function findTopic(site, topic, { index }) {
@@ -492,6 +649,12 @@ export function findTopic(site, topic, { index }) {
   const shown = topic.listings.slice(0, 40);
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: topic.url, label: topic.title }];
   const cities = [...new Set(shown.map((l) => l.city))].sort();
+  // A statewide topic that has a per-city breakdown (golf carts, scooters) links
+  // every city page here, alphabetically, so a reader can jump straight to theirs.
+  const cityTopic = index.cityTopics.find((ct) => ct.statewideUrl === topic.url);
+  const cityPages = cityTopic
+    ? [...cityTopic.pages].sort((a, b) => a.city.name.localeCompare(b.city.name, "en"))
+    : [];
 
   const body = `
 ${breadcrumbs(crumbs)}
@@ -523,7 +686,20 @@ ${breadcrumbs(crumbs)}
 
 ${adSlot(site, "")}
 
-<section class="section">
+${
+  cityPages.length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Browse by town</h2>
+    <div class="mt-2">${linkCloud(
+      cityPages.map((p) => ({ href: p.url, label: p.city.name, count: p.listings.length }))
+    )}</div>
+  </div>
+</section>`
+    : ""
+}
+
+<section class="section${cityPages.length ? " section--tint" : ""}">
   <div class="wrap">
     ${figure(secondPhotoFor(topic.slug), { alt: `${topic.h1} - ${secondPhotoFor(topic.slug).alt}` })}
     <h2>Browse by region instead</h2>
