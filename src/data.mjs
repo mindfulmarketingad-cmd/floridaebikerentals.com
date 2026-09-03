@@ -262,14 +262,30 @@ export function loadStaticPages() {
   return out;
 }
 
+/**
+ * Google review text, keyed by place_id, written by
+ * scripts/import_outscraper_reviews.py. Optional: the file is absent until a
+ * reviews export has been imported, and the review pages simply show the star
+ * breakdown alone until then.
+ */
+export function loadReviewText() {
+  const file = join(ROOT, "data", "reviews.json");
+  if (!existsSync(file)) return { byPlace: new Map(), count: 0, generated: "" };
+  const payload = JSON.parse(readFileSync(file, "utf8"));
+  const byPlace = new Map(Object.entries(payload.reviews || {}));
+  return { byPlace, count: payload.count || 0, generated: payload.generated || "" };
+}
+
 export function loadListings() {
   const payload = JSON.parse(readFileSync(join(ROOT, "data", "listings.json"), "utf8"));
+  const { byPlace } = loadReviewText();
   return payload.listings.map((l) => ({
     ...l,
     url: `/partners/${l.slug}/`,
     reviewUrl: `/reviews/${l.slug}/`,
     citySlug: citySlug(l.city),
     regionSlug: regionSlug(l.region),
+    reviewText: byPlace.get(l.place_id) || [],
   }));
 }
 

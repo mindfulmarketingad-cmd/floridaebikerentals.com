@@ -1,4 +1,4 @@
-import { esc, attr, formatRating, formatReviews, plural, clamp, ratingBlock, stars } from "../util.mjs";
+import { esc, attr, formatRating, formatReviews, plural, clamp, ratingBlock, stars, prettyDate } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
@@ -171,6 +171,64 @@ ${adSlotScript(site, 1)}
 
 /* -------------------------------------------------------- review page */
 
+
+/**
+ * The ten Google reviews imported for this place, if any.
+ *
+ * Every field here is scraped third-party text: it is escaped, attributed to the
+ * Google author, dated, and linked back to the review on Google. The block is
+ * absent entirely until data/reviews.json has been imported.
+ */
+function reviewList(listing) {
+  const reviews = listing.reviewText || [];
+  if (!reviews.length) return "";
+  return `<section class="panel mt-3" id="what-people-say">
+  <h2>What ${esc(listing.name)} customers say</h2>
+  <p class="small muted">${reviews.length} of ${formatReviews(listing.reviews)} Google
+  ${plural(listing.reviews, "review")}, reproduced as written. We do not write, solicit or edit
+  them.</p>
+  <ol class="review-list">${reviews
+    .map(
+      (r) => `<li class="review-list__item">
+    <div class="review-list__head">
+      <span class="review-list__author">${esc(r.author)}</span>
+      ${stars(r.rating)}
+      ${r.date ? `<time class="review-list__date" datetime="${attr(r.date)}">${esc(prettyDate(r.date))}</time>` : ""}
+    </div>
+    <blockquote class="review-list__text">${esc(r.text)}</blockquote>
+    ${r.owner_answer ? `<p class="review-list__reply"><strong>Reply from the shop:</strong> ${esc(r.owner_answer)}</p>` : ""}
+    ${r.link ? `<p class="review-list__src"><a href="${attr(r.link)}" rel="noopener nofollow" target="_blank">Read this review on Google</a></p>` : ""}
+  </li>`
+    )
+    .join("")}</ol>
+  ${
+    listing.reviews_link
+      ? `<p class="mt-2 mb-0"><a class="btn btn--outline btn--sm" href="${attr(listing.reviews_link)}"
+         rel="noopener nofollow" target="_blank">Read all ${formatReviews(listing.reviews)} reviews on Google</a></p>`
+      : ""
+  }
+</section>`;
+}
+
+/** schema.org Review nodes for the imported reviews, nested on the business. */
+function reviewSchema(site, listing) {
+  const reviews = listing.reviewText || [];
+  if (!reviews.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${site.url}${listing.url}#business`,
+    name: listing.name,
+    review: reviews.map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.author },
+      datePublished: r.date || undefined,
+      reviewBody: r.text,
+      reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: 5, worstRating: 1 },
+    })),
+  };
+}
+
 export function reviewPage(site, listing, { listings, index }) {
   const city = index.citiesBySlug.get(listing.citySlug);
   const crumbs = [HOME_CRUMB, REVIEWS_CRUMB, { href: listing.reviewUrl, label: listing.name }];
@@ -271,6 +329,8 @@ export function reviewPage(site, listing, { listings, index }) {
         : '<div class="panel mt-2"><h2>Star breakdown</h2><p class="muted mb-0">Google has not published a rating distribution for this business yet.</p></div>'
     }
 
+    ${reviewList(listing)}
+
     <div class="prose mt-3">
       <h2>What the numbers mean</h2>
       <p>Star averages compress a lot of information. A shop with ${formatReviews(
@@ -356,6 +416,6 @@ ${adSlotScript(site, 1)}
     body,
     ogImage: listing.photo || photoFor(`r-${listing.slug}`).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
-    schema: [breadcrumbSchema(site, crumbs), faqSchema(faqs)],
+    schema: [breadcrumbSchema(site, crumbs), faqSchema(faqs), reviewSchema(site, listing)],
   });
 }
