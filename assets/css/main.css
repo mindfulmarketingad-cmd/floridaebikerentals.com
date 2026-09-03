@@ -252,6 +252,17 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
    item on white rather than cropping it the way a listing photo is cropped. */
 .slide--product .slide__media { aspect-ratio: 1 / 1; background: var(--white); }
 .slide--product .slide__media img { object-fit: contain; padding: .9rem; }
+/* The image has z-index:1 (see the placeholder-mark comment above), which
+   buries an unscoped .slide__badge behind it regardless of source order —
+   z-index beats DOM order once either sibling sets one. Matches the shop
+   grid's product badge rather than the sun-coloured "Top rated" one built
+   for real listings, so the two read as different things. */
+.slide--product .slide__badge {
+  z-index: 2; left: .55rem; top: .55rem;
+  background: var(--ink); color: #fff; border-radius: var(--radius-s);
+  padding: .18rem .5rem; font-size: .7rem; font-weight: 800;
+  letter-spacing: .04em; text-transform: uppercase;
+}
 .slide__media img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
 }

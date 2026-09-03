@@ -414,7 +414,7 @@ function productSlide(product) {
         ? `<img src="${attr(src)}" alt="${attr(alt)}" loading="lazy" decoding="async">`
         : ""
     }
-    ${product.badge ? `<span class="slide__badge">${esc(product.badge)}</span>` : ""}
+    ${product.badge ? `<span class="slide__badge slide__badge--product">${esc(product.badge)}</span>` : ""}
   </div>
   <div class="slide__body">
     ${product.brand ? `<span class="slide__meta">${esc(product.brand)}</span>` : ""}
