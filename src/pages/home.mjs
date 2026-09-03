@@ -356,6 +356,20 @@ ${adSlot(site, "")}
   </div>
 </section>
 
+<section class="section">
+  <div class="wrap">
+    <div class="support-band">
+      <span class="eyebrow">We support</span>
+      <h2>Florida Ebike Rentals Is Proud to Support</h2>
+      <p class="support-band__org">Hands Free Florida</p>
+      <p>Our goal is to create safer roads (for bikers, pedestrians, and drivers) in Florida by putting
+      stricter laws in place that will reduce distracted driving, save lives, and hold drivers more
+      responsible for fatal crashes caused by distracted driving.</p>
+      <p class="mb-0"><a class="btn btn--teal" href="https://www.handsfreeflorida.org/" rel="noopener" target="_blank">Sign the Petition</a></p>
+    </div>
+  </div>
+</section>
+
 <section class="section section--tint">
   <div class="wrap">
     <h2>Browse the directory</h2>

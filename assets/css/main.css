@@ -224,6 +224,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .btn--ghost:hover { background: rgba(255,255,255,.2); color: #fff; }
 .btn--outline { background: var(--white); color: var(--blue-700); border-color: var(--blue-200); }
 .btn--outline:hover { border-color: var(--blue-500); color: var(--blue-800); }
+/* Used only for the external Hands Free Florida petition link, so it reads
+   as a distinct civic action rather than another site CTA. */
+.btn--teal { background: #0f766e; color: #fff; border-color: #0f766e; }
+.btn--teal:hover { background: #0d5f58; border-color: #0d5f58; }
 .btn--sm { padding: .55rem .95rem; font-size: .88rem; }
 .btn--block { width: 100%; }
 @media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
@@ -627,6 +631,17 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .page-hero .crumbs li + li::before { color: rgba(255, 255, 255, .38); }
 /* The band supplies the top spacing, so the first section under it starts flush. */
 .page-hero + .section { padding-top: clamp(1.6rem, 1rem + 1.5vw, 2.4rem); }
+
+/* ---------- homepage: cause we support ---------- */
+.support-band {
+  max-width: 68ch; padding: clamp(1.6rem, 1rem + 2vw, 2.4rem); border: 1px solid var(--line);
+  border-radius: var(--radius-l); background: var(--surface);
+}
+.support-band__org {
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem);
+  color: var(--ink); margin: 0 0 .8rem;
+}
+.support-band p:not(.support-band__org) { color: var(--ink-soft); }
 
 /* ---------- CTA band ---------- */
 .cta-band {
