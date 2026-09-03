@@ -88,6 +88,16 @@ export function verify(dist, site) {
     }
   }
 
+  // A trail guide without a route map is incomplete; the hub page itself is exempt.
+  for (const file of files) {
+    const url = "/" + relative(dist, file).replace(/index\.html$/, "").replace(/\\/g, "/");
+    if (!/^\/trails\/.+\//.test(url)) continue;
+    const html = readFileSync(file, "utf8");
+    if (!html.includes("ridewithgps.com/embeds")) {
+      problems.push(`${url}: trail guide has no Ride with GPS route map (add "rwgps: <route id>" to its front matter)`);
+    }
+  }
+
   const unique = [...new Set(problems)];
   console.log(`\nverify: ${files.length} pages, ${linkChecks} internal links checked`);
   if (!unique.length) {

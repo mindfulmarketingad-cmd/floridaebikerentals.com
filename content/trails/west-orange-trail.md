@@ -11,6 +11,8 @@ distance: 22 miles
 surface: Paved rail trail
 difficulty: Easy
 region: Orlando & Central Florida
+rwgps: 35324069
+routeNote: 22.5 miles from the Orange and Lake county line through Winter Garden, +585 ft
 readingTime: 6
 towns: [winter-garden, clermont, apopka]
 tags: [West Orange Trail, Winter Garden, Central Florida]

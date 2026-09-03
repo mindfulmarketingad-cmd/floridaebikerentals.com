@@ -72,8 +72,11 @@ matters for a listing that already ranks, add a redirect in your host config.
   and map at the foot of the guide) and display facts such as `distance`, `elevation`, `surface`,
   `difficulty`, `typical` and `range`. Add `rwgps: <route id>` to embed that Ride with GPS route's
   map and elevation profile — the embed is lazy-loaded and the host is added to that page's CSP
-  `frame-src` only, so pages without a route stay locked down. Add a hub by adding an entry to
-  `CONTENT_HUBS` in `src/data.mjs` and a matching content directory.
+  `frame-src` only, so pages without a route stay locked down. Where the embedded route does not
+  match the trail's own length (an out-and-back, say), `routeNote` replaces the caption's stats with
+  a description of what the route actually shows. `npm run verify` fails if any trail guide is
+  missing a route map. Add a hub by adding an entry to `CONTENT_HUBS` in `src/data.mjs` and a
+  matching content directory.
 - **Authors** — Markdown in `content/authors/`, with `name`, `role`, `expertise`, `short` and a
   bio in the body. Reference one from a post with `author: <filename-slug>` and the byline, author
   card, profile page and `Person` schema are generated automatically.

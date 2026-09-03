@@ -63,9 +63,13 @@ function routeEmbed(entry) {
     title="${attr(entry.title)} route map and elevation profile on Ride with GPS"
     loading="lazy" scrolling="no" referrerpolicy="no-referrer"
     sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
-  <figcaption>Route map and elevation profile for the ${esc(entry.title)}, hosted by
+  <figcaption>Route map and elevation profile for ${esc(entry.title)}, hosted by
     <a href="${attr(href)}" rel="noopener nofollow" target="_blank">Ride with GPS</a>.
-    ${entry.distance ? esc(entry.distance) : ""}${entry.elevation ? ` · ${esc(entry.elevation)}` : ""}.
+    ${
+      entry.routeNote
+        ? esc(entry.routeNote)
+        : `${entry.distance ? esc(entry.distance) : ""}${entry.elevation ? ` · ${esc(entry.elevation)}` : ""}`
+    }.
   </figcaption>
 </figure>`;
 }
