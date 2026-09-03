@@ -141,6 +141,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 
 /* ---------- hero ---------- */
 .hero {
+  /* Depth of the curved bite taken out of the bottom edge. The band's bottom
+     padding adds this on, so content can never sit behind the arc. */
+  --curve-h: clamp(22px, 3.5vw, 46px);
   position: relative; color: #fff; overflow: hidden;
   background: linear-gradient(150deg, var(--blue-800) 0%, var(--blue-600) 52%, var(--blue-500) 100%);
 }
@@ -154,11 +157,14 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
  */
 .hero::after {
   content: ""; position: absolute; left: -8%; right: -8%; bottom: -1px;
-  height: clamp(30px, 6vw, 68px); background: var(--white);
+  height: var(--curve-h); background: var(--white);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   pointer-events: none;
 }
-.hero__inner { position: relative; z-index: 2; padding: clamp(2.2rem, 1rem + 4vw, 4rem) 0 clamp(2rem, 1rem + 3vw, 3.2rem); }
+.hero__inner {
+  position: relative; z-index: 2;
+  padding: clamp(2.2rem, 1rem + 4vw, 4rem) 0 calc(clamp(2rem, 1rem + 3vw, 3.2rem) + var(--curve-h));
+}
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
 /* Grid items default to min-width:auto, which lets a horizontal carousel push
    the whole page wider than the viewport. Every grid child opts out. */
@@ -469,12 +475,14 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 
 /* ---------- listing detail ---------- */
 .detail-hero {
+  --curve-h: clamp(22px, 3.5vw, 46px);
   position: relative; overflow: hidden;
-  background: linear-gradient(160deg, var(--blue-800), var(--blue-600)); color: #fff; padding: 1.6rem 0 2.4rem;
+  background: linear-gradient(160deg, var(--blue-800), var(--blue-600)); color: #fff;
+  padding: 1.6rem 0 calc(2.4rem + var(--curve-h));
 }
 .detail-hero::after {
   content: ""; position: absolute; left: -8%; right: -8%; bottom: -1px;
-  height: clamp(24px, 5vw, 52px); background: var(--white);
+  height: var(--curve-h); background: var(--white);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   pointer-events: none;
 }
