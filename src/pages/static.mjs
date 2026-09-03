@@ -1,5 +1,5 @@
 import { esc, attr, prettyDate, clamp, formatReviews } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema, FOOTER_LINKS, HEADER_LINKS } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema, FOOTER_LINKS, HEADER_LINKS } from "../layout.mjs";
 import { linkCloud, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, statRow } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
@@ -115,15 +115,15 @@ export function sitemapPage(site, { index, blog, listings, queries, stats, partn
 </section>`;
 
   const body = `
-${breadcrumbs([HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }])}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: [HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }],
+  eyebrow: `Sitemap`,
+  h1: `Sitemap`,
+  lede: `Every page on Florida Ebike Rentals, grouped by section. The machine-readable version lives at
+      <a href="/sitemap.xml">/sitemap.xml</a>.`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Sitemap</span>
-      <h1>Sitemap</h1>
-      <p>Every page on Florida Ebike Rentals, grouped by section. The machine-readable version lives at
-      <a href="/sitemap.xml">/sitemap.xml</a>.</p>
-    </div>
     ${statRow([
       { value: String(stats.total), label: "Partner pages" },
       { value: String(reviewPages), label: "Review pages" },

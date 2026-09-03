@@ -553,6 +553,30 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .ad-slot ins { display: none; }
 .ad-slot ins[data-ad-status="filled"] { display: block; margin: 2rem auto; }
 
+/* ---------- banded page header (hub and directory pages) ---------- */
+/* Same curve and depth as .hero and .detail-hero — see the note on .hero. */
+.page-hero {
+  --curve-h: clamp(22px, 3.5vw, 46px);
+  position: relative; overflow: hidden; color: #fff;
+  background: linear-gradient(160deg, var(--blue-800), var(--blue-600));
+  padding: .2rem 0 calc(2.2rem + var(--curve-h));
+}
+.page-hero::after {
+  content: ""; position: absolute; left: -8%; right: -8%; bottom: -1px;
+  height: var(--curve-h); background: var(--white);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  pointer-events: none;
+}
+.page-hero h1 { color: #fff; margin-bottom: .5rem; }
+.page-hero .eyebrow { color: var(--blue-900); background: var(--sun-400); }
+.page-hero .lede { color: #dde7fd; max-width: 68ch; margin: 0; }
+.page-hero .crumbs { color: #c3d4fb; }
+.page-hero .crumbs a { color: #c3d4fb; }
+.page-hero .crumbs a:hover { color: #fff; }
+.page-hero .crumbs li + li::before { color: rgba(255, 255, 255, .38); }
+/* The band supplies the top spacing, so the first section under it starts flush. */
+.page-hero + .section { padding-top: clamp(1.6rem, 1rem + 1.5vw, 2.4rem); }
+
 /* ---------- CTA band ---------- */
 .cta-band {
   background: linear-gradient(135deg, var(--blue-700), var(--blue-500)); color: #fff;

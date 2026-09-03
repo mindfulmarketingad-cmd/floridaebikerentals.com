@@ -1,5 +1,5 @@
 import { esc, attr, formatRating, formatReviews, plural, clamp, ratingBlock, stars, prettyDate } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
@@ -79,16 +79,16 @@ export function reviewsHub(site, { listings, index, pageNumber, totalPages }) {
   </nav>`;
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Reviews hub</span>
-      <h1>${pageNumber === 1 ? "Florida E-Bike Rental Reviews" : `Florida E-Bike Rental Reviews - Page ${pageNumber}`}</h1>
-      <p>Star ratings and review breakdowns for every rated shop in the directory. A 4.6 built on
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Reviews hub`,
+  h1: `${pageNumber === 1 ? "Florida E-Bike Rental Reviews" : `Florida E-Bike Rental Reviews - Page ${pageNumber}`}`,
+  lede: `Star ratings and review breakdowns for every rated shop in the directory. A 4.6 built on
       forty reviews is a very different signal from a 4.6 built on four thousand — these pages show
-      you which one you are looking at.</p>
-    </div>
+      you which one you are looking at.`,
+})}
+<section class="section">
+  <div class="wrap">
     ${statRow([
       { value: String(rated.length), label: "Rated shops" },
       { value: formatReviews(stats.reviews), label: "Total reviews" },

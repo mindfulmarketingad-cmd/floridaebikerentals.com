@@ -1,5 +1,5 @@
 import { esc, attr, formatReviews, commaList, plural, clamp } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
@@ -59,15 +59,15 @@ function tagsIn(listings) {
 
 export function findHub(site, { index, listings, stats }) {
   const body = `
-${breadcrumbs([HOME_CRUMB, { href: "/find/", label: "Find" }])}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: [HOME_CRUMB, { href: "/find/", label: "Find" }],
+  eyebrow: `Find hub`,
+  h1: `Find E-Bike Rentals in Florida`,
+  lede: `Every Florida region and town in the directory, with ${esc(String(stats.total))} rental
+      partners between them. Start with a region, then drill into the town you are staying in.`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Find hub</span>
-      <h1>Find E-Bike Rentals in Florida</h1>
-      <p>Every Florida region and town in the directory, with ${esc(String(stats.total))} rental
-      partners between them. Start with a region, then drill into the town you are staying in.</p>
-    </div>
     ${statRow([
       { value: String(stats.total), label: "Rental partners" },
       { value: String(stats.cities), label: "Towns covered" },
@@ -186,19 +186,19 @@ export function findRegion(site, region, { index, blog }) {
   ];
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">${esc(region.name)}</span>
-      <h1>E-Bike Rentals in ${esc(region.name)}</h1>
-      <p>${esc(stats.total)} rental partners across ${esc(String(stats.cities))} ${plural(
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(region.name)}`,
+  h1: `E-Bike Rentals in ${esc(region.name)}`,
+  lede: `${esc(stats.total)} rental partners across ${esc(String(stats.cities))} ${plural(
     stats.cities,
     "town"
   )} in ${esc(region.name)}, ranked by Google rating and review volume. Includes ${esc(
     commaList(townNames)
-  )}.</p>
-    </div>
+  )}.`,
+})}
+<section class="section">
+  <div class="wrap">
     ${statRow([
       { value: String(stats.total), label: "Rental partners" },
       { value: String(stats.cities), label: "Towns" },
@@ -358,17 +358,17 @@ export function findCity(site, city, { index, listings, blog }) {
   ];
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">${esc(city.region)}</span>
-      <h1>E-Bike Rentals in ${esc(city.name)}, Florida</h1>
-      <p>${esc(String(local.length))} ${plural(local.length, "rental partner")} in ${esc(
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(city.region)}`,
+  h1: `E-Bike Rentals in ${esc(city.name)}, Florida`,
+  lede: `${esc(String(local.length))} ${plural(local.length, "rental partner")} in ${esc(
     city.name
   )}, ranked by Google rating and review volume. Compare hours, services and phone numbers, then book
-      direct with the shop.</p>
-    </div>
+      direct with the shop.`,
+})}
+<section class="section">
+  <div class="wrap">
     ${statRow([
       { value: String(stats.total), label: plural(stats.total, "Rental partner") },
       { value: stats.avgRating, label: "Average rating" },
@@ -566,14 +566,14 @@ export function findCityTopic(site, ctPage, { index }) {
   ];
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(city.region)}`,
+  h1: `${esc(label)} near ${esc(city.name)}, Florida`,
+  lede: `${esc(ctPage.intro(city.name))}`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">${esc(city.region)}</span>
-      <h1>${esc(label)} near ${esc(city.name)}, Florida</h1>
-      <p>${esc(ctPage.intro(city.name))}</p>
-    </div>
     ${statRow([
       { value: String(stats.total), label: plural(stats.total, "Shop") },
       { value: stats.avgRating, label: "Average rating" },
@@ -657,14 +657,14 @@ export function findTopic(site, topic, { index }) {
     : [];
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Find`,
+  h1: `${esc(topic.h1)}`,
+  lede: `${esc(topic.intro)}`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Find</span>
-      <h1>${esc(topic.h1)}</h1>
-      <p>${esc(topic.intro)}</p>
-    </div>
     ${statRow([
       { value: String(stats.total), label: "Matching shops" },
       { value: String(stats.cities), label: "Towns" },

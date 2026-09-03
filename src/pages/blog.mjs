@@ -1,5 +1,5 @@
 import { esc, attr, prettyDate, isoDate, clamp, plural } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import { linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema, ctaBand } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { byline, authorCard } from "./hub.mjs";
@@ -14,15 +14,15 @@ export function blogHub(site, ctx) {
   const hero = photoFor("blog");
   const extra = secondPhotoFor("blog");
   const body = `
-${breadcrumbs([HOME_CRUMB, BLOG_CRUMB])}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: [HOME_CRUMB, BLOG_CRUMB],
+  eyebrow: `Blog`,
+  h1: `Florida E-Bike Rental Guides`,
+  lede: `Practical guides for renting and riding an e-bike in Florida — the law, the pricing, the
+      routes worth renting for, and what to check before you sign the rental agreement.`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Blog</span>
-      <h1>Florida E-Bike Rental Guides</h1>
-      <p>Practical guides for renting and riding an e-bike in Florida — the law, the pricing, the
-      routes worth renting for, and what to check before you sign the rental agreement.</p>
-    </div>
     ${banner(hero, { alt: `Florida e-bike rental guides - ${hero.alt}` })}
   </div>
 </section>

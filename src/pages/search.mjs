@@ -1,5 +1,5 @@
 import { esc, attr, slugify, clamp, plural } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, mapPanel,
 } from "../components.mjs";
@@ -146,16 +146,16 @@ export function searchQueryPage(site, query, data) {
   const titleQuery = query.replace(/\b\w/g, (c) => c.toUpperCase());
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Search results</span>
-      <h1>${esc(titleQuery)}</h1>
-      <p>${esc(results.length)} ${plural(results.length, "listing")} on Florida Ebike Rentals match
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Search results`,
+  h1: `${esc(titleQuery)}`,
+  lede: `${esc(results.length)} ${plural(results.length, "listing")} on Florida Ebike Rentals match
       this search, ordered by Google rating weighted against review volume. Refine the search below or
-      browse the matching directory pages.</p>
-    </div>
+      browse the matching directory pages.`,
+})}
+<section class="section">
+  <div class="wrap">
     <div class="gsearch gsearch--inline" data-site-search data-pages="/data/pages.json" data-query="${attr(query)}">
       <form class="gsearch__form" role="search">
         <div class="gsearch__field">

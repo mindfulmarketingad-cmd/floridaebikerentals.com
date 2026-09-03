@@ -1,5 +1,5 @@
 import { esc, attr, clamp, slugify, plural } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import { linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, ctaBand } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
@@ -156,13 +156,11 @@ export function shopHub(site, shop, ctx) {
   );
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Shop</span>
-      <h1>E-Bike Gear Worth Owning</h1>
-      <p>${
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Shop`,
+  h1: `E-Bike Gear Worth Owning`,
+  lede: `${
         empty
           ? "Kit we rate for riding in Florida - bikes, helmets, locks, child seats and the accessories that make a long, hot ride comfortable. Products are being added to this section now."
           : `${products.length} ${plural(products.length, "product")} across ${byCategory.length} ${plural(
@@ -170,8 +168,10 @@ ${breadcrumbs(crumbs)}
               "category",
               "categories"
             )}, chosen for riding in Florida heat, sand and salt air.`
-      }</p>
-    </div>
+      }`,
+})}
+<section class="section">
+  <div class="wrap">
     ${banner(hero, { alt: `E-bike gear for riding in Florida - ${hero.alt}` })}
   </div>
 </section>
@@ -441,14 +441,14 @@ export function shopCategoryPage(site, category, shop, ctx) {
   const others = shop.categories.filter((c) => c.slug !== category.slug);
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Shop`,
+  h1: `${esc(category.name)}`,
+  lede: `${esc(category.description)}`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Shop</span>
-      <h1>${esc(category.name)}</h1>
-      <p>${esc(category.description)}</p>
-    </div>
     ${
       // A results page leads with the products. The library photo only stands in
       // while a category has nothing in it yet.

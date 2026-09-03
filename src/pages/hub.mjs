@@ -1,5 +1,5 @@
 import { esc, attr, clamp, prettyDate, isoDate, plural, commaList } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema,
   listicle, mapPanel, statRow,
@@ -90,14 +90,14 @@ export function contentHub(site, hub, entries, ctx) {
   const extra = secondPhotoFor(hub.slug);
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(hub.label)} hub`,
+  h1: `${esc(hub.h1)}`,
+  lede: `${esc(hub.intro)}`,
+})}
+<section class="section">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">${esc(hub.label)} hub</span>
-      <h1>${esc(hub.h1)}</h1>
-      <p>${esc(hub.intro)}</p>
-    </div>
     ${banner(hero, { alt: `${hub.h1} - ${hero.alt}` })}
   </div>
 </section>
@@ -287,16 +287,16 @@ export function authorsHub(site, authors, ctx) {
   const hero = photoFor("authors");
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Authors</span>
-      <h1>Who Writes Florida Ebike Rentals</h1>
-      <p>A small team. Everything published here is written by a named person who rides, rents and
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Authors`,
+  h1: `Who Writes Florida Ebike Rentals`,
+  lede: `A small team. Everything published here is written by a named person who rides, rents and
       checks the data behind it — no anonymous copy, and no articles written by people who have never
-      been to the towns they cover.</p>
-    </div>
+      been to the towns they cover.`,
+})}
+<section class="section">
+  <div class="wrap">
     ${banner(hero, { alt: `The Florida Ebike Rentals writing team - ${hero.alt}` })}
   </div>
 </section>

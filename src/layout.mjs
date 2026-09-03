@@ -294,6 +294,26 @@ export function breadcrumbs(trail) {
   return `<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap"><ol>${items}</ol></div></nav>`;
 }
 
+/**
+ * The banded page header used across the hub and directory pages: breadcrumbs,
+ * eyebrow, heading and lede on a colour band ending in the same curve as the
+ * home and listing heroes.
+ *
+ * `eyebrow`, `h1` and `lede` are already-built HTML — the call sites escape
+ * their own interpolations — so they are inserted raw rather than escaped
+ * again here.
+ */
+export function pageHero({ crumbs, eyebrow = "", h1, lede = "" }) {
+  return `<section class="page-hero">
+  <div class="wrap">
+    ${crumbs && crumbs.length ? breadcrumbsBare(crumbs) : ""}
+    ${eyebrow ? `<span class="eyebrow">${eyebrow}</span>` : ""}
+    <h1>${h1}</h1>
+    ${lede ? `<p class="lede">${lede}</p>` : ""}
+  </div>
+</section>`;
+}
+
 export function breadcrumbsBare(trail) {
   const items = trail
     .map((item, i) =>

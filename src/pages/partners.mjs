@@ -1,7 +1,7 @@
 import {
   esc, attr, formatReviews, formatRating, phoneHref, hostOf, plural, clamp, commaList, ratingBlock,
 } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
+import { page, pageHero, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
@@ -34,19 +34,19 @@ export function partnersHub(site, { listings, index, pageNumber, totalPages }) {
   </nav>`;
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Partner directory</span>
-      <h1>${pageNumber === 1 ? "Florida E-Bike Rental Partners" : `Florida E-Bike Rental Partners - Page ${pageNumber}`}</h1>
-      <p>Every rental shop, electric bike store and tour operator in the directory — ${esc(
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `Partner directory`,
+  h1: `${pageNumber === 1 ? "Florida E-Bike Rental Partners" : `Florida E-Bike Rental Partners - Page ${pageNumber}`}`,
+  lede: `Every rental shop, electric bike store and tour operator in the directory — ${esc(
         String(stats.total)
       )} businesses across ${esc(String(stats.cities))} Florida towns, numbered by our ranking of Google
       rating against review volume. Showing ${esc(String(start + 1))} to ${esc(
     String(Math.min(start + PER_PAGE, listings.length))
-  )}.</p>
-    </div>
+  )}.`,
+})}
+<section class="section">
+  <div class="wrap">
     ${statRow([
       { value: String(stats.total), label: "Rental partners" },
       { value: String(stats.cities), label: "Towns covered" },
