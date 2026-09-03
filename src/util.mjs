@@ -37,13 +37,6 @@ export function slugify(text, fallback = "page") {
   );
 }
 
-export function titleCase(text) {
-  return String(text || "")
-    .split(" ")
-    .map((w) => (w.length > 2 ? w[0].toUpperCase() + w.slice(1) : w))
-    .join(" ");
-}
-
 export function unique(list) {
   return Array.from(new Set(list));
 }
@@ -185,4 +178,80 @@ export function shortName(name, max = 40) {
 /** Builds "<name> <suffix>" so the whole title stays inside the SERP budget. */
 export function fitTitle(name, suffix, budget = 62) {
   return `${shortName(name, Math.max(18, budget - suffix.length))}${suffix}`;
+}
+
+/* ------------------------------------------------------------ casing */
+
+/**
+ * Words left lowercase inside a title. Articles, coordinating conjunctions and
+ * the short prepositions — never at the start or end of the title.
+ */
+const SMALL_WORDS = new Set([
+  "a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into", "nor",
+  "of", "on", "onto", "or", "over", "per", "so", "the", "to", "up", "upon",
+  "via", "vs", "with", "yet",
+]);
+
+/**
+ * Capitalises a word segment by segment, so each half of a hyphenated word is
+ * judged on its own: "e-bike" becomes "E-Bike", while "US-1", "30A" and
+ * "Gainesville-Hawthorne" already carry capitals or digits and are left alone.
+ */
+function capitalise(word) {
+  return word
+    .split(/([-\/–—])/)
+    .map((part) => (/[A-Z0-9]/.test(part) ? part : part.replace(/\p{Ll}/u, (ch) => ch.toUpperCase())))
+    .join("");
+}
+
+/**
+ * Title Case, applied to headings and page titles at render time.
+ *
+ * A word that already carries a capital or a digit is left exactly as it is,
+ * which is what protects the things a naive title-caser ruins: business names
+ * scraped from Google, "FAQs", "GPS", "St. Petersburg", "30A", "US-1", "I-4".
+ * Only all-lowercase words are touched.
+ */
+export function titleCase(text) {
+  const words = String(text).split(/(\s+)/);
+  const words_i = words.map((w, i) => (/\S/.test(w) ? i : -1)).filter((i) => i >= 0);
+  const first = words_i[0];
+  const last = words_i[words_i.length - 1];
+  // A colon, dash or sentence mark ends a clause, so the word before it and the
+  // word after it are both capitalised even when they are small words.
+  const CLAUSE_END = /[:.?!\u2013\u2014]$/;
+
+  return words
+    .map((word, i) => {
+      if (!/\S/.test(word)) return word;
+      const previous = words[words_i[words_i.indexOf(i) - 1]] || "";
+      const forced = i === first || i === last || CLAUSE_END.test(word) || CLAUSE_END.test(previous);
+      const bare = word.replace(/^[^\p{L}]+/u, "").replace(/[^\p{L}]+$/u, "").toLowerCase();
+      if (SMALL_WORDS.has(bare) && !forced) return word;
+      return capitalise(word);
+    })
+    .join("");
+}
+
+/**
+ * Title-cases HTML text, stepping over tags and character entities so that
+ * markup and "&amp;" survive intact.
+ */
+export function titleCaseHtml(html) {
+  const ENTITY = /&[#a-zA-Z0-9]+;/g;
+  return String(html)
+    .split(/(<[^>]*>)/)
+    .map((chunk) => {
+      if (chunk.startsWith("<")) return chunk;
+      // \uE000 is a private-use character: not a letter, so it never gains a
+      // capital, and not whitespace, so it does not split a word in two.
+      const entities = [];
+      const masked = chunk.replace(ENTITY, (match) => {
+        entities.push(match);
+        return "\uE000";
+      });
+      let n = 0;
+      return titleCase(masked).replace(/\uE000/g, () => entities[n++]);
+    })
+    .join("");
 }

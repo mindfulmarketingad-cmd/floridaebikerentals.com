@@ -472,20 +472,24 @@ export function assignTitles(listings) {
         listing.postal_code || "",
       ].filter((v, i) => i === 0 || v);
 
+      // Uniqueness is judged case-insensitively: titles are rendered in Title
+      // Case, so two names differing only in capitalisation ("Saint George
+      // Island" and "Saint George island") would otherwise collide on the page.
+      const key = (value) => value.toLowerCase();
       let title = "";
       for (const extra of extras) {
         title = build(listing, kind, extra);
-        if (!taken.has(title)) break;
+        if (!taken.has(key(title))) break;
       }
       // The name is truncated to fit the title budget, so only a suffix applied
       // after fitting is guaranteed to change the string and end this loop.
       let counter = 2;
       const base = title;
-      while (taken.has(title)) {
+      while (taken.has(key(title))) {
         title = `${base} (${counter})`;
         counter++;
       }
-      taken.set(title, listing.slug);
+      taken.set(key(title), listing.slug);
       listing[field] = title;
     }
   }

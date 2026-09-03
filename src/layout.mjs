@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { esc, attr, jsonLd } from "./util.mjs";
+import { esc, attr, jsonLd, titleCase, titleCaseHtml } from "./util.mjs";
 
 /* --------------------------------------------------------------- config */
 
@@ -174,6 +174,14 @@ function adsenseLoader(site) {
  *  - ogImage:  absolute or root-relative image
  *  - bodyAttrs, headExtra, footerColumns, inlineScripts
  */
+/** Title-cases the text of every H1 and H2 in a rendered body. */
+function titleCaseHeadings(html) {
+  return String(html).replace(
+    /(<h([12])(?:\s[^>]*)?>)([\s\S]*?)(<\/h\2>)/gi,
+    (_, open, level, inner, close) => open + titleCaseHtml(inner) + close
+  );
+}
+
 export function page(site, opts) {
   const {
     title,
@@ -193,6 +201,12 @@ export function page(site, opts) {
     embeds = [],
   } = opts;
 
+  // Title Case is applied here rather than at each of the several hundred call
+  // sites, so every H1, H2 and page title on the site is consistent and future
+  // content — including headings rendered from Markdown — is caught too.
+  const pageTitle = titleCase(title);
+  const pageBody = titleCaseHeadings(body);
+
   const canonical = `${site.url}${path}`;
   const image = ogImage.startsWith("http") ? ogImage : `${site.url}${ogImage}`;
   const ads = Boolean(site.adsense?.enabled);
@@ -210,7 +224,7 @@ export function page(site, opts) {
 ${cspMeta(allInline, { ads, embeds })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>${esc(title)}</title>
+<title>${esc(pageTitle)}</title>
 <meta name="description" content="${attr(description)}">
 <link rel="canonical" href="${attr(canonical)}">
 ${noindex ? '<meta name="robots" content="noindex, follow">' : '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">'}
@@ -218,7 +232,7 @@ ${prev ? `<link rel="prev" href="${attr(site.url + prev)}">` : ""}
 ${next ? `<link rel="next" href="${attr(site.url + next)}">` : ""}
 <meta property="og:site_name" content="${attr(site.name)}">
 <meta property="og:type" content="${attr(ogType)}">
-<meta property="og:title" content="${attr(title)}">
+<meta property="og:title" content="${attr(pageTitle)}">
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:url" content="${attr(canonical)}">
 <meta property="og:image" content="${attr(image)}">
@@ -226,7 +240,7 @@ ${next ? `<link rel="next" href="${attr(site.url + next)}">` : ""}
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="${attr(site.locale)}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${attr(title)}">
+<meta name="twitter:title" content="${attr(pageTitle)}">
 <meta name="twitter:description" content="${attr(description)}">
 <meta name="twitter:image" content="${attr(image)}">
 <meta name="theme-color" content="#2050c8">
@@ -245,7 +259,7 @@ ${adsenseLoader(site)}
 <a class="skip-link" href="#main">Skip to content</a>
 ${header(path)}
 <main id="main">
-${body}
+${pageBody}
 </main>
 ${footer(site, footerColumns)}
 <script src="/assets/js/app.js" defer></script>
