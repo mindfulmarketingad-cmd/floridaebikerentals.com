@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
-  buildIndex, statsFor, assignTitles, SEARCH_QUERIES, CONTENT_HUBS,
+  buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
@@ -23,6 +23,7 @@ import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
+import { shopHub, productPage } from "./src/pages/shop.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -68,7 +69,8 @@ const queries = SEARCH_QUERIES.map((query) => ({ query, slug: slugify(query), ur
 const authors = loadAuthors();
 const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries };
+const shop = loadShop();
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop };
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -235,6 +237,37 @@ for (const hub of CONTENT_HUBS) {
   }
 }
 
+/* shop: hub plus a page per product */
+write("/shop/", shopHub(site, shop, ctx), {
+  priority: shop.products.length ? 0.8 : 0.3,
+  changefreq: "weekly",
+  group: "pages",
+  skipSitemap: shop.products.length === 0,
+  search: {
+    u: "/shop/",
+    t: "Shop e-bike gear",
+    s: "Shop",
+    d: "Bikes, helmets, locks, child seats and accessories for riding in Florida.",
+    k: `shop gear buy products ${shop.categories.map((c) => c.name).join(" ")}`.toLowerCase(),
+    w: 8,
+  },
+});
+for (const product of shop.products) {
+  write(product.url_internal, productPage(site, product, shop, ctx), {
+    priority: 0.6,
+    changefreq: "weekly",
+    group: "shop",
+    search: {
+      u: product.url_internal,
+      t: product.name,
+      s: "Product",
+      d: product.summary || `${product.name} in the Florida Ebike Rentals shop.`,
+      k: `${product.name} ${product.brand || ""} ${product.category || ""}`.toLowerCase(),
+      w: 4,
+    },
+  });
+}
+
 /* author profiles */
 write("/authors/", authorsHub(site, authors, ctx), {
   priority: 0.5,
@@ -326,7 +359,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "search"];
+const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "shop", "search"];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);

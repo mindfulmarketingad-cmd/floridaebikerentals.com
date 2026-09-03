@@ -8,6 +8,7 @@ export const HEADER_LINKS = [
   { href: "/blog/", label: "Blog" },
   { href: "/trails/", label: "Trails" },
   { href: "/costs/", label: "Costs" },
+  { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
   { href: "/find/", label: "Find" },
   { href: "/partners/", label: "Partners" },

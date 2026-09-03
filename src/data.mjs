@@ -122,6 +122,32 @@ export function extractFaqs(markdown) {
   return { body, faqs };
 }
 
+/**
+ * The /shop catalogue. Hand-edited JSON, so every entry is normalised and every
+ * URL validated here rather than trusted at render time.
+ */
+export function loadShop() {
+  const file = join(ROOT, "data", "products.json");
+  if (!existsSync(file)) return { currency: "USD", affiliateDisclosure: "", categories: [], products: [] };
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  const used = new Set();
+  const products = (Array.isArray(raw.products) ? raw.products : [])
+    .filter((p) => p && p.name)
+    .map((p) => {
+      let slug = slugify(p.slug || p.name, "product");
+      let n = 2;
+      while (used.has(slug)) slug = `${slugify(p.slug || p.name, "product")}-${n++}`;
+      used.add(slug);
+      return { ...p, slug, url_internal: `/shop/${slug}/` };
+    });
+  return {
+    currency: raw.currency || "USD",
+    affiliateDisclosure: raw.affiliateDisclosure || "",
+    categories: Array.isArray(raw.categories) ? raw.categories : [],
+    products,
+  };
+}
+
 export function loadAuthors() {
   const dir = join(ROOT, "content", "authors");
   if (!existsSync(dir)) return [];

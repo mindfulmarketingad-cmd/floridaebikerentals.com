@@ -1,0 +1,38 @@
+{
+  "_readme": "Add products to the array below and they appear at /shop/ with a page each at /shop/<slug>/. Every field except name is optional. See README.md for the full field list. While the array is empty the /shop/ hub stays noindex so an empty page is never submitted to Google; it becomes indexable automatically once a product is added.",
+  "currency": "USD",
+  "affiliateDisclosure": "Some links on this page are affiliate links. If you buy through one we may earn a commission at no extra cost to you. It does not change what we list or how we describe it.",
+  "categories": [
+    {
+      "slug": "ebikes",
+      "name": "Electric bikes",
+      "description": "Complete e-bikes worth owning if you ride in Florida often enough that renting stops making sense.",
+      "guide": "/blog/ebike-classes-explained/"
+    },
+    {
+      "slug": "helmets",
+      "name": "Helmets",
+      "description": "Head protection for riders of every age, including the sizes rental fleets rarely stock.",
+      "guide": "/blog/family-ebike-rentals-florida/"
+    },
+    {
+      "slug": "locks",
+      "name": "Locks and security",
+      "description": "The single best investment you can make, given that theft is excluded from almost every rental damage waiver.",
+      "guide": "/costs/damage-waivers-and-insurance/"
+    },
+    {
+      "slug": "accessories",
+      "name": "Accessories",
+      "description": "Racks, baskets, phone mounts, lights and the small things that make a long ride comfortable.",
+      "guide": "/blog/ebike-rental-checklist/"
+    },
+    {
+      "slug": "child-gear",
+      "name": "Child seats and trailers",
+      "description": "Seats, trailers and tag-alongs for riding with children in Florida heat.",
+      "guide": "/blog/family-ebike-rentals-florida/"
+    }
+  ],
+  "products": []
+}

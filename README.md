@@ -23,6 +23,7 @@ zero-dependency Node build script.
 | Blog hub + guides | `/blog/`, `/blog/<slug>/` | 14 |
 | Trails hub + guides | `/trails/`, `/trails/<slug>/` | 4 |
 | Costs hub + guides | `/costs/`, `/costs/<slug>/` | 5 |
+| Shop hub + products | `/shop/`, `/shop/<slug>/` | 1 + products |
 | Author profiles | `/authors/`, `/authors/<slug>/` | 4 |
 | Search hub + queries | `/search/`, `/search/<query>/` | 31 |
 | Static pages | `/about/` `/contact/` `/disclaimer/` `/privacy/` `/terms/` `/sitemap/` | 6 |
@@ -90,6 +91,27 @@ matters for a listing that already ranks, add a redirect in your host config.
   deterministic featured image plus at least one more, seeded from its slug so a rebuild never
   reshuffles the site. Photos shown beside a specific business are captioned as stock so a reader
   never mistakes one for that shop's own premises.
+- **Shop products** — `data/products.json`. Add objects to the `products` array and each one gets
+  a card on `/shop/` and a page at `/shop/<slug>/` with `Product` and `Offer` schema. Fields:
+
+  | Field | Notes |
+  | --- | --- |
+  | `name` | Required. Everything else is optional. |
+  | `slug` | Defaults to a slug of the name; collisions are numbered. |
+  | `brand`, `sku` | Shown on the page and in schema. |
+  | `category` | Matched against a `categories` slug to group it on the hub. |
+  | `price` | A number. Rendered with the file's `currency` and emitted as an `Offer`. |
+  | `availability` | `InStock`, `OutOfStock`, `PreOrder`. Defaults to `InStock`. |
+  | `url` | The buy link. Rendered `rel="nofollow sponsored"` and must be http(s) or it is dropped. |
+  | `image` | Product image URL, plus optional `imageWidth` / `imageHeight`. |
+  | `summary`, `description` | Card text and the body paragraph. |
+  | `specs` | An object of label/value pairs rendered as a spec table. |
+  | `cta` | Button label. Defaults to "View product". |
+
+  While `products` is empty the hub explains what is coming, stays out of the sitemap and sets
+  `noindex` so an empty page is never submitted to Google. It becomes indexable automatically as
+  soon as the first product is added. `affiliateDisclosure` in the same file is printed on every
+  shop page.
 - **Site settings** — `data/site.json` holds the domain, contact email, AdSense publisher ID
   and the optional `contactFormEndpoint`. Set that endpoint to a form handler URL and the
   contact form posts to it; leave it empty and the form falls back to opening the visitor's
