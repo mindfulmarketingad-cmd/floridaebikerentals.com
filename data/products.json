@@ -35,7 +35,13 @@
    "image": "/assets/img/shop/fat-tire-moped-ebike.jpg",
    "imageWidth": 955,
    "imageHeight": 1000,
-   "summary": "Moped-style frame on 20-inch fat tyres, with a padded bench saddle, front suspension and a phone app. Ships with a spare seat cushion and pedals."
+   "summary": "Moped-style frame on 20-inch fat tyres, with a padded bench saddle, front suspension and a phone app. Ships with a spare seat cushion and pedals.",
+   "bullets": [
+    "Moped-style frame built around 20-inch fat tyres",
+    "Padded bench saddle with front suspension for a smoother ride",
+    "Companion phone app",
+    "Ships with a spare seat cushion and a set of pedals"
+   ]
   },
   {
    "slug": "jasion-52v-fat-tire-ebike",
@@ -49,7 +55,13 @@
    "image": "/assets/img/shop/jasion-52v-fat-tire-ebike.jpg",
    "imageWidth": 1000,
    "imageHeight": 987,
-   "summary": "A 52-volt fat-tyre cruiser with a long bench seat, rear shock and knobby tyres. Ships with mirrors and a spare seat pad."
+   "summary": "A 52-volt fat-tyre cruiser with a long bench seat, rear shock and knobby tyres. Ships with mirrors and a spare seat pad.",
+   "bullets": [
+    "52-volt fat-tyre cruiser build",
+    "Long bench seat with a rear shock for comfort",
+    "Knobby tyres for sand and loose surfaces",
+    "Ships with mirrors and a spare seat pad"
+   ]
   },
   {
    "slug": "electric-dirt-bike",
@@ -63,7 +75,13 @@
    "image": "/assets/img/shop/electric-dirt-bike.jpg",
    "imageWidth": 1000,
    "imageHeight": 933,
-   "summary": "Off-road electric dirt bike on knobby tyres with orange rims and inverted forks, and no pedals. Ships with a combination cable lock."
+   "summary": "Off-road electric dirt bike on knobby tyres with orange rims and inverted forks, and no pedals. Ships with a combination cable lock.",
+   "bullets": [
+    "Off-road electric dirt bike on knobby tyres",
+    "Orange rims and inverted front forks",
+    "No pedals - throttle-only, dirt-bike-style riding",
+    "Ships with a combination cable lock"
+   ]
   },
   {
    "slug": "razor-e90-kids-electric-scooter",
@@ -77,7 +95,13 @@
    "image": "/assets/img/shop/razor-e90-electric-scooter.jpg",
    "imageWidth": 1000,
    "imageHeight": 1000,
-   "summary": "Kick-to-start electric scooter on a steel deck with urethane wheels and a rear fender brake. Sized for younger riders."
+   "summary": "Kick-to-start electric scooter on a steel deck with urethane wheels and a rear fender brake. Sized for younger riders.",
+   "bullets": [
+    "Kick-to-start electric scooter",
+    "Steel deck with urethane wheels",
+    "Rear fender brake",
+    "Sized for younger riders"
+   ]
   },
   {
    "slug": "segway-ninebot-max-g3",
@@ -91,7 +115,13 @@
    "image": "/assets/img/shop/segway-ninebot-max-g3.jpg",
    "imageWidth": 1000,
    "imageHeight": 1000,
-   "summary": "Folding commuter scooter with pneumatic tyres, front and rear disc brakes and front suspension."
+   "summary": "Folding commuter scooter with pneumatic tyres, front and rear disc brakes and front suspension.",
+   "bullets": [
+    "Folds down for storage and commuting",
+    "Pneumatic tyres for a smoother ride",
+    "Front and rear disc brakes",
+    "Front suspension"
+   ]
   },
   {
    "slug": "sport-mountain-ebike",
@@ -105,7 +135,14 @@
    "image": "/assets/img/shop/sport-mountain-ebike.jpg",
    "imageWidth": 1000,
    "imageHeight": 992,
-   "summary": "Hardtail mountain e-bike on 26-inch knobby tyres, with a suspension fork, disc brakes front and rear and a removable downtube battery. Ships with a combination cable lock."
+   "summary": "Hardtail mountain e-bike on 26-inch knobby tyres, with a suspension fork, disc brakes front and rear and a removable downtube battery. Ships with a combination cable lock.",
+   "bullets": [
+    "Hardtail mountain e-bike on 26-inch knobby tyres",
+    "Suspension fork for rough terrain",
+    "Disc brakes front and rear",
+    "Removable downtube battery",
+    "Ships with a combination cable lock"
+   ]
   },
   {
    "slug": "electric-dirt-bike-orange",
@@ -119,7 +156,14 @@
    "image": "/assets/img/shop/electric-dirt-bike-orange.jpg",
    "imageWidth": 985,
    "imageHeight": 1000,
-   "summary": "Full-size electric dirt bike with inverted orange forks, a handlebar light bar and a long bench seat. Ships with a helmet."
+   "summary": "Full-size electric dirt bike with inverted orange forks, a handlebar light bar and a long bench seat. Ships with a helmet.",
+   "bullets": [
+    "Full-size electric dirt bike",
+    "Inverted orange front forks",
+    "Handlebar light bar",
+    "Long bench seat",
+    "Ships with a helmet"
+   ]
   },
   {
    "slug": "electric-dirt-bike-black",
@@ -133,7 +177,14 @@
    "image": "/assets/img/shop/electric-dirt-bike-black.jpg",
    "imageWidth": 679,
    "imageHeight": 689,
-   "summary": "Electric dirt bike in all black with a handlebar light bar, knobby tyres and disc brakes front and rear. Ships with a helmet."
+   "summary": "Electric dirt bike in all black with a handlebar light bar, knobby tyres and disc brakes front and rear. Ships with a helmet.",
+   "bullets": [
+    "All-black electric dirt bike",
+    "Handlebar light bar",
+    "Knobby tyres",
+    "Disc brakes front and rear",
+    "Ships with a helmet"
+   ]
   },
   {
    "slug": "electric-dirt-bike-blue",
@@ -147,7 +198,14 @@
    "image": "/assets/img/shop/electric-dirt-bike-blue.jpg",
    "imageWidth": 679,
    "imageHeight": 651,
-   "summary": "Electric dirt bike in light blue with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet."
+   "summary": "Electric dirt bike in light blue with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet.",
+   "bullets": [
+    "Light blue electric dirt bike",
+    "Front and rear plastics",
+    "Knobby tyres",
+    "Tubular frame",
+    "Ships with a helmet"
+   ]
   },
   {
    "slug": "electric-dirt-bike-red",
@@ -161,7 +219,14 @@
    "image": "/assets/img/shop/electric-dirt-bike-red.jpg",
    "imageWidth": 679,
    "imageHeight": 635,
-   "summary": "Electric dirt bike in red with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet."
+   "summary": "Electric dirt bike in red with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet.",
+   "bullets": [
+    "Red electric dirt bike",
+    "Front and rear plastics",
+    "Knobby tyres",
+    "Tubular frame",
+    "Ships with a helmet"
+   ]
   },
   {
    "slug": "electric-dirt-bike-slate",
@@ -175,7 +240,14 @@
    "image": "/assets/img/shop/electric-dirt-bike-slate.jpg",
    "imageWidth": 1000,
    "imageHeight": 933,
-   "summary": "Off-road electric dirt bike in black on black, with knobby tyres, inverted forks and no pedals. Ships with a combination cable lock."
+   "summary": "Off-road electric dirt bike in black on black, with knobby tyres, inverted forks and no pedals. Ships with a combination cable lock.",
+   "bullets": [
+    "Off-road electric dirt bike in black on black",
+    "Knobby tyres",
+    "Inverted front forks",
+    "No pedals - throttle-only, dirt-bike-style riding",
+    "Ships with a combination cable lock"
+   ]
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",

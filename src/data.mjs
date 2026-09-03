@@ -215,10 +215,11 @@ export function loadShop() {
           typeof p.image === "string" && p.image.startsWith("/") && !existsSync(join(ROOT, p.image.replace(/^\//, "")))
             ? ""
             : p.image,
-        // An affiliate item is a link out to the retailer, not a page of ours:
-        // it gets no detail page, so nothing thin is published for it.
+        // Every product gets a detail page of ours, affiliate or not: the
+        // outbound retailer link lives on the "Check Price" button there,
+        // not on the card people click from a listing grid.
         affiliate: Boolean(p.affiliate),
-        url_internal: p.affiliate ? "" : nested ? `/shop/${category}/${slug}/` : `/shop/${slug}/`,
+        url_internal: nested ? `/shop/${category}/${slug}/` : `/shop/${slug}/`,
       };
     });
   return {

@@ -30,7 +30,9 @@ function imageSrc(product) {
 function productImage(product, { eager = false } = {}) {
   const src = imageSrc(product);
   if (!src) return "";
-  const alt = `${product.brand ? `${product.brand} ` : ""}${product.name} electric bike`;
+  const alt = `${product.brand && !product.name.includes(product.brand) ? `${product.brand} ` : ""}${
+    product.name
+  }${product.name.toLowerCase().includes("bike") || product.name.toLowerCase().includes("scooter") ? "" : " electric bike"}`;
   return `<img src="${attr(src)}" alt="${attr(alt)}" loading="${eager ? "eager" : "lazy"}"
     decoding="async" referrerpolicy="no-referrer" width="${attr(product.imageWidth || 800)}"
     height="${attr(product.imageHeight || 800)}" data-fallback="1">`;
@@ -85,35 +87,28 @@ function variantList(product) {
 }
 
 /**
- * A product tile.
- *
- * Two kinds. Ours links to its own detail page and shows the price we sell it
- * at. An affiliate item links straight out to the retailer and deliberately
- * shows no price and no rating: affiliate programme terms only permit
- * displaying prices pulled live from the retailer's product API, and a stale
- * price is worse than none. "Check Price" sends the visitor to the live one.
+ * A product tile. Always links to our own detail page, never straight out to
+ * the retailer - the outbound "Check Price" link lives there instead. An
+ * affiliate item shows no price on the tile: affiliate programme terms only
+ * permit displaying prices pulled live from the retailer's product API, and a
+ * stale price is worse than none.
  */
 export function productCard(product, currency) {
-  const external = product.affiliate;
-  const href = external ? safeUrl(product.url) : product.url_internal;
+  const href = product.url_internal;
   if (!href) return "";
-  const linkAttrs = external ? ' rel="nofollow sponsored noopener" target="_blank"' : "";
 
-  return `<article class="product-card${external ? " product-card--out" : ""}">
+  return `<article class="product-card${product.affiliate ? " product-card--out" : ""}">
   ${product.badge ? `<span class="product-card__badge">${esc(product.badge)}</span>` : ""}
-  <a class="product-card__media" href="${attr(href)}"${linkAttrs} tabindex="-1" aria-hidden="true">
+  <a class="product-card__media" href="${attr(href)}" tabindex="-1" aria-hidden="true">
     ${productImage(product) || '<span class="product-card__placeholder" aria-hidden="true"></span>'}
   </a>
   <div class="product-card__body">
     ${product.brand ? `<span class="product-card__brand">${esc(product.brand)}</span>` : ""}
-    <h3><a href="${attr(href)}"${linkAttrs}>${esc(product.name)}</a></h3>
+    <h3><a href="${attr(href)}">${esc(product.name)}</a></h3>
     ${product.summary ? `<p>${esc(clamp(product.summary, 130))}</p>` : ""}
     <div class="product-card__foot">
-      ${external ? "" : priceBlock(product, currency, { className: "product-card__price" })}
-      <a class="btn btn--primary btn--sm btn--block" href="${attr(href)}"${linkAttrs}>${esc(
-        product.cta || (external ? "Check Price" : "Details")
-      )}</a>
-      ${external ? '<span class="product-card__note">Current price at the retailer</span>' : ""}
+      ${product.affiliate ? "" : priceBlock(product, currency, { className: "product-card__price" })}
+      <a class="btn btn--primary btn--sm btn--block" href="${attr(href)}">View Details</a>
     </div>
   </div>
 </article>`;
@@ -301,8 +296,15 @@ export function productPage(site, product, shop, ctx) {
     { href: product.url_internal, label: product.name },
   ];
   const hero = photoFor(product.slug);
-  const related = shop.products.filter((p) => p.slug !== product.slug).slice(0, 3);
+  const sameCategory = shop.products.filter(
+    (p) => p.slug !== product.slug && p.category === product.category
+  );
+  const related = (sameCategory.length >= 3
+    ? sameCategory
+    : shop.products.filter((p) => p.slug !== product.slug)
+  ).slice(0, 3);
   const specs = Object.entries(product.specs || {});
+  const bullets = Array.isArray(product.bullets) ? product.bullets.filter(Boolean).slice(0, 5) : [];
 
   const body = `
 ${breadcrumbs(crumbs)}
@@ -324,6 +326,13 @@ ${breadcrumbs(crumbs)}
         <h1>${esc(product.name)}</h1>
         ${product.summary ? `<p class="lede muted">${esc(product.summary)}</p>` : ""}
         ${priceBlock(product, shop.currency)}
+        ${
+          bullets.length
+            ? `<ul class="product-detail__bullets">${bullets
+                .map((b) => `<li>${esc(b)}</li>`)
+                .join("")}</ul>`
+            : ""
+        }
         ${productAssurances(product, shop)}
         ${variantList(product)}
         <p>${
@@ -393,7 +402,9 @@ ${adSlotScript(site, 1)}
 
   const offerUrl = safeUrl(product.url);
   return page(site, {
-    title: `${product.name}${product.brand ? ` by ${product.brand}` : ""} - Florida Ebike Rentals`,
+    title: `${product.name}${
+      product.brand && !product.name.includes(product.brand) ? ` by ${product.brand}` : ""
+    } - Florida Ebike Rentals`,
     description: clamp(
       product.summary || `${product.name}: specifications, price and where to buy, from Florida Ebike Rentals.`
     ),

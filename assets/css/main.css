@@ -1073,6 +1073,21 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .assurances__stock.is-out::before { background: var(--line); }
 .assurances__stock.is-out::after { border-color: var(--ink-mute); }
 
+.product-detail__bullets { list-style: none; padding: 0; margin: 0 0 1.1rem; display: grid; gap: .5rem; }
+.product-detail__bullets li {
+  margin: 0; position: relative; padding-left: 1.55rem;
+  font-size: .94rem; color: var(--ink-soft); line-height: 1.5;
+}
+.product-detail__bullets li::before {
+  content: ""; position: absolute; left: 0; top: .3rem; width: 1.05rem; height: 1.05rem;
+  border-radius: 50%; background: var(--blue-50);
+}
+.product-detail__bullets li::after {
+  content: ""; position: absolute; left: .32rem; top: .52rem; width: .4rem; height: .2rem;
+  border-left: 2px solid var(--blue-600); border-bottom: 2px solid var(--blue-600);
+  transform: rotate(-45deg);
+}
+
 .variants { margin: 0 0 1.1rem; }
 .variants__label { font-size: .82rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 .5rem; }
 .variants__list { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; padding: 0; margin: 0; }
@@ -1110,11 +1125,7 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .product-card__body { padding: .85rem .95rem 1rem; gap: .35rem; }
 .product-card h3 { font-size: .98rem; line-height: 1.35; }
 .product-card p { font-size: .85rem; line-height: 1.45; }
-.product-card__note { color: var(--ink-mute); font-size: .76rem; text-align: center; }
-
-/* An outbound tile leads to the retailer, so the whole tile reads as clickable. */
 .product-card--out:hover { border-color: var(--blue-400); }
-.product-card--out h3 a::after { content: " \2197"; color: var(--ink-mute); font-weight: 400; }
 
 /* ---------- pagination (page 1 of N with prev/next arrows) ---------- */
 .pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .7rem; }
