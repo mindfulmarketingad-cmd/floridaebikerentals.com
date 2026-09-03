@@ -111,13 +111,21 @@ export function stars(rating) {
   return `${out}</span>`;
 }
 
-export function ratingBlock(listing) {
+/**
+ * Star rating, average and review count. Pass `href` to make the whole block a
+ * link — cards do, so the rating leads to that shop's review breakdown; the
+ * review page itself does not, since it would link to itself.
+ */
+export function ratingBlock(listing, { href = "" } = {}) {
   if (!listing.rating) return '<span class="rating rating--none muted small">No Google rating yet</span>';
-  return (
-    `<span class="rating">${stars(listing.rating)}` +
+  const inner =
+    `${stars(listing.rating)}` +
     `<span>${formatRating(listing.rating)}</span>` +
-    `<span class="rating__count">(${formatReviews(listing.reviews)} ${plural(listing.reviews, "review")})</span></span>`
-  );
+    `<span class="rating__count">(${formatReviews(listing.reviews)} ${plural(listing.reviews, "review")})</span>`;
+  return href
+    ? `<a class="rating rating--link" href="${attr(href)}"
+        aria-label="${attr(`${formatRating(listing.rating)} stars from ${formatReviews(listing.reviews)} reviews — read the breakdown`)}">${inner}</a>`
+    : `<span class="rating">${inner}</span>`;
 }
 
 export function todayIndex() {

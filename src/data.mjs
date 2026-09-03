@@ -72,6 +72,30 @@ export const TOPICS = [
     match: (l) => (l.hours || []).filter((h) => !h.closed).length === 7,
   },
   {
+    slug: "ebike-repair-and-service-in-florida",
+    title: "E-Bike Repair and Service in Florida",
+    h1: "E-Bike Repair and Service in Florida",
+    intro:
+      "Shops whose public profile lists repairs and servicing as well as rentals. Worth knowing before you need them: a flat on a fat-tyre e-bike is not a roadside fix, and not every rental counter has a mechanic behind it.",
+    match: (l) => (l.tags || []).includes("Repairs & service"),
+  },
+  {
+    slug: "golf-cart-and-ebike-rentals-in-florida",
+    title: "Golf Cart and E-Bike Rentals in Florida",
+    h1: "Golf Cart and E-Bike Rentals in Florida",
+    intro:
+      "Shops that rent golf carts alongside electric bikes. In the island and beach towns where carts are street legal, a cart for the luggage and bikes for everyone else is how most families actually get around.",
+    match: (l) => (l.tags || []).includes("Golf carts"),
+  },
+  {
+    slug: "bike-and-watersports-rentals-in-florida",
+    title: "Bike and Watersports Rentals in Florida",
+    h1: "Bike and Watersports Rentals in Florida",
+    intro:
+      "Rental shops that also hire out kayaks, paddleboards and beach gear. One counter, one deposit, and a day that does not depend on the weather holding.",
+    match: (l) => (l.tags || []).includes("Watersports"),
+  },
+  {
     slug: "family-ebike-rentals-in-florida",
     title: "Family E-Bike Rentals in Florida",
     h1: "Family Friendly E-Bike Rentals in Florida",

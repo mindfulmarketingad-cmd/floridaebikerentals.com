@@ -78,11 +78,33 @@ export function metaDescriptionFor(listing) {
 
 /* -------------------------------------------------------------- atoms */
 
+/**
+ * Where each listing tag leads. Every tag a listing can carry has a landing
+ * page: eight are topic pages under /find/, and "Rentals" points at the full
+ * partner directory rather than a topic page that would duplicate it.
+ */
+export const TAG_LINKS = {
+  "Guided tours": "/find/guided-ebike-tours-in-florida/",
+  "Beach town": "/find/beach-ebike-rentals-in-florida/",
+  "Electric bikes": "/find/electric-bike-shops-in-florida/",
+  "Delivery available": "/find/ebike-rentals-with-delivery-in-florida/",
+  Scooters: "/find/ebike-and-scooter-rentals-in-florida/",
+  "Repairs & service": "/find/ebike-repair-and-service-in-florida/",
+  "Golf carts": "/find/golf-cart-and-ebike-rentals-in-florida/",
+  Watersports: "/find/bike-and-watersports-rentals-in-florida/",
+  Rentals: "/partners/",
+};
+
 export function tagList(tags, limit = 5) {
   if (!tags || !tags.length) return "";
   return `<ul class="tag-row">${tags
     .slice(0, limit)
-    .map((t) => `<li><span class="tag">${esc(t)}</span></li>`)
+    .map((t) => {
+      const href = TAG_LINKS[t];
+      return `<li>${
+        href ? `<a class="tag tag--link" href="${attr(href)}">${esc(t)}</a>` : `<span class="tag">${esc(t)}</span>`
+      }</li>`;
+    })
     .join("")}</ul>`;
 }
 
@@ -117,7 +139,7 @@ export function listingCard(listing) {
   return `<a class="card card--link" href="/partners/${attr(listing.slug)}/">
   <h3>${esc(listing.name)}</h3>
   <p class="card__count">${esc(listing.city)}, FL · ${esc(listing.region)}</p>
-  ${ratingBlock(listing)}
+  ${ratingBlock(listing, { href: `/reviews/${listing.slug}/` })}
   ${tagList(listing.tags, 3)}
   <span class="card__more">View listing</span>
 </a>`;
@@ -143,7 +165,14 @@ function hoursToday(listing) {
 export function listicleItem(listing, rank, { showSummary = true } = {}) {
   const url = `/partners/${attr(listing.slug)}/`;
   const facts = [];
-  facts.push(`<li><b>Address</b> <span>${esc(listing.address || `${listing.city}, FL`)}</span></li>`);
+  const addressText = listing.address || `${listing.city}, FL`;
+  facts.push(
+    `<li><b>Address</b> <span>${
+      listing.maps_link
+        ? `<a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">${esc(addressText)}</a>`
+        : esc(addressText)
+    }</span></li>`
+  );
   if (listing.phone) {
     const tel = phoneHref(listing.phone);
     facts.push(
@@ -160,7 +189,14 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
     );
   }
   if (listing.reviews) {
-    facts.push(`<li><b>Reviews</b> <span>${formatReviews(listing.reviews)} on Google</span></li>`);
+    const count = `${formatReviews(listing.reviews)} on Google`;
+    facts.push(
+      `<li><b>Reviews</b> <span>${
+        listing.reviews_link
+          ? `<a href="${attr(listing.reviews_link)}" rel="nofollow noopener" target="_blank">${esc(count)}</a>`
+          : `<a href="/reviews/${attr(listing.slug)}/">${esc(count)}</a>`
+      }</span></li>`
+    );
   }
   if (listing.price_range) facts.push(`<li><b>Price</b> <span>${esc(listing.price_range)}</span></li>`);
 
@@ -182,7 +218,7 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
       <h3 class="listicle__title"><span class="visually-hidden">Number ${rank}: </span><a href="${url}">${esc(
     listing.name
   )}</a></h3>
-      <div>${ratingBlock(listing)}</div>
+      <div>${ratingBlock(listing, { href: `/reviews/${listing.slug}/` })}</div>
       ${showSummary ? `<p class="listicle__summary">${esc(summaryFor(listing))}</p>` : ""}
       ${tagList(listing.tags, 4)}
       <ul class="listicle__facts">${facts.join("")}</ul>
