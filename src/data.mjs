@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { resolve, join, basename } from "node:path";
 import { slugify, miles, unique, fitTitle } from "./util.mjs";
 import { parseFrontMatter, render, wordCount } from "./markdown.mjs";
@@ -99,6 +99,108 @@ export function loadSite() {
   return JSON.parse(readFileSync(join(ROOT, "data", "site.json"), "utf8"));
 }
 
+/**
+ * Pulls a trailing FAQ section out of a post so it can be rendered as an
+ * accordion and emitted as FAQPage schema instead of plain prose.
+ * Looks for "## FAQs" (or "Frequently asked questions") followed by "### question"
+ * blocks, and removes that section from the body.
+ */
+export function extractFaqs(markdown) {
+  const match = /\n##\s+(?:FAQs?|Frequently asked questions)[^\n]*\n([\s\S]*?)(?=\n##\s|$)/i.exec(markdown);
+  if (!match) return { body: markdown, faqs: [] };
+
+  const faqs = [];
+  const blocks = match[1].split(/\n(?=###\s)/);
+  for (const block of blocks) {
+    const heading = /^###\s+(.+)$/m.exec(block);
+    if (!heading) continue;
+    const answer = block.slice(block.indexOf(heading[0]) + heading[0].length).trim();
+    if (!answer) continue;
+    faqs.push({ q: heading[1].trim(), a: render(answer).html });
+  }
+  const body = markdown.slice(0, match.index) + markdown.slice(match.index + match[0].length);
+  return { body, faqs };
+}
+
+export function loadAuthors() {
+  const dir = join(ROOT, "content", "authors");
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((file) => {
+      const raw = readFileSync(join(dir, file), "utf8");
+      const { meta, body } = parseFrontMatter(raw);
+      const slug = meta.slug || basename(file, ".md");
+      return {
+        ...meta,
+        slug,
+        url: `/authors/${slug}/`,
+        expertise: Array.isArray(meta.expertise) ? meta.expertise : [],
+        html: render(body).html,
+      };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * Editorial hubs. Each one is a directory of Markdown guides under content/,
+ * rendered as a hub page plus one page per guide. Adding a hub here (and a
+ * matching content directory) is all it takes to add a new section.
+ */
+export const CONTENT_HUBS = [
+  {
+    slug: "trails",
+    dir: "trails",
+    label: "Trails",
+    noun: "trail guide",
+    h1: "Florida E-Bike Trail Guides",
+    title: "Florida E-Bike Trail Guides - Routes, Surfaces and Where to Rent",
+    description:
+      "Guides to Florida's best paved trails and coastal routes for electric bikes, with distances, surfaces, parking and the rental shops closest to each trailhead.",
+    intro:
+      "Where to actually ride once you have the bike. Each guide covers the route end to end - distance, surface, shade, parking and the trailheads worth starting from - and links to the rental shops closest to it.",
+  },
+  {
+    slug: "costs",
+    dir: "costs",
+    label: "Costs",
+    noun: "cost guide",
+    h1: "Florida E-Bike Rental Costs",
+    title: "Florida E-Bike Rental Costs - Prices, Deposits and Hidden Fees",
+    description:
+      "What renting an electric bike in Florida really costs: hourly and weekly rates, card holds and deposits, delivery fees, damage waivers, tour pricing and how to pay less.",
+    intro:
+      "Every cost question in one place. Rental rates by duration and season, the card hold you should expect, what delivery and damage waivers add, and where the money actually goes on a family booking.",
+  },
+];
+
+export function loadHubEntries(hub) {
+  const dir = join(ROOT, "content", hub.dir);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((file) => {
+      const raw = readFileSync(join(dir, file), "utf8");
+      const { meta, body } = parseFrontMatter(raw);
+      const { body: prose, faqs } = extractFaqs(body);
+      const { html, headings } = render(prose);
+      const slug = basename(file, ".md");
+      return {
+        slug,
+        hub: hub.slug,
+        url: `/${hub.slug}/${slug}/`,
+        ...meta,
+        towns: Array.isArray(meta.towns) ? meta.towns : meta.towns ? [meta.towns] : [],
+        tags: Array.isArray(meta.tags) ? meta.tags : [],
+        faqs,
+        html,
+        headings,
+        words: wordCount(prose),
+      };
+    })
+    .sort((a, b) => Number(a.order || 99) - Number(b.order || 99) || String(a.title).localeCompare(String(b.title)));
+}
+
 export function loadBlog() {
   const dir = join(ROOT, "content", "blog");
   return readdirSync(dir)
@@ -106,15 +208,17 @@ export function loadBlog() {
     .map((file) => {
       const raw = readFileSync(join(dir, file), "utf8");
       const { meta, body } = parseFrontMatter(raw);
-      const { html, headings } = render(body);
+      const { body: prose, faqs } = extractFaqs(body);
+      const { html, headings } = render(prose);
       return {
         slug: basename(file, ".md"),
         url: `/blog/${basename(file, ".md")}/`,
         ...meta,
         tags: Array.isArray(meta.tags) ? meta.tags : [],
+        faqs,
         html,
         headings,
-        words: wordCount(body),
+        words: wordCount(prose),
       };
     })
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));

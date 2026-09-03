@@ -66,6 +66,19 @@ export function verify(dist, site) {
       problems.push(`${pageUrl}: contains "undefined" or "[object Object]"`);
     }
 
+    // Every page carries a featured image plus at least one more in the content.
+    const mainStart = html.indexOf('<main id="main">');
+    const mainEnd = html.indexOf("</main>");
+    if (mainStart !== -1 && mainEnd !== -1) {
+      const main = html.slice(mainStart, mainEnd);
+      const contentImages = [...main.matchAll(/<img [^>]*src="([^"]+)"/g)]
+        .map((m) => m[1])
+        .filter((src) => !/logo|favicon|mark\.svg/.test(src));
+      if (contentImages.length < 2) {
+        problems.push(`${pageUrl}: has ${contentImages.length} content image(s), expected a featured image plus one more`);
+      }
+    }
+
     for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)"/g)) {
       const target = match[1];
       if (target.startsWith("//")) continue;

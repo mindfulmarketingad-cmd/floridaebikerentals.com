@@ -170,7 +170,9 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
     (listing.tags || []).join("|")
   )}|" data-search="${attr(search)}" data-rating="${attr(listing.rating || 0)}" data-reviews="${attr(
     listing.reviews || 0
-  )}" data-score="${attr(listing.score || 0)}" data-name="${attr(listing.name)}">
+  )}" data-score="${attr(listing.score || 0)}" data-name="${attr(listing.name)}"${
+    typeof listing.lat === "number" ? ` data-lat="${attr(listing.lat)}" data-lng="${attr(listing.lng)}"` : ""
+  }>
   <div class="listicle__inner">
     <div class="listicle__media">
       <span class="listicle__rank" aria-hidden="true">${rank}</span>

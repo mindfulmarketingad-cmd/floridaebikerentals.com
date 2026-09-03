@@ -83,6 +83,41 @@ const heights=await page.evaluate(([tall,wide])=>{
 ok(`hero images share one height (${heights.join(", ")}px) across aspect ratios`, heights.length===1);
 await page.close();
 
+// 4d. the partners page re-sorts itself to the visitor's location
+const near=await b.newContext({permissions:["geolocation"],geolocation:{latitude:30.3671,longitude:-86.2216},viewport:{width:1200,height:900}});
+page=await near.newPage();
+await page.goto("http://localhost:8099/partners/",{waitUntil:"load"});
+await page.waitForTimeout(2000);
+const status=await page.textContent("[data-nearby-status]");
+const firstCard=await page.$eval("[data-filter-item]",e=>({name:e.getAttribute("data-name"),d:parseFloat(e.dataset.distance||"NaN"),badge:(e.querySelector(".distance-badge")||{}).textContent||""}));
+const ordered=await page.$$eval("[data-filter-item]",n=>{const d=n.map(x=>parseFloat(x.dataset.distance)).filter(v=>isFinite(v));return d.every((v,i)=>i===0||v>=d[i-1]);});
+ok(`partners page auto-sorts by distance (#1 ${firstCard.name} ${firstCard.badge.trim()})`, /closest first/i.test(status)&&ordered&&firstCard.d<40);
+await page.close(); await near.close();
+
+// 4e. city listicle posts pull live directory data through the shortcode
+page=await b.newPage();
+await page.goto("http://localhost:8099/blog/best-ebike-rentals-destin-florida/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(300);
+const postBits=await page.evaluate(()=>({
+  items:document.querySelectorAll(".listicle__item").length,
+  faqs:document.querySelectorAll(".faq__item").length,
+  author:(document.querySelector(".byline a[rel=author]")||{}).textContent||"",
+  toc:document.querySelectorAll(".toc a").length,
+  imgs:document.querySelectorAll("main img:not([src*=logo])").length,
+  shortcodes:document.body.innerHTML.includes("{{"),
+}));
+ok(`Destin listicle: ${postBits.items} shops, ${postBits.faqs} FAQs, ${postBits.toc} TOC links, by ${postBits.author.trim()}, ${postBits.imgs} images`,
+   postBits.items>=8&&postBits.faqs>=5&&postBits.toc>=3&&postBits.author&&postBits.imgs>=2&&!postBits.shortcodes);
+await page.close();
+
+// 4f. CTAs are square
+page=await b.newPage();
+await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
+const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
+const rentNow=await page.$eval('a.btn[href="/partners/"]',e=>e.textContent.trim());
+ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /partners/`, radius==="0px"&&/Rent Now/i.test(rentNow));
+await page.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

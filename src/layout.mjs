@@ -6,6 +6,8 @@ import { esc, attr, jsonLd } from "./util.mjs";
 export const HEADER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/blog/", label: "Blog" },
+  { href: "/trails/", label: "Trails" },
+  { href: "/costs/", label: "Costs" },
   { href: "/about/", label: "About" },
   { href: "/find/", label: "Find" },
   { href: "/partners/", label: "Partners" },
@@ -120,6 +122,7 @@ function footer(site, extras) {
         <img src="/assets/img/logo-white.svg" width="200" height="42" alt="${attr(site.name)}" loading="lazy">
         <p>${esc(site.description)}</p>
         <p class="small"><a href="/contact/">Own one of these shops? Update or claim your listing.</a></p>
+        <p class="small"><a href="/authors/">Meet the people who write this site</a></p>
       </div>
       ${columns}
     </div>

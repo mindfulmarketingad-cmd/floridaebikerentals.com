@@ -8,6 +8,7 @@ import {
   summaryFor, metaDescriptionFor,
 } from "../components.mjs";
 import { statsFor, nearbyListings } from "../data.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const PARTNERS_CRUMB = { href: "/partners/", label: "Partners" };
@@ -52,11 +53,19 @@ ${breadcrumbs(crumbs)}
       { value: stats.avgRating, label: "Average rating" },
       { value: formatReviews(stats.reviews), label: "Google reviews" },
     ])}
+    ${banner(photoFor(`partners-${pageNumber}`), {
+      alt: `Florida e-bike rental partners - ${photoFor(`partners-${pageNumber}`).alt}`,
+    })}
   </div>
 </section>
 
 <section class="section section--tint">
-  <div class="wrap">
+  <div class="wrap" data-nearby-sort>
+    <div class="nearby-bar">
+      <p data-nearby-status>Allow location and this page re-sorts to show the e-bike rentals closest to you.</p>
+      <button class="btn btn--blue btn--sm" type="button" data-nearby-button>Sort by distance from me</button>
+      <span class="muted small">We never send your location anywhere — the sorting happens in your browser.</span>
+    </div>
     ${mapPanel(slice, { id: `map-partners-${pageNumber}`, zoom: 7 })}
     <form class="filterbar" data-filter-form>
       <div class="field">
@@ -103,6 +112,9 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor(`partners-${pageNumber}`), {
+      alt: `Riding a rented e-bike in Florida - ${secondPhotoFor(`partners-${pageNumber}`).alt}`,
+    })}
     <h2>Jump to a town</h2>
     ${linkCloud(
       index.cities.slice(0, 60).map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
@@ -129,6 +141,7 @@ ${adSlotScript(site, 1)}
     ),
     path,
     body,
+    ogImage: photoFor(`partners-${pageNumber}`).src,
     prev: pageNumber === 2 ? "/partners/" : pageNumber > 2 ? `/partners/page/${pageNumber - 1}/` : "",
     next: pageNumber < totalPages ? `/partners/page/${pageNumber + 1}/` : "",
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
@@ -251,7 +264,13 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 
 <div class="wrap detail-layout">
   <div>
-    ${listing.photo ? `<div class="photo-hero mb-2">${photo(listing, { eager: true })}</div>` : ""}
+    ${
+      listing.photo
+        ? `<div class="photo-hero mb-2">${photo(listing, { eager: true })}</div>`
+        : banner(photoFor(listing.slug), {
+            alt: `E-bike rentals in ${listing.city}, Florida - ${photoFor(listing.slug).alt}`,
+          })
+    }
 
     <div class="prose">
       <h2>About ${esc(listing.name)}</h2>
@@ -285,6 +304,12 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     ${faqBlock(faqs)}
 
     ${adSlot(site, "")}
+
+    ${figure(secondPhotoFor(listing.slug), {
+      alt: `Riding a rented e-bike around ${listing.city}, Florida - ${secondPhotoFor(listing.slug).alt}`,
+      caption: `Illustrative photo of e-bike riding in Florida, not of ${listing.name}.`,
+      className: "figure--stock",
+    })}
 
     <h2 class="mt-3">Other e-bike rentals near ${esc(listing.city)}</h2>
     <div class="grid grid--3">
@@ -389,7 +414,7 @@ ${adSlotScript(site, 1)}
     body,
     bodyAttrs: tel || listing.website || listing.maps_link ? 'class="has-action-bar"' : "",
     ogType: "business.business",
-    ogImage: listing.photo || "/assets/img/og-default.png",
+    ogImage: listing.photo || photoFor(listing.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [breadcrumbSchema(site, crumbs), localBusinessSchema(site, listing), faqSchema(faqs)],
   });

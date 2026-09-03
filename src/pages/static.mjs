@@ -1,6 +1,7 @@
 import { esc, attr, prettyDate, clamp, formatReviews } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbSchema, FOOTER_LINKS, HEADER_LINKS } from "../layout.mjs";
 import { linkCloud, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, statRow } from "../components.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 
@@ -57,7 +58,9 @@ ${breadcrumbs(crumbs)}
   <div class="wrap wrap-narrow">
     <h1>${esc(content.title)}</h1>
     ${content.updated ? `<p class="post-meta"><span>Last updated ${esc(prettyDate(content.updated))}</span></p>` : ""}
-    <div class="prose">${html}</div>
+    ${banner(photoFor(key), { alt: `${content.title} - ${photoFor(key).alt}` })}
+    <div class="prose mt-2">${html}</div>
+    ${figure(secondPhotoFor(key), { alt: `Florida e-bike rentals - ${secondPhotoFor(key).alt}`, className: "mt-2" })}
     ${extras.after || ""}
   </div>
 </section>
@@ -81,6 +84,7 @@ ${adSlotScript(site, 1)}
     description: clamp(content.description),
     path: url,
     body,
+    ogImage: photoFor(key).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -126,6 +130,7 @@ ${breadcrumbs([HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }])}
       { value: String(index.cities.length + index.regions.length + index.topics.length), label: "Find pages" },
       { value: String(blog.length), label: "Guides" },
     ])}
+    ${banner(photoFor("sitemap"), { alt: `Florida Ebike Rentals sitemap - ${photoFor("sitemap").alt}` })}
   </div>
 </section>
 
@@ -162,6 +167,7 @@ ${section("Popular searches", queries.map((q) => ({ href: q.url, label: q.query 
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor("sitemap"), { alt: `Florida e-bike rentals - ${secondPhotoFor("sitemap").alt}` })}
     <h2>Directory index pages</h2>
     ${linkCloud([
       ...Array.from({ length: partnerPages }, (_, i) => ({
@@ -184,6 +190,7 @@ ${adSlotScript(site, 0)}
       "Every page on Florida Ebike Rentals: regions, towns, partner listings, review breakdowns, guides and popular searches.",
     path: "/sitemap/",
     body,
+    ogImage: photoFor("sitemap").src,
     schema: [breadcrumbSchema(site, [HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }])],
   });
 }
@@ -199,14 +206,16 @@ export function notFoundPage(site, { index }) {
     <p class="muted">The page you asked for does not exist, or it moved when we last refreshed the
     directory. Try one of these instead.</p>
     <p class="mt-2">
-      <a class="btn btn--blue" href="/find/">Find rentals by town</a>
-      <a class="btn btn--outline" href="/partners/">All partners</a>
+      <a class="btn btn--primary" href="/partners/">Rent Now</a>
+      <a class="btn btn--outline" href="/find/">Find rentals by town</a>
       <a class="btn btn--outline" href="/search/">Search the site</a>
     </p>
+    ${banner(photoFor("404"), { alt: `Florida e-bike rentals - ${photoFor("404").alt}` })}
   </div>
 </section>
 <section class="section section--tint">
   <div class="wrap">
+    ${figure(secondPhotoFor("404"), { alt: `Florida e-bike rentals - ${secondPhotoFor("404").alt}` })}
     <h2>Popular towns</h2>
     ${linkCloud(index.cities.slice(0, 30).map((c) => ({ href: c.url, label: c.name, count: c.listings.length })))}
   </div>

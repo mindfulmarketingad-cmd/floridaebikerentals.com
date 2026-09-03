@@ -11,7 +11,10 @@ import { mkdirSync, writeFileSync, readFileSync, cpSync, rmSync, existsSync, sta
 import { join, dirname } from "node:path";
 
 import { slugify, isoDate } from "./src/util.mjs";
-import { ROOT, loadSite, loadListings, loadBlog, loadStaticPages, buildIndex, statsFor, assignTitles, SEARCH_QUERIES } from "./src/data.mjs";
+import {
+  ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
+  buildIndex, statsFor, assignTitles, SEARCH_QUERIES, CONTENT_HUBS,
+} from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
@@ -19,6 +22,7 @@ import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/page
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
+import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -61,7 +65,10 @@ const blog = loadBlog();
 const pages = loadStaticPages();
 const stats = statsFor(listings);
 const queries = SEARCH_QUERIES.map((query) => ({ query, slug: slugify(query), url: `/search/${slugify(query)}/` }));
-const ctx = { listings, index, blog, stats, queries, pages };
+const authors = loadAuthors();
+const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
+const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries };
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -194,6 +201,63 @@ for (const post of blog) {
   });
 }
 
+/* editorial hubs: trails, costs */
+for (const hub of CONTENT_HUBS) {
+  const entries = hubEntries[hub.slug];
+  write(`/${hub.slug}/`, contentHub(site, hub, entries, ctx), {
+    priority: 0.8,
+    changefreq: "weekly",
+    group: "pages",
+    search: {
+      u: `/${hub.slug}/`,
+      t: hub.h1,
+      s: hub.label,
+      d: hub.description.slice(0, 130),
+      k: `${hub.label} ${hub.h1} ${entries.map((e) => e.title).join(" ")}`.toLowerCase(),
+      w: 10,
+    },
+  });
+  for (const entry of entries) {
+    write(entry.url, contentEntry(site, hub, entry, ctx), {
+      priority: 0.7,
+      changefreq: "monthly",
+      lastmod: isoDate(entry.updated || entry.date),
+      group: hub.slug,
+      search: {
+        u: entry.url,
+        t: entry.title,
+        s: hub.label,
+        d: entry.description,
+        k: `${entry.title} ${(entry.tags || []).join(" ")} ${entry.category || ""}`.toLowerCase(),
+        w: 7,
+      },
+    });
+  }
+}
+
+/* author profiles */
+write("/authors/", authorsHub(site, authors, ctx), {
+  priority: 0.5,
+  changefreq: "monthly",
+  group: "pages",
+  search: { u: "/authors/", t: "Authors", s: "Authors", d: "The people who write this site.", k: "authors writers team about", w: 5 },
+});
+for (const author of authors) {
+  write(author.url, authorPage(site, author, ctx), {
+    priority: 0.4,
+    changefreq: "monthly",
+    group: "pages",
+    search: {
+      u: author.url,
+      t: author.name,
+      s: "Author",
+      d: author.short,
+      k: `${author.name} ${author.role} ${author.expertise.join(" ")}`.toLowerCase(),
+      w: 3,
+    },
+  });
+}
+
 /* search hub + curated query pages */
 write("/search/", searchHub(site, ctx), {
   priority: 0.7,
@@ -262,7 +326,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "reviews", "blog", "search"];
+const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "search"];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);

@@ -20,11 +20,14 @@ zero-dependency Node build script.
 | Partner listings | `/partners/<business>/` | 561 |
 | Reviews hub (paginated) | `/reviews/`, `/reviews/page/N/` | 9 |
 | Review pages | `/reviews/<business>/` | 561 |
-| Blog hub + guides | `/blog/`, `/blog/<slug>/` | 10 |
+| Blog hub + guides | `/blog/`, `/blog/<slug>/` | 14 |
+| Trails hub + guides | `/trails/`, `/trails/<slug>/` | 4 |
+| Costs hub + guides | `/costs/`, `/costs/<slug>/` | 5 |
+| Author profiles | `/authors/`, `/authors/<slug>/` | 4 |
 | Search hub + queries | `/search/`, `/search/<query>/` | 31 |
 | Static pages | `/about/` `/contact/` `/disclaimer/` `/privacy/` `/terms/` `/sitemap/` | 6 |
 
-Around 1,380 pages, built in roughly two seconds.
+Around 1,400 pages, built in roughly two seconds.
 
 ## Requirements
 
@@ -61,10 +64,32 @@ matters for a listing that already ranks, add a redirect in your host config.
 ## Editing content
 
 - **Blog posts** — Markdown files in `content/blog/`. Front matter sets `title`, `metaTitle`,
-  `description`, `date`, `updated`, `category`, `tags` and `readingTime`. New files are picked
-  up automatically and added to the hub, sitemap and search index.
+  `description`, `date`, `updated`, `author`, `category`, `tags` and `readingTime`. New files are
+  picked up automatically and added to the hub, sitemap and search index.
+- **Trail and cost guides** — Markdown in `content/trails/` and `content/costs/`. Same front
+  matter, plus optional `towns` (an array of town slugs, which generates a "rent nearby" listicle
+  and map at the foot of the guide) and display facts such as `distance`, `surface`, `difficulty`,
+  `typical` and `range`. Add a hub by adding an entry to `CONTENT_HUBS` in `src/data.mjs` and a
+  matching content directory.
+- **Authors** — Markdown in `content/authors/`, with `name`, `role`, `expertise`, `short` and a
+  bio in the body. Reference one from a post with `author: <filename-slug>` and the byline, author
+  card, profile page and `Person` schema are generated automatically.
+- **FAQs** — add an `## FAQs` (or `## Frequently asked questions`) section to any guide with `###`
+  question headings. The build lifts it out of the prose, renders it as an accordion and emits
+  `FAQPage` schema.
+- **Shortcodes** — drop these on a line of their own in any guide:
+  `{{LISTICLE|city:Destin|count:12|radius:20}}` renders a live, ranked listicle of directory
+  listings near a town with a toggleable map; `{{MAP|city:Destin|radius:20}}` renders just the map;
+  `{{PHOTO|id:beach|alt:...}}` inserts a library photo; `{{CTA|title:...|label:Rent Now|href:/partners/}}`
+  inserts an inline call to action. Because they resolve at build time, a listicle in a post is
+  never out of date with the directory.
 - **Static pages** — Markdown in `content/pages/`. `{{CONTACT_FORM}}` in `contact.md` is
   replaced with the rendered form.
+- **Photos** — `src/images.mjs` is the photo library. Add a file to `assets/img/`, add an entry
+  with its real dimensions, alt text and caption, and it enters the rotation. Every page gets a
+  deterministic featured image plus at least one more, seeded from its slug so a rebuild never
+  reshuffles the site. Photos shown beside a specific business are captioned as stock so a reader
+  never mistakes one for that shop's own premises.
 - **Site settings** — `data/site.json` holds the domain, contact email, AdSense publisher ID
   and the optional `contactFormEndpoint`. Set that endpoint to a form handler URL and the
   contact form posts to it; leave it empty and the form falls back to opening the visitor's
@@ -74,7 +99,8 @@ matters for a listing that already ranks, add a redirect in your host config.
 ## SEO structure
 
 - One `<h1>` per page, a unique `<title>` under 62 characters and a unique meta description
-  under 160 — all enforced by `npm run verify`, which also checks every internal link.
+  under 160 — all enforced by `npm run verify`, which also checks every internal link and that
+  every page carries a featured image plus at least one more.
 - Canonical URL, Open Graph and Twitter card metadata on every page.
 - JSON-LD on every page: `Organization` and `WebSite` (with `SearchAction`) on the homepage,
   `BreadcrumbList` everywhere, `BicycleStore` with `AggregateRating` and `openingHours` on
@@ -83,7 +109,8 @@ matters for a listing that already ranks, add a redirect in your host config.
 - Internal linking runs Home → hub → detail and back: every partner page links up to its town,
   region and reviews page and across to its six nearest neighbours; every town page links to
   its region, its nearest towns and relevant guides.
-- `sitemap.xml` is a sitemap index over six section sitemaps; `/sitemap/` is the human version.
+- `sitemap.xml` is a sitemap index over eight section sitemaps; `/sitemap/` is the human version.
+- Author profiles carry `ProfilePage` and `Person` schema, and every guide names a real author.
 - `robots.txt` allows everything except query-string URLs, which carry no unique content.
 
 ## Deployment
@@ -98,6 +125,19 @@ The output in `dist/` is plain static files — any static host works.
 
 Point the domain at the host, make sure HTTPS is on, and submit
 `https://floridaebikerentals.com/sitemap.xml` in Google Search Console.
+
+## Location awareness
+
+Two places use the browser geolocation API, which always asks permission first:
+
+- the homepage carousel, which opens on the rentals nearest the visitor;
+- `/partners/`, which re-sorts the whole listicle by distance and adds a "x mi away" badge to each
+  shop.
+
+Both consult the Permissions API first, so an already-granted permission resolves with no prompt
+and a denied one skips straight to the statewide ranking. Coordinates are used inside the visitor's
+browser only and are never transmitted or stored. A visitor who declines is not asked again for the
+rest of the session, and every page works normally without location.
 
 ## Security
 

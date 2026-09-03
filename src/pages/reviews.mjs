@@ -5,6 +5,7 @@ import {
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
 import { statsFor, nearbyListings } from "../data.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const REVIEWS_CRUMB = { href: "/reviews/", label: "Reviews" };
@@ -94,6 +95,9 @@ ${breadcrumbs(crumbs)}
       { value: stats.avgRating, label: "Directory average" },
       { value: String(stats.cities), label: "Towns" },
     ])}
+    ${banner(photoFor(`reviews-${pageNumber}`), {
+      alt: `Florida e-bike rental reviews - ${photoFor(`reviews-${pageNumber}`).alt}`,
+    })}
   </div>
 </section>
 
@@ -124,6 +128,9 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor(`reviews-${pageNumber}`), {
+      alt: `Riding a rented e-bike in Florida - ${secondPhotoFor(`reviews-${pageNumber}`).alt}`,
+    })}
     <h2>How we use review data</h2>
     <div class="prose">
       <p>Every rating on this site is Google's, not ours. We do not write, solicit, edit or moderate
@@ -154,6 +161,7 @@ ${adSlotScript(site, 1)}
     ),
     path,
     body,
+    ogImage: photoFor(`reviews-${pageNumber}`).src,
     prev: pageNumber === 2 ? "/reviews/" : pageNumber > 2 ? `/reviews/page/${pageNumber - 1}/` : "",
     next: pageNumber < totalPages ? `/reviews/page/${pageNumber + 1}/` : "",
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
@@ -232,6 +240,15 @@ export function reviewPage(site, listing, { listings, index }) {
 
 <div class="wrap detail-layout">
   <div>
+    ${
+      listing.photo
+        ? `<div class="photo-hero mb-2"><img src="${attr(listing.photo)}" alt="${attr(
+            `${listing.name} in ${listing.city}, Florida`
+          )}" loading="eager" decoding="async" referrerpolicy="no-referrer" data-fallback="1" width="800" height="500"></div>`
+        : banner(photoFor(`r-${listing.slug}`), {
+            alt: `E-bike rentals in ${listing.city}, Florida - ${photoFor(`r-${listing.slug}`).alt}`,
+          })
+    }
     <div class="prose">
       <h2>Review summary</h2>
       <p>${esc(verdict)}</p>
@@ -274,6 +291,12 @@ export function reviewPage(site, listing, { listings, index }) {
 
     <h2 class="mt-3">${esc(listing.name)} review FAQs</h2>
     ${faqBlock(faqs)}
+
+    ${figure(secondPhotoFor(`r-${listing.slug}`), {
+      alt: `E-bike riding in ${listing.city}, Florida - ${secondPhotoFor(`r-${listing.slug}`).alt}`,
+      caption: `Illustrative photo of e-bike riding in Florida, not of ${listing.name}.`,
+      className: "figure--stock",
+    })}
 
     <h2 class="mt-3">Compare nearby shops</h2>
     <div class="grid grid--3">
@@ -331,7 +354,7 @@ ${adSlotScript(site, 1)}
     ),
     path: listing.reviewUrl,
     body,
-    ogImage: listing.photo || "/assets/img/og-default.png",
+    ogImage: listing.photo || photoFor(`r-${listing.slug}`).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [breadcrumbSchema(site, crumbs), faqSchema(faqs)],
   });

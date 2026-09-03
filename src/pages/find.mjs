@@ -5,6 +5,7 @@ import {
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
 import { statsFor, nearbyCities } from "../data.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
@@ -73,6 +74,7 @@ ${breadcrumbs([HOME_CRUMB, { href: "/find/", label: "Find" }])}
       { value: String(index.regions.length), label: "Regions" },
       { value: formatReviews(stats.reviews), label: "Google reviews" },
     ])}
+    ${banner(photoFor("find"), { alt: `Find e-bike rentals across Florida - ${photoFor("find").alt}` })}
   </div>
 </section>
 
@@ -118,6 +120,7 @@ ${adSlot(site, "")}
 
 <section class="section section--tint">
   <div class="wrap">
+    ${figure(secondPhotoFor("find"), { alt: `Riding a rented e-bike in Florida - ${secondPhotoFor("find").alt}` })}
     <h2>All Florida towns with e-bike rentals</h2>
     <p class="muted">${esc(String(index.cities.length))} towns, ordered by how many rental partners we
     track in each.</p>
@@ -138,6 +141,7 @@ ${adSlotScript(site, 1)}
     description: `Browse Florida e-bike rentals by region and town. ${stats.total} rental partners across ${stats.cities} Florida towns, ranked by Google rating and review volume.`,
     path: "/find/",
     body,
+    ogImage: photoFor("find").src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, [HOME_CRUMB, FIND_CRUMB]),
@@ -211,6 +215,7 @@ ${breadcrumbs(crumbs)}
       { value: stats.avgRating, label: "Average rating" },
       { value: formatReviews(stats.reviews), label: "Google reviews" },
     ])}
+    ${banner(photoFor(region.slug), { alt: `E-bike rentals in ${region.name}, Florida - ${photoFor(region.slug).alt}` })}
   </div>
 </section>
 
@@ -255,6 +260,7 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor(region.slug), { alt: `Riding in ${region.name}, Florida - ${secondPhotoFor(region.slug).alt}` })}
     <h2>Other Florida regions</h2>
     ${linkCloud(
       index.regions
@@ -282,6 +288,7 @@ ${adSlotScript(site, 1)}
     ),
     path: region.url,
     body,
+    ogImage: photoFor(region.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -377,6 +384,7 @@ ${breadcrumbs(crumbs)}
       { value: formatReviews(stats.reviews), label: "Google reviews" },
       { value: String(withTours.length), label: "Tour operators" },
     ])}
+    ${banner(photoFor(city.slug), { alt: `E-bike rentals in ${city.name}, Florida - ${photoFor(city.slug).alt}` })}
   </div>
 </section>
 
@@ -397,6 +405,7 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor(city.slug), { alt: `Riding a rented e-bike around ${city.name}, Florida - ${secondPhotoFor(city.slug).alt}` })}
     <div class="prose">
       <h2>Renting an e-bike in ${esc(city.name)}</h2>
       <p>${esc(city.name)} sits in ${esc(city.region)}, and the ${esc(
@@ -476,7 +485,7 @@ ${adSlotScript(site, 1)}
     ),
     path: city.url,
     body,
-    ogImage: best && best.photo ? best.photo : "/assets/img/og-default.png",
+    ogImage: best && best.photo ? best.photo : photoFor(city.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -509,6 +518,7 @@ ${breadcrumbs(crumbs)}
       { value: stats.avgRating, label: "Average rating" },
       { value: formatReviews(stats.reviews), label: "Google reviews" },
     ])}
+    ${banner(photoFor(topic.slug), { alt: `${topic.h1} - ${photoFor(topic.slug).alt}` })}
   </div>
 </section>
 
@@ -525,6 +535,7 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor(topic.slug), { alt: `${topic.h1} - ${secondPhotoFor(topic.slug).alt}` })}
     <h2>Browse by region instead</h2>
     ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
     <h3 class="mt-3">Other ways to search</h3>
@@ -543,6 +554,7 @@ ${adSlotScript(site, 1)}
     description: clamp(topic.intro),
     path: topic.url,
     body,
+    ogImage: photoFor(topic.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),

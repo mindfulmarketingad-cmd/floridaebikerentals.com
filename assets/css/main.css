@@ -165,15 +165,20 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.6rem; }
 
 /* ---------- buttons ---------- */
+/* CTAs are deliberately square-cornered: sharp edges read as action, and they
+   stand apart from the rounded content cards around them. */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  font-weight: 800; font-size: .98rem; padding: .8rem 1.3rem; border-radius: 999px;
+  font-weight: 800; font-size: .98rem; padding: .85rem 1.45rem; border-radius: 0;
   border: 2px solid transparent; cursor: pointer; text-decoration: none; font-family: inherit;
+  letter-spacing: .01em;
   transition: transform .16s ease, background .16s ease, box-shadow .16s ease, color .16s ease;
 }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
-.btn--primary { background: var(--sun-500); color: var(--blue-900); box-shadow: 0 8px 20px rgba(255, 194, 51, .34); }
+.btn--primary { background: var(--sun-500); color: var(--blue-900); box-shadow: 0 6px 0 #d9a01f; }
+.btn--primary:hover { box-shadow: 0 4px 0 #d9a01f; }
+.btn--primary:active { box-shadow: 0 2px 0 #d9a01f; }
 .btn--primary:hover { background: var(--sun-400); color: var(--blue-900); }
 .btn--blue { background: var(--blue-600); color: #fff; box-shadow: var(--shadow); }
 .btn--blue:hover { background: var(--blue-700); color: #fff; }
@@ -444,7 +449,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .pagelink-cloud { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; padding: 0; margin: 0; }
 .pagelink-cloud li { margin: 0; }
 .pagelink-cloud a {
-  display: inline-block; background: var(--white); border: 1px solid var(--line); border-radius: 999px;
+  display: inline-block; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-s);
   padding: .42rem .85rem; font-size: .9rem; font-weight: 600; color: var(--ink); text-decoration: none;
 }
 .pagelink-cloud a:hover { border-color: var(--blue-400); color: var(--blue-700); background: var(--blue-50); }
@@ -583,7 +588,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 @media (pointer: coarse), (max-width: 900px) {
   /* WCAG 2.5.8 asks for 24px minimum; 44px is the comfortable thumb target. */
   .btn { min-height: 48px; }
-  .btn--sm { min-height: 44px; padding: .6rem 1rem; font-size: .92rem; }
+  .btn--sm { min-height: 44px; padding: .62rem 1.05rem; font-size: .92rem; }
   .carousel__btn { width: 44px; height: 44px; }
   .map__zoom button { width: 44px; height: 44px; font-size: 1.25rem; }
   .map__pin { width: 40px; height: 46px; }
@@ -622,7 +627,7 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
     border-top: 1px solid var(--line);
     box-shadow: 0 -4px 18px rgba(13, 23, 48, .12);
   }
-  .action-bar .btn { min-height: 50px; padding: .7rem .8rem; font-size: .95rem; border-radius: var(--radius); }
+  .action-bar .btn { min-height: 50px; padding: .7rem .8rem; font-size: .95rem; border-radius: 0; }
   /* Keep the footer clear of the fixed bar. */
   body.has-action-bar .site-footer { padding-bottom: 6.5rem; }
 }
@@ -659,3 +664,78 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   .footer-nav ul { gap: .2rem 1rem; font-size: .92rem; }
   .prose blockquote { padding: .8rem 1rem; }
 }
+
+/* ==========================================================================
+   Editorial: bylines, author cards, figures and page banners
+   ========================================================================== */
+
+.byline { display: flex; align-items: center; gap: .75rem; margin: 1.1rem 0 0; }
+.byline__avatar {
+  flex: none; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--blue-600); color: #fff; font-family: var(--font-display); font-weight: 800;
+  font-size: .95rem; letter-spacing: .02em;
+}
+.byline__avatar--lg { width: 62px; height: 62px; font-size: 1.25rem; }
+.byline__text { display: grid; gap: .1rem; font-size: .94rem; }
+.byline__meta { color: var(--ink-mute); font-size: .86rem; }
+
+.author-head { display: flex; align-items: center; gap: 1rem; }
+.author-head h1 { margin-bottom: .2rem; }
+
+.author-card {
+  display: flex; gap: 1.1rem; align-items: flex-start; margin: 2.4rem 0 0;
+  background: var(--blue-50); border: 1px solid var(--blue-100); border-radius: var(--radius-l);
+  padding: 1.3rem;
+}
+.author-card h2 { font-size: 1.05rem; margin-bottom: .1rem; }
+.author-card p { font-size: .95rem; }
+@media (max-width: 560px) { .author-card { flex-direction: column; gap: .8rem; } }
+
+.figure { margin: 1.8rem 0; }
+.figure img {
+  width: 100%; border-radius: var(--radius-l); border: 1px solid var(--line);
+  box-shadow: var(--shadow-s); object-fit: cover; aspect-ratio: 16 / 10; background: var(--blue-50);
+}
+.figure figcaption { margin-top: .5rem; font-size: .88rem; color: var(--ink-mute); }
+
+.page-banner { margin: 1.2rem 0 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.page-banner img {
+  width: 100%; aspect-ratio: 21 / 9; max-height: 400px; object-fit: cover; background: var(--blue-50);
+}
+@media (max-width: 620px) {
+  .page-banner { border-radius: var(--radius-l); }
+  .page-banner img { aspect-ratio: 16 / 10; }
+  .figure img { aspect-ratio: 4 / 3; }
+  .page-banner img { max-height: 260px; }
+}
+
+/* Photo used beside a specific business is always labelled as illustrative. */
+.figure--stock figcaption::before {
+  content: "Stock photo. "; font-weight: 700; color: var(--ink-soft);
+}
+
+/* Inline CTA dropped into editorial content by the {{CTA}} shortcode. */
+.cta-inline {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+  background: var(--blue-50); border: 1px solid var(--blue-100); border-left: 5px solid var(--blue-600);
+  padding: 1.1rem 1.3rem; margin: 2rem 0;
+}
+.cta-inline p { margin: 0; max-width: 46ch; }
+
+/* Distance badge shown on listings once the visitor shares their location. */
+.distance-badge {
+  display: inline-flex; align-self: flex-start; align-items: center; gap: .3rem;
+  background: var(--blue-600); color: #fff; font-size: .82rem; font-weight: 800;
+  padding: .25rem .6rem; border-radius: var(--radius-s); width: auto;
+}
+
+/* .btn sets display:inline-flex, which beats the user agent's [hidden] rule,
+   so hiding a button in JS needs this to actually take effect. */
+[hidden] { display: none !important; }
+.nearby-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .8rem;
+  background: var(--blue-50); border: 1px solid var(--blue-100); padding: .9rem 1.1rem;
+  border-radius: var(--radius); margin-bottom: 1.2rem;
+}
+.nearby-bar p { margin: 0; font-weight: 700; }
+.nearby-bar .muted { font-weight: 500; }

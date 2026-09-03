@@ -1,4 +1,5 @@
 import { esc, attr, formatReviews } from "../util.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
@@ -91,8 +92,8 @@ export function homePage(site, { listings, index, blog, stats }) {
           <li><strong>${esc(stats.avgRating)}</strong> average rating</li>
         </ul>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="/find/">Find rentals near you</a>
-          <a class="btn btn--ghost" href="/partners/">Browse all partners</a>
+          <a class="btn btn--primary" href="/partners/">Rent Now</a>
+          <a class="btn btn--ghost" href="/find/">Find rentals near you</a>
         </div>
       </div>
       <div class="carousel" data-carousel data-near-me>
@@ -115,7 +116,11 @@ export function homePage(site, { listings, index, blog, stats }) {
 
 <section class="section">
   <div class="wrap">
-    <div class="section__head">
+    ${banner(photoFor("home"), {
+      alt: `Florida e-bike rentals - ${photoFor("home").alt}`,
+      eager: false,
+    })}
+    <div class="section__head mt-3">
       <h2>Find Ebike Rentals in Florida</h2>
       <p>Start with the region you are visiting. Every region page lists the towns inside it, and every
       town page ranks the local shops by Google rating and review volume, so the shortlist worth calling
@@ -217,7 +222,11 @@ ${adSlot(site, "")}
       Pinellas Trail covers 45 miles from St. Petersburg to Tarpon Springs. Sanibel has 25 miles of path
       separated from traffic, and Key West is a town where a bike is genuinely faster than a car.</p>
       <p>Our <a href="/blog/best-ebike-rides-florida/">ten best e-bike rides in Florida</a> covers each
-      of them, with the town page for renting nearby.</p>
+      of them, with the town page for renting nearby, and our
+      <a href="/trails/">trail guides</a> cover the routes in detail.</p>
+      ${figure(secondPhotoFor("home"), {
+        alt: `Riding a rented electric bike in Florida - ${secondPhotoFor("home").alt}`,
+      })}
     </div>
   </div>
 </section>
@@ -262,11 +271,11 @@ ${adSlot(site, "")}
 <section class="section">
   <div class="wrap">
     ${ctaBand({
-      title: "Run an e-bike rental shop in Florida?",
-      text: "Listings are free and always will be. Send us your details and we will add or correct your shop, usually within two business days.",
+      title: "Find the e-bike rentals closest to you",
+      text: "The partner directory sorts itself by distance from wherever you are, so the shops at the top are the ones you can walk or drive to today.",
       buttons: [
-        { href: "/contact/", label: "Add or claim your listing", variant: "btn--primary" },
-        { href: "/partners/", label: "See the directory", variant: "btn--ghost" },
+        { href: "/partners/", label: "Rent Now", variant: "btn--primary" },
+        { href: "/contact/", label: "Add your shop", variant: "btn--ghost" },
       ],
     })}
   </div>
@@ -278,8 +287,12 @@ ${adSlot(site, "")}
     <div class="grid grid--4 mt-2">
       ${linkCard({ href: "/find/", title: "Find", text: "Every Florida region and town we cover.", more: "Open Find" })}
       ${linkCard({ href: "/partners/", title: "Partners", text: "The full listicle of rental partners.", more: "Open Partners" })}
+      ${linkCard({ href: "/trails/", title: "Trails", text: "Where to ride once you have the bike.", more: "Open Trails" })}
+      ${linkCard({ href: "/costs/", title: "Costs", text: "Rates, deposits, delivery and waivers.", more: "Open Costs" })}
       ${linkCard({ href: "/reviews/", title: "Reviews", text: "Rating breakdowns for every shop.", more: "Open Reviews" })}
+      ${linkCard({ href: "/blog/", title: "Blog", text: "Guides, laws and city listicles.", more: "Open Blog" })}
       ${linkCard({ href: "/search/", title: "Search", text: "Search every page on the site.", more: "Open Search" })}
+      ${linkCard({ href: "/authors/", title: "Authors", text: "The people who write this site.", more: "Open Authors" })}
     </div>
   </div>
 </section>

@@ -546,6 +546,105 @@
     buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "14", 10) });
   });
 
+  /* ------------------------------------- sort a listicle by distance */
+  var nearbyRoot = $("[data-nearby-sort]");
+  if (nearbyRoot) {
+    var nearbyStatus = $("[data-nearby-status]", nearbyRoot);
+    var nearbyButton = $("[data-nearby-button]", nearbyRoot);
+    var NEARBY_KEY = "fer:geo-dismissed";
+
+    var nearbyDismissed = function () {
+      try { return window.sessionStorage.getItem(NEARBY_KEY) === "1"; } catch (err) { return false; }
+    };
+    var rememberNearby = function (value) {
+      try { window.sessionStorage.setItem(NEARBY_KEY, value); } catch (err) { /* private mode */ }
+    };
+
+    var sortByDistance = function (lat, lng) {
+      var cards = $$("[data-filter-item]", nearbyRoot);
+      if (!cards.length) return 0;
+      var parent = cards[0].parentNode;
+      var placed = 0;
+
+      cards.forEach(function (card) {
+        var cLat = parseFloat(card.getAttribute("data-lat"));
+        var cLng = parseFloat(card.getAttribute("data-lng"));
+        if (!isFinite(cLat) || !isFinite(cLng)) { card.dataset.distance = "99999"; return; }
+        var d = milesBetween(lat, lng, cLat, cLng);
+        card.dataset.distance = d.toFixed(2);
+        placed++;
+
+        var host = $(".listicle__rank", card);
+        if (host && !$(".distance-badge", card)) {
+          var badge = el("span", "distance-badge", d.toFixed(d < 10 ? 1 : 0) + " mi away");
+          var title = $(".listicle__title", card);
+          if (title && title.parentNode) title.parentNode.insertBefore(badge, title.nextSibling);
+        } else {
+          var existing = $(".distance-badge", card);
+          if (existing) existing.textContent = d.toFixed(d < 10 ? 1 : 0) + " mi away";
+        }
+      });
+
+      cards.slice()
+        .sort(function (a, b) { return parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance); })
+        .forEach(function (card, i) {
+          parent.appendChild(card);
+          var rank = $(".listicle__rank", card);
+          if (rank) rank.textContent = String(i + 1);
+        });
+      return placed;
+    };
+
+    var nearbyLocate = function (auto) {
+      if (!navigator.geolocation) {
+        if (nearbyStatus) nearbyStatus.textContent = "Location is not available in this browser.";
+        return;
+      }
+      if (nearbyStatus) nearbyStatus.textContent = "Finding the rentals closest to you\u2026";
+      if (nearbyButton) nearbyButton.disabled = true;
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          var placed = sortByDistance(pos.coords.latitude, pos.coords.longitude);
+          rememberNearby("0");
+          if (nearbyStatus) {
+            nearbyStatus.textContent = placed
+              ? "Sorted by distance from you \u2014 closest first."
+              : "No mapped listings on this page.";
+          }
+          if (nearbyButton) nearbyButton.hidden = true;
+          nearbyRoot.setAttribute("data-nearby-active", "1");
+        },
+        function (error) {
+          if (!error || error.code !== 3) rememberNearby("1");
+          if (nearbyStatus) {
+            nearbyStatus.textContent = error && error.code === 1
+              ? "Location off \u2014 showing our statewide ranking instead."
+              : "Location unavailable \u2014 showing our statewide ranking instead.";
+          }
+          if (nearbyButton) { nearbyButton.disabled = false; nearbyButton.hidden = false; }
+        },
+        { enableHighAccuracy: false, timeout: auto ? 12000 : 9000, maximumAge: 600000 }
+      );
+    };
+
+    if (nearbyButton) nearbyButton.addEventListener("click", function () { nearbyLocate(false); });
+
+    var nearbyAuto = function () {
+      if (nearbyDismissed()) return;
+      if (!navigator.permissions || !navigator.permissions.query) { nearbyLocate(true); return; }
+      navigator.permissions.query({ name: "geolocation" }).then(function (status) {
+        if (status.state === "denied") {
+          if (nearbyStatus) nearbyStatus.textContent = "Location off \u2014 showing our statewide ranking.";
+          return;
+        }
+        nearbyLocate(true);
+      }).catch(function () { nearbyLocate(true); });
+    };
+
+    if (d.readyState === "complete") nearbyAuto();
+    else window.addEventListener("load", nearbyAuto, { once: true });
+  }
+
   /* ------------------------------------------------ listicle filters */
   var filterForm = $("[data-filter-form]");
   if (filterForm) {

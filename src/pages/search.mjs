@@ -3,6 +3,7 @@ import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, mapPanel,
 } from "../components.mjs";
+import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const SEARCH_CRUMB = { href: "/search/", label: "Search" };
@@ -33,6 +34,7 @@ ${breadcrumbs([HOME_CRUMB, SEARCH_CRUMB])}
       <p class="result-count" data-search-summary aria-live="polite"></p>
       <div data-search-results></div>
     </div>
+    ${banner(photoFor("search"), { alt: `Search Florida e-bike rentals - ${photoFor("search").alt}` })}
   </div>
 </section>
 
@@ -48,6 +50,7 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${figure(secondPhotoFor("search"), { alt: `Florida e-bike rentals - ${secondPhotoFor("search").alt}` })}
     <h2>Or browse instead</h2>
     <div class="grid grid--4">
       ${linkCard({ href: "/find/", title: "Find by town", text: `All ${index.cities.length} Florida towns we cover.`, more: "Open Find" })}
@@ -65,6 +68,7 @@ ${adSlotScript(site, 1)}
     description: `Search every page on Florida Ebike Rentals: ${stats.total} rental partners, ${stats.cities} town pages, review breakdowns and riding guides.`,
     path: "/search/",
     body,
+    ogImage: photoFor("search").src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, [HOME_CRUMB, SEARCH_CRUMB]),
@@ -140,6 +144,7 @@ ${breadcrumbs(crumbs)}
       <p class="result-count" data-search-summary aria-live="polite"></p>
       <div data-search-results></div>
     </div>
+    ${banner(photoFor(slug), { alt: `${titleQuery} - ${photoFor(slug).alt}` })}
   </div>
 </section>
 
@@ -157,6 +162,7 @@ ${adSlot(site, "")}
 
 <section class="section section--tint">
   <div class="wrap">
+    ${figure(secondPhotoFor(slug), { alt: `${titleQuery} - ${secondPhotoFor(slug).alt}` })}
     <h2>Other popular searches</h2>
     ${linkCloud(
       data.queries
@@ -176,6 +182,7 @@ ${adSlotScript(site, 1)}
     ),
     path: url,
     body,
+    ogImage: photoFor(slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
