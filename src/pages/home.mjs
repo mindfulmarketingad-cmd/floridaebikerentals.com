@@ -46,6 +46,7 @@ export const HOME_FAQS = [
 ];
 
 export function homePage(site, { listings, index, blog, stats }) {
+  const repairTopic = index.topics.find((t) => t.slug === "ebike-repair-and-service-in-florida");
   const featured = listings.filter((l) => l.is_rental && l.reviews >= 25).slice(0, 14);
   const heroSlides = featured.slice(0, 12);
   const topTen = listings.filter((l) => l.is_rental && l.reviews >= 40).slice(0, 10);
@@ -188,6 +189,16 @@ ${adSlot(site, "")}
       ranking is generated from public rating data, not from who pays us. That is covered in full on our
       <a href="/about/">about page</a> and in our <a href="/disclaimer/">disclaimer</a>.</p>
 
+      <h2>All E-Bike Rentals and More Across Florida</h2>
+      <p>Renting is the core of it, but a rental rarely stands alone. Alongside ${esc(
+        String(stats.total)
+      )} rental partners we track the shops that also handle repairs and service${
+    repairTopic ? ` — ${esc(String(repairTopic.listings.length))} of them` : ""
+  } — plus operators running guided tours and the ones that deliver. Our <a href="/trails/">trail
+      guides</a> cover where to actually ride once you have the bike, and the <a href="/shop/">shop</a>
+      is there for anyone who ends up riding in Florida often enough that buying beats renting.
+      Rentals, repairs, guided rides, trails and gear, in one place instead of a dozen open tabs.</p>
+
       <h2>How Does Florida Ebike Rentals Work?</h2>
       <p>Three steps, and no account required.</p>
       <ol>
@@ -207,6 +218,16 @@ ${adSlot(site, "")}
       marked permanently or temporarily closed are removed at import, which is why this directory is
       smaller and more accurate than a raw search. Spot something wrong? Tell us on the
       <a href="/contact/">contact page</a> and we will fix it.</p>
+
+      <h2>We Put the Customer First</h2>
+      <p>Every <a href="/blog/">guide</a> here is written by someone who has actually rented, ridden or
+      checked the thing they are describing — read <a href="/authors/">who writes it</a> if you want to
+      know who. They cover the questions that actually change a booking: what an e-bike class means,
+      what a card hold really costs, what to check before you sign. On every directory page you can
+      filter by service, sort by rating or review count, and toggle a map, so ruling shops out takes
+      seconds instead of reading through all of them one by one. Whatever you need the bike for — a
+      family week at the beach, a solo trail day, a proper tour — the filters and the guides are built
+      to get you to the right shop, not just any shop.</p>
 
       <h2>Where e-bike riding in Florida is best</h2>
       <p>Florida is flat, which makes people assume pedal assist is unnecessary. What Florida actually
