@@ -1,4 +1,4 @@
-import { esc, attr, prettyDate, isoDate, clamp } from "../util.mjs";
+import { esc, attr, prettyDate, isoDate, clamp, plural } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import { linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema, ctaBand } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
@@ -29,19 +29,12 @@ ${breadcrumbs([HOME_CRUMB, BLOG_CRUMB])}
 
 <section class="section section--tint">
   <div class="wrap">
-    <div class="grid grid--3">
-      ${blog
-        .map((post) =>
-          linkCard({
-            href: post.url,
-            title: post.title,
-            meta: `${post.category} · ${prettyDate(post.date)} · ${post.readingTime || 6} min read`,
-            text: post.description,
-            more: "Read the guide",
-          })
-        )
-        .join("")}
-    </div>
+    <h2>All ${blog.length} ${esc(plural(blog.length, "guide"))}</h2>
+    <div class="mt-2">${linkCloud(
+      [...blog]
+        .sort((a, b) => String(a.title).localeCompare(String(b.title), "en"))
+        .map((post) => ({ href: post.url, label: post.title }))
+    )}</div>
   </div>
 </section>
 
