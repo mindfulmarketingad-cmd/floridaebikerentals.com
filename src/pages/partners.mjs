@@ -365,6 +365,20 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     }
   </aside>
 </div>
+
+<div class="action-bar">
+  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call</a>` : ""}
+  ${
+    listing.maps_link
+      ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
+      : ""
+  }
+  ${
+    listing.website
+      ? `<a class="btn btn--outline" href="${attr(listing.website)}" rel="nofollow noopener" target="_blank">Website</a>`
+      : ""
+  }
+</div>
 ${adSlotScript(site, 1)}
 `;
 
@@ -373,6 +387,7 @@ ${adSlotScript(site, 1)}
     description: metaDescriptionFor(listing),
     path: listing.url,
     body,
+    bodyAttrs: tel || listing.website || listing.maps_link ? 'class="has-action-bar"' : "",
     ogType: "business.business",
     ogImage: listing.photo || "/assets/img/og-default.png",
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],

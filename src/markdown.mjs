@@ -86,10 +86,11 @@ export function render(markdown) {
       }
       const body = rows.filter((r) => !r.every((c) => /^:?-{2,}:?$/.test(c)));
       const head = body.shift() || [];
+      // Wrapped so a wide table scrolls itself instead of widening the page.
       html.push(
-        `<table><thead><tr>${head.map((c) => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${body
+        `<div class="table-scroll"><table><thead><tr>${head.map((c) => `<th>${inline(c)}</th>`).join("")}</tr></thead><tbody>${body
           .map((r) => `<tr>${r.map((c) => `<td>${inline(c)}</td>`).join("")}</tr>`)
-          .join("")}</tbody></table>`
+          .join("")}</tbody></table></div>`
       );
       continue;
     }

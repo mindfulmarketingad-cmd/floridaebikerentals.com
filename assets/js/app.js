@@ -398,30 +398,84 @@
       });
     }
 
-    /* drag */
-    var drag = null;
+    /* Pointer handling. One pointer drags the map; two pointers pan and pinch
+       zoom. CSS sets touch-action:pan-y, so a vertical swipe always scrolls the
+       page instead of being swallowed by the map. */
+    var pointers = new Map();
+    var lastCentre = null;
+    var lastSpread = 0;
+
+    function centreOf() {
+      var xs = 0, ys = 0, n = 0;
+      pointers.forEach(function (p) { xs += p.x; ys += p.y; n++; });
+      return n ? { x: xs / n, y: ys / n } : null;
+    }
+    function spreadOf() {
+      var list = [];
+      pointers.forEach(function (p) { list.push(p); });
+      if (list.length < 2) return 0;
+      return Math.hypot(list[0].x - list[1].x, list[0].y - list[1].y);
+    }
+
     container.addEventListener("pointerdown", function (e) {
       if (e.target.closest(".map__pin") || e.target.closest(".map__popup") || e.target.closest(".map__zoom")) return;
-      drag = { x: e.clientX, y: e.clientY };
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      lastCentre = centreOf();
+      lastSpread = spreadOf();
       container.classList.add("is-dragging");
-      container.setPointerCapture(e.pointerId);
-    });
-    container.addEventListener("pointermove", function (e) {
-      if (!drag) return;
-      state.cx -= (e.clientX - drag.x);
-      state.cy -= (e.clientY - drag.y);
-      drag.x = e.clientX; drag.y = e.clientY;
-      place();
-    });
-    ["pointerup", "pointercancel", "pointerleave"].forEach(function (evt) {
-      container.addEventListener(evt, function () { drag = null; container.classList.remove("is-dragging"); });
+      try { container.setPointerCapture(e.pointerId); } catch (err) { /* capture is best effort */ }
     });
 
-    function zoomTo(z) {
+    container.addEventListener("pointermove", function (e) {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      var centre = centreOf();
+      if (!centre || !lastCentre) return;
+
+      if (pointers.size >= 2) {
+        e.preventDefault();
+        var spread = spreadOf();
+        if (lastSpread > 12 && spread > 12) {
+          var ratio = spread / lastSpread;
+          if (ratio > 1.22 || ratio < 0.82) {
+            zoomTo(state.z + (ratio > 1 ? 1 : -1), centre);
+            lastSpread = spread;
+            lastCentre = centreOf();
+            return;
+          }
+        }
+      }
+
+      state.cx -= centre.x - lastCentre.x;
+      state.cy -= centre.y - lastCentre.y;
+      lastCentre = centre;
+      place();
+    });
+
+    ["pointerup", "pointercancel", "pointerleave"].forEach(function (evt) {
+      container.addEventListener(evt, function (e) {
+        pointers.delete(e.pointerId);
+        lastCentre = centreOf();
+        lastSpread = spreadOf();
+        if (!pointers.size) container.classList.remove("is-dragging");
+      });
+    });
+
+    function zoomTo(z, anchor) {
       z = Math.max(MINZ, Math.min(MAXZ, z));
       if (z === state.z) return;
       var factor = Math.pow(2, z - state.z);
-      state.cx *= factor; state.cy *= factor; state.z = z;
+      if (anchor) {
+        /* Keep whatever is under the pinch (or cursor) pinned in place. */
+        var box = container.getBoundingClientRect();
+        var ox = anchor.x - box.left - container.clientWidth / 2;
+        var oy = anchor.y - box.top - container.clientHeight / 2;
+        state.cx = (state.cx + ox) * factor - ox;
+        state.cy = (state.cy + oy) * factor - oy;
+      } else {
+        state.cx *= factor; state.cy *= factor;
+      }
+      state.z = z;
       Object.keys(tileCache).forEach(function (k) { tileCache[k].remove(); delete tileCache[k]; });
       place();
     }
@@ -439,7 +493,7 @@
     container.addEventListener("wheel", function (e) {
       if (!e.ctrlKey && Math.abs(e.deltaY) < 4) return;
       e.preventDefault();
-      zoomTo(state.z + (e.deltaY < 0 ? 1 : -1));
+      zoomTo(state.z + (e.deltaY < 0 ? 1 : -1), { x: e.clientX, y: e.clientY });
     }, { passive: false });
 
     var attr = el("div", "map__attr");
@@ -449,6 +503,9 @@
     attr.appendChild(d.createTextNode("Map data © "));
     attr.appendChild(osm);
     container.appendChild(attr);
+
+    var hint = el("div", "map__hint", "Drag with two fingers to move the map, pinch to zoom");
+    container.appendChild(hint);
 
     container.addEventListener("click", function (e) { if (e.target === container || e.target.classList.contains("map__tile")) closePopup(); });
     window.addEventListener("resize", function () { window.requestAnimationFrame(place); }, { passive: true });
