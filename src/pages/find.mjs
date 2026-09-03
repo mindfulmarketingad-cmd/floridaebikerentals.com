@@ -81,19 +81,15 @@ ${breadcrumbs([HOME_CRUMB, { href: "/find/", label: "Find" }])}
 <section class="section section--tint">
   <div class="wrap">
     <h2>Browse by region</h2>
-    <div class="grid grid--3 mt-2">
-      ${index.regions
-        .map((region) =>
-          linkCard({
-            href: region.url,
-            title: `E-bike rentals in ${region.name}`,
-            meta: `${region.listings.length} partners · ${region.cities.length} towns`,
-            text: region.cities.slice(0, 5).map((c) => c.name).join(", "),
-            more: "Open region",
-          })
-        )
-        .join("")}
-    </div>
+    <div class="mt-2">${linkCloud(
+      [...index.regions]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((region) => ({
+          href: region.url,
+          label: `E-bike rentals in ${region.name}`,
+          count: region.listings.length,
+        }))
+    )}</div>
   </div>
 </section>
 
@@ -102,19 +98,11 @@ ${adSlot(site, "")}
 <section class="section">
   <div class="wrap">
     <h2>Browse by what you need</h2>
-    <div class="grid grid--3 mt-2">
-      ${index.topics
-        .map((topic) =>
-          linkCard({
-            href: topic.url,
-            title: topic.title,
-            meta: `${topic.listings.length} ${plural(topic.listings.length, "shop")}`,
-            text: clamp(topic.intro, 120),
-            more: "Open list",
-          })
-        )
-        .join("")}
-    </div>
+    <div class="mt-2">${linkCloud(
+      [...index.topics]
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((topic) => ({ href: topic.url, label: topic.title, count: topic.listings.length }))
+    )}</div>
   </div>
 </section>
 
@@ -122,14 +110,16 @@ ${adSlot(site, "")}
   <div class="wrap">
     ${figure(secondPhotoFor("find"), { alt: `Riding a rented e-bike in Florida - ${secondPhotoFor("find").alt}` })}
     <h2>All Florida towns with e-bike rentals</h2>
-    <p class="muted">${esc(String(index.cities.length))} towns, ordered by how many rental partners we
-    track in each.</p>
+    <p class="muted">${esc(String(index.cities.length))} towns, listed alphabetically, with the
+    number of rental partners we track in each.</p>
     ${linkCloud(
-      index.cities.map((city) => ({
-        href: city.url,
-        label: `${city.name} e-bike rentals`,
-        count: city.listings.length,
-      }))
+      [...index.cities]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((city) => ({
+          href: city.url,
+          label: `${city.name} e-bike rentals`,
+          count: city.listings.length,
+        }))
     )}
   </div>
 </section>
