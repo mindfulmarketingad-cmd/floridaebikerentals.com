@@ -24,6 +24,27 @@
  ],
  "products": [
   {
+   "slug": "deepower-fat-tire-ebike",
+   "name": "Deepower Ebike for Adults",
+   "brand": "Deepower",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Includes phone mount bag",
+   "image": "/assets/img/shop/deepower-fat-tire-ebike.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 879,
+   "summary": "Moped-style fat-tyre e-bike with a front headlight, tan bench seat and rear cargo rack. Ships with a handlebar phone-mount storage bag.",
+   "bullets": [
+    "Moped-style frame on fat tyres with front suspension",
+    "Tan bench seat and rear cargo rack",
+    "Built-in front headlight",
+    "Front and rear disc brakes",
+    "Ships with a handlebar phone-mount storage bag"
+   ]
+  },
+  {
    "slug": "fat-tire-moped-ebike",
    "name": "Fat Tire Moped-Style E-Bike with App",
    "brand": "",
