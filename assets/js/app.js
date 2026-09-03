@@ -756,16 +756,163 @@
       });
     }
 
+    /* ---- autocomplete: every page whose TITLE contains what was typed ---- */
+    var suggestBox = $("[data-search-suggest]", searchRoot);
+    var clearBtn = $("[data-search-clear]", searchRoot);
+    var luckyBtn = $("[data-search-lucky]", searchRoot);
+    var SUGGEST_CAP = 50;
+    var activeIndex = -1;
+    var suggestions = [];
+
+    function titleMatches(all, query) {
+      var q = query.toLowerCase();
+      var starts = [];
+      var contains = [];
+      for (var i = 0; i < all.length; i++) {
+        var at = (all[i].t || "").toLowerCase().indexOf(q);
+        if (at === 0) starts.push(all[i]);
+        else if (at > 0) contains.push(all[i]);
+      }
+      function byWeight(a, b) { return (b.w || 0) - (a.w || 0); }
+      starts.sort(byWeight);
+      contains.sort(byWeight);
+      return starts.concat(contains);
+    }
+
+    function markTitle(title, query) {
+      var at = title.toLowerCase().indexOf(query.toLowerCase());
+      var frag = d.createDocumentFragment();
+      if (at === -1) { frag.appendChild(d.createTextNode(title)); return frag; }
+      frag.appendChild(d.createTextNode(title.slice(0, at)));
+      var hit = d.createElement("b");
+      hit.textContent = title.slice(at, at + query.length);
+      frag.appendChild(hit);
+      frag.appendChild(d.createTextNode(title.slice(at + query.length)));
+      return frag;
+    }
+
+    function closeSuggest() {
+      if (!suggestBox) return;
+      suggestBox.hidden = true;
+      suggestBox.textContent = "";
+      suggestions = [];
+      activeIndex = -1;
+      if (input) input.setAttribute("aria-expanded", "false");
+    }
+
+    function highlight(next) {
+      var items = $$("li", suggestBox);
+      items.forEach(function (li) { li.classList.remove("is-active"); });
+      activeIndex = next;
+      if (next < 0 || next >= suggestions.length) return;
+      var li = items[next];
+      if (!li) return;
+      li.classList.add("is-active");
+      if (li.scrollIntoView) li.scrollIntoView({ block: "nearest" });
+    }
+
+    function showSuggest(query) {
+      if (!suggestBox) return;
+      if (query.length < 1) { closeSuggest(); return; }
+      pages().then(function (all) {
+        if (!input || input.value.trim() !== query) return; /* the user has typed on */
+        var hits = titleMatches(all, query);
+        suggestBox.textContent = "";
+        suggestions = hits.slice(0, SUGGEST_CAP);
+        if (!suggestions.length) { closeSuggest(); return; }
+        suggestions.forEach(function (p) {
+          var li = d.createElement("li");
+          li.setAttribute("role", "option");
+          var a = d.createElement("a");
+          a.href = p.u;
+          var label = el("span", "label");
+          label.appendChild(markTitle(p.t || p.u, query));
+          a.appendChild(label);
+          if (p.s) a.appendChild(el("span", "kind", p.s));
+          li.appendChild(a);
+          suggestBox.appendChild(li);
+        });
+        if (hits.length > suggestions.length) {
+          var more = d.createElement("li");
+          more.className = "more";
+          more.textContent = hits.length + " page titles match “" + query + "” — press Enter to see them all.";
+          suggestBox.appendChild(more);
+        }
+        suggestBox.hidden = false;
+        activeIndex = -1;
+        input.setAttribute("aria-expanded", "true");
+      });
+    }
+
+    if (input) {
+      input.addEventListener("input", function () {
+        var q = input.value.trim();
+        if (clearBtn) clearBtn.hidden = !q;
+        showSuggest(q);
+      });
+      input.addEventListener("keydown", function (e) {
+        if (suggestBox && !suggestBox.hidden) {
+          if (e.key === "ArrowDown") { e.preventDefault(); highlight(Math.min(activeIndex + 1, suggestions.length - 1)); return; }
+          if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(activeIndex - 1, -1)); return; }
+          if (e.key === "Escape") { closeSuggest(); return; }
+          if (e.key === "Enter" && activeIndex >= 0 && suggestions[activeIndex]) {
+            e.preventDefault();
+            window.location.href = suggestions[activeIndex].u;
+            return;
+          }
+        }
+      });
+      input.addEventListener("blur", function () {
+        /* let a click on a suggestion land before the list closes */
+        window.setTimeout(closeSuggest, 150);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        if (!input) return;
+        input.value = "";
+        clearBtn.hidden = true;
+        closeSuggest();
+        input.focus();
+      });
+    }
+
+    if (luckyBtn) {
+      luckyBtn.addEventListener("click", function () {
+        var q = (input && input.value || "").trim();
+        if (!q) { window.location.href = "/find/"; return; }
+        pages().then(function (all) {
+          var hits = titleMatches(all, q);
+          if (!hits.length) {
+            var terms = q.toLowerCase().split(/\s+/).filter(function (t) { return t.length > 1; });
+            hits = all.map(function (p) { return { p: p, s: score(p, terms) }; })
+              .filter(function (h) { return h.s > 0; })
+              .sort(function (a, b) { return b.s - a.s; })
+              .map(function (h) { return h.p; });
+          }
+          window.location.href = hits.length ? hits[0].u : "/find/";
+        });
+      });
+    }
+
     var initial = new URLSearchParams(window.location.search).get("q") || searchRoot.getAttribute("data-query") || "";
     if (input && initial) input.value = initial;
+    if (clearBtn && initial) clearBtn.hidden = false;
     if (initial) run(initial);
-    else if (summary) summary.textContent = "Search every city page, partner listing, review and guide on the site.";
+    else if (summary) {
+      var idle = searchRoot.getAttribute("data-idle");
+      summary.textContent = idle === null
+        ? "Search every city page, partner listing, review and guide on the site."
+        : idle;
+    }
 
     var form = searchRoot.tagName === "FORM" ? searchRoot : $("form", searchRoot);
     if (form) {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         var q = (input && input.value || "").trim();
+        closeSuggest();
         run(q);
         try {
           var url = new URL(window.location.href);

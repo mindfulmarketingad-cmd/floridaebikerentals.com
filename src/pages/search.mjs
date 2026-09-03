@@ -8,33 +8,50 @@ import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 const HOME_CRUMB = { href: "/", label: "Home" };
 const SEARCH_CRUMB = { href: "/search/", label: "Search" };
 
-const SEARCH_FORM = `<form class="filterbar" style="grid-template-columns:1fr auto" role="search">
-  <div class="field">
-    <label for="s-q">Search the directory</label>
-    <input type="search" id="s-q" name="q" placeholder="Town, shop name or service" autocomplete="off" enterkeyhint="search">
-  </div>
-  <div class="field" style="justify-content:flex-end">
-    <button class="btn btn--blue" type="submit">Search</button>
-  </div>
-</form>`;
+const MAGNIFIER = `<svg class="gsearch__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+  <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14Z"></path>
+</svg>`;
+
+/** Google-style search panel: logo, one pill input with live title suggestions, five suggested searches. */
+function searchPanel(site, queries) {
+  const suggestions = queries.slice(0, 5);
+  return `<div class="gsearch" data-site-search data-pages="/data/pages.json" data-idle="">
+  <a class="gsearch__logo" href="/" aria-label="${attr(site.name)} home">
+    <img src="/assets/img/logo.svg" width="190" height="40" alt="${attr(site.name)}" fetchpriority="high">
+  </a>
+  <form class="gsearch__form" role="search">
+    <div class="gsearch__field">
+    <div class="gsearch__box">
+      ${MAGNIFIER}
+      <input class="gsearch__input" type="search" id="s-q" name="q" autocomplete="off" spellcheck="false"
+        enterkeyhint="search" placeholder="Search every page on this site"
+        aria-label="Search every page on this site" role="combobox" aria-expanded="false"
+        aria-controls="s-suggest" aria-autocomplete="list">
+      <button class="gsearch__clear" type="button" data-search-clear aria-label="Clear the search box" hidden>&times;</button>
+    </div>
+    <ul class="gsearch__suggest" id="s-suggest" role="listbox" aria-label="Page suggestions" data-search-suggest hidden></ul>
+    </div>
+    <div class="gsearch__actions">
+      <button class="gsearch__btn" type="submit">Search this site</button>
+      <button class="gsearch__btn" type="button" data-search-lucky>I&rsquo;m feeling lucky</button>
+    </div>
+  </form>
+  <ul class="gsearch__chips">${suggestions
+    .map((q) => `<li><a href="${attr(q.url)}">${esc(q.query)}</a></li>`)
+    .join("")}</ul>
+  <p class="result-count" data-search-summary aria-live="polite"></p>
+  <div data-search-results></div>
+</div>`;
+}
 
 export function searchHub(site, { queries, index, stats }) {
   const body = `
-${breadcrumbs([HOME_CRUMB, SEARCH_CRUMB])}
-<section class="section" style="padding-top:1.2rem">
+<section class="gsearch-hero">
   <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Search hub</span>
-      <h1>Search Florida E-Bike Rentals</h1>
-      <p>One box across every page on the site — ${esc(String(stats.total))} partner listings,
-      ${esc(String(stats.cities))} town pages, review breakdowns and guides.</p>
-    </div>
-    <div data-site-search data-pages="/data/pages.json">
-      ${SEARCH_FORM}
-      <p class="result-count" data-search-summary aria-live="polite"></p>
-      <div data-search-results></div>
-    </div>
-    ${banner(photoFor("search"), { alt: `Search Florida e-bike rentals - ${photoFor("search").alt}` })}
+    <h1 class="visually-hidden">Search Florida E-Bike Rentals</h1>
+    ${searchPanel(site, queries)}
+    <p class="gsearch__note">Searching ${esc(String(stats.total))} partner listings,
+    ${esc(String(stats.cities))} town pages, review breakdowns and guides.</p>
   </div>
 </section>
 
@@ -50,6 +67,7 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    ${banner(photoFor("search"), { alt: `Search Florida e-bike rentals - ${photoFor("search").alt}` })}
     ${figure(secondPhotoFor("search"), { alt: `Florida e-bike rentals - ${secondPhotoFor("search").alt}` })}
     <h2>Or browse instead</h2>
     <div class="grid grid--4">
@@ -71,7 +89,6 @@ ${adSlotScript(site, 1)}
     ogImage: photoFor("search").src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
-      breadcrumbSchema(site, [HOME_CRUMB, SEARCH_CRUMB]),
       {
         "@context": "https://schema.org",
         "@type": "SearchResultsPage",
@@ -139,8 +156,23 @@ ${breadcrumbs(crumbs)}
       this search, ordered by Google rating weighted against review volume. Refine the search below or
       browse the matching directory pages.</p>
     </div>
-    <div data-site-search data-pages="/data/pages.json" data-query="${attr(query)}">
-      ${SEARCH_FORM}
+    <div class="gsearch gsearch--inline" data-site-search data-pages="/data/pages.json" data-query="${attr(query)}">
+      <form class="gsearch__form" role="search">
+        <div class="gsearch__field">
+        <div class="gsearch__box">
+          ${MAGNIFIER}
+          <input class="gsearch__input" type="search" id="s-q" name="q" autocomplete="off" spellcheck="false"
+            enterkeyhint="search" placeholder="Search every page on this site"
+            aria-label="Search every page on this site" role="combobox" aria-expanded="false"
+            aria-controls="s-suggest" aria-autocomplete="list">
+          <button class="gsearch__clear" type="button" data-search-clear aria-label="Clear the search box" hidden>&times;</button>
+        </div>
+        <ul class="gsearch__suggest" id="s-suggest" role="listbox" aria-label="Page suggestions" data-search-suggest hidden></ul>
+        </div>
+        <div class="gsearch__actions">
+          <button class="gsearch__btn" type="submit">Search this site</button>
+        </div>
+      </form>
       <p class="result-count" data-search-summary aria-live="polite"></p>
       <div data-search-results></div>
     </div>

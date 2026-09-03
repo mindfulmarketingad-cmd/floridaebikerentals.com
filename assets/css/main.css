@@ -805,3 +805,81 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   padding: 1.5rem; color: var(--ink-mute); font-size: .92rem; z-index: 0;
 }
 .route-embed iframe { position: relative; z-index: 1; }
+
+/* ---------- Google-style site search ---------- */
+.gsearch-hero { padding: clamp(3rem, 12vh, 7rem) 0 clamp(2rem, 8vh, 4.5rem); background: var(--white); }
+.gsearch { max-width: 620px; margin: 0 auto; text-align: center; }
+.gsearch__logo { display: inline-block; margin-bottom: 1.9rem; }
+.gsearch__logo img { width: min(340px, 72vw); height: auto; }
+.gsearch__form { position: relative; }
+.gsearch__field { position: relative; }
+.gsearch__box {
+  display: flex; align-items: center; gap: .6rem;
+  background: var(--white); border: 1px solid var(--line); border-radius: 999px;
+  padding: .1rem 1.15rem; height: 48px; box-shadow: 0 1px 6px rgba(32, 33, 36, .12);
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.gsearch__box:hover,
+.gsearch__box:focus-within { box-shadow: 0 1px 10px rgba(32, 33, 36, .22); border-color: transparent; }
+.gsearch__icon { flex: none; color: var(--ink-mute); }
+.gsearch__input {
+  flex: 1 1 auto; min-width: 0; border: 0; outline: 0; background: none;
+  font-size: 1rem; line-height: 1.4; color: var(--ink); padding: 0;
+}
+.gsearch__input::-webkit-search-cancel-button { display: none; }
+.gsearch__clear {
+  flex: none; border: 0; background: none; cursor: pointer; color: var(--ink-mute);
+  font-size: 1.35rem; line-height: 1; padding: 0 .2rem;
+}
+.gsearch__clear:hover { color: var(--ink); }
+
+/* the suggestion list hangs off the box, Google-style */
+.gsearch__suggest {
+  position: absolute; z-index: 40; left: 0; right: 0; top: calc(100% + .4rem);
+  margin: 0; padding: .4rem 0; list-style: none; text-align: left;
+  background: var(--white); border: 1px solid var(--line); border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(32, 33, 36, .2);
+  max-height: min(60vh, 26rem); overflow-y: auto;
+}
+.gsearch__suggest li { margin: 0; }
+.gsearch__suggest a {
+  display: flex; align-items: baseline; gap: .9rem; padding: .5rem 1.15rem;
+  color: var(--ink); text-decoration: none; font-size: .95rem;
+}
+.gsearch__suggest .label { flex: 1 1 auto; min-width: 0; }
+.gsearch__suggest a:hover,
+.gsearch__suggest .is-active a { background: var(--blue-50); }
+.gsearch__suggest b { font-weight: 700; }
+.gsearch__suggest .kind { color: var(--ink-mute); font-size: .78rem; font-weight: 700; flex: none; }
+.gsearch__suggest .more { padding: .5rem 1.15rem; color: var(--ink-mute); font-size: .82rem; }
+
+.gsearch__actions { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; margin-top: 1.6rem; }
+.gsearch__btn {
+  border: 1px solid transparent; background: var(--blue-50); color: var(--ink);
+  border-radius: var(--radius-s); padding: .6rem 1.1rem; font-size: .9rem; font-weight: 600; cursor: pointer;
+}
+.gsearch__btn:hover { border-color: var(--line); box-shadow: 0 1px 3px rgba(32, 33, 36, .16); }
+
+.gsearch__chips { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; list-style: none; padding: 0; margin: 1.7rem 0 0; }
+.gsearch__chips li { margin: 0; }
+.gsearch__chips a {
+  display: inline-block; padding: .35rem .85rem; border-radius: 999px; background: var(--blue-50);
+  color: var(--blue-700); font-size: .85rem; font-weight: 600; text-decoration: none;
+}
+.gsearch__chips a:hover { background: var(--blue-100); text-decoration: underline; }
+.gsearch__note { margin: 1.6rem 0 0; color: var(--ink-mute); font-size: .85rem; text-align: center; }
+
+.gsearch [data-search-results] { text-align: left; }
+.gsearch .result-count { margin-top: 1.4rem; color: var(--ink-mute); font-size: .85rem; font-weight: 400; }
+.gsearch .result-count:empty { margin: 0; }
+
+/* inline variant on the curated query pages */
+.gsearch--inline { max-width: 620px; margin: 0 0 1rem; text-align: left; }
+.gsearch--inline .gsearch__actions { justify-content: flex-start; margin-top: 1rem; }
+
+@media (max-width: 720px) {
+  .gsearch-hero { padding: 2.2rem 0 1.6rem; }
+  .gsearch__logo { margin-bottom: 1.4rem; }
+  .gsearch__box { height: 46px; }
+  .gsearch__btn { min-height: 44px; }
+}
