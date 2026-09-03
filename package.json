@@ -1,0 +1,17 @@
+{
+  "name": "floridaebikerentals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static directory site for FloridaEbikeRentals.com - Florida e-bike rental shops, guided tours and reviews.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "verify": "node build.mjs --verify",
+    "icons": "node scripts/make-icons.mjs",
+    "import": "python3 scripts/import_outscraper.py data/source/outscraper-florida-bike-rentals.xlsx",
+    "serve": "node scripts/serve.mjs",
+    "test": "node build.mjs --verify && node scripts/smoke-test.mjs"
+  },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED"
+}

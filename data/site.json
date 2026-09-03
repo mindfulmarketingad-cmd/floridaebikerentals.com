@@ -1,0 +1,20 @@
+{
+  "name": "Florida Ebike Rentals",
+  "legalName": "Florida Ebike Rentals",
+  "domain": "floridaebikerentals.com",
+  "url": "https://floridaebikerentals.com",
+  "tagline": "Find e-bike rentals, guided tours and beach cruisers across Florida",
+  "description": "Florida Ebike Rentals is a free directory of electric bike rental shops, guided e-bike tours and beach cruiser rentals across Florida, from 30A and the Emerald Coast to the Florida Keys.",
+  "email": "hello@floridaebikerentals.com",
+  "locale": "en_US",
+  "language": "en",
+  "twitter": "",
+  "founded": "2026",
+  "adsense": {
+    "enabled": true,
+    "publisherId": "pub-9332749804326149",
+    "adsTxt": "google.com, pub-9332749804326149, DIRECT, f08c47fec0942fa0"
+  },
+  "contactFormEndpoint": "",
+  "primaryKeyword": "Florida Ebike Rentals"
+}
