@@ -108,7 +108,11 @@ ${breadcrumbs(crumbs)}
     ${
       entries.length
         ? `<div class="mt-2">${linkCloud(
-            entries.map((entry) => ({ href: entry.url, label: entry.title }))
+            entries.map((entry) => ({
+              href: entry.url,
+              label: entry.title,
+              note: entry.miles ? `- ${entry.miles} mi.` : "",
+            }))
           )}</div>`
         : `<p class="muted">Guides are being added to this section. In the meantime, start with the
            <a href="/blog/">main guides</a> or find a shop on the <a href="/find/">find pages</a>.</p>`
@@ -231,7 +235,9 @@ ${
 <section class="section">
   <div class="wrap">
     <h2>More ${esc(plural(2, hub.noun))}</h2>
-    <div class="mt-2">${linkCloud(related.map((e) => ({ href: e.url, label: e.title })))}</div>
+    <div class="mt-2">${linkCloud(
+      related.map((e) => ({ href: e.url, label: e.title, note: e.miles ? `- ${e.miles} mi.` : "" }))
+    )}</div>
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/${attr(hub.slug)}/">All ${esc(hub.label.toLowerCase())} guides</a>
     <a class="btn btn--outline btn--sm" href="/find/">Find a rental shop</a></p>
   </div>

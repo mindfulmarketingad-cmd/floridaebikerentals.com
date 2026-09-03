@@ -326,7 +326,7 @@ export function linkCloud(links) {
       (l) =>
         `<li><a href="${attr(l.href)}">${esc(l.label)}${
           l.count ? ` <span class="count">${l.count}</span>` : ""
-        }</a></li>`
+        }</a>${l.note ? ` <span class="note">${esc(l.note)}</span>` : ""}</li>`
     )
     .join("")}</ul>`;
 }

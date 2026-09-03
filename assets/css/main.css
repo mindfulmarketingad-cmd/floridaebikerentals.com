@@ -455,6 +455,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 }
 .pagelink-cloud a:hover { color: var(--blue-800); text-decoration-thickness: 2px; }
 .pagelink-cloud .count { display: inline-block; color: var(--ink-mute); font-size: .82rem; font-weight: 700; text-decoration: none; }
+.pagelink-cloud .note { color: var(--ink-mute); font-size: .85rem; font-weight: 600; white-space: nowrap; }
 
 /* ---------- listing detail ---------- */
 .detail-hero { background: linear-gradient(160deg, var(--blue-800), var(--blue-600)); color: #fff; padding: 1.6rem 0 2.4rem; }

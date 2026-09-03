@@ -249,6 +249,14 @@ export const CONTENT_HUBS = [
   },
 ];
 
+/** The leading mileage in a distance string, or 0 if it does not state one. */
+function milesFrom(distance) {
+  const text = String(distance || "");
+  if (!/mile/i.test(text)) return 0;
+  const match = /(\d+(?:\.\d+)?)/.exec(text);
+  return match ? Number(match[1]) : 0;
+}
+
 export function loadHubEntries(hub) {
   const dir = join(ROOT, "content", hub.dir);
   if (!existsSync(dir)) return [];
@@ -265,6 +273,11 @@ export function loadHubEntries(hub) {
         hub: hub.slug,
         url: `/${hub.slug}/${slug}/`,
         ...meta,
+        // Mileage for hub listings. Taken from an explicit `miles:` field when
+        // one is set, otherwise the leading number of `distance:` — which reads
+        // correctly through the hedges the trail guides need ("About 52 miles
+        // when complete", "47-mile corridor, part paved").
+        miles: meta.miles !== undefined ? Number(meta.miles) : milesFrom(meta.distance),
         towns: Array.isArray(meta.towns) ? meta.towns : meta.towns ? [meta.towns] : [],
         tags: Array.isArray(meta.tags) ? meta.tags : [],
         faqs,
