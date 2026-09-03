@@ -231,14 +231,16 @@ ${adSlot(site, "")}
 <section class="section section--tint">
   <div class="wrap">
     <h2>Before you buy, read these</h2>
-    ${linkCloud([
-      { href: "/costs/", label: "All cost guides" },
-      { href: "/costs/daily-vs-weekly-ebike-rental-rates/", label: "Renting vs buying" },
-      { href: "/blog/ebike-classes-explained/", label: "E-bike classes explained" },
-      { href: "/blog/florida-ebike-laws/", label: "Florida e-bike law" },
-      { href: "/find/electric-bike-shops-in-florida/", label: "Florida electric bike shops" },
-      { href: "/trails/", label: "Where to ride" },
-    ])}
+    ${linkCloud(
+      [
+        { href: "/costs/", label: "All cost guides" },
+        { href: "/costs/daily-vs-weekly-ebike-rental-rates/", label: "Renting vs buying" },
+        { href: "/blog/ebike-classes-explained/", label: "E-bike classes explained" },
+        { href: "/blog/florida-ebike-laws/", label: "Florida e-bike law" },
+        { href: "/find/electric-bike-shops-in-florida/", label: "Florida electric bike shops" },
+        { href: "/trails/", label: "Where to ride" },
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
     <p class="small muted mt-2">${esc(shop.affiliateDisclosure)}</p>
   </div>
 </section>

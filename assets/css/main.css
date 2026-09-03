@@ -1075,3 +1075,23 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 /* An outbound tile leads to the retailer, so the whole tile reads as clickable. */
 .product-card--out:hover { border-color: var(--blue-400); }
 .product-card--out h3 a::after { content: " \2197"; color: var(--ink-mute); font-weight: 400; }
+
+/* ---------- pagination (page 1 of N with prev/next arrows) ---------- */
+.pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .7rem; }
+.pagination__list { display: flex; align-items: center; gap: .35rem; list-style: none; padding: 0; margin: 0; }
+.pagination__list li { margin: 0; }
+.pagination__list a, .pagination__arrow {
+  display: grid; place-items: center; min-width: 38px; height: 38px; padding: 0 .5rem;
+  border-radius: var(--radius-s); border: 1px solid var(--line); background: var(--white);
+  color: var(--ink); font-weight: 700; font-size: .92rem; text-decoration: none;
+}
+.pagination__list a:hover, .pagination__arrow:not(.is-disabled):hover {
+  border-color: var(--blue-400); background: var(--blue-50); color: var(--blue-700);
+}
+.pagination__list a.is-current {
+  border-color: var(--blue-500); background: var(--blue-50); color: var(--blue-700);
+}
+.pagination__arrow { font-size: 1.15rem; }
+.pagination__arrow.is-disabled { color: var(--ink-mute); opacity: .4; cursor: default; }
+.pagination__gap { display: grid; place-items: center; min-width: 24px; color: var(--ink-mute); }
+.pagination__status { color: var(--ink-mute); }

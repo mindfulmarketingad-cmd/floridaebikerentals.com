@@ -68,12 +68,14 @@ ${adSlot(site, "")}
 <section class="section section--tint">
   <div class="wrap">
     <h2>Keep exploring</h2>
-    <div class="grid grid--4">
-      ${linkCard({ href: "/find/", title: "Find rentals", text: "Browse by Florida region and town.", more: "Open Find" })}
-      ${linkCard({ href: "/partners/", title: "All partners", text: "The full directory listicle.", more: "Open Partners" })}
-      ${linkCard({ href: "/reviews/", title: "Reviews", text: "Star breakdowns for rated shops.", more: "Open Reviews" })}
-      ${linkCard({ href: "/blog/", title: "Guides", text: "Law, pricing, routes and checklists.", more: "Open Blog" })}
-    </div>
+    ${linkCloud(
+      [
+        { href: "/find/", label: "Find rentals" },
+        { href: "/partners/", label: "All partners" },
+        { href: "/reviews/", label: "Reviews" },
+        { href: "/blog/", label: "Guides" },
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
   </div>
 </section>
 ${adSlotScript(site, 1)}
@@ -139,29 +141,49 @@ ${section("Main pages", [
   ...FOOTER_LINKS.filter((l) => !HEADER_LINKS.some((h) => h.href === l.href)).map((l) => ({ href: l.href, label: l.label })),
 ], "tint")}
 
-${section("Regions", index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+${section(
+  "Regions",
+  [...index.regions]
+    .sort((a, b) => a.name.localeCompare(b.name, "en"))
+    .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+)}
 
 ${section(
   "Find pages by topic",
-  index.topics.map((t) => ({ href: t.url, label: t.title, count: t.listings.length })),
+  [...index.topics]
+    .sort((a, b) => a.title.localeCompare(b.title, "en"))
+    .map((t) => ({ href: t.url, label: t.title, count: t.listings.length })),
   "tint"
 )}
 
 ${section(
   `Towns (${index.cities.length})`,
-  index.cities.map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
+  [...index.cities]
+    .sort((a, b) => a.name.localeCompare(b.name, "en"))
+    .map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
 )}
 
-${section("Guides", blog.map((p) => ({ href: p.url, label: p.title })), "tint")}
+${section(
+  "Guides",
+  [...blog].sort((a, b) => a.title.localeCompare(b.title, "en")).map((p) => ({ href: p.url, label: p.title })),
+  "tint"
+)}
 
-${section("Popular searches", queries.map((q) => ({ href: q.url, label: q.query })))}
+${section(
+  "Popular searches",
+  [...queries].sort((a, b) => a.query.localeCompare(b.query, "en")).map((q) => ({ href: q.url, label: q.query }))
+)}
 
 <section class="section section--tint">
   <div class="wrap">
     <h2>Partner listings (${esc(String(listings.length))})</h2>
     <p class="muted">Every business in the directory. Review breakdowns live at
     <a href="/reviews/">/reviews/</a>.</p>
-    ${linkCloud(listings.map((l) => ({ href: l.url, label: `${l.name} (${l.city})` })))}
+    ${linkCloud(
+      [...listings]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((l) => ({ href: l.url, label: `${l.name} (${l.city})` }))
+    )}
   </div>
 </section>
 
@@ -217,7 +239,12 @@ export function notFoundPage(site, { index }) {
   <div class="wrap">
     ${figure(secondPhotoFor("404"), { alt: `Florida e-bike rentals - ${secondPhotoFor("404").alt}` })}
     <h2>Popular towns</h2>
-    ${linkCloud(index.cities.slice(0, 30).map((c) => ({ href: c.url, label: c.name, count: c.listings.length })))}
+    ${linkCloud(
+      index.cities
+        .slice(0, 30)
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
+    )}
   </div>
 </section>
 `;

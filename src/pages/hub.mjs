@@ -108,11 +108,13 @@ ${pageHero({
     ${
       entries.length
         ? `<div class="mt-2">${linkCloud(
-            entries.map((entry) => ({
-              href: entry.url,
-              label: entry.title,
-              note: entry.miles ? `- ${entry.miles} mi.` : "",
-            }))
+            [...entries]
+              .sort((a, b) => a.title.localeCompare(b.title, "en"))
+              .map((entry) => ({
+                href: entry.url,
+                label: entry.title,
+                note: entry.miles ? `- ${entry.miles} mi.` : "",
+              }))
           )}</div>`
         : `<p class="muted">Guides are being added to this section. In the meantime, start with the
            <a href="/blog/">main guides</a> or find a shop on the <a href="/find/">find pages</a>.</p>`
@@ -130,7 +132,11 @@ ${adSlot(site, "")}
         <h2>Where to rent nearby</h2>
         <p class="muted">Every guide links to the towns closest to it. You can also start from the
         region you are staying in.</p>
-        ${linkCloud(ctx.index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+        ${linkCloud(
+          [...ctx.index.regions]
+            .sort((a, b) => a.name.localeCompare(b.name, "en"))
+            .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+        )}
       </div>
     </div>
   </div>
@@ -226,7 +232,11 @@ ${
     Google rating and review volume.</p>
     ${mapPanel(nearby, { id: `map-${attr(entry.slug)}`, zoom: 10 })}
     ${listicle(nearby)}
-    ${linkCloud(towns.map((t) => ({ href: t.url, label: `${t.name} e-bike rentals`, count: t.listings.length })))}
+    ${linkCloud(
+      [...towns]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((t) => ({ href: t.url, label: `${t.name} e-bike rentals`, count: t.listings.length }))
+    )}
   </div>
 </section>`
     : ""
@@ -236,7 +246,9 @@ ${
   <div class="wrap">
     <h2>More ${esc(plural(2, hub.noun))}</h2>
     <div class="mt-2">${linkCloud(
-      related.map((e) => ({ href: e.url, label: e.title, note: e.miles ? `- ${e.miles} mi.` : "" }))
+      [...related]
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((e) => ({ href: e.url, label: e.title, note: e.miles ? `- ${e.miles} mi.` : "" }))
     )}</div>
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/${attr(hub.slug)}/">All ${esc(hub.label.toLowerCase())} guides</a>
     <a class="btn btn--outline btn--sm" href="/find/">Find a rental shop</a></p>
@@ -303,19 +315,7 @@ ${pageHero({
 
 <section class="section section--tint">
   <div class="wrap">
-    <div class="grid grid--3">
-      ${authors
-        .map((a) =>
-          linkCard({
-            href: a.url,
-            title: a.name,
-            meta: a.role,
-            text: a.short,
-            more: "Read profile",
-          })
-        )
-        .join("")}
-    </div>
+    ${linkCloud(authors.map((a) => ({ href: a.url, label: a.name, note: `- ${a.role}` })))}
   </div>
 </section>
 
@@ -400,17 +400,15 @@ ${breadcrumbs(crumbs)}
     <h2>${all.length ? `${all.length} ${plural(all.length, "article")} by ${esc(author.name)}` : `Articles by ${esc(author.name)}`}</h2>
     ${
       all.length
-        ? `<div class="grid grid--3 mt-2">${all
-            .map((p) =>
-              linkCard({
+        ? `<div class="mt-2">${linkCloud(
+            [...all]
+              .sort((a, b) => a.title.localeCompare(b.title, "en"))
+              .map((p) => ({
                 href: p.url,
-                title: p.title,
-                meta: [p.category, p.date ? prettyDate(p.date) : ""].filter(Boolean).join(" · "),
-                text: p.description,
-                more: "Read",
-              })
-            )
-            .join("")}</div>`
+                label: p.title,
+                note: `- ${[p.category, p.date ? prettyDate(p.date) : ""].filter(Boolean).join(" · ")}`,
+              }))
+          )}</div>`
         : '<p class="muted">Articles from this author are on the way.</p>'
     }
   </div>

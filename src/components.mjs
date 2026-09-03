@@ -450,3 +450,42 @@ export function productCarousel(shop, { category, title, browseHref, browseLabel
   </p>
 </div>`;
 }
+
+/* --------------------------------------------------------------- pagination */
+
+/**
+ * Prev/next arrows plus a windowed set of page numbers (first, last, and a
+ * couple either side of the current page, with an ellipsis for the gap) —
+ * for a hub with more pages than anyone should read as a flat list, like the
+ * 15-page partner directory. Returns "" for a single page.
+ */
+export function pagination({ pageNumber, totalPages, urlFor, ariaLabel = "Pagination" }) {
+  if (totalPages <= 1) return "";
+
+  const arrow = (dir, target, label) =>
+    target
+      ? `<a class="pagination__arrow" href="${attr(urlFor(target))}" aria-label="${attr(label)}">${dir}</a>`
+      : `<span class="pagination__arrow is-disabled" aria-hidden="true">${dir}</span>`;
+
+  const keep = new Set([1, totalPages, pageNumber, pageNumber - 1, pageNumber + 1]);
+  const pages = [...keep].filter((n) => n >= 1 && n <= totalPages).sort((a, b) => a - b);
+
+  let items = "";
+  let last = 0;
+  for (const n of pages) {
+    if (last && n - last > 1) items += `<li class="pagination__gap" aria-hidden="true">&hellip;</li>`;
+    items += `<li><a href="${attr(urlFor(n))}"${
+      n === pageNumber ? ' aria-current="page" class="is-current"' : ""
+    }>${n}</a></li>`;
+    last = n;
+  }
+
+  return `<nav class="pagination mt-3" aria-label="${attr(ariaLabel)}">
+  <ul class="pagination__list">
+    <li>${arrow("&#8249;", pageNumber > 1 ? pageNumber - 1 : null, "Previous page")}</li>
+    ${items}
+    <li>${arrow("&#8250;", pageNumber < totalPages ? pageNumber + 1 : null, "Next page")}</li>
+  </ul>
+  <span class="pagination__status small muted">Page ${pageNumber} of ${totalPages}</span>
+</nav>`;
+}

@@ -3,7 +3,7 @@ import {
 } from "../util.mjs";
 import { page, pageHero, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
+  listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo, pagination,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor,
 } from "../components.mjs";
@@ -24,14 +24,12 @@ export function partnersHub(site, { listings, index, pageNumber, totalPages }) {
   const crumbs = [HOME_CRUMB, PARTNERS_CRUMB];
   if (pageNumber > 1) crumbs.push({ href: path, label: `Page ${pageNumber}` });
 
-  const pagination = `<nav class="pagelink-cloud mt-3" aria-label="Partner directory pages" style="justify-content:center">
-    ${Array.from({ length: totalPages }, (_, i) => i + 1)
-      .map((n) => {
-        const href = n === 1 ? "/partners/" : `/partners/page/${n}/`;
-        return `<li><a href="${attr(href)}"${n === pageNumber ? ' aria-current="page" style="border-color:var(--blue-500);background:var(--blue-50)"' : ""}>Page ${n}</a></li>`;
-      })
-      .join("")}
-  </nav>`;
+  const pages = pagination({
+    pageNumber,
+    totalPages,
+    urlFor: (n) => (n === 1 ? "/partners/" : `/partners/page/${n}/`),
+    ariaLabel: "Partner directory pages",
+  });
 
   const body = `
 ${pageHero({
@@ -104,7 +102,7 @@ ${pageHero({
     </form>
     <p class="result-count" data-filter-count data-noun="partners" aria-live="polite"></p>
     ${listicle(slice, { start: start + 1 })}
-    ${pagination}
+    ${pages}
   </div>
 </section>
 
@@ -117,13 +115,20 @@ ${adSlot(site, "")}
     })}
     <h2>Jump to a town</h2>
     ${linkCloud(
-      index.cities.slice(0, 60).map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
+      index.cities
+        .slice(0, 60)
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
     )}
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/find/">All ${esc(
       String(index.cities.length)
     )} towns</a></p>
     <h2 class="mt-3">Browse by region</h2>
-    ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+    ${linkCloud(
+      [...index.regions]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+    )}
   </div>
 </section>
 ${adSlotScript(site, 1)}
@@ -312,21 +317,17 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     })}
 
     <h2 class="mt-3">Other e-bike rentals near ${esc(listing.city)}</h2>
-    <div class="grid grid--3">
-      ${nearby
-        .map((l) =>
-          linkCard({
-            href: l.url,
-            title: l.name,
-            meta: `${l.city}, FL${typeof l.distance === "number" ? ` · ${l.distance.toFixed(1)} mi away` : ""}${
-              l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""
-            }`,
-            text: clamp(summaryFor(l), 110),
-            more: "View listing",
-          })
-        )
-        .join("")}
-    </div>
+    ${linkCloud(
+      [...nearby]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((l) => ({
+          href: l.url,
+          label: l.name,
+          note: `- ${l.city}, FL${typeof l.distance === "number" ? ` · ${l.distance.toFixed(1)} mi away` : ""}${
+            l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""
+          }`,
+        }))
+    )}
   </div>
 
   <aside class="sidebar">

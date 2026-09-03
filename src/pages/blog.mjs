@@ -48,7 +48,11 @@ ${adSlot(site, "")}
         <h2>Ready to find a shop?</h2>
         <p class="muted">Start with the region you are visiting, or jump straight to the full partner
         directory sorted by distance from you.</p>
-        ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+        ${linkCloud(
+          [...index.regions]
+          .sort((a, b) => a.name.localeCompare(b.name, "en"))
+          .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+        )}
         <p class="mt-2"><a class="btn btn--primary" href="/partners/">Rent Now</a></p>
       </div>
     </div>
@@ -151,13 +155,17 @@ ${adSlot(site, "")}
   <div class="wrap">
     <h2>Find a rental shop</h2>
     <p class="muted">Browse the directory by Florida region.</p>
-    ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+    ${linkCloud(
+      [...index.regions]
+          .sort((a, b) => a.name.localeCompare(b.name, "en"))
+          .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+    )}
     <h3 class="mt-3">More guides</h3>
-    <div class="grid grid--3 mt-2">
-      ${related
-        .map((p) => linkCard({ href: p.url, title: p.title, meta: p.category, text: p.description, more: "Read the guide" }))
-        .join("")}
-    </div>
+    ${linkCloud(
+      [...related]
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((p) => ({ href: p.url, label: p.title, note: `- ${p.category}` }))
+    )}
   </div>
 </section>
 ${adSlotScript(site, 1)}

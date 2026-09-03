@@ -138,11 +138,13 @@ export function homePage(site, { listings, index, blog, stats }) {
     )}</div>
     <h3 class="mt-3">Popular Florida towns for e-bike rentals</h3>
     ${linkCloud(
-      topCities.map((city) => ({
-        href: city.url,
-        label: `${city.name} e-bike rentals`,
-        count: city.listings.length,
-      }))
+      [...topCities]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((city) => ({
+          href: city.url,
+          label: `${city.name} e-bike rentals`,
+          count: city.listings.length,
+        }))
     )}
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/find/">See all ${esc(
       String(index.cities.length)

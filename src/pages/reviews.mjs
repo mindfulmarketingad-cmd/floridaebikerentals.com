@@ -1,7 +1,7 @@
 import { esc, attr, formatRating, formatReviews, plural, clamp, ratingBlock, stars, prettyDate } from "../util.mjs";
 import { page, pageHero, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
+  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, pagination,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
 import { statsFor, nearbyListings } from "../data.mjs";
@@ -69,14 +69,12 @@ export function reviewsHub(site, { listings, index, pageNumber, totalPages }) {
     )
     .join("");
 
-  const pagination = `<nav class="pagelink-cloud mt-3" aria-label="Review pages" style="justify-content:center">
-    ${Array.from({ length: totalPages }, (_, i) => i + 1)
-      .map((n) => {
-        const href = n === 1 ? "/reviews/" : `/reviews/page/${n}/`;
-        return `<li><a href="${attr(href)}"${n === pageNumber ? ' aria-current="page" style="border-color:var(--blue-500);background:var(--blue-50)"' : ""}>Page ${n}</a></li>`;
-      })
-      .join("")}
-  </nav>`;
+  const pages = pagination({
+    pageNumber,
+    totalPages,
+    urlFor: (n) => (n === 1 ? "/reviews/" : `/reviews/page/${n}/`),
+    ariaLabel: "Review pages",
+  });
 
   const body = `
 ${pageHero({
@@ -120,7 +118,7 @@ ${pageHero({
     </form>
     <p class="result-count" data-filter-count data-noun="shops" aria-live="polite"></p>
     <ol class="listicle" start="${start + 1}">${rows}</ol>
-    ${pagination}
+    ${pages}
   </div>
 </section>
 
@@ -143,7 +141,12 @@ ${adSlot(site, "")}
       <a href="/disclaimer/">disclaimer</a>.</p>
     </div>
     <h3 class="mt-3">Browse reviews by town</h3>
-    ${linkCloud(index.cities.slice(0, 50).map((c) => ({ href: c.url, label: c.name, count: c.listings.length })))}
+    ${linkCloud(
+      index.cities
+        .slice(0, 50)
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
+    )}
   </div>
 </section>
 ${adSlotScript(site, 1)}
@@ -359,18 +362,15 @@ export function reviewPage(site, listing, { listings, index }) {
     })}
 
     <h2 class="mt-3">Compare nearby shops</h2>
-    <div class="grid grid--3">
-      ${nearby
-        .map((l) =>
-          linkCard({
-            href: l.reviewUrl,
-            title: `${l.name} reviews`,
-            meta: `${l.city}, FL${l.rating ? ` · ${l.rating.toFixed(1)} stars from ${formatReviews(l.reviews)}` : ""}`,
-            more: "See breakdown",
-          })
-        )
-        .join("")}
-    </div>
+    ${linkCloud(
+      [...nearby]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((l) => ({
+          href: l.reviewUrl,
+          label: `${l.name} reviews`,
+          note: `- ${l.city}, FL${l.rating ? ` · ${l.rating.toFixed(1)} stars from ${formatReviews(l.reviews)}` : ""}`,
+        }))
+    )}
   </div>
 
   <aside class="sidebar">

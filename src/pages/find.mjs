@@ -213,11 +213,13 @@ ${pageHero({
   <div class="wrap">
     <h2>Towns in ${esc(region.name)}</h2>
     ${linkCloud(
-      region.cities.map((city) => ({
-        href: city.url,
-        label: `${city.name} e-bike rentals`,
-        count: city.listings.length,
-      }))
+      [...region.cities]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((city) => ({
+          href: city.url,
+          label: `${city.name} e-bike rentals`,
+          count: city.listings.length,
+        }))
     )}
   </div>
 </section>
@@ -266,15 +268,16 @@ ${adSlot(site, "")}
     ${linkCloud(
       index.regions
         .filter((r) => r.slug !== region.slug)
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
         .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
     )}
     <h3 class="mt-3">Guides worth reading first</h3>
-    <div class="grid grid--3 mt-2">
-      ${blog
+    ${linkCloud(
+      blog
         .slice(0, 3)
-        .map((post) => linkCard({ href: post.url, title: post.title, meta: post.category, text: post.description, more: "Read the guide" }))
-        .join("")}
-    </div>
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((post) => ({ href: post.url, label: post.title, note: `- ${post.category}` }))
+    )}
   </div>
 </section>
 ${adSlotScript(site, 1)}
@@ -458,26 +461,26 @@ ${adSlot(site, "")}
   <div class="wrap">
     <h2>E-bike rentals near ${esc(city.name)}</h2>
     ${linkCloud(
-      near.map((c) => ({
-        href: c.url,
-        label: `${c.name}${typeof c.distance === "number" ? ` (${c.distance.toFixed(0)} mi)` : ""}`,
-        count: c.listings.length,
-      }))
+      [...near]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((c) => ({
+          href: c.url,
+          label: `${c.name}${typeof c.distance === "number" ? ` (${c.distance.toFixed(0)} mi)` : ""}`,
+          count: c.listings.length,
+        }))
     )}
     ${
       nearbyPool.length
         ? `<h3 class="mt-3">Shops in neighbouring towns</h3>
-    <div class="grid grid--3 mt-2">${nearbyPool
-      .map((l) =>
-        linkCard({
+    ${linkCloud(
+      [...nearbyPool]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((l) => ({
           href: l.url,
-          title: l.name,
-          meta: `${l.city}, FL${l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""}`,
-          text: clamp(summaryFor(l), 110),
-          more: "View listing",
-        })
-      )
-      .join("")}</div>`
+          label: l.name,
+          note: `- ${l.city}, FL${l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""}`,
+        }))
+    )}`
         : ""
     }
     <p class="mt-3"><a class="btn btn--outline btn--sm" href="/find/ebike-rentals-in-${attr(
@@ -493,11 +496,13 @@ ${
   <div class="wrap">
     <h2>Other things to rent near ${esc(city.name)}</h2>
     ${linkCloud(
-      cityCrossPages.map((p) => ({
-        href: p.url,
-        label: `${p.label} near ${city.name}`,
-        count: p.listings.length,
-      }))
+      [...cityCrossPages]
+        .sort((a, b) => a.label.localeCompare(b.label, "en"))
+        .map((p) => ({
+          href: p.url,
+          label: `${p.label} near ${city.name}`,
+          count: p.listings.length,
+        }))
     )}
   </div>
 </section>`
@@ -644,7 +649,11 @@ ${adSlot(site, "")}
     ${
       nearSiblings.length
         ? `<p class="muted">${esc(label)} in nearby towns.</p>
-    ${linkCloud(nearSiblings.map((p) => ({ href: p.url, label: p.city.name, count: p.listings.length })))}`
+    ${linkCloud(
+      [...nearSiblings]
+        .sort((a, b) => a.city.name.localeCompare(b.city.name, "en"))
+        .map((p) => ({ href: p.url, label: p.city.name, count: p.listings.length }))
+    )}`
         : ""
     }
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="${attr(city.url)}">All e-bike rentals in ${esc(
@@ -749,11 +758,16 @@ ${
   <div class="wrap">
     ${figure(secondPhotoFor(topic.slug), { alt: `${topic.h1} - ${secondPhotoFor(topic.slug).alt}` })}
     <h2>Browse by region instead</h2>
-    ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
+    ${linkCloud(
+      [...index.regions]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
+    )}
     <h3 class="mt-3">Other ways to search</h3>
     ${linkCloud(
       index.topics
         .filter((t) => t.slug !== topic.slug)
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
         .map((t) => ({ href: t.url, label: t.title, count: t.listings.length }))
     )}
   </div>

@@ -61,7 +61,9 @@ ${adSlot(site, "")}
   <div class="wrap">
     <h2>Popular searches</h2>
     <p class="muted">Each of these has its own results page.</p>
-    ${linkCloud(queries.map((q) => ({ href: q.url, label: q.query })))}
+    ${linkCloud(
+      [...queries].sort((a, b) => a.query.localeCompare(b.query, "en")).map((q) => ({ href: q.url, label: q.query }))
+    )}
   </div>
 </section>
 
@@ -180,7 +182,13 @@ ${pageHero({
   </div>
 </section>
 
-${pages.length ? `<section class="section section--tint"><div class="wrap"><h2>Directory pages for this search</h2>${linkCloud(pages)}</div></section>` : ""}
+${
+  pages.length
+    ? `<section class="section section--tint"><div class="wrap"><h2>Directory pages for this search</h2>${linkCloud(
+        [...pages].sort((a, b) => a.label.localeCompare(b.label, "en"))
+      )}</div></section>`
+    : ""
+}
 
 <section class="section">
   <div class="wrap">
@@ -200,6 +208,7 @@ ${adSlot(site, "")}
       data.queries
         .filter((q) => q.slug !== slug)
         .slice(0, 20)
+        .sort((a, b) => a.query.localeCompare(b.query, "en"))
         .map((q) => ({ href: q.url, label: q.query }))
     )}
   </div>
