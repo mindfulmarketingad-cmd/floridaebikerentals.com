@@ -52,10 +52,10 @@ export function homePage(site, { listings, index, blog, stats }) {
 
   const slideMarkup = heroSlides
     .map(
-      (l) => `<a class="slide" href="${attr(l.url)}">
+      (l, i) => `<a class="slide" href="${attr(l.url)}">
       <span class="slide__media">${
         l.photo
-          ? `<img src="${attr(l.photo)}" alt="${attr(`${l.name} e-bike rentals in ${l.city}, Florida`)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-fallback="1" width="800" height="500">`
+          ? `<img src="${attr(l.photo)}" alt="${attr(`${l.name} e-bike rentals in ${l.city}, Florida`)}" loading="${i < 2 ? "eager" : "lazy"}"${i === 0 ? ' fetchpriority="high"' : ""} decoding="async" referrerpolicy="no-referrer" data-fallback="1" width="800" height="500">`
           : ""
       }${l.rating >= 4.8 ? '<span class="slide__badge">Top rated</span>' : ""}</span>
       <span class="slide__body">
