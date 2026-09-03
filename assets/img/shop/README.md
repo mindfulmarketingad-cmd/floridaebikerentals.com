@@ -18,6 +18,12 @@ E-Bikes (`/shop/electric-bikes/`)
 - `fat-tire-moped-ebike.jpg`
 - `jasion-52v-fat-tire-ebike.jpg`
 - `electric-dirt-bike.jpg`
+- `sport-mountain-ebike.jpg`
+- `electric-dirt-bike-orange.jpg`
+- `electric-dirt-bike-black.jpg`
+- `electric-dirt-bike-blue.jpg`
+- `electric-dirt-bike-red.jpg`
+- `electric-dirt-bike-slate.jpg`
 
 E-Scooters (`/shop/electric-scooters/`)
 
@@ -28,7 +34,7 @@ E-Scooters (`/shop/electric-scooters/`)
 
 Each collection is meant to hold twelve listings in a four-across grid, so:
 
-- E-Bikes needs 9 more photos
+- E-Bikes needs 3 more photos
 - E-Scooters needs 10 more photos
 - E-Skateboards needs 12 photos — nothing is listed there yet
 

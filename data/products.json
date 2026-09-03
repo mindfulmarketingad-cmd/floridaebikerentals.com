@@ -53,7 +53,7 @@
   },
   {
    "slug": "electric-dirt-bike",
-   "name": "Electric Dirt Bike with Cable Lock",
+   "name": "Electric Dirt Bike, Orange Rims",
    "brand": "",
    "category": "electric-bikes",
    "affiliate": true,
@@ -63,7 +63,7 @@
    "image": "/assets/img/shop/electric-dirt-bike.jpg",
    "imageWidth": 1000,
    "imageHeight": 933,
-   "summary": "Off-road electric dirt bike on knobby tyres with inverted forks and no pedals. Ships with a combination cable lock."
+   "summary": "Off-road electric dirt bike on knobby tyres with orange rims and inverted forks, and no pedals. Ships with a combination cable lock."
   },
   {
    "slug": "razor-e90-kids-electric-scooter",
@@ -92,6 +92,90 @@
    "imageWidth": 1000,
    "imageHeight": 1000,
    "summary": "Folding commuter scooter with pneumatic tyres, front and rear disc brakes and front suspension."
+  },
+  {
+   "slug": "sport-mountain-ebike",
+   "name": "Sport Mountain E-Bike, 26in",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Mountain",
+   "image": "/assets/img/shop/sport-mountain-ebike.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 992,
+   "summary": "Hardtail mountain e-bike on 26-inch knobby tyres, with a suspension fork, disc brakes front and rear and a removable downtube battery. Ships with a combination cable lock."
+  },
+  {
+   "slug": "electric-dirt-bike-orange",
+   "name": "Electric Dirt Bike, Black and Orange",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Helmet included",
+   "image": "/assets/img/shop/electric-dirt-bike-orange.jpg",
+   "imageWidth": 985,
+   "imageHeight": 1000,
+   "summary": "Full-size electric dirt bike with inverted orange forks, a handlebar light bar and a long bench seat. Ships with a helmet."
+  },
+  {
+   "slug": "electric-dirt-bike-black",
+   "name": "Electric Dirt Bike, All Black",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Helmet included",
+   "image": "/assets/img/shop/electric-dirt-bike-black.jpg",
+   "imageWidth": 679,
+   "imageHeight": 689,
+   "summary": "Electric dirt bike in all black with a handlebar light bar, knobby tyres and disc brakes front and rear. Ships with a helmet."
+  },
+  {
+   "slug": "electric-dirt-bike-blue",
+   "name": "Electric Dirt Bike, Blue",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Helmet included",
+   "image": "/assets/img/shop/electric-dirt-bike-blue.jpg",
+   "imageWidth": 679,
+   "imageHeight": 651,
+   "summary": "Electric dirt bike in light blue with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet."
+  },
+  {
+   "slug": "electric-dirt-bike-red",
+   "name": "Electric Dirt Bike, Red",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Helmet included",
+   "image": "/assets/img/shop/electric-dirt-bike-red.jpg",
+   "imageWidth": 679,
+   "imageHeight": 635,
+   "summary": "Electric dirt bike in red with plastics front and rear, knobby tyres and a tubular frame. Ships with a helmet."
+  },
+  {
+   "slug": "electric-dirt-bike-slate",
+   "name": "Electric Dirt Bike, Black on Black",
+   "brand": "",
+   "category": "electric-bikes",
+   "affiliate": true,
+   "url": "https://amzn.to/4gOCTFd",
+   "cta": "Check Price",
+   "badge": "Off-road",
+   "image": "/assets/img/shop/electric-dirt-bike-slate.jpg",
+   "imageWidth": 1000,
+   "imageHeight": 933,
+   "summary": "Off-road electric dirt bike in black on black, with knobby tyres, inverted forks and no pedals. Ships with a combination cable lock."
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",
