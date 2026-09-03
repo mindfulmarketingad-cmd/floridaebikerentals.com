@@ -107,19 +107,9 @@ ${breadcrumbs(crumbs)}
     <h2>${entries.length ? `All ${entries.length} ${plural(entries.length, hub.noun)}` : `${hub.label} guides`}</h2>
     ${
       entries.length
-        ? `<div class="grid grid--3 mt-2">${entries
-            .map((entry) =>
-              linkCard({
-                href: entry.url,
-                title: entry.title,
-                meta: [entry.category, entry.readingTime ? `${entry.readingTime} min read` : ""]
-                  .filter(Boolean)
-                  .join(" · "),
-                text: entry.description,
-                more: "Read the guide",
-              })
-            )
-            .join("")}</div>`
+        ? `<div class="mt-2">${linkCloud(
+            entries.map((entry) => ({ href: entry.url, label: entry.title }))
+          )}</div>`
         : `<p class="muted">Guides are being added to this section. In the meantime, start with the
            <a href="/blog/">main guides</a> or find a shop on the <a href="/find/">find pages</a>.</p>`
     }
@@ -241,11 +231,7 @@ ${
 <section class="section">
   <div class="wrap">
     <h2>More ${esc(plural(2, hub.noun))}</h2>
-    <div class="grid grid--3 mt-2">
-      ${related
-        .map((e) => linkCard({ href: e.url, title: e.title, meta: e.category, text: e.description, more: "Read the guide" }))
-        .join("")}
-    </div>
+    <div class="mt-2">${linkCloud(related.map((e) => ({ href: e.url, label: e.title })))}</div>
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/${attr(hub.slug)}/">All ${esc(hub.label.toLowerCase())} guides</a>
     <a class="btn btn--outline btn--sm" href="/find/">Find a rental shop</a></p>
   </div>

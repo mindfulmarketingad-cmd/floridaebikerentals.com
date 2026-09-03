@@ -12,6 +12,7 @@ export const HEADER_LINKS = [
   { href: "/about/", label: "About" },
   { href: "/find/", label: "Find" },
   { href: "/partners/", label: "Partners" },
+  { href: "/reviews/", label: "Reviews" },
   { href: "/search/", label: "Search", cta: true },
 ];
 
