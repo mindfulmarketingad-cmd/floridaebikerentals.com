@@ -37,8 +37,48 @@ function buyButton(product, { block = false } = {}) {
     rel="nofollow sponsored noopener" target="_blank">${esc(product.cta || "View product")}</a>`;
 }
 
-export function productCard(product, currency) {
+
+/**
+ * The trust row shown on every product page: stock state, dealer status and the
+ * local delivery offer. The last two come from data/products.json so the wording
+ * is edited in one place rather than per product.
+ */
+function productAssurances(product, shop) {
+  const inStock = (product.availability || "InStock") === "InStock";
+  return `<ul class="assurances">
+  <li class="assurances__stock${inStock ? "" : " is-out"}">${inStock ? "In stock" : "Out of stock"}</li>
+  ${shop.dealer ? `<li class="assurances__dealer">${esc(shop.dealer)}</li>` : ""}
+  ${shop.delivery ? `<li class="assurances__delivery">${esc(shop.delivery)}</li>` : ""}
+</ul>`;
+}
+
+/** Sale price with the previous price struck through, when there is one. */
+function priceBlock(product, currency, { className = "product-detail__price" } = {}) {
   const price = priceOf(product, currency);
+  if (!price) return "";
+  const was = priceOf({ price: product.compareAtPrice }, currency);
+  const saving =
+    Number.isFinite(Number(product.compareAtPrice)) && Number.isFinite(Number(product.price))
+      ? Number(product.compareAtPrice) - Number(product.price)
+      : 0;
+  return `<p class="${attr(className)}">
+    <span class="price-now">${esc(price)}</span>
+    ${was ? `<s class="price-was">${esc(was)}</s>` : ""}
+    ${saving > 0 ? `<span class="price-save">Save ${esc(priceOf({ price: saving }, currency))}</span>` : ""}
+  </p>`;
+}
+
+/** Available sizes or finishes, listed rather than sold: there is no cart here. */
+function variantList(product) {
+  const variants = Array.isArray(product.variants) ? product.variants.filter(Boolean) : [];
+  if (!variants.length) return "";
+  return `<div class="variants">
+  <h2 class="variants__label">${esc(product.variantLabel || "Available sizes")}</h2>
+  <ul class="variants__list">${variants.map((v) => `<li>${esc(v)}</li>`).join("")}</ul>
+</div>`;
+}
+
+export function productCard(product, currency) {
   return `<article class="product-card">
   <a class="product-card__media" href="${attr(product.url_internal)}">
     ${productImage(product) || '<span class="product-card__placeholder" aria-hidden="true"></span>'}
@@ -48,7 +88,7 @@ export function productCard(product, currency) {
     <h3><a href="${attr(product.url_internal)}">${esc(product.name)}</a></h3>
     ${product.summary ? `<p>${esc(clamp(product.summary, 120))}</p>` : ""}
     <div class="product-card__foot">
-      ${price ? `<span class="product-card__price">${esc(price)}</span>` : ""}
+      ${priceBlock(product, currency, { className: "product-card__price" })}
       <a class="card__more" href="${attr(product.url_internal)}">Details</a>
     </div>
   </div>
@@ -227,8 +267,13 @@ ${adSlotScript(site, 1)}
 /* ------------------------------------------------------- product page */
 
 export function productPage(site, product, shop, ctx) {
-  const crumbs = [HOME_CRUMB, SHOP_CRUMB, { href: product.url_internal, label: product.name }];
-  const price = priceOf(product, shop.currency);
+  const category = shop.categories.find((c) => c.slug === product.categorySlug);
+  const crumbs = [
+    HOME_CRUMB,
+    SHOP_CRUMB,
+    ...(category ? [{ href: category.url, label: category.name }] : []),
+    { href: product.url_internal, label: product.name },
+  ];
   const hero = photoFor(product.slug);
   const related = shop.products.filter((p) => p.slug !== product.slug).slice(0, 3);
   const specs = Object.entries(product.specs || {});
@@ -239,14 +284,26 @@ ${breadcrumbs(crumbs)}
   <div class="wrap">
     <div class="product-detail">
       <div class="product-detail__media">
-        ${productImage(product, { eager: true }) || banner(hero, { alt: `${product.name} - ${hero.alt}` })}
+        ${
+          productImage(product, { eager: true }) ||
+          figure(hero, {
+            alt: `Riding an electric bike in Florida - ${hero.alt}`,
+            caption: `Illustrative photo of e-bike riding in Florida. We do not have a photograph of the ${product.name} yet.`,
+            className: "figure--stock",
+          })
+        }
       </div>
       <div>
         ${product.brand ? `<span class="eyebrow">${esc(product.brand)}</span>` : ""}
         <h1>${esc(product.name)}</h1>
         ${product.summary ? `<p class="lede muted">${esc(product.summary)}</p>` : ""}
-        ${price ? `<p class="product-detail__price">${esc(price)}</p>` : ""}
-        <p>${buyButton(product, { block: false })}</p>
+        ${priceBlock(product, shop.currency)}
+        ${productAssurances(product, shop)}
+        ${variantList(product)}
+        <p>${
+          buyButton(product, { block: false }) ||
+          `<a class="btn btn--primary" href="/contact/">${esc(product.cta || "Check availability")}</a>`
+        }</p>
         ${
           specs.length
             ? `<dl class="datalist">${specs
@@ -331,13 +388,13 @@ ${adSlotScript(site, 1)}
         image: safeUrl(product.image) || `${site.url}${hero.src}`,
         url: `${site.url}${product.url_internal}`,
         offers:
-          product.price !== undefined && product.price !== null && product.price !== "" && offerUrl
+          product.price !== undefined && product.price !== null && product.price !== ""
             ? {
                 "@type": "Offer",
                 price: String(product.price),
                 priceCurrency: shop.currency || "USD",
                 availability: `https://schema.org/${product.availability || "InStock"}`,
-                url: offerUrl,
+                url: offerUrl || `${site.url}${product.url_internal}`,
               }
             : undefined,
       },

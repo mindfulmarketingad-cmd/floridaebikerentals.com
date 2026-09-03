@@ -916,3 +916,43 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .shop-cat__body p { margin: 0; color: var(--ink-soft); font-size: .92rem; }
 .shop-cat__meta { color: var(--ink-mute); font-size: .82rem; font-weight: 700; }
 .shop-cat .card__more { margin-top: .25rem; }
+
+/* ---------- product price, assurances and variants ---------- */
+.product-detail__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; margin: .4rem 0 .9rem; }
+.product-detail__price .price-now { font-size: 1.9rem; font-weight: 800; color: var(--ink); line-height: 1.1; }
+.product-card__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem; margin: 0; }
+.product-card__price .price-now { font-weight: 800; color: var(--ink); }
+.price-was { color: var(--ink-mute); text-decoration: line-through; font-weight: 600; }
+.price-save {
+  background: var(--blue-50); color: var(--blue-700); border-radius: 999px;
+  padding: .12rem .6rem; font-size: .78rem; font-weight: 700; white-space: nowrap;
+}
+
+.assurances { list-style: none; padding: 0; margin: 0 0 1.1rem; display: grid; gap: .45rem; }
+.assurances li {
+  margin: 0; position: relative; padding-left: 1.55rem;
+  font-size: .9rem; color: var(--ink-soft); line-height: 1.45;
+}
+.assurances li::before {
+  content: ""; position: absolute; left: 0; top: .28rem; width: 1.05rem; height: 1.05rem;
+  border-radius: 50%; background: var(--blue-50);
+}
+.assurances li::after {
+  content: ""; position: absolute; left: .32rem; top: .5rem; width: .4rem; height: .2rem;
+  border-left: 2px solid var(--blue-600); border-bottom: 2px solid var(--blue-600);
+  transform: rotate(-45deg);
+}
+.assurances__stock {
+  font-weight: 700; color: var(--ink);
+}
+.assurances__stock.is-out { color: var(--ink-mute); }
+.assurances__stock.is-out::before { background: var(--line); }
+.assurances__stock.is-out::after { border-color: var(--ink-mute); }
+
+.variants { margin: 0 0 1.1rem; }
+.variants__label { font-size: .82rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-mute); margin: 0 0 .5rem; }
+.variants__list { display: flex; flex-wrap: wrap; gap: .45rem; list-style: none; padding: 0; margin: 0; }
+.variants__list li {
+  margin: 0; padding: .38rem .85rem; border: 1px solid var(--line); border-radius: var(--radius-s);
+  background: var(--white); font-size: .88rem; font-weight: 600;
+}

@@ -135,21 +135,39 @@ export function loadShop() {
     slug: slugify(c.slug || c.name, "category"),
     url: `/shop/${slugify(c.slug || c.name, "category")}/`,
   }));
-  // Category pages and product pages share the /shop/ namespace, so a product
-  // may never claim a slug a category already owns.
+  const categorySlugs = new Set(categories.map((c) => c.slug));
+  // Products live under their category: /shop/<category>/<product>/. A product
+  // with no recognised category sits at /shop/<product>/, where it may never
+  // claim a slug a category page already owns.
   const used = new Set(categories.map((c) => c.slug));
   const products = (Array.isArray(raw.products) ? raw.products : [])
     .filter((p) => p && p.name)
     .map((p) => {
-      let slug = slugify(p.slug || p.name, "product");
+      const category = slugify(p.category || "");
+      const nested = categorySlugs.has(category);
+      const base = slugify(p.slug || p.name, "product");
+      let slug = base;
       let n = 2;
-      while (used.has(slug)) slug = `${slugify(p.slug || p.name, "product")}-${n++}`;
-      used.add(slug);
-      return { ...p, slug, url_internal: `/shop/${slug}/` };
+      while (used.has(nested ? `${category}/${slug}` : slug)) slug = `${base}-${n++}`;
+      used.add(nested ? `${category}/${slug}` : slug);
+      return {
+        ...p,
+        slug,
+        categorySlug: nested ? category : "",
+        // A product photo is only referenced once the file is actually on disk,
+        // so a placeholder path in products.json never becomes a broken image.
+        image:
+          typeof p.image === "string" && p.image.startsWith("/") && !existsSync(join(ROOT, p.image.replace(/^\//, "")))
+            ? ""
+            : p.image,
+        url_internal: nested ? `/shop/${category}/${slug}/` : `/shop/${slug}/`,
+      };
     });
   return {
     currency: raw.currency || "USD",
     affiliateDisclosure: raw.affiliateDisclosure || "",
+    delivery: raw.delivery || "",
+    dealer: raw.dealer || "",
     categories,
     products,
   };
