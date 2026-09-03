@@ -20,6 +20,7 @@ import { findHub, findRegion, findCity, findTopic, findCityTopic } from "./src/p
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
+import { bestShopsEntryFor, bestShopsPage } from "./src/pages/best.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
@@ -63,6 +64,16 @@ const site = loadSite();
 const listings = assignTitles(loadListings());
 const index = buildIndex(listings);
 const blog = loadBlog();
+
+// Programmatic "5 best" listicles, one per city with at least this many
+// partners - skipping the handful of cities that already have a hand-written
+// equivalent post, so the two never compete for the same search query.
+const BEST_SHOPS_MIN_LISTINGS = 5;
+const BEST_SHOPS_HAND_WRITTEN = new Set(["miami", "orlando", "panama-city"]);
+const bestShopsPosts = index.cities
+  .filter((c) => c.listings.length >= BEST_SHOPS_MIN_LISTINGS && !BEST_SHOPS_HAND_WRITTEN.has(c.slug))
+  .map((c) => bestShopsEntryFor(c));
+blog.push(...bestShopsPosts);
 const pages = loadStaticPages();
 const stats = statsFor(listings);
 const queries = SEARCH_QUERIES.map((query) => ({ query, slug: slugify(query), url: `/search/${slugify(query)}/` }));
@@ -211,7 +222,8 @@ write("/blog/", blogHub(site, ctx), {
   search: { u: "/blog/", t: "Florida e-bike rental guides", s: "Blog", d: "Laws, prices, routes and checklists.", k: "blog guides articles florida ebike", w: 10 },
 });
 for (const post of blog) {
-  write(post.url, blogPost(site, post, ctx), {
+  const html = post.kind === "best-shops" ? bestShopsPage(site, post, ctx) : blogPost(site, post, ctx);
+  write(post.url, html, {
     priority: 0.7,
     changefreq: "monthly",
     lastmod: isoDate(post.updated || post.date),
