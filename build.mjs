@@ -23,7 +23,7 @@ import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
-import { shopHub, productPage } from "./src/pages/shop.mjs";
+import { shopHub, productPage, shopCategoryPage } from "./src/pages/shop.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -242,7 +242,7 @@ write("/shop/", shopHub(site, shop, ctx), {
   priority: shop.products.length ? 0.8 : 0.3,
   changefreq: "weekly",
   group: "pages",
-  skipSitemap: shop.products.length === 0,
+  skipSitemap: shop.products.length === 0 && shop.categories.length === 0,
   search: {
     u: "/shop/",
     t: "Shop e-bike gear",
@@ -252,6 +252,21 @@ write("/shop/", shopHub(site, shop, ctx), {
     w: 8,
   },
 });
+for (const category of shop.categories) {
+  write(category.url, shopCategoryPage(site, category, shop, ctx), {
+    priority: 0.7,
+    changefreq: "weekly",
+    group: "shop",
+    search: {
+      u: category.url,
+      t: category.name,
+      s: "Shop",
+      d: category.description,
+      k: `${category.name} ${category.slug.replace(/-/g, " ")} shop buy florida`.toLowerCase(),
+      w: 7,
+    },
+  });
+}
 for (const product of shop.products) {
   write(product.url_internal, productPage(site, product, shop, ctx), {
     priority: 0.6,

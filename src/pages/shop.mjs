@@ -55,6 +55,23 @@ export function productCard(product, currency) {
 </article>`;
 }
 
+
+/** One shop category block: name, description and what is currently in it. */
+function categoryBlock(category, items) {
+  return `<article class="shop-cat">
+  <div class="shop-cat__body">
+    <h3><a href="${attr(category.url)}">${esc(category.name)}</a></h3>
+    <p>${esc(category.description)}</p>
+    <p class="shop-cat__meta">${
+      items.length
+        ? `${items.length} ${plural(items.length, "product")}`
+        : "Products landing soon"
+    }</p>
+    <a class="card__more" href="${attr(category.url)}">Browse ${esc(category.name)}</a>
+  </div>
+</article>`;
+}
+
 /* --------------------------------------------------------------- hub */
 
 export function shopHub(site, shop, ctx) {
@@ -64,12 +81,11 @@ export function shopHub(site, shop, ctx) {
   const products = shop.products;
   const empty = products.length === 0;
 
-  const byCategory = shop.categories
-    .map((category) => ({
-      ...category,
-      items: products.filter((p) => slugify(p.category || "") === category.slug),
-    }))
-    .filter((c) => c.items.length);
+  const withItems = shop.categories.map((category) => ({
+    ...category,
+    items: products.filter((p) => slugify(p.category || "") === category.slug),
+  }));
+  const byCategory = withItems.filter((c) => c.items.length);
 
   const uncategorised = products.filter(
     (p) => !shop.categories.some((c) => c.slug === slugify(p.category || ""))
@@ -96,27 +112,18 @@ ${breadcrumbs(crumbs)}
   </div>
 </section>
 
+<section class="section section--tint" id="categories">
+  <div class="wrap">
+    <h2>Shop by category</h2>
+    <p class="muted">Three categories, each with its own page: what to buy, what it costs and how
+    Florida's rules treat it.</p>
+    <div class="shop-cats mt-2">${withItems.map((c) => categoryBlock(c, c.items)).join("")}</div>
+  </div>
+</section>
+
 ${
   empty
-    ? `<section class="section section--tint">
-  <div class="wrap">
-    <h2>What is going in here</h2>
-    <p class="muted">The categories below are what this section will cover. In the meantime, the
-    guides linked under each one answer the questions people ask before buying.</p>
-    <div class="grid grid--3 mt-2">
-      ${shop.categories
-        .map((c) =>
-          linkCard({
-            href: c.guide || "/costs/",
-            title: c.name,
-            text: c.description,
-            more: "Read the related guide",
-          })
-        )
-        .join("")}
-    </div>
-  </div>
-</section>`
+    ? ""
     : `${byCategory
         .map(
           (category) => `<section class="section section--tint" id="${attr(category.slug)}">
@@ -333,6 +340,110 @@ ${adSlotScript(site, 1)}
                 url: offerUrl,
               }
             : undefined,
+      },
+    ],
+  });
+}
+
+/* ---------------------------------------------------------- category */
+
+/**
+ * A shop category landing page: /shop/<category-slug>/. Renders the category's
+ * products, or, while the category is still being stocked, the guides that
+ * answer the questions people ask before buying.
+ */
+export function shopCategoryPage(site, category, shop, ctx) {
+  const items = shop.products.filter((p) => slugify(p.category || "") === category.slug);
+  const crumbs = [HOME_CRUMB, SHOP_CRUMB, { href: category.url, label: category.name }];
+  const hero = photoFor(`shop-${category.slug}`);
+  const extra = secondPhotoFor(`shop-${category.slug}`);
+  const others = shop.categories.filter((c) => c.slug !== category.slug);
+
+  const body = `
+${breadcrumbs(crumbs)}
+<section class="section" style="padding-top:1.2rem">
+  <div class="wrap">
+    <div class="section__head">
+      <span class="eyebrow">Shop</span>
+      <h1>${esc(category.name)}</h1>
+      <p>${esc(category.description)}</p>
+    </div>
+    ${figure(hero, {
+      alt: `Riding in Florida - ${hero.alt}`,
+      caption: `Illustrative photo of e-bike riding in Florida, not of a product sold in ${category.name}.`,
+      className: "figure--stock",
+    })}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    ${
+      items.length
+        ? `<h2>${items.length} ${esc(plural(items.length, "product"))} in ${esc(category.name)}</h2>
+           <div class="product-grid mt-2">${items.map((p) => productCard(p, shop.currency)).join("")}</div>`
+        : `<h2>Products are being added</h2>
+           <p class="muted">Nothing is listed in ${esc(category.name)} yet — we would rather show
+           nothing than pad the page out with kit we have not ridden. In the meantime the guides
+           below cover what people ask before buying, and every shop in the
+           <a href="/partners/">partner directory</a> will let you try the style first.</p>
+           <p class="mt-2"><a class="btn btn--primary" href="${attr(category.guide || "/blog/")}">Read the ${esc(
+             category.name
+           )} guide</a>
+           <a class="btn btn--outline" href="/partners/">Rent one first</a></p>`
+    }
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(extra, { alt: `Riding in Florida - ${extra.alt}` })}
+      <div>
+        <h2>Before you buy ${esc(category.name)}</h2>
+        <p>Florida sets the rules for electric bikes at state level and leaves shared-use paths to
+        local authorities, so what you are allowed to ride on a given trail depends on where you
+        are. Our <a href="/blog/florida-ebike-laws/">Florida e-bike law guide</a> and
+        <a href="/blog/ebike-classes-explained/">classes explained</a> cover both.</p>
+        <p>Salt air, sand and summer heat are harder on gear here than almost anywhere else. Rinse
+        everything after a beach ride, and treat any range figure on a spec sheet as an optimistic
+        number once you add heat and headwind.</p>
+        <p><a class="btn btn--primary" href="/partners/">Rent Now</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <h2>Other categories</h2>
+    <div class="shop-cats mt-2">${others
+      .map((c) => categoryBlock(c, shop.products.filter((p) => slugify(p.category || "") === c.slug)))
+      .join("")}</div>
+    <p class="small muted mt-2">${esc(shop.affiliateDisclosure)}</p>
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `${category.name} - Florida E-Bike Shop`,
+    description: clamp(category.description),
+    path: category.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: category.name,
+        url: `${site.url}${category.url}`,
+        description: category.description,
+        isPartOf: { "@id": `${site.url}/#website` },
       },
     ],
   });

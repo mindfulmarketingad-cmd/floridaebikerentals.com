@@ -900,3 +900,19 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   border-radius: var(--radius-s); font-size: .88rem; color: var(--ink-soft);
 }
 .review-list__src { margin: .5rem 0 0 .9rem; font-size: .82rem; }
+
+/* ---------- shop category blocks ---------- */
+.shop-cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.1rem; }
+.shop-cat {
+  display: flex; flex-direction: column; background: var(--white);
+  border: 1px solid var(--line); border-radius: var(--radius-m); overflow: hidden;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.shop-cat:hover { border-color: var(--blue-400); box-shadow: 0 6px 18px rgba(32, 33, 36, .1); }
+.shop-cat__body { display: flex; flex-direction: column; gap: .45rem; padding: 1.25rem 1.2rem 1.3rem; border-top: 4px solid var(--blue-500); }
+.shop-cat__body h3 { margin: 0; font-size: 1.12rem; }
+.shop-cat__body h3 a { color: var(--ink); text-decoration: none; }
+.shop-cat__body h3 a:hover { color: var(--blue-700); text-decoration: underline; }
+.shop-cat__body p { margin: 0; color: var(--ink-soft); font-size: .92rem; }
+.shop-cat__meta { color: var(--ink-mute); font-size: .82rem; font-weight: 700; }
+.shop-cat .card__more { margin-top: .25rem; }

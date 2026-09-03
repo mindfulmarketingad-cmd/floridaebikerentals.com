@@ -130,7 +130,14 @@ export function loadShop() {
   const file = join(ROOT, "data", "products.json");
   if (!existsSync(file)) return { currency: "USD", affiliateDisclosure: "", categories: [], products: [] };
   const raw = JSON.parse(readFileSync(file, "utf8"));
-  const used = new Set();
+  const categories = (Array.isArray(raw.categories) ? raw.categories : []).map((c) => ({
+    ...c,
+    slug: slugify(c.slug || c.name, "category"),
+    url: `/shop/${slugify(c.slug || c.name, "category")}/`,
+  }));
+  // Category pages and product pages share the /shop/ namespace, so a product
+  // may never claim a slug a category already owns.
+  const used = new Set(categories.map((c) => c.slug));
   const products = (Array.isArray(raw.products) ? raw.products : [])
     .filter((p) => p && p.name)
     .map((p) => {
@@ -143,7 +150,7 @@ export function loadShop() {
   return {
     currency: raw.currency || "USD",
     affiliateDisclosure: raw.affiliateDisclosure || "",
-    categories: Array.isArray(raw.categories) ? raw.categories : [],
+    categories,
     products,
   };
 }
