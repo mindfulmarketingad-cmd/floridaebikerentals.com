@@ -269,6 +269,107 @@
     "No pedals - throttle-only, dirt-bike-style riding",
     "Ships with a combination cable lock"
    ]
+  },
+  {
+   "slug": "meepo-mini-longboard-electric-skateboard",
+   "name": "MEEPO Mini Longboard Electric Skateboard",
+   "brand": "MEEPO",
+   "category": "electric-skateboards",
+   "affiliate": true,
+   "url": "https://amzn.to/4xynnUT",
+   "cta": "Check Price",
+   "badge": "Longboard",
+   "image": "/assets/img/shop/meepo-mini-longboard-electric-skateboard.jpg",
+   "imageWidth": 679,
+   "imageHeight": 684,
+   "summary": "A drop-through longboard-style electric skateboard with wood-grain rail trim, cutout carry handles and dual rear-wheel motors.",
+   "bullets": [
+    "Drop-through longboard deck with wood-grain rail trim",
+    "Dual rear-wheel motors with a low-profile remote receiver",
+    "Cutout carry handle built into the deck",
+    "MEEPO branding on the underside"
+   ]
+  },
+  {
+   "slug": "meepo-campus-electric-skateboard",
+   "name": "MEEPO Campus Electric Skateboard",
+   "brand": "MEEPO",
+   "category": "electric-skateboards",
+   "affiliate": true,
+   "url": "https://amzn.to/4xynnUT",
+   "cta": "Check Price",
+   "badge": "Knee pads included",
+   "image": "/assets/img/shop/meepo-campus-electric-skateboard.jpg",
+   "imageWidth": 453,
+   "imageHeight": 480,
+   "summary": "A drop-through electric skateboard with a tech-inspired grid deck graphic, dual belt-driven rear motors and a set of knee pads included.",
+   "bullets": [
+    "Drop-through deck with a tech-inspired grid graphic",
+    "Textured black grip tape for foot control",
+    "Dual belt-driven rear motors in a low-profile enclosure",
+    "Ships with a set of knee pads",
+    "MEEPO branding on the underside"
+   ]
+  },
+  {
+   "slug": "asrate-electric-skateboard",
+   "name": "ASRATE Electric Skateboard",
+   "brand": "ASRATE",
+   "category": "electric-skateboards",
+   "affiliate": true,
+   "url": "https://amzn.to/4xynnUT",
+   "cta": "Check Price",
+   "badge": "Wireless remote",
+   "image": "/assets/img/shop/asrate-electric-skateboard.jpg",
+   "imageWidth": 480,
+   "imageHeight": 477,
+   "summary": "A honeycomb-textured electric skateboard with blue LED accent striping, dual hub motors and a wireless handheld remote with an LED display.",
+   "bullets": [
+    "Honeycomb-textured deck with blue LED accent striping",
+    "Dual hub motors built into the rear wheels",
+    "Wireless handheld remote with an LED display",
+    "ASRATE branding on the underside"
+   ]
+  },
+  {
+   "slug": "meepo-shortboard-electric-skateboard",
+   "name": "MEEPO Shortboard Electric Skateboard",
+   "brand": "MEEPO",
+   "category": "electric-skateboards",
+   "affiliate": true,
+   "url": "https://amzn.to/4xynnUT",
+   "cta": "Check Price",
+   "badge": "4 speed modes",
+   "image": "/assets/img/shop/meepo-shortboard-electric-skateboard.jpg",
+   "imageWidth": 346,
+   "imageHeight": 480,
+   "summary": "A compact cruiser-style electric skateboard with a wood-grain rail, rear-mounted dual motors and multiple selectable speed modes.",
+   "bullets": [
+    "Compact cruiser-style deck with a wood-grain rail",
+    "Rear-mounted dual motors",
+    "Multiple speed mode settings selectable from the deck",
+    "MEEPO branding on the underside"
+   ]
+  },
+  {
+   "slug": "dnaskate-electric-skateboard",
+   "name": "DNASKATE Electric Skateboard",
+   "brand": "DNASKATE",
+   "category": "electric-skateboards",
+   "affiliate": true,
+   "url": "https://amzn.to/4xynnUT",
+   "cta": "Check Price",
+   "badge": "Digital display",
+   "image": "/assets/img/shop/dnaskate-electric-skateboard.jpg",
+   "imageWidth": 480,
+   "imageHeight": 461,
+   "summary": "A drop-through electric skateboard with a pinstripe deck accent, dual rear hub motors and a wireless remote with a digital battery-percentage display.",
+   "bullets": [
+    "Drop-through deck with a single pinstripe accent",
+    "Dual rear hub motors",
+    "Wireless remote with a digital battery-percentage display",
+    "DNASKATE branding on the underside"
+   ]
   }
  ],
  "delivery": "Free delivery within 10 miles on every product.",

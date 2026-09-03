@@ -32,7 +32,9 @@ function productImage(product, { eager = false } = {}) {
   if (!src) return "";
   const alt = `${product.brand && !product.name.includes(product.brand) ? `${product.brand} ` : ""}${
     product.name
-  }${product.name.toLowerCase().includes("bike") || product.name.toLowerCase().includes("scooter") ? "" : " electric bike"}`;
+  }${
+    /bike|scooter|skateboard/.test(product.name.toLowerCase()) ? "" : " electric bike"
+  }`;
   return `<img src="${attr(src)}" alt="${attr(alt)}" loading="${eager ? "eager" : "lazy"}"
     decoding="async" referrerpolicy="no-referrer" width="${attr(product.imageWidth || 800)}"
     height="${attr(product.imageHeight || 800)}" data-fallback="1">`;
