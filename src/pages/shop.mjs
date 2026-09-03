@@ -444,7 +444,7 @@ export function shopCategoryPage(site, category, shop, ctx) {
 ${pageHero({
   crumbs: crumbs,
   eyebrow: `Shop`,
-  h1: `${esc(category.name)}`,
+  h1: `Shop ${esc(category.name)} in Florida`,
   lede: `${esc(category.description)}`,
 })}
 <section class="section">
@@ -520,7 +520,7 @@ ${adSlotScript(site, 1)}
 `;
 
   return page(site, {
-    title: `${category.name} - Florida E-Bike Shop`,
+    title: `Shop ${category.name} in Florida`,
     description: clamp(category.description),
     path: category.url,
     body,
