@@ -144,9 +144,19 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   position: relative; color: #fff; overflow: hidden;
   background: linear-gradient(150deg, var(--blue-800) 0%, var(--blue-600) 52%, var(--blue-500) 100%);
 }
+/*
+ * A shallow white arc bitten out of the hero's bottom edge, so the band ends
+ * in a curve instead of a hard line. A wide, short ellipse (width way past
+ * the viewport, height a few rem) reads as a gentle wave rather than a dome:
+ * border-radius's percentages resolve against this element's own box, so 50%
+ * horizontally is huge (most of the viewport) while 100% vertically is just
+ * its own short height, producing a flat, wide curve.
+ */
 .hero::after {
-  content: ""; position: absolute; inset: auto -10% -60% -10%; height: 220px; background: var(--white);
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0; opacity: .06;
+  content: ""; position: absolute; left: -8%; right: -8%; bottom: -1px;
+  height: clamp(30px, 6vw, 68px); background: var(--white);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  pointer-events: none;
 }
 .hero__inner { position: relative; z-index: 2; padding: clamp(2.2rem, 1rem + 4vw, 4rem) 0 clamp(2rem, 1rem + 3vw, 3.2rem); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: center; }
@@ -458,7 +468,16 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .pagelink-cloud .note { color: var(--ink-mute); font-size: .85rem; font-weight: 600; white-space: nowrap; }
 
 /* ---------- listing detail ---------- */
-.detail-hero { background: linear-gradient(160deg, var(--blue-800), var(--blue-600)); color: #fff; padding: 1.6rem 0 2.4rem; }
+.detail-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, var(--blue-800), var(--blue-600)); color: #fff; padding: 1.6rem 0 2.4rem;
+}
+.detail-hero::after {
+  content: ""; position: absolute; left: -8%; right: -8%; bottom: -1px;
+  height: clamp(24px, 5vw, 52px); background: var(--white);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  pointer-events: none;
+}
 .detail-hero h1 { color: #fff; margin-bottom: .4rem; }
 .detail-hero .crumbs, .detail-hero .crumbs a { color: #c3d4fb; }
 .detail-hero .crumbs a:hover { color: #fff; }

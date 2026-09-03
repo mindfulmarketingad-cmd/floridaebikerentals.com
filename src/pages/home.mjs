@@ -126,22 +126,15 @@ export function homePage(site, { listings, index, blog, stats }) {
       town page ranks the local shops by Google rating and review volume, so the shortlist worth calling
       is always at the top.</p>
     </div>
-    <div class="grid grid--3">
-      ${index.regions
-        .map((region) =>
-          linkCard({
-            href: region.url,
-            title: region.name,
-            meta: `${region.listings.length} rental partners · ${region.cities.length} towns`,
-            text: region.cities
-              .slice(0, 4)
-              .map((c) => c.name)
-              .join(", "),
-            more: "See rentals",
-          })
-        )
-        .join("")}
-    </div>
+    <div class="mt-2">${linkCloud(
+      [...index.regions]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((region) => ({
+          href: region.url,
+          label: `E-bike rentals in ${region.name}`,
+          count: region.listings.length,
+        }))
+    )}</div>
     <h3 class="mt-3">Popular Florida towns for e-bike rentals</h3>
     ${linkCloud(
       topCities.map((city) => ({
