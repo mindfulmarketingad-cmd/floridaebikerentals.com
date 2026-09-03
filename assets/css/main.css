@@ -663,6 +663,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .footer-top li { margin-bottom: .4rem; }
 .footer-brand img { width: 200px; margin-bottom: .8rem; }
 .footer-brand p { font-size: .92rem; max-width: 42ch; }
+.social-links { display: flex; gap: .6rem; margin-top: .9rem; }
+.social-link { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.1); color: #dde7fd; }
+.social-link:hover { background: rgba(255,255,255,.2); color: #fff; text-decoration: none; }
 .footer-nav { padding: 1.4rem 0 .6rem; }
 .footer-nav ul {
   list-style: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;

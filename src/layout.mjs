@@ -16,6 +16,24 @@ export const HEADER_LINKS = [
   { href: "/search/", label: "Search", cta: true },
 ];
 
+export const SOCIAL_LINKS = [
+  {
+    href: "#",
+    label: "Instagram",
+    icon: `<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Zm4.75-3.25a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1Z"/>`,
+  },
+  {
+    href: "#",
+    label: "Twitter",
+    icon: `<path d="M20.5 6.2c-.6.27-1.25.45-1.93.53a3.4 3.4 0 0 0 1.48-1.87 6.8 6.8 0 0 1-2.14.82 3.37 3.37 0 0 0-5.74 3.07A9.55 9.55 0 0 1 5.1 5.6a3.36 3.36 0 0 0 1.04 4.5c-.55-.02-1.07-.17-1.52-.42v.04a3.37 3.37 0 0 0 2.7 3.3 3.4 3.4 0 0 1-1.52.06 3.37 3.37 0 0 0 3.15 2.34A6.77 6.77 0 0 1 3.9 16.9a9.53 9.53 0 0 0 5.17 1.52c6.2 0 9.6-5.14 9.6-9.6l-.01-.44A6.9 6.9 0 0 0 20.5 6.2Z"/>`,
+  },
+  {
+    href: "#",
+    label: "Facebook",
+    icon: `<path d="M13.5 21v-7.7h2.6l.4-3h-3v-1.9c0-.87.24-1.46 1.49-1.46h1.6V4.14C16.3 4.1 15.32 4 14.2 4c-2.34 0-3.95 1.43-3.95 4.04v2.25H7.6v3h2.65V21h3.25Z"/>`,
+  },
+];
+
 export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
@@ -126,6 +144,11 @@ function footer(site, extras) {
     .join("");
 
   const bar = FOOTER_LINKS.map((l) => `<li><a href="${attr(l.href)}">${esc(l.label)}</a></li>`).join("");
+  const social = SOCIAL_LINKS.map(
+    (l) => `<a class="social-link" href="${attr(l.href)}" aria-label="${attr(l.label)}" rel="noopener">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">${l.icon}</svg>
+    </a>`
+  ).join("");
   const year = new Date().getUTCFullYear();
 
   return `<footer class="site-footer">
@@ -136,6 +159,7 @@ function footer(site, extras) {
         <p>${esc(site.description)}</p>
         <p class="small"><a href="/contact/">Own one of these shops? Update or claim your listing.</a></p>
         <p class="small"><a href="/authors/">Meet the people who write this site</a></p>
+        <div class="social-links" aria-label="Follow us on social media">${social}</div>
       </div>
       ${columns}
     </div>
