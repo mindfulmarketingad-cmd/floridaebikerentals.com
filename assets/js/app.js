@@ -693,6 +693,7 @@
     var results = $("[data-search-results]", searchRoot);
     var summary = $("[data-search-summary]", searchRoot);
     var pagesUrl = searchRoot.getAttribute("data-pages") || "/data/pages.json";
+    var scope = searchRoot.getAttribute("data-scope") || "";
     var pagesPromise = null;
 
     function pages() {
@@ -700,6 +701,9 @@
         pagesPromise = fetch(pagesUrl, { credentials: "omit" })
           .then(function (r) { return r.ok ? r.json() : { pages: [] }; })
           .then(function (j) { return Array.isArray(j.pages) ? j.pages : []; })
+          .then(function (all) {
+            return scope ? all.filter(function (p) { return (p.u || "").indexOf(scope) === 0; }) : all;
+          })
           .catch(function () { return []; });
       }
       return pagesPromise;

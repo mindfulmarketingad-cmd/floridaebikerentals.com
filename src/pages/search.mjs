@@ -12,6 +12,47 @@ const MAGNIFIER = `<svg class="gsearch__icon" viewBox="0 0 24 24" width="20" hei
   <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5Zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14Z"></path>
 </svg>`;
 
+/**
+ * The compact search box used inline on a page that is not the /search hub
+ * itself - same live-suggestion and results behaviour, driven by the same
+ * data-site-search client script, just without the big logo. Pass `scope`
+ * to restrict it to pages whose URL starts with that prefix (e.g. "/find/"),
+ * so the same site-wide page index powers a section-specific search box
+ * without a second JSON file to keep in sync.
+ */
+export function inlineSearchWidget({
+  id = "s-q",
+  placeholder = "Search every page on this site",
+  buttonLabel = "Search this site",
+  scope = "",
+  idle = "",
+  query = "",
+} = {}) {
+  const suggestId = `${id}-suggest`;
+  return `<div class="gsearch gsearch--inline" data-site-search data-pages="/data/pages.json"${
+    scope ? ` data-scope="${attr(scope)}"` : ""
+  }${idle ? ` data-idle="${attr(idle)}"` : ""}${query ? ` data-query="${attr(query)}"` : ""}>
+  <form class="gsearch__form" role="search">
+    <div class="gsearch__field">
+    <div class="gsearch__box">
+      ${MAGNIFIER}
+      <input class="gsearch__input" type="search" id="${attr(id)}" name="q" autocomplete="off" spellcheck="false"
+        enterkeyhint="search" placeholder="${attr(placeholder)}"
+        aria-label="${attr(placeholder)}" role="combobox" aria-expanded="false"
+        aria-controls="${attr(suggestId)}" aria-autocomplete="list">
+      <button class="gsearch__clear" type="button" data-search-clear aria-label="Clear the search box" hidden>&times;</button>
+    </div>
+    <ul class="gsearch__suggest" id="${attr(suggestId)}" role="listbox" aria-label="Page suggestions" data-search-suggest hidden></ul>
+    </div>
+    <div class="gsearch__actions">
+      <button class="gsearch__btn" type="submit">${esc(buttonLabel)}</button>
+    </div>
+  </form>
+  <p class="result-count" data-search-summary aria-live="polite"></p>
+  <div data-search-results></div>
+</div>`;
+}
+
 /** Google-style search panel: logo, one pill input with live title suggestions, five suggested searches. */
 function searchPanel(site, queries) {
   const suggestions = queries.slice(0, 5);
@@ -158,26 +199,7 @@ ${pageHero({
 })}
 <section class="section">
   <div class="wrap">
-    <div class="gsearch gsearch--inline" data-site-search data-pages="/data/pages.json" data-query="${attr(query)}">
-      <form class="gsearch__form" role="search">
-        <div class="gsearch__field">
-        <div class="gsearch__box">
-          ${MAGNIFIER}
-          <input class="gsearch__input" type="search" id="s-q" name="q" autocomplete="off" spellcheck="false"
-            enterkeyhint="search" placeholder="Search every page on this site"
-            aria-label="Search every page on this site" role="combobox" aria-expanded="false"
-            aria-controls="s-suggest" aria-autocomplete="list">
-          <button class="gsearch__clear" type="button" data-search-clear aria-label="Clear the search box" hidden>&times;</button>
-        </div>
-        <ul class="gsearch__suggest" id="s-suggest" role="listbox" aria-label="Page suggestions" data-search-suggest hidden></ul>
-        </div>
-        <div class="gsearch__actions">
-          <button class="gsearch__btn" type="submit">Search this site</button>
-        </div>
-      </form>
-      <p class="result-count" data-search-summary aria-live="polite"></p>
-      <div data-search-results></div>
-    </div>
+    ${inlineSearchWidget({ query })}
     ${banner(photoFor(slug), { alt: `${titleQuery} - ${photoFor(slug).alt}` })}
   </div>
 </section>

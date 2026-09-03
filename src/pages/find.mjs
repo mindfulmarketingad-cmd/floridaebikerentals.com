@@ -6,6 +6,7 @@ import {
 } from "../components.mjs";
 import { statsFor, nearbyCities } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { inlineSearchWidget } from "./search.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
@@ -68,6 +69,13 @@ ${pageHero({
 })}
 <section class="section">
   <div class="wrap">
+    ${inlineSearchWidget({
+      id: "find-q",
+      placeholder: "Search regions, towns and what you need",
+      buttonLabel: "Search Find",
+      scope: "/find/",
+      idle: "Search every region, town and topic page in this directory.",
+    })}
     ${statRow([
       { value: String(stats.total), label: "Rental partners" },
       { value: String(stats.cities), label: "Towns covered" },
