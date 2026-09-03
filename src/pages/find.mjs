@@ -2,7 +2,7 @@ import { esc, attr, formatReviews, commaList, plural, clamp } from "../util.mjs"
 import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
-  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
+  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor, productCarousel,
 } from "../components.mjs";
 import { statsFor, nearbyCities } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
@@ -149,7 +149,7 @@ ${adSlotScript(site, 1)}
 
 /* --------------------------------------------------------- region page */
 
-export function findRegion(site, region, { index, blog }) {
+export function findRegion(site, region, { index, blog, shop }) {
   const stats = statsFor(region.listings);
   const top = region.listings.slice(0, 30);
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: region.url, label: region.name }];
@@ -224,6 +224,17 @@ ${pageHero({
 
 ${adSlot(site, "")}
 
+<section class="section section--tint">
+  <div class="wrap">
+    ${productCarousel(shop, {
+      title: "Prefer to buy your own e-bike or scooter?",
+      browseHref: "/shop/",
+      browseLabel: "Browse the shop",
+      id: `shop-${region.slug}`,
+    })}
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="section__head">
@@ -290,7 +301,7 @@ ${adSlotScript(site, 1)}
 
 /* ----------------------------------------------------------- city page */
 
-export function findCity(site, city, { index, listings, blog }) {
+export function findCity(site, city, { index, listings, blog, shop }) {
   const local = city.listings;
   const stats = statsFor(local);
   const near = nearbyCities(city, index.cities, 8);
@@ -393,6 +404,17 @@ ${pageHero({
 </section>
 
 ${adSlot(site, "")}
+
+<section class="section section--tint">
+  <div class="wrap">
+    ${productCarousel(shop, {
+      title: "Prefer to buy your own e-bike or scooter?",
+      browseHref: "/shop/",
+      browseLabel: "Browse the shop",
+      id: `shop-${city.slug}`,
+    })}
+  </div>
+</section>
 
 <section class="section">
   <div class="wrap">
@@ -510,7 +532,7 @@ ${adSlotScript(site, 1)}
  * Built only for a city that actually has at least one matching listing (see
  * CITY_TOPICS in data.mjs), so this never renders an empty result set.
  */
-export function findCityTopic(site, ctPage, { index }) {
+export function findCityTopic(site, ctPage, { index, shop }) {
   const { city, listings: local, label, noun, statewideUrl } = ctPage;
   const stats = statsFor(local);
   const crumbs = [
@@ -596,6 +618,18 @@ ${pageHero({
 
 ${adSlot(site, "")}
 
+<section class="section section--tint">
+  <div class="wrap">
+    ${productCarousel(shop, {
+      category: ctPage.key === "scooters" ? "electric-scooters" : undefined,
+      title: ctPage.key === "scooters" ? "Prefer to buy your own scooter?" : "Prefer to buy your own e-bike or scooter?",
+      browseHref: ctPage.key === "scooters" ? "/shop/electric-scooters/" : "/shop/",
+      browseLabel: ctPage.key === "scooters" ? "Browse e-scooters" : "Browse the shop",
+      id: `shop-${ctPage.slug}`,
+    })}
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     ${figure(secondPhotoFor(ctPage.slug), { alt: `Riding near ${city.name}, Florida - ${secondPhotoFor(ctPage.slug).alt}` })}
@@ -644,7 +678,7 @@ ${adSlotScript(site, 1)}
 
 /* ---------------------------------------------------------- topic page */
 
-export function findTopic(site, topic, { index }) {
+export function findTopic(site, topic, { index, shop }) {
   const stats = statsFor(topic.listings);
   const shown = topic.listings.slice(0, 40);
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: topic.url, label: topic.title }];
@@ -685,6 +719,18 @@ ${pageHero({
 </section>
 
 ${adSlot(site, "")}
+
+<section class="section section--tint">
+  <div class="wrap">
+    ${productCarousel(shop, {
+      category: topic.slug === "ebike-and-scooter-rentals-in-florida" ? "electric-scooters" : undefined,
+      title: topic.slug === "ebike-and-scooter-rentals-in-florida" ? "Prefer to buy your own scooter?" : "Prefer to buy your own e-bike or scooter?",
+      browseHref: topic.slug === "ebike-and-scooter-rentals-in-florida" ? "/shop/electric-scooters/" : "/shop/",
+      browseLabel: topic.slug === "ebike-and-scooter-rentals-in-florida" ? "Browse e-scooters" : "Browse the shop",
+      id: `shop-${topic.slug}`,
+    })}
+  </div>
+</section>
 
 ${
   cityPages.length

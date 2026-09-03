@@ -391,3 +391,62 @@ export function localBusinessSchema(site, listing) {
   }
   return data;
 }
+
+/* ------------------------------------------------------ product carousel */
+
+/** Only http(s) links leave this file, whatever ends up in products.json. */
+function productSafeUrl(url) {
+  const value = String(url || "").trim();
+  return /^https?:\/\//i.test(value) && !/["<>\s]/.test(value) ? value : "";
+}
+
+function productSlide(product) {
+  const href = product.affiliate ? productSafeUrl(product.url) : product.url_internal;
+  if (!href) return "";
+  const external = Boolean(product.affiliate);
+  const linkAttrs = external ? ' rel="nofollow sponsored noopener" target="_blank"' : "";
+  const src = productSafeUrl(product.image) || (product.image && product.image.startsWith("/") ? product.image : "");
+  const alt = `${product.brand ? `${product.brand} ` : ""}${product.name}`;
+  return `<a class="slide slide--product" href="${attr(href)}"${linkAttrs}>
+  <div class="slide__media">
+    ${
+      src
+        ? `<img src="${attr(src)}" alt="${attr(alt)}" loading="lazy" decoding="async">`
+        : ""
+    }
+    ${product.badge ? `<span class="slide__badge">${esc(product.badge)}</span>` : ""}
+  </div>
+  <div class="slide__body">
+    ${product.brand ? `<span class="slide__meta">${esc(product.brand)}</span>` : ""}
+    <span class="slide__name">${esc(product.name)}</span>
+    <span class="slide__foot">${esc(product.cta || "Check price")} &rsaquo;</span>
+  </div>
+</a>`;
+}
+
+/**
+ * A horizontally-scrolling row of shop products, for placement on a content
+ * page (a light section, not the dark home hero) — "prefer to buy your own?"
+ * Renders nothing when the category has no products, so a page never ships
+ * an empty carousel, and no caller needs to check first.
+ */
+export function productCarousel(shop, { category, title, browseHref, browseLabel, id, limit = 8 }) {
+  const items = (shop?.products || []).filter((p) => !category || p.categorySlug === category).slice(0, limit);
+  if (!items.length) return "";
+  const slides = items.map(productSlide).filter(Boolean).join("");
+  if (!slides) return "";
+  return `<div class="carousel carousel--light" data-carousel id="${attr(id || "shop-carousel")}">
+  <div class="carousel__head">
+    <span class="carousel__title">${esc(title)}</span>
+    <div class="carousel__nav">
+      <button class="carousel__btn" type="button" data-carousel-prev aria-label="Previous products">&#8249;</button>
+      <button class="carousel__btn" type="button" data-carousel-next aria-label="Next products">&#8250;</button>
+    </div>
+  </div>
+  <div class="carousel__track">${slides}</div>
+  <p class="carousel__foot">
+    ${browseHref ? `<a class="card__more" href="${attr(browseHref)}">${esc(browseLabel || "Browse all")}</a>` : ""}
+    <span class="small muted">${esc(shop?.affiliateDisclosure || "")}</span>
+  </p>
+</div>`;
+}
