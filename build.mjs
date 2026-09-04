@@ -401,6 +401,29 @@ writeRaw(
 
 writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: searchIndex.filter(Boolean) }));
 
+/* Nearest-city lookup for the "what do you need to rent?" popup: one entry
+ * per city with rental listings, its coordinates, and the find pages a
+ * "near me" search for that city should land on. Scooter/golf-cart URLs are
+ * only present where that city actually has a matching rental shop. */
+const scooterUrlByCitySlug = new Map(
+  index.cityTopicPages.filter((p) => p.key === "scooters").map((p) => [p.city.slug, p.url])
+);
+writeRaw(
+  "data/cities.json",
+  JSON.stringify({
+    cities: index.cities
+      .filter((c) => typeof c.lat === "number" && typeof c.lng === "number")
+      .map((c) => ({
+        slug: c.slug,
+        name: c.name,
+        lat: c.lat,
+        lng: c.lng,
+        ebikeUrl: c.url,
+        scooterUrl: scooterUrlByCitySlug.get(c.slug) || "",
+      })),
+  })
+);
+
 /* ----------------------------------------------------------- sitemaps */
 
 const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "shop", "search"];

@@ -273,6 +273,89 @@
     else window.addEventListener("load", autoLocate, { once: true });
   }
 
+  /* ------------------------------------------- "what to rent" popup */
+  var rentPicker = $("[data-rent-picker]");
+  if (rentPicker && typeof rentPicker.showModal === "function") {
+    var rpCitiesPromise = null;
+    function rpCities() {
+      if (!rpCitiesPromise) {
+        rpCitiesPromise = fetch("/data/cities.json", { credentials: "omit" })
+          .then(function (r) { return r.ok ? r.json() : { cities: [] }; })
+          .then(function (j) { return Array.isArray(j.cities) ? j.cities : []; })
+          .catch(function () { return []; });
+      }
+      return rpCitiesPromise;
+    }
+
+    function nearestCityWith(lat, lng, field) {
+      return rpCities().then(function (rows) {
+        var best = null, bestDist = Infinity;
+        rows.forEach(function (c) {
+          if (!c[field] || num(c.lat) === null || num(c.lng) === null) return;
+          var dist = milesBetween(lat, lng, c.lat, c.lng);
+          if (dist < bestDist) { bestDist = dist; best = c; }
+        });
+        return best;
+      });
+    }
+
+    /* "eskateboard" has no rental listings in the data (only in the shop),
+       so it always goes straight to the shop category rather than pretend
+       a location match is happening. */
+    var RP_DESTS = {
+      ebike: { field: "ebikeUrl", fallback: "/find/" },
+      escooter: { field: "scooterUrl", fallback: "/find/ebike-and-scooter-rentals-in-florida/" },
+      eskateboard: { field: null, fallback: "/shop/electric-skateboards/" },
+    };
+
+    var rpStatus = $("[data-rent-picker-status]", rentPicker);
+    var rpOptions = $$("[data-rent-type]", rentPicker);
+    var RP_SHOWN_KEY = "fer:rentpicker-shown";
+
+    function rpRemember() {
+      try { window.sessionStorage.setItem(RP_SHOWN_KEY, "1"); } catch (err) { /* private mode */ }
+    }
+    function rpWasShown() {
+      try { return window.sessionStorage.getItem(RP_SHOWN_KEY) === "1"; } catch (err) { return false; }
+    }
+
+    function rpGo(type) {
+      var dest = RP_DESTS[type];
+      if (!dest) return;
+      if (!dest.field || !navigator.geolocation) { window.location.href = dest.fallback; return; }
+      if (rpStatus) rpStatus.textContent = "Finding rentals near you…";
+      rpOptions.forEach(function (b) { b.disabled = true; });
+      navigator.geolocation.getCurrentPosition(
+        function (pos) {
+          nearestCityWith(pos.coords.latitude, pos.coords.longitude, dest.field).then(function (city) {
+            window.location.href = city ? city[dest.field] : dest.fallback;
+          });
+        },
+        function () { window.location.href = dest.fallback; },
+        { enableHighAccuracy: false, timeout: 9000, maximumAge: 600000 }
+      );
+    }
+
+    rpOptions.forEach(function (btn) {
+      btn.addEventListener("click", function () { rpGo(btn.getAttribute("data-rent-type")); });
+    });
+    $$("[data-rent-picker-close]", rentPicker).forEach(function (btn) {
+      btn.addEventListener("click", function () { rentPicker.close(); });
+    });
+    /* A click that lands on the dialog element itself (not a descendant)
+       is a click on the native ::backdrop - close on it, like an overlay. */
+    rentPicker.addEventListener("click", function (e) {
+      if (e.target === rentPicker) rentPicker.close();
+    });
+    rentPicker.addEventListener("close", rpRemember);
+
+    if (!rpWasShown()) {
+      window.setTimeout(function () {
+        if (!rpWasShown() && !rentPicker.open) rentPicker.showModal();
+      }, 1500);
+    }
+  }
+
   /* ----------------------------------------------------------- maps */
   function buildMap(container, points, opts) {
     opts = opts || {};

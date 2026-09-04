@@ -85,7 +85,7 @@ export function homePage(site, { listings, index, blog, stats }) {
   <div class="wrap hero__inner">
     <div class="hero__grid">
       <div>
-        <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's e-bike rental directory</span>
+        <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's #1 resource for e-bike rentals</span>
         <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)

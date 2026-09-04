@@ -178,6 +178,32 @@ function footer(site, extras) {
 </footer>`;
 }
 
+/**
+ * "What do you need to rent?" popup: e-bike, e-scooter or e-skateboard,
+ * each routed to the nearest matching rentals once the visitor allows
+ * their location (the client script in app.js drives this - see
+ * data-rent-picker there). Native <dialog> so it always renders above
+ * everything else on the page with no z-index bookkeeping of our own.
+ */
+function rentPicker() {
+  const BIKE = `<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>`;
+  const SCOOTER = `<circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M5 19h6l6-14h2"/><path d="M15 5h3"/>`;
+  const SKATEBOARD = `<rect x="2" y="9" width="20" height="3" rx="1.5"/><circle cx="6" cy="16" r="1.6"/><circle cx="10" cy="16" r="1.6"/><circle cx="14" cy="16" r="1.6"/><circle cx="18" cy="16" r="1.6"/>`;
+  const icon = (paths) =>
+    `<svg class="rentpicker__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+  return `<dialog class="rentpicker" data-rent-picker aria-labelledby="rentpicker-title">
+  <button class="rentpicker__close" type="button" data-rent-picker-close aria-label="Close">&times;</button>
+  <h2 id="rentpicker-title" class="rentpicker__title">What do you need to rent?</h2>
+  <p class="rentpicker__status" data-rent-picker-status>We'll point you to the nearest rentals once you pick one.</p>
+  <div class="rentpicker__options">
+    <button class="rentpicker__option" type="button" data-rent-type="ebike">${icon(BIKE)}<span>E-Bike</span></button>
+    <button class="rentpicker__option" type="button" data-rent-type="escooter">${icon(SCOOTER)}<span>E-Scooter</span></button>
+    <button class="rentpicker__option" type="button" data-rent-type="eskateboard">${icon(SKATEBOARD)}<span>E-Skateboard</span></button>
+  </div>
+</dialog>`;
+}
+
 function adsenseLoader(site) {
   if (!site.adsense?.enabled || !site.adsense.publisherId) return "";
   const client = `ca-${site.adsense.publisherId}`;
@@ -286,6 +312,7 @@ ${header(path)}
 ${pageBody}
 </main>
 ${footer(site, footerColumns)}
+${rentPicker()}
 <script src="/assets/js/app.js" defer></script>
 </body>
 </html>
