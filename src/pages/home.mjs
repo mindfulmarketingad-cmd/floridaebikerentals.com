@@ -2,7 +2,7 @@ import { esc, attr, formatReviews } from "../util.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
-  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
+  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand, regionMap,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema,
 } from "../components.mjs";
 
@@ -45,7 +45,7 @@ export const HOME_FAQS = [
   },
 ];
 
-export function homePage(site, { listings, index, blog, stats }) {
+export function homePage(site, { listings, index, blog, stats, regionMapData }) {
   const repairTopic = index.topics.find((t) => t.slug === "ebike-repair-and-service-in-florida");
   const featured = listings.filter((l) => l.is_rental && l.reviews >= 25).slice(0, 14);
   const heroSlides = featured.slice(0, 12);
@@ -182,10 +182,11 @@ export function homePage(site, { listings, index, blog, stats }) {
     })}
     <div class="section__head mt-3">
       <h2>Find Ebike Rentals in Florida</h2>
-      <p>Start with the region you are visiting. Every region page lists the towns inside it, and every
-      town page ranks the local shops by Google rating and review volume, so the shortlist worth calling
-      is always at the top.</p>
+      <p>Click your part of the state on the map, or start from the list below it. Every region page
+      lists the towns inside it, and every town page ranks the local shops by Google rating and review
+      volume, so the shortlist worth calling is always at the top.</p>
     </div>
+    ${regionMap(regionMapData, index.regions)}
     <div class="mt-2">${linkCloud(
       [...index.regions]
         .sort((a, b) => a.name.localeCompare(b.name, "en"))

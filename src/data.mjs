@@ -178,6 +178,17 @@ export function extractFaqs(markdown) {
 }
 
 /**
+ * Region outlines for the clickable Florida map, generated from the county
+ * boundaries by scripts/make-region-map.py. Absent file just means no map.
+ */
+export function loadRegionMap() {
+  const file = join(ROOT, "data", "region-map.json");
+  if (!existsSync(file)) return null;
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  return Array.isArray(raw.regions) && raw.regions.length ? raw : null;
+}
+
+/**
  * The /shop catalogue. Hand-edited JSON, so every entry is normalised and every
  * URL validated here rather than trusted at render time.
  */

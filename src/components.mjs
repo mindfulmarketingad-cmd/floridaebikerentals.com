@@ -275,6 +275,61 @@ export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "
 </div>`;
 }
 
+/**
+ * The clickable Florida map: every directory region is one shape linking to
+ * its own page. Shapes and label positions come from data/region-map.json
+ * (built by scripts/make-region-map.py); names, links and shop counts come
+ * from the live index, so a region with no shops is simply not drawn.
+ *
+ * Each region is an SVG <a>, so the whole shape is clickable without a line
+ * of JavaScript. Every link here also appears in the region list right below
+ * the map, so the map is hidden from assistive tech and taken out of the tab
+ * order - a mouse shortcut to links that are reachable either way, rather
+ * than eleven duplicate tab stops in the middle of the homepage.
+ */
+export function regionMap(map, regions) {
+  if (!map) return "";
+  const byName = new Map(regions.map((r) => [r.name, r]));
+
+  const LINE = 30; /* label line height, in viewBox units */
+  const anchorFor = { left: "end", right: "start", in: "middle" };
+
+  const body = map.regions
+    .map((shape) => {
+      const region = byName.get(shape.name);
+      const [tx, ty] = shape.text;
+      const top = ty - ((shape.lines.length - 1) * LINE) / 2;
+      const lines = shape.lines
+        .map((line, i) => `<tspan x="${attr(tx)}" y="${attr(top + i * LINE)}">${esc(line)}</tspan>`)
+        .join("");
+      const inner = `<path class="fl-map__shape" d="${attr(shape.d)}"></path>
+      ${
+        shape.place === "in"
+          ? ""
+          : `<line class="fl-map__leader" x1="${attr(shape.anchor[0])}" y1="${attr(shape.anchor[1])}" x2="${attr(
+              tx
+            )}" y2="${attr(ty)}"></line>`
+      }
+      <text class="fl-map__label" text-anchor="${attr(anchorFor[shape.place] || "middle")}">${lines}</text>`;
+
+      // A region we hold no shops for is still drawn, just not linked - the
+      // state should never render with a hole in it.
+      if (!region) return `<g class="fl-map__region fl-map__region--empty">${inner}</g>`;
+      const label = `${region.name} - ${region.listings.length} ${plural(region.listings.length, "rental shop")}`;
+      return `<a class="fl-map__region" href="${attr(region.url)}" tabindex="-1">
+      <title>${esc(label)}</title>
+      ${inner}
+    </a>`;
+    })
+    .join("\n    ");
+
+  return `<div class="fl-map">
+  <svg class="fl-map__svg" viewBox="0 0 ${attr(map.width)} ${attr(map.height)}" aria-hidden="true" focusable="false">
+    ${body}
+  </svg>
+</div>`;
+}
+
 /* Below this many mapped shops the list is shorter than the map is tall, and a
  * full-height map beside two cards looks lopsided - those pages keep the
  * stacked layout with the map behind its toggle. */

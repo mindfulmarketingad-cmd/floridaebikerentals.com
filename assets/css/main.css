@@ -1220,3 +1220,30 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   .results-split__map .map-panel { margin-bottom: 0; }
   .results-split__map .map { height: min(760px, calc(100vh - var(--header-h) - 48px)); }
 }
+
+/* ---------- clickable Florida region map ---------- */
+.fl-map { max-width: 780px; margin: 0 auto; }
+.fl-map__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.fl-map__region { cursor: pointer; }
+.fl-map__shape {
+  fill: var(--blue-100); stroke: var(--white); stroke-width: 3; stroke-linejoin: round;
+  transition: fill .15s ease;
+}
+.fl-map__leader { stroke: var(--blue-400); stroke-width: 2; fill: none; }
+.fl-map__label {
+  font-family: var(--font-display); font-weight: 700; font-size: 26px;
+  fill: var(--blue-900); paint-order: stroke; stroke: var(--white); stroke-width: 4;
+  pointer-events: none;
+}
+.fl-map__region:hover .fl-map__shape,
+.fl-map__region:focus-visible .fl-map__shape { fill: var(--blue-600); }
+.fl-map__region:hover .fl-map__label,
+.fl-map__region:focus-visible .fl-map__label { fill: var(--blue-700); }
+@media (prefers-reduced-motion: reduce) { .fl-map__shape { transition: none; } }
+/* Eleven labelled regions cannot be read on a phone - at that width the map
+   would be decoration with unreadable tap targets, so it is left to wider
+   screens and the region list below it does the job instead. */
+@media (max-width: 700px) { .fl-map { display: none; } }
+@media (max-width: 900px) { .fl-map__label { font-size: 28px; } }
+.fl-map__region--empty .fl-map__shape { fill: var(--line-soft); }
+.fl-map__region--empty .fl-map__label { fill: var(--ink-mute); }

@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
-  buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
+  buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic, findCityTopic } from "./src/pages/find.mjs";
@@ -81,7 +81,8 @@ const authors = loadAuthors();
 const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
 const shop = loadShop();
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop };
+const regionMapData = loadRegionMap();
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, regionMapData };
 
 /* home */
 write("/", homePage(site, ctx), {
