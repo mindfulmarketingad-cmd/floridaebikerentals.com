@@ -1,10 +1,10 @@
 import { esc, attr, clamp, plural, formatRating, formatReviews, commaList, slugify, isoDate } from "../util.mjs";
 import { page, pageHero, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, faqBlock, faqSchema, linkCloud, statRow,
+  listicle, mapPanel, faqBlock, faqSchema, linkCloud,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
-import { nearbyCities, statsFor } from "../data.mjs";
+import { nearbyCities } from "../data.mjs";
 import { byline, authorCard } from "./hub.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
@@ -72,7 +72,6 @@ export function bestShopsPage(site, post, ctx) {
   const author = authorsBySlug.get(post.author);
   const top5 = city.listings.slice(0, 5);
   const rest = city.listings.slice(5);
-  const stats = statsFor(city.listings);
   const crumbs = [HOME_CRUMB, BLOG_CRUMB, { href: post.url, label: post.title }];
   const hero = photoFor(city.slug);
   const extra = secondPhotoFor(city.slug);
@@ -184,13 +183,6 @@ ${byline(author, { date: post.date, updated: post.updated, readingTime: post.rea
     <div class="prose">
       <p>${esc(intro)}</p>
     </div>
-
-    ${statRow([
-      { value: String(stats.total), label: plural(stats.total, "Shop") },
-      { value: stats.avgRating, label: "Average rating" },
-      { value: formatReviews(stats.reviews), label: "Google reviews" },
-      { value: String(withTours), label: "Tour operators" },
-    ])}
 
     <h2 id="${attr(hBest)}">The Best E-Bike Rentals in ${esc(city.name)}</h2>
     ${mapPanel(top5, { id: `map-${attr(post.slug)}`, zoom: 12 })}
