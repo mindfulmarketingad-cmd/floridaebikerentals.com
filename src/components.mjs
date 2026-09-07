@@ -202,7 +202,7 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
 
   const search = [listing.name, listing.city, listing.region, ...(listing.tags || [])].join(" ");
 
-  return `<li class="listicle__item" data-filter-item data-city="${attr(listing.city)}" data-tags="|${attr(
+  return `<li class="listicle__item" data-filter-item data-slug="${attr(listing.slug)}" data-city="${attr(listing.city)}" data-tags="|${attr(
     (listing.tags || []).join("|")
   )}|" data-search="${attr(search)}" data-rating="${attr(listing.rating || 0)}" data-reviews="${attr(
     listing.reviews || 0
@@ -258,6 +258,9 @@ export function mapPoints(listings, startRank = 1) {
       rating: l.rating || 0,
       reviews: l.reviews || 0,
       url: `/partners/${l.slug}/`,
+      // Pairs the pin with its card in the list. Ranks would not: a listing
+      // with no coordinates is dropped here but still numbered in the list.
+      slug: l.slug,
       rank: startRank + i,
     }));
 }

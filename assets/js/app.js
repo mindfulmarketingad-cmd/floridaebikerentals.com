@@ -592,8 +592,21 @@
 
     container.addEventListener("click", function (e) { if (e.target === container || e.target.classList.contains("map__tile")) closePopup(); });
     window.addEventListener("resize", function () { window.requestAnimationFrame(place); }, { passive: true });
+
+    /* Marks one pin as the shop the reader is currently looking at. Separate
+       from the click state above so opening a popup and scrolling the list do
+       not fight over the same class. */
+    var current = null;
+    function highlight(slug) {
+      if (current === slug) return;
+      current = slug;
+      pins.forEach(function (entry) {
+        entry.btn.classList.toggle("is-current", !!slug && entry.point.slug === slug);
+      });
+    }
+
     place();
-    return { refresh: place };
+    return { refresh: place, highlight: highlight };
   }
 
   /* Builds a panel's map the first time it is shown, and re-fits it on every
@@ -646,7 +659,57 @@
       } else if (!btn || btn.getAttribute("aria-expanded") !== "true") {
         panel.setAttribute("hidden", "");
       }
+      trackScroll();
     };
+
+    /* While the map sits beside the list, the pin for whichever shop the
+       reader has scrolled to lights up, so the two halves stay in step. The
+       band is a slice across the upper middle of the viewport: the card
+       crossing it is the one being read. */
+    var watching = false;
+    var visible = [];
+    var observer = null;
+
+    function currentSlug() {
+      var best = null;
+      for (var i = 0; i < visible.length; i++) {
+        if (!best || visible[i].getBoundingClientRect().top < best.getBoundingClientRect().top) best = visible[i];
+      }
+      return best ? best.getAttribute("data-slug") : null;
+    }
+
+    function apply() {
+      var slug = currentSlug();
+      if (panel._map && panel._map.highlight) panel._map.highlight(slug);
+      $$(".listicle__item", root).forEach(function (item) {
+        item.classList.toggle("is-current", !!slug && item.getAttribute("data-slug") === slug);
+      });
+    }
+
+    function trackScroll() {
+      var want = mq.matches;
+      if (want === watching) return;
+      watching = want;
+      if (!want) {
+        if (observer) observer.disconnect();
+        visible = [];
+        apply();
+        return;
+      }
+      if (!window.IntersectionObserver) return;
+      observer = observer || new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var at = visible.indexOf(entry.target);
+          if (entry.isIntersecting && at === -1) visible.push(entry.target);
+          else if (!entry.isIntersecting && at !== -1) visible.splice(at, 1);
+        });
+        apply();
+      }, { rootMargin: "-25% 0px -55% 0px" });
+      $$(".listicle__item", root).forEach(function (item) {
+        if (item.getAttribute("data-slug")) observer.observe(item);
+      });
+    }
+
     sync();
     if (mq.addEventListener) mq.addEventListener("change", sync);
     else if (mq.addListener) mq.addListener(sync);
