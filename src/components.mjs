@@ -311,22 +311,27 @@ export function regionMap(map, regions) {
   const anchorFor = { left: "end", right: "start", in: "middle" };
 
   const body = map.regions
-    .map((shape) => {
+    .map((shape, i) => {
       const region = byName.get(shape.name);
       const [tx, ty] = shape.text;
+      const [ax, ay] = shape.anchor;
       const top = ty - ((shape.lines.length - 1) * LINE) / 2;
       const lines = shape.lines
-        .map((line, i) => `<tspan x="${attr(tx)}" y="${attr(top + i * LINE)}">${esc(line)}</tspan>`)
+        .map((line, n) => `<tspan x="${attr(tx)}" y="${attr(top + n * LINE)}">${esc(line)}</tspan>`)
         .join("");
       const inner = `<path class="fl-map__shape" d="${attr(shape.d)}"></path>
       ${
         shape.place === "in"
           ? ""
-          : `<line class="fl-map__leader" x1="${attr(shape.anchor[0])}" y1="${attr(shape.anchor[1])}" x2="${attr(
-              tx
-            )}" y2="${attr(ty)}"></line>`
+          : `<line class="fl-map__leader" x1="${attr(ax)}" y1="${attr(ay)}" x2="${attr(tx)}" y2="${attr(
+              ty
+            )}"></line>`
       }
-      <text class="fl-map__label" text-anchor="${attr(anchorFor[shape.place] || "middle")}">${lines}</text>`;
+      <text class="fl-map__label" text-anchor="${attr(anchorFor[shape.place] || "middle")}">${lines}</text>
+      <g class="fl-map__badge">
+        <circle cx="${attr(ax)}" cy="${attr(ay)}" r="30"></circle>
+        <text x="${attr(ax)}" y="${attr(ay)}" text-anchor="middle" dominant-baseline="central">${i + 1}</text>
+      </g>`;
 
       // A region we hold no shops for is still drawn, just not linked - the
       // state should never render with a hole in it.
@@ -339,10 +344,30 @@ export function regionMap(map, regions) {
     })
     .join("\n    ");
 
+  // The key below the map. On a phone there is no room to write eleven region
+  // names across Florida, so the shapes carry numbers and this list carries
+  // the names - and it is the accessible, tappable copy of the same links.
+  const key = map.regions
+    .map((shape, i) => {
+      const region = byName.get(shape.name);
+      const inner = `<span class="fl-map__key-num">${i + 1}</span><span>${esc(shape.name)}</span>`;
+      return `<li>${
+        region
+          ? `<a href="${attr(region.url)}">${inner}<span class="fl-map__key-count">${esc(
+              String(region.listings.length)
+            )}</span></a>`
+          : `<span class="fl-map__key-off">${inner}</span>`
+      }</li>`;
+    })
+    .join("");
+
   return `<div class="fl-map">
-  <svg class="fl-map__svg" viewBox="0 0 ${attr(map.width)} ${attr(map.height)}" aria-hidden="true" focusable="false">
-    ${body}
-  </svg>
+  <div class="fl-map__frame">
+    <svg class="fl-map__svg" viewBox="0 0 ${attr(map.width)} ${attr(map.height)}" aria-hidden="true" focusable="false">
+      ${body}
+    </svg>
+  </div>
+  <ol class="fl-map__key">${key}</ol>
 </div>`;
 }
 
