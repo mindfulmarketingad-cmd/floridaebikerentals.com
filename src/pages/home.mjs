@@ -86,7 +86,7 @@ export function homePage(site, { listings, index, blog, stats, regionMapData }) 
     <div class="hero__grid">
       <div>
         <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's #1 resource for e-bike rentals</span>
-        <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
+        <h1>Florida Ebike Rentals Directory | All E-Bike Rentals In Florida</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)
         )} Florida towns — from the Timpoochee Trail on 30A to Key West. Compare hours, ratings and phone numbers, then book direct with the shop.</p>
