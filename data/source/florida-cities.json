@@ -1,0 +1,3151 @@
+{
+ "_source": "Florida places from the public US-Cities-Database (github.com/kelvins/US-Cities-Database), deduplicated by slug.",
+ "_use": "Towns without a rental shop of their own get a /find page listing the closest shops instead. See buildNearbyCityPages in src/data.mjs.",
+ "count": 524,
+ "cities": [
+  {
+   "name": "Alachua",
+   "county": "Alachua",
+   "lat": 29.797,
+   "lng": -82.48053
+  },
+  {
+   "name": "Alford",
+   "county": "Jackson",
+   "lat": 30.71411,
+   "lng": -85.34838
+  },
+  {
+   "name": "Altamonte Springs",
+   "county": "Seminole",
+   "lat": 28.66273,
+   "lng": -81.37191
+  },
+  {
+   "name": "Altha",
+   "county": "Calhoun",
+   "lat": 30.53188,
+   "lng": -85.17043
+  },
+  {
+   "name": "Altoona",
+   "county": "Lake",
+   "lat": 29.02193,
+   "lng": -81.63232
+  },
+  {
+   "name": "Alturas",
+   "county": "Polk",
+   "lat": 27.87139,
+   "lng": -81.71528
+  },
+  {
+   "name": "Alva",
+   "county": "Lee",
+   "lat": 26.71466,
+   "lng": -81.63505
+  },
+  {
+   "name": "Anna Maria",
+   "county": "Manatee",
+   "lat": 27.53083,
+   "lng": -82.73361
+  },
+  {
+   "name": "Anthony",
+   "county": "Marion",
+   "lat": 29.30478,
+   "lng": -82.12616
+  },
+  {
+   "name": "Apalachicola",
+   "county": "Franklin",
+   "lat": 29.72546,
+   "lng": -85.00626
+  },
+  {
+   "name": "Apollo Beach",
+   "county": "Hillsborough",
+   "lat": 27.77155,
+   "lng": -82.4102
+  },
+  {
+   "name": "Apopka",
+   "county": "Orange",
+   "lat": 28.66186,
+   "lng": -81.48515
+  },
+  {
+   "name": "Arcadia",
+   "county": "De Soto",
+   "lat": 27.1861,
+   "lng": -81.8095
+  },
+  {
+   "name": "Archer",
+   "county": "Alachua",
+   "lat": 29.55974,
+   "lng": -82.51084
+  },
+  {
+   "name": "Argyle",
+   "county": "Walton",
+   "lat": 30.71944,
+   "lng": -86.04444
+  },
+  {
+   "name": "Aripeka",
+   "county": "Pasco",
+   "lat": 28.43194,
+   "lng": -82.66444
+  },
+  {
+   "name": "Astatula",
+   "county": "Lake",
+   "lat": 28.70875,
+   "lng": -81.71947
+  },
+  {
+   "name": "Astor",
+   "county": "Lake",
+   "lat": 29.16503,
+   "lng": -81.53993
+  },
+  {
+   "name": "Atlantic Beach",
+   "county": "Duval",
+   "lat": 30.34826,
+   "lng": -81.41587
+  },
+  {
+   "name": "Auburndale",
+   "county": "Polk",
+   "lat": 28.07244,
+   "lng": -81.81223
+  },
+  {
+   "name": "Avon Park",
+   "county": "Highlands",
+   "lat": 27.60008,
+   "lng": -81.50149
+  },
+  {
+   "name": "Babson Park",
+   "county": "Polk",
+   "lat": 27.8317,
+   "lng": -81.53422
+  },
+  {
+   "name": "Bagdad",
+   "county": "Santa Rosa",
+   "lat": 30.59861,
+   "lng": -87.03111
+  },
+  {
+   "name": "Baker",
+   "county": "Okaloosa",
+   "lat": 30.83157,
+   "lng": -86.67701
+  },
+  {
+   "name": "Balm",
+   "county": "Hillsborough",
+   "lat": 27.75917,
+   "lng": -82.26139
+  },
+  {
+   "name": "Barberville",
+   "county": "Volusia",
+   "lat": 29.18694,
+   "lng": -81.42111
+  },
+  {
+   "name": "Bartow",
+   "county": "Polk",
+   "lat": 27.89566,
+   "lng": -81.81268
+  },
+  {
+   "name": "Bascom",
+   "county": "Jackson",
+   "lat": 30.95136,
+   "lng": -85.09722
+  },
+  {
+   "name": "Bay Pines",
+   "county": "Pinellas",
+   "lat": 27.81389,
+   "lng": -82.77833
+  },
+  {
+   "name": "Bell",
+   "county": "Gilchrist",
+   "lat": 29.78373,
+   "lng": -82.87111
+  },
+  {
+   "name": "Belle Glade",
+   "county": "Palm Beach",
+   "lat": 26.68429,
+   "lng": -80.67239
+  },
+  {
+   "name": "Belleair Beach",
+   "county": "Pinellas",
+   "lat": 27.9229,
+   "lng": -82.8413
+  },
+  {
+   "name": "Belleview",
+   "county": "Marion",
+   "lat": 29.052,
+   "lng": -82.042
+  },
+  {
+   "name": "Beverly Hills",
+   "county": "Citrus",
+   "lat": 28.9166,
+   "lng": -82.4583
+  },
+  {
+   "name": "Big Pine Key",
+   "county": "Monroe",
+   "lat": 24.68,
+   "lng": -81.36203
+  },
+  {
+   "name": "Blountstown",
+   "county": "Calhoun",
+   "lat": 30.4394,
+   "lng": -85.06202
+  },
+  {
+   "name": "Boca Grande",
+   "county": "Lee",
+   "lat": 26.74861,
+   "lng": -82.26222
+  },
+  {
+   "name": "Boca Raton",
+   "county": "Palm Beach",
+   "lat": 26.3583,
+   "lng": -80.0833
+  },
+  {
+   "name": "Bokeelia",
+   "county": "Lee",
+   "lat": 26.66273,
+   "lng": -82.14006
+  },
+  {
+   "name": "Bonifay",
+   "county": "Holmes",
+   "lat": 30.84637,
+   "lng": -85.68996
+  },
+  {
+   "name": "Bonita Springs",
+   "county": "Lee",
+   "lat": 26.3869,
+   "lng": -81.733
+  },
+  {
+   "name": "Bostwick",
+   "county": "Putnam",
+   "lat": 29.77389,
+   "lng": -81.63722
+  },
+  {
+   "name": "Bowling Green",
+   "county": "Hardee",
+   "lat": 27.62774,
+   "lng": -81.84506
+  },
+  {
+   "name": "Boynton Beach",
+   "county": "Palm Beach",
+   "lat": 26.525,
+   "lng": -80.0666
+  },
+  {
+   "name": "Bradenton",
+   "county": "Manatee",
+   "lat": 27.50278,
+   "lng": -82.51389
+  },
+  {
+   "name": "Bradenton Beach",
+   "county": "Manatee",
+   "lat": 27.51515,
+   "lng": -82.72103
+  },
+  {
+   "name": "Bradley",
+   "county": "Polk",
+   "lat": 27.79139,
+   "lng": -81.85833
+  },
+  {
+   "name": "Brandon",
+   "county": "Hillsborough",
+   "lat": 27.9378,
+   "lng": -82.2861
+  },
+  {
+   "name": "Branford",
+   "county": "Suwannee",
+   "lat": 29.93947,
+   "lng": -82.89929
+  },
+  {
+   "name": "Bristol",
+   "county": "Liberty",
+   "lat": 30.42228,
+   "lng": -84.94656
+  },
+  {
+   "name": "Bronson",
+   "county": "Levy",
+   "lat": 29.46095,
+   "lng": -82.63564
+  },
+  {
+   "name": "Brooker",
+   "county": "Bradford",
+   "lat": 29.91903,
+   "lng": -82.29563
+  },
+  {
+   "name": "Brooksville",
+   "county": "Hernando",
+   "lat": 28.56581,
+   "lng": -82.37367
+  },
+  {
+   "name": "Bryant",
+   "county": "Palm Beach",
+   "lat": 26.85889,
+   "lng": -80.63389
+  },
+  {
+   "name": "Bryceville",
+   "county": "Nassau",
+   "lat": 30.41927,
+   "lng": -81.9724
+  },
+  {
+   "name": "Bunnell",
+   "county": "Flagler",
+   "lat": 29.45616,
+   "lng": -81.32443
+  },
+  {
+   "name": "Bushnell",
+   "county": "Sumter",
+   "lat": 28.66106,
+   "lng": -82.1553
+  },
+  {
+   "name": "Callahan",
+   "county": "Nassau",
+   "lat": 30.55196,
+   "lng": -81.81446
+  },
+  {
+   "name": "Campbellton",
+   "county": "Jackson",
+   "lat": 30.95629,
+   "lng": -85.3766
+  },
+  {
+   "name": "Canal Point",
+   "county": "Palm Beach",
+   "lat": 26.85928,
+   "lng": -80.62993
+  },
+  {
+   "name": "Candler",
+   "county": "Marion",
+   "lat": 29.07111,
+   "lng": -81.96833
+  },
+  {
+   "name": "Cantonment",
+   "county": "Escambia",
+   "lat": 30.61425,
+   "lng": -87.32505
+  },
+  {
+   "name": "Cape Canaveral",
+   "county": "Brevard",
+   "lat": 28.39034,
+   "lng": -80.60427
+  },
+  {
+   "name": "Cape Coral",
+   "county": "Lee",
+   "lat": 26.57746,
+   "lng": -81.95224
+  },
+  {
+   "name": "Captiva",
+   "county": "Lee",
+   "lat": 26.75054,
+   "lng": -82.26102
+  },
+  {
+   "name": "Carrabelle",
+   "county": "Franklin",
+   "lat": 29.86921,
+   "lng": -84.63585
+  },
+  {
+   "name": "Caryville",
+   "county": "Washington",
+   "lat": 30.79688,
+   "lng": -85.79979
+  },
+  {
+   "name": "Cassadaga",
+   "county": "Volusia",
+   "lat": 28.96611,
+   "lng": -81.23611
+  },
+  {
+   "name": "Casselberry",
+   "county": "Seminole",
+   "lat": 28.66167,
+   "lng": -81.31221
+  },
+  {
+   "name": "Cedar Key",
+   "county": "Levy",
+   "lat": 29.17101,
+   "lng": -83.01679
+  },
+  {
+   "name": "Center Hill",
+   "county": "Sumter",
+   "lat": 28.66348,
+   "lng": -81.99629
+  },
+  {
+   "name": "Century",
+   "county": "Escambia",
+   "lat": 30.96874,
+   "lng": -87.32158
+  },
+  {
+   "name": "Chattahoochee",
+   "county": "Gadsden",
+   "lat": 30.68339,
+   "lng": -84.82804
+  },
+  {
+   "name": "Chiefland",
+   "county": "Levy",
+   "lat": 29.48324,
+   "lng": -82.8809
+  },
+  {
+   "name": "Chipley",
+   "county": "Washington",
+   "lat": 30.71066,
+   "lng": -85.54865
+  },
+  {
+   "name": "Chokoloskee",
+   "county": "Collier",
+   "lat": 25.8125,
+   "lng": -81.36222
+  },
+  {
+   "name": "Christmas",
+   "county": "Orange",
+   "lat": 28.54624,
+   "lng": -81.01157
+  },
+  {
+   "name": "Citra",
+   "county": "Marion",
+   "lat": 29.39182,
+   "lng": -82.10622
+  },
+  {
+   "name": "Clarcona",
+   "county": "Orange",
+   "lat": 28.6125,
+   "lng": -81.49889
+  },
+  {
+   "name": "Clarksville",
+   "county": "Calhoun",
+   "lat": 30.35683,
+   "lng": -85.18981
+  },
+  {
+   "name": "Clearwater",
+   "county": "Pinellas",
+   "lat": 27.9799,
+   "lng": -82.7806
+  },
+  {
+   "name": "Clearwater Beach",
+   "county": "Pinellas",
+   "lat": 27.9831,
+   "lng": -82.8229
+  },
+  {
+   "name": "Clermont",
+   "county": "Lake",
+   "lat": 28.55254,
+   "lng": -81.75741
+  },
+  {
+   "name": "Clewiston",
+   "county": "Hendry",
+   "lat": 26.71717,
+   "lng": -80.94925
+  },
+  {
+   "name": "Cocoa",
+   "county": "Brevard",
+   "lat": 28.36718,
+   "lng": -80.74645
+  },
+  {
+   "name": "Cocoa Beach",
+   "county": "Brevard",
+   "lat": 28.33245,
+   "lng": -80.61207
+  },
+  {
+   "name": "Coconut Creek",
+   "county": "Broward",
+   "lat": 26.2441,
+   "lng": -80.2066
+  },
+  {
+   "name": "Coleman",
+   "county": "Sumter",
+   "lat": 28.79944,
+   "lng": -82.07028
+  },
+  {
+   "name": "Copeland",
+   "county": "Collier",
+   "lat": 25.95333,
+   "lng": -81.35611
+  },
+  {
+   "name": "Cortez",
+   "county": "Manatee",
+   "lat": 27.47269,
+   "lng": -82.70064
+  },
+  {
+   "name": "Cottondale",
+   "county": "Jackson",
+   "lat": 30.80036,
+   "lng": -85.38467
+  },
+  {
+   "name": "Crawfordville",
+   "county": "Wakulla",
+   "lat": 30.17583,
+   "lng": -84.37528
+  },
+  {
+   "name": "Crescent City",
+   "county": "Putnam",
+   "lat": 29.44544,
+   "lng": -81.55791
+  },
+  {
+   "name": "Crestview",
+   "county": "Okaloosa",
+   "lat": 30.77061,
+   "lng": -86.55368
+  },
+  {
+   "name": "Cross City",
+   "county": "Dixie",
+   "lat": 29.63417,
+   "lng": -83.12528
+  },
+  {
+   "name": "Crystal Beach",
+   "county": "Pinellas",
+   "lat": 28.09111,
+   "lng": -82.78
+  },
+  {
+   "name": "Crystal River",
+   "county": "Citrus",
+   "lat": 28.9593,
+   "lng": -82.6259
+  },
+  {
+   "name": "Crystal Springs",
+   "county": "Pasco",
+   "lat": 28.18111,
+   "lng": -82.15778
+  },
+  {
+   "name": "Cypress",
+   "county": "Jackson",
+   "lat": 30.71306,
+   "lng": -85.07389
+  },
+  {
+   "name": "Dade City",
+   "county": "Pasco",
+   "lat": 28.4297,
+   "lng": -82.2082
+  },
+  {
+   "name": "Dania",
+   "county": "Broward",
+   "lat": 26.04756,
+   "lng": -80.14473
+  },
+  {
+   "name": "Davenport",
+   "county": "Polk",
+   "lat": 28.22,
+   "lng": -81.6205
+  },
+  {
+   "name": "Day",
+   "county": "Lafayette",
+   "lat": 30.14967,
+   "lng": -83.28505
+  },
+  {
+   "name": "Daytona Beach",
+   "county": "Volusia",
+   "lat": 29.20117,
+   "lng": -81.03707
+  },
+  {
+   "name": "De Leon Springs",
+   "county": "Volusia",
+   "lat": 29.11659,
+   "lng": -81.34876
+  },
+  {
+   "name": "Debary",
+   "county": "Volusia",
+   "lat": 28.88457,
+   "lng": -81.30651
+  },
+  {
+   "name": "Deerfield Beach",
+   "county": "Broward",
+   "lat": 26.30956,
+   "lng": -80.09917
+  },
+  {
+   "name": "Defuniak Springs",
+   "county": "Walton",
+   "lat": 30.75178,
+   "lng": -86.13801
+  },
+  {
+   "name": "Deland",
+   "county": "Volusia",
+   "lat": 29.02659,
+   "lng": -81.33485
+  },
+  {
+   "name": "Delray Beach",
+   "county": "Palm Beach",
+   "lat": 26.45644,
+   "lng": -80.07932
+  },
+  {
+   "name": "Deltona",
+   "county": "Volusia",
+   "lat": 28.8989,
+   "lng": -81.24731
+  },
+  {
+   "name": "Destin",
+   "county": "Okaloosa",
+   "lat": 30.392,
+   "lng": -86.4834
+  },
+  {
+   "name": "Doctors Inlet",
+   "county": "Clay",
+   "lat": 30.1,
+   "lng": -81.77639
+  },
+  {
+   "name": "Dover",
+   "county": "Hillsborough",
+   "lat": 27.99198,
+   "lng": -82.21385
+  },
+  {
+   "name": "Dundee",
+   "county": "Polk",
+   "lat": 28.01941,
+   "lng": -81.62121
+  },
+  {
+   "name": "Dunedin",
+   "county": "Pinellas",
+   "lat": 28.01944,
+   "lng": -82.77194
+  },
+  {
+   "name": "Dunnellon",
+   "county": "Citrus",
+   "lat": 28.9965,
+   "lng": -82.509
+  },
+  {
+   "name": "Durant",
+   "county": "Hillsborough",
+   "lat": 27.90833,
+   "lng": -82.18639
+  },
+  {
+   "name": "Eagle Lake",
+   "county": "Polk",
+   "lat": 27.97866,
+   "lng": -81.75636
+  },
+  {
+   "name": "Earleton",
+   "county": "Alachua",
+   "lat": 29.72216,
+   "lng": -82.11376
+  },
+  {
+   "name": "East Palatka",
+   "county": "Putnam",
+   "lat": 29.66086,
+   "lng": -81.58788
+  },
+  {
+   "name": "Eastlake Weir",
+   "county": "Marion",
+   "lat": 29.02,
+   "lng": -81.90833
+  },
+  {
+   "name": "Eastpoint",
+   "county": "Franklin",
+   "lat": 29.73391,
+   "lng": -84.8701
+  },
+  {
+   "name": "Eaton Park",
+   "county": "Polk",
+   "lat": 28.00833,
+   "lng": -81.90778
+  },
+  {
+   "name": "Ebro",
+   "county": "Washington",
+   "lat": 30.43518,
+   "lng": -85.88807
+  },
+  {
+   "name": "Edgar",
+   "county": "Putnam",
+   "lat": 29.62361,
+   "lng": -81.89056
+  },
+  {
+   "name": "Edgewater",
+   "county": "Volusia",
+   "lat": 28.9818,
+   "lng": -80.91034
+  },
+  {
+   "name": "Eglin Afb",
+   "county": "Okaloosa",
+   "lat": 30.47941,
+   "lng": -86.61596
+  },
+  {
+   "name": "El Jobean",
+   "county": "Charlotte",
+   "lat": 26.97608,
+   "lng": -82.19957
+  },
+  {
+   "name": "Elfers",
+   "county": "Pasco",
+   "lat": 28.21639,
+   "lng": -82.7225
+  },
+  {
+   "name": "Elkton",
+   "county": "Saint Johns",
+   "lat": 29.78824,
+   "lng": -81.46199
+  },
+  {
+   "name": "Ellenton",
+   "county": "Manatee",
+   "lat": 27.53818,
+   "lng": -82.5006
+  },
+  {
+   "name": "Englewood",
+   "county": "Charlotte",
+   "lat": 26.92504,
+   "lng": -82.31173
+  },
+  {
+   "name": "Estero",
+   "county": "Lee",
+   "lat": 26.43505,
+   "lng": -81.81024
+  },
+  {
+   "name": "Eustis",
+   "county": "Lake",
+   "lat": 28.85769,
+   "lng": -81.64513
+  },
+  {
+   "name": "Everglades City",
+   "county": "Collier",
+   "lat": 25.85972,
+   "lng": -81.38056
+  },
+  {
+   "name": "Evinston",
+   "county": "Alachua",
+   "lat": 29.48667,
+   "lng": -82.23139
+  },
+  {
+   "name": "Fairfield",
+   "county": "Marion",
+   "lat": 29.36667,
+   "lng": -82.25139
+  },
+  {
+   "name": "Fedhaven",
+   "county": "Polk",
+   "lat": 27.87278,
+   "lng": -81.47139
+  },
+  {
+   "name": "Felda",
+   "county": "Hendry",
+   "lat": 26.53944,
+   "lng": -81.43583
+  },
+  {
+   "name": "Fellsmere",
+   "county": "Indian River",
+   "lat": 27.76427,
+   "lng": -80.60195
+  },
+  {
+   "name": "Fernandina Beach",
+   "county": "Nassau",
+   "lat": 30.63539,
+   "lng": -81.46883
+  },
+  {
+   "name": "Ferndale",
+   "county": "Lake",
+   "lat": 28.6,
+   "lng": -81.67417
+  },
+  {
+   "name": "Flagler Beach",
+   "county": "Flagler",
+   "lat": 29.47498,
+   "lng": -81.13029
+  },
+  {
+   "name": "Fleming Island",
+   "county": "Clay",
+   "lat": 30.107,
+   "lng": -81.7167
+  },
+  {
+   "name": "Florahome",
+   "county": "Putnam",
+   "lat": 29.75811,
+   "lng": -81.86222
+  },
+  {
+   "name": "Floral City",
+   "county": "Citrus",
+   "lat": 28.74972,
+   "lng": -82.29694
+  },
+  {
+   "name": "Fort Lauderdale",
+   "county": "Broward",
+   "lat": 26.12156,
+   "lng": -80.12878
+  },
+  {
+   "name": "Fort Mc Coy",
+   "county": "Marion",
+   "lat": 29.27955,
+   "lng": -81.88776
+  },
+  {
+   "name": "Fort Meade",
+   "county": "Polk",
+   "lat": 27.74636,
+   "lng": -81.78235
+  },
+  {
+   "name": "Fort Myers",
+   "county": "Lee",
+   "lat": 26.6204,
+   "lng": -81.8725
+  },
+  {
+   "name": "Fort Myers Beach",
+   "county": "Lee",
+   "lat": 26.45195,
+   "lng": -81.92454
+  },
+  {
+   "name": "Fort Ogden",
+   "county": "De Soto",
+   "lat": 27.08694,
+   "lng": -81.9525
+  },
+  {
+   "name": "Fort Pierce",
+   "county": "Saint Lucie",
+   "lat": 27.43823,
+   "lng": -80.44396
+  },
+  {
+   "name": "Fort Walton Beach",
+   "county": "Okaloosa",
+   "lat": 30.4473,
+   "lng": -86.62749
+  },
+  {
+   "name": "Fort White",
+   "county": "Columbia",
+   "lat": 29.92073,
+   "lng": -82.68794
+  },
+  {
+   "name": "Fountain",
+   "county": "Bay",
+   "lat": 30.47533,
+   "lng": -85.42927
+  },
+  {
+   "name": "Freeport",
+   "county": "Walton",
+   "lat": 30.4896,
+   "lng": -86.16844
+  },
+  {
+   "name": "Frostproof",
+   "county": "Polk",
+   "lat": 27.72106,
+   "lng": -81.51478
+  },
+  {
+   "name": "Fruitland Park",
+   "county": "Lake",
+   "lat": 28.86395,
+   "lng": -81.89975
+  },
+  {
+   "name": "Gainesville",
+   "county": "Alachua",
+   "lat": 29.64503,
+   "lng": -82.31005
+  },
+  {
+   "name": "Geneva",
+   "county": "Seminole",
+   "lat": 28.7503,
+   "lng": -81.11137
+  },
+  {
+   "name": "Georgetown",
+   "county": "Putnam",
+   "lat": 29.40331,
+   "lng": -81.62978
+  },
+  {
+   "name": "Gibsonton",
+   "county": "Hillsborough",
+   "lat": 27.84106,
+   "lng": -82.36983
+  },
+  {
+   "name": "Glen Saint Mary",
+   "county": "Baker",
+   "lat": 30.28606,
+   "lng": -82.20406
+  },
+  {
+   "name": "Glenwood",
+   "county": "Volusia",
+   "lat": 29.08583,
+   "lng": -81.35444
+  },
+  {
+   "name": "Goldenrod",
+   "county": "Seminole",
+   "lat": 28.61278,
+   "lng": -81.29389
+  },
+  {
+   "name": "Gonzalez",
+   "county": "Escambia",
+   "lat": 30.58139,
+   "lng": -87.29139
+  },
+  {
+   "name": "Goodland",
+   "county": "Collier",
+   "lat": 25.92444,
+   "lng": -81.64583
+  },
+  {
+   "name": "Gotha",
+   "county": "Orange",
+   "lat": 28.5275,
+   "lng": -81.52333
+  },
+  {
+   "name": "Graceville",
+   "county": "Jackson",
+   "lat": 30.9426,
+   "lng": -85.51362
+  },
+  {
+   "name": "Graham",
+   "county": "Bradford",
+   "lat": 29.86,
+   "lng": -82.21861
+  },
+  {
+   "name": "Grand Island",
+   "county": "Lake",
+   "lat": 28.88655,
+   "lng": -81.73909
+  },
+  {
+   "name": "Grand Ridge",
+   "county": "Jackson",
+   "lat": 30.71483,
+   "lng": -85.02095
+  },
+  {
+   "name": "Grandin",
+   "county": "Putnam",
+   "lat": 29.7275,
+   "lng": -81.91861
+  },
+  {
+   "name": "Grant",
+   "county": "Brevard",
+   "lat": 27.92861,
+   "lng": -80.52667
+  },
+  {
+   "name": "Green Cove Springs",
+   "county": "Clay",
+   "lat": 30.00425,
+   "lng": -81.72618
+  },
+  {
+   "name": "Greensboro",
+   "county": "Gadsden",
+   "lat": 30.56917,
+   "lng": -84.74333
+  },
+  {
+   "name": "Greenville",
+   "county": "Madison",
+   "lat": 30.4512,
+   "lng": -83.6474
+  },
+  {
+   "name": "Greenwood",
+   "county": "Jackson",
+   "lat": 30.85251,
+   "lng": -85.15549
+  },
+  {
+   "name": "Gretna",
+   "county": "Gadsden",
+   "lat": 30.61694,
+   "lng": -84.66
+  },
+  {
+   "name": "Groveland",
+   "county": "Lake",
+   "lat": 28.56444,
+   "lng": -81.87453
+  },
+  {
+   "name": "Gulf Breeze",
+   "county": "Santa Rosa",
+   "lat": 30.3847,
+   "lng": -87.04387
+  },
+  {
+   "name": "Gulf Hammock",
+   "county": "Levy",
+   "lat": 29.25278,
+   "lng": -82.73111
+  },
+  {
+   "name": "Haines City",
+   "county": "Polk",
+   "lat": 28.09507,
+   "lng": -81.61471
+  },
+  {
+   "name": "Hallandale",
+   "county": "Broward",
+   "lat": 25.98083,
+   "lng": -80.14861
+  },
+  {
+   "name": "Hampton",
+   "county": "Bradford",
+   "lat": 29.85751,
+   "lng": -82.14835
+  },
+  {
+   "name": "Hastings",
+   "county": "Saint Johns",
+   "lat": 29.70515,
+   "lng": -81.49091
+  },
+  {
+   "name": "Havana",
+   "county": "Gadsden",
+   "lat": 30.60924,
+   "lng": -84.41434
+  },
+  {
+   "name": "Hawthorne",
+   "county": "Alachua",
+   "lat": 29.574,
+   "lng": -82.10563
+  },
+  {
+   "name": "Hernando",
+   "county": "Citrus",
+   "lat": 28.89972,
+   "lng": -82.37472
+  },
+  {
+   "name": "Hialeah",
+   "county": "Miami-dade",
+   "lat": 25.905,
+   "lng": -80.3049
+  },
+  {
+   "name": "High Springs",
+   "county": "Alachua",
+   "lat": 29.84102,
+   "lng": -82.61563
+  },
+  {
+   "name": "Highland City",
+   "county": "Polk",
+   "lat": 27.965,
+   "lng": -81.87806
+  },
+  {
+   "name": "Hilliard",
+   "county": "Nassau",
+   "lat": 30.68837,
+   "lng": -81.93453
+  },
+  {
+   "name": "Hobe Sound",
+   "county": "Martin",
+   "lat": 27.08131,
+   "lng": -80.15085
+  },
+  {
+   "name": "Holder",
+   "county": "Citrus",
+   "lat": 28.96667,
+   "lng": -82.42083
+  },
+  {
+   "name": "Holiday",
+   "county": "Pasco",
+   "lat": 28.19127,
+   "lng": -82.72794
+  },
+  {
+   "name": "Hollister",
+   "county": "Putnam",
+   "lat": 29.6225,
+   "lng": -81.81389
+  },
+  {
+   "name": "Hollywood",
+   "county": "Broward",
+   "lat": 26.00701,
+   "lng": -80.12193
+  },
+  {
+   "name": "Holmes Beach",
+   "county": "Manatee",
+   "lat": 27.46667,
+   "lng": -82.70417
+  },
+  {
+   "name": "Holt",
+   "county": "Okaloosa",
+   "lat": 30.72522,
+   "lng": -86.70464
+  },
+  {
+   "name": "Homeland",
+   "county": "Polk",
+   "lat": 27.8175,
+   "lng": -81.82472
+  },
+  {
+   "name": "Homestead",
+   "county": "Miami-dade",
+   "lat": 25.47664,
+   "lng": -80.48385
+  },
+  {
+   "name": "Homosassa",
+   "county": "Citrus",
+   "lat": 28.7488,
+   "lng": -82.5318
+  },
+  {
+   "name": "Homosassa Springs",
+   "county": "Citrus",
+   "lat": 28.80333,
+   "lng": -82.57611
+  },
+  {
+   "name": "Horseshoe Beach",
+   "county": "Dixie",
+   "lat": 29.48689,
+   "lng": -83.26159
+  },
+  {
+   "name": "Hosford",
+   "county": "Liberty",
+   "lat": 30.36388,
+   "lng": -84.80543
+  },
+  {
+   "name": "Howey In The Hills",
+   "county": "Lake",
+   "lat": 28.70982,
+   "lng": -81.78998
+  },
+  {
+   "name": "Hudson",
+   "county": "Pasco",
+   "lat": 28.36476,
+   "lng": -82.67567
+  },
+  {
+   "name": "Hurlburt Field",
+   "county": "Okaloosa",
+   "lat": 30.42833,
+   "lng": -86.68833
+  },
+  {
+   "name": "Immokalee",
+   "county": "Collier",
+   "lat": 26.3751,
+   "lng": -81.3678
+  },
+  {
+   "name": "Indialantic",
+   "county": "Brevard",
+   "lat": 28.10906,
+   "lng": -80.57872
+  },
+  {
+   "name": "Indian Lake Estates",
+   "county": "Polk",
+   "lat": 27.81361,
+   "lng": -81.37861
+  },
+  {
+   "name": "Indian Rocks Beach",
+   "county": "Pinellas",
+   "lat": 27.884,
+   "lng": -82.8455
+  },
+  {
+   "name": "Indiantown",
+   "county": "Martin",
+   "lat": 27.06146,
+   "lng": -80.48028
+  },
+  {
+   "name": "Inglis",
+   "county": "Levy",
+   "lat": 29.03,
+   "lng": -82.66889
+  },
+  {
+   "name": "Intercession City",
+   "county": "Osceola",
+   "lat": 28.26222,
+   "lng": -81.50806
+  },
+  {
+   "name": "Interlachen",
+   "county": "Putnam",
+   "lat": 29.627,
+   "lng": -81.88943
+  },
+  {
+   "name": "Inverness",
+   "county": "Citrus",
+   "lat": 28.8337,
+   "lng": -82.2896
+  },
+  {
+   "name": "Islamorada",
+   "county": "Monroe",
+   "lat": 24.92333,
+   "lng": -80.62995
+  },
+  {
+   "name": "Island Grove",
+   "county": "Alachua",
+   "lat": 29.45333,
+   "lng": -82.10667
+  },
+  {
+   "name": "Istachatta",
+   "county": "Hernando",
+   "lat": 28.65972,
+   "lng": -82.27778
+  },
+  {
+   "name": "Jacksonville",
+   "county": "Duval",
+   "lat": 30.3163,
+   "lng": -81.4175
+  },
+  {
+   "name": "Jacksonville Beach",
+   "county": "Duval",
+   "lat": 30.29444,
+   "lng": -81.39333
+  },
+  {
+   "name": "Jasper",
+   "county": "Hamilton",
+   "lat": 30.50291,
+   "lng": -82.93219
+  },
+  {
+   "name": "Jay",
+   "county": "Santa Rosa",
+   "lat": 30.89849,
+   "lng": -87.13324
+  },
+  {
+   "name": "Jennings",
+   "county": "Hamilton",
+   "lat": 30.54824,
+   "lng": -83.13497
+  },
+  {
+   "name": "Jensen Beach",
+   "county": "Martin",
+   "lat": 27.23557,
+   "lng": -80.22766
+  },
+  {
+   "name": "Jupiter",
+   "county": "Palm Beach",
+   "lat": 26.93394,
+   "lng": -80.12009
+  },
+  {
+   "name": "Kathleen",
+   "county": "Polk",
+   "lat": 28.20522,
+   "lng": -82.0435
+  },
+  {
+   "name": "Kenansville",
+   "county": "Osceola",
+   "lat": 27.8767,
+   "lng": -81.05005
+  },
+  {
+   "name": "Key Biscayne",
+   "county": "Miami-dade",
+   "lat": 25.6921,
+   "lng": -80.16248
+  },
+  {
+   "name": "Key Colony Beach",
+   "county": "Monroe",
+   "lat": 24.7205,
+   "lng": -81.0188
+  },
+  {
+   "name": "Key Largo",
+   "county": "Monroe",
+   "lat": 25.14021,
+   "lng": -80.40608
+  },
+  {
+   "name": "Key West",
+   "county": "Monroe",
+   "lat": 24.56531,
+   "lng": -81.76218
+  },
+  {
+   "name": "Keystone Heights",
+   "county": "Clay",
+   "lat": 29.79758,
+   "lng": -81.98989
+  },
+  {
+   "name": "Killarney",
+   "county": "Orange",
+   "lat": 28.54694,
+   "lng": -81.65056
+  },
+  {
+   "name": "Kissimmee",
+   "county": "Osceola",
+   "lat": 28.30506,
+   "lng": -81.42421
+  },
+  {
+   "name": "La Crosse",
+   "county": "Alachua",
+   "lat": 29.84306,
+   "lng": -82.405
+  },
+  {
+   "name": "Labelle",
+   "county": "Hendry",
+   "lat": 26.73209,
+   "lng": -81.43403
+  },
+  {
+   "name": "Lacoochee",
+   "county": "Pasco",
+   "lat": 28.46556,
+   "lng": -82.17222
+  },
+  {
+   "name": "Lady Lake",
+   "county": "Lake",
+   "lat": 28.9172,
+   "lng": -81.923
+  },
+  {
+   "name": "Lake Alfred",
+   "county": "Polk",
+   "lat": 28.08948,
+   "lng": -81.72714
+  },
+  {
+   "name": "Lake Butler",
+   "county": "Union",
+   "lat": 30.00349,
+   "lng": -82.3828
+  },
+  {
+   "name": "Lake City",
+   "county": "Columbia",
+   "lat": 30.0949,
+   "lng": -82.7117
+  },
+  {
+   "name": "Lake Como",
+   "county": "Putnam",
+   "lat": 29.48361,
+   "lng": -81.57306
+  },
+  {
+   "name": "Lake Geneva",
+   "county": "Clay",
+   "lat": 29.77194,
+   "lng": -82.01028
+  },
+  {
+   "name": "Lake Hamilton",
+   "county": "Polk",
+   "lat": 28.04417,
+   "lng": -81.62806
+  },
+  {
+   "name": "Lake Harbor",
+   "county": "Palm Beach",
+   "lat": 26.69333,
+   "lng": -80.805
+  },
+  {
+   "name": "Lake Helen",
+   "county": "Volusia",
+   "lat": 28.98057,
+   "lng": -81.23337
+  },
+  {
+   "name": "Lake Mary",
+   "county": "Seminole",
+   "lat": 28.75235,
+   "lng": -81.33808
+  },
+  {
+   "name": "Lake Monroe",
+   "county": "Seminole",
+   "lat": 28.82444,
+   "lng": -81.32722
+  },
+  {
+   "name": "Lake Panasoffkee",
+   "county": "Sumter",
+   "lat": 28.79526,
+   "lng": -82.13628
+  },
+  {
+   "name": "Lake Placid",
+   "county": "Highlands",
+   "lat": 27.29447,
+   "lng": -81.36492
+  },
+  {
+   "name": "Lake Wales",
+   "county": "Polk",
+   "lat": 27.90373,
+   "lng": -81.54881
+  },
+  {
+   "name": "Lake Worth",
+   "county": "Palm Beach",
+   "lat": 26.6155,
+   "lng": -80.1469
+  },
+  {
+   "name": "Lakeland",
+   "county": "Polk",
+   "lat": 28.03813,
+   "lng": -81.93915
+  },
+  {
+   "name": "Lamont",
+   "county": "Jefferson",
+   "lat": 30.36534,
+   "lng": -83.90027
+  },
+  {
+   "name": "Lanark Village",
+   "county": "Franklin",
+   "lat": 29.88333,
+   "lng": -84.59583
+  },
+  {
+   "name": "Land O Lakes",
+   "county": "Pasco",
+   "lat": 28.2682,
+   "lng": -82.465
+  },
+  {
+   "name": "Largo",
+   "county": "Pinellas",
+   "lat": 27.9163,
+   "lng": -82.7996
+  },
+  {
+   "name": "Laurel",
+   "county": "Sarasota",
+   "lat": 27.13,
+   "lng": -82.45333
+  },
+  {
+   "name": "Laurel Hill",
+   "county": "Okaloosa",
+   "lat": 30.95236,
+   "lng": -86.40032
+  },
+  {
+   "name": "Lawtey",
+   "county": "Bradford",
+   "lat": 30.04716,
+   "lng": -82.10554
+  },
+  {
+   "name": "Lecanto",
+   "county": "Citrus",
+   "lat": 28.9303,
+   "lng": -82.4905
+  },
+  {
+   "name": "Lee",
+   "county": "Madison",
+   "lat": 30.39786,
+   "lng": -83.28439
+  },
+  {
+   "name": "Leesburg",
+   "county": "Lake",
+   "lat": 28.80796,
+   "lng": -81.88577
+  },
+  {
+   "name": "Lehigh Acres",
+   "county": "Lee",
+   "lat": 26.6153,
+   "lng": -81.61046
+  },
+  {
+   "name": "Lighthouse Point",
+   "county": "Broward",
+   "lat": 26.2787,
+   "lng": -80.11244
+  },
+  {
+   "name": "Lithia",
+   "county": "Hillsborough",
+   "lat": 27.82935,
+   "lng": -82.13568
+  },
+  {
+   "name": "Live Oak",
+   "county": "Suwannee",
+   "lat": 30.28662,
+   "lng": -83.02499
+  },
+  {
+   "name": "Lloyd",
+   "county": "Jefferson",
+   "lat": 30.47722,
+   "lng": -84.02194
+  },
+  {
+   "name": "Lochloosa",
+   "county": "Alachua",
+   "lat": 29.51139,
+   "lng": -82.10056
+  },
+  {
+   "name": "Long Key",
+   "county": "Monroe",
+   "lat": 24.62444,
+   "lng": -82.86333
+  },
+  {
+   "name": "Longboat Key",
+   "county": "Manatee",
+   "lat": 27.38669,
+   "lng": -82.6384
+  },
+  {
+   "name": "Longwood",
+   "county": "Seminole",
+   "lat": 28.71199,
+   "lng": -81.35524
+  },
+  {
+   "name": "Lorida",
+   "county": "Highlands",
+   "lat": 27.41495,
+   "lng": -81.19653
+  },
+  {
+   "name": "Loughman",
+   "county": "Polk",
+   "lat": 28.24167,
+   "lng": -81.56694
+  },
+  {
+   "name": "Lowell",
+   "county": "Marion",
+   "lat": 29.33028,
+   "lng": -82.19167
+  },
+  {
+   "name": "Loxahatchee",
+   "county": "Palm Beach",
+   "lat": 26.7383,
+   "lng": -80.27601
+  },
+  {
+   "name": "Lulu",
+   "county": "Columbia",
+   "lat": 30.07544,
+   "lng": -82.53848
+  },
+  {
+   "name": "Lutz",
+   "county": "Hillsborough",
+   "lat": 28.143,
+   "lng": -82.4752
+  },
+  {
+   "name": "Lynn Haven",
+   "county": "Bay",
+   "lat": 30.23616,
+   "lng": -85.64666
+  },
+  {
+   "name": "Macclenny",
+   "county": "Baker",
+   "lat": 30.27367,
+   "lng": -82.13247
+  },
+  {
+   "name": "Madison",
+   "county": "Madison",
+   "lat": 30.48021,
+   "lng": -83.40668
+  },
+  {
+   "name": "Maitland",
+   "county": "Orange",
+   "lat": 28.63128,
+   "lng": -81.3546
+  },
+  {
+   "name": "Malabar",
+   "county": "Brevard",
+   "lat": 28.00333,
+   "lng": -80.56583
+  },
+  {
+   "name": "Malone",
+   "county": "Jackson",
+   "lat": 30.96025,
+   "lng": -85.16387
+  },
+  {
+   "name": "Mango",
+   "county": "Hillsborough",
+   "lat": 27.97944,
+   "lng": -82.30667
+  },
+  {
+   "name": "Marathon",
+   "county": "Monroe",
+   "lat": 24.72792,
+   "lng": -81.03858
+  },
+  {
+   "name": "Marathon Shores",
+   "county": "Monroe",
+   "lat": 24.7117,
+   "lng": -81.091
+  },
+  {
+   "name": "Marco Island",
+   "county": "Collier",
+   "lat": 25.9392,
+   "lng": -81.7174
+  },
+  {
+   "name": "Marianna",
+   "county": "Jackson",
+   "lat": 30.75859,
+   "lng": -85.22937
+  },
+  {
+   "name": "Mary Esther",
+   "county": "Okaloosa",
+   "lat": 30.41219,
+   "lng": -86.71272
+  },
+  {
+   "name": "Mascotte",
+   "county": "Lake",
+   "lat": 28.57806,
+   "lng": -81.88694
+  },
+  {
+   "name": "Mayo",
+   "county": "Lafayette",
+   "lat": 30.03998,
+   "lng": -83.14621
+  },
+  {
+   "name": "Mc Alpin",
+   "county": "Suwannee",
+   "lat": 30.1509,
+   "lng": -82.96618
+  },
+  {
+   "name": "Mc David",
+   "county": "Escambia",
+   "lat": 30.87004,
+   "lng": -87.44963
+  },
+  {
+   "name": "Mc Intosh",
+   "county": "Marion",
+   "lat": 29.45056,
+   "lng": -82.22
+  },
+  {
+   "name": "Melbourne",
+   "county": "Brevard",
+   "lat": 28.06913,
+   "lng": -80.62001
+  },
+  {
+   "name": "Melbourne Beach",
+   "county": "Brevard",
+   "lat": 28.02192,
+   "lng": -80.53894
+  },
+  {
+   "name": "Melrose",
+   "county": "Putnam",
+   "lat": 29.73246,
+   "lng": -82.02786
+  },
+  {
+   "name": "Merritt Island",
+   "county": "Brevard",
+   "lat": 28.32861,
+   "lng": -80.67818
+  },
+  {
+   "name": "Mexico Beach",
+   "county": "Bay",
+   "lat": 29.94778,
+   "lng": -85.41806
+  },
+  {
+   "name": "Miami",
+   "county": "Miami-dade",
+   "lat": 25.779,
+   "lng": -80.1982
+  },
+  {
+   "name": "Miami Beach",
+   "county": "Miami-dade",
+   "lat": 25.7611,
+   "lng": -80.1403
+  },
+  {
+   "name": "Micanopy",
+   "county": "Alachua",
+   "lat": 29.52603,
+   "lng": -82.2797
+  },
+  {
+   "name": "Mid Florida",
+   "county": "Seminole",
+   "lat": 28.7461,
+   "lng": -81.6672
+  },
+  {
+   "name": "Middleburg",
+   "county": "Clay",
+   "lat": 30.06861,
+   "lng": -81.86056
+  },
+  {
+   "name": "Midway",
+   "county": "Gadsden",
+   "lat": 30.49528,
+   "lng": -84.45444
+  },
+  {
+   "name": "Milligan",
+   "county": "Okaloosa",
+   "lat": 30.75222,
+   "lng": -86.64083
+  },
+  {
+   "name": "Milton",
+   "county": "Santa Rosa",
+   "lat": 30.66041,
+   "lng": -87.04728
+  },
+  {
+   "name": "Mims",
+   "county": "Brevard",
+   "lat": 28.69738,
+   "lng": -80.86628
+  },
+  {
+   "name": "Minneola",
+   "county": "Lake",
+   "lat": 28.57417,
+   "lng": -81.74639
+  },
+  {
+   "name": "Miramar Beach",
+   "county": "Walton",
+   "lat": 30.3823,
+   "lng": -86.3509
+  },
+  {
+   "name": "Molino",
+   "county": "Escambia",
+   "lat": 30.72389,
+   "lng": -87.31417
+  },
+  {
+   "name": "Monticello",
+   "county": "Jefferson",
+   "lat": 30.51968,
+   "lng": -83.89245
+  },
+  {
+   "name": "Montverde",
+   "county": "Lake",
+   "lat": 28.59715,
+   "lng": -81.67937
+  },
+  {
+   "name": "Moore Haven",
+   "county": "Glades",
+   "lat": 26.83275,
+   "lng": -81.21878
+  },
+  {
+   "name": "Morriston",
+   "county": "Levy",
+   "lat": 29.28126,
+   "lng": -82.49167
+  },
+  {
+   "name": "Mossy Head",
+   "county": "Walton",
+   "lat": 30.76167,
+   "lng": -86.32278
+  },
+  {
+   "name": "Mount Dora",
+   "county": "Lake",
+   "lat": 28.80222,
+   "lng": -81.64472
+  },
+  {
+   "name": "Mulberry",
+   "county": "Polk",
+   "lat": 27.90202,
+   "lng": -82.00149
+  },
+  {
+   "name": "Murdock",
+   "county": "Charlotte",
+   "lat": 27.0125,
+   "lng": -82.14639
+  },
+  {
+   "name": "Myakka City",
+   "county": "Manatee",
+   "lat": 27.36476,
+   "lng": -82.1849
+  },
+  {
+   "name": "Nalcrest",
+   "county": "Polk",
+   "lat": 27.85806,
+   "lng": -81.42528
+  },
+  {
+   "name": "Naples",
+   "county": "Collier",
+   "lat": 26.1377,
+   "lng": -81.7966
+  },
+  {
+   "name": "Navarre",
+   "county": "Santa Rosa",
+   "lat": 30.59026,
+   "lng": -86.9371
+  },
+  {
+   "name": "Neptune Beach",
+   "county": "Duval",
+   "lat": 30.31548,
+   "lng": -81.40512
+  },
+  {
+   "name": "New Port Richey",
+   "county": "Pasco",
+   "lat": 28.23257,
+   "lng": -82.73272
+  },
+  {
+   "name": "New Smyrna Beach",
+   "county": "Volusia",
+   "lat": 29.02467,
+   "lng": -80.95844
+  },
+  {
+   "name": "Newberry",
+   "county": "Alachua",
+   "lat": 29.66091,
+   "lng": -82.58519
+  },
+  {
+   "name": "Niceville",
+   "county": "Okaloosa",
+   "lat": 30.49577,
+   "lng": -86.41446
+  },
+  {
+   "name": "Nichols",
+   "county": "Polk",
+   "lat": 27.89,
+   "lng": -82.03167
+  },
+  {
+   "name": "Nobleton",
+   "county": "Hernando",
+   "lat": 28.64528,
+   "lng": -82.26417
+  },
+  {
+   "name": "Nocatee",
+   "county": "De Soto",
+   "lat": 27.16,
+   "lng": -81.8825
+  },
+  {
+   "name": "Nokomis",
+   "county": "Sarasota",
+   "lat": 27.11889,
+   "lng": -82.44444
+  },
+  {
+   "name": "Noma",
+   "county": "Holmes",
+   "lat": 30.98194,
+   "lng": -85.61861
+  },
+  {
+   "name": "North Fort Myers",
+   "county": "Lee",
+   "lat": 26.67814,
+   "lng": -81.90963
+  },
+  {
+   "name": "North Miami Beach",
+   "county": "Miami-dade",
+   "lat": 25.93609,
+   "lng": -80.13514
+  },
+  {
+   "name": "North Palm Beach",
+   "county": "Palm Beach",
+   "lat": 26.82885,
+   "lng": -80.06033
+  },
+  {
+   "name": "North Port",
+   "county": "Sarasota",
+   "lat": 27.0781,
+   "lng": -82.1735
+  },
+  {
+   "name": "O Brien",
+   "county": "Suwannee",
+   "lat": 30.03811,
+   "lng": -82.93005
+  },
+  {
+   "name": "Oak Hill",
+   "county": "Volusia",
+   "lat": 28.86998,
+   "lng": -80.85506
+  },
+  {
+   "name": "Oakland",
+   "county": "Orange",
+   "lat": 28.55472,
+   "lng": -81.63333
+  },
+  {
+   "name": "Ocala",
+   "county": "Marion",
+   "lat": 29.1981,
+   "lng": -82.0974
+  },
+  {
+   "name": "Ochopee",
+   "county": "Miami-dade",
+   "lat": 25.98111,
+   "lng": -81.12111
+  },
+  {
+   "name": "Ocklawaha",
+   "county": "Marion",
+   "lat": 29.06431,
+   "lng": -81.88569
+  },
+  {
+   "name": "Ocoee",
+   "county": "Orange",
+   "lat": 28.58368,
+   "lng": -81.53262
+  },
+  {
+   "name": "Odessa",
+   "county": "Hillsborough",
+   "lat": 28.14207,
+   "lng": -82.59051
+  },
+  {
+   "name": "Okahumpka",
+   "county": "Lake",
+   "lat": 28.73726,
+   "lng": -81.88395
+  },
+  {
+   "name": "Okeechobee",
+   "county": "Okeechobee",
+   "lat": 27.31153,
+   "lng": -80.84785
+  },
+  {
+   "name": "Old Town",
+   "county": "Dixie",
+   "lat": 29.62456,
+   "lng": -83.05739
+  },
+  {
+   "name": "Oldsmar",
+   "county": "Pinellas",
+   "lat": 28.04603,
+   "lng": -82.68478
+  },
+  {
+   "name": "Olustee",
+   "county": "Baker",
+   "lat": 30.20389,
+   "lng": -82.42889
+  },
+  {
+   "name": "Ona",
+   "county": "Hardee",
+   "lat": 27.41266,
+   "lng": -81.92805
+  },
+  {
+   "name": "Oneco",
+   "county": "Manatee",
+   "lat": 27.44722,
+   "lng": -82.54639
+  },
+  {
+   "name": "Opa Locka",
+   "county": "Miami-dade",
+   "lat": 25.90966,
+   "lng": -80.247
+  },
+  {
+   "name": "Orange City",
+   "county": "Volusia",
+   "lat": 28.94529,
+   "lng": -81.29952
+  },
+  {
+   "name": "Orange Lake",
+   "county": "Marion",
+   "lat": 29.425,
+   "lng": -82.21667
+  },
+  {
+   "name": "Orange Park",
+   "county": "Clay",
+   "lat": 30.1044,
+   "lng": -81.7145
+  },
+  {
+   "name": "Orange Springs",
+   "county": "Marion",
+   "lat": 29.50583,
+   "lng": -81.94556
+  },
+  {
+   "name": "Orlando",
+   "county": "Brevard",
+   "lat": 28.49882,
+   "lng": -80.58248
+  },
+  {
+   "name": "Ormond Beach",
+   "county": "Volusia",
+   "lat": 29.2855,
+   "lng": -81.0561
+  },
+  {
+   "name": "Osprey",
+   "county": "Sarasota",
+   "lat": 27.18384,
+   "lng": -82.48534
+  },
+  {
+   "name": "Osteen",
+   "county": "Volusia",
+   "lat": 28.84262,
+   "lng": -81.15622
+  },
+  {
+   "name": "Otter Creek",
+   "county": "Levy",
+   "lat": 29.32472,
+   "lng": -82.77194
+  },
+  {
+   "name": "Oviedo",
+   "county": "Seminole",
+   "lat": 28.66972,
+   "lng": -81.20833
+  },
+  {
+   "name": "Oxford",
+   "county": "Sumter",
+   "lat": 28.92722,
+   "lng": -82.0375
+  },
+  {
+   "name": "Ozona",
+   "county": "Pinellas",
+   "lat": 28.06917,
+   "lng": -82.77583
+  },
+  {
+   "name": "Pahokee",
+   "county": "Palm Beach",
+   "lat": 26.8142,
+   "lng": -80.6629
+  },
+  {
+   "name": "Paisley",
+   "county": "Lake",
+   "lat": 28.99932,
+   "lng": -81.50301
+  },
+  {
+   "name": "Palatka",
+   "county": "Putnam",
+   "lat": 29.65775,
+   "lng": -81.65945
+  },
+  {
+   "name": "Palm Bay",
+   "county": "Brevard",
+   "lat": 28.0146,
+   "lng": -80.59909
+  },
+  {
+   "name": "Palm Beach",
+   "county": "Palm Beach",
+   "lat": 26.72065,
+   "lng": -80.03883
+  },
+  {
+   "name": "Palm Beach Gardens",
+   "county": "Palm Beach",
+   "lat": 26.84437,
+   "lng": -80.0873
+  },
+  {
+   "name": "Palm City",
+   "county": "Martin",
+   "lat": 27.16565,
+   "lng": -80.29165
+  },
+  {
+   "name": "Palm Coast",
+   "county": "Flagler",
+   "lat": 29.5847,
+   "lng": -81.208
+  },
+  {
+   "name": "Palm Harbor",
+   "county": "Pinellas",
+   "lat": 28.07778,
+   "lng": -82.76389
+  },
+  {
+   "name": "Palmdale",
+   "county": "Glades",
+   "lat": 26.945,
+   "lng": -81.31639
+  },
+  {
+   "name": "Palmetto",
+   "county": "Manatee",
+   "lat": 27.52111,
+   "lng": -82.5725
+  },
+  {
+   "name": "Panacea",
+   "county": "Wakulla",
+   "lat": 30.01532,
+   "lng": -84.39121
+  },
+  {
+   "name": "Panama City",
+   "county": "Bay",
+   "lat": 30.16062,
+   "lng": -85.6494
+  },
+  {
+   "name": "Panama City Beach",
+   "county": "Bay",
+   "lat": 30.19462,
+   "lng": -85.79198
+  },
+  {
+   "name": "Parrish",
+   "county": "Manatee",
+   "lat": 27.55716,
+   "lng": -82.39601
+  },
+  {
+   "name": "Patrick Afb",
+   "county": "Brevard",
+   "lat": 28.2599,
+   "lng": -80.60713
+  },
+  {
+   "name": "Paxton",
+   "county": "Walton",
+   "lat": 30.98139,
+   "lng": -86.3075
+  },
+  {
+   "name": "Pembroke Pines",
+   "county": "Broward",
+   "lat": 26.02293,
+   "lng": -80.29744
+  },
+  {
+   "name": "Penney Farms",
+   "county": "Clay",
+   "lat": 29.97944,
+   "lng": -81.81056
+  },
+  {
+   "name": "Pensacola",
+   "county": "Escambia",
+   "lat": 30.42228,
+   "lng": -87.22476
+  },
+  {
+   "name": "Perry",
+   "county": "Taylor",
+   "lat": 30.09749,
+   "lng": -83.58502
+  },
+  {
+   "name": "Pierson",
+   "county": "Volusia",
+   "lat": 29.2226,
+   "lng": -81.43533
+  },
+  {
+   "name": "Pineland",
+   "county": "Lee",
+   "lat": 26.66028,
+   "lng": -82.15361
+  },
+  {
+   "name": "Pinellas Park",
+   "county": "Pinellas",
+   "lat": 27.8387,
+   "lng": -82.7151
+  },
+  {
+   "name": "Pinetta",
+   "county": "Madison",
+   "lat": 30.5997,
+   "lng": -83.34046
+  },
+  {
+   "name": "Placida",
+   "county": "Charlotte",
+   "lat": 26.8193,
+   "lng": -82.26164
+  },
+  {
+   "name": "Plant City",
+   "county": "Hillsborough",
+   "lat": 28.0168,
+   "lng": -82.1289
+  },
+  {
+   "name": "Plymouth",
+   "county": "Orange",
+   "lat": 28.69194,
+   "lng": -81.5475
+  },
+  {
+   "name": "Point Washington",
+   "county": "Walton",
+   "lat": 30.37,
+   "lng": -86.115
+  },
+  {
+   "name": "Polk City",
+   "county": "Polk",
+   "lat": 28.19867,
+   "lng": -81.80828
+  },
+  {
+   "name": "Pomona Park",
+   "county": "Putnam",
+   "lat": 29.50211,
+   "lng": -81.63074
+  },
+  {
+   "name": "Pompano Beach",
+   "county": "Broward",
+   "lat": 26.23153,
+   "lng": -80.12346
+  },
+  {
+   "name": "Ponce De Leon",
+   "county": "Walton",
+   "lat": 30.70415,
+   "lng": -85.95463
+  },
+  {
+   "name": "Ponte Vedra",
+   "county": "Saint Johns",
+   "lat": 30.098,
+   "lng": -81.4395
+  },
+  {
+   "name": "Ponte Vedra Beach",
+   "county": "Saint Johns",
+   "lat": 30.23944,
+   "lng": -81.38583
+  },
+  {
+   "name": "Port Charlotte",
+   "county": "Charlotte",
+   "lat": 26.98268,
+   "lng": -82.14117
+  },
+  {
+   "name": "Port Orange",
+   "county": "Volusia",
+   "lat": 29.12139,
+   "lng": -80.97667
+  },
+  {
+   "name": "Port Richey",
+   "county": "Pasco",
+   "lat": 28.30115,
+   "lng": -82.69271
+  },
+  {
+   "name": "Port Saint Joe",
+   "county": "Gulf",
+   "lat": 29.83539,
+   "lng": -85.29879
+  },
+  {
+   "name": "Port Saint Lucie",
+   "county": "Saint Lucie",
+   "lat": 27.2889,
+   "lng": -80.29797
+  },
+  {
+   "name": "Port Salerno",
+   "county": "Martin",
+   "lat": 27.14389,
+   "lng": -80.20083
+  },
+  {
+   "name": "Punta Gorda",
+   "county": "Charlotte",
+   "lat": 26.91516,
+   "lng": -82.05317
+  },
+  {
+   "name": "Putnam Hall",
+   "county": "Putnam",
+   "lat": 29.73639,
+   "lng": -81.95944
+  },
+  {
+   "name": "Quincy",
+   "county": "Gadsden",
+   "lat": 30.58667,
+   "lng": -84.60945
+  },
+  {
+   "name": "Raiford",
+   "county": "Union",
+   "lat": 30.06361,
+   "lng": -82.23667
+  },
+  {
+   "name": "Reddick",
+   "county": "Marion",
+   "lat": 29.37535,
+   "lng": -82.24399
+  },
+  {
+   "name": "River Ranch",
+   "county": "Polk",
+   "lat": 27.8825,
+   "lng": -81.47417
+  },
+  {
+   "name": "Riverview",
+   "county": "Hillsborough",
+   "lat": 27.86583,
+   "lng": -82.32667
+  },
+  {
+   "name": "Rockledge",
+   "county": "Brevard",
+   "lat": 28.31344,
+   "lng": -80.73193
+  },
+  {
+   "name": "Roseland",
+   "county": "Indian River",
+   "lat": 27.83556,
+   "lng": -80.49333
+  },
+  {
+   "name": "Rosemary Beach",
+   "county": "Walton",
+   "lat": 30.28333,
+   "lng": -86.03056
+  },
+  {
+   "name": "Rotonda West",
+   "county": "Charlotte",
+   "lat": 26.90039,
+   "lng": -82.29378
+  },
+  {
+   "name": "Ruskin",
+   "county": "Hillsborough",
+   "lat": 27.7015,
+   "lng": -82.4355
+  },
+  {
+   "name": "Safety Harbor",
+   "county": "Pinellas",
+   "lat": 28.00961,
+   "lng": -82.69666
+  },
+  {
+   "name": "Saint Augustine",
+   "county": "Saint Johns",
+   "lat": 29.8364,
+   "lng": -81.2745
+  },
+  {
+   "name": "Saint Cloud",
+   "county": "Osceola",
+   "lat": 28.24799,
+   "lng": -81.28763
+  },
+  {
+   "name": "Saint James City",
+   "county": "Lee",
+   "lat": 26.52901,
+   "lng": -82.09159
+  },
+  {
+   "name": "Saint Johns",
+   "county": "Saint Johns",
+   "lat": 30.09558,
+   "lng": -81.6217
+  },
+  {
+   "name": "Saint Leo",
+   "county": "Pasco",
+   "lat": 28.33694,
+   "lng": -82.25861
+  },
+  {
+   "name": "Saint Marks",
+   "county": "Wakulla",
+   "lat": 30.16083,
+   "lng": -84.20639
+  },
+  {
+   "name": "Saint Petersburg",
+   "county": "Pinellas",
+   "lat": 27.77232,
+   "lng": -82.63861
+  },
+  {
+   "name": "Salem",
+   "county": "Taylor",
+   "lat": 29.82381,
+   "lng": -83.38583
+  },
+  {
+   "name": "San Antonio",
+   "county": "Pasco",
+   "lat": 28.33714,
+   "lng": -82.28824
+  },
+  {
+   "name": "San Mateo",
+   "county": "Putnam",
+   "lat": 29.58883,
+   "lng": -81.5921
+  },
+  {
+   "name": "Sanderson",
+   "county": "Baker",
+   "lat": 30.30254,
+   "lng": -82.33774
+  },
+  {
+   "name": "Sanford",
+   "county": "Seminole",
+   "lat": 28.80131,
+   "lng": -81.28504
+  },
+  {
+   "name": "Sanibel",
+   "county": "Lee",
+   "lat": 26.4514,
+   "lng": -82.08683
+  },
+  {
+   "name": "Santa Rosa Beach",
+   "county": "Walton",
+   "lat": 30.36588,
+   "lng": -86.24581
+  },
+  {
+   "name": "Sarasota",
+   "county": "Manatee",
+   "lat": 27.40724,
+   "lng": -82.5303
+  },
+  {
+   "name": "Satellite Beach",
+   "county": "Brevard",
+   "lat": 28.17857,
+   "lng": -80.59867
+  },
+  {
+   "name": "Satsuma",
+   "county": "Putnam",
+   "lat": 29.55935,
+   "lng": -81.6406
+  },
+  {
+   "name": "Scottsmoor",
+   "county": "Brevard",
+   "lat": 28.76667,
+   "lng": -80.87833
+  },
+  {
+   "name": "Sebastian",
+   "county": "Brevard",
+   "lat": 27.87815,
+   "lng": -80.51605
+  },
+  {
+   "name": "Sebring",
+   "county": "Highlands",
+   "lat": 27.49239,
+   "lng": -81.43571
+  },
+  {
+   "name": "Seffner",
+   "county": "Hillsborough",
+   "lat": 27.98333,
+   "lng": -82.27583
+  },
+  {
+   "name": "Seminole",
+   "county": "Pinellas",
+   "lat": 27.8438,
+   "lng": -82.7947
+  },
+  {
+   "name": "Seville",
+   "county": "Volusia",
+   "lat": 29.32008,
+   "lng": -81.52789
+  },
+  {
+   "name": "Shady Grove",
+   "county": "Taylor",
+   "lat": 30.28778,
+   "lng": -83.63194
+  },
+  {
+   "name": "Shalimar",
+   "county": "Okaloosa",
+   "lat": 30.44556,
+   "lng": -86.57172
+  },
+  {
+   "name": "Sharpes",
+   "county": "Brevard",
+   "lat": 28.43194,
+   "lng": -80.76028
+  },
+  {
+   "name": "Silver Springs",
+   "county": "Marion",
+   "lat": 29.2076,
+   "lng": -81.9219
+  },
+  {
+   "name": "Sneads",
+   "county": "Jackson",
+   "lat": 30.72762,
+   "lng": -84.93366
+  },
+  {
+   "name": "Sopchoppy",
+   "county": "Wakulla",
+   "lat": 30.07135,
+   "lng": -84.45488
+  },
+  {
+   "name": "Sorrento",
+   "county": "Lake",
+   "lat": 28.80352,
+   "lng": -81.53232
+  },
+  {
+   "name": "South Bay",
+   "county": "Palm Beach",
+   "lat": 26.67013,
+   "lng": -80.73121
+  },
+  {
+   "name": "Sparr",
+   "county": "Marion",
+   "lat": 29.33833,
+   "lng": -82.11278
+  },
+  {
+   "name": "Spring Hill",
+   "county": "Hernando",
+   "lat": 28.46551,
+   "lng": -82.59808
+  },
+  {
+   "name": "Starke",
+   "county": "Bradford",
+   "lat": 29.9583,
+   "lng": -82.11852
+  },
+  {
+   "name": "Steinhatchee",
+   "county": "Taylor",
+   "lat": 29.67387,
+   "lng": -83.37233
+  },
+  {
+   "name": "Stuart",
+   "county": "Martin",
+   "lat": 27.19683,
+   "lng": -80.25379
+  },
+  {
+   "name": "Sumatra",
+   "county": "Liberty",
+   "lat": 30.02,
+   "lng": -84.97917
+  },
+  {
+   "name": "Summerfield",
+   "county": "Marion",
+   "lat": 28.9958,
+   "lng": -82.0214
+  },
+  {
+   "name": "Summerland Key",
+   "county": "Monroe",
+   "lat": 24.65532,
+   "lng": -81.49356
+  },
+  {
+   "name": "Sumterville",
+   "county": "Sumter",
+   "lat": 28.74472,
+   "lng": -82.06361
+  },
+  {
+   "name": "Sun City",
+   "county": "Hillsborough",
+   "lat": 27.67806,
+   "lng": -82.47889
+  },
+  {
+   "name": "Sun City Center",
+   "county": "Hillsborough",
+   "lat": 27.7205,
+   "lng": -82.4333
+  },
+  {
+   "name": "Suwannee",
+   "county": "Dixie",
+   "lat": 29.32861,
+   "lng": -83.14444
+  },
+  {
+   "name": "Sydney",
+   "county": "Hillsborough",
+   "lat": 27.96306,
+   "lng": -82.2075
+  },
+  {
+   "name": "Tallahassee",
+   "county": "Leon",
+   "lat": 30.42856,
+   "lng": -84.25934
+  },
+  {
+   "name": "Tallevast",
+   "county": "Manatee",
+   "lat": 27.40139,
+   "lng": -82.54306
+  },
+  {
+   "name": "Tampa",
+   "county": "",
+   "lat": 28.0879,
+   "lng": -82.4593
+  },
+  {
+   "name": "Tangerine",
+   "county": "Orange",
+   "lat": 28.76472,
+   "lng": -81.63083
+  },
+  {
+   "name": "Tarpon Springs",
+   "county": "Pinellas",
+   "lat": 28.14583,
+   "lng": -82.75694
+  },
+  {
+   "name": "Tavares",
+   "county": "Lake",
+   "lat": 28.80103,
+   "lng": -81.73405
+  },
+  {
+   "name": "Tavernier",
+   "county": "Monroe",
+   "lat": 25.01079,
+   "lng": -80.52182
+  },
+  {
+   "name": "Telogia",
+   "county": "Liberty",
+   "lat": 30.35056,
+   "lng": -84.81917
+  },
+  {
+   "name": "Terra Ceia",
+   "county": "Manatee",
+   "lat": 27.57917,
+   "lng": -82.58056
+  },
+  {
+   "name": "The Villages",
+   "county": "Sumter",
+   "lat": 28.9335,
+   "lng": -82.0046
+  },
+  {
+   "name": "Thonotosassa",
+   "county": "Hillsborough",
+   "lat": 28.06175,
+   "lng": -82.30821
+  },
+  {
+   "name": "Titusville",
+   "county": "Brevard",
+   "lat": 28.56971,
+   "lng": -80.81914
+  },
+  {
+   "name": "Trenton",
+   "county": "Gilchrist",
+   "lat": 29.62637,
+   "lng": -82.80934
+  },
+  {
+   "name": "Trilby",
+   "county": "Pasco",
+   "lat": 28.46222,
+   "lng": -82.195
+  },
+  {
+   "name": "Umatilla",
+   "county": "Lake",
+   "lat": 28.93144,
+   "lng": -81.67165
+  },
+  {
+   "name": "Valparaiso",
+   "county": "Okaloosa",
+   "lat": 30.5092,
+   "lng": -86.50091
+  },
+  {
+   "name": "Valrico",
+   "county": "Hillsborough",
+   "lat": 27.91243,
+   "lng": -82.24656
+  },
+  {
+   "name": "Vanderbilt Beach",
+   "county": "Collier",
+   "lat": 26.1627,
+   "lng": -81.7912
+  },
+  {
+   "name": "Venice",
+   "county": "Sarasota",
+   "lat": 27.0993,
+   "lng": -82.4489
+  },
+  {
+   "name": "Venus",
+   "county": "Highlands",
+   "lat": 27.13463,
+   "lng": -81.35941
+  },
+  {
+   "name": "Vernon",
+   "county": "Washington",
+   "lat": 30.62668,
+   "lng": -85.75529
+  },
+  {
+   "name": "Vero Beach",
+   "county": "Indian River",
+   "lat": 27.63299,
+   "lng": -80.40308
+  },
+  {
+   "name": "Wabasso",
+   "county": "Indian River",
+   "lat": 27.74806,
+   "lng": -80.43639
+  },
+  {
+   "name": "Wacissa",
+   "county": "Jefferson",
+   "lat": 30.35833,
+   "lng": -83.98722
+  },
+  {
+   "name": "Waldo",
+   "county": "Alachua",
+   "lat": 29.7871,
+   "lng": -82.16079
+  },
+  {
+   "name": "Wauchula",
+   "county": "Hardee",
+   "lat": 27.55174,
+   "lng": -81.80739
+  },
+  {
+   "name": "Wausau",
+   "county": "Washington",
+   "lat": 30.63194,
+   "lng": -85.58889
+  },
+  {
+   "name": "Waverly",
+   "county": "Polk",
+   "lat": 27.97861,
+   "lng": -81.61417
+  },
+  {
+   "name": "Webster",
+   "county": "Sumter",
+   "lat": 28.57749,
+   "lng": -82.09297
+  },
+  {
+   "name": "Weirsdale",
+   "county": "Marion",
+   "lat": 28.97818,
+   "lng": -81.89317
+  },
+  {
+   "name": "Welaka",
+   "county": "Putnam",
+   "lat": 29.47889,
+   "lng": -81.67167
+  },
+  {
+   "name": "Wellborn",
+   "county": "Suwannee",
+   "lat": 30.17962,
+   "lng": -82.85053
+  },
+  {
+   "name": "Wesley Chapel",
+   "county": "Pasco",
+   "lat": 28.21036,
+   "lng": -82.28896
+  },
+  {
+   "name": "West Palm Beach",
+   "county": "Palm Beach",
+   "lat": 26.71396,
+   "lng": -80.06587
+  },
+  {
+   "name": "Westville",
+   "county": "Holmes",
+   "lat": 30.87469,
+   "lng": -85.91297
+  },
+  {
+   "name": "Wewahitchka",
+   "county": "Calhoun",
+   "lat": 30.26324,
+   "lng": -85.20647
+  },
+  {
+   "name": "White Springs",
+   "county": "Hamilton",
+   "lat": 30.33875,
+   "lng": -82.77645
+  },
+  {
+   "name": "Wildwood",
+   "county": "Sumter",
+   "lat": 28.84535,
+   "lng": -82.03473
+  },
+  {
+   "name": "Williston",
+   "county": "Levy",
+   "lat": 29.39774,
+   "lng": -82.4856
+  },
+  {
+   "name": "Wimauma",
+   "county": "Hillsborough",
+   "lat": 27.7015,
+   "lng": -82.31514
+  },
+  {
+   "name": "Windermere",
+   "county": "Orange",
+   "lat": 28.50061,
+   "lng": -81.53541
+  },
+  {
+   "name": "Winter Beach",
+   "county": "Indian River",
+   "lat": 27.71889,
+   "lng": -80.42083
+  },
+  {
+   "name": "Winter Garden",
+   "county": "Orange",
+   "lat": 28.4867,
+   "lng": -81.6051
+  },
+  {
+   "name": "Winter Haven",
+   "county": "Polk",
+   "lat": 27.9993,
+   "lng": -81.75151
+  },
+  {
+   "name": "Winter Park",
+   "county": "Orange",
+   "lat": 28.59782,
+   "lng": -81.35344
+  },
+  {
+   "name": "Winter Springs",
+   "county": "Seminole",
+   "lat": 28.6831,
+   "lng": -81.28137
+  },
+  {
+   "name": "Woodville",
+   "county": "Leon",
+   "lat": 30.31389,
+   "lng": -84.2475
+  },
+  {
+   "name": "Worthington Springs",
+   "county": "Union",
+   "lat": 29.92917,
+   "lng": -82.42361
+  },
+  {
+   "name": "Yalaha",
+   "county": "Lake",
+   "lat": 28.74444,
+   "lng": -81.82632
+  },
+  {
+   "name": "Yankeetown",
+   "county": "Levy",
+   "lat": 29.02972,
+   "lng": -82.71611
+  },
+  {
+   "name": "Youngstown",
+   "county": "Bay",
+   "lat": 30.32691,
+   "lng": -85.51688
+  },
+  {
+   "name": "Yulee",
+   "county": "Nassau",
+   "lat": 30.63167,
+   "lng": -81.60667
+  },
+  {
+   "name": "Zellwood",
+   "county": "Orange",
+   "lat": 28.71944,
+   "lng": -81.57617
+  },
+  {
+   "name": "Zephyrhills",
+   "county": "Pasco",
+   "lat": 28.2333,
+   "lng": -82.1813
+  },
+  {
+   "name": "Zolfo Springs",
+   "county": "Hardee",
+   "lat": 27.48004,
+   "lng": -81.74233
+  }
+ ]
+}

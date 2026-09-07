@@ -162,10 +162,23 @@ function hoursToday(listing) {
   return row.closed ? "Closed today" : `Today: ${row.hours}`;
 }
 
-export function listicleItem(listing, rank, { showSummary = true } = {}) {
+export function listicleItem(listing, rank, { showSummary = true, distances = null, distanceFrom = "" } = {}) {
   const url = `/partners/${attr(listing.slug)}/`;
   const facts = [];
   const addressText = listing.address || `${listing.city}, FL`;
+  // On a "near <town>" page how far away each shop is matters more than
+  // anything else on the card, so it leads the fact list.
+  const away = distances ? distances.get(listing.slug) : null;
+  if (typeof away === "number") {
+    facts.push(
+      (() => {
+        const shown = away < 10 ? away.toFixed(1) : String(Math.round(away));
+        return `<li><b>Distance</b> <span>${esc(shown)} ${shown === "1" ? "mile" : "miles"}${
+          distanceFrom ? ` from ${esc(distanceFrom)}` : ""
+        }</span></li>`;
+      })()
+    );
+  }
   facts.push(
     `<li><b>Address</b> <span>${
       listing.maps_link

@@ -510,6 +510,66 @@ export function nearbyCities(city, cities, count = 8) {
     .slice(0, count);
 }
 
+/* A town with no shop of its own still gets a page, listing the shops closest
+ * to it - the question "where can I rent near here?" has a good answer in most
+ * of Florida even where the answer is in the next town over. The gate below
+ * keeps that promise honest: no page unless there are genuinely several shops
+ * within a drive, so nowhere gets a page whose only answer is "nothing near". */
+export const NEARBY_RADIUS_MILES = 25;
+const NEARBY_MIN_SHOPS = 3;
+const NEARBY_MAX_SHOPS = 12;
+
+export function loadFloridaCities() {
+  const file = join(ROOT, "data", "source", "florida-cities.json");
+  if (!existsSync(file)) return [];
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  return Array.isArray(raw.cities) ? raw.cities : [];
+}
+
+/**
+ * Pages for Florida towns the directory holds no shop in. Any town that
+ * already has its own listings is skipped - it has a real page already - as is
+ * any whose slug is taken by a town or region page, so these can never collide
+ * with or shadow the pages built from real listings.
+ */
+export function buildNearbyCityPages(listings, index, cities) {
+  const taken = new Set([...index.cities.map((c) => c.slug), ...index.regions.map((r) => r.slug)]);
+  const mapped = listings.filter((l) => typeof l.lat === "number" && typeof l.lng === "number");
+
+  return cities
+    .map((city) => {
+      const slug = slugify(city.name);
+      if (!slug || taken.has(slug)) return null;
+
+      const near = mapped
+        .map((l) => ({ listing: l, distance: miles(city.lat, city.lng, l.lat, l.lng) }))
+        .filter((hit) => hit.distance <= NEARBY_RADIUS_MILES)
+        .sort((a, b) => a.distance - b.distance);
+      if (near.length < NEARBY_MIN_SHOPS) return null;
+
+      const shown = near.slice(0, NEARBY_MAX_SHOPS);
+      // The town belongs to whichever region its closest shops sit in.
+      const votes = new Map();
+      for (const hit of shown) votes.set(hit.listing.region, (votes.get(hit.listing.region) || 0) + 1);
+      const region = [...votes.entries()].sort((a, b) => b[1] - a[1])[0][0];
+
+      return {
+        name: city.name,
+        county: city.county,
+        slug,
+        url: `/find/ebike-rentals-in-${slug}/`,
+        lat: city.lat,
+        lng: city.lng,
+        region,
+        regionSlug: slugify(region),
+        nearest: shown,
+        total: near.length,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.name.localeCompare(b.name, "en"));
+}
+
 export function statsFor(listings) {
   const rated = listings.filter((l) => l.rating > 0);
   const reviews = listings.reduce((sum, l) => sum + (l.reviews || 0), 0);

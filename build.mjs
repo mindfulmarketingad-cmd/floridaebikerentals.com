@@ -13,10 +13,11 @@ import { join, dirname } from "node:path";
 import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
-  buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, SEARCH_QUERIES, CONTENT_HUBS,
+  buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, loadFloridaCities,
+  buildNearbyCityPages, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
-import { findHub, findRegion, findCity, findTopic, findCityTopic } from "./src/pages/find.mjs";
+import { findHub, findRegion, findCity, findTopic, findCityTopic, findNearbyCity } from "./src/pages/find.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
@@ -82,6 +83,9 @@ const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
 const shop = loadShop();
 const regionMapData = loadRegionMap();
+// Towns with no shop of their own still get a page listing the closest ones.
+const nearbyTowns = buildNearbyCityPages(listings, index, loadFloridaCities());
+index.nearbyTowns = nearbyTowns;
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, regionMapData };
 
 /* home */
@@ -128,6 +132,22 @@ for (const city of index.cities) {
       d: `${city.listings.length} rental partner${city.listings.length === 1 ? "" : "s"} in ${city.name}.`,
       k: `${city.name} ${city.region} ${city.listings.slice(0, 6).map((l) => l.name).join(" ")}`.toLowerCase(),
       w: 8,
+    },
+  });
+}
+
+for (const town of nearbyTowns) {
+  write(town.url, findNearbyCity(site, town, ctx), {
+    priority: 0.5,
+    changefreq: "monthly",
+    group: "find",
+    search: {
+      u: town.url,
+      t: `E-bike rentals near ${town.name}, FL`,
+      s: "Town",
+      d: `The ${town.nearest.length} shops closest to ${town.name}, from ${town.nearest[0].distance < 10 ? town.nearest[0].distance.toFixed(1) : Math.round(town.nearest[0].distance)} miles away.`,
+      k: `${town.name} ${town.county} ${town.region} near nearby`.toLowerCase(),
+      w: 4,
     },
   });
 }

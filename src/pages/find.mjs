@@ -4,7 +4,7 @@ import {
   listicle, resultsWithMap, faqBlock, faqSchema, linkCard, linkCloud, statRow,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor, productCarousel,
 } from "../components.mjs";
-import { statsFor, nearbyCities } from "../data.mjs";
+import { statsFor, nearbyCities, NEARBY_RADIUS_MILES } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { inlineSearchWidget } from "./search.mjs";
 
@@ -131,6 +131,25 @@ ${adSlot(site, "")}
     )}
   </div>
 </section>
+
+${
+  (index.nearbyTowns || []).length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Towns with rentals nearby</h2>
+    <p class="muted">${esc(String(index.nearbyTowns.length))} more Florida towns with no rental shop of
+    their own. Each page lists the closest shops to it and how far away they are.</p>
+    ${linkCloud(
+      index.nearbyTowns.map((town) => ({
+        href: town.url,
+        label: `${town.name} e-bike rentals`,
+        count: town.nearest.length,
+      }))
+    )}
+  </div>
+</section>`
+    : ""
+}
 ${adSlotScript(site, 1)}
 `;
 
@@ -162,6 +181,7 @@ export function findRegion(site, region, { index, blog, shop }) {
   const top = region.listings.slice(0, 30);
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: region.url, label: region.name }];
   const townNames = region.cities.slice(0, 6).map((c) => c.name);
+  const nearbyInRegion = (index.nearbyTowns || []).filter((t) => t.region === region.name);
 
   const faqs = [
     {
@@ -229,6 +249,19 @@ ${pageHero({
           count: city.listings.length,
         }))
     )}
+    ${
+      nearbyInRegion.length
+        ? `<h3 class="mt-3">Towns nearby with no shop of their own</h3>
+    <p class="muted">Each of these lists the closest shops to it instead.</p>
+    ${linkCloud(
+      nearbyInRegion.map((town) => ({
+        href: town.url,
+        label: `${town.name} e-bike rentals`,
+        count: town.nearest.length,
+      }))
+    )}`
+        : ""
+    }
   </div>
 </section>
 
@@ -797,6 +830,169 @@ ${adSlotScript(site, 1)}
     schema: [
       breadcrumbSchema(site, crumbs),
       itemListSchema(site, shown, { name: topic.title, url: topic.url }),
+    ],
+  });
+}
+
+/* ------------------------------------------- towns with no shop of their own */
+
+/**
+ * A Florida town the directory holds no shop in. The page answers the question
+ * the town's name was searched for - where do I rent near here - with the
+ * closest real shops and how far each one is, and says plainly up front that
+ * none of them are in the town itself. Built by buildNearbyCityPages.
+ */
+export function findNearbyCity(site, town, { index, shop }) {
+  const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: town.url, label: town.name }];
+  const shops = town.nearest.map((hit) => hit.listing);
+  const distances = new Map(town.nearest.map((hit) => [hit.listing.slug, hit.distance]));
+  const closest = town.nearest[0];
+  const region = index.regions.find((r) => r.name === town.region);
+  const hero = photoFor(town.slug);
+
+  const away = (d) => (d < 10 ? d.toFixed(1) : String(Math.round(d)));
+  // Only exactly "1" takes the singular - "0.4 mile" is not English.
+  const milesWord = (d) => (away(d) === "1" ? "mile" : "miles");
+  const withDelivery = shops.filter((l) => (l.tags || []).includes("Delivery available"));
+  const withTours = shops.filter((l) => (l.tags || []).includes("Guided tours"));
+
+  // The towns around it that do have shops of their own, so the reader can
+  // jump straight to a town page rather than back out to the region.
+  const townsNear = nearbyCities(town, index.cities, 8).filter((c) => c.distance <= 45);
+
+  const faqs = [
+    {
+      q: `Can I rent an e-bike in ${town.name}?`,
+      a: `<p>Not from a shop inside ${esc(town.name)} itself - we do not track one there. The closest is
+      <a href="${attr(closest.listing.url)}">${esc(closest.listing.name)}</a> in ${esc(closest.listing.city)},
+      about ${esc(away(closest.distance))} ${milesWord(closest.distance)} away, and there are
+      ${esc(String(town.total))} ${plural(town.total, "shop")} within ${esc(String(NEARBY_RADIUS_MILES))} miles in total.</p>`,
+    },
+    {
+      q: `Will a shop deliver an e-bike to ${town.name}?`,
+      a: withDelivery.length
+        ? `<p>${esc(commaList(withDelivery.slice(0, 4).map((l) => l.name)))} ${
+            withDelivery.length === 1 ? "lists" : "list"
+          } delivery on their public profile, which is usually the easiest way to ride in ${esc(town.name)}
+          without collecting bikes yourself. Delivery radiuses and fees vary, so confirm ${esc(town.name)}
+          is inside theirs when you book.</p>`
+        : `<p>None of the shops nearest ${esc(town.name)} advertise delivery, so plan to collect the bikes.
+          Every Florida shop that does list it is on our
+          <a href="/find/ebike-rentals-with-delivery-in-florida/">delivery page</a>.</p>`,
+    },
+    {
+      q: `Are there guided e-bike tours near ${town.name}?`,
+      a: withTours.length
+        ? `<p>Yes - ${esc(commaList(withTours.slice(0, 3).map((l) => l.name)))} ${
+            withTours.length === 1 ? "runs" : "run"
+          } guided rides as well as renting bikes.</p>`
+        : `<p>No operator within ${esc(String(NEARBY_RADIUS_MILES))} miles of ${esc(town.name)} advertises guided
+          tours. Browse every Florida operator that does on our
+          <a href="/find/guided-ebike-tours-in-florida/">guided e-bike tours page</a>.</p>`,
+    },
+  ];
+
+  const body = `
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(town.region)}`,
+  h1: `E-Bike Rentals near ${esc(town.name)}, Florida`,
+  lede: `No rental shop is based in ${esc(town.name)} itself. These are the ${esc(
+    String(shops.length)
+  )} closest to it, starting ${esc(away(closest.distance))} ${milesWord(closest.distance)} away in ${esc(closest.listing.city)}, ranked by distance.`,
+})}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Closest e-bike rentals to ${esc(town.name)}</h2>
+      <p>Ordered by how far each shop is from ${esc(town.name)}${
+        town.county ? `, in ${esc(town.county)} County and the towns around it` : ""
+      }. Call ahead in season, and ask about delivery if you would rather not collect the bikes.</p>
+    </div>
+    ${resultsWithMap(shops, listicle(shops, { distances, distanceFrom: town.name }), {
+      id: `map-${attr(town.slug)}`,
+      zoom: 11,
+    })}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(hero, {
+        alt: `E-bike rentals near ${town.name}, Florida - ${hero.alt}`,
+        caption: `Illustrative photo of e-bike riding in Florida, not taken in ${town.name}.`,
+        className: "figure--stock",
+      })}
+      <div>
+        <h2>Renting near ${esc(town.name)}</h2>
+        <p>${esc(town.name)} sits in ${esc(town.region)}${
+          region ? "" : ""
+        }, where we track ${esc(String(region ? region.listings.length : town.total))} rental
+        ${plural(region ? region.listings.length : town.total, "partner")} in total. The shops above are
+        simply the nearest of them — a short drive from ${esc(town.name)} rather than a trip across the state.</p>
+        <p>Prices near ${esc(town.name)} follow the same pattern as the rest of Florida: roughly $30 to $55
+        for two hours and $60 to $95 for a full day, with a card hold as a deposit. Our
+        <a href="/costs/">cost guides</a> break down what changes that, and
+        <a href="/blog/florida-ebike-laws/">Florida e-bike law</a> covers where you are allowed to ride.</p>
+        ${region ? `<p><a class="btn btn--primary" href="${attr(region.url)}">All ${esc(region.name)} rentals</a></p>` : ""}
+      </div>
+    </div>
+  </div>
+</section>
+
+${
+  townsNear.length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Towns near ${esc(town.name)} with their own shops</h2>
+    ${linkCloud(
+      [...townsNear]
+        .sort((a, b) => a.name.localeCompare(b.name, "en"))
+        .map((c) => ({ href: c.url, label: `${c.name} e-bike rentals`, count: c.listings.length }))
+    )}
+  </div>
+</section>`
+    : ""
+}
+
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <h2>${esc(town.name)} e-bike rental FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    ${productCarousel(shop, {
+      title: "Prefer to buy your own e-bike or scooter?",
+      browseHref: "/shop/",
+      browseLabel: "Browse the shop",
+      id: `shop-${town.slug}`,
+    })}
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `E-Bike Rentals near ${town.name}, FL - ${shops.length} Closest Shops`,
+    description: clamp(
+      `The ${shops.length} e-bike rental shops closest to ${town.name}, Florida, from ${away(
+        closest.distance
+      )} miles away in ${closest.listing.city}, with distances, hours, ratings and phone numbers.`
+    ),
+    path: town.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(faqs),
+      itemListSchema(site, shops, { name: `E-bike rentals near ${town.name}, Florida`, url: town.url }),
     ],
   });
 }
