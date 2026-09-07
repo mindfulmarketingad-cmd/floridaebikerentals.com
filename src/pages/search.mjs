@@ -1,7 +1,7 @@
 import { esc, attr, slugify, clamp, plural } from "../util.mjs";
 import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, mapPanel,
+  listicle, linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, resultsWithMap,
 } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
@@ -215,8 +215,7 @@ ${
 <section class="section">
   <div class="wrap">
     <h2>Matching rental partners</h2>
-    ${mapPanel(results, { id: `map-${attr(slug)}`, zoom: 7 })}
-    ${listicle(results)}
+    ${resultsWithMap(results, listicle(results), { id: `map-${attr(slug)}`, zoom: 7 })}
   </div>
 </section>
 

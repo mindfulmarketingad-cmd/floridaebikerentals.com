@@ -596,30 +596,60 @@
     return { refresh: place };
   }
 
+  /* Builds a panel's map the first time it is shown, and re-fits it on every
+     show after that. A panel is only ever built once, however many things ask
+     for it - the toggle button and the desktop split layout both come here. */
+  function ensureMap(panel) {
+    var host = $(".map", panel);
+    if (!host) return;
+    if (panel._mapBuilt) {
+      if (panel._map) panel._map.refresh();
+      return;
+    }
+    panel._mapBuilt = true;
+    var points = [];
+    try { points = JSON.parse(host.getAttribute("data-points") || "[]"); } catch (err) { points = []; }
+    panel._map = buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "8", 10) });
+  }
+
   /* map toggles: <button data-map-toggle="#mapPanelId"> */
   $$("[data-map-toggle]").forEach(function (btn) {
     var panel = d.querySelector(btn.getAttribute("data-map-toggle"));
     if (!panel) return;
-    var host = $(".map", panel);
-    var built = null;
     btn.addEventListener("click", function () {
-      var show = panel.hasAttribute("hidden");
-      if (show) {
+      if (panel.hasAttribute("hidden")) {
         panel.removeAttribute("hidden");
         btn.setAttribute("aria-expanded", "true");
         btn.textContent = btn.getAttribute("data-label-hide") || "Hide map";
-        if (!built && host) {
-          var raw = host.getAttribute("data-points");
-          var points = [];
-          try { points = JSON.parse(raw || "[]"); } catch (err) { points = []; }
-          built = buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "8", 10) });
-        } else if (built) { built.refresh(); }
+        ensureMap(panel);
       } else {
         panel.setAttribute("hidden", "");
         btn.setAttribute("aria-expanded", "false");
         btn.textContent = btn.getAttribute("data-label-show") || "Show map";
       }
     });
+  });
+
+  /* Results pages put the map in a sticky column beside the list once there is
+     room for it. There the map is always open, so the toggle (hidden by CSS at
+     the same width) is bypassed; back on a narrow screen the panel closes again
+     unless the visitor had opened it themselves. */
+  $$("[data-results-split]").forEach(function (root) {
+    var panel = $(".map-panel", root);
+    var btn = $("[data-map-toggle]", root);
+    if (!panel || !window.matchMedia) return;
+    var mq = window.matchMedia("(min-width: 1100px)");
+    var sync = function () {
+      if (mq.matches) {
+        panel.removeAttribute("hidden");
+        ensureMap(panel);
+      } else if (!btn || btn.getAttribute("aria-expanded") !== "true") {
+        panel.setAttribute("hidden", "");
+      }
+    };
+    sync();
+    if (mq.addEventListener) mq.addEventListener("change", sync);
+    else if (mq.addListener) mq.addListener(sync);
   });
 
   /* always-on maps: <div class="map" data-map-auto data-points="..."> */

@@ -1,7 +1,7 @@
 import { esc, attr, formatReviews, commaList, plural, clamp } from "../util.mjs";
 import { page, pageHero, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow,
+  listicle, resultsWithMap, faqBlock, faqSchema, linkCard, linkCloud, statRow,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor, productCarousel,
 } from "../components.mjs";
 import { statsFor, nearbyCities } from "../data.mjs";
@@ -249,16 +249,15 @@ ${adSlot(site, "")}
   <div class="wrap">
     <div class="section__head">
       <h2>Top ${top.length} e-bike rentals in ${esc(region.name)}</h2>
-      <p>Toggle the map to see how these shops are spread across the region, then call the ones nearest
+      <p>The map shows how these shops are spread across the region, so you can call the ones nearest
       to where you are staying.</p>
     </div>
-    ${mapPanel(top, { id: `map-${attr(region.slug)}`, zoom: 8 })}
-    ${filterBar(
-      [...new Set(top.map((l) => l.city))].sort(),
-      tagsIn(top),
-      "shops"
+    ${resultsWithMap(
+      top,
+      `${filterBar([...new Set(top.map((l) => l.city))].sort(), tagsIn(top), "shops")}
+    ${listicle(top)}`,
+      { id: `map-${attr(region.slug)}`, zoom: 8 }
     )}
-    ${listicle(top)}
   </div>
 </section>
 
@@ -406,11 +405,14 @@ ${pageHero({
     <div class="section__head">
       <h2>The best e-bike rentals in ${esc(city.name)}</h2>
       <p>Numbered by our ranking: Google star rating weighted against how many reviews it is built on.
-      Toggle the map to see exactly where each shop sits.</p>
+      The map shows exactly where each shop sits.</p>
     </div>
-    ${mapPanel(local, { id: `map-${attr(city.slug)}`, zoom: 12 })}
-    ${local.length > 3 ? filterBar(null, tagsIn(local), "shops") : ""}
-    ${listicle(local)}
+    ${resultsWithMap(
+      local,
+      `${local.length > 3 ? filterBar(null, tagsIn(local), "shops") : ""}
+    ${listicle(local)}`,
+      { id: `map-${attr(city.slug)}`, zoom: 12 }
+    )}
   </div>
 </section>
 
@@ -624,8 +626,7 @@ ${pageHero({
       <h2>${esc(label)} near ${esc(city.name)}</h2>
       <p>Ranked by Google star rating weighted against review volume.</p>
     </div>
-    ${mapPanel(local, { id: `map-${attr(ctPage.slug)}`, zoom: 11 })}
-    ${listicle(local)}
+    ${resultsWithMap(local, listicle(local), { id: `map-${attr(ctPage.slug)}`, zoom: 11 })}
   </div>
 </section>
 
@@ -729,9 +730,12 @@ ${pageHero({
 <section class="section section--tint">
   <div class="wrap">
     <h2>Top ${shown.length} of ${stats.total}</h2>
-    ${mapPanel(shown, { id: `map-${attr(topic.slug)}`, zoom: 7 })}
-    ${filterBar(cities, tagsIn(shown), "shops")}
-    ${listicle(shown)}
+    ${resultsWithMap(
+      shown,
+      `${filterBar(cities, tagsIn(shown), "shops")}
+    ${listicle(shown)}`,
+      { id: `map-${attr(topic.slug)}`, zoom: 7 }
+    )}
   </div>
 </section>
 

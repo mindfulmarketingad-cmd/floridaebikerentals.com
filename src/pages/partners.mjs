@@ -3,7 +3,7 @@ import {
 } from "../util.mjs";
 import { page, pageHero, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo, pagination,
+  listicle, resultsWithMap, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo, pagination,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor,
 } from "../components.mjs";
@@ -64,8 +64,9 @@ ${pageHero({
       <button class="btn btn--blue btn--sm" type="button" data-nearby-button>Sort by distance from me</button>
       <span class="muted small">We never send your location anywhere — the sorting happens in your browser.</span>
     </div>
-    ${mapPanel(slice, { id: `map-partners-${pageNumber}`, zoom: 7 })}
-    <form class="filterbar" data-filter-form>
+    ${resultsWithMap(
+      slice,
+      `<form class="filterbar" data-filter-form>
       <div class="field">
         <label for="p-q">Search this page</label>
         <input type="search" id="p-q" name="q" placeholder="Shop name, town or service" autocomplete="off">
@@ -102,7 +103,9 @@ ${pageHero({
     </form>
     <p class="result-count" data-filter-count data-noun="partners" aria-live="polite"></p>
     ${listicle(slice, { start: start + 1 })}
-    ${pages}
+    ${pages}`,
+      { id: `map-partners-${pageNumber}`, zoom: 7 }
+    )}
   </div>
 </section>
 

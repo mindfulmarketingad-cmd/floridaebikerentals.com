@@ -275,6 +275,28 @@ export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "
 </div>`;
 }
 
+/* Below this many mapped shops the list is shorter than the map is tall, and a
+ * full-height map beside two cards looks lopsided - those pages keep the
+ * stacked layout with the map behind its toggle. */
+const SPLIT_MIN_POINTS = 4;
+
+/**
+ * Search-results layout: the list of shops, with the map beside it. On a
+ * desktop viewport the map moves into a sticky column on the right and is
+ * always open; narrower than that it collapses back to the toggle button
+ * above the list, so a phone is never handed a full-height map to scroll
+ * past. Listings with no coordinates get the plain list and no map at all.
+ */
+export function resultsWithMap(listings, listHtml, { id = "results-map", zoom = 8, buttonLabel = "Show map view" } = {}) {
+  const map = mapPanel(listings, { id, zoom, buttonLabel });
+  if (!map) return listHtml;
+  if (mapPoints(listings).length < SPLIT_MIN_POINTS) return `${map}\n${listHtml}`;
+  return `<div class="results-split" data-results-split>
+  <div class="results-split__list">${listHtml}</div>
+  <div class="results-split__map">${map}</div>
+</div>`;
+}
+
 export function singleMap(listing) {
   if (typeof listing.lat !== "number" || typeof listing.lng !== "number") return "";
   const points = mapPoints([listing]);
