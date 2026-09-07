@@ -4,7 +4,8 @@ import {
   listicle, resultsWithMap, faqBlock, faqSchema, linkCard, linkCloud, statRow,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor, productCarousel,
 } from "../components.mjs";
-import { statsFor, nearbyCities, NEARBY_RADIUS_MILES } from "../data.mjs";
+import { statsFor, nearbyCities, NEARBY_RADIUS_MILES, OPEN_LATE_HOUR } from "../data.mjs";
+import { openDayCount, latestClose, formatMinutes } from "../hours.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { inlineSearchWidget } from "./search.mjs";
 
@@ -361,6 +362,16 @@ export function findCity(site, city, { index, listings, blog, shop }) {
 
   const nearbyPool = near.flatMap((c) => c.listings.slice(0, 2)).slice(0, 8);
   const cityCrossPages = index.cityTopicsByCitySlug.get(city.slug) || [];
+  // The opening-hours cuts of this town's list, where they were worth building.
+  const hoursPages = index.hoursPages || { openNow: [], openLate: [] };
+  const cityHoursPages = [
+    ...hoursPages.openNow
+      .filter((e) => e.city.slug === city.slug)
+      .map((e) => ({ href: e.url, label: `Open now in ${city.name}`, count: e.listings.length })),
+    ...hoursPages.openLate
+      .filter((e) => e.city.slug === city.slug)
+      .map((e) => ({ href: e.url, label: `Open late in ${city.name}`, count: e.listings.length })),
+  ];
 
   const faqs = [
     {
@@ -534,18 +545,19 @@ ${adSlot(site, "")}
 </section>
 
 ${
-  cityCrossPages.length
+  cityCrossPages.length || cityHoursPages.length
     ? `<section class="section section--tint">
   <div class="wrap">
-    <h2>Other things to rent near ${esc(city.name)}</h2>
+    <h2>Other ways to browse ${esc(city.name)}</h2>
     ${linkCloud(
-      [...cityCrossPages]
-        .sort((a, b) => a.label.localeCompare(b.label, "en"))
-        .map((p) => ({
+      [
+        ...cityCrossPages.map((p) => ({
           href: p.url,
           label: `${p.label} near ${city.name}`,
           count: p.listings.length,
-        }))
+        })),
+        ...cityHoursPages,
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
     )}
   </div>
 </section>`
@@ -993,6 +1005,239 @@ ${adSlotScript(site, 1)}
       breadcrumbSchema(site, crumbs),
       faqSchema(faqs),
       itemListSchema(site, shops, { name: `E-bike rentals near ${town.name}, Florida`, url: town.url }),
+    ],
+  });
+}
+
+/* ------------------------------------------------- hours pages per town */
+
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/** Shared furniture for the two hours pages: same crumbs, same closing note. */
+function hoursCrumbs(page) {
+  return [HOME_CRUMB, FIND_CRUMB, { href: page.city.url, label: page.city.name }, { href: page.url, label: page.title }];
+}
+
+/**
+ * "Open now in <town>" - the one page on the site whose answer changes by the
+ * hour, so the filtering happens in the reader's browser against their clock
+ * and each shop's own timezone. The page ships every shop in town that posts
+ * hours; without JavaScript that is exactly what shows, with a note saying so
+ * rather than a silent lie about what is open.
+ */
+export function findOpenNow(site, entry, { index, shop }) {
+  const { city } = entry;
+  const shops = entry.listings;
+  const crumbs = hoursCrumbs({ ...entry, title: "Open now" });
+  const hero = photoFor(`open-now-${city.slug}`);
+  const sevenDay = shops.filter((l) => openDayCount(l) === 7);
+
+  const faqs = [
+    {
+      q: `Which e-bike rental shops in ${city.name} are open right now?`,
+      a: `<p>The list on this page checks the current time against each shop's posted opening hours
+      when you load it, so it always reflects the moment you are reading. ${esc(
+        String(shops.length)
+      )} ${plural(shops.length, "shop")} in ${esc(city.name)} publish hours in total. Posted hours do
+      drift, especially out of season, so call before you drive over.</p>`,
+    },
+    {
+      q: `Are any ${city.name} e-bike rentals open seven days a week?`,
+      a: sevenDay.length
+        ? `<p>${esc(commaList(sevenDay.slice(0, 5).map((l) => l.name)))} ${
+            sevenDay.length === 1 ? "posts" : "post"
+          } hours for all seven days.</p>`
+        : `<p>No shop in ${esc(city.name)} posts hours for all seven days. Every Florida shop that does
+          is on our <a href="/find/ebike-rentals-open-seven-days-in-florida/">open seven days page</a>.</p>`,
+    },
+    {
+      q: `What if nothing is open in ${city.name}?`,
+      a: `<p>Use the "show every shop" switch above to see the full list with each shop's hours for
+      today, or try a <a href="${attr(city.url)}">${esc(city.name)} shop that delivers</a> and book ahead
+      for tomorrow. Shops in nearby towns keep different hours -
+      <a href="/find/">browse the directory</a> to widen the search.</p>`,
+    },
+  ];
+
+  const body = `
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(city.region)}`,
+  h1: `E-Bike Rentals Open Now in ${esc(city.name)}, Florida`,
+  lede: `Checked against your clock the moment this page loads. Of the ${esc(
+    String(shops.length)
+  )} ${plural(shops.length, "shop")} in ${esc(city.name)} that publish opening hours, these are the
+      ones open right now.`,
+})}
+<section class="section section--tint">
+  <div class="wrap" data-open-now>
+    <div class="openbar">
+      <p class="openbar__status" data-open-status aria-live="polite">Showing every ${esc(
+        city.name
+      )} shop that publishes hours. Turn on JavaScript to filter to the ones open right now.</p>
+      <label class="openbar__toggle">
+        <input type="checkbox" data-open-all> <span>Show every shop, open or not</span>
+      </label>
+    </div>
+    ${resultsWithMap(shops, listicle(shops, { withHours: true }), {
+      id: `map-open-now-${attr(city.slug)}`,
+      zoom: 12,
+    })}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(hero, { alt: `E-bike rentals in ${city.name}, Florida - ${hero.alt}` })}
+      <div>
+        <h2>Turning up without booking in ${esc(city.name)}</h2>
+        <p>Posted hours are the shop's own, pulled from their public Google profile, and Florida shops
+        change them with the season more than most. A shop showing as open here has still been known to
+        shut early on a quiet afternoon, so phone ahead if you are driving any distance.</p>
+        <p>If you would rather not depend on it, most towns have shops that deliver to a rental house or
+        hotel and take a booking a day ahead. See
+        <a href="/find/ebike-rentals-with-delivery-in-florida/">Florida e-bike rentals that deliver</a>,
+        or the full <a href="${attr(city.url)}">${esc(city.name)} shop list</a>.</p>
+        <p><a class="btn btn--primary" href="${attr(city.url)}">All ${esc(city.name)} rentals</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap-narrow">
+    <h2>${esc(city.name)} opening hours FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `E-Bike Rentals Open Now in ${city.name}, FL`,
+    description: clamp(
+      `Which e-bike rental shops in ${city.name}, Florida are open right now, checked against your clock. ${shops.length} shops with posted hours, ratings, phone numbers and today's times.`
+    ),
+    path: entry.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [breadcrumbSchema(site, crumbs), faqSchema(faqs)],
+  });
+}
+
+/**
+ * "Open late in <town>" - unlike open-now this is settled at build time,
+ * because a shop's closing time is a fact about its posted hours rather than
+ * about when the page is read.
+ */
+export function findOpenLate(site, entry, { index, shop }) {
+  const { city } = entry;
+  const shops = entry.listings;
+  const crumbs = hoursCrumbs({ ...entry, title: "Open late" });
+  const hero = photoFor(`open-late-${city.slug}`);
+  const cutoff = formatMinutes(OPEN_LATE_HOUR * 60);
+
+  // The latest any shop in town stays open, and who it is.
+  const latest = shops
+    .map((l) => ({ listing: l, close: latestClose(l) }))
+    .sort((a, b) => b.close - a.close)[0];
+
+  const faqs = [
+    {
+      q: `How late do e-bike rentals stay open in ${city.name}?`,
+      a: `<p>${esc(latest.listing.name)} posts the latest closing time of any ${esc(
+        city.name
+      )} shop we track, running to ${esc(formatMinutes(latest.close))} on its longest day. ${esc(
+        String(shops.length)
+      )} ${plural(shops.length, "shop")} in town close at ${esc(cutoff)} or later on at least one day
+      of the week.</p>`,
+    },
+    {
+      q: `Can I rent an e-bike in ${city.name} in the evening?`,
+      a: `<p>Yes, at the shops on this page. Bear in mind most rentals are priced by the hour or the
+      day rather than by daylight, and that Florida law requires a lamp on the front and a red reflector
+      and lamp on the rear when riding between sunset and sunrise. Ask the shop for lights before you
+      set off - see our <a href="/blog/florida-ebike-laws/">Florida e-bike law guide</a>.</p>`,
+    },
+    {
+      q: `Which shops in ${city.name} are open right now?`,
+      a: `<p>This page ranks by how late shops stay open rather than by the current time. For what is
+      open at this moment, see
+      <a href="/find/ebike-rentals-open-now-in-${attr(city.slug)}-florida/">e-bike rentals open now in
+      ${esc(city.name)}</a>.</p>`,
+    },
+  ];
+
+  const body = `
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(city.region)}`,
+  h1: `E-Bike Rentals Open Late in ${esc(city.name)}, Florida`,
+  lede: `${esc(String(shops.length))} ${plural(shops.length, "shop")} in ${esc(
+    city.name
+  )} that close at ${esc(cutoff)} or later on at least one day, with the latest running to ${esc(
+    formatMinutes(latest.close)
+  )}. Ranked by Google rating weighted against review volume.`,
+})}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Late-closing e-bike rentals in ${esc(city.name)}</h2>
+      <p>Each shop's own posted hours are on its card. Evening hours are the first thing to move out of
+      season, so call ahead if you are cutting it fine.</p>
+    </div>
+    ${resultsWithMap(shops, listicle(shops), { id: `map-open-late-${attr(city.slug)}`, zoom: 12 })}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(hero, { alt: `Evening e-bike riding in ${city.name}, Florida - ${hero.alt}` })}
+      <div>
+        <h2>Riding after dark in ${esc(city.name)}</h2>
+        <p>An evening ride is the best of a Florida summer day - the heat drops, the light goes gold and
+        the paths empty out. It also means riding home in the dark, which Florida law treats seriously:
+        a white front lamp and a red rear reflector and lamp are required from sunset to sunrise.</p>
+        <p>Most rental bikes have lights fitted, but not all of them do and not all of them are charged.
+        Check before you leave the counter, and agree the return time - a late return fee is the most
+        common surprise on an evening rental.</p>
+        <p><a class="btn btn--primary" href="/find/ebike-rentals-open-now-in-${attr(
+          city.slug
+        )}-florida/">See what is open right now</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap-narrow">
+    <h2>${esc(city.name)} evening rental FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `E-Bike Rentals Open Late in ${city.name}, FL`,
+    description: clamp(
+      `${shops.length} e-bike rental shops in ${city.name}, Florida that close at ${cutoff} or later, with the latest open until ${formatMinutes(latest.close)}. Hours, ratings and phone numbers.`
+    ),
+    path: entry.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(faqs),
+      itemListSchema(site, shops, { name: `E-bike rentals open late in ${city.name}`, url: entry.url }),
     ],
   });
 }

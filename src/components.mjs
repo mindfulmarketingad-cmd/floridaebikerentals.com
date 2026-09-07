@@ -2,6 +2,7 @@ import {
   esc, attr, ratingBlock, formatRating, formatReviews, phoneHref, hostOf,
   commaList, plural, clamp, todayIndex,
 } from "./util.mjs";
+import { weekHours, zoneFor } from "./hours.mjs";
 
 /* ------------------------------------------------------- copy helpers */
 
@@ -162,7 +163,7 @@ function hoursToday(listing) {
   return row.closed ? "Closed today" : `Today: ${row.hours}`;
 }
 
-export function listicleItem(listing, rank, { showSummary = true, distances = null, distanceFrom = "" } = {}) {
+export function listicleItem(listing, rank, { showSummary = true, distances = null, distanceFrom = "", withHours = false } = {}) {
   const url = `/partners/${attr(listing.slug)}/`;
   const facts = [];
   const addressText = listing.address || `${listing.city}, FL`;
@@ -221,6 +222,14 @@ export function listicleItem(listing, rank, { showSummary = true, distances = nu
     listing.reviews || 0
   )}" data-score="${attr(listing.score || 0)}" data-name="${attr(listing.name)}"${
     typeof listing.lat === "number" ? ` data-lat="${attr(listing.lat)}" data-lng="${attr(listing.lng)}"` : ""
+  }${
+    // Parsed opening hours, for the pages that filter on the reader's clock.
+    // Sunday first, each day a list of [open, close] minutes past midnight.
+    withHours
+      ? ` data-hours="${attr(JSON.stringify(weekHours(listing).map((day) => day.map((r) => [r.o, r.c]))))}" data-tz="${attr(
+          zoneFor(listing)
+        )}"`
+      : ""
   }>
   <div class="listicle__inner">
     <div class="listicle__media">

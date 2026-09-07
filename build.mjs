@@ -14,10 +14,12 @@ import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, loadFloridaCities,
-  buildNearbyCityPages, SEARCH_QUERIES, CONTENT_HUBS,
+  buildNearbyCityPages, buildHoursPages, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
-import { findHub, findRegion, findCity, findTopic, findCityTopic, findNearbyCity } from "./src/pages/find.mjs";
+import {
+  findHub, findRegion, findCity, findTopic, findCityTopic, findNearbyCity, findOpenNow, findOpenLate,
+} from "./src/pages/find.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
@@ -86,6 +88,9 @@ const regionMapData = loadRegionMap();
 // Towns with no shop of their own still get a page listing the closest ones.
 const nearbyTowns = buildNearbyCityPages(listings, index, loadFloridaCities());
 index.nearbyTowns = nearbyTowns;
+// Opening-hours cuts of each town's list: what is open now, and what stays open late.
+const hoursPages = buildHoursPages(index);
+index.hoursPages = hoursPages;
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, regionMapData };
 
 /* home */
@@ -148,6 +153,38 @@ for (const town of nearbyTowns) {
       d: `The ${town.nearest.length} shops closest to ${town.name}, from ${town.nearest[0].distance < 10 ? town.nearest[0].distance.toFixed(1) : Math.round(town.nearest[0].distance)} miles away.`,
       k: `${town.name} ${town.county} ${town.region} near nearby`.toLowerCase(),
       w: 4,
+    },
+  });
+}
+
+for (const entry of hoursPages.openNow) {
+  write(entry.url, findOpenNow(site, entry, ctx), {
+    priority: 0.5,
+    changefreq: "daily",
+    group: "find",
+    search: {
+      u: entry.url,
+      t: `E-bike rentals open now in ${entry.city.name}, FL`,
+      s: "Find",
+      d: `Which of the ${entry.listings.length} shops in ${entry.city.name} are open at this moment.`,
+      k: `${entry.city.name} open now hours today ${entry.city.region}`.toLowerCase(),
+      w: 5,
+    },
+  });
+}
+
+for (const entry of hoursPages.openLate) {
+  write(entry.url, findOpenLate(site, entry, ctx), {
+    priority: 0.5,
+    changefreq: "monthly",
+    group: "find",
+    search: {
+      u: entry.url,
+      t: `E-bike rentals open late in ${entry.city.name}, FL`,
+      s: "Find",
+      d: `${entry.listings.length} shops in ${entry.city.name} that stay open into the evening.`,
+      k: `${entry.city.name} open late evening night ${entry.city.region}`.toLowerCase(),
+      w: 5,
     },
   });
 }

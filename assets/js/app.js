@@ -273,6 +273,96 @@
     else window.addEventListener("load", autoLocate, { once: true });
   }
 
+  /* -------------------------------------------- open-now hours filter */
+  /* The one list on the site whose answer depends on when it is read. Each
+     card carries its parsed week and its own timezone, so the work here is
+     only comparing a clock reading against numbers. */
+  var openNowRoot = $("[data-open-now]");
+  if (openNowRoot) {
+    var openStatus = $("[data-open-status]", openNowRoot);
+    var openAll = $("[data-open-all]", openNowRoot);
+    var openItems = $$(".listicle__item[data-hours]", openNowRoot);
+
+    var WEEKDAYS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+    /* The weekday and minutes-past-midnight it is right now where the shop is. */
+    function localNow(tz) {
+      try {
+        var parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: tz, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+        }).formatToParts(new Date());
+        var got = {};
+        parts.forEach(function (p) { got[p.type] = p.value; });
+        var day = WEEKDAYS[got.weekday];
+        if (day === undefined) return null;
+        return { day: day, minutes: parseInt(got.hour, 10) * 60 + parseInt(got.minute, 10) };
+      } catch (err) {
+        return null; /* unknown zone, or no Intl: treat as unknown, not as closed */
+      }
+    }
+
+    function isOpen(week, now) {
+      if (!now) return null;
+      var today = week[now.day] || [];
+      for (var i = 0; i < today.length; i++) {
+        if (now.minutes >= today[i][0] && now.minutes < today[i][1]) return true;
+      }
+      /* A range that ran past midnight belongs to yesterday's row. */
+      var yesterday = week[(now.day + 6) % 7] || [];
+      for (var j = 0; j < yesterday.length; j++) {
+        if (yesterday[j][1] > 1440 && now.minutes + 1440 < yesterday[j][1]) return true;
+      }
+      return false;
+    }
+
+    function applyOpenNow() {
+      var open = 0, known = 0, shut = [];
+      var showAll = !!(openAll && openAll.checked);
+      openItems.forEach(function (item) {
+        var week, state;
+        try { week = JSON.parse(item.getAttribute("data-hours") || "[]"); } catch (err) { week = []; }
+        state = isOpen(week, localNow(item.getAttribute("data-tz")));
+        if (state !== null) known++;
+        if (state) open++;
+        if (state === false) shut.push(item.getAttribute("data-slug"));
+        item.classList.toggle("is-shut", state === false);
+        item.hidden = !showAll && state === false;
+      });
+
+      /* Keep the map in step. It is built further down this file, so this is
+         a lazy lookup rather than a reference captured up front. */
+      var panel = $(".map-panel", openNowRoot);
+      if (panel && panel._map && panel._map.dim) panel._map.dim(open === 0 || !known ? null : shut);
+
+      /* An empty page is no use to anyone: if nothing in town is open, or the
+         clock could not be read, fall back to showing the lot. */
+      if (!showAll && (open === 0 || !known)) {
+        openItems.forEach(function (item) { item.hidden = false; });
+      }
+
+      if (openStatus) {
+        if (showAll) {
+          openStatus.textContent =
+            "Showing all " + openItems.length + " shops. " + open + " " + (open === 1 ? "is" : "are") + " open right now.";
+        } else if (!known) {
+          openStatus.textContent = "We could not read your device clock, so every shop is listed below.";
+        } else if (open === 0) {
+          openStatus.textContent = "Nothing is open right now. Every shop is listed below with its hours.";
+        } else {
+          openStatus.textContent =
+            open + " of " + openItems.length + " shops " + (open === 1 ? "is" : "are") + " open right now.";
+        }
+      }
+    }
+
+    if (openAll) openAll.addEventListener("change", applyOpenNow);
+    applyOpenNow();
+    /* Once more after the rest of this file has run, to catch the map. */
+    window.setTimeout(applyOpenNow, 0);
+    /* Re-check on the minute boundary so a page left open does not go stale. */
+    window.setInterval(applyOpenNow, 60000);
+  }
+
   /* ------------------------------------------- "what to rent" popup */
   var rentPicker = $("[data-rent-picker]");
   if (rentPicker && typeof rentPicker.showModal === "function") {
@@ -605,8 +695,16 @@
       });
     }
 
+    /* Greys out the pins for shops the list is not showing, so a filtered
+       list and the map beside it never disagree about what is on offer. */
+    function dim(slugs) {
+      pins.forEach(function (entry) {
+        entry.btn.classList.toggle("is-off", !!slugs && slugs.indexOf(entry.point.slug) !== -1);
+      });
+    }
+
     place();
-    return { refresh: place, highlight: highlight };
+    return { refresh: place, highlight: highlight, dim: dim };
   }
 
   /* Builds a panel's map the first time it is shown, and re-fits it on every

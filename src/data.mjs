@@ -2,6 +2,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { resolve, join, basename } from "node:path";
 import { slugify, miles, unique, fitTitle } from "./util.mjs";
 import { parseFrontMatter, render, wordCount } from "./markdown.mjs";
+import { closesAtOrAfter, openDayCount } from "./hours.mjs";
 
 export const ROOT = resolve(new URL("..", import.meta.url).pathname);
 
@@ -568,6 +569,45 @@ export function buildNearbyCityPages(listings, index, cities) {
     })
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name, "en"));
+}
+
+/* Hours-based city pages. "Open late" is a fact about the posted hours, so it
+ * is settled here; "open now" depends on the clock when the page is read, so
+ * that one ships every shop with hours and lets the browser do the filtering.
+ * A town needs a few qualifying shops either way - a page listing one shop is
+ * not worth the click. */
+export const OPEN_LATE_HOUR = 19; /* closes at 7pm or later */
+const HOURS_PAGE_MIN_SHOPS = 3;
+
+export function buildHoursPages(index) {
+  const openNow = [];
+  const openLate = [];
+
+  for (const city of index.cities) {
+    const withHours = city.listings.filter((l) => openDayCount(l) > 0);
+    if (withHours.length >= HOURS_PAGE_MIN_SHOPS) {
+      openNow.push({
+        kind: "open-now",
+        city,
+        listings: withHours,
+        slug: `ebike-rentals-open-now-in-${city.slug}-florida`,
+        url: `/find/ebike-rentals-open-now-in-${city.slug}-florida/`,
+      });
+    }
+
+    const late = city.listings.filter((l) => closesAtOrAfter(l, OPEN_LATE_HOUR));
+    if (late.length >= HOURS_PAGE_MIN_SHOPS) {
+      openLate.push({
+        kind: "open-late",
+        city,
+        listings: late,
+        slug: `ebike-rentals-open-late-in-${city.slug}-florida`,
+        url: `/find/ebike-rentals-open-late-in-${city.slug}-florida/`,
+      });
+    }
+  }
+
+  return { openNow, openLate };
 }
 
 export function statsFor(listings) {
