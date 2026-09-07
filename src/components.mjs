@@ -298,10 +298,10 @@ export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "
  * from the live index, so a region with no shops is simply not drawn.
  *
  * Each region is an SVG <a>, so the whole shape is clickable without a line
- * of JavaScript. Every link here also appears in the region list right below
- * the map, so the map is hidden from assistive tech and taken out of the tab
- * order - a mouse shortcut to links that are reachable either way, rather
- * than eleven duplicate tab stops in the middle of the homepage.
+ * of JavaScript. Every link here also appears in the region list further down
+ * the same page, so the map is hidden from assistive tech and taken out of
+ * the tab order - a mouse shortcut to links that are reachable either way,
+ * rather than eleven duplicate tab stops in the middle of the homepage.
  */
 export function regionMap(map, regions) {
   if (!map) return "";

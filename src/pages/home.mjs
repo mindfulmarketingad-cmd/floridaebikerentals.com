@@ -119,6 +119,16 @@ export function homePage(site, { listings, index, blog, stats, regionMapData }) 
   </div>
 </section>
 
+<section class="section">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>Where in Florida Are You Riding?</h2>
+      <p>Click your part of the state to see every rental shop we track there.</p>
+    </div>
+    ${regionMap(regionMapData, index.regions)}
+  </div>
+</section>
+
 <section class="nav-tiles-section">
   <div class="wrap">
     <div class="nav-tiles">
@@ -182,11 +192,10 @@ export function homePage(site, { listings, index, blog, stats, regionMapData }) 
     })}
     <div class="section__head mt-3">
       <h2>Find Ebike Rentals in Florida</h2>
-      <p>Click your part of the state on the map, or start from the list below it. Every region page
-      lists the towns inside it, and every town page ranks the local shops by Google rating and review
-      volume, so the shortlist worth calling is always at the top.</p>
+      <p>Start with the region you are visiting. Every region page lists the towns inside it, and every
+      town page ranks the local shops by Google rating and review volume, so the shortlist worth calling
+      is always at the top.</p>
     </div>
-    ${regionMap(regionMapData, index.regions)}
     <div class="mt-2">${linkCloud(
       [...index.regions]
         .sort((a, b) => a.name.localeCompare(b.name, "en"))
