@@ -241,6 +241,27 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
+    <a class="lawcard" href="/rules/">
+      <div class="lawcard__body">
+        <span class="lawcard__tag">Everyone gets this wrong</span>
+        <h2>No, Florida does not have a 10 mph e-bike limit</h2>
+        <p>The rule you keep reading about was a real bill. It passed the Senate 37-0, passed the
+        House 112-0 - and was then vetoed, so it never became law. Half the e-bike guides online
+        still print it as fact.</p>
+        <p class="lawcard__more">Read what the law actually says &rarr;</p>
+      </div>
+      <div class="lawcard__aside">
+        <span class="lawcard__big">10</span>
+        <span class="lawcard__unit">mph</span>
+        <span class="lawcard__strike" aria-hidden="true"></span>
+        <span class="lawcard__verdict">Not law</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
     <div class="prose">
       <h2>What is Florida Ebike Rentals?</h2>
       <p>Florida Ebike Rentals is a free directory of every operating electric bike rental shop, bike

@@ -30,6 +30,7 @@ import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { bestShopsEntryFor, bestShopsPage } from "./src/pages/best.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
+import { rulesPage, CHECKED as RULES_CHECKED } from "./src/pages/rules.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage, shopCategoryPage } from "./src/pages/shop.mjs";
 import { buildCostPages, regionCostPage } from "./src/pages/costs.mjs";
@@ -490,6 +491,21 @@ for (const [key, meta] of Object.entries(STATIC_META)) {
     search: { u: `/${key}/`, t: content.title, s: "Page", d: content.description, k: `${content.title} ${key}`.toLowerCase(), w: 5 },
   });
 }
+
+write("/rules/", rulesPage(site, ctx), {
+  priority: 0.9,
+  changefreq: "monthly",
+  lastmod: RULES_CHECKED,
+  group: "pages",
+  search: {
+    u: "/rules/",
+    t: "Florida E-Bike Laws - Where You Can Legally Ride",
+    s: "Guide",
+    d: "Florida e-bike law in plain English: the three classes, where you may ride, helmet and age rules, and what your city can restrict.",
+    k: "florida ebike laws rules legal sidewalk helmet class 1 2 3 where can i ride",
+    w: 18,
+  },
+});
 
 write("/sitemap/", sitemapPage(site, {
   index, blog, listings, queries, stats,

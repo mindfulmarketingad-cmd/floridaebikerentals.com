@@ -186,6 +186,11 @@ export function fitTitle(name, suffix, budget = 62) {
  * Words left lowercase inside a title. Articles, coordinating conjunctions and
  * the short prepositions — never at the start or end of the title.
  */
+/* Units that are wrong when capitalised, wherever they fall in a heading -
+   "10 Mph" reads as a typo. Kept deliberately short: a word only belongs here
+   if capitalising it is always wrong. */
+const KEEP_LOWER = new Set(["mph", "kph", "km", "kwh", "wh"]);
+
 const SMALL_WORDS = new Set([
   "a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into", "nor",
   "of", "on", "onto", "or", "over", "per", "so", "the", "to", "up", "upon",
@@ -227,6 +232,7 @@ export function titleCase(text) {
       const previous = words[words_i[words_i.indexOf(i) - 1]] || "";
       const forced = i === first || i === last || CLAUSE_END.test(word) || CLAUSE_END.test(previous);
       const bare = word.replace(/^[^\p{L}]+/u, "").replace(/[^\p{L}]+$/u, "").toLowerCase();
+      if (KEEP_LOWER.has(bare)) return word;
       if (SMALL_WORDS.has(bare) && !forced) return word;
       return capitalise(word);
     })

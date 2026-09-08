@@ -1344,3 +1344,192 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .ratecard__table tbody tr:last-child th, .ratecard__table tbody tr:last-child td { border-bottom: 0; }
 .ratecard__table tbody th { font-weight: 600; color: var(--ink); }
 .ratecard__price { font-weight: 800; color: var(--blue-700); white-space: nowrap; }
+
+/* ------------------------------------------------------------ rules page */
+
+.verdict-hero {
+  background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+  color: #fff;
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 18px 40px -24px rgba(11, 31, 77, .8);
+}
+.verdict-hero__kicker {
+  margin: 0 0 .6rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--sun-400);
+}
+.verdict-hero__answer { margin: 0; font-size: 1.3rem; line-height: 1.5; }
+.verdict-hero__answer strong { color: var(--sun-400); }
+.verdict-hero__meta {
+  margin: 1.1rem 0 0;
+  padding-top: .9rem;
+  border-top: 1px solid rgba(255, 255, 255, .22);
+  font-size: .85rem;
+  color: var(--blue-200);
+}
+
+.verdicts { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+.verdict {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--line);
+  border-radius: 14px;
+  padding: 1.05rem 1.25rem;
+}
+.verdict__flag {
+  flex: 0 0 5.6rem;
+  font-weight: 800;
+  font-size: .82rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding-top: .18rem;
+}
+.verdict__body h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
+.verdict__body p { margin: 0; color: var(--ink-soft); }
+.verdict--yes { border-left-color: var(--ok); }
+.verdict--yes .verdict__flag { color: var(--ok); }
+.verdict--maybe { border-left-color: #b8860b; }
+.verdict--maybe .verdict__flag { color: #b8860b; }
+.verdict--no { border-left-color: #b3261e; }
+.verdict--no .verdict__flag { color: #b3261e; }
+
+.mythbust {
+  background: var(--sun-100);
+  border: 1px solid var(--sun-400);
+  border-radius: 20px;
+  padding: 1.9rem 2.1rem;
+}
+.mythbust__tag {
+  margin: 0 0 .5rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8a5a00;
+}
+.mythbust h2 { margin: 0 0 .8rem; }
+.mythbust p { color: var(--ink-soft); }
+.mythbust__foot { font-size: .88rem; margin-bottom: 0; }
+
+.class-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.class-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 1.5rem 1.35rem 1.35rem;
+  overflow: hidden;
+}
+.class-card__n {
+  position: absolute;
+  top: -.85rem;
+  right: .55rem;
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--blue-50);
+  pointer-events: none;
+}
+.class-card h3 { margin: 0 0 .55rem; position: relative; }
+.class-card p { position: relative; color: var(--ink-soft); }
+.class-card__spec { margin: 0 0 .2rem; font-size: .92rem; }
+.class-card__spec strong { color: var(--blue-600); font-size: 1.05rem; }
+.class-card > p:last-child { margin: .9rem 0 0; }
+
+.steps { margin: 0; padding-left: 1.3rem; display: grid; gap: .8rem; }
+.steps li { color: var(--ink-soft); padding-left: .3rem; }
+.steps li strong { color: var(--ink); }
+
+.sources { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; }
+.sources li {
+  border-left: 3px solid var(--blue-200);
+  padding: .1rem 0 .1rem 1rem;
+}
+.sources li strong { display: block; color: var(--ink); }
+.sources li span { color: var(--ink-soft); font-size: .93rem; }
+
+@media (max-width: 860px) {
+  .class-cards { grid-template-columns: 1fr; }
+  .verdict-hero, .mythbust { padding: 1.5rem 1.35rem; }
+  .verdict-hero__answer { font-size: 1.12rem; }
+  .verdict { flex-direction: column; gap: .45rem; }
+  .verdict__flag { flex: none; }
+}
+
+/* -------------------------------------------- homepage law myth-buster card */
+
+.lawcard {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  background: var(--sun-100);
+  border: 1px solid var(--sun-400);
+  border-radius: 20px;
+  padding: 1.9rem 2.1rem;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.lawcard:hover, .lawcard:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 34px -22px rgba(11, 31, 77, .55);
+}
+.lawcard__tag {
+  display: inline-block;
+  margin-bottom: .5rem;
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #8a5a00;
+}
+.lawcard h2 { margin: 0 0 .7rem; }
+.lawcard p { margin: 0 0 .6rem; color: var(--ink-soft); }
+.lawcard__more { margin: 0; font-weight: 700; color: var(--blue-600); }
+.lawcard:hover .lawcard__more { text-decoration: underline; }
+
+.lawcard__aside {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-width: 9.5rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--white);
+  border-radius: 16px;
+}
+.lawcard__big { font-size: 3.6rem; font-weight: 800; line-height: 1; color: var(--ink); }
+.lawcard__unit { font-size: 1.1rem; font-weight: 700; color: var(--ink-mute); }
+.lawcard__strike {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 44%;
+  height: 4px;
+  border-radius: 2px;
+  background: #b3261e;
+  transform: rotate(-14deg);
+}
+.lawcard__verdict {
+  margin-top: .6rem;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #b3261e;
+}
+
+@media (max-width: 780px) {
+  .lawcard { grid-template-columns: 1fr; gap: 1.3rem; padding: 1.5rem 1.35rem; }
+  /* The strike is drawn as a percentage of the panel, so the panel has to stay
+     narrow or the line overshoots the number it is crossing out. */
+  .lawcard__aside { min-width: 0; width: 100%; max-width: 11rem; margin: 0 auto; }
+}

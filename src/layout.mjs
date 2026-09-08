@@ -7,6 +7,7 @@ export const HEADER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/blog/", label: "Blog" },
   { href: "/trails/", label: "Trails" },
+  { href: "/rules/", label: "Laws" },
   { href: "/costs/", label: "Costs" },
   { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
@@ -37,6 +38,7 @@ export const SOCIAL_LINKS = [
 export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
+  { href: "/rules/", label: "Florida E-Bike Laws" },
   { href: "/contact/", label: "Contact" },
   { href: "/disclaimer/", label: "Disclaimer" },
   { href: "/privacy/", label: "Privacy" },
