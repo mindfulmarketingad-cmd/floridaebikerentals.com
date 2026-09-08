@@ -111,6 +111,322 @@ export const TOPICS = [
  * city actually has at least one matching listing. A city with zero golf cart
  * shops gets no golf-cart page rather than a thin one with nothing in it.
  */
+/**
+ * Facet pages: a town's list cut by something in the Google record that people
+ * actually search on. Two rules keep these honest. Everything here is either a
+ * Google business subtype or an attribute the shop published itself, so the
+ * copy says "lists" rather than "has" - we are reporting what the profile
+ * claims, not what we verified in person. And a facet only gets a page in a
+ * town with at least FACET_MIN_SHOPS matches, so no page exists to list one
+ * shop and a paragraph of filler.
+ */
+export const FACET_MIN_SHOPS = 3;
+
+const hasSubtype = (listing, ...names) =>
+  (listing.subtypes || []).some((s) => names.includes(s));
+const hasAttribute = (listing, ...names) =>
+  (listing.about || []).some((group) =>
+    (group.items || []).some((item) => names.includes(String(item)))
+  );
+
+export const FIND_FACETS = [
+  {
+    key: "electric-bike-shops",
+    shortLabel: "Electric bike shops",
+    slugFor: (city) => `electric-bike-shops-in-${city.slug}-florida`,
+    h1: (city) => `Electric Bike Shops in ${city.name}, Florida`,
+    title: (city, n) => `Electric Bike Shops in ${city.name}, FL - ${n} Specialists`,
+    noun: "electric bike shop",
+    nounPlural: "electric bike shops",
+    lede: (city, n) =>
+      `The ${n} businesses in ${city.name} that Google classes as electric bicycle stores rather ` +
+      `than general bike shops - the ones that sell, service and rent e-bikes as their main trade.`,
+    intro: (city) =>
+      `A general bike shop will often rent you an e-bike. A shop that specialises in them is a ` +
+      `different proposition: staff who ride the things daily, a workshop that can handle a motor ` +
+      `and a battery rather than only a drivetrain, and a fleet that gets replaced rather than run ` +
+      `into the ground. These are the ${city.name} businesses Google lists in that second category.`,
+    statewide: { url: "/find/electric-bike-shops-in-florida/", label: "Electric bike shops across Florida" },
+    match: (l) => hasSubtype(l, "Electric bicycle store"),
+  },
+  {
+    key: "free-parking",
+    shortLabel: "Rentals with free parking",
+    slugFor: (city) => `ebike-rentals-with-free-parking-in-${city.slug}-florida`,
+    h1: (city) => `E-Bike Rentals With Free Parking in ${city.name}, Florida`,
+    title: (city, n) => `${n} E-Bike Rentals With Free Parking in ${city.name}, FL`,
+    noun: "shop with free parking",
+    nounPlural: "shops with free parking",
+    lede: (city, n) =>
+      `${n} rental shops in ${city.name} whose Google profile lists free parking - a lot, a garage ` +
+      `or free street parking. In a Florida beach town that is often the difference between a ride ` +
+      `and a wasted morning.`,
+    intro: (city) =>
+      `Parking is the hidden cost of a beach-town bike rental. You drive to the shop, pay to leave ` +
+      `the car somewhere, then pay again for the bikes. The shops below publish free parking on ` +
+      `their own profile, which usually means their own lot - worth ten dollars and twenty minutes ` +
+      `on a busy ${city.name} weekend.`,
+    statewide: null,
+    match: (l) => hasAttribute(l, "Free parking lot", "Free street parking", "Free parking garage"),
+  },
+  {
+    key: "wheelchair-accessible",
+    shortLabel: "Wheelchair accessible rentals",
+    slugFor: (city) => `wheelchair-accessible-bike-rentals-in-${city.slug}-florida`,
+    h1: (city) => `Wheelchair Accessible Bike Rentals in ${city.name}, Florida`,
+    title: (city, n) => `Wheelchair Accessible Bike Rentals in ${city.name}, FL`,
+    noun: "shop with step-free access",
+    nounPlural: "shops with step-free access",
+    lede: (city, n) =>
+      `${n} rental shops in ${city.name} whose Google profile lists a wheelchair accessible ` +
+      `entrance, with the ones that also list accessible parking and restrooms marked.`,
+    intro: (city) =>
+      `Getting into the shop is the part nobody lists on a rental page. These ${city.name} ` +
+      `businesses publish an accessible entrance on their own Google profile. It is a claim about ` +
+      `the premises rather than about the bikes, so if you need an adaptive cycle, a trike or a ` +
+      `hand-cycle, call ahead and ask directly - that is a separate question and worth asking before ` +
+      `you travel.`,
+    statewide: null,
+    match: (l) => hasAttribute(l, "Wheelchair accessible entrance"),
+  },
+  {
+    key: "book-online",
+    shortLabel: "Shops that book online",
+    slugFor: (city) => `book-ebike-rentals-online-in-${city.slug}-florida`,
+    h1: (city) => `Book E-Bike Rentals Online in ${city.name}, Florida`,
+    title: (city, n) => `Book E-Bike Rentals Online in ${city.name}, FL - ${n} Shops`,
+    noun: "shop taking online bookings",
+    nounPlural: "shops taking online bookings",
+    lede: (city, n) =>
+      `${n} ${city.name} rental shops with a working online booking link, so you can reserve a bike ` +
+      `before you arrive rather than hoping one is free.`,
+    intro: (city) =>
+      `Most Florida rental shops still take bookings by phone, which is fine until you are trying to ` +
+      `arrange a family's bikes from another time zone. The shops below publish a booking link of ` +
+      `their own. In ${city.name}'s peak weeks that is the difference between a reserved bike and a ` +
+      `queue - and booking direct rather than through a marketplace keeps the shop's own rate.`,
+    statewide: null,
+    match: (l) => Boolean(l.booking_link),
+  },
+  {
+    key: "repair-service",
+    shortLabel: "E-bike repair and service",
+    slugFor: (city) => `ebike-repair-and-service-in-${city.slug}-florida`,
+    h1: (city) => `E-Bike Repair and Service in ${city.name}, Florida`,
+    title: (city, n) => `E-Bike Repair and Service in ${city.name}, FL - ${n} Shops`,
+    noun: "repair shop",
+    nounPlural: "repair shops",
+    lede: (city, n) =>
+      `${n} businesses in ${city.name} that Google lists as bicycle or scooter repair shops, for ` +
+      `when the bike you own needs a mechanic rather than the one you are renting.`,
+    intro: (city) =>
+      `A flat on a fat-tyre e-bike is not a roadside fix, and not every rental counter has a ` +
+      `mechanic behind it. These ${city.name} businesses are listed as repair shops on their Google ` +
+      `profile. Call before you carry a bike across town: e-bike work needs a shop willing to touch ` +
+      `a motor and a battery, and not every bicycle repair shop is.`,
+    statewide: { url: "/find/ebike-repair-and-service-in-florida/", label: "E-bike repair across Florida" },
+    match: (l) => hasSubtype(l, "Bicycle repair shop", "Scooter repair shop"),
+  },
+  {
+    key: "delivery",
+    shortLabel: "Rentals that deliver",
+    slugFor: (city) => `ebike-rental-delivery-in-${city.slug}-florida`,
+    h1: (city) => `E-Bike Rental Delivery in ${city.name}, Florida`,
+    title: (city, n) => `E-Bike Rental Delivery in ${city.name}, FL - ${n} Shops`,
+    noun: "shop that delivers",
+    nounPlural: "shops that deliver",
+    lede: (city, n) =>
+      `${n} ${city.name} rental shops that list delivery on their Google profile - bikes brought to ` +
+      `the house, the hotel or the condo instead of a trip to a counter.`,
+    intro: (city) =>
+      `Delivery is what turns a rental from an errand into something that is simply waiting for you. ` +
+      `It matters most when there are more bikes than a car can carry, when nobody wants to give up ` +
+      `a parking space they finally found, or when the ride starts from a rental house rather than ` +
+      `from town. The ${city.name} shops below publish delivery themselves. What they do not publish ` +
+      `is the radius or the fee, and both vary a lot - ask for the drop-off window and the collection ` +
+      `time when you book, because an evening pickup on the last day is worth more than a few dollars ` +
+      `off the rate.`,
+    statewide: {
+      url: "/find/ebike-rentals-with-delivery-in-florida/",
+      label: "Florida shops that deliver e-bikes",
+    },
+    match: (l) => (l.tags || []).includes("Delivery available"),
+  },
+];
+
+/**
+ * Builds every facet page that clears the minimum. `taken` guards against a
+ * slug that a town, region or topic page already owns - the writer would
+ * otherwise silently overwrite one page with another.
+ */
+export function buildFacetPages(index) {
+  const taken = new Set([
+    ...index.cities.map((c) => c.slug),
+    ...index.regions.map((r) => r.slug),
+    ...index.topics.map((t) => t.slug),
+    ...index.cityTopicPages.map((p) => p.slug),
+    ...(index.nearbyTowns || []).map((t) => t.slug),
+  ]);
+  const pages = [];
+  for (const facet of FIND_FACETS) {
+    for (const city of index.cities) {
+      const listings = city.listings.filter(facet.match);
+      if (listings.length < FACET_MIN_SHOPS) continue;
+      const slug = facet.slugFor(city);
+      if (taken.has(slug)) continue;
+      taken.add(slug);
+      pages.push({ facet, city, listings, slug, url: `/find/${slug}/` });
+    }
+  }
+  return pages;
+}
+
+/**
+ * Region facet pages. Some things a shop publishes about itself are real and
+ * worth searching on but far too rare to carry a page per town - women-owned
+ * and veteran-owned businesses are the clearest examples, with a handful in the
+ * whole state. Cutting those at region level rather than city level is the
+ * difference between a page listing eight shops and forty pages listing one.
+ *
+ * Same honesty rule as the town facets: everything here is a self-published
+ * Google attribute, so the copy reports what the business says about itself.
+ */
+export const REGION_FACET_MIN_SHOPS = 3;
+
+/** Titles are capped at 70 characters, and region names run long. */
+const pickTitle = (long, short) => (long.length <= 70 ? long : short);
+/** ", Florida" is redundant on "Southwest Florida" or "The Florida Keys". */
+const flSuffix = (region) => (/florida/i.test(region.name) ? "" : ", Florida");
+
+export const REGION_FACETS = [
+  {
+    key: "women-owned",
+    shortLabel: "Women-owned rentals",
+    slugFor: (region) => `women-owned-ebike-rentals-in-${region.slug}`,
+    h1: (region) => `Women-Owned E-Bike Rentals in ${region.name}`,
+    title: (region, n) =>
+      pickTitle(
+        `Women-Owned E-Bike Rentals in ${region.name}${flSuffix(region)}`,
+        `Women-Owned E-Bike Rentals in ${region.name}`
+      ),
+    noun: "women-owned shop",
+    nounPlural: "women-owned shops",
+    lede: (region, n) =>
+      `${n} rental shops across ${region.name} that identify as women-owned on their own Google ` +
+      `business profile, with ratings, towns and contact details for each.`,
+    intro: (region) =>
+      `Google lets a business self-identify as women-owned, and the shops below have done so. It is ` +
+      `a claim the owner makes rather than a certification anyone checks, which is worth knowing ` +
+      `before you treat it as verified - but it is also the only public record of it, and for ` +
+      `riders who would rather put their money somewhere specific in ${region.name}, it is the list ` +
+      `that exists. Most of these are small operations where the person answering the phone owns ` +
+      `the bikes.`,
+    match: (l) => hasAttribute(l, "Identifies as women-owned"),
+  },
+  {
+    key: "veteran-owned",
+    shortLabel: "Veteran-owned rentals",
+    slugFor: (region) => `veteran-owned-ebike-rentals-in-${region.slug}`,
+    h1: (region) => `Veteran-Owned E-Bike Rentals in ${region.name}`,
+    title: (region, n) =>
+      pickTitle(
+        `Veteran-Owned E-Bike Rentals in ${region.name}${flSuffix(region)}`,
+        `Veteran-Owned E-Bike Rentals in ${region.name}`
+      ),
+    noun: "veteran-owned shop",
+    nounPlural: "veteran-owned shops",
+    lede: (region, n) =>
+      `${n} e-bike and bike rental shops in ${region.name} that identify as veteran-owned on their ` +
+      `Google business profile.`,
+    intro: (region) =>
+      `Florida has more veteran-owned small businesses than almost any state, and rental shops are a ` +
+      `natural fit - seasonal, hands-on, and heavy on maintenance. The ${region.name} shops here ` +
+      `identify as veteran-owned on their own profile. As with any self-published attribute, it is ` +
+      `the owner's own statement rather than something certified, and it is worth asking about ` +
+      `directly if it is the reason you are booking.`,
+    match: (l) => hasAttribute(l, "Identifies as veteran-owned"),
+  },
+  {
+    key: "local-independent",
+    shortLabel: "Independent local shops",
+    slugFor: (region) => `local-ebike-rental-shops-in-${region.slug}`,
+    h1: (region) => `Support Local: Independent E-Bike Rentals in ${region.name}`,
+    title: (region, n) =>
+      pickTitle(
+        `Independent E-Bike Rental Shops in ${region.name}${flSuffix(region)}`,
+        `Independent E-Bike Rental Shops in ${region.name}`
+      ),
+    noun: "independent shop",
+    nounPlural: "independent shops",
+    lede: (region, n) =>
+      `${n} rental shops across ${region.name} that describe themselves as a small business rather ` +
+      `than a chain, franchise or resort concession.`,
+    intro: (region) =>
+      `In most Florida beach towns the rental market splits two ways: an operator with a counter in ` +
+      `every hotel lobby, and someone with a garage full of bikes they maintain themselves. The ` +
+      `second kind is usually where the local trail advice comes from, and where a mechanic will ` +
+      `actually look at a bike rather than swap it. The ${region.name} shops below flag themselves ` +
+      `as a small business on their Google profile.`,
+    match: (l) => hasAttribute(l, "Small business"),
+  },
+  {
+    key: "family-discount",
+    shortLabel: "Family and kids' discounts",
+    slugFor: (region) => `family-ebike-rentals-in-${region.slug}`,
+    h1: (region) => `Family E-Bike Rentals in ${region.name}`,
+    title: (region, n) =>
+      pickTitle(
+        `Family E-Bike Rentals in ${region.name}${flSuffix(region)} - Kids' Discounts`,
+        `Family E-Bike Rentals in ${region.name}${flSuffix(region)}`
+      ),
+    noun: "shop with a family discount",
+    nounPlural: "shops with family discounts",
+    lede: (region, n) =>
+      `${n} rental shops in ${region.name} that publish a family discount, a discount for kids or a ` +
+      `family-friendly rating on their Google profile.`,
+    intro: (region) =>
+      `Renting for four is not four times renting for one, at least not at the shops that price for ` +
+      `families. The businesses below list a family discount, a kids' discount or a family-friendly ` +
+      `flag on their own profile. None of them publish the actual figure there, so treat this as the ` +
+      `shortlist to call rather than the price - and ask about kids' bikes, trailers and child seats ` +
+      `in the same conversation, because those are usually a separate line on the bill.`,
+    statewide: {
+      url: "/find/family-ebike-rentals-in-florida/",
+      label: "Family e-bike rentals across Florida",
+    },
+    match: (l) => hasAttribute(l, "Family discount", "Discounts for kids", "Good for kids"),
+  },
+];
+
+/**
+ * Builds every region facet page that clears the minimum, with the towns inside
+ * the region worked out at the same time so the page can link down to them.
+ */
+export function buildRegionFacetPages(index) {
+  const taken = new Set([
+    ...index.cities.map((c) => c.slug),
+    ...index.regions.map((r) => r.slug),
+    ...index.topics.map((t) => t.slug),
+    ...index.cityTopicPages.map((p) => p.slug),
+    ...(index.nearbyTowns || []).map((t) => t.slug),
+    ...(index.facetPages || []).map((p) => p.slug),
+  ]);
+  const pages = [];
+  for (const facet of REGION_FACETS) {
+    for (const region of index.regions) {
+      const listings = region.listings.filter(facet.match);
+      if (listings.length < REGION_FACET_MIN_SHOPS) continue;
+      const slug = facet.slugFor(region);
+      if (taken.has(slug)) continue;
+      taken.add(slug);
+      const townSlugs = new Set(listings.map((l) => citySlug(l.city)));
+      const towns = index.cities.filter((c) => townSlugs.has(c.slug));
+      pages.push({ facet, region, listings, towns, slug, url: `/find/${slug}/` });
+    }
+  }
+  return pages;
+}
+
 export const CITY_TOPICS = [
   {
     key: "golf-carts",

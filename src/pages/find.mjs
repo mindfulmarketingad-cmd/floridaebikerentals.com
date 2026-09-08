@@ -134,6 +134,57 @@ ${adSlot(site, "")}
 </section>
 
 ${
+  (index.facetPages || []).length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Browse by what a shop offers</h2>
+    <p class="muted">Cut by what each shop publishes on its own Google profile - the specialists,
+    the ones with free parking, step-free access, online booking or a workshop.</p>
+    ${[...new Map((index.facetPages || []).map((f) => [f.facet.key, f.facet])).values()]
+      .map((facet) => {
+        const towns = (index.facetPages || []).filter((f) => f.facet.key === facet.key);
+        return `<h3 class="mt-3">${esc(facet.shortLabel)} by town</h3>
+    ${linkCloud(
+      [...towns]
+        .sort((a, b) => a.city.name.localeCompare(b.city.name, "en"))
+        .map((f) => ({ href: f.url, label: `${facet.shortLabel} in ${f.city.name}`, count: f.listings.length }))
+    )}`;
+      })
+      .join("\n    ")}
+  </div>
+</section>`
+    : ""
+}
+
+${
+  (index.regionFacetPages || []).length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Browse by who runs the shop</h2>
+    <p class="muted">Women-owned, veteran-owned, independent and family-priced shops are real cuts of
+    the directory but thin ones - a handful per region rather than per town - so these are grouped by
+    region.</p>
+    ${[...new Map((index.regionFacetPages || []).map((f) => [f.facet.key, f.facet])).values()]
+      .map((facet) => {
+        const regions = (index.regionFacetPages || []).filter((f) => f.facet.key === facet.key);
+        return `<h3 class="mt-3">${esc(facet.shortLabel)} by region</h3>
+    ${linkCloud(
+      [...regions]
+        .sort((a, b) => a.region.name.localeCompare(b.region.name, "en"))
+        .map((f) => ({
+          href: f.url,
+          label: `${facet.shortLabel} in ${f.region.name}`,
+          count: f.listings.length,
+        }))
+    )}`;
+      })
+      .join("\n    ")}
+  </div>
+</section>`
+    : ""
+}
+
+${
   (index.nearbyTowns || []).length
     ? `<section class="section">
   <div class="wrap">
@@ -184,6 +235,9 @@ export function findRegion(site, region, { index, blog, shop }) {
   const townNames = region.cities.slice(0, 6).map((c) => c.name);
   const nearbyInRegion = (index.nearbyTowns || []).filter((t) => t.region === region.name);
   const costPagesHere = (index.costPages || []).filter((c) => c.region.name === region.name);
+  const regionFacetsHere = (index.regionFacetPages || []).filter(
+    (p) => p.region.slug === region.slug
+  );
 
   const faqs = [
     {
@@ -271,6 +325,20 @@ ${pageHero({
       [...costPagesHere]
         .sort((a, b) => a.title.localeCompare(b.title, "en"))
         .map((c) => ({ href: c.url, label: c.title, note: `- ${c.rates.typical}` }))
+    )}`
+        : ""
+    }
+    ${
+      regionFacetsHere.length
+        ? `<h3 class="mt-3">Shops in ${esc(region.name)} by who runs them</h3>
+    ${linkCloud(
+      [...regionFacetsHere]
+        .sort((a, b) => a.facet.shortLabel.localeCompare(b.facet.shortLabel, "en"))
+        .map((p) => ({
+          href: p.url,
+          label: `${p.facet.shortLabel} in ${p.region.name}`,
+          count: p.listings.length,
+        }))
     )}`
         : ""
     }
@@ -375,6 +443,23 @@ export function findCity(site, city, { index, listings, blog, shop }) {
   const cityCrossPages = index.cityTopicsByCitySlug.get(city.slug) || [];
   // The opening-hours cuts of this town's list, where they were worth building.
   const hoursPages = index.hoursPages || { openNow: [], openLate: [] };
+  // Region-level facets, linked from a town only when that town actually holds
+  // one of the shops - otherwise the anchor promises something the page can't
+  // show the reader when they land on it.
+  const cityRegionFacets = (index.regionFacetPages || [])
+    .filter((p) => p.region.slug === city.regionSlug && p.listings.some((l) => l.city === city.name))
+    .map((p) => ({
+      href: p.url,
+      label: `${p.facet.shortLabel} in ${p.region.name}`,
+      count: p.listings.filter((l) => l.city === city.name).length,
+    }));
+  const cityFacetPages = (index.facetPages || [])
+    .filter((f) => f.city.slug === city.slug)
+    .map((f) => ({
+      href: f.url,
+      label: `${f.facet.shortLabel} in ${city.name}`,
+      count: f.listings.length,
+    }));
   const cityHoursPages = [
     ...hoursPages.openNow
       .filter((e) => e.city.slug === city.slug)
@@ -574,7 +659,7 @@ ${adSlot(site, "")}
 </section>
 
 ${
-  cityCrossPages.length || cityHoursPages.length
+  cityCrossPages.length || cityHoursPages.length || cityFacetPages.length || cityRegionFacets.length
     ? `<section class="section section--tint">
   <div class="wrap">
     <h2>Other ways to browse ${esc(city.name)}</h2>
@@ -586,6 +671,8 @@ ${
           count: p.listings.length,
         })),
         ...cityHoursPages,
+        ...cityFacetPages,
+        ...cityRegionFacets,
       ].sort((a, b) => a.label.localeCompare(b.label, "en"))
     )}
   </div>
@@ -1283,6 +1370,393 @@ ${adSlotScript(site, 1)}
       breadcrumbSchema(site, crumbs),
       faqSchema(faqs),
       itemListSchema(site, shops, { name: `E-bike rentals open late in ${city.name}`, url: entry.url }),
+    ],
+  });
+}
+
+/* --------------------------------------------------- facet pages per town */
+
+/**
+ * A town's list cut by one Google-recorded facet - specialist e-bike shops,
+ * free parking, step-free access, online booking, repairs.
+ *
+ * Internal linking is the point of these as much as the content is, so each
+ * one links four ways: up to the town and region page it belongs to, sideways
+ * to the town's other facets, across to the same facet in the nearest towns
+ * that have one, and out to the statewide equivalent where there is one. Every
+ * link is anchored on the phrase the target page is about rather than on
+ * "click here", and no page is left without a route back into the directory.
+ */
+export function findFacet(site, entry, { index, shop }) {
+  const { facet, city, listings } = entry;
+  const count = listings.length;
+  const crumbs = [
+    HOME_CRUMB,
+    FIND_CRUMB,
+    { href: city.url, label: city.name },
+    { href: entry.url, label: facet.h1(city).replace(`, Florida`, "") },
+  ];
+  const hero = photoFor(entry.slug);
+  const best = listings[0];
+  const withDelivery = listings.filter((l) => (l.tags || []).includes("Delivery available"));
+
+  /* Sideways: this town's other facets. */
+  const siblings = (index.facetPages || []).filter(
+    (p) => p.city.slug === city.slug && p.facet.key !== facet.key
+  );
+  /* Across: the same facet in the nearest towns that also have one. */
+  const elsewhere = (() => {
+    const byCity = new Map(
+      (index.facetPages || [])
+        .filter((p) => p.facet.key === facet.key && p.city.slug !== city.slug)
+        .map((p) => [p.city.slug, p])
+    );
+    return nearbyCities(city, index.cities, 40)
+      .filter((c) => byCity.has(c.slug))
+      .slice(0, 6)
+      .map((c) => byCity.get(c.slug));
+  })();
+
+  const faqs = [
+    {
+      q: `${facet.h1(city).replace(/,\s*Florida$/, "")} - how many are there?`,
+      a: `<p>${esc(String(count))} in ${esc(city.name)} at the last import, out of ${esc(
+        String(city.listings.length)
+      )} ${plural(city.listings.length, "shop")} we track in the town. ${
+        best.rating
+          ? `${esc(best.name)} is the best rated of them at ${formatReviews(best.reviews)} ${plural(
+              best.reviews,
+              "review"
+            )}.`
+          : ""
+      }</p>`,
+    },
+    {
+      q: `Where does this information come from?`,
+      a: `<p>From each shop's own public Google Business Profile - the same place its hours and phone
+      number come from. That means it is what the business says about itself, not something we have
+      inspected. Profiles also go stale, so if a detail matters to your trip, confirm it on the phone
+      before you drive over.</p>`,
+    },
+    facet.key === "delivery"
+      ? {
+          q: `How far will they deliver, and what does it cost?`,
+          a: `<p>Neither figure is published on a Google profile, so we cannot list it honestly here.
+          What we can say from the shops' own pages across Florida is the shape of it: delivery is
+          usually free inside a small radius - often the barrier island or the few miles around the
+          shop - and charged as a flat fee beyond that. Our
+          <a href="/costs/ebike-delivery-fees-florida/">Florida delivery fee guide</a> collects the
+          rates shops publish. Ask for the radius, the fee and the collection time together, because
+          a late pickup on your last day is usually worth more than a discount on the rate.</p>`,
+        }
+      : {
+      q: `Do these shops deliver in ${city.name}?`,
+      a: withDelivery.length
+        ? `<p>${esc(String(withDelivery.length))} of the ${esc(String(count))} do: ${esc(
+            commaList(withDelivery.slice(0, 4).map((l) => l.name))
+          )}. Delivery is often free within a few miles and charged beyond that - see our
+          <a href="/costs/ebike-delivery-fees-florida/">delivery fee guide</a>.</p>`
+        : `<p>None of these particular shops advertise delivery. Others in ${esc(
+            city.name
+          )} do - see <a href="${attr(city.url)}">all ${esc(city.name)} e-bike rentals</a>, or every
+          Florida shop that delivers on our
+          <a href="/find/ebike-rentals-with-delivery-in-florida/">delivery page</a>.</p>`,
+    },
+  ];
+
+  const body = `
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(city.region)}`,
+  h1: facet.h1(city),
+  lede: facet.lede(city, String(count)),
+})}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>${esc(String(count))} ${esc(count === 1 ? facet.noun : facet.nounPlural)} in ${esc(city.name)}</h2>
+      <p>Ranked by Google rating weighted against review volume. Every entry shows the address,
+      phone number and today's hours.</p>
+    </div>
+    ${resultsWithMap(listings, listicle(listings), { id: `map-${attr(entry.slug)}`, zoom: 12 })}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(hero, { alt: `${facet.h1(city)} - ${hero.alt}` })}
+      <div class="prose">
+        <h2>Why this list is worth having</h2>
+        <p>${esc(facet.intro(city))}</p>
+        <p>Everything here comes from the shops' own Google profiles, so treat it as what each
+        business publishes about itself. For the full picture of the town, including the shops that
+        do not fit this cut, see
+        <a href="${attr(city.url)}">e-bike rentals in ${esc(city.name)}</a>.</p>
+        <p><a class="btn btn--primary" href="${attr(city.url)}">All ${esc(city.name)} rentals</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap-narrow">
+    <h2>${esc(city.name)} FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Keep looking in ${esc(city.name)}</h2>
+    ${linkCloud(
+      [
+        { href: city.url, label: `E-bike rentals in ${city.name}`, count: city.listings.length },
+        ...siblings.map((p) => ({
+          href: p.url,
+          label: `${p.facet.shortLabel} in ${p.city.name}`,
+          count: p.listings.length,
+        })),
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
+    ${
+      elsewhere.length
+        ? `<h3 class="mt-3">${esc(facet.shortLabel)} in nearby towns</h3>
+    ${linkCloud(
+      [...elsewhere]
+        .sort((a, b) => a.city.name.localeCompare(b.city.name, "en"))
+        .map((p) => ({ href: p.url, label: p.city.name, count: p.listings.length }))
+    )}`
+        : ""
+    }
+    <h3 class="mt-3">Across the rest of Florida</h3>
+    ${linkCloud(
+      [
+        { href: `/find/ebike-rentals-in-${attr(city.regionSlug)}/`, label: `All ${city.region} rentals` },
+        ...(facet.statewide ? [{ href: facet.statewide.url, label: facet.statewide.label }] : []),
+        { href: "/find/", label: "Every Florida town we cover" },
+        { href: "/costs/", label: "What Florida e-bike rentals cost" },
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: facet.title(city, String(count)),
+    description: clamp(facet.lede(city, String(count))),
+    path: entry.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(faqs),
+      itemListSchema(site, listings, { name: facet.h1(city), url: entry.url }),
+    ],
+  });
+}
+
+/* ------------------------------------------------- facet pages per region */
+
+/**
+ * A region's list cut by something a shop publishes about itself that is real
+ * but too rare to sustain a page per town - women-owned, veteran-owned,
+ * independent, family discounts.
+ *
+ * These sit a level above the town facet pages and link accordingly: down to
+ * every town in the region that has a matching shop, up to the region page and
+ * the find hub, sideways to the region's other facets, and across to the same
+ * facet in every other region that has one. That gives each page an inbound
+ * link from its siblings and from the same cut elsewhere in the state, so no
+ * facet page depends on the hub alone to be found.
+ */
+export function findRegionFacet(site, entry, { index }) {
+  const { facet, region, listings, towns } = entry;
+  const count = listings.length;
+  const crumbs = [
+    HOME_CRUMB,
+    FIND_CRUMB,
+    { href: region.url, label: region.name },
+    { href: entry.url, label: facet.shortLabel },
+  ];
+  const hero = photoFor(entry.slug);
+  const stats = statsFor(listings);
+  const best = listings[0];
+
+  /* Sideways: this region's other facets. Across: the same cut elsewhere. */
+  const siblings = (index.regionFacetPages || []).filter(
+    (p) => p.region.slug === region.slug && p.facet.key !== facet.key
+  );
+  const elsewhere = (index.regionFacetPages || []).filter(
+    (p) => p.facet.key === facet.key && p.region.slug !== region.slug
+  );
+
+  /* Down: the towns inside the region that actually hold one of these shops. */
+  const townRows = towns
+    .map((c) => ({
+      city: c,
+      n: listings.filter((l) => l.city === c.name).length,
+    }))
+    .filter((r) => r.n > 0)
+    .sort((a, b) => a.city.name.localeCompare(b.city.name, "en"));
+
+  const faqs = [
+    {
+      q: `How many ${facet.nounPlural} are there in ${region.name}?`,
+      a: `<p>${esc(String(count))} of the ${esc(String(region.listings.length))} rental shops we
+      track in ${esc(region.name)}, spread across ${esc(String(townRows.length))} ${plural(
+        townRows.length,
+        "town"
+      )}. ${
+        best && best.rating
+          ? `${esc(best.name)} in ${esc(best.city)} is the best rated of them, at ${esc(
+              String(best.rating)
+            )} stars from ${formatReviews(best.reviews)} ${plural(best.reviews, "review")}.`
+          : ""
+      }</p>`,
+    },
+    {
+      q: `Where does this come from, and is it verified?`,
+      a: `<p>From each shop's own public Google Business Profile, where the owner chooses these
+      labels themselves. Nobody at Google audits them and neither do we, so read this as what the
+      business says about itself rather than as a certification. Profiles also go stale. If it is the
+      reason you are booking, it is a fair thing to ask about on the phone - owners who set the label
+      are usually happy to talk about it.</p>`,
+    },
+    {
+      q: `Why is this a ${region.name} page rather than a page for my town?`,
+      a: `<p>Because there are ${esc(String(count))} of them in the whole region. Cutting this by
+      town would mean pages listing a single shop, which helps nobody. For everything in one town,
+      including the shops that do not carry this label, start from
+      <a href="${attr(region.url)}">e-bike rentals in ${esc(region.name)}</a> and pick your town from
+      there.</p>`,
+    },
+  ];
+
+  const body = `
+${pageHero({
+  crumbs: crumbs,
+  eyebrow: `${esc(region.name)}`,
+  h1: facet.h1(region),
+  lede: facet.lede(region, String(count)),
+})}
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>${esc(String(count))} ${esc(count === 1 ? facet.noun : facet.nounPlural)} in ${esc(
+        region.name
+      )}</h2>
+      <p>Ranked by Google rating weighted against review volume. Every entry shows the town, the
+      address, the phone number and today's hours.</p>
+    </div>
+    ${resultsWithMap(listings, listicle(listings), { id: `map-${attr(entry.slug)}`, zoom: 8 })}
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid grid--2" style="align-items:center">
+      ${figure(hero, { alt: `${facet.h1(region)} - ${hero.alt}` })}
+      <div class="prose">
+        <h2>What this list is, and what it is not</h2>
+        <p>${esc(facet.intro(region))}</p>
+        <p>Every label here is set by the business on its own Google profile, so this is a record of
+        what these ${esc(region.name)} shops say about themselves - useful as a shortlist, not a
+        substitute for asking. For the full regional picture, including the shops that carry no
+        label at all, see
+        <a href="${attr(region.url)}">every e-bike rental in ${esc(region.name)}</a>.</p>
+        <p><a class="btn btn--primary" href="${attr(region.url)}">All ${esc(
+          region.name
+        )} rentals</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>${esc(facet.shortLabel)} by town</h2>
+      <p>The ${esc(String(townRows.length))} ${plural(
+        townRows.length,
+        "town"
+      )} in ${esc(region.name)} with at least one. Each link opens that town's full rental list.</p>
+    </div>
+    ${linkCloud(
+      townRows.map((r) => ({
+        href: r.city.url,
+        label: `${facet.shortLabel} in ${r.city.name}`,
+        count: r.n,
+      }))
+    )}
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <h2>${esc(region.name)} FAQs</h2>
+    ${faqBlock(faqs)}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <h2>Keep looking in ${esc(region.name)}</h2>
+    ${linkCloud(
+      [
+        {
+          href: region.url,
+          label: `E-bike rentals in ${region.name}`,
+          count: region.listings.length,
+        },
+        ...siblings.map((p) => ({
+          href: p.url,
+          label: `${p.facet.shortLabel} in ${p.region.name}`,
+          count: p.listings.length,
+        })),
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
+    ${
+      elsewhere.length
+        ? `<h3 class="mt-3">${esc(facet.shortLabel)} in other Florida regions</h3>
+    ${linkCloud(
+      [...elsewhere]
+        .sort((a, b) => a.region.name.localeCompare(b.region.name, "en"))
+        .map((p) => ({ href: p.url, label: p.region.name, count: p.listings.length }))
+    )}`
+        : ""
+    }
+    <h3 class="mt-3">Across the rest of Florida</h3>
+    ${linkCloud(
+      [
+        { href: "/find/", label: "Every Florida town we cover" },
+        { href: "/costs/", label: "What Florida e-bike rentals cost" },
+        { href: "/reviews/", label: "Florida e-bike rental reviews" },
+        ...(facet.statewide ? [{ href: facet.statewide.url, label: facet.statewide.label }] : []),
+      ].sort((a, b) => a.label.localeCompare(b.label, "en"))
+    )}
+  </div>
+</section>
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: facet.title(region, String(count)),
+    description: clamp(facet.lede(region, String(count))),
+    path: entry.url,
+    body,
+    ogImage: hero.src,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      faqSchema(faqs),
+      itemListSchema(site, listings, { name: facet.h1(region), url: entry.url }),
     ],
   });
 }

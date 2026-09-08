@@ -70,9 +70,9 @@ const EMBED_HOSTS = {
   ridewithgps: "https://ridewithgps.com",
 };
 
-function cspMeta(inlineScripts, { ads, embeds = [] }) {
+function cspMeta(inlineScripts, { ads, analytics, embeds = [] }) {
   const hashes = inlineScripts.map(sha256);
-  const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : [])];
+  const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : []), ...(analytics ? GA_HOSTS : [])];
   const img = [
     "'self'",
     "data:",
@@ -83,7 +83,8 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
     "https://streetviewpixels-pa.googleapis.com",
     "https://tile.openstreetmap.org",
     ...(ads ? [...ADSENSE_HOSTS, "https://www.googletagmanager.com"] : []),
-  ];
+    ...(analytics ? GA_HOSTS : []),
+  ].filter((v, i, a) => a.indexOf(v) === i);
   const policy = [
     "default-src 'self'",
     "base-uri 'self'",
@@ -93,7 +94,9 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
     "style-src 'self' 'unsafe-inline'",
     `img-src ${img.join(" ")}`,
     "font-src 'self'",
-    `connect-src 'self'${ads ? ` ${ADSENSE_HOSTS.join(" ")}` : ""}`,
+    `connect-src 'self'${ads ? ` ${ADSENSE_HOSTS.join(" ")}` : ""}${
+      analytics ? ` ${GA_HOSTS.join(" ")}` : ""
+    }`,
     `frame-src ${
       [
         ...(ads
@@ -204,6 +207,31 @@ function rentPicker() {
 </dialog>`;
 }
 
+/* Google Analytics 4. The inline config block is hashed into the CSP with
+   everything else on the page, so the measurement ID lives in data/site.json
+   rather than being pasted into the template. */
+const GA_HOSTS = [
+  "https://www.googletagmanager.com",
+  "https://www.google-analytics.com",
+  "https://analytics.google.com",
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+];
+
+export function gaInlineConfig(site) {
+  const id = site.analytics?.ga4;
+  if (!id) return "";
+  return `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}');`;
+}
+
+function gaLoader(site) {
+  const id = site.analytics?.ga4;
+  if (!id) return "";
+  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${attr(
+    id
+  )}"></script>\n<script>${gaInlineConfig(site)}</script>`;
+}
+
 function adsenseLoader(site) {
   if (!site.adsense?.enabled || !site.adsense.publisherId) return "";
   const client = `ca-${site.adsense.publisherId}`;
@@ -264,16 +292,19 @@ export function page(site, opts) {
   const schemaSources = schema.filter(Boolean).map((s) =>
     JSON.stringify(s, null, 0).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026")
   );
-  const allInline = [...schemaSources, ...inlineScripts];
+  const analytics = Boolean(site.analytics?.ga4);
+  const gaInline = gaInlineConfig(site);
+  const allInline = [...schemaSources, ...inlineScripts, ...(gaInline ? [gaInline] : [])];
 
   return `<!doctype html>
 <html lang="${attr(site.language)}" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-${cspMeta(allInline, { ads, embeds })}
+${cspMeta(allInline, { ads, analytics, embeds })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+${gaLoader(site)}
 <title>${esc(pageTitle)}</title>
 <meta name="description" content="${attr(description)}">
 <link rel="canonical" href="${attr(canonical)}">

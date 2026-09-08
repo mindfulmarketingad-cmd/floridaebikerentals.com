@@ -10,15 +10,19 @@
 import { mkdirSync, writeFileSync, readFileSync, cpSync, rmSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-import { slugify, isoDate } from "./src/util.mjs";
+import { slugify, isoDate, plural } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, loadFloridaCities,
-  buildNearbyCityPages, buildHoursPages, loadRentalRates, SEARCH_QUERIES, CONTENT_HUBS,
+  buildNearbyCityPages, buildHoursPages, loadRentalRates, buildFacetPages,
+  buildRegionFacetPages,
+  SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import {
   findHub, findRegion, findCity, findTopic, findCityTopic, findNearbyCity, findOpenNow, findOpenLate,
+  findFacet,
+  findRegionFacet,
 } from "./src/pages/find.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
@@ -95,6 +99,12 @@ index.hoursPages = hoursPages;
 // Region cost pages, built only where we hold researched rates for that region.
 const costPages = buildCostPages(index, loadRentalRates());
 index.costPages = costPages;
+// Facet pages: a town's list cut by a Google subtype or published attribute.
+const facetPages = buildFacetPages(index);
+index.facetPages = facetPages;
+// Region facet pages: cuts that are real but too rare to carry a page per town.
+const regionFacetPages = buildRegionFacetPages(index);
+index.regionFacetPages = regionFacetPages;
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, regionMapData };
 
 /* home */
@@ -189,6 +199,38 @@ for (const entry of hoursPages.openLate) {
       d: `${entry.listings.length} shops in ${entry.city.name} that stay open into the evening.`,
       k: `${entry.city.name} open late evening night ${entry.city.region}`.toLowerCase(),
       w: 5,
+    },
+  });
+}
+
+for (const entry of facetPages) {
+  write(entry.url, findFacet(site, entry, ctx), {
+    priority: 0.6,
+    changefreq: "monthly",
+    group: "find",
+    search: {
+      u: entry.url,
+      t: entry.facet.h1(entry.city),
+      s: "Find",
+      d: `${entry.listings.length} ${entry.listings.length === 1 ? entry.facet.noun : entry.facet.nounPlural} in ${entry.city.name}.`,
+      k: `${entry.city.name} ${entry.facet.shortLabel} ${entry.city.region}`.toLowerCase(),
+      w: 6,
+    },
+  });
+}
+
+for (const entry of regionFacetPages) {
+  write(entry.url, findRegionFacet(site, entry, ctx), {
+    priority: 0.6,
+    changefreq: "monthly",
+    group: "find",
+    search: {
+      u: entry.url,
+      t: entry.facet.h1(entry.region),
+      s: "Find",
+      d: `${entry.listings.length} ${entry.listings.length === 1 ? entry.facet.noun : entry.facet.nounPlural} across ${entry.region.name}.`,
+      k: `${entry.region.name} ${entry.facet.shortLabel}`.toLowerCase(),
+      w: 6,
     },
   });
 }

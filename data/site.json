@@ -15,6 +15,9 @@
     "publisherId": "pub-9332749804326149",
     "adsTxt": "google.com, pub-9332749804326149, DIRECT, f08c47fec0942fa0"
   },
+  "analytics": {
+    "ga4": "G-DX557E1PNG"
+  },
   "contactFormEndpoint": "",
   "primaryKeyword": "Florida Ebike Rentals"
 }
