@@ -45,7 +45,9 @@ export function reviewsHub(site, { listings, index, pageNumber, totalPages }) {
         (l.tags || []).join("|")
       )}|" data-search="${attr([l.name, l.city, l.region].join(" "))}" data-rating="${attr(
         l.rating
-      )}" data-reviews="${attr(l.reviews)}" data-name="${attr(l.name)}">
+      )}" data-reviews="${attr(l.reviews)}" data-name="${attr(l.name)}"${
+        typeof l.lat === "number" ? ` data-lat="${attr(l.lat)}" data-lng="${attr(l.lng)}"` : ""
+      }>
   <div class="listicle__inner" style="grid-template-columns:1fr">
     <div class="listicle__body">
       <h3 class="listicle__title"><span class="visually-hidden">Number ${start + i + 1}: </span><a href="${attr(
@@ -100,7 +102,12 @@ ${pageHero({
 </section>
 
 <section class="section section--tint">
-  <div class="wrap">
+  <div class="wrap" data-nearby-sort>
+    <div class="nearby-bar">
+      <p data-nearby-status>Allow location and this page re-sorts to show the closest rated shops first.</p>
+      <button class="btn btn--blue btn--sm" type="button" data-nearby-button>Sort by distance from me</button>
+      <span class="muted small">We never send your location anywhere — the sorting happens in your browser.</span>
+    </div>
     <form class="filterbar" data-filter-form>
       <div class="field">
         <label for="r-q">Search this page</label>

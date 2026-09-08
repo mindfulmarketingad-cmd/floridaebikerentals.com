@@ -928,14 +928,17 @@
         card.dataset.distance = d.toFixed(2);
         placed++;
 
-        var host = $(".listicle__rank", card);
-        if (host && !$(".distance-badge", card)) {
-          var badge = el("span", "distance-badge", d.toFixed(d < 10 ? 1 : 0) + " mi away");
-          var title = $(".listicle__title", card);
-          if (title && title.parentNode) title.parentNode.insertBefore(badge, title.nextSibling);
+        /* Anchored to the title, not the rank badge - the reviews list has
+           titles but no rank badges. */
+        var text = d.toFixed(d < 10 ? 1 : 0) + " mi away";
+        var existing = $(".distance-badge", card);
+        if (existing) {
+          existing.textContent = text;
         } else {
-          var existing = $(".distance-badge", card);
-          if (existing) existing.textContent = d.toFixed(d < 10 ? 1 : 0) + " mi away";
+          var title = $(".listicle__title", card);
+          if (title && title.parentNode) {
+            title.parentNode.insertBefore(el("span", "distance-badge", text), title.nextSibling);
+          }
         }
       });
 
@@ -945,6 +948,9 @@
           parent.appendChild(card);
           var rank = $(".listicle__rank", card);
           if (rank) rank.textContent = String(i + 1);
+          /* Keep the number a screen reader hears in step with the new order. */
+          var spoken = $(".listicle__title .visually-hidden", card);
+          if (spoken) spoken.textContent = "Number " + (i + 1) + ": ";
         });
       return placed;
     };
