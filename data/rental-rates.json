@@ -1,0 +1,141 @@
+{
+  "_readme": "Researched rental rates behind the /costs/ region pages. Every figure here was read off a named shop's own public rate card or a booking listing, and carries the source it came from and the date it was checked. A region only gets a cost page if it appears below, so nothing is ever published as a price unless it can be traced back to a real quote. Update a figure and the page follows on the next build.",
+  "_howToAdd": "Add a region key matching the region name in data/listings.json exactly. Give it ebike and/or scooter blocks. Each block needs: points (the quotes), plus optional deposit and notes. Delete a block and that page stops being built.",
+  "checked": "2026-09-08",
+  "regions": {
+    "The Florida Keys": {
+      "ebike": {
+        "typical": "$40 - $60 per day",
+        "points": [
+          { "what": "Full day, pedal-assist cruiser", "price": "$40", "shop": "We Cycle, Key West", "source": "https://wecyclekw.com/electric-bikes" },
+          { "what": "Full day", "price": "$60", "shop": "Florida Keys Electric Bikes", "source": "https://www.keywesttourist.com/rent-golf-carts-scooters-bicycles/florida-keys-electric-bikes/" },
+          { "what": "Three days", "price": "$125", "shop": "Florida Keys Electric Bikes", "source": "https://www.keywesttourist.com/rent-golf-carts-scooters-bicycles/florida-keys-electric-bikes/" },
+          { "what": "Seven days", "price": "$180", "shop": "Florida Keys Electric Bikes", "source": "https://www.keywesttourist.com/rent-golf-carts-scooters-bicycles/florida-keys-electric-bikes/" }
+        ],
+        "notes": "The Keys are the one part of Florida where a week costs barely three times a day. Key West is compact and parking is punishing, so shops price for the whole stay rather than the afternoon."
+      },
+      "scooter": {
+        "typical": "$35 - $55 per day",
+        "points": [
+          { "what": "Single-seat scooter, per day", "price": "$35", "shop": "Key West operators", "source": "https://www.coolkeywest.com/tours/scooter-rentals/" },
+          { "what": "Two-seat scooter, per day", "price": "$55", "shop": "Key West operators", "source": "https://www.coolkeywest.com/tours/scooter-rentals/" },
+          { "what": "Single-seat, per week", "price": "$150", "shop": "Key West operators", "source": "https://www.coolkeywest.com/tours/scooter-rentals/" }
+        ],
+        "notes": "Two-seaters cost about half again as much as a single and sell out first in season. A week costs a little over four days, so anything past four nights should be booked as a weekly."
+      }
+    },
+    "Greater Miami & Fort Lauderdale": {
+      "ebike": {
+        "typical": "$25 - $40 per day",
+        "points": [
+          { "what": "Entry e-bike rate", "price": "from $20", "shop": "Unlimited Biking, Miami Beach", "source": "https://unlimitedbiking.com/rentals/miami-beach-electric-bike-rentals/" },
+          { "what": "E-bike", "price": "$29.99", "shop": "Mr Bikes Rental, Miami Beach", "source": "https://mrbikesrental.com/" },
+          { "what": "Private hire, per hour", "price": "$25", "shop": "Peer-to-peer listings, Miami", "source": "https://friendwitha.com/rentals/electric-bikes/miami-fl/" }
+        ],
+        "notes": "Miami Beach is the most competitive rental market in the state and the cheapest place in Florida to put a tourist on an e-bike. The trade-off is that headline rates are usually a few hours rather than 24."
+      },
+      "scooter": {
+        "typical": "$40 per day, $150 per week",
+        "points": [
+          { "what": "Per day", "price": "from $40", "shop": "Miami scooter listings", "source": "https://friendwitha.com/rentals/scooters/miami-fl-us/" },
+          { "what": "Per week", "price": "$150", "shop": "Miami scooter listings", "source": "https://friendwitha.com/rentals/scooters/miami-fl-us/" },
+          { "what": "Per month", "price": "$400", "shop": "Miami scooter listings", "source": "https://friendwitha.com/rentals/scooters/miami-fl-us/" }
+        ],
+        "notes": "The monthly rate is the giveaway that this is a commuter market as much as a holiday one - $400 a month is priced against a car park space, not against a day at the beach."
+      }
+    },
+    "Emerald Coast & 30A": {
+      "ebike": {
+        "typical": "$65 - $95 per day",
+        "points": [
+          { "what": "Four hours", "price": "$45", "shop": "30A Bike Rentals", "source": "https://30abikerentals.net/30a-electric-bike-rentals/" },
+          { "what": "Full day, 9am - 5pm", "price": "$65", "shop": "30A Bike Rentals", "source": "https://30abikerentals.net/30a-electric-bike-rentals/" },
+          { "what": "All-day e-bike", "price": "$95", "shop": "Glow Paddle, 30A", "source": "https://glowpaddle.com/electric-bike-rental-on-30a/" },
+          { "what": "Standard beach cruiser, per week", "price": "$65", "shop": "Fun Pug Bike Rentals", "source": "https://funpugbikerentals.com/rental-rates/" }
+        ],
+        "notes": "30A is the most expensive stretch of Florida to rent an e-bike, and the gap to a plain cruiser is stark: a week on a pedal bike costs what one day on an e-bike does. Nearly every shop here delivers to the house, which is why so few of them quote an hourly rate."
+      }
+    },
+    "Southwest Florida": {
+      "ebike": {
+        "typical": "$89 half day, $149 full day",
+        "points": [
+          { "what": "Half day", "price": "$89", "shop": "Bike Ride USA, Naples", "source": "https://www.bikerideusa.com/electricbikes" },
+          { "what": "Full day", "price": "$149", "shop": "Bike Ride USA, Naples", "source": "https://www.bikerideusa.com/electricbikes" },
+          { "what": "Standard bike, per day", "price": "$21", "shop": "Finnimore's, Sanibel", "source": "https://finnimores.com/pages/bikes-trikes-tandems" }
+        ],
+        "notes": "Naples prices at the top of the state, and the islands price low: a standard bike on Sanibel costs a fraction of an e-bike in Naples. Which side of that gap you land on depends more on the town than the bike."
+      },
+      "scooter": {
+        "typical": "from $39 per hour",
+        "points": [
+          { "what": "49cc scooter, per hour", "price": "from $39", "shop": "Sun and Fun Sport Rentals, Fort Myers Beach", "source": "https://fmbsunandfunsportrentals.com/scooters/" }
+        ],
+        "notes": "Southwest Florida scooter hire is mostly an hourly, beach-day business rather than a weekly one, and the shops that do it cluster on Fort Myers Beach."
+      }
+    },
+    "Tampa Bay": {
+      "ebike": {
+        "typical": "$50 - $85 per day",
+        "points": [
+          { "what": "Two-hour ride", "price": "$50", "shop": "Tampa Bay eBikes", "source": "https://www.tampabayebikes.com/tampa-bay-bike-rentals-florida-rental-information/" },
+          { "what": "Full day", "price": "$75", "shop": "Tampa Bay eBikes", "source": "https://www.tampabayebikes.com/tampa-bay-bike-rentals-florida-rental-information/" },
+          { "what": "Per day", "price": "from $50", "shop": "St. Petersburg listings", "source": "https://friendwitha.com/rentals/electric-bikes/st-petersburg-fl/" },
+          { "what": "Per week", "price": "$175", "shop": "St. Petersburg listings", "source": "https://friendwitha.com/rentals/electric-bikes/st-petersburg-fl/" },
+          { "what": "Per week", "price": "$300", "shop": "Clearwater listings", "source": "https://friendwitha.com/rentals/electric-bikes/clearwater-fl/" }
+        ],
+        "notes": "Two hours at $50 against a full day at $75 is the clearest example in the state of why the short rental is poor value. The weekly spread is wide - St. Petersburg at $175 and Clearwater Beach at $300 for the same seven days."
+      },
+      "scooter": {
+        "typical": "$30 per day, $122 per week",
+        "points": [
+          { "what": "Per day", "price": "from $30", "shop": "Clearwater scooter listings", "source": "https://friendwitha.com/rentals/scooters/clearwater-fl/" },
+          { "what": "Per week", "price": "$122", "shop": "Clearwater scooter listings", "source": "https://friendwitha.com/rentals/scooters/clearwater-fl/" },
+          { "what": "Per month", "price": "$280", "shop": "Clearwater scooter listings", "source": "https://friendwitha.com/rentals/scooters/clearwater-fl/" }
+        ],
+        "notes": "Tampa Bay is the cheapest scooter market we found in Florida, and the only one where the weekly rate lands close to four days rather than five."
+      }
+    },
+    "Orlando & Central Florida": {
+      "ebike": {
+        "typical": "$45 - $75 per day",
+        "points": [
+          { "what": "Per hour", "price": "$30", "shop": "E Power Adventures", "source": "https://epoweradventures.com/products/e-fat-step" },
+          { "what": "Half day, four hours", "price": "$60", "shop": "E Power Adventures", "source": "https://epoweradventures.com/products/e-fat-step" },
+          { "what": "24 hours", "price": "$75", "shop": "E Power Adventures", "source": "https://epoweradventures.com/products/e-fat-step" },
+          { "what": "Standard bike, per day", "price": "$45", "shop": "West Orange Trail rentals", "source": "https://www.orlandobikerental.com/bike-rentals/" }
+        ],
+        "notes": "Central Florida is a trail market rather than a beach one, and it prices like one: the day rate barely exceeds the half day because shops expect you to be out on the West Orange Trail from morning to evening."
+      }
+    },
+    "Daytona & The Space Coast": {
+      "ebike": {
+        "typical": "$29 - $100 per day",
+        "points": [
+          { "what": "Full-day e-bike", "price": "$100", "shop": "New Smyrna Beach operators", "source": "https://www.tripadvisor.com/AttractionProductReview-g34471-d24946727-Full_Day_Electric_Bike_Rental-New_Smyrna_Beach_Florida.html" },
+          { "what": "All-day standard bike", "price": "from $29", "shop": "Cocoa Beach operators", "source": "https://www.tripadvisor.com/AttractionProductReview-g34172-d19440745-Electric_Bike_Rental_in_Daytona_Beach-Daytona_Beach_Florida.html" }
+        ],
+        "notes": "The widest spread of any region, and it is not really a spread: New Smyrna Beach sells a full-day e-bike experience while Cocoa Beach sells a plain bike for the day. Read carefully which one you are booking."
+      }
+    },
+    "Palm Beaches & Treasure Coast": {
+      "ebike": {
+        "typical": "from $45 per day",
+        "points": [
+          { "what": "E-bike", "price": "from $45", "shop": "Bikes Palm Beach", "source": "https://bikespalmbeach.com/e-bikes/" }
+        ],
+        "notes": "A smaller and quieter rental market than Miami an hour south, built around the Lake Trail and the island rather than around tourists arriving without a car."
+      }
+    },
+    "Sarasota & Bradenton": {
+      "ebike": {
+        "typical": "$45 - $100 per day",
+        "points": [
+          { "what": "Per day, delivered", "price": "from $45", "shop": "Anna Maria Island operators", "source": "https://annamariaislandbeachrentals.com/blog/bike-rentals-anna-maria-island" },
+          { "what": "Premium e-bike, delivered", "price": "from $100", "shop": "Treads Bike Shack", "source": "https://treadsbikeshack.com/" }
+        ],
+        "notes": "Almost everything here is delivered to the rental house rather than collected from a counter, which is why the cheap end starts higher than Tampa Bay an hour north."
+      }
+    }
+  }
+}

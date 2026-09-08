@@ -14,7 +14,7 @@ import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, loadRegionMap, loadFloridaCities,
-  buildNearbyCityPages, buildHoursPages, SEARCH_QUERIES, CONTENT_HUBS,
+  buildNearbyCityPages, buildHoursPages, loadRentalRates, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import {
@@ -28,6 +28,7 @@ import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage, shopCategoryPage } from "./src/pages/shop.mjs";
+import { buildCostPages, regionCostPage } from "./src/pages/costs.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -91,6 +92,9 @@ index.nearbyTowns = nearbyTowns;
 // Opening-hours cuts of each town's list: what is open now, and what stays open late.
 const hoursPages = buildHoursPages(index);
 index.hoursPages = hoursPages;
+// Region cost pages, built only where we hold researched rates for that region.
+const costPages = buildCostPages(index, loadRentalRates());
+index.costPages = costPages;
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, regionMapData };
 
 /* home */
@@ -287,6 +291,22 @@ for (const post of blog) {
     lastmod: isoDate(post.updated || post.date),
     group: "blog",
     search: { u: post.url, t: post.title, s: "Guide", d: post.description, k: `${post.title} ${(post.tags || []).join(" ")} ${post.category}`.toLowerCase(), w: 7 },
+  });
+}
+
+for (const entry of costPages) {
+  write(entry.url, regionCostPage(site, entry, ctx), {
+    priority: 0.7,
+    changefreq: "monthly",
+    group: "costs",
+    search: {
+      u: entry.url,
+      t: entry.title,
+      s: "Costs",
+      d: `What renting ${entry.kind === "ebike" ? "an e-bike" : "a scooter"} costs in ${entry.region.name}: ${entry.rates.typical}.`,
+      k: `${entry.region.name} ${entry.kind} rental cost price how much rates`.toLowerCase(),
+      w: 7,
+    },
   });
 }
 

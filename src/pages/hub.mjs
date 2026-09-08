@@ -86,6 +86,8 @@ function tocFor(headings) {
 
 export function contentHub(site, hub, entries, ctx) {
   const crumbs = [HOME_CRUMB, { href: `/${hub.slug}/`, label: hub.label }];
+  // Region cost pages live in this hub too, below the written guides.
+  const regional = hub.slug === "costs" ? ctx.index.costPages || [] : [];
   const hero = photoFor(hub.slug);
   const extra = secondPhotoFor(hub.slug);
 
@@ -101,6 +103,25 @@ ${pageHero({
     ${banner(hero, { alt: `${hub.h1} - ${hero.alt}` })}
   </div>
 </section>
+
+${
+  regional.length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>What it costs where you are going</h2>
+    <p class="muted">Researched rates for ${esc(String(regional.length))} ${plural(
+        regional.length,
+        "region"
+      )}, each one quoting named shops with the rate card it came from.</p>
+    ${linkCloud(
+      [...regional]
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((entry) => ({ href: entry.url, label: entry.title, note: `- ${entry.rates.typical}` }))
+    )}
+  </div>
+</section>`
+    : ""
+}
 
 <section class="section section--tint">
   <div class="wrap">

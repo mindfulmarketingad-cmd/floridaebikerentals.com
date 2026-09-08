@@ -183,6 +183,7 @@ export function findRegion(site, region, { index, blog, shop }) {
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: region.url, label: region.name }];
   const townNames = region.cities.slice(0, 6).map((c) => c.name);
   const nearbyInRegion = (index.nearbyTowns || []).filter((t) => t.region === region.name);
+  const costPagesHere = (index.costPages || []).filter((c) => c.region.name === region.name);
 
   const faqs = [
     {
@@ -260,6 +261,16 @@ ${pageHero({
         label: `${town.name} e-bike rentals`,
         count: town.nearest.length,
       }))
+    )}`
+        : ""
+    }
+    ${
+      costPagesHere.length
+        ? `<h3 class="mt-3">What it costs in ${esc(region.name)}</h3>
+    ${linkCloud(
+      [...costPagesHere]
+        .sort((a, b) => a.title.localeCompare(b.title, "en"))
+        .map((c) => ({ href: c.url, label: c.title, note: `- ${c.rates.typical}` }))
     )}`
         : ""
     }

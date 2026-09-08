@@ -520,6 +520,14 @@ export const NEARBY_RADIUS_MILES = 25;
 const NEARBY_MIN_SHOPS = 3;
 const NEARBY_MAX_SHOPS = 12;
 
+/** Researched rental rates behind the /costs/ region pages. */
+export function loadRentalRates() {
+  const file = join(ROOT, "data", "rental-rates.json");
+  if (!existsSync(file)) return null;
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  return raw && raw.regions ? raw : null;
+}
+
 export function loadFloridaCities() {
   const file = join(ROOT, "data", "source", "florida-cities.json");
   if (!existsSync(file)) return [];
