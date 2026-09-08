@@ -132,7 +132,19 @@ def main():
     regions.sort(key=lambda r: r["name"])
 
     json.dump(
-        {"width": WIDTH + GUTTER, "height": height, "regions": regions},
+        {
+            "width": WIDTH + GUTTER,
+            "height": height,
+            # The projection itself, so the browser can place a coordinate on
+            # the drawing: x = (lng - minLng) * k * scale, y = (maxLat - lat) * scale.
+            "projection": {
+                "minLng": round(min_lng, 6),
+                "maxLat": round(max_lat, 6),
+                "k": round(k, 6),
+                "scale": round(scale, 4),
+            },
+            "regions": regions,
+        },
         open(OUT, "w"), separators=(",", ":"),
     )
     print(f"{OUT}: {os.path.getsize(OUT)} bytes, {len(regions)} regions, "

@@ -28,6 +28,13 @@
   --surface: #f7f9ff;
 
   --ok: #10804f;
+
+  /* the visitor's own region on the Florida map */
+  --fl-here: #34c17b;
+  --fl-here-dark: #1f9e5f;
+  --fl-here-soft: #e8f9f0;
+  --fl-here-line: #a9e6c6;
+  --fl-here-ink: #0d6b3f;
   --warn: #b4530c;
 
   --radius-s: 8px;
@@ -1309,3 +1316,20 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 /* A pin for a shop the list is currently filtering out. */
 .map__pin.is-off { z-index: 3; }
 .map__pin.is-off span { background: var(--ink-mute); opacity: .45; box-shadow: none; }
+
+/* ---------- the visitor's own region, found from their location ---------- */
+.fl-map__here {
+  margin: 0 0 1rem; padding: .7rem 1rem; border-radius: var(--radius);
+  background: var(--fl-here-soft); border: 1px solid var(--fl-here-line);
+  color: var(--fl-here-ink); font-weight: 700; font-size: .95rem;
+}
+.fl-map__here a { color: inherit; }
+.fl-map__region.is-here .fl-map__shape { fill: var(--fl-here); }
+.fl-map__region.is-here .fl-map__label { fill: var(--fl-here-ink); }
+.fl-map__region.is-here .fl-map__leader { stroke: var(--fl-here); }
+.fl-map__region.is-here:hover .fl-map__shape { fill: var(--fl-here-dark); }
+@media (max-width: 700px) {
+  .fl-map__region.is-here .fl-map__badge circle { fill: var(--fl-here-dark); }
+  .fl-map__key a.is-here { border-color: var(--fl-here); background: var(--fl-here-soft); }
+  .fl-map__key a.is-here .fl-map__key-num { background: var(--fl-here-dark); }
+}

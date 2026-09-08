@@ -346,7 +346,9 @@ export function regionMap(map, regions) {
       // state should never render with a hole in it.
       if (!region) return `<g class="fl-map__region fl-map__region--empty">${inner}</g>`;
       const label = `${region.name} - ${region.listings.length} ${plural(region.listings.length, "rental shop")}`;
-      return `<a class="fl-map__region" href="${attr(region.url)}" tabindex="-1">
+      return `<a class="fl-map__region" href="${attr(region.url)}" tabindex="-1" data-region="${attr(
+        region.name
+      )}" data-shops="${attr(String(region.listings.length))}">
       <title>${esc(label)}</title>
       ${inner}
     </a>`;
@@ -362,7 +364,7 @@ export function regionMap(map, regions) {
       const inner = `<span class="fl-map__key-num">${i + 1}</span><span>${esc(shape.name)}</span>`;
       return `<li>${
         region
-          ? `<a href="${attr(region.url)}">${inner}<span class="fl-map__key-count">${esc(
+          ? `<a href="${attr(region.url)}" data-region="${attr(region.name)}">${inner}<span class="fl-map__key-count">${esc(
               String(region.listings.length)
             )}</span></a>`
           : `<span class="fl-map__key-off">${inner}</span>`
@@ -370,9 +372,18 @@ export function regionMap(map, regions) {
     })
     .join("");
 
-  return `<div class="fl-map">
+  // The projection travels with the drawing so the client can turn a
+  // latitude and longitude into a point on it and ask the paths themselves
+  // which region contains it - the highlight can then never disagree with
+  // the shape it is drawn on.
+  const proj = map.projection || {};
+  return `<div class="fl-map" data-fl-map>
+  <p class="fl-map__here" data-fl-here hidden></p>
   <div class="fl-map__frame">
-    <svg class="fl-map__svg" viewBox="0 0 ${attr(map.width)} ${attr(map.height)}" aria-hidden="true" focusable="false">
+    <svg class="fl-map__svg" viewBox="0 0 ${attr(map.width)} ${attr(map.height)}" aria-hidden="true" focusable="false"
+      data-min-lng="${attr(proj.minLng)}" data-max-lat="${attr(proj.maxLat)}" data-k="${attr(proj.k)}" data-scale="${attr(
+    proj.scale
+  )}">
       ${body}
     </svg>
   </div>

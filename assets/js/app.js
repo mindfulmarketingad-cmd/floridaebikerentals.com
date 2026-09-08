@@ -273,6 +273,86 @@
     else window.addEventListener("load", autoLocate, { once: true });
   }
 
+  /* ------------------------------------- highlight the visitor's region */
+  /* The map carries its own projection, so a latitude and longitude becomes a
+     point on the drawing and the region paths themselves answer which one
+     contains it. No second permission prompt: the hero above asks first and
+     the browser serves this from the same fix, and a visitor who declined
+     there is not asked again (same session key). */
+  var flMap = $("[data-fl-map]");
+  if (flMap && navigator.geolocation) {
+    var flSvg = $(".fl-map__svg", flMap);
+    var flHere = $("[data-fl-here]", flMap);
+    var flRegions = $$(".fl-map__region[data-region]", flMap);
+
+    var flProj = flSvg && {
+      minLng: parseFloat(flSvg.getAttribute("data-min-lng")),
+      maxLat: parseFloat(flSvg.getAttribute("data-max-lat")),
+      k: parseFloat(flSvg.getAttribute("data-k")),
+      scale: parseFloat(flSvg.getAttribute("data-scale")),
+    };
+    var flUsable = flProj && [flProj.minLng, flProj.maxLat, flProj.k, flProj.scale].every(isFinite);
+
+    /* 1 drawing unit is a little under half a mile, so this is roughly a
+       hundred miles: far enough to catch someone just over the state line or
+       a mile offshore, close enough that a visitor in another state gets no
+       highlight rather than a wrong one. */
+    var FL_NEAR_LIMIT = 220;
+
+    function flRegionAt(x, y) {
+      var point = flSvg.createSVGPoint();
+      point.x = x; point.y = y;
+      var nearest = null, nearestDist = Infinity;
+      for (var i = 0; i < flRegions.length; i++) {
+        var shape = $(".fl-map__shape", flRegions[i]);
+        var circle = $(".fl-map__badge circle", flRegions[i]);
+        if (shape && shape.isPointInFill && shape.isPointInFill(point)) return flRegions[i];
+        if (circle) {
+          var dx = x - parseFloat(circle.getAttribute("cx"));
+          var dy = y - parseFloat(circle.getAttribute("cy"));
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < nearestDist) { nearestDist = dist; nearest = flRegions[i]; }
+        }
+      }
+      return nearestDist <= FL_NEAR_LIMIT ? nearest : null;
+    }
+
+    function flShowRegion(pos) {
+      if (!flUsable) return;
+      var x = (pos.coords.longitude - flProj.minLng) * flProj.k * flProj.scale;
+      var y = (flProj.maxLat - pos.coords.latitude) * flProj.scale;
+      var match = flRegionAt(x, y);
+      if (!match) return;
+
+      match.classList.add("is-here");
+      var name = match.getAttribute("data-region");
+      var row = $('.fl-map__key a[data-region="' + (window.CSS && CSS.escape ? CSS.escape(name) : name) + '"]', flMap);
+      if (row) row.classList.add("is-here");
+
+      if (flHere) {
+        flHere.textContent = "";
+        flHere.appendChild(d.createTextNode("Looks like you are in "));
+        var link = el("a", null, name);
+        link.href = match.getAttribute("href");
+        flHere.appendChild(link);
+        flHere.appendChild(d.createTextNode(
+          " - " + match.getAttribute("data-shops") + " rental shops. It is highlighted on the map."
+        ));
+        flHere.hidden = false;
+      }
+    }
+
+    var flDismissed = false;
+    try { flDismissed = window.sessionStorage.getItem("fer:geo-dismissed") === "1"; } catch (err) { flDismissed = false; }
+    if (!flDismissed) {
+      window.setTimeout(function () {
+        navigator.geolocation.getCurrentPosition(flShowRegion, function () {}, {
+          enableHighAccuracy: false, timeout: 12000, maximumAge: 600000,
+        });
+      }, 300);
+    }
+  }
+
   /* -------------------------------------------- open-now hours filter */
   /* The one list on the site whose answer depends on when it is read. Each
      card carries its parsed week and its own timezone, so the work here is
