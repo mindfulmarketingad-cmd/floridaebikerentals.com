@@ -386,6 +386,23 @@ export function findCity(site, city, { index, listings, blog, shop }) {
 
   const faqs = [
     {
+      q: `Where are the closest electric bike rentals near ${city.name}?`,
+      a: near.length
+        ? `<p>Outside ${esc(city.name)} itself, the nearest towns with their own shops are ${esc(
+            commaList(
+              near.slice(0, 3).map((c) => `${c.name} (${Math.round(c.distance)} miles)`)
+            )
+          )}. All of them are a short drive, and several ${esc(
+            city.name
+          )} visitors end up renting there simply because a particular shop delivers. The
+          neighbouring-town shops are listed further down this page.</p>`
+        : `<p>${esc(city.name)} is the only town in this stretch of the directory with shops of its
+          own. Browse the whole region on our
+          <a href="/find/ebike-rentals-in-${attr(city.regionSlug)}/">${esc(
+            city.region
+          )} page</a> to see what else is within driving distance.</p>`,
+    },
+    {
       q: `Where can I rent an e-bike in ${city.name}, Florida?`,
       a: `<p>${
         local.length === 1
@@ -536,7 +553,8 @@ ${adSlot(site, "")}
     )}
     ${
       nearbyPool.length
-        ? `<h3 class="mt-3">Shops in neighbouring towns</h3>
+        ? `<h3 class="mt-3">Electric bike rentals near ${esc(city.name)}</h3>
+    <p class="muted">The closest shops outside ${esc(city.name)} itself, in the towns next door.</p>
     ${linkCloud(
       [...nearbyPool]
         .sort((a, b) => a.name.localeCompare(b.name, "en"))
@@ -637,6 +655,22 @@ export function findCityTopic(site, ctPage, { index, shop }) {
             )}${best.rating ? ` at ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""}.`
       } Every listing shows the address, phone number and opening hours.</p>`,
     },
+    ...(ctPage.key === "scooters"
+      ? [
+          {
+            q: `Is a motorized bike rental the same thing as a scooter rental in ${city.name}?`,
+            a: `<p>People search for "motorized bike rentals" meaning three different machines, and the
+            difference matters at the counter. A pedal-assist e-bike is legally a bicycle in Florida.
+            A stand-up electric scooter is treated much the same way. A moped or gas scooter - the kind
+            with a step-through frame and a seat - is a motor vehicle, and that is where a driver's
+            licence, registration and insurance come in.</p>
+            <p>The shops on this page rent scooters or mopeds alongside e-bikes, so most of them can put
+            you on whichever one you actually meant. Say which you want when you call: asking for a
+            "motorized bike" will get you a different vehicle at different shops. For the pedal-assist
+            kind, see <a href="${attr(city.url)}">e-bike rentals in ${esc(city.name)}</a>.</p>`,
+          },
+        ]
+      : []),
     {
       q: `Do I need a licence for this in Florida?`,
       a: ctPage.key === "golf-carts"
