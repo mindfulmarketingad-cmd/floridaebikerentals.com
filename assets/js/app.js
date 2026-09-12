@@ -36,6 +36,24 @@
     });
   }
 
+  /* ------------------------------------------------ promo banner */
+  var promo = $("[data-promo]");
+  if (promo) {
+    var PROMO_KEY = "fer:promo-dismissed";
+    try {
+      if (window.sessionStorage.getItem(PROMO_KEY) === "1") promo.hidden = true;
+    } catch (err) { /* private mode: just show it */ }
+
+    var promoClose = $("[data-promo-close]", promo);
+    if (promoClose) {
+      promoClose.addEventListener("click", function () {
+        promo.hidden = true;
+        // Session-scoped, so the offer returns on the visitor's next visit.
+        try { window.sessionStorage.setItem(PROMO_KEY, "1"); } catch (err) { /* nothing to do */ }
+      });
+    }
+  }
+
   /* ------------------------------------------------- image fallbacks */
   $$("img[data-fallback]").forEach(function (img) {
     img.addEventListener("error", function () {

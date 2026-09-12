@@ -48,6 +48,10 @@ Third parties on this site may set cookies or use similar identifiers:
   scroll to it, and your browser requests it directly from Ride with GPS, which receives your IP
   address and may set its own cookies under its own privacy policy.
 - **Listing photographs** are loaded from Google's image servers for the same reason.
+- **Affiliate links**, including the Amazon links in our promotional banner and shop pages, take you
+  to the retailer's own site. Following one means that retailer receives your request and may set
+  its own cookies under its own privacy policy. We are not sent any personal information about what
+  you then view or buy, only aggregate commission reporting.
 
 ## Advertising and Google AdSense
 

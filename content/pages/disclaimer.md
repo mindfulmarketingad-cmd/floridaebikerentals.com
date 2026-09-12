@@ -70,6 +70,17 @@ commission if you book or buy after clicking, at no additional cost to you. Wher
 it does not change how a business is ranked, described or whether it is listed. Editorial ordering
 is independent of any commercial relationship.
 
+**Amazon Associates.** Florida Ebike Rentals is a participant in the Amazon Services LLC Associates
+Program, an affiliate advertising program designed to provide a means for sites to earn advertising
+fees by advertising and linking to Amazon.com. As an Amazon Associate we earn from qualifying
+purchases. Promotional banners and product links on this site that point to Amazon are affiliate
+links and are labelled as advertising where they appear.
+
+**Prices and offers.** Any discount, sale or price shown in a promotion on this site reflects what
+the retailer was advertising at the time we published it. Retailers change prices without notice,
+and we do not control them. Always check the current price, the seller and the return terms on the
+retailer's own page before you buy.
+
 ## External links
 
 Links to third-party websites are provided for convenience. We do not control those sites and are

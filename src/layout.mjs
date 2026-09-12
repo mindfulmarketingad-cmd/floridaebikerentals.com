@@ -91,6 +91,34 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
 
 /* ------------------------------------------------------------- pieces */
 
+/**
+ * Sitewide promotional banner, configured in data/site.json.
+ *
+ * The link is an outbound affiliate link, so it carries rel="sponsored
+ * nofollow noopener" and an inline disclosure, which the FTC and the Amazon
+ * Associates agreement both require to sit next to the promotion itself
+ * rather than only on a policy page.
+ */
+function promoBanner(site) {
+  const promo = site.promoBanner;
+  if (!promo || !promo.enabled || !promo.text) return "";
+  const href = String(promo.href || "");
+  if (!/^https?:\/\//i.test(href) || /["<>\s]/.test(href)) return "";
+
+  return `<aside class="promo" id="promo-banner"${promo.dismissible ? " data-promo" : ""}>
+  <a class="promo__link" href="${attr(href)}" rel="sponsored nofollow noopener" target="_blank">
+    <span class="promo__text">${esc(promo.text)}</span>
+    ${promo.cta ? `<span class="promo__cta">${esc(promo.cta)}</span>` : ""}
+  </a>
+  ${promo.disclosure ? `<span class="promo__disclosure">${esc(promo.disclosure)}</span>` : ""}
+  ${
+    promo.dismissible
+      ? `<button class="promo__close" type="button" data-promo-close aria-label="Dismiss this offer">&times;</button>`
+      : ""
+  }
+</aside>`;
+}
+
 function header(current) {
   const items = HEADER_LINKS.map((link) => {
     const active = link.href === current || (link.href !== "/" && current.startsWith(link.href));
@@ -148,6 +176,9 @@ function footer(site, extras) {
       with the rental shop.</p>
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are
       refreshed periodically. Report an error on our <a href="/contact/">contact page</a>.</p>
+      <p>${esc(site.name)} is a participant in the Amazon Services LLC Associates Program. As an
+      Amazon Associate we earn from qualifying purchases. See our
+      <a href="/disclaimer/">disclaimer</a> for full details.</p>
     </div>
   </div>
 </footer>`;
@@ -242,6 +273,7 @@ ${adsenseLoader(site)}
 </head>
 <body${bodyAttrs ? ` ${bodyAttrs}` : ""} data-index="/data/listings.json">
 <a class="skip-link" href="#main">Skip to content</a>
+${promoBanner(site)}
 ${header(path)}
 <main id="main">
 ${body}

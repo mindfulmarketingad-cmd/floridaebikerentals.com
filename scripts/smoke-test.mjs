@@ -118,6 +118,28 @@ const rentNow=await page.$eval('a.btn[href="/partners/"]',e=>e.textContent.trim(
 ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /partners/`, radius==="0px"&&/Rent Now/i.test(rentNow));
 await page.close();
 
+// 4g. sitewide promo banner: present, correctly attributed, dismissible
+const promoCtx=await b.newContext({viewport:{width:1200,height:900}});
+page=await promoCtx.newPage();
+await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(300);
+const promo=await page.evaluate(()=>{
+  const p=document.getElementById("promo-banner");
+  const a=p&&p.querySelector(".promo__link");
+  return p?{text:p.querySelector(".promo__text").textContent.trim(), href:a.href, rel:a.rel,
+            target:a.target, disclosure:!!p.querySelector(".promo__disclosure"),
+            aboveHeader:p.getBoundingClientRect().top<document.querySelector(".site-header").getBoundingClientRect().top}:null;
+});
+ok(`promo banner "${promo&&promo.text}" links out with rel="${promo&&promo.rel}"`,
+   promo&&/amzn\.to/.test(promo.href)&&/sponsored/.test(promo.rel)&&/nofollow/.test(promo.rel)
+   &&promo.target==="_blank"&&promo.disclosure&&promo.aboveHeader);
+await page.click("[data-promo-close]");
+await page.goto("http://localhost:8099/find/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(300);
+const dismissed=await page.evaluate(()=>document.getElementById("promo-banner").hidden);
+ok("promo banner stays dismissed across pages in a session", dismissed);
+await page.close(); await promoCtx.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

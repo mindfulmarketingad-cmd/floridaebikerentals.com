@@ -117,6 +117,12 @@ matters for a listing that already ranks, add a redirect in your host config.
   `noindex` so an empty page is never submitted to Google. It becomes indexable automatically as
   soon as the first product is added. `affiliateDisclosure` in the same file is printed on every
   shop page.
+- **Promo banner** — `data/site.json` → `promoBanner`. Set `enabled` to `false` to pull it from
+  every page, or edit `text`, `cta`, `href` and `disclosure` in place. The link is rendered
+  `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is not http(s) is dropped
+  at render. `dismissible` adds a close button; a dismissal is remembered for that browser session
+  only, so the offer returns on the visitor's next visit. The banner sits above the sticky header
+  and scrolls away with the page.
 - **Site settings** — `data/site.json` holds the domain, contact email, AdSense publisher ID
   and the optional `contactFormEndpoint`. Set that endpoint to a form handler URL and the
   contact form posts to it; leave it empty and the form falls back to opening the visitor's
