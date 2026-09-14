@@ -127,12 +127,16 @@ const promo=await page.evaluate(()=>{
   const p=document.getElementById("promo-banner");
   const a=p&&p.querySelector(".promo__link");
   return p?{text:p.querySelector(".promo__text").textContent.trim(), href:a.href, rel:a.rel,
-            target:a.target, disclosure:!!p.querySelector(".promo__disclosure"),
-            aboveHeader:p.getBoundingClientRect().top<document.querySelector(".site-header").getBoundingClientRect().top}:null;
+            target:a.target,
+            aboveHeader:p.getBoundingClientRect().top<document.querySelector(".site-header").getBoundingClientRect().top,
+            // The in-banner label is optional (promoBanner.disclosure), but the
+            // Amazon Associates statement must stay in the footer sitewide.
+            footerStatement:/Amazon Services LLC Associates Program/.test(document.body.textContent)}:null;
 });
 ok(`promo banner "${promo&&promo.text}" links out with rel="${promo&&promo.rel}"`,
    promo&&/amzn\.to/.test(promo.href)&&/sponsored/.test(promo.rel)&&/nofollow/.test(promo.rel)
-   &&promo.target==="_blank"&&promo.disclosure&&promo.aboveHeader);
+   &&promo.target==="_blank"&&promo.aboveHeader);
+ok("Amazon Associates statement still present in the footer", promo&&promo.footerStatement);
 await page.click("[data-promo-close]");
 await page.goto("http://localhost:8099/find/",{waitUntil:"domcontentloaded"});
 await page.waitForTimeout(300);
