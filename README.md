@@ -23,6 +23,7 @@ zero-dependency Node build script.
 | Blog hub + guides | `/blog/`, `/blog/<slug>/` | 14 |
 | Trails hub + guides | `/trails/`, `/trails/<slug>/` | 5 |
 | Costs hub + guides | `/costs/`, `/costs/<slug>/` | 5 |
+| Tours hub | `/tours/` | 1 |
 | Shop hub + products | `/shop/`, `/shop/<slug>/` | 1 + products |
 | Author profiles | `/authors/`, `/authors/<slug>/` | 4 |
 | Search hub + queries | `/search/`, `/search/<query>/` | 31 |
@@ -123,6 +124,28 @@ matters for a listing that already ranks, add a redirect in your host config.
   at render. `dismissible` adds a close button; a dismissal is remembered for that browser session
   only, so the offer returns on the visitor's next visit. The banner sits above the sticky header
   and scrolls away with the page.
+- **Tours** — `data/tours.json` holds the bookable Viator experiences listed at `/tours/`. Only
+  `name` and `url` are required; `location`, `region`, `price`, `rating`, `reviews`, `duration`,
+  `summary`, `features[]` and `image` all render when present and are simply omitted when absent.
+  `priceChecked` is shown to readers, since Viator prices move. Mark an entry `"pinned": true` to
+  keep it through a re-import.
+
+  Populate it from the Viator API:
+
+  ```bash
+  VIATOR_API_KEY=your-key npm run import:tours
+  VIATOR_API_KEY=your-key npm run import:tours -- --dry-run --limit 40
+  ```
+
+  The importer walks Florida destinations, keeps products whose title or description mentions an
+  e-bike, appends the affiliate parameters from `site.json` → `viator.url` to every product URL,
+  ranks by rating weighted against review volume, and refuses to write a list shorter than `--min`
+  (default 25) so a partial API response cannot silently shrink the page. **The key is read from the
+  environment and never written to disk** — do not put it in a committed file.
+
+  Filters on the page build themselves from the data: a facet only appears when it can actually
+  narrow the list, so region, max price, max length and feature filters surface as the catalogue
+  grows. Sorting covers our ranking, price both ways, rating, review count and length.
 - **Viator booking CTA** — `data/site.json` → `viator`. Holds the affiliate URL, the button label
   and the disclosure. `enabled: false` removes every booking CTA on the site. The link renders
   `rel="sponsored nofollow noopener" target="_blank"` and a non-http(s) URL is dropped at render.

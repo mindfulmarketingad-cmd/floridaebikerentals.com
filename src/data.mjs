@@ -148,6 +148,21 @@ export function loadShop() {
   };
 }
 
+/** Bookable Viator tours listed at /tours/. Hand-edited JSON, so URLs are validated here. */
+export function loadTours() {
+  const file = join(ROOT, "data", "tours.json");
+  if (!existsSync(file)) return { currency: "USD", disclosure: "", tours: [] };
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  const tours = (Array.isArray(raw.tours) ? raw.tours : [])
+    .filter((t) => t && t.name)
+    .map((t) => ({ ...t, features: Array.isArray(t.features) ? t.features : [] }));
+  return {
+    currency: raw.currency || "USD",
+    disclosure: raw.disclosure || "",
+    tours,
+  };
+}
+
 export function loadAuthors() {
   const dir = join(ROOT, "content", "authors");
   if (!existsSync(dir)) return [];

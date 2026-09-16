@@ -1,0 +1,55 @@
+{
+  "_readme": "Bookable Viator experiences listed at /tours/. Add objects to the tours array. Only `name` and `url` are required; everything else is optional and simply omitted from the card when absent. `priceChecked` is the date the price was last confirmed and is shown to readers, since Viator prices change.",
+  "currency": "USD",
+  "disclosure": "Tours on this page are booked through Viator, an affiliate partner. We may earn a commission on bookings made through these links, at no extra cost to you. Viator and the individual operator set the price, availability and cancellation terms.",
+  "tours": [
+    {
+      "name": "Myakka State Park E-bike Safari",
+      "url": "https://www.viator.com/tours/Sarasota/Myakka-State-Park-E-bike-Safari/d25738-136885P3?pid=P00320180&mcid=42383&medium=link",
+      "location": "Sarasota",
+      "region": "Sarasota & Bradenton",
+      "citySlug": "sarasota",
+      "price": 85,
+      "priceUnit": "per person",
+      "priceChecked": "2026-09-16",
+      "rating": 5.0,
+      "reviews": 501,
+      "recommended": 98,
+      "duration": "2 hours 30 minutes",
+      "languages": "English",
+      "summary": "Fat-tyre e-bikes through Myakka River State Park east of Sarasota, across oak hammock and palm prairie, with the park's canopy walkway on the route. One of the few Florida e-bike tours that is genuinely about wildlife and landscape rather than a town centre.",
+      "features": [
+        "Free cancellation up to 24 hours before",
+        "Reserve now, pay later",
+        "Discounted rates for kids",
+        "Mobile ticket",
+        "Badge of Excellence"
+      ],
+      "bookedAhead": "15 days",
+      "image": "",
+      "pinned": true
+    },
+    {
+      "name": "Electric Bike Art and Architecture Guided Tour in Jacksonville",
+      "url": "https://www.viator.com/tours/Jacksonville/Electric-Bike-Art-Tours/d4373-327594P1?pid=P00320180&mcid=42383&medium=link",
+      "location": "Jacksonville",
+      "region": "First Coast",
+      "citySlug": "jacksonville",
+      "price": 60,
+      "priceUnit": "per person",
+      "priceChecked": "2026-09-16",
+      "rating": 5.0,
+      "reviews": 167,
+      "recommended": 99,
+      "summary": "A guided ride through downtown Jacksonville taking in the city's public art and architecture, with the riverfront on the route. Bikes and helmets are provided, and the pace suits riders who have never used an e-bike before.",
+      "features": [
+        "Free cancellation up to 24 hours before",
+        "Reserve now, pay later",
+        "Badge of Excellence"
+      ],
+      "bookedAhead": "12 days",
+      "image": "",
+      "pinned": true
+    }
+  ]
+}

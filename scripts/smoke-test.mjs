@@ -162,6 +162,25 @@ for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminol
   await page.close();
 }
 
+// 4i. /tours hub: cards, affiliate attributes, filters and sorting
+page=await b.newPage({viewport:{width:1280,height:900}});
+await page.goto("http://localhost:8099/tours/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(400);
+const tours=await page.evaluate(()=>{
+  const items=[...document.querySelectorAll("[data-filter-item]")];
+  const a=document.querySelector('.listicle__actions a[href*="viator.com"]');
+  return {n:items.length, rel:a&&a.rel, target:a&&a.target,
+          pid:a&&new URL(a.href).searchParams.get("pid"),
+          facets:[...document.querySelectorAll("[data-filter-field]")].map(e=>e.name)};
+});
+ok(`/tours lists ${tours.n} tours with facets [${tours.facets}] and sponsored links (pid=${tours.pid})`,
+   tours.n>=2&&/sponsored/.test(tours.rel)&&/nofollow/.test(tours.rel)&&tours.target==="_blank"&&tours.pid==="P00320180");
+await page.selectOption("[name=sort]","price-asc");
+await page.waitForTimeout(250);
+const sorted=await page.$$eval("[data-filter-item]",n=>n.map(x=>parseFloat(x.dataset.price)));
+ok(`/tours sorts by price ascending (${sorted.join(", ")})`, sorted.every((v,i)=>i===0||v>=sorted[i-1]));
+await page.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

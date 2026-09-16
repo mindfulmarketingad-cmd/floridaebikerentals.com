@@ -669,6 +669,36 @@
     var cards = $$("[data-filter-item]");
     var counter = $("[data-filter-count]");
     var totalLabel = counter ? counter.getAttribute("data-noun") || "listings" : "listings";
+    /* Extra controls opt in with data-filter-field + data-filter-mode, so a page
+       can add its own facets without touching this function. */
+    var extras = $$("[data-filter-field]", filterForm);
+
+    var matchesExtras = function (card) {
+      for (var i = 0; i < extras.length; i++) {
+        var control = extras[i];
+        var field = control.getAttribute("data-filter-field");
+        var mode = control.getAttribute("data-filter-mode") || "exact";
+        var raw = card.getAttribute("data-" + field);
+
+        if (mode === "flag") {
+          if (control.checked && raw !== "1") return false;
+          continue;
+        }
+        var value = (control.value || "").trim();
+        if (!value) continue;
+
+        if (mode === "contains") {
+          if ((raw || "").indexOf("|" + value + "|") === -1) return false;
+        } else if (mode === "max") {
+          var num = parseFloat(raw);
+          if (!isFinite(num) || num > parseFloat(value)) return false;
+        } else if (raw !== value) {
+          return false;
+        }
+      }
+      return true;
+    };
+
     var apply = function () {
       var q = ($("[name=q]", filterForm) || {}).value || "";
       var city = ($("[name=city]", filterForm) || {}).value || "";
@@ -680,21 +710,31 @@
         var hay = (card.getAttribute("data-search") || "").toLowerCase();
         var ok = (!q || hay.indexOf(q) !== -1) &&
                  (!city || card.getAttribute("data-city") === city) &&
-                 (!tag || (card.getAttribute("data-tags") || "").indexOf("|" + tag + "|") !== -1);
+                 (!tag || (card.getAttribute("data-tags") || "").indexOf("|" + tag + "|") !== -1) &&
+                 matchesExtras(card);
         card.hidden = !ok;
         if (ok) shown++;
       });
       if (sort) {
         var parent = cards.length ? cards[0].parentNode : null;
         if (parent) {
+          /* "field-asc" sorts ascending; anything else sorts descending. */
+          var asc = /-asc$/.test(sort);
+          var key = sort.replace(/-asc$/, "");
           cards.slice().sort(function (a, b) {
-            var av = parseFloat(a.getAttribute("data-" + sort) || "0");
-            var bv = parseFloat(b.getAttribute("data-" + sort) || "0");
-            if (sort === "name") return (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
-            return bv - av;
-          }).forEach(function (node) { parent.appendChild(node); });
+            if (key === "name") return (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
+            var av = parseFloat(a.getAttribute("data-" + key) || "0");
+            var bv = parseFloat(b.getAttribute("data-" + key) || "0");
+            return asc ? av - bv : bv - av;
+          }).forEach(function (node, i) {
+            parent.appendChild(node);
+            var rank = $(".listicle__rank", node);
+            if (rank && node.hasAttribute("data-renumber")) rank.textContent = String(i + 1);
+          });
         }
       }
+      var empty = $("[data-filter-empty]");
+      if (empty) empty.hidden = shown !== 0;
       if (counter) counter.textContent = shown + " " + (shown === 1 ? totalLabel.replace(/s$/, "") : totalLabel);
     };
     filterForm.addEventListener("input", apply);

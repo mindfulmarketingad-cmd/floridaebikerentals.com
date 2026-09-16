@@ -878,3 +878,10 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   .booking-cta__actions { width: 100%; }
   .booking-cta__actions .btn { flex: 1 1 100%; }
 }
+
+/* Tour cards reuse the listicle, but many have no photo, so the rank badge
+   needs a home inside the body instead of over an image. */
+.listicle__rank--flat {
+  position: static; border-radius: var(--radius-s); align-self: flex-start;
+  min-width: 2.4rem; height: 2.2rem; font-size: 1.05rem; margin-bottom: .2rem;
+}

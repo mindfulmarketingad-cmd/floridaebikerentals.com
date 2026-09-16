@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
-  buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
+  buildIndex, statsFor, assignTitles, loadShop, loadTours, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
@@ -24,6 +24,7 @@ import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage } from "./src/pages/shop.mjs";
+import { toursHub } from "./src/pages/tours.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -70,7 +71,8 @@ const authors = loadAuthors();
 const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
 const shop = loadShop();
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop };
+const tours = loadTours();
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, tours };
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -236,6 +238,22 @@ for (const hub of CONTENT_HUBS) {
     });
   }
 }
+
+/* tours: a single listicle hub of bookable Viator experiences */
+write("/tours/", toursHub(site, tours, ctx), {
+  priority: tours.tours.length ? 0.8 : 0.3,
+  changefreq: "weekly",
+  group: "pages",
+  skipSitemap: tours.tours.length === 0,
+  search: {
+    u: "/tours/",
+    t: "Guided e-bike tours in Florida",
+    s: "Tours",
+    d: "Bookable guided e-bike experiences across Florida.",
+    k: `tours guided book experiences ${tours.tours.map((t) => `${t.name} ${t.location || ""}`).join(" ")}`.toLowerCase(),
+    w: 9,
+  },
+});
 
 /* shop: hub plus a page per product */
 write("/shop/", shopHub(site, shop, ctx), {

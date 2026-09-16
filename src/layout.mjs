@@ -7,6 +7,7 @@ export const HEADER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/blog/", label: "Blog" },
   { href: "/trails/", label: "Trails" },
+  { href: "/tours/", label: "Tours" },
   { href: "/costs/", label: "Costs" },
   { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
@@ -47,8 +48,11 @@ function sha256(text) {
  * so clickjacking is covered by X-Frame-Options in _headers / vercel.json /
  * .htaccess, alongside HSTS and the other transport-level headers.
  */
+/* Third-party hosts a page may opt into, by name, via the `embeds` option.
+   Scoped per page so pages that do not need them keep the tighter policy. */
 const EMBED_HOSTS = {
-  ridewithgps: "https://ridewithgps.com",
+  ridewithgps: { frame: ["https://ridewithgps.com"] },
+  viator: { img: ["https://media.viatorcdn.com", "https://cache-graphicslib.viator.com"] },
 };
 
 function cspMeta(inlineScripts, { ads, embeds = [] }) {
@@ -64,6 +68,7 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
     "https://streetviewpixels-pa.googleapis.com",
     "https://tile.openstreetmap.org",
     ...(ads ? [...ADSENSE_HOSTS, "https://www.googletagmanager.com"] : []),
+    ...embeds.flatMap((name) => EMBED_HOSTS[name]?.img || []),
   ];
   const policy = [
     "default-src 'self'",
@@ -80,7 +85,7 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
         ...(ads
           ? ["https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com", "https://www.google.com"]
           : []),
-        ...embeds.map((name) => EMBED_HOSTS[name]).filter(Boolean),
+        ...embeds.flatMap((name) => EMBED_HOSTS[name]?.frame || []),
       ].join(" ") || "'none'"
     }`,
     "manifest-src 'self'",
