@@ -95,19 +95,36 @@ export function photo(listing, { className = "", sizes = "", eager = false } = {
   } width="800" height="500">`;
 }
 
-export function adSlot(site, slotId) {
+/** Resolves a placement key to a real AdSense slot ID, or "" if none is set. */
+function adSlotId(site, key) {
+  const slots = site.adsense?.slots || {};
+  const id = String(slots[key] || slots.default || "").trim();
+  return /^\d+$/.test(id) ? id : "";
+}
+
+/**
+ * A manual AdSense unit.
+ *
+ * Without a real data-ad-slot from the AdSense dashboard the unit can never
+ * fill, and an empty <ins> leaves a tall blank gap in the middle of the page.
+ * So nothing is rendered until a slot ID is configured in data/site.json under
+ * adsense.slots, and the whole site starts serving ads the moment one is.
+ */
+export function adSlot(site, key = "default") {
   if (!site.adsense?.enabled || !site.adsense.publisherId) return "";
+  const id = adSlotId(site, key);
+  if (!id) return "";
   return `<div class="ad-slot wrap">
-  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-${attr(site.adsense.publisherId)}"${
-    slotId ? ` data-ad-slot="${attr(slotId)}"` : ""
-  } data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-${attr(site.adsense.publisherId)}"
+    data-ad-slot="${attr(id)}" data-ad-format="auto" data-full-width-responsive="true"></ins>
 </div>`;
 }
 
 export const ADSENSE_INLINE = "(adsbygoogle=window.adsbygoogle||[]).push({});";
 
-export function adSlotScript(site, count) {
-  if (!site.adsense?.enabled || !count) return "";
+export function adSlotScript(site, count, key = "default") {
+  // Pushing for units that were never rendered does nothing useful.
+  if (!site.adsense?.enabled || !count || !adSlotId(site, key)) return "";
   return `<script>${ADSENSE_INLINE.repeat(count)}</script>`;
 }
 

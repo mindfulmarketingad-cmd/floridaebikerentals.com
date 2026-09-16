@@ -515,11 +515,13 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .toc li { margin-bottom: .25rem; }
 
 /* ---------- ads ---------- */
-.ad-slot { margin: 2rem auto; text-align: center; min-height: 90px; }
-.ad-slot::before {
-  content: "Advertisement"; display: block; font-size: .68rem; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--ink-mute); margin-bottom: .3rem;
-}
+/* No reserved height and no label: an ad that does not fill should leave no
+   trace rather than a captioned empty box. */
+.ad-slot { margin: 2rem auto; text-align: center; }
+.ad-slot:empty { display: none; }
+/* AdSense stamps this on a unit it could not fill. */
+.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
+.ad-slot:has(> .adsbygoogle[data-ad-status="unfilled"]) { display: none; margin: 0; }
 
 /* ---------- CTA band ---------- */
 .cta-band {

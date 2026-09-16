@@ -61,6 +61,13 @@ export function verify(dist, site) {
     }
 
     if (!/<link rel="canonical" href="/.test(html)) problems.push(`${pageUrl}: missing canonical`);
+
+    // An AdSense unit with no slot ID can never fill and leaves a blank gap.
+    for (const unit of html.matchAll(/<ins class="adsbygoogle"[\s\S]*?>/g)) {
+      if (!/data-ad-slot="\d+"/.test(unit[0])) {
+        problems.push(`${pageUrl}: AdSense unit has no data-ad-slot, so it can never fill`);
+      }
+    }
     if (html.includes("{{")) problems.push(`${pageUrl}: unreplaced template placeholder`);
     if (/undefined|\[object Object\]/.test(html.replace(/undefined-/g, ""))) {
       problems.push(`${pageUrl}: contains "undefined" or "[object Object]"`);

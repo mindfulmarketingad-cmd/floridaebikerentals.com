@@ -185,7 +185,21 @@ Policy that hashes each inline script.
 
 ## Google AdSense
 
-`data/site.json` carries the publisher ID. The build writes `dist/ads.txt` and adds the
-AdSense loader plus responsive ad slots to every page. Ad slots are labelled and sit between
-content sections, never inside the listing data. Set `adsense.enabled` to `false` to strip
-ads and the associated CSP entries from the whole site.
+`data/site.json` carries the publisher ID, the `ads.txt` line and `adsense.slots`.
+
+**Ad units only render once a real slot ID is set.** Create a display ad unit in the AdSense
+dashboard, copy its `data-ad-slot` number, and paste it into `adsense.slots.default`:
+
+```json
+"slots": { "default": "1234567890" }
+```
+
+Until then no `<ins>` markup is emitted at all. A manual AdSense unit with no slot ID can never
+fill, and an empty one leaves a tall blank gap mid-page, so the build renders nothing rather than
+an empty box. `npm run verify` fails if a unit is ever emitted without a slot ID.
+
+Add more keys to `slots` and pass the key to `adSlot(site, "key")` to run separate units per
+placement, which is how you find out in AdSense reporting which position earns. Units that fail to
+fill at request time are collapsed by CSS via `data-ad-status="unfilled"`, so they never leave a
+gap either. Set `adsense.enabled` to `false` to strip ads and the associated CSP entries from the
+whole site.
