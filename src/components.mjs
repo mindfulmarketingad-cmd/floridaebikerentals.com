@@ -274,6 +274,61 @@ export function faqSchema(items) {
 
 /* -------------------------------------------------------------- misc */
 
+/**
+ * Booking call to action pointing at our Viator affiliate link.
+ *
+ * Configured in data/site.json under `viator`, so the link, label and
+ * disclosure change in one place. The link is outbound and paid, so it carries
+ * rel="sponsored nofollow noopener" and a visible disclosure sits with it.
+ *
+ * Copy deliberately says "across Florida" rather than naming the page's own
+ * town or trail: the affiliate link lands on Viator's statewide e-bike tour
+ * category, not a page filtered to wherever the reader happens to be.
+ */
+export function bookingCta(site, { variant = "band", title, text, secondary } = {}) {
+  const viator = site.viator;
+  if (!viator || !viator.enabled) return "";
+  const url = String(viator.url || "");
+  if (!/^https?:\/\//i.test(url) || /["<>\s]/.test(url)) return "";
+
+  const label = viator.label || "Book on Viator";
+  const heading = title || "Book a guided e-bike experience";
+  const body =
+    text ||
+    "Guided e-bike tours across Florida include the bike, the helmet and a guide who knows the route. Browse what is running and book direct.";
+
+  const link = `<a class="btn btn--primary" href="${attr(url)}" rel="sponsored nofollow noopener" target="_blank">${esc(
+    label
+  )}</a>`;
+  const disclosure = viator.disclosure
+    ? `<p class="booking-cta__disclosure">${esc(viator.disclosure)}</p>`
+    : "";
+
+  if (variant === "inline") {
+    return `<aside class="booking-cta booking-cta--inline">
+  <div>
+    <h3>${esc(heading)}</h3>
+    <p>${esc(body)}</p>
+    ${disclosure}
+  </div>
+  <div class="booking-cta__actions">
+    ${link}
+    ${secondary ? `<a class="btn btn--outline" href="${attr(secondary.href)}">${esc(secondary.label)}</a>` : ""}
+  </div>
+</aside>`;
+  }
+
+  return `<div class="cta-band booking-cta booking-cta--band">
+  <h2>${esc(heading)}</h2>
+  <p>${esc(body)}</p>
+  <div class="btn-row">
+    ${link}
+    ${secondary ? `<a class="btn btn--ghost" href="${attr(secondary.href)}">${esc(secondary.label)}</a>` : ""}
+  </div>
+  ${disclosure}
+</div>`;
+}
+
 export function ctaBand({ title, text, buttons }) {
   return `<div class="cta-band">
   <h2>${esc(title)}</h2>

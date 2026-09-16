@@ -23,6 +23,12 @@
     "disclosure": "",
     "dismissible": true
   },
+  "viator": {
+    "enabled": true,
+    "url": "https://www.viator.com/Florida-tours/E-Bike-Tours/d276-tag21713?pid=P00320180&mcid=42383&medium=link",
+    "label": "Book an e-bike tour on Viator",
+    "disclosure": "Viator is an affiliate partner. We may earn a commission on bookings made through this link, at no extra cost to you."
+  },
   "contactFormEndpoint": "",
   "primaryKeyword": "Florida Ebike Rentals"
 }

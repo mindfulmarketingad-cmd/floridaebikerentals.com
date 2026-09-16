@@ -2,7 +2,7 @@ import { esc, attr, clamp, prettyDate, isoDate, plural, commaList } from "../uti
 import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema,
-  listicle, mapPanel, statRow,
+  listicle, mapPanel, statRow, bookingCta,
 } from "../components.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
@@ -222,6 +222,21 @@ export function contentEntry(site, hub, entry, ctx) {
 </article>
 
 ${adSlot(site, "")}
+
+${
+  hub.slug === "trails"
+    ? `<section class="section">
+  <div class="wrap wrap-narrow">
+    ${bookingCta(site, {
+      variant: "inline",
+      title: "Prefer to ride this one with a guide?",
+      text: "Guided e-bike tours across Florida include the bike, the helmet and a guide who already knows the route, which is worth a lot on a trail you have never ridden. Browse what is running and book direct.",
+      secondary: { href: "/find/guided-ebike-tours-in-florida/", label: "Florida tour operators" },
+    })}
+  </div>
+</section>`
+    : ""
+}
 
 ${
   nearby.length

@@ -123,6 +123,11 @@ matters for a listing that already ranks, add a redirect in your host config.
   at render. `dismissible` adds a close button; a dismissal is remembered for that browser session
   only, so the offer returns on the visitor's next visit. The banner sits above the sticky header
   and scrolls away with the page.
+- **Viator booking CTA** — `data/site.json` → `viator`. Holds the affiliate URL, the button label
+  and the disclosure. `enabled: false` removes every booking CTA on the site. The link renders
+  `rel="sponsored nofollow noopener" target="_blank"` and a non-http(s) URL is dropped at render.
+  Drop `bookingCta(site, {...})` from `src/components.mjs` into any template to add another
+  placement — `variant: "band"` for a full-width block, `variant: "inline"` for a compact one.
 - **Site settings** — `data/site.json` holds the domain, contact email, AdSense publisher ID
   and the optional `contactFormEndpoint`. Set that endpoint to a form handler URL and the
   contact form posts to it; leave it empty and the form falls back to opening the visitor's

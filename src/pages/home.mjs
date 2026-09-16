@@ -3,7 +3,7 @@ import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
-  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema,
+  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta,
 } from "../components.mjs";
 
 export const HOME_FAQS = [
@@ -171,6 +171,16 @@ ${adSlot(site, "")}
     <p class="mt-2"><a class="btn btn--blue" href="/partners/">Browse all ${esc(
       String(stats.total)
     )} partners</a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    ${bookingCta(site, {
+      title: "Book a guided e-bike experience in Florida",
+      text: "Renting a bike and riding it yourself is one way to do it. The other is a guided tour, where the bike, the helmet and someone who knows the route are all included in the price. Guided e-bike tours run across Florida's beach towns and cities, and most are two to three hours.",
+      secondary: { href: "/find/guided-ebike-tours-in-florida/", label: "See Florida tour operators" },
+    })}
   </div>
 </section>
 

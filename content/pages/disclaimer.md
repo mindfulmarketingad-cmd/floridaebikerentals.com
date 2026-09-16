@@ -76,6 +76,12 @@ fees by advertising and linking to Amazon.com. As an Amazon Associate we earn fr
 purchases. Promotional banners and product links on this site that point to Amazon are affiliate
 links and are labelled as advertising where they appear.
 
+**Viator.** Links to guided tours on this site point to Viator, which is an affiliate partner. If
+you book a tour after following one of those links we may earn a commission, at no extra cost to
+you. Viator is a third-party marketplace: it, and the individual tour operator, set the price,
+availability, cancellation terms and conditions of the booking. Your contract is with them, not with
+us, and we are not a party to it.
+
 **Prices and offers.** Any discount, sale or price shown in a promotion on this site reflects what
 the retailer was advertising at the time we published it. Retailers change prices without notice,
 and we do not control them. Always check the current price, the seller and the return terms on the

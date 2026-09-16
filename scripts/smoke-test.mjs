@@ -144,6 +144,24 @@ const dismissed=await page.evaluate(()=>document.getElementById("promo-banner").
 ok("promo banner stays dismissed across pages in a session", dismissed);
 await page.close(); await promoCtx.close();
 
+// 4h. Viator booking CTA on the homepage and every trail guide
+for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminole-trail/"]) {
+  page=await b.newPage({viewport:{width:1200,height:900}});
+  await page.goto("http://localhost:8099"+path,{waitUntil:"domcontentloaded"});
+  await page.waitForTimeout(250);
+  const cta=await page.evaluate(()=>{
+    const a=document.querySelector('.booking-cta a[href*="viator.com"]');
+    if(!a) return null;
+    const box=a.closest(".booking-cta");
+    return {rel:a.rel, target:a.target, pid:new URL(a.href).searchParams.get("pid"),
+            disclosure:!!box.querySelector(".booking-cta__disclosure")};
+  });
+  ok(`Viator CTA on ${path} (pid=${cta&&cta.pid}, disclosed=${cta&&cta.disclosure})`,
+     cta&&/sponsored/.test(cta.rel)&&/nofollow/.test(cta.rel)&&cta.target==="_blank"
+     &&cta.pid==="P00320180"&&cta.disclosure);
+  await page.close();
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");
