@@ -181,6 +181,25 @@ const sorted=await page.$$eval("[data-filter-item]",n=>n.map(x=>parseFloat(x.dat
 ok(`/tours sorts by price ascending (${sorted.join(", ")})`, sorted.every((v,i)=>i===0||v>=sorted[i-1]));
 await page.close();
 
+// 4j. the homepage Florida map is visible on load, not hidden behind a toggle
+page=await b.newPage({viewport:{width:1280,height:1000}});
+await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
+await page.waitForTimeout(500);
+await (await page.$(".map-panel--open .map")).scrollIntoViewIfNeeded();
+await page.waitForTimeout(700);
+const fmap=await page.evaluate(()=>{
+  const m=document.querySelector(".map-panel--open .map");
+  if(!m) return null;
+  const box=m.getBoundingClientRect();
+  const lats=[...m.querySelectorAll(".map__pin")].length;
+  return {visible:box.height>300&&box.width>200, pins:lats,
+          hidden:!!m.closest("[hidden]"),
+          numbered:!!m.querySelector(".map__pin i")};
+});
+ok(`homepage Florida map visible on load with ${fmap&&fmap.pins} pins`,
+   fmap&&fmap.visible&&!fmap.hidden&&fmap.pins>50&&!fmap.numbered);
+await page.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

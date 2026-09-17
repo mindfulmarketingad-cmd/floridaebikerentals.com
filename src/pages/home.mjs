@@ -2,7 +2,7 @@ import { esc, attr, formatReviews } from "../util.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
-  listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
+  listicle, mapPanel, autoMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta,
 } from "../components.mjs";
 
@@ -50,6 +50,13 @@ export function homePage(site, { listings, index, blog, stats }) {
   const heroSlides = featured.slice(0, 12);
   const topTen = listings.filter((l) => l.is_rental && l.reviews >= 40).slice(0, 10);
   const topCities = index.cities.slice(0, 24);
+
+  /* Pins for the statewide map: the best few in every region, so the map reads
+     as the whole of Florida rather than a cluster over Miami. Capped to keep
+     the homepage payload small. */
+  const mapPins = index.regions
+    .flatMap((region) => region.listings.filter((l) => typeof l.lat === "number").slice(0, 9))
+    .slice(0, 100);
 
   const slideMarkup = heroSlides
     .map(
@@ -142,6 +149,15 @@ export function homePage(site, { listings, index, blog, stats }) {
         )
         .join("")}
     </div>
+    <h3 class="mt-3">The map</h3>
+    <p class="muted">Every pin is a rental partner. Drag to move, pinch or use the buttons to zoom,
+    and tap a pin for its rating and a link through to the listing.</p>
+    ${autoMap(mapPins, {
+      zoom: 7,
+      numbered: false,
+      label: `Showing ${mapPins.length} of ${stats.total} rental partners, spread across all ${index.regions.length} Florida regions. Open a region below for the full list.`,
+    })}
+
     <h3 class="mt-3">Popular Florida towns for e-bike rentals</h3>
     ${linkCloud(
       topCities.map((city) => ({

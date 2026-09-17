@@ -362,7 +362,13 @@
       var btn = el("button", "map__pin");
       btn.type = "button";
       var pin = el("span");
-      pin.appendChild(el("i", null, String(p.rank || i + 1)));
+      /* rank 0 means the map is not a ranked list, so the marker carries no
+         number rather than a position it does not actually have. */
+      if (p.rank === 0) {
+        btn.className = "map__pin map__pin--dot";
+      } else {
+        pin.appendChild(el("i", null, String(p.rank || i + 1)));
+      }
       btn.appendChild(pin);
       btn.setAttribute("aria-label", p.name);
       var entry = { point: p, btn: btn };

@@ -228,6 +228,7 @@ export function listicle(listings, options = {}) {
 
 /* --------------------------------------------------------------- map */
 
+/** `startRank: 0` marks the pins unnumbered, for maps that are not a ranked list. */
 export function mapPoints(listings, startRank = 1) {
   return listings
     .filter((l) => typeof l.lat === "number" && typeof l.lng === "number")
@@ -239,7 +240,7 @@ export function mapPoints(listings, startRank = 1) {
       rating: l.rating || 0,
       reviews: l.reviews || 0,
       url: `/partners/${l.slug}/`,
-      rank: startRank + i,
+      rank: startRank === 0 ? 0 : startRank + i,
     }));
 }
 
@@ -254,6 +255,19 @@ export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "
 <div class="map-panel" id="${attr(id)}" hidden>
   <div class="map" data-zoom="${attr(zoom)}" data-points="${attr(JSON.stringify(points))}"></div>
 </div>`;
+}
+
+/**
+ * A map that is visible on load rather than hidden behind a toggle, for places
+ * where the map itself is the point.
+ */
+export function autoMap(listings, { zoom = 7, label = "", numbered = true } = {}) {
+  const points = mapPoints(listings, numbered ? 1 : 0);
+  if (!points.length) return "";
+  return `<div class="map-panel map-panel--open">
+  <div class="map" data-map-auto data-zoom="${attr(zoom)}" data-points="${attr(JSON.stringify(points))}"></div>
+</div>
+${label ? `<p class="map-caption small muted">${esc(label)}</p>` : ""}`;
 }
 
 export function singleMap(listing) {

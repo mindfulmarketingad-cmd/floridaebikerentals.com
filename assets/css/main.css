@@ -885,3 +885,16 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   position: static; border-radius: var(--radius-s); align-self: flex-start;
   min-width: 2.4rem; height: 2.2rem; font-size: 1.05rem; margin-bottom: .2rem;
 }
+
+/* A map that is shown on load rather than behind a toggle. */
+.map-panel--open { margin-top: 1rem; }
+.map-panel--open .map { height: clamp(360px, 58vh, 560px); }
+.map-caption { margin-top: .5rem; }
+
+/* Unnumbered marker, for maps that show locations rather than a ranked list. */
+.map__pin--dot { width: 22px; height: 26px; }
+.map__pin--dot span { width: 20px; height: 20px; border-width: 2px; }
+@media (pointer: coarse), (max-width: 900px) {
+  .map__pin--dot { width: 30px; height: 34px; }
+  .map__pin--dot span { width: 26px; height: 26px; }
+}
