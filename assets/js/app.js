@@ -54,6 +54,57 @@
     }
   }
 
+  /* ------------------------------------------ promo banner rotation */
+  /* Several offers share the strip and take turns. The markup already holds
+     them all, so this only moves the is-current flag around. */
+  $$("[data-promo-rotate]").forEach(function (strip) {
+    var slides = $$(".promo__link", strip);
+    if (slides.length < 2) return;
+    var every = parseInt(strip.getAttribute("data-promo-rotate"), 10) || 7000;
+    var at = 0;
+    var timer = null;
+
+    function show(next) {
+      if (next === at) return;
+      var outgoing = slides[at];
+      var incoming = slides[next];
+      outgoing.classList.remove("is-current");
+      outgoing.classList.add("is-leaving");
+      outgoing.setAttribute("aria-hidden", "true");
+      outgoing.setAttribute("tabindex", "-1");
+      incoming.classList.remove("is-leaving");
+      incoming.classList.add("is-current");
+      incoming.removeAttribute("aria-hidden");
+      incoming.removeAttribute("tabindex");
+      at = next;
+    }
+
+    function start() {
+      if (timer) return;
+      timer = window.setInterval(function () { show((at + 1) % slides.length); }, every);
+    }
+    function stop() {
+      if (!timer) return;
+      window.clearInterval(timer);
+      timer = null;
+    }
+
+    // Hold still while someone is reading or tabbing through the offers, and
+    // while the tab is in the background, where the turns would be wasted.
+    // Hover is watched on the offers themselves, not the whole strip: the strip
+    // runs the full width of the window, so a cursor resting anywhere along the
+    // top edge would otherwise freeze the rotation for the rest of the visit.
+    var hoverTarget = $(".promo__deck", strip) || strip;
+    hoverTarget.addEventListener("mouseenter", stop);
+    hoverTarget.addEventListener("mouseleave", start);
+    strip.addEventListener("focusin", stop);
+    strip.addEventListener("focusout", start);
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop(); else start();
+    });
+    start();
+  });
+
   /* ------------------------------------------------- image fallbacks */
   $$("img[data-fallback]").forEach(function (img) {
     img.addEventListener("error", function () {

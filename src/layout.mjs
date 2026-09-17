@@ -108,26 +108,54 @@ function cspMeta(inlineScripts, { ads, embeds = [], tileOrigin = "" }) {
 /**
  * Sitewide promotional banner, configured in data/site.json.
  *
- * The link is an outbound affiliate link, so it carries rel="sponsored
- * nofollow noopener" and an inline disclosure, which the FTC and the Amazon
- * Associates agreement both require to sit next to the promotion itself
- * rather than only on a policy page.
+ * `promoBanner.items` holds one entry per offer; a single legacy
+ * `{text, cta, href}` object still works. Every link is outbound and paid, so
+ * each carries rel="sponsored nofollow noopener" and the strip as a whole
+ * carries a disclosure, which the FTC and the Amazon Associates agreement both
+ * require to sit next to the promotion rather than only on a policy page.
+ *
+ * With more than one offer the strip slide-rotates between them. All slides
+ * ship in the HTML and the rotation is progressive enhancement: with no
+ * JavaScript the first offer simply stays put.
  */
 function promoBanner(site) {
   const promo = site.promoBanner;
-  if (!promo || !promo.enabled || !promo.text) return "";
-  const href = String(promo.href || "");
-  if (!/^https?:\/\//i.test(href) || /["<>\s]/.test(href)) return "";
+  if (!promo || !promo.enabled) return "";
 
-  return `<aside class="promo" id="promo-banner"${promo.dismissible ? " data-promo" : ""}>
-  <a class="promo__link" href="${attr(href)}" rel="sponsored nofollow noopener" target="_blank">
-    <span class="promo__text">${esc(promo.text)}</span>
-    ${promo.cta ? `<span class="promo__cta">${esc(promo.cta)}</span>` : ""}
-  </a>
-  ${promo.disclosure ? `<span class="promo__disclosure">${esc(promo.disclosure)}</span>` : ""}
+  const entries = (Array.isArray(promo.items) ? promo.items : [promo])
+    .filter((item) => item && item.text)
+    .filter((item) => {
+      const href = String(item.href || "");
+      return /^https?:\/\//i.test(href) && !/["<>\s]/.test(href);
+    });
+  if (!entries.length) return "";
+
+  const slides = entries
+    .map((item, i) => {
+      const current = i === 0;
+      return `<a class="promo__link${current ? " is-current" : ""}" href="${attr(item.href)}"
+      rel="sponsored nofollow noopener" target="_blank"${current ? "" : ' aria-hidden="true" tabindex="-1"'}>
+      <span class="promo__text">${esc(item.text)}</span>${
+        item.cta ? `<span class="promo__cta">${esc(item.cta)}</span>` : ""
+      }
+    </a>`;
+    })
+    .join("\n    ");
+
+  // Only worth rotating when there is something to rotate to.
+  const rotate = entries.length > 1 ? Math.max(2, Number(promo.rotateSeconds) || 7) * 1000 : 0;
+  const disclosure = entries.find((item) => item.disclosure)?.disclosure || promo.disclosure || "";
+
+  return `<aside class="promo" id="promo-banner"${promo.dismissible ? " data-promo" : ""}${
+    rotate ? ` data-promo-rotate="${attr(String(rotate))}"` : ""
+  }>
+  <div class="promo__deck">
+    ${slides}
+  </div>
+  ${disclosure ? `<span class="promo__disclosure">${esc(disclosure)}</span>` : ""}
   ${
     promo.dismissible
-      ? `<button class="promo__close" type="button" data-promo-close aria-label="Dismiss this offer">&times;</button>`
+      ? `<button class="promo__close" type="button" data-promo-close aria-label="Dismiss these offers">&times;</button>`
       : ""
   }
 </aside>`;
@@ -191,8 +219,9 @@ function footer(site, extras) {
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are
       refreshed periodically. Report an error on our <a href="/contact/">contact page</a>.</p>
       <p>${esc(site.name)} is a participant in the Amazon Services LLC Associates Program. As an
-      Amazon Associate we earn from qualifying purchases. See our
-      <a href="/disclaimer/">disclaimer</a> for full details.</p>
+      Amazon Associate we earn from qualifying purchases. We also earn a commission on tours booked
+      through Viator. Promotional links across the site, including the banner at the top of every
+      page, are paid links. See our <a href="/disclaimer/">disclaimer</a> for full details.</p>
     </div>
   </div>
 </footer>`;
@@ -251,7 +280,11 @@ export function page(site, opts) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-${cspMeta(allInline, { ads, embeds, tileOrigin: originOf(site.map?.tileUrl) })}
+${cspMeta(allInline, {
+  ads,
+  embeds,
+  tileOrigin: site.map?.enabled ? originOf(site.map?.tileUrl) : "",
+})}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>${esc(title)}</title>
@@ -286,7 +319,7 @@ ${schemaTags.join("\n")}
 ${adsenseLoader(site)}
 </head>
 <body${bodyAttrs ? ` ${bodyAttrs}` : ""} data-index="/data/listings.json"${
-    site.map?.tileUrl
+    site.map?.enabled && site.map?.tileUrl
       ? ` data-tile-url="${attr(site.map.tileUrl)}" data-tile-maxzoom="${attr(
           site.map.maxZoom || 18
         )}" data-tile-attribution="${attr(site.map.attribution || "")}" data-tile-attribution-url="${attr(

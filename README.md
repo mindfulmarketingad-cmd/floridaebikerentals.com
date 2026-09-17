@@ -45,7 +45,7 @@ npm run build    # data + content -> dist/
 npm run verify   # build, then check links, titles, descriptions, canonicals
 npm run serve    # preview dist/ at http://localhost:8080
 npm run icons    # regenerate favicons and the Open Graph image from the SVGs
-npm test         # verify + browser smoke tests of search, filters, map, geolocation
+npm test         # verify + browser smoke tests of search, filters, promos, geolocation
 ```
 
 ## Updating the listings
@@ -86,7 +86,8 @@ matters for a listing that already ranks, add a redirect in your host config.
   `FAQPage` schema.
 - **Shortcodes** — drop these on a line of their own in any guide:
   `{{LISTICLE|city:Destin|count:12|radius:20}}` renders a live, ranked listicle of directory
-  listings near a town with a toggleable map; `{{MAP|city:Destin|radius:20}}` renders just the map;
+  listings near a town with a toggleable map; `{{MAP|city:Destin|radius:20}}` renders just the map
+  (both render nothing while `map.enabled` is `false`, see **Maps** below);
   `{{PHOTO|id:beach|alt:...}}` inserts a library photo; `{{CTA|title:...|label:Rent Now|href:/partners/}}`
   inserts an inline call to action. Because they resolve at build time, a listicle in a post is
   never out of date with the directory.
@@ -118,6 +119,15 @@ matters for a listing that already ranks, add a redirect in your host config.
   `noindex` so an empty page is never submitted to Google. It becomes indexable automatically as
   soon as the first product is added. `affiliateDisclosure` in the same file is printed on every
   shop page.
+- **Maps — currently switched off.** `data/site.json` → `map.enabled` is `false`, which removes
+  every map site-wide: no map markup, no pin payload, no toggle buttons, no tile host in the CSP
+  and no `data-tile-*` attributes on `<body>`. Headings that only existed to introduce a map
+  (the homepage "The map" block, the "Where to find X" heading on partner pages) check the same
+  flag, so nothing is left stranded. Setting it back to `true` restores all of it with no other
+  change — the library and the renderers below are all still in place.
+
+  The rest of this entry describes what returns when it is switched back on.
+
 - **Maps** — rendered with [Leaflet](https://leafletjs.com/) 1.9.4 and
   [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) 1.5.3, both **vendored
   into `assets/vendor/leaflet/`** rather than pulled from a CDN. That keeps `script-src 'self'`
@@ -148,12 +158,21 @@ matters for a listing that already ranks, add a redirect in your host config.
   than on page load, so a visitor who never reaches a map pays neither the 240 KB of library nor a
   single tile request. On touch devices a map starts inert behind a "Tap to move the map" veil, so
   a one-finger swipe scrolls the page instead of being swallowed by the map.
-- **Promo banner** — `data/site.json` → `promoBanner`. Set `enabled` to `false` to pull it from
-  every page, or edit `text`, `cta`, `href` and `disclosure` in place. The link is rendered
-  `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is not http(s) is dropped
-  at render. `dismissible` adds a close button; a dismissal is remembered for that browser session
-  only, so the offer returns on the visitor's next visit. The banner sits above the sticky header
-  and scrolls away with the page.
+- **Promo banner** — `data/site.json` → `promoBanner`. `items` holds one entry per offer
+  (`text`, optional `cta` button label, `href`), so adding a promotion is one object in an array.
+  Set `enabled` to `false` to pull the strip from every page.
+
+  With more than one entry the strip slide-rotates through the offers every `rotateSeconds`
+  (default 7). All offers ship in the HTML with the first marked `is-current`, so the rotation is
+  progressive enhancement: with JavaScript off the first offer simply stays put. Rotation holds
+  while the pointer is over the offers, while focus is anywhere in the strip, and while the tab is
+  in the background. Hover is watched on the offers rather than the whole strip, which spans the
+  window — otherwise a cursor resting on the top edge would freeze it for the whole visit.
+
+  Every link is rendered `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is
+  not http(s) is dropped at build. `dismissible` adds a close button that hides the whole strip; a
+  dismissal is remembered for that browser session only, so the offers return on the visitor's next
+  visit. The banner sits above the sticky header and scrolls away with the page.
 - **Tours** — `data/tours.json` holds the bookable Viator experiences listed at `/tours/`. Only
   `name` and `url` are required; `location`, `region`, `price`, `rating`, `reviews`, `duration`,
   `summary`, `features[]` and `image` all render when present and are simply omitted when absent.

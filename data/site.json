@@ -19,17 +19,28 @@
     }
   },
   "promoBanner": {
+    "_comment": "One entry per offer. With more than one the strip slide-rotates through them every rotateSeconds. Every link is rendered rel=\"sponsored nofollow noopener\"; any href that is not http(s) is dropped at build.",
     "enabled": true,
-    "text": "70% Off All Ebikes",
-    "cta": "Shop the deal",
-    "href": "https://amzn.to/4gTsGbQ",
-    "disclosure": "",
-    "dismissible": true
+    "rotateSeconds": 7,
+    "dismissible": true,
+    "items": [
+      {
+        "text": "70% Off All Ebikes",
+        "cta": "Shop the deal",
+        "href": "https://amzn.to/4gTsGbQ"
+      },
+      {
+        "text": "Book Local E-bike Tours →",
+        "cta": "",
+        "href": "https://www.viator.com/searchResults/all?text=ebike+tours+florida&pid=P00320180&mcid=42383&medium=link"
+      }
+    ]
   },
   "map": {
-    "_comment": "Tile provider for the site's maps. OpenStreetMap's own tile.openstreetmap.org is NOT usable here: its usage policy forbids heavy use of the volunteer-run servers and requires an identifying Referer. Carto's basemaps are keyless and permit use with attribution. For higher volume move to a keyed provider (MapTiler, Stadia, Thunderforest) by pasting its URL template below, including the key.",
+    "_comment": "Maps are switched off site-wide (enabled: false) - flip it back to true to return every map with no other change. Tile provider settings below are kept for that. OpenStreetMap's own tile.openstreetmap.org is NOT usable here: its usage policy forbids heavy use of the volunteer-run servers and requires an identifying Referer. Carto's basemaps are keyless and permit use with attribution. For higher volume move to a keyed provider (MapTiler, Stadia, Thunderforest) by pasting its URL template below, including the key.",
+    "enabled": false,
     "tileUrl": "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-    "attribution": "\u00a9 OpenStreetMap contributors \u00a9 CARTO",
+    "attribution": "© OpenStreetMap contributors © CARTO",
     "attributionUrl": "https://carto.com/attributions",
     "maxZoom": 18
   },

@@ -295,7 +295,8 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     ${featureGroups(listing) ? `<div class="panel mt-2"><h2>Services and features</h2>${featureGroups(listing)}</div>` : ""}
 
     ${
-      typeof listing.lat === "number"
+      // The heading only earns its place when there is a map under it.
+      singleMap(listing)
         ? `<h2 class="mt-3">Where to find ${esc(listing.name)}</h2>${singleMap(listing)}`
         : ""
     }

@@ -32,20 +32,14 @@ const count=await page.textContent("[data-filter-count]");
 ok(`filter narrows list ${before} -> ${after} (${count.trim()})`, after>0 && after<before);
 await page.close();
 
-// 3. map pin popup
+// 3. maps are switched off site-wide: no map markup, no Leaflet request
 page=await b.newPage();
-await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/");
-await page.click("[data-map-toggle]");
-await page.waitForTimeout(800);
-await page.waitForSelector(".leaflet-container .map__marker");
-const pins=await page.$$(".map__marker");
-// Leaflet's marker <img>/<div> sits under our styled span, which swallows the
-// click in Playwright's hit test, so dispatch it on the marker element itself.
-await page.evaluate(()=>document.querySelector(".leaflet-marker-icon").click());
-await page.waitForTimeout(400);
-const popup=await page.$(".leaflet-popup-content");
-const popupText=popup?await popup.textContent():"";
-ok(`map pin opens popup (${pins.length} pins) — ${popupText.trim().slice(0,40)}`, !!popup);
+const asked=[];
+page.on("request",r=>{ if(/leaflet|cartocdn|tile/i.test(r.url())) asked.push(r.url()); });
+await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/",{waitUntil:"load"});
+await page.waitForTimeout(600);
+const mapBits=await page.evaluate(()=>document.querySelectorAll(".map,.map-panel,[data-map-toggle]").length);
+ok(`maps removed (0 map nodes, ${asked.length} tile/library requests)`, mapBits===0&&asked.length===0);
 await page.close();
 
 // 4. geolocation is requested automatically on landing, no click needed
@@ -184,31 +178,6 @@ const sorted=await page.$$eval("[data-filter-item]",n=>n.map(x=>parseFloat(x.dat
 ok(`/tours sorts by price ascending (${sorted.join(", ")})`, sorted.every((v,i)=>i===0||v>=sorted[i-1]));
 await page.close();
 
-// 4j. the homepage Florida map is visible on load, not hidden behind a toggle
-page=await b.newPage({viewport:{width:1280,height:1000}});
-await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
-await page.waitForTimeout(500);
-await (await page.$(".map-panel--open .map")).scrollIntoViewIfNeeded();
-await page.waitForSelector(".map-panel--open .leaflet-marker-icon");
-await page.waitForTimeout(700);
-const fmap=await page.evaluate(()=>{
-  const m=document.querySelector(".map-panel--open .map");
-  if(!m) return null;
-  const box=m.getBoundingClientRect();
-  // Above 20 points the markers are clustered, so the visible count is
-  // clusters plus loose markers. The cluster bubbles carry their own totals.
-  const loose=m.querySelectorAll(".map__marker").length;
-  const clustered=[...m.querySelectorAll(".marker-cluster span")]
-    .reduce((n,el)=>n+(parseInt(el.textContent,10)||0),0);
-  return {visible:box.height>300&&box.width>200, pins:loose+clustered,
-          hidden:!!m.closest("[hidden]"),
-          tiles:m.querySelectorAll(".leaflet-tile").length,
-          numbered:!!m.querySelector(".map__marker i")};
-});
-ok(`homepage Florida map visible on load with ${fmap&&fmap.pins} pins, ${fmap&&fmap.tiles} tiles`,
-   fmap&&fmap.visible&&!fmap.hidden&&fmap.pins>50&&fmap.tiles>0&&!fmap.numbered);
-await page.close();
-
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");
@@ -218,19 +187,31 @@ const navOpen=await page.isVisible("#site-nav a[href='/find/']");
 ok("mobile menu opens", navOpen);
 await page.close();
 
-// 5b. on a touch device the map starts inert, so a one-finger drag scrolls the
-// page instead of being swallowed by the map. Tapping the veil hands it over.
-const phone=await b.newContext({...devices["iPhone 13"]});
-page=await phone.newPage();
+// 5b. the promo strip carries both offers and turns them over on a timer
+page=await b.newPage({viewport:{width:1280,height:900}});
 await page.goto("http://localhost:8099/",{waitUntil:"load"});
-await (await page.$(".map")).scrollIntoViewIfNeeded();
-await page.waitForSelector(".map__veil");
-const veilBefore=!!(await page.$(".map__veil"));
-await page.tap(".map__veil");
-await page.waitForTimeout(300);
-const veilAfter=!!(await page.$(".map__veil"));
-ok("touch map is inert until tapped, then draggable", veilBefore&&!veilAfter);
-await page.close(); await phone.close();
+// The cursor starts at 0,0, which is inside the strip; park it away from the
+// offers so the hover pause does not hold the rotation still.
+await page.mouse.move(640,600);
+const promoText=()=>page.textContent(".promo__link.is-current .promo__text");
+const slideCount=(await page.$$(".promo__link")).length;
+const firstOffer=(await promoText()).trim();
+await page.waitForTimeout(7600);
+const secondOffer=(await promoText()).trim();
+const viator=await page.getAttribute(".promo__link:nth-child(2)","href");
+const relAttrs=await page.$$eval(".promo__link",n=>n.map(a=>a.rel));
+ok(`promo rotates ${slideCount} offers: "${firstOffer}" -> "${secondOffer}"`,
+   slideCount===2&&firstOffer!==secondOffer&&/Book Local E-bike Tours/.test(secondOffer));
+ok("Viator promo is a sponsored link to the affiliate search",
+   /viator\.com\/searchResults/.test(viator||"")&&/pid=P00320180/.test(viator||"")
+   &&relAttrs.every(r=>/sponsored/.test(r)&&/nofollow/.test(r)));
+
+// hovering holds the offer still, so a visitor reading one is not interrupted
+await page.hover(".promo__deck");
+const held=(await promoText()).trim();
+await page.waitForTimeout(7600);
+ok("promo pauses while hovered", (await promoText()).trim()===held);
+await page.close();
 
 // 6. FAQ accordion + internal nav
 page=await b.newPage();

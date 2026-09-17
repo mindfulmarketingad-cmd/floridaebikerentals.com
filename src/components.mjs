@@ -1,7 +1,19 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   esc, attr, ratingBlock, formatRating, formatReviews, phoneHref, hostOf,
   commaList, plural, clamp, todayIndex,
 } from "./util.mjs";
+import { ROOT } from "./data.mjs";
+
+/**
+ * Maps are switched off site-wide from data/site.json (`map.enabled`). The
+ * renderers below return nothing while it is false, so no map markup, no pin
+ * payload and no Leaflet request reaches any page. Pages that wrap a map in a
+ * heading check this flag too, so nothing is left stranded.
+ */
+export const MAPS_ENABLED =
+  JSON.parse(readFileSync(join(ROOT, "data", "site.json"), "utf8")).map?.enabled === true;
 
 /* ------------------------------------------------------- copy helpers */
 
@@ -245,6 +257,7 @@ export function mapPoints(listings, startRank = 1) {
 }
 
 export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "Show map view" } = {}) {
+  if (!MAPS_ENABLED) return "";
   const points = mapPoints(listings);
   if (!points.length) return "";
   return `<div class="maptools">
@@ -262,6 +275,7 @@ export function mapPanel(listings, { id = "map-panel", zoom = 8, buttonLabel = "
  * where the map itself is the point.
  */
 export function autoMap(listings, { zoom = 7, label = "", numbered = true } = {}) {
+  if (!MAPS_ENABLED) return "";
   const points = mapPoints(listings, numbered ? 1 : 0);
   if (!points.length) return "";
   return `<div class="map-panel map-panel--open">
@@ -271,6 +285,7 @@ ${label ? `<p class="map-caption small muted">${esc(label)}</p>` : ""}`;
 }
 
 export function singleMap(listing) {
+  if (!MAPS_ENABLED) return "";
   if (typeof listing.lat !== "number" || typeof listing.lng !== "number") return "";
   const points = mapPoints([listing]);
   return `<div class="map-panel">
