@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+import { chromium, devices } from "playwright";
 import { createServer } from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { join, extname } from "node:path";
@@ -37,10 +37,13 @@ page=await b.newPage();
 await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/");
 await page.click("[data-map-toggle]");
 await page.waitForTimeout(800);
-const pins=await page.$$(".map__pin");
-await pins[0].click();
-await page.waitForTimeout(300);
-const popup=await page.$(".map__popup");
+await page.waitForSelector(".leaflet-container .map__marker");
+const pins=await page.$$(".map__marker");
+// Leaflet's marker <img>/<div> sits under our styled span, which swallows the
+// click in Playwright's hit test, so dispatch it on the marker element itself.
+await page.evaluate(()=>document.querySelector(".leaflet-marker-icon").click());
+await page.waitForTimeout(400);
+const popup=await page.$(".leaflet-popup-content");
 const popupText=popup?await popup.textContent():"";
 ok(`map pin opens popup (${pins.length} pins) — ${popupText.trim().slice(0,40)}`, !!popup);
 await page.close();
@@ -186,18 +189,24 @@ page=await b.newPage({viewport:{width:1280,height:1000}});
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
 await page.waitForTimeout(500);
 await (await page.$(".map-panel--open .map")).scrollIntoViewIfNeeded();
+await page.waitForSelector(".map-panel--open .leaflet-marker-icon");
 await page.waitForTimeout(700);
 const fmap=await page.evaluate(()=>{
   const m=document.querySelector(".map-panel--open .map");
   if(!m) return null;
   const box=m.getBoundingClientRect();
-  const lats=[...m.querySelectorAll(".map__pin")].length;
-  return {visible:box.height>300&&box.width>200, pins:lats,
+  // Above 20 points the markers are clustered, so the visible count is
+  // clusters plus loose markers. The cluster bubbles carry their own totals.
+  const loose=m.querySelectorAll(".map__marker").length;
+  const clustered=[...m.querySelectorAll(".marker-cluster span")]
+    .reduce((n,el)=>n+(parseInt(el.textContent,10)||0),0);
+  return {visible:box.height>300&&box.width>200, pins:loose+clustered,
           hidden:!!m.closest("[hidden]"),
-          numbered:!!m.querySelector(".map__pin i")};
+          tiles:m.querySelectorAll(".leaflet-tile").length,
+          numbered:!!m.querySelector(".map__marker i")};
 });
-ok(`homepage Florida map visible on load with ${fmap&&fmap.pins} pins`,
-   fmap&&fmap.visible&&!fmap.hidden&&fmap.pins>50&&!fmap.numbered);
+ok(`homepage Florida map visible on load with ${fmap&&fmap.pins} pins, ${fmap&&fmap.tiles} tiles`,
+   fmap&&fmap.visible&&!fmap.hidden&&fmap.pins>50&&fmap.tiles>0&&!fmap.numbered);
 await page.close();
 
 // 5. nav toggle on mobile
@@ -208,6 +217,20 @@ await page.waitForTimeout(250);
 const navOpen=await page.isVisible("#site-nav a[href='/find/']");
 ok("mobile menu opens", navOpen);
 await page.close();
+
+// 5b. on a touch device the map starts inert, so a one-finger drag scrolls the
+// page instead of being swallowed by the map. Tapping the veil hands it over.
+const phone=await b.newContext({...devices["iPhone 13"]});
+page=await phone.newPage();
+await page.goto("http://localhost:8099/",{waitUntil:"load"});
+await (await page.$(".map")).scrollIntoViewIfNeeded();
+await page.waitForSelector(".map__veil");
+const veilBefore=!!(await page.$(".map__veil"));
+await page.tap(".map__veil");
+await page.waitForTimeout(300);
+const veilAfter=!!(await page.$(".map__veil"));
+ok("touch map is inert until tapped, then draggable", veilBefore&&!veilAfter);
+await page.close(); await phone.close();
 
 // 6. FAQ accordion + internal nav
 page=await b.newPage();

@@ -1,0 +1,7 @@
+Leaflet.markercluster 1.5.3
+https://github.com/Leaflet/Leaflet.markercluster
+
+Copyright 2012 David Leaver
+
+Licensed under the MIT License. The full text ships in the package on npm:
+https://www.npmjs.com/package/leaflet.markercluster

@@ -118,6 +118,19 @@ matters for a listing that already ranks, add a redirect in your host config.
   `noindex` so an empty page is never submitted to Google. It becomes indexable automatically as
   soon as the first product is added. `affiliateDisclosure` in the same file is printed on every
   shop page.
+- **Maps** — rendered with [Leaflet](https://leafletjs.com/) 1.9.4 and
+  [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster) 1.5.3, both **vendored
+  into `assets/vendor/leaflet/`** rather than pulled from a CDN. That keeps `script-src 'self'`
+  intact, so the site still loads no third-party JavaScript, and the maps keep working if a CDN
+  goes down. Both are BSD-2-Clause / MIT; their licence files ship alongside them.
+
+  Pins are `L.divIcon`s styled by our own CSS (`.map__marker`), so a ranked listicle map shows
+  1, 2, 3 in blue teardrops. Above 20 points the markers cluster; cluster bubbles are **gold**
+  precisely so that a group of seven never reads as rank seven.
+
+  To upgrade either library: `npm pack leaflet@<version>`, untar, and copy `dist/` over
+  `assets/vendor/leaflet/`. There is no `package.json` dependency to bump — the site has no npm
+  runtime dependencies at all.
 - **Map tiles** — `data/site.json` → `map`. Holds the tile URL template, the attribution line and
   its link. The configured origin is added to each page's CSP `img-src` automatically, and the
   front end reads the template from `<body data-tile-url>`, so switching provider is one field.
@@ -131,8 +144,10 @@ matters for a listing that already ranks, add a redirect in your host config.
   paste a keyed provider's template in instead (MapTiler, Stadia, Thunderforest), key included, and
   update `attribution` to whatever that provider's terms require.
 
-  Maps build only when scrolled into view, so a visitor who never reaches one costs no tile
-  requests at all.
+  Maps build only when scrolled into view, and Leaflet itself is fetched at that moment rather
+  than on page load, so a visitor who never reaches a map pays neither the 240 KB of library nor a
+  single tile request. On touch devices a map starts inert behind a "Tap to move the map" veil, so
+  a one-finger swipe scrolls the page instead of being swallowed by the map.
 - **Promo banner** — `data/site.json` → `promoBanner`. Set `enabled` to `false` to pull it from
   every page, or edit `text`, `cta`, `href` and `disclosure` in place. The link is rendered
   `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is not http(s) is dropped

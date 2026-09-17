@@ -292,272 +292,138 @@
   }
 
   /* ----------------------------------------------------------- maps */
-  /* Tile provider comes from the page (data-tiles on <body>), so it is changed
-     in data/site.json rather than here. OpenStreetMap's own servers are not a
-     valid target: their usage policy forbids this kind of volume and requires
-     an identifying referrer. */
-  var TILE_CONFIG = (function () {
-    var body = d.body;
-    return {
-      url: body.getAttribute("data-tile-url") || "",
-      maxZoom: parseInt(body.getAttribute("data-tile-maxzoom") || "18", 10),
-    };
-  })();
+  /* Leaflet is self-hosted under /assets/vendor/leaflet and loaded on demand,
+     so the 180KB only ever reaches visitors who actually reach a map. */
+  var leafletPromise = null;
 
-  function tileUrlFor(z, x, y) {
-    if (!TILE_CONFIG.url) return "";
-    return TILE_CONFIG.url
-      .replace("{z}", z)
-      .replace("{x}", x)
-      .replace("{y}", y)
-      .replace("{r}", "");
+  function loadAsset(tag, attrs) {
+    return new Promise(function (resolve, reject) {
+      var node = d.createElement(tag);
+      Object.keys(attrs).forEach(function (k) { node[k] = attrs[k]; });
+      node.onload = resolve;
+      node.onerror = reject;
+      d.head.appendChild(node);
+    });
+  }
+
+  function loadLeaflet() {
+    if (leafletPromise) return leafletPromise;
+    leafletPromise = Promise.all([
+      loadAsset("link", { rel: "stylesheet", href: "/assets/vendor/leaflet/leaflet.css" }),
+      loadAsset("link", { rel: "stylesheet", href: "/assets/vendor/leaflet/MarkerCluster.css" }),
+      loadAsset("link", { rel: "stylesheet", href: "/assets/vendor/leaflet/MarkerCluster.Default.css" }),
+    ])
+      .then(function () { return loadAsset("script", { src: "/assets/vendor/leaflet/leaflet.js" }); })
+      .then(function () { return loadAsset("script", { src: "/assets/vendor/leaflet/leaflet.markercluster.js" }); })
+      .then(function () { return window.L; });
+    return leafletPromise;
+  }
+
+  function escapeHtml(text) {
+    return String(text == null ? "" : text)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function popupHtml(point) {
+    var bits = ["<strong>" + escapeHtml(point.name) + "</strong>"];
+    if (point.city) bits.push('<span class="map__popup-meta">' + escapeHtml(point.city) + ", FL</span>");
+    if (point.rating) {
+      bits.push('<span class="map__popup-meta">' + point.rating.toFixed(1) + " stars · " +
+        escapeHtml(String(point.reviews)) + " reviews</span>");
+    }
+    if (point.url) bits.push('<a href="' + escapeHtml(point.url) + '">View listing</a>');
+    return bits.join("");
   }
 
   function buildMap(container, points, opts) {
     opts = opts || {};
-    var TILE = 256, MAXZ = TILE_CONFIG.maxZoom || 18, MINZ = 3;
-    var layer = el("div", "map__layer");
-    container.appendChild(layer);
-
-    var state = { z: opts.zoom || 8, cx: 0, cy: 0 }; /* world pixel centre at zoom z */
-
-    function lngToX(lng, z) { return (lng + 180) / 360 * TILE * Math.pow(2, z); }
-    function latToY(lat, z) {
-      var s = Math.sin(lat * Math.PI / 180);
-      s = Math.max(-0.9999, Math.min(0.9999, s));
-      return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * TILE * Math.pow(2, z);
-    }
-
     var pts = points.filter(function (p) { return num(p.lat) !== null && num(p.lng) !== null; });
-    if (!pts.length) { container.appendChild(el("p", "map__attr", "No mapped locations")); return null; }
-
-    /* fit bounds */
-    var minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity;
-    pts.forEach(function (p) {
-      minLat = Math.min(minLat, p.lat); maxLat = Math.max(maxLat, p.lat);
-      minLng = Math.min(minLng, p.lng); maxLng = Math.max(maxLng, p.lng);
-    });
-    function fit() {
-      var w = container.clientWidth || 640, h = container.clientHeight || 420;
-      var z = MAXZ;
-      if (pts.length > 1) {
-        for (; z > MINZ; z--) {
-          var dx = Math.abs(lngToX(maxLng, z) - lngToX(minLng, z));
-          var dy = Math.abs(latToY(minLat, z) - latToY(maxLat, z));
-          if (dx < w * 0.82 && dy < h * 0.78) break;
-        }
-      } else { z = opts.zoom || 14; }
-      state.z = Math.max(MINZ, Math.min(MAXZ, z));
-      state.cx = (lngToX(minLng, state.z) + lngToX(maxLng, state.z)) / 2;
-      state.cy = (latToY(minLat, state.z) + latToY(maxLat, state.z)) / 2;
-    }
-    fit();
-
-    var pins = [];
-    var popup = null;
-
-    function closePopup() { if (popup) { popup.remove(); popup = null; } pins.forEach(function (p) { p.btn.classList.remove("is-active"); }); }
-
-    function openPopup(entry) {
-      closePopup();
-      entry.btn.classList.add("is-active");
-      popup = el("div", "map__popup");
-      var close = el("button", null, "×");
-      close.type = "button";
-      close.setAttribute("aria-label", "Close");
-      close.addEventListener("click", closePopup);
-      popup.appendChild(close);
-      popup.appendChild(el("strong", null, entry.point.name));
-      if (entry.point.city) popup.appendChild(el("div", "muted small", entry.point.city + ", FL"));
-      if (entry.point.rating) popup.appendChild(el("div", "small", entry.point.rating.toFixed(1) + " stars · " + entry.point.reviews + " reviews"));
-      if (entry.point.url) {
-        var link = el("a", null, "View listing");
-        link.href = entry.point.url;
-        popup.appendChild(link);
-      }
-      layer.appendChild(popup);
-      place();
+    if (!pts.length) {
+      container.appendChild(el("p", "map__attr", "No mapped locations"));
+      return null;
     }
 
-    pts.forEach(function (p, i) {
-      var btn = el("button", "map__pin");
-      btn.type = "button";
-      var pin = el("span");
-      /* rank 0 means the map is not a ranked list, so the marker carries no
-         number rather than a position it does not actually have. */
-      if (p.rank === 0) {
-        btn.className = "map__pin map__pin--dot";
+    return loadLeaflet().then(function (L) {
+      if (!L) return null;
+      var tileUrl = d.body.getAttribute("data-tile-url");
+      if (!tileUrl) return null;
+
+      /* On a phone, one-finger drag belongs to the page, not the map, so the
+         map starts inert and the visitor taps once to take control. */
+      // Coarse pointer, not a user-agent sniff: it is the same signal the
+      // stylesheet uses, so the veil and the touch-sized pins agree.
+      var touch = window.matchMedia
+        ? window.matchMedia("(pointer: coarse)").matches
+        : L.Browser.mobile;
+      var map = L.map(container, {
+        scrollWheelZoom: false,
+        dragging: !touch,
+        tap: false,
+        zoomControl: true,
+        attributionControl: true,
+      });
+
+      L.tileLayer(tileUrl, {
+        maxZoom: parseInt(d.body.getAttribute("data-tile-maxzoom") || "18", 10),
+        attribution: '<a href="' + escapeHtml(d.body.getAttribute("data-tile-attribution-url") || "") +
+          '" rel="noopener nofollow" target="_blank">' +
+          escapeHtml(d.body.getAttribute("data-tile-attribution") || "OpenStreetMap contributors") + "</a>",
+      }).addTo(map);
+
+      var markers = pts.map(function (p) {
+        var numbered = p.rank !== 0;
+        var icon = L.divIcon({
+          className: "map__marker" + (numbered ? "" : " map__marker--dot"),
+          html: '<span>' + (numbered ? "<i>" + escapeHtml(String(p.rank)) + "</i>" : "") + "</span>",
+          iconSize: numbered ? [30, 38] : [22, 26],
+          iconAnchor: numbered ? [15, 38] : [11, 26],
+          popupAnchor: [0, numbered ? -36 : -24],
+        });
+        return L.marker([p.lat, p.lng], { icon: icon, title: p.name }).bindPopup(popupHtml(p));
+      });
+
+      /* Cluster once there are enough pins that they would otherwise overlap. */
+      var layer;
+      if (pts.length > 20 && L.markerClusterGroup) {
+        layer = L.markerClusterGroup({
+          showCoverageOnHover: false,
+          maxClusterRadius: 45,
+          spiderfyOnMaxZoom: true,
+        });
+        markers.forEach(function (m) { layer.addLayer(m); });
       } else {
-        pin.appendChild(el("i", null, String(p.rank || i + 1)));
+        layer = L.featureGroup(markers);
       }
-      btn.appendChild(pin);
-      btn.setAttribute("aria-label", p.name);
-      var entry = { point: p, btn: btn };
-      btn.addEventListener("click", function (e) { e.stopPropagation(); openPopup(entry); });
-      layer.appendChild(btn);
-      pins.push(entry);
-    });
+      layer.addTo(map);
 
-    var tileCache = {};
-    function place() {
-      var w = container.clientWidth, h = container.clientHeight;
-      var originX = state.cx - w / 2, originY = state.cy - h / 2;
-      var scale = Math.pow(2, state.z);
-      var maxTile = scale;
-
-      var x0 = Math.floor(originX / TILE), x1 = Math.floor((originX + w) / TILE);
-      var y0 = Math.floor(originY / TILE), y1 = Math.floor((originY + h) / TILE);
-      var wanted = {};
-      for (var x = x0; x <= x1; x++) {
-        for (var y = y0; y <= y1; y++) {
-          if (y < 0 || y >= maxTile) continue;
-          var tx = ((x % maxTile) + maxTile) % maxTile;
-          var key = state.z + "/" + tx + "/" + y + "/" + x;
-          wanted[key] = true;
-          if (!tileCache[key]) {
-            var img = d.createElement("img");
-            img.className = "map__tile";
-            img.src = tileUrlFor(state.z, tx, y);
-            img.alt = "";
-            img.loading = "lazy"; img.decoding = "async";
-            /* No referrer policy here on purpose: tile providers require the
-               request to identify the site, and stripping it gets us blocked. */
-            img.draggable = false;
-            img.addEventListener("error", function () { img.style.visibility = "hidden"; }, { once: true });
-            layer.appendChild(img);
-            tileCache[key] = img;
-          }
-          tileCache[key].style.left = (x * TILE - originX) + "px";
-          tileCache[key].style.top = (y * TILE - originY) + "px";
-        }
-      }
-      Object.keys(tileCache).forEach(function (key) {
-        if (!wanted[key]) { tileCache[key].remove(); delete tileCache[key]; }
-      });
-
-      pins.forEach(function (entry) {
-        entry.btn.style.left = (lngToX(entry.point.lng, state.z) - originX) + "px";
-        entry.btn.style.top = (latToY(entry.point.lat, state.z) - originY) + "px";
-        if (popup && entry.btn.classList.contains("is-active")) {
-          popup.style.left = entry.btn.style.left;
-          popup.style.top = entry.btn.style.top;
-        }
-      });
-    }
-
-    /* Pointer handling. One pointer drags the map; two pointers pan and pinch
-       zoom. CSS sets touch-action:pan-y, so a vertical swipe always scrolls the
-       page instead of being swallowed by the map. */
-    var pointers = new Map();
-    var lastCentre = null;
-    var lastSpread = 0;
-
-    function centreOf() {
-      var xs = 0, ys = 0, n = 0;
-      pointers.forEach(function (p) { xs += p.x; ys += p.y; n++; });
-      return n ? { x: xs / n, y: ys / n } : null;
-    }
-    function spreadOf() {
-      var list = [];
-      pointers.forEach(function (p) { list.push(p); });
-      if (list.length < 2) return 0;
-      return Math.hypot(list[0].x - list[1].x, list[0].y - list[1].y);
-    }
-
-    container.addEventListener("pointerdown", function (e) {
-      if (e.target.closest(".map__pin") || e.target.closest(".map__popup") || e.target.closest(".map__zoom")) return;
-      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      lastCentre = centreOf();
-      lastSpread = spreadOf();
-      container.classList.add("is-dragging");
-      try { container.setPointerCapture(e.pointerId); } catch (err) { /* capture is best effort */ }
-    });
-
-    container.addEventListener("pointermove", function (e) {
-      if (!pointers.has(e.pointerId)) return;
-      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      var centre = centreOf();
-      if (!centre || !lastCentre) return;
-
-      if (pointers.size >= 2) {
-        e.preventDefault();
-        var spread = spreadOf();
-        if (lastSpread > 12 && spread > 12) {
-          var ratio = spread / lastSpread;
-          if (ratio > 1.22 || ratio < 0.82) {
-            zoomTo(state.z + (ratio > 1 ? 1 : -1), centre);
-            lastSpread = spread;
-            lastCentre = centreOf();
-            return;
-          }
-        }
-      }
-
-      state.cx -= centre.x - lastCentre.x;
-      state.cy -= centre.y - lastCentre.y;
-      lastCentre = centre;
-      place();
-    });
-
-    ["pointerup", "pointercancel", "pointerleave"].forEach(function (evt) {
-      container.addEventListener(evt, function (e) {
-        pointers.delete(e.pointerId);
-        lastCentre = centreOf();
-        lastSpread = spreadOf();
-        if (!pointers.size) container.classList.remove("is-dragging");
-      });
-    });
-
-    function zoomTo(z, anchor) {
-      z = Math.max(MINZ, Math.min(MAXZ, z));
-      if (z === state.z) return;
-      var factor = Math.pow(2, z - state.z);
-      if (anchor) {
-        /* Keep whatever is under the pinch (or cursor) pinned in place. */
-        var box = container.getBoundingClientRect();
-        var ox = anchor.x - box.left - container.clientWidth / 2;
-        var oy = anchor.y - box.top - container.clientHeight / 2;
-        state.cx = (state.cx + ox) * factor - ox;
-        state.cy = (state.cy + oy) * factor - oy;
+      if (pts.length === 1) {
+        map.setView([pts[0].lat, pts[0].lng], opts.zoom || 14);
       } else {
-        state.cx *= factor; state.cy *= factor;
+        map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [34, 34] });
       }
-      state.z = z;
-      Object.keys(tileCache).forEach(function (k) { tileCache[k].remove(); delete tileCache[k]; });
-      place();
-    }
 
-    var zoomBox = el("div", "map__zoom");
-    [["+", 1, "Zoom in"], ["−", -1, "Zoom out"]].forEach(function (cfg) {
-      var b = el("button", null, cfg[0]);
-      b.type = "button";
-      b.setAttribute("aria-label", cfg[2]);
-      b.addEventListener("click", function () { zoomTo(state.z + cfg[1]); });
-      zoomBox.appendChild(b);
+      /* Wheel zoom only after a deliberate click, so scrolling the page over a
+         map does not zoom it. */
+      map.on("click", function () { map.scrollWheelZoom.enable(); });
+      map.on("mouseout", function () { map.scrollWheelZoom.disable(); });
+
+      if (touch) {
+        var veil = el("div", "map__veil");
+        veil.appendChild(el("span", null, "Tap to move the map"));
+        container.appendChild(veil);
+        veil.addEventListener("click", function () {
+          map.dragging.enable();
+          veil.remove();
+        });
+      }
+
+      setTimeout(function () { map.invalidateSize(); }, 60);
+      return map;
+    }).catch(function () {
+      container.appendChild(el("p", "map__attr", "The map could not be loaded"));
+      return null;
     });
-    container.appendChild(zoomBox);
-
-    container.addEventListener("wheel", function (e) {
-      if (!e.ctrlKey && Math.abs(e.deltaY) < 4) return;
-      e.preventDefault();
-      zoomTo(state.z + (e.deltaY < 0 ? 1 : -1), { x: e.clientX, y: e.clientY });
-    }, { passive: false });
-
-    var attr = el("div", "map__attr");
-    var credit = el("a", null, d.body.getAttribute("data-tile-attribution") || "OpenStreetMap contributors");
-    credit.href = d.body.getAttribute("data-tile-attribution-url") || "https://www.openstreetmap.org/copyright";
-    credit.rel = "noopener nofollow";
-    credit.target = "_blank";
-    attr.appendChild(credit);
-    container.appendChild(attr);
-
-    var hint = el("div", "map__hint", "Drag with two fingers to move the map, pinch to zoom");
-    container.appendChild(hint);
-
-    container.addEventListener("click", function (e) { if (e.target === container || e.target.classList.contains("map__tile")) closePopup(); });
-    window.addEventListener("resize", function () { window.requestAnimationFrame(place); }, { passive: true });
-    place();
-    return { refresh: place };
   }
 
   /* map toggles: <button data-map-toggle="#mapPanelId"> */
@@ -565,7 +431,7 @@
     var panel = d.querySelector(btn.getAttribute("data-map-toggle"));
     if (!panel) return;
     var host = $(".map", panel);
-    var built = null;
+    var built = false;
     btn.addEventListener("click", function () {
       var show = panel.hasAttribute("hidden");
       if (show) {
@@ -573,11 +439,11 @@
         btn.setAttribute("aria-expanded", "true");
         btn.textContent = btn.getAttribute("data-label-hide") || "Hide map";
         if (!built && host) {
-          var raw = host.getAttribute("data-points");
+          built = true;
           var points = [];
-          try { points = JSON.parse(raw || "[]"); } catch (err) { points = []; }
-          built = buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "8", 10) });
-        } else if (built) { built.refresh(); }
+          try { points = JSON.parse(host.getAttribute("data-points") || "[]"); } catch (err) { points = []; }
+          buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "8", 10) });
+        }
       } else {
         panel.setAttribute("hidden", "");
         btn.setAttribute("aria-expanded", "false");
@@ -587,7 +453,7 @@
   });
 
   /* Always-on maps build when they come into view, so a visitor who never
-     scrolls that far costs the tile provider nothing. */
+     scrolls that far downloads neither Leaflet nor a single tile. */
   $$(".map[data-map-auto]").forEach(function (host) {
     var start = function () {
       var points = [];

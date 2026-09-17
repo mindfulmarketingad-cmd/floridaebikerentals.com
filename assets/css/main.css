@@ -345,60 +345,54 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .tag--open { background: #e6f6ee; color: var(--ok); border-color: #bfe6d3; }
 
 /* ---------- map ---------- */
+/* Leaflet draws the map; these rules cover the container, our own marker
+   styling and the touch veil. Leaflet's own CSS is loaded with the library. */
 .maptools { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-bottom: 1rem; }
 .map-panel {
-  border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-s);
-  margin-bottom: 1.5rem; background: var(--blue-50);
+  border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden;
+  box-shadow: var(--shadow-s); margin-bottom: 1.5rem; background: var(--blue-50);
 }
 .map-panel[hidden] { display: none !important; }
 .map {
-  position: relative; height: clamp(300px, 52vh, 520px); overflow: hidden;
-  cursor: grab; background: #dfe7f5;
-  /* pan-y keeps one-finger vertical scrolling with the page; the map handles
-     horizontal drags, and two fingers pan and pinch-zoom it freely. */
-  touch-action: pan-y;
+  position: relative; height: clamp(300px, 52vh, 520px); background: #e8eef7; z-index: 0;
 }
-.map__hint {
-  position: absolute; left: 0; bottom: 0; z-index: 5; background: rgba(255,255,255,.92);
-  font-size: max(11px, .7rem); padding: .15rem .5rem; border-radius: 0 var(--radius-s) 0 0;
-  color: var(--ink-soft);
-}
-@media (pointer: fine) { .map__hint { display: none; } }
-.map.is-dragging { cursor: grabbing; }
-.map__layer { position: absolute; inset: 0; transform-origin: 0 0; }
-.map__tile { position: absolute; width: 256px; height: 256px; user-select: none; -webkit-user-drag: none; }
-.map__pin {
-  position: absolute; transform: translate(-50%, -100%); width: 30px; height: 38px; border: 0; padding: 0;
-  background: transparent; cursor: pointer; z-index: 4;
-}
-.map__pin span {
+
+/* Our pin, rendered through an L.divIcon. */
+.map__marker span {
   display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50% 50% 50% 4px;
-  transform: rotate(-45deg); background: var(--blue-600); color: #fff; font-weight: 800; font-size: .78rem;
-  box-shadow: 0 4px 10px rgba(13,23,48,.35); border: 2px solid #fff;
+  transform: rotate(-45deg); background: var(--blue-600); color: #fff; font-weight: 800;
+  font-size: .78rem; box-shadow: 0 4px 10px rgba(13,23,48,.35); border: 2px solid #fff;
 }
-.map__pin span i { transform: rotate(45deg); font-style: normal; }
-.map__pin:hover span, .map__pin.is-active span { background: var(--sun-500); color: var(--blue-900); }
-.map__popup {
-  position: absolute; z-index: 6; transform: translate(-50%, calc(-100% - 42px)); width: 230px;
-  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-l); padding: .7rem .8rem;
-  font-size: .88rem; line-height: 1.4;
+.map__marker i { transform: rotate(45deg); font-style: normal; }
+.map__marker:hover span, .map__marker:focus span { background: var(--sun-500); color: var(--blue-900); }
+.map__marker--dot span { width: 20px; height: 20px; border-width: 2px; }
+
+/* Cluster bubbles. Deliberately gold, not blue: on a ranked map a blue "7"
+   pin means rank 7, so a group of seven must not look like one of them. */
+.marker-cluster { background: transparent !important; }
+.marker-cluster div {
+  width: 32px; height: 32px; margin: 2px 0 0 2px; border-radius: 50%;
+  background: var(--sun-500) !important; color: var(--blue-900) !important;
+  border: 2px solid #fff; box-shadow: 0 4px 10px rgba(13,23,48,.3);
 }
-.map__popup strong { display: block; font-size: .95rem; margin-bottom: .15rem; }
-.map__popup a { font-weight: 700; }
-.map__popup button {
-  position: absolute; right: .3rem; top: .2rem; border: 0; background: none; font-size: 1.1rem;
-  cursor: pointer; color: var(--ink-mute); line-height: 1;
+.marker-cluster span { font-weight: 800; font-size: .82rem; line-height: 28px; }
+
+.leaflet-popup-content { font-size: .9rem; line-height: 1.45; margin: .7rem .9rem; }
+.leaflet-popup-content strong { display: block; font-size: .96rem; margin-bottom: .15rem; }
+.map__popup-meta { display: block; color: var(--ink-mute); font-size: .85rem; }
+.leaflet-popup-content a { font-weight: 700; display: inline-block; margin-top: .3rem; }
+.leaflet-container { font: inherit; }
+.leaflet-control-attribution { font-size: max(11px, .7rem); }
+
+/* Phone: the map starts inert so a one-finger drag scrolls the page. */
+.map__veil {
+  position: absolute; inset: 0; z-index: 500; display: grid; place-items: center;
+  background: rgba(11, 31, 77, .22); cursor: pointer;
 }
-.map__zoom { position: absolute; right: 10px; top: 10px; z-index: 5; display: grid; gap: 4px; }
-.map__zoom button {
-  width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
-  font-size: 1.1rem; font-weight: 800; color: var(--blue-700); cursor: pointer; box-shadow: var(--shadow-s);
+.map__veil span {
+  background: rgba(255,255,255,.95); color: var(--ink); font-weight: 700; font-size: .92rem;
+  padding: .6rem 1rem; border-radius: var(--radius-s); box-shadow: var(--shadow);
 }
-.map__attr {
-  position: absolute; right: 0; bottom: 0; z-index: 5; background: rgba(255,255,255,.92);
-  font-size: max(11px, .7rem); padding: .15rem .45rem; border-radius: var(--radius-s) 0 0 0; color: var(--ink-mute);
-}
-.map__attr a { color: var(--ink-soft); }
 
 /* ---------- filters / search ---------- */
 .filterbar {
@@ -592,9 +586,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   .btn { min-height: 48px; }
   .btn--sm { min-height: 44px; padding: .62rem 1.05rem; font-size: .92rem; }
   .carousel__btn { width: 44px; height: 44px; }
-  .map__zoom button { width: 44px; height: 44px; font-size: 1.25rem; }
-  .map__pin { width: 40px; height: 46px; }
-  .map__pin span { width: 36px; height: 36px; font-size: .82rem; }
+  .map__marker span { width: 36px; height: 36px; font-size: .82rem; }
+  .map__marker--dot span { width: 26px; height: 26px; }
   .pagelink-cloud a { padding: .6rem 1rem; min-height: 44px; display: flex; align-items: center; }
   .brand { padding: .4rem 0; }
   .nav-toggle { min-height: 44px; }
@@ -608,7 +601,6 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   .crumbs { padding-top: .3rem; }
   .crumbs li { min-height: 40px; }
   .crumbs a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 .2rem; }
-  .map__attr { padding: .3rem .5rem; }
   .footer-top li a, .legal a { display: inline-block; padding: .35rem 0; }
   .footer-nav a { display: inline-block; padding: .55rem 0; }
 }
@@ -891,10 +883,3 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .map-panel--open .map { height: clamp(360px, 58vh, 560px); }
 .map-caption { margin-top: .5rem; }
 
-/* Unnumbered marker, for maps that show locations rather than a ranked list. */
-.map__pin--dot { width: 22px; height: 26px; }
-.map__pin--dot span { width: 20px; height: 20px; border-width: 2px; }
-@media (pointer: coarse), (max-width: 900px) {
-  .map__pin--dot { width: 30px; height: 34px; }
-  .map__pin--dot span { width: 26px; height: 26px; }
-}
