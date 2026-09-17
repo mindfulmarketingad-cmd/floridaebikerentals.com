@@ -26,6 +26,13 @@
     "disclosure": "",
     "dismissible": true
   },
+  "map": {
+    "_comment": "Tile provider for the site's maps. OpenStreetMap's own tile.openstreetmap.org is NOT usable here: its usage policy forbids heavy use of the volunteer-run servers and requires an identifying Referer. Carto's basemaps are keyless and permit use with attribution. For higher volume move to a keyed provider (MapTiler, Stadia, Thunderforest) by pasting its URL template below, including the key.",
+    "tileUrl": "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    "attribution": "\u00a9 OpenStreetMap contributors \u00a9 CARTO",
+    "attributionUrl": "https://carto.com/attributions",
+    "maxZoom": 18
+  },
   "viator": {
     "enabled": true,
     "url": "https://www.viator.com/Florida-tours/E-Bike-Tours/d276-tag21713?pid=P00320180&mcid=42383&medium=link",

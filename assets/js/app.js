@@ -292,9 +292,30 @@
   }
 
   /* ----------------------------------------------------------- maps */
+  /* Tile provider comes from the page (data-tiles on <body>), so it is changed
+     in data/site.json rather than here. OpenStreetMap's own servers are not a
+     valid target: their usage policy forbids this kind of volume and requires
+     an identifying referrer. */
+  var TILE_CONFIG = (function () {
+    var body = d.body;
+    return {
+      url: body.getAttribute("data-tile-url") || "",
+      maxZoom: parseInt(body.getAttribute("data-tile-maxzoom") || "18", 10),
+    };
+  })();
+
+  function tileUrlFor(z, x, y) {
+    if (!TILE_CONFIG.url) return "";
+    return TILE_CONFIG.url
+      .replace("{z}", z)
+      .replace("{x}", x)
+      .replace("{y}", y)
+      .replace("{r}", "");
+  }
+
   function buildMap(container, points, opts) {
     opts = opts || {};
-    var TILE = 256, MAXZ = 18, MINZ = 3;
+    var TILE = 256, MAXZ = TILE_CONFIG.maxZoom || 18, MINZ = 3;
     var layer = el("div", "map__layer");
     container.appendChild(layer);
 
@@ -396,9 +417,11 @@
           if (!tileCache[key]) {
             var img = d.createElement("img");
             img.className = "map__tile";
-            img.src = "https://tile.openstreetmap.org/" + state.z + "/" + tx + "/" + y + ".png";
+            img.src = tileUrlFor(state.z, tx, y);
             img.alt = "";
-            img.loading = "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+            img.loading = "lazy"; img.decoding = "async";
+            /* No referrer policy here on purpose: tile providers require the
+               request to identify the site, and stripping it gets us blocked. */
             img.draggable = false;
             img.addEventListener("error", function () { img.style.visibility = "hidden"; }, { once: true });
             layer.appendChild(img);
@@ -521,11 +544,11 @@
     }, { passive: false });
 
     var attr = el("div", "map__attr");
-    var osm = el("a", null, "OpenStreetMap contributors");
-    osm.href = "https://www.openstreetmap.org/copyright";
-    osm.rel = "noopener nofollow";
-    attr.appendChild(d.createTextNode("Map data © "));
-    attr.appendChild(osm);
+    var credit = el("a", null, d.body.getAttribute("data-tile-attribution") || "OpenStreetMap contributors");
+    credit.href = d.body.getAttribute("data-tile-attribution-url") || "https://www.openstreetmap.org/copyright";
+    credit.rel = "noopener nofollow";
+    credit.target = "_blank";
+    attr.appendChild(credit);
     container.appendChild(attr);
 
     var hint = el("div", "map__hint", "Drag with two fingers to move the map, pinch to zoom");
@@ -563,11 +586,21 @@
     });
   });
 
-  /* always-on maps: <div class="map" data-map-auto data-points="..."> */
+  /* Always-on maps build when they come into view, so a visitor who never
+     scrolls that far costs the tile provider nothing. */
   $$(".map[data-map-auto]").forEach(function (host) {
-    var points = [];
-    try { points = JSON.parse(host.getAttribute("data-points") || "[]"); } catch (err) { points = []; }
-    buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "14", 10) });
+    var start = function () {
+      var points = [];
+      try { points = JSON.parse(host.getAttribute("data-points") || "[]"); } catch (err) { points = []; }
+      buildMap(host, points, { zoom: parseInt(host.getAttribute("data-zoom") || "14", 10) });
+    };
+    if (!("IntersectionObserver" in window)) { start(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (e) { return e.isIntersecting; })) return;
+      io.disconnect();
+      start();
+    }, { rootMargin: "300px" });
+    io.observe(host);
   });
 
   /* ------------------------------------- sort a listicle by distance */

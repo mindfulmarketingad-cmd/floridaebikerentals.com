@@ -55,7 +55,16 @@ const EMBED_HOSTS = {
   viator: { img: ["https://media.viatorcdn.com", "https://cache-graphicslib.viator.com"] },
 };
 
-function cspMeta(inlineScripts, { ads, embeds = [] }) {
+/** Origin of the configured tile provider, for img-src. */
+function originOf(url) {
+  try {
+    return new URL(String(url).replace(/\{[a-z]\}/g, "0")).origin;
+  } catch {
+    return "";
+  }
+}
+
+function cspMeta(inlineScripts, { ads, embeds = [], tileOrigin = "" }) {
   const hashes = inlineScripts.map(sha256);
   const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : [])];
   const img = [
@@ -66,7 +75,7 @@ function cspMeta(inlineScripts, { ads, embeds = [] }) {
     "https://lh5.googleusercontent.com",
     "https://lh6.googleusercontent.com",
     "https://streetviewpixels-pa.googleapis.com",
-    "https://tile.openstreetmap.org",
+    ...(tileOrigin ? [tileOrigin] : []),
     ...(ads ? [...ADSENSE_HOSTS, "https://www.googletagmanager.com"] : []),
     ...embeds.flatMap((name) => EMBED_HOSTS[name]?.img || []),
   ];
@@ -242,7 +251,7 @@ export function page(site, opts) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-${cspMeta(allInline, { ads, embeds })}
+${cspMeta(allInline, { ads, embeds, tileOrigin: originOf(site.map?.tileUrl) })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>${esc(title)}</title>
@@ -276,7 +285,15 @@ ${headExtra}
 ${schemaTags.join("\n")}
 ${adsenseLoader(site)}
 </head>
-<body${bodyAttrs ? ` ${bodyAttrs}` : ""} data-index="/data/listings.json">
+<body${bodyAttrs ? ` ${bodyAttrs}` : ""} data-index="/data/listings.json"${
+    site.map?.tileUrl
+      ? ` data-tile-url="${attr(site.map.tileUrl)}" data-tile-maxzoom="${attr(
+          site.map.maxZoom || 18
+        )}" data-tile-attribution="${attr(site.map.attribution || "")}" data-tile-attribution-url="${attr(
+          site.map.attributionUrl || ""
+        )}"`
+      : ""
+  }>
 <a class="skip-link" href="#main">Skip to content</a>
 ${promoBanner(site)}
 ${header(path)}

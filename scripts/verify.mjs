@@ -62,6 +62,12 @@ export function verify(dist, site) {
 
     if (!/<link rel="canonical" href="/.test(html)) problems.push(`${pageUrl}: missing canonical`);
 
+    // OpenStreetMap's volunteer tile servers forbid this kind of use and will
+    // return 403 "Access blocked". The tile provider belongs in site.json.
+    if (html.includes("tile.openstreetmap.org")) {
+      problems.push(`${pageUrl}: references tile.openstreetmap.org, whose usage policy forbids this; set map.tileUrl in data/site.json`);
+    }
+
     // An AdSense unit with no slot ID can never fill and leaves a blank gap.
     for (const unit of html.matchAll(/<ins class="adsbygoogle"[\s\S]*?>/g)) {
       if (!/data-ad-slot="\d+"/.test(unit[0])) {

@@ -118,6 +118,21 @@ matters for a listing that already ranks, add a redirect in your host config.
   `noindex` so an empty page is never submitted to Google. It becomes indexable automatically as
   soon as the first product is added. `affiliateDisclosure` in the same file is printed on every
   shop page.
+- **Map tiles** — `data/site.json` → `map`. Holds the tile URL template, the attribution line and
+  its link. The configured origin is added to each page's CSP `img-src` automatically, and the
+  front end reads the template from `<body data-tile-url>`, so switching provider is one field.
+
+  **Do not point this at `tile.openstreetmap.org`.** Those are volunteer-run, donation-funded
+  servers whose [usage policy](https://operations.osmfoundation.org/policies/tiles/) forbids heavy
+  use and requires an identifying referrer; they return 403 "Access blocked" for sites like this
+  one. `npm run verify` fails the build if that host appears anywhere in the output.
+
+  The default is Carto's keyless basemaps, which permit use with attribution. For higher volume,
+  paste a keyed provider's template in instead (MapTiler, Stadia, Thunderforest), key included, and
+  update `attribution` to whatever that provider's terms require.
+
+  Maps build only when scrolled into view, so a visitor who never reaches one costs no tile
+  requests at all.
 - **Promo banner** — `data/site.json` → `promoBanner`. Set `enabled` to `false` to pull it from
   every page, or edit `text`, `cta`, `href` and `disclosure` in place. The link is rendered
   `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is not http(s) is dropped
