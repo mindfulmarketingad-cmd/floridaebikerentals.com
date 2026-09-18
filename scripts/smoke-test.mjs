@@ -206,6 +206,25 @@ ok("Viator promo is a sponsored link to the affiliate search",
    /viator\.com\/searchResults/.test(viator||"")&&/pid=P00320180/.test(viator||"")
    &&relAttrs.every(r=>/sponsored/.test(r)&&/nofollow/.test(r)));
 
+// the change is a slide, not a swap: sample the offers' positions through a
+// turn and check the incoming one travels in from the edge of the strip
+const travel=await page.evaluate(()=>new Promise(res=>{
+  const deck=document.querySelector(".promo__deck");
+  const slides=[...deck.querySelectorAll(".promo__link")];
+  const seen=[];
+  const iv=setInterval(()=>{
+    const left=deck.getBoundingClientRect().left;
+    seen.push(slides.map(s=>Math.round(s.getBoundingClientRect().left-left)));
+  },100);
+  setTimeout(()=>{clearInterval(iv);res({seen,w:Math.round(deck.getBoundingClientRect().width)});},9000);
+}));
+const flat=travel.seen.map(r=>r.join("|"));
+const moving=travel.seen.filter(r=>r.some(x=>x>4&&x<travel.w-4)).length;
+const parked=travel.seen[0].some(x=>Math.abs(x-travel.w)<4);
+const landed=travel.seen[travel.seen.length-1].some(x=>Math.abs(x)<4);
+ok(`offers slide across the ${travel.w}px strip (${moving} frames in motion, ${new Set(flat).size} distinct positions)`,
+   parked&&landed&&moving>=2);
+
 // hovering holds the offer still, so a visitor reading one is not interrupted
 await page.hover(".promo__deck");
 const held=(await promoText()).trim();

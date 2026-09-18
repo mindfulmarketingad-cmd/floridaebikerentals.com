@@ -64,19 +64,35 @@
     var at = 0;
     var timer = null;
 
+    var deck = $(".promo__deck", strip) || strip;
+    var SLIDE_MS = 600;
+
     function show(next) {
       if (next === at) return;
       var outgoing = slides[at];
       var incoming = slides[next];
+
+      // The incoming offer is already parked off-stage to the right, so giving
+      // it is-current is what slides it in; the outgoing one leaves to the left.
       outgoing.classList.remove("is-current");
       outgoing.classList.add("is-leaving");
       outgoing.setAttribute("aria-hidden", "true");
       outgoing.setAttribute("tabindex", "-1");
-      incoming.classList.remove("is-leaving");
       incoming.classList.add("is-current");
       incoming.removeAttribute("aria-hidden");
       incoming.removeAttribute("tabindex");
       at = next;
+
+      // Once it is out of sight, send it back to the starting side without
+      // animating, ready for its next turn.
+      window.setTimeout(function () {
+        deck.classList.add("is-still");
+        outgoing.classList.remove("is-leaving");
+        // Read a layout value so the browser applies the reset before the
+        // transition comes back, rather than collapsing the two into one frame.
+        void deck.offsetWidth;
+        deck.classList.remove("is-still");
+      }, SLIDE_MS);
     }
 
     function start() {

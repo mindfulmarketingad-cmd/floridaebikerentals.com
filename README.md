@@ -162,12 +162,19 @@ matters for a listing that already ranks, add a redirect in your host config.
   (`text`, optional `cta` button label, `href`), so adding a promotion is one object in an array.
   Set `enabled` to `false` to pull the strip from every page.
 
-  With more than one entry the strip slide-rotates through the offers every `rotateSeconds`
-  (default 7). All offers ship in the HTML with the first marked `is-current`, so the rotation is
-  progressive enhancement: with JavaScript off the first offer simply stays put. Rotation holds
-  while the pointer is over the offers, while focus is anywhere in the strip, and while the tab is
-  in the background. Hover is watched on the offers rather than the whole strip, which spans the
-  window — otherwise a cursor resting on the top edge would freeze it for the whole visit.
+  With more than one entry the offers take turns every `rotateSeconds` (default 7), and the change
+  is a slide: the next offer travels in from the right edge of the strip while the one before it
+  leaves to the left. The deck is full width and clips, so each offer crosses the whole banner.
+  Offers wait off-stage on the right until their turn; once one has left, it is sent back to the
+  starting side with transitions switched off, so it never animates back through the middle.
+
+  All offers ship in the HTML with the first marked `is-current`, so the rotation is progressive
+  enhancement: with JavaScript off the first offer simply stays put. Under
+  `prefers-reduced-motion` the offers still take turns but cross-fade instead of travelling.
+  Rotation holds while the pointer is over the offers, while focus is anywhere in the strip, and
+  while the tab is in the background. Hover is watched on the offers rather than the whole strip,
+  which spans the window — otherwise a cursor resting on the top edge would freeze it for the
+  whole visit.
 
   Every link is rendered `rel="sponsored nofollow noopener" target="_blank"` and any `href` that is
   not http(s) is dropped at build. `dismissible` adds a close button that hides the whole strip; a

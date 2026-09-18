@@ -815,24 +815,36 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
   color: #fff; text-align: center;
   border-bottom: 2px solid var(--sun-500);
 }
-/* Every offer ships in the HTML and they stack in one grid cell, so the strip
-   is only ever as tall as its tallest offer and nothing reflows as they turn. */
-.promo__deck { display: grid; overflow: hidden; }
+/* Every offer ships in the HTML and they stack in one grid cell, so the strip is
+   only ever as tall as its tallest offer and nothing reflows as they turn. The
+   deck takes the full width and clips, so an offer travels the whole strip: it
+   slides in from the right while the one before it slides out to the left. */
+.promo__deck {
+  flex: 1 1 100%; min-width: 0;
+  display: grid; overflow: hidden;
+}
 .promo__link {
   grid-area: 1 / 1;
   display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem;
   color: #fff; text-decoration: none; font-weight: 800;
-  opacity: 0; transform: translateX(28px); pointer-events: none;
-  transition: opacity .45s ease, transform .45s ease;
+  /* Offers wait off-stage to the right until it is their turn. */
+  transform: translateX(100%); pointer-events: none;
+  transition: transform .6s cubic-bezier(.22, .61, .36, 1);
 }
-.promo__link.is-current { opacity: 1; transform: none; pointer-events: auto; }
-/* The outgoing slide leaves to the left, so the set reads as moving one way. */
-.promo__link.is-leaving { opacity: 0; transform: translateX(-28px); }
+.promo__link.is-current { transform: translateX(0); pointer-events: auto; }
+.promo__link.is-leaving { transform: translateX(-100%); }
+/* Sending an offer that has left back to the starting side would otherwise
+   animate it straight through the middle of the strip, so the trip home is made
+   with transitions off. */
+.promo__deck.is-still .promo__link { transition: none; }
 /* No JavaScript: the first offer is simply the banner. */
-.no-js .promo__link { opacity: 1; transform: none; pointer-events: auto; }
+.no-js .promo__link { transform: none; pointer-events: auto; }
 .no-js .promo__link ~ .promo__link { display: none; }
+/* Reduced motion: the offers still take turns, they just do not travel. */
 @media (prefers-reduced-motion: reduce) {
-  .promo__link { transform: none !important; transition: opacity .25s ease; }
+  .promo__link { transform: none !important; opacity: 0; transition: opacity .3s ease; }
+  .promo__link.is-current { opacity: 1; }
+  .promo__link.is-leaving { opacity: 0; }
 }
 .promo__link:hover { color: #fff; }
 .promo__link:hover .promo__cta { background: var(--sun-400); }
