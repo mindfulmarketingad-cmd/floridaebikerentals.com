@@ -331,20 +331,67 @@ export function balance(tours, limit) {
 /**
  * The search endpoint returns one photo per product. The full set only comes
  * from the product's own record, so the kept tours -- and only those, not every
- * product matched -- get one extra call each to fill in their gallery.
+ * product matched -- need one extra call each to fill in their gallery.
  *
- * This is best-effort and strictly bounded. Galleries are a nice-to-have: every
- * tour already has its cover, so the pass must never be able to hold up an
- * import that is otherwise done. It therefore runs a small pool in parallel,
- * gives up the moment the API starts rate limiting rather than backing off 250
- * times, and stops at a wall-clock budget whatever else is left.
+ * Those lookups are slow: a full first pass over 250 of them takes around 25
+ * minutes. The thing that makes that acceptable is that photo sets barely
+ * change, so a tour whose gallery we already have is skipped. The first run
+ * pays the cost once and every refresh afterwards only looks up what is new.
+ *
+ * It is still best-effort: every tour already has its cover from the sweep, so
+ * a gallery must never hold up an import that is otherwise done. A few run at a
+ * time, none retry, a rate limit stops the pass, and a wall-clock budget ends
+ * it whatever is left. Anything not reached keeps its cover and is tried again
+ * on the next run.
  */
-const DETAIL_BUDGET_MS = 180000; // 3 minutes, against a sweep that takes about 1
-const DETAIL_POOL = 4;
+const DETAIL_BUDGET_MS = 15 * 60 * 1000;
+const DETAIL_POOL = 3;
 
-async function addGalleries(tours) {
+/** Photo sets already in data/tours.json, by product code. */
+function knownPhotos(existing) {
+  const map = new Map();
+  for (const tour of existing.tours || []) {
+    if (tour.productCode && (tour.gallery || []).length) {
+      map.set(tour.productCode, {
+        image: tour.image,
+        imageWidth: tour.imageWidth,
+        imageHeight: tour.imageHeight,
+        imageCaption: tour.imageCaption,
+        gallery: tour.gallery,
+      });
+    }
+  }
+  return map;
+}
+
+function applyPhotos(tour, photos) {
+  const [cover, ...gallery] = photos;
+  tour.image = cover.src;
+  if (cover.width) {
+    tour.imageWidth = cover.width;
+    tour.imageHeight = cover.height;
+  }
+  if (cover.caption) tour.imageCaption = cover.caption;
+  tour.gallery = gallery;
+}
+
+async function addGalleries(tours, known) {
+  let reused = 0;
+  const queue = [];
+  for (const tour of tours) {
+    if (!tour.productCode) continue;
+    const have = known.get(tour.productCode);
+    if (have) {
+      Object.assign(tour, have);
+      reused++;
+    } else {
+      queue.push(tour);
+    }
+  }
+  if (reused) console.log(`  ${reused} photo sets carried over from the existing file`);
+  if (!queue.length) return;
+
   const deadline = Date.now() + DETAIL_BUDGET_MS;
-  const queue = tours.filter((t) => t.productCode);
   let at = 0;
   let improved = 0;
   let failed = 0;
@@ -361,8 +408,8 @@ async function addGalleries(tours) {
 
       let detail;
       try {
-        // No retries here: a gallery is not worth waiting on, and retrying into
-        // a rate limit is what makes this pass slow rather than what fixes it.
+        // No retries: retrying into a rate limit is what makes a pass like this
+        // slow, not what fixes it.
         detail = await api(`/products/${encodeURIComponent(tour.productCode)}`, { retries: false });
       } catch (error) {
         if (/HTTP 429/.test(error.message)) {
@@ -375,14 +422,7 @@ async function addGalleries(tours) {
 
       const photos = pickImages(detail);
       if (photos.length > 1) {
-        const [cover, ...gallery] = photos;
-        tour.image = cover.src;
-        if (cover.width) {
-          tour.imageWidth = cover.width;
-          tour.imageHeight = cover.height;
-        }
-        if (cover.caption) tour.imageCaption = cover.caption;
-        tour.gallery = gallery;
+        applyPhotos(tour, photos);
         improved++;
       }
     }
@@ -390,11 +430,11 @@ async function addGalleries(tours) {
 
   await Promise.all(Array.from({ length: DETAIL_POOL }, worker));
 
-  const seen = Math.min(at, queue.length);
+  const tried = Math.min(at, queue.length);
   console.log(
-    `  ${improved} of ${seen} with extra photos` +
-      (failed ? `, ${failed} lookups failed` : "") +
-      (stopped ? ` (stopped early: ${stopped}, ${queue.length - seen} not tried)` : "")
+    `  looked up ${tried} of ${queue.length} new tours, ${improved} with extra photos` +
+      (failed ? `, ${failed} failed` : "") +
+      (stopped ? ` (stopped early: ${stopped}; the rest keep their cover and are retried next run)` : "")
   );
 }
 
@@ -499,9 +539,11 @@ async function main() {
     if (n) console.log(`  ${category.name.padEnd(24)} ${n}`);
   }
 
+  const existing = JSON.parse(readFileSync(TOURS_PATH, "utf8"));
+
   if (DETAILS && tours.length) {
-    console.log(`\nfetching photo sets for ${tours.length} tours…`);
-    await addGalleries(tours);
+    console.log(`\nfilling in photo sets…`);
+    await addGalleries(tours, knownPhotos(existing));
   }
 
   if (tours.length < MIN) {
@@ -512,7 +554,6 @@ async function main() {
     process.exit(1);
   }
 
-  const existing = JSON.parse(readFileSync(TOURS_PATH, "utf8"));
   const pinned = (existing.tours || []).filter((t) => t.pinned);
   const codes = new Set(tours.map((t) => t.productCode));
   const merged = [...pinned.filter((t) => !codes.has(t.productCode)), ...tours];

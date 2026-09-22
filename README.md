@@ -198,11 +198,17 @@ matters for a listing that already ranks, add a redirect in your host config.
   fetches each kept tour's own record for the full set — one extra call per listed tour, not per
   product matched.
 
-  That pass is deliberately best-effort and bounded: every tour already has its cover, so a gallery
-  must never hold up an import that is otherwise done. It runs four lookups at a time, does not
-  retry (retrying into a rate limit is what makes such a pass slow, not what fixes it), stops
-  outright if the API starts returning 429, and gives up at a three-minute budget whatever is left.
-  It reports how many it enriched and why it stopped. `--no-details` skips it entirely.
+  Those lookups are slow — a first pass over 250 of them takes around 25 minutes — so a tour whose
+  photo set is already in `data/tours.json` is carried over rather than fetched again. The first run
+  pays the cost once; every refresh afterwards only looks up genuinely new listings, which is
+  usually a handful.
+
+  The pass is still best-effort and bounded, because every tour already has its cover from the
+  sweep and a gallery must never hold up an import that is otherwise done: three lookups run at a
+  time, none retry (retrying into a rate limit is what makes such a pass slow, not what fixes it),
+  a 429 stops it, and a fifteen-minute budget ends it whatever is left. Anything not reached keeps
+  its cover and is tried again next run. The log says how many were carried over, how many were
+  looked up and why it stopped early. `--no-details` skips the pass entirely.
 
   Their origins are **not** hard-coded into the CSP. A page declares the remote images it renders via
   `imageUrls`, and only those origins are added to that page's `img-src` — so a tour page allows the
