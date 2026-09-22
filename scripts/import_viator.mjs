@@ -93,7 +93,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * rate limiting and transient 5xx. Anything else fails loudly, since a silent
  * partial sweep would quietly shrink the page.
  */
-async function api(path, { method = "GET", body, attempt = 1 } = {}) {
+async function api(path, { method = "GET", body, attempt = 1, retries = true } = {}) {
   let res;
   try {
     res = await fetch(`${BASE}${path}`, {
@@ -107,12 +107,12 @@ async function api(path, { method = "GET", body, attempt = 1 } = {}) {
       body: body ? JSON.stringify(body) : undefined,
     });
   } catch (error) {
-    if (attempt >= 4) throw new Error(`${method} ${path} -> ${error.message}`);
+    if (!retries || attempt >= 4) throw new Error(`${method} ${path} -> ${error.message}`);
     await sleep(attempt * 2000);
     return api(path, { method, body, attempt: attempt + 1 });
   }
 
-  if ((res.status === 429 || res.status >= 500) && attempt < 4) {
+  if (retries && (res.status === 429 || res.status >= 500) && attempt < 4) {
     const wait = Number(res.headers.get("retry-after")) * 1000 || attempt * 2000;
     console.warn(`  HTTP ${res.status} on ${path}, retrying in ${Math.round(wait / 1000)}s`);
     await sleep(wait);
@@ -333,42 +333,68 @@ export function balance(tours, limit) {
  * from the product's own record, so the kept tours -- and only those, not every
  * product matched -- get one extra call each to fill in their gallery.
  *
- * Failure is not fatal: a tour that cannot be fetched keeps the cover photo
- * search already gave it, which is why this runs after the cap rather than
- * before it.
+ * This is best-effort and strictly bounded. Galleries are a nice-to-have: every
+ * tour already has its cover, so the pass must never be able to hold up an
+ * import that is otherwise done. It therefore runs a small pool in parallel,
+ * gives up the moment the API starts rate limiting rather than backing off 250
+ * times, and stops at a wall-clock budget whatever else is left.
  */
+const DETAIL_BUDGET_MS = 180000; // 3 minutes, against a sweep that takes about 1
+const DETAIL_POOL = 4;
+
 async function addGalleries(tours) {
+  const deadline = Date.now() + DETAIL_BUDGET_MS;
+  const queue = tours.filter((t) => t.productCode);
+  let at = 0;
   let improved = 0;
   let failed = 0;
+  let stopped = "";
 
-  for (const tour of tours) {
-    if (!tour.productCode) continue;
-    let detail;
-    try {
-      detail = await api(`/products/${encodeURIComponent(tour.productCode)}`);
-    } catch {
-      failed++;
-      await sleep(150);
-      continue;
-    }
-
-    const photos = pickImages(detail);
-    if (photos.length > 1) {
-      const [cover, ...gallery] = photos;
-      tour.image = cover.src;
-      if (cover.width) {
-        tour.imageWidth = cover.width;
-        tour.imageHeight = cover.height;
+  async function worker() {
+    while (!stopped) {
+      if (Date.now() > deadline) {
+        stopped = "time budget reached";
+        return;
       }
-      if (cover.caption) tour.imageCaption = cover.caption;
-      tour.gallery = gallery;
-      improved++;
+      const tour = queue[at++];
+      if (!tour) return;
+
+      let detail;
+      try {
+        // No retries here: a gallery is not worth waiting on, and retrying into
+        // a rate limit is what makes this pass slow rather than what fixes it.
+        detail = await api(`/products/${encodeURIComponent(tour.productCode)}`, { retries: false });
+      } catch (error) {
+        if (/HTTP 429/.test(error.message)) {
+          stopped = "rate limited";
+          return;
+        }
+        failed++;
+        continue;
+      }
+
+      const photos = pickImages(detail);
+      if (photos.length > 1) {
+        const [cover, ...gallery] = photos;
+        tour.image = cover.src;
+        if (cover.width) {
+          tour.imageWidth = cover.width;
+          tour.imageHeight = cover.height;
+        }
+        if (cover.caption) tour.imageCaption = cover.caption;
+        tour.gallery = gallery;
+        improved++;
+      }
     }
-    await sleep(150); // same budget as the search sweep
   }
 
+  await Promise.all(Array.from({ length: DETAIL_POOL }, worker));
+
+  const seen = Math.min(at, queue.length);
   console.log(
-    `  ${improved} with extra photos` + (failed ? `, ${failed} detail lookups failed` : "")
+    `  ${improved} of ${seen} with extra photos` +
+      (failed ? `, ${failed} lookups failed` : "") +
+      (stopped ? ` (stopped early: ${stopped}, ${queue.length - seen} not tried)` : "")
   );
 }
 

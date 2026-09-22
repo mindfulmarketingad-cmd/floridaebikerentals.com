@@ -196,8 +196,13 @@ matters for a listing that already ranks, add a redirect in your host config.
 
   The search endpoint only returns one photo per product, so after the cap is applied the importer
   fetches each kept tour's own record for the full set — one extra call per listed tour, not per
-  product matched. A lookup that fails leaves that tour with the cover search already gave it.
-  `--no-details` skips the pass entirely.
+  product matched.
+
+  That pass is deliberately best-effort and bounded: every tour already has its cover, so a gallery
+  must never hold up an import that is otherwise done. It runs four lookups at a time, does not
+  retry (retrying into a rate limit is what makes such a pass slow, not what fixes it), stops
+  outright if the API starts returning 429, and gives up at a three-minute budget whatever is left.
+  It reports how many it enriched and why it stopped. `--no-details` skips it entirely.
 
   Their origins are **not** hard-coded into the CSP. A page declares the remote images it renders via
   `imageUrls`, and only those origins are added to that page's `img-src` — so a tour page allows the

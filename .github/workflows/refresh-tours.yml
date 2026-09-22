@@ -56,6 +56,9 @@ jobs:
           fi
 
       - name: Import from Viator
+        # The importer bounds its own work, but a hung socket is not its to
+        # bound: this stops a stalled run holding a runner for six hours.
+        timeout-minutes: 20
         env:
           VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
         run: |
