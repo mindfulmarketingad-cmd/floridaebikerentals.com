@@ -635,6 +635,21 @@
     else window.addEventListener("load", nearbyAuto, { once: true });
   }
 
+  /* ------------------------------------- category shortcuts above a filter */
+  /* Buttons that pre-set one of the form's own selects, so the list has a way
+     in per activity without a second filtering path to keep in step. */
+  $$("[data-category-jump]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var select = $('[data-filter-field="category"]');
+      if (!select) return;
+      var want = button.getAttribute("data-category-jump");
+      select.value = select.value === want ? "" : want;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      var form = select.form || $("[data-filter-form]");
+      if (form && form.scrollIntoView) form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    });
+  });
+
   /* ------------------------------------------------ listicle filters */
   var filterForm = $("[data-filter-form]");
   if (filterForm) {
@@ -664,6 +679,9 @@
         } else if (mode === "max") {
           var num = parseFloat(raw);
           if (!isFinite(num) || num > parseFloat(value)) return false;
+        } else if (mode === "min") {
+          var low = parseFloat(raw);
+          if (!isFinite(low) || low < parseFloat(value)) return false;
         } else if (raw !== value) {
           return false;
         }

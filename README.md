@@ -180,28 +180,57 @@ matters for a listing that already ranks, add a redirect in your host config.
   not http(s) is dropped at build. `dismissible` adds a close button that hides the whole strip; a
   dismissal is remembered for that browser session only, so the offers return on the visitor's next
   visit. The banner sits above the sticky header and scrolls away with the page.
-- **Tours** — `data/tours.json` holds the bookable Viator experiences listed at `/tours/`. Only
-  `name` and `url` are required; `location`, `region`, `price`, `rating`, `reviews`, `duration`,
-  `summary`, `features[]` and `image` all render when present and are simply omitted when absent.
+- **Tours** — `data/tours.json` holds the bookable Viator experiences listed at `/tours/`, each of
+  which also gets its own page at `/tours/<slug>/`. Slugs are derived from the name and
+  de-duplicated at load, so they are not stored. Only `name` and `url` are required; `category`,
+  `location`, `region`, `citySlug`, `price`, `rating`, `reviews`, `duration`, `summary`,
+  `features[]` and `image` all render when present and are simply omitted when absent.
   `priceChecked` is shown to readers, since Viator prices move. Mark an entry `"pinned": true` to
   keep it through a re-import.
 
-  Populate it from the Viator API:
+  `category` is one of `ebike`, `jetski`, `boat`, `watersports`, `airboat`, `other` — defined in
+  `TOUR_CATEGORIES` in `src/data.mjs`, which also sets the order they appear in. Anything
+  unrecognised falls back to `other`. A category only shows up in the filter and the shortcut row
+  once something is actually in it.
+
+  ### Refreshing the tours
+
+  The importer sweeps every Florida destination Viator knows about, categorises each product from
+  its title and description, and keeps the best of each activity up to the cap. E-bikes fill the
+  cap first — they are what the site is for — and the other activities then take turns, so one big
+  category cannot crowd the rest off the page.
+
+  **From GitHub (the normal way).** Actions → **Refresh tours** → *Run workflow*. It reads the
+  `VIATOR_API_KEY` repository secret, imports, runs `npm run verify`, and commits `data/tours.json`
+  only if the build passes and the file actually changed. Inputs let you set the cap and the pages
+  per destination, or tick *dry run* to see what would be imported without committing. It also runs
+  itself every Monday so prices and ratings do not go stale. Every run posts a per-category tally to
+  the job summary.
+
+  The workflow has to exist on the default branch before it appears in the Actions tab — merge the
+  branch first, then run it.
+
+  **Locally.** The key is read from the environment and is never written to disk or into
+  `data/tours.json`:
 
   ```bash
-  VIATOR_API_KEY=your-key npm run import:tours
-  VIATOR_API_KEY=your-key npm run import:tours -- --dry-run --limit 40
+  VIATOR_API_KEY=your-key node scripts/import_viator.mjs --dry-run
+  VIATOR_API_KEY=your-key node scripts/import_viator.mjs --limit 250
+  npm run verify
   ```
 
-  The importer walks Florida destinations, keeps products whose title or description mentions an
-  e-bike, appends the affiliate parameters from `site.json` → `viator.url` to every product URL,
-  ranks by rating weighted against review volume, and refuses to write a list shorter than `--min`
-  (default 25) so a partial API response cannot silently shrink the page. **The key is read from the
-  environment and never written to disk** — do not put it in a committed file.
+  | Flag | Default | Notes |
+  | --- | --- | --- |
+  | `--limit N` | 250 | Cap on tours kept. |
+  | `--min N` | 25 | Refuses to write a list shorter than this over the existing one. |
+  | `--pages N` | 3 | Result pages per destination, 50 products each. |
+  | `--category K` | all | Restrict to one category; repeatable. |
+  | `--dry-run` | off | Import and report, write nothing. |
+  | `--sandbox` | off | Use `api.sandbox.viator.com`. |
 
-  Filters on the page build themselves from the data: a facet only appears when it can actually
-  narrow the list, so region, max price, max length and feature filters surface as the catalogue
-  grows. Sorting covers our ranking, price both ways, rating, review count and length.
+  The categoriser and the balancer are unit-tested in `npm test`, so a change to the patterns that
+  starts letting helicopter tours through fails the suite.
+
 - **Viator booking CTA** — `data/site.json` → `viator`. Holds the affiliate URL, the button label
   and the disclosure. `enabled: false` removes every booking CTA on the site. The link renders
   `rel="sponsored nofollow noopener" target="_blank"` and a non-http(s) URL is dropped at render.

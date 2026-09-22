@@ -148,18 +148,83 @@ export function loadShop() {
   };
 }
 
-/** Bookable Viator tours listed at /tours/. Hand-edited JSON, so URLs are validated here. */
+/**
+ * Activity categories for /tours/. The importer tags every product with one of
+ * these keys; the order here is the order they appear in the filter and on the
+ * hub, so e-bikes lead, as they do everywhere else on the site.
+ */
+export const TOUR_CATEGORIES = [
+  { key: "ebike", name: "E-bike tours", short: "E-bike",
+    blurb: "Guided rides on electric bikes, with the bike, helmet and a guide who knows the route." },
+  { key: "jetski", name: "Jet ski & watercraft", short: "Jet ski",
+    blurb: "Waverunner and jet ski rentals and guided runs, from single hops to island tours." },
+  { key: "boat", name: "Boat & sailing", short: "Boat",
+    blurb: "Charters, sunset sails, catamarans and pontoon rentals along the coast and the Keys." },
+  { key: "watersports", name: "Watersports", short: "Watersports",
+    blurb: "Parasailing, kayaking, paddleboarding, snorkelling and the rest of the on-the-water list." },
+  { key: "airboat", name: "Airboat & Everglades", short: "Airboat",
+    blurb: "Airboat runs and Everglades wildlife trips through the sawgrass." },
+  { key: "other", name: "More Florida experiences", short: "More",
+    blurb: "Everything else worth booking while you are here." },
+];
+
+const TOUR_CATEGORY_KEYS = new Set(TOUR_CATEGORIES.map((c) => c.key));
+
+/**
+ * Bookable Viator experiences listed at /tours/, each with its own page at
+ * /tours/<slug>/. The file is written by scripts/import_viator.mjs, so slugs
+ * are derived and de-duplicated here rather than stored, and every field is
+ * treated as untrusted: URLs are validated at render, and an unknown category
+ * falls back to "other" rather than producing a page nothing links to.
+ */
 export function loadTours() {
   const file = join(ROOT, "data", "tours.json");
-  if (!existsSync(file)) return { currency: "USD", disclosure: "", tours: [] };
+  if (!existsSync(file)) return { currency: "USD", disclosure: "", tours: [], categories: [] };
   const raw = JSON.parse(readFileSync(file, "utf8"));
+
+  const used = new Set();
   const tours = (Array.isArray(raw.tours) ? raw.tours : [])
     .filter((t) => t && t.name)
-    .map((t) => ({ ...t, features: Array.isArray(t.features) ? t.features : [] }));
+    .map((t) => {
+      const base = slugify(t.slug || t.name, "tour").slice(0, 70).replace(/-+$/, "");
+      let slug = base;
+      let n = 2;
+      while (used.has(slug)) slug = `${base}-${n++}`;
+      used.add(slug);
+      return {
+        ...t,
+        slug,
+        url_internal: `/tours/${slug}/`,
+        category: TOUR_CATEGORY_KEYS.has(t.category) ? t.category : "other",
+        features: Array.isArray(t.features) ? t.features : [],
+      };
+    });
+
+  // Page titles are fitted to the SERP budget and made unique here, for the
+  // same reason listings' are: two operators can run identically named tours.
+  const takenTitles = new Map();
+  for (const tour of tours) {
+    const suffix = tour.location ? ` - ${tour.location}, FL` : " - Florida";
+    let title = fitTitle(tour.name, suffix);
+    if (takenTitles.has(title)) {
+      const base = title;
+      let n = 2;
+      // The name is truncated to fit, so only a counter added after fitting is
+      // guaranteed to change the string.
+      while (takenTitles.has(title)) title = `${base} (${n++})`;
+    }
+    takenTitles.set(title, tour.slug);
+    tour.pageTitle = title;
+  }
+
+  // Only advertise categories that something actually falls into.
+  const present = new Set(tours.map((t) => t.category));
   return {
     currency: raw.currency || "USD",
     disclosure: raw.disclosure || "",
+    updated: raw.updated || "",
     tours,
+    categories: TOUR_CATEGORIES.filter((c) => present.has(c.key)),
   };
 }
 

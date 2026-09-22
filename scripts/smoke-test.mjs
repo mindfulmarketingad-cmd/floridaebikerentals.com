@@ -9,6 +9,34 @@ await new Promise(r=>server.listen(8099,r));
 const b=await chromium.launch();
 const ok=(n,c)=>console.log((c?"PASS":"FAIL")+" - "+n);
 
+// 0. the Viator importer's categoriser, which decides what reaches /tours/
+const { categorise, balance } = await import("./import_viator.mjs");
+const CASES=[
+  ["Guided E-Bike Tour of Miami Beach","ebike"],
+  ["Electric bicycle rental with self-guided route","ebike"],
+  ["Jet Ski Rental in Key West","jetski"],
+  ["Everglades Airboat Ride and Wildlife Show","airboat"],
+  ["Parasailing Adventure over Destin","watersports"],
+  ["Snorkeling Trip to the Coral Reef by boat","watersports"],
+  ["Sunset Catamaran Cruise with Open Bar","boat"],
+  ["Private Yacht Charter Fort Lauderdale","boat"],
+  ["Helicopter Tour over Miami",null],
+  ["Orlando Theme Park Ticket",null],
+];
+const wrong=CASES.filter(([t,want])=>categorise(t)!==want);
+ok(`importer categorises ${CASES.length} sample products correctly`+
+   (wrong.length?` (missed: ${wrong.map(w=>w[0]).join("; ")})`:""), wrong.length===0);
+
+// e-bikes take the cap first, then the other activities share what is left
+const sample=[
+  ...Array.from({length:40},(_,i)=>({category:"boat",rating:5,reviews:100-i})),
+  ...Array.from({length:5},()=>({category:"ebike",rating:4.5,reviews:10})),
+  ...Array.from({length:20},()=>({category:"jetski",rating:4.8,reviews:50})),
+];
+const mix=balance(sample,20).reduce((m,t)=>(m[t.category]=(m[t.category]||0)+1,m),{});
+ok(`importer keeps every e-bike then shares the rest (${JSON.stringify(mix)})`,
+   mix.ebike===5 && mix.boat>0 && mix.jetski>0 && mix.boat+mix.jetski===15);
+
 // 1. site search
 let page=await b.newPage();
 await page.goto("http://localhost:8099/search/");
@@ -175,7 +203,48 @@ ok(`/tours lists ${tours.n} tours with facets [${tours.facets}] and sponsored li
 await page.selectOption("[name=sort]","price-asc");
 await page.waitForTimeout(250);
 const sorted=await page.$$eval("[data-filter-item]",n=>n.map(x=>parseFloat(x.dataset.price)));
-ok(`/tours sorts by price ascending (${sorted.join(", ")})`, sorted.every((v,i)=>i===0||v>=sorted[i-1]));
+ok(`/tours sorts by price ascending (${sorted.length} tours, ${sorted[0]} to ${sorted[sorted.length-1]})`,
+   sorted.length>1 && sorted.every((v,i)=>i===0||v>=sorted[i-1]));
+await page.close();
+
+// 4k. /tours/ hub: the requested H1, links into our own tour pages, and a
+// tour page that carries the booking link with affiliate attributes
+page=await b.newPage({viewport:{width:1280,height:1000}});
+await page.goto("http://localhost:8099/tours/",{waitUntil:"load"});
+const h1=(await page.textContent("h1")).trim();
+const lede=(await page.textContent(".section__head p")).replace(/\s+/g," ").trim();
+ok(`/tours/ H1 is "${h1}"`, h1==="Florida Electric Bike (E-bike) Rentals & Tours");
+ok(`/tours/ opening line leads with the H1 — "${lede.slice(0,70)}…"`,
+   /^Florida electric bike \(e-bike\) rentals and tours/i.test(lede));
+
+const internal=await page.$$eval(".listicle__title a",n=>n.map(a=>a.getAttribute("href")));
+ok(`/tours/ links ${internal.length} tours to their own pages`,
+   internal.length>0 && internal.every(h=>/^\/tours\/[a-z0-9-]+\/$/.test(h)));
+
+// the filters only render facets that can narrow the list, so check the ones present work
+const fields=await page.$$eval("[data-filter-field]",n=>n.map(x=>x.name));
+const tourCount=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
+let filtered=tourCount;
+if (fields.includes("rating")) {
+  const value=await page.$eval('[data-filter-field="rating"] option:last-child',o=>o.value);
+  await page.selectOption('[data-filter-field="rating"]',value);
+  await page.waitForTimeout(250);
+  const shown=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).map(x=>parseFloat(x.dataset.rating)));
+  filtered=shown.length;
+  ok(`/tours/ min-rating facet keeps only ${value}+ (${tourCount} -> ${filtered})`,
+     filtered>0 && filtered<=tourCount && shown.every(r=>r>=parseFloat(value)));
+  await page.selectOption('[data-filter-field="rating"]',"");
+}
+ok(`/tours/ offers facets [${fields.join(",")}] and a sort`, fields.length>0 && !!(await page.$("[name=sort]")));
+
+await page.goto("http://localhost:8099"+internal[0],{waitUntil:"load"});
+const tourH1=(await page.textContent("h1")).trim();
+const outbound=await page.$$eval('a[href*="viator.com"]',n=>n.map(a=>({rel:a.rel,href:a.href})));
+const images=(await page.$$("main img")).length;
+ok(`tour page ${internal[0]} renders "${tourH1.slice(0,40)}" with ${images} images`,
+   tourH1.length>0 && images>=2);
+ok(`tour page books out to Viator with affiliate attributes (${outbound.length} links)`,
+   outbound.length>0 && outbound.every(a=>/sponsored/.test(a.rel)&&/nofollow/.test(a.rel)&&/pid=P00320180/.test(a.href)));
 await page.close();
 
 // 5. nav toggle on mobile

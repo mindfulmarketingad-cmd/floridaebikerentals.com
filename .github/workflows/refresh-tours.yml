@@ -1,0 +1,99 @@
+name: Refresh tours
+
+# Re-imports bookable Viator experiences into data/tours.json and commits the
+# result. Run it from the Actions tab whenever the listings should be refreshed,
+# or let the weekly schedule keep prices and ratings from going stale.
+#
+# The API key comes from the VIATOR_API_KEY repository secret. It is passed to
+# the importer as an environment variable and never written to the repository.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Maximum tours to keep"
+        required: false
+        default: "250"
+      pages:
+        description: "Result pages per destination (50 products each)"
+        required: false
+        default: "3"
+      dry_run:
+        description: "Import and report, but do not commit"
+        type: boolean
+        required: false
+        default: false
+  schedule:
+    # 06:20 UTC every Monday. Off the hour so it is not queued behind the
+    # thundering herd of jobs scheduled at :00.
+    - cron: "20 6 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-tours
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check the key is present
+        env:
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+        run: |
+          if [ -z "$VIATOR_API_KEY" ]; then
+            echo "::error::The VIATOR_API_KEY repository secret is not set."
+            echo "Add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+      - name: Import from Viator
+        env:
+          VIATOR_API_KEY: ${{ secrets.VIATOR_API_KEY }}
+        run: |
+          node scripts/import_viator.mjs \
+            --limit "${{ inputs.limit || '250' }}" \
+            --pages "${{ inputs.pages || '3' }}" \
+            ${{ inputs.dry_run == true && '--dry-run' || '' }}
+
+      # The site has no npm dependencies, so this is the whole check: it builds
+      # every page and fails on a broken link, a duplicate title, an overlong
+      # description or a missing canonical. A bad import never reaches the
+      # default branch.
+      - name: Build and verify
+        run: npm run verify
+
+      - name: Commit the refreshed tours
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          if git diff --quiet -- data/tours.json; then
+            echo "No change to data/tours.json."
+            exit 0
+          fi
+          kept=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/tours.json','utf8')).tours.length)")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tours.json
+          git commit -m "Refresh Viator tours ($kept listed)"
+          git push
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f data/tours.json ]; then
+            node -e "
+              const d = JSON.parse(require('fs').readFileSync('data/tours.json','utf8'));
+              const tally = {};
+              for (const t of d.tours) tally[t.category || 'other'] = (tally[t.category || 'other'] || 0) + 1;
+              const rows = Object.entries(tally).map(([k, n]) => '| ' + k + ' | ' + n + ' |').join('\n');
+              console.log('## Tours in data/tours.json\n\n**' + d.tours.length + '** listed, updated ' + (d.updated || 'unknown') + '\n\n| Category | Count |\n| --- | --- |\n' + rows);
+            " >> "$GITHUB_STEP_SUMMARY"
+          fi

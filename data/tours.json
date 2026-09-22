@@ -1,10 +1,11 @@
 {
-  "_readme": "Bookable Viator experiences listed at /tours/. Add objects to the tours array. Only `name` and `url` are required; everything else is optional and simply omitted from the card when absent. `priceChecked` is the date the price was last confirmed and is shown to readers, since Viator prices change.",
+  "_readme": "Bookable Viator experiences listed at /tours/, each with its own page at /tours/<slug>/. Written by scripts/import_viator.mjs (run it locally or through the Refresh tours GitHub Action); hand-added entries are fine too. Only `name` and `url` are required. `category` is one of ebike, jetski, boat, watersports, airboat, other. Mark an entry \"pinned\": true to keep it through a re-import.",
   "currency": "USD",
   "disclosure": "Tours on this page are booked through Viator, an affiliate partner. We may earn a commission on bookings made through these links, at no extra cost to you. Viator and the individual operator set the price, availability and cancellation terms.",
   "tours": [
     {
       "name": "Myakka State Park E-bike Safari",
+      "category": "ebike",
       "url": "https://www.viator.com/tours/Sarasota/Myakka-State-Park-E-bike-Safari/d25738-136885P3?pid=P00320180&mcid=42383&medium=link",
       "location": "Sarasota",
       "region": "Sarasota & Bradenton",
@@ -31,6 +32,7 @@
     },
     {
       "name": "Electric Bike Art and Architecture Guided Tour in Jacksonville",
+      "category": "ebike",
       "url": "https://www.viator.com/tours/Jacksonville/Electric-Bike-Art-Tours/d4373-327594P1?pid=P00320180&mcid=42383&medium=link",
       "location": "Jacksonville",
       "region": "First Coast",

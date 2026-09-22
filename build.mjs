@@ -24,7 +24,7 @@ import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage } from "./src/pages/shop.mjs";
-import { toursHub } from "./src/pages/tours.mjs";
+import { toursHub, tourPage } from "./src/pages/tours.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -250,10 +250,27 @@ write("/tours/", toursHub(site, tours, ctx), {
     t: "Guided e-bike tours in Florida",
     s: "Tours",
     d: "Bookable guided e-bike experiences across Florida.",
-    k: `tours guided book experiences ${tours.tours.map((t) => `${t.name} ${t.location || ""}`).join(" ")}`.toLowerCase(),
+    k: `tours guided book experiences jet ski boat watersports ${tours.tours
+      .map((t) => `${t.name} ${t.location || ""}`)
+      .join(" ")}`.toLowerCase(),
     w: 9,
   },
 });
+for (const tour of tours.tours) {
+  write(tour.url_internal, tourPage(site, tour, tours, ctx), {
+    priority: 0.6,
+    changefreq: "weekly",
+    group: "tours",
+    search: {
+      u: tour.url_internal,
+      t: tour.name,
+      s: "Tour",
+      d: tour.summary || `${tour.name} in ${tour.location || "Florida"}, bookable through Viator.`,
+      k: `${tour.name} ${tour.location || ""} ${tour.region || ""} ${tour.category}`.toLowerCase(),
+      w: 4,
+    },
+  });
+}
 
 /* shop: hub plus a page per product */
 write("/shop/", shopHub(site, shop, ctx), {
@@ -377,7 +394,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "shop", "search"];
+const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "shop", "tours", "search"];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);
