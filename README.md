@@ -194,6 +194,11 @@ matters for a listing that already ranks, add a redirect in your host config.
   in `image`; up to four more go in `gallery[]` and appear as thumbnails on the tour's own page.
   Photos are hotlinked from Viator's CDN rather than copied into the repository.
 
+  The search endpoint only returns one photo per product, so after the cap is applied the importer
+  fetches each kept tour's own record for the full set — one extra call per listed tour, not per
+  product matched. A lookup that fails leaves that tour with the cover search already gave it.
+  `--no-details` skips the pass entirely.
+
   Their origins are **not** hard-coded into the CSP. A page declares the remote images it renders via
   `imageUrls`, and only those origins are added to that page's `img-src` — so a tour page allows the
   one CDN its photos come from, the hub allows the handful across its list, and every other page on
@@ -239,6 +244,7 @@ matters for a listing that already ranks, add a redirect in your host config.
   | `--min N` | 25 | Refuses to write a list shorter than this over the existing one. |
   | `--pages N` | 3 | Result pages per destination, 50 products each. |
   | `--category K` | all | Restrict to one category; repeatable. |
+  | `--no-details` | off | Skip the per-tour photo-set lookup (faster, one photo each). |
   | `--dry-run` | off | Import and report, write nothing. |
   | `--sandbox` | off | Use `api.sandbox.viator.com`. |
 

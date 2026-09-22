@@ -21,6 +21,7 @@
  *   --min N        fail if fewer than N are found (default 25)
  *   --pages N      result pages per destination, 50 per page (default 3)
  *   --category K   restrict to one category key (repeatable)
+ *   --no-details   skip the per-product detail pass (faster, one photo each)
  *   --dry-run      print what would be written, change nothing
  *   --sandbox      use api.sandbox.viator.com instead of production
  */
@@ -46,6 +47,7 @@ const LIMIT = Number(flag("limit", 250));
 const MIN = Number(flag("min", 25));
 const PAGES = Math.max(1, Number(flag("pages", 3)));
 const ONLY = new Set(flagAll("category"));
+const DETAILS = !has("no-details");
 const DRY = has("dry-run");
 const BASE = has("sandbox") ? "https://api.sandbox.viator.com/partner" : "https://api.viator.com/partner";
 
@@ -326,6 +328,50 @@ export function balance(tours, limit) {
   return kept;
 }
 
+/**
+ * The search endpoint returns one photo per product. The full set only comes
+ * from the product's own record, so the kept tours -- and only those, not every
+ * product matched -- get one extra call each to fill in their gallery.
+ *
+ * Failure is not fatal: a tour that cannot be fetched keeps the cover photo
+ * search already gave it, which is why this runs after the cap rather than
+ * before it.
+ */
+async function addGalleries(tours) {
+  let improved = 0;
+  let failed = 0;
+
+  for (const tour of tours) {
+    if (!tour.productCode) continue;
+    let detail;
+    try {
+      detail = await api(`/products/${encodeURIComponent(tour.productCode)}`);
+    } catch {
+      failed++;
+      await sleep(150);
+      continue;
+    }
+
+    const photos = pickImages(detail);
+    if (photos.length > 1) {
+      const [cover, ...gallery] = photos;
+      tour.image = cover.src;
+      if (cover.width) {
+        tour.imageWidth = cover.width;
+        tour.imageHeight = cover.height;
+      }
+      if (cover.caption) tour.imageCaption = cover.caption;
+      tour.gallery = gallery;
+      improved++;
+    }
+    await sleep(150); // same budget as the search sweep
+  }
+
+  console.log(
+    `  ${improved} with extra photos` + (failed ? `, ${failed} detail lookups failed` : "")
+  );
+}
+
 /* ----------------------------------------------------------------- main */
 
 /** Viator destination -> the town and region this site already knows about. */
@@ -425,6 +471,11 @@ async function main() {
   for (const category of TOUR_CATEGORIES) {
     const n = tally.get(category.key) || 0;
     if (n) console.log(`  ${category.name.padEnd(24)} ${n}`);
+  }
+
+  if (DETAILS && tours.length) {
+    console.log(`\nfetching photo sets for ${tours.length} tours…`);
+    await addGalleries(tours);
   }
 
   if (tours.length < MIN) {
