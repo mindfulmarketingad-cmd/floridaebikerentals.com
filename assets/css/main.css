@@ -883,6 +883,21 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 }
 .tag--button b { color: var(--ink-mute); font-weight: 800; margin-left: .25rem; }
 .tag--button:hover { background: var(--blue-50); border-color: var(--blue-200); }
+/* A tour's photos are wide travel shots, not products on white, so they crop to
+   fill rather than letterboxing inside the square the shop pages use. */
+.tour-detail__cover {
+  border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; background: var(--blue-50);
+}
+.tour-detail__cover > img,
+.tour-detail__cover .figure img { width: 100%; aspect-ratio: 8 / 5; object-fit: cover; display: block; }
+.tour-detail__cover .figure { margin: 0; }
+.tour-detail__cover figcaption { padding: .6rem .9rem; }
+
+/* Extra photos from a tour's own listing, under its cover image. */
+.thumb-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .6rem; list-style: none; padding: 0; margin: .8rem 0 0; }
+.thumb-row li { margin: 0; }
+.thumb-row img { width: 100%; height: 88px; object-fit: cover; border: 1px solid var(--line); border-radius: var(--radius-s); }
+
 .listicle__kicker { margin: -.35rem 0 .5rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; font-size: .74rem; }
 
 /* ==========================================================================

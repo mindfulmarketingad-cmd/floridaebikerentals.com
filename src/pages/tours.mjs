@@ -15,6 +15,27 @@ function safeUrl(url) {
   return /^https?:\/\//i.test(value) && !/["<>\s]/.test(value) ? value : "";
 }
 
+/**
+ * The remote photos a tour carries, validated. Viator gives real dimensions
+ * with each variant; when it does not, fall back to the 8:5 the cards are laid
+ * out for, so the browser still reserves the right box and nothing jumps.
+ */
+function tourPhotos(tour) {
+  const raw = [
+    { src: tour.image, width: tour.imageWidth, height: tour.imageHeight, caption: tour.imageCaption },
+    ...(Array.isArray(tour.gallery) ? tour.gallery : []),
+  ];
+  const seen = new Set();
+  return raw
+    .filter((p) => p && safeUrl(p.src) && !seen.has(p.src) && seen.add(p.src) !== false)
+    .map((p) => ({
+      src: safeUrl(p.src),
+      width: Number(p.width) > 0 ? Math.round(Number(p.width)) : 800,
+      height: Number(p.height) > 0 ? Math.round(Number(p.height)) : 500,
+      caption: p.caption || "",
+    }));
+}
+
 function money(amount, currency) {
   const number = Number(amount);
   if (!Number.isFinite(number)) return "";
@@ -137,7 +158,7 @@ function tourCard(tour, rank, currency) {
 
   const category = categoryOf(tour);
   const search = [tour.name, tour.location, tour.region, category.name, ...(tour.features || [])].join(" ");
-  const image = safeUrl(tour.image);
+  const [image] = tourPhotos(tour);
 
   return `<li class="listicle__item" data-filter-item data-renumber
   data-search="${attr(search)}"
@@ -156,7 +177,8 @@ function tourCard(tour, rank, currency) {
       image
         ? `<div class="listicle__media"><span class="listicle__rank" aria-hidden="true">${rank}</span>
       <a href="${attr(tour.url_internal)}" tabindex="-1" aria-hidden="true">
-      <img src="${attr(image)}" alt="${attr(tour.name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" width="800" height="500"></a></div>`
+      <img src="${attr(image.src)}" alt="${attr(tour.name)}" loading="lazy" decoding="async"
+        referrerpolicy="no-referrer" width="${attr(image.width)}" height="${attr(image.height)}"></a></div>`
         : ""
     }
     <div class="listicle__body">
@@ -370,7 +392,7 @@ ${adSlotScript(site, 1)}
     body,
     ogImage: hero.src,
     noindex: empty,
-    embeds: list.some((t) => safeUrl(t.image)) ? ["viator"] : [],
+    imageUrls: ranked.flatMap((t) => tourPhotos(t).slice(0, 1).map((p) => p.src)),
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -418,7 +440,8 @@ export function tourPage(site, tour, tours, ctx) {
   const crumbs = [HOME_CRUMB, TOURS_CRUMB, { href: tour.url_internal, label: tour.name }];
   const url = safeUrl(tour.url);
   const price = money(tour.price, tours.currency);
-  const image = safeUrl(tour.image);
+  const photos = tourPhotos(tour);
+  const [cover, ...gallery] = photos;
   const hero = photoFor(tour.slug);
   const extra = secondPhotoFor(tour.slug);
 
@@ -480,10 +503,11 @@ ${breadcrumbs(crumbs)}
 <section class="section" style="padding-top:1.2rem">
   <div class="wrap">
     <div class="product-detail">
-      <div class="product-detail__media">
-        ${
-          image
-            ? `<img src="${attr(image)}" alt="${attr(tour.name)}" width="800" height="500"
+      <div class="tour-detail__media">
+        <div class="tour-detail__cover">${
+          cover
+            ? `<img src="${attr(cover.src)}" alt="${attr(cover.caption || tour.name)}"
+            width="${attr(cover.width)}" height="${attr(cover.height)}"
             decoding="async" fetchpriority="high" referrerpolicy="no-referrer">`
             : // No image on the Viator listing. The library photo stands in, but it
               // is captioned as a stock shot so it is never read as this operator's
@@ -492,6 +516,18 @@ ${breadcrumbs(crumbs)}
                 eager: true,
                 caption: `${hero.caption} Stock photo — Viator has no image for this listing.`,
               })
+        }</div>
+        ${
+          gallery.length
+            ? `<ul class="thumb-row">${gallery
+                .map(
+                  (photo) => `<li><img src="${attr(photo.src)}" alt="${attr(
+                    photo.caption || `${tour.name} — another view`
+                  )}" width="${attr(photo.width)}" height="${attr(photo.height)}"
+              loading="lazy" decoding="async" referrerpolicy="no-referrer"></li>`
+                )
+                .join("")}</ul>`
+            : ""
         }
       </div>
       <div>
@@ -620,8 +656,8 @@ ${adSlotScript(site, 1)}
     ),
     path: tour.url_internal,
     body,
-    ogImage: image || hero.src,
-    embeds: image ? ["viator"] : [],
+    ogImage: cover?.src || hero.src,
+    imageUrls: photos.map((p) => p.src),
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
@@ -631,7 +667,7 @@ ${adSlotScript(site, 1)}
         "@type": "Product",
         name: tour.name,
         url: `${site.url}${tour.url_internal}`,
-        ...(image ? { image } : {}),
+        ...(photos.length ? { image: photos.map((p) => p.src) } : {}),
         ...(tour.summary ? { description: tour.summary } : {}),
         category: category.name,
         ...(tour.rating && tour.reviews

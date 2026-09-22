@@ -158,6 +158,57 @@ export function categorise(text) {
 
 /* ------------------------------------------------------------ transforms */
 
+/* Viator serves each photo at several sizes. These are the widths the site
+   actually renders an image at, so the variant nearest each is the one worth
+   asking for: the card is roughly 400px wide, the detail hero roughly 800. */
+const TARGET_WIDTH = 800;
+const MAX_GALLERY = 4;
+
+/** The variant closest to a target width, preferring one at or above it. */
+function bestVariant(variants, target) {
+  const usable = (Array.isArray(variants) ? variants : []).filter((v) => v && v.url);
+  if (!usable.length) return null;
+  const sized = usable.filter((v) => Number(v.width) > 0);
+  if (!sized.length) return { url: usable[usable.length - 1].url };
+  const atOrAbove = sized.filter((v) => Number(v.width) >= target);
+  const pool = atOrAbove.length ? atOrAbove : sized;
+  return pool.reduce((best, v) =>
+    Math.abs(Number(v.width) - target) < Math.abs(Number(best.width) - target) ? v : best
+  );
+}
+
+/**
+ * Cover photo first, then up to MAX_GALLERY more for the tour's own page.
+ * Viator marks a cover with isCover; when nothing does, the first image wins,
+ * which is the order Viator returns them in anyway.
+ */
+export function pickImages(product) {
+  const images = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
+  const ordered = [...images].sort((a, b) => Number(Boolean(b.isCover)) - Number(Boolean(a.isCover)));
+
+  const picked = [];
+  const seen = new Set();
+  for (const image of ordered.slice(0, MAX_GALLERY + 1)) {
+    const variant = bestVariant(image.variants, TARGET_WIDTH);
+    const src = variant?.url || "";
+    if (!/^https:\/\//i.test(src) || seen.has(src)) continue;
+    seen.add(src);
+    picked.push({
+      src,
+      ...(Number(variant.width) > 0
+        ? { width: Number(variant.width), height: Number(variant.height) || undefined }
+        : {}),
+      ...(image.caption ? { caption: trim(image.caption, 140) } : {}),
+    });
+  }
+
+  // Older payloads only carry a single flat URL.
+  if (!picked.length && /^https:\/\//i.test(product.primaryPhotoURL || "")) {
+    picked.push({ src: product.primaryPhotoURL });
+  }
+  return picked;
+}
+
 /** Viator product -> the shape /tours/ renders. Defensive about field names. */
 export function normaliseProduct(product, place) {
   const title = product.title || product.productName || "";
@@ -186,11 +237,8 @@ export function normaliseProduct(product, place) {
     product.duration?.variableDurationFromMinutes ??
     null;
 
-  const image =
-    product.images?.[0]?.variants?.slice(-1)[0]?.url ||
-    product.images?.[0]?.variants?.[0]?.url ||
-    product.primaryPhotoURL ||
-    "";
+  const photos = pickImages(product);
+  const [cover, ...gallery] = photos;
 
   const flags = Array.isArray(product.flags) ? product.flags : [];
   const features = [];
@@ -219,7 +267,10 @@ export function normaliseProduct(product, place) {
     duration: durationMin ? formatDuration(durationMin) : undefined,
     summary: description ? trim(description, 260) : undefined,
     features,
-    image,
+    image: cover?.src || "",
+    ...(cover?.width ? { imageWidth: cover.width, imageHeight: cover.height } : {}),
+    ...(cover?.caption ? { imageCaption: cover.caption } : {}),
+    ...(gallery.length ? { gallery } : {}),
   };
 }
 

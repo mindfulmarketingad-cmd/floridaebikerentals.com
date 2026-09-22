@@ -188,6 +188,20 @@ matters for a listing that already ranks, add a redirect in your host config.
   `priceChecked` is shown to readers, since Viator prices move. Mark an entry `"pinned": true` to
   keep it through a re-import.
 
+  **Photos** come from the Viator listing itself. Viator serves each photo at several sizes, so the
+  importer takes the variant nearest the width the page actually renders (800px) and stores its real
+  `imageWidth` / `imageHeight`, which is what stops the layout jumping as photos load. The cover goes
+  in `image`; up to four more go in `gallery[]` and appear as thumbnails on the tour's own page.
+  Photos are hotlinked from Viator's CDN rather than copied into the repository.
+
+  Their origins are **not** hard-coded into the CSP. A page declares the remote images it renders via
+  `imageUrls`, and only those origins are added to that page's `img-src` — so a tour page allows the
+  one CDN its photos come from, the hub allows the handful across its list, and every other page on
+  the site allows none. If Viator changes CDN hostname, nothing needs editing.
+
+  A listing with no photo of its own falls back to a library photo captioned as a stock shot, so it
+  is never read as the operator's own.
+
   `category` is one of `ebike`, `jetski`, `boat`, `watersports`, `airboat`, `other` — defined in
   `TOUR_CATEGORIES` in `src/data.mjs`, which also sets the order they appear in. Anything
   unrecognised falls back to `other`. A category only shows up in the filter and the shortcut row

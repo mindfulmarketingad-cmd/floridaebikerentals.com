@@ -10,7 +10,7 @@ const b=await chromium.launch();
 const ok=(n,c)=>console.log((c?"PASS":"FAIL")+" - "+n);
 
 // 0. the Viator importer's categoriser, which decides what reaches /tours/
-const { categorise, balance } = await import("./import_viator.mjs");
+const { categorise, balance, pickImages } = await import("./import_viator.mjs");
 const CASES=[
   ["Guided E-Bike Tour of Miami Beach","ebike"],
   ["Electric bicycle rental with self-guided route","ebike"],
@@ -36,6 +36,27 @@ const sample=[
 const mix=balance(sample,20).reduce((m,t)=>(m[t.category]=(m[t.category]||0)+1,m),{});
 ok(`importer keeps every e-bike then shares the rest (${JSON.stringify(mix)})`,
    mix.ebike===5 && mix.boat>0 && mix.jetski>0 && mix.boat+mix.jetski===15);
+
+// images: cover first, sized variant nearest what the page renders, no
+// duplicates and nothing served over plain http
+const picked=pickImages({images:[
+  {caption:"Riders on the trail",variants:[
+    {width:120,height:80,url:"https://media.viatorcdn.com/a-120.jpg"},
+    {width:720,height:480,url:"https://media.viatorcdn.com/a-720.jpg"}]},
+  {isCover:true,variants:[
+    {width:400,height:250,url:"https://media.viatorcdn.com/cover-400.jpg"},
+    {width:800,height:500,url:"https://media.viatorcdn.com/cover-800.jpg"},
+    {width:1600,height:1000,url:"https://media.viatorcdn.com/cover-1600.jpg"}]},
+  {variants:[{width:800,height:500,url:"https://media.viatorcdn.com/cover-800.jpg"}]},
+  {variants:[{url:"http://insecure.example/x.jpg"}]},
+]});
+ok(`importer picks the cover at the right size (${picked.map(p=>p.src.split("/").pop()+" "+p.width).join(", ")})`,
+   picked.length===2 && /cover-800/.test(picked[0].src) && picked[0].width===800 &&
+   picked[1].width===720 && picked[1].caption==="Riders on the trail" &&
+   !picked.some(p=>/^http:/.test(p.src)));
+ok("importer falls back to a single flat photo URL",
+   pickImages({primaryPhotoURL:"https://cache-graphicslib.viator.com/z.jpg"}).length===1 &&
+   pickImages({}).length===0);
 
 // 1. site search
 let page=await b.newPage();
@@ -236,6 +257,38 @@ if (fields.includes("rating")) {
   await page.selectOption('[data-filter-field="rating"]',"");
 }
 ok(`/tours/ offers facets [${fields.join(",")}] and a sort`, fields.length>0 && !!(await page.$("[name=sort]")));
+
+// images pulled from the listing: which tours have one depends on the data, so
+// find one that does and check it renders from its own CDN under a CSP that
+// allows exactly that origin
+const withPhoto=await page.$$eval("[data-filter-item]",n=>n
+  .filter(x=>x.querySelector(".listicle__media img"))
+  .map(x=>({href:x.querySelector(".listicle__title a").getAttribute("href"),
+            src:x.querySelector(".listicle__media img").getAttribute("src"),
+            w:x.querySelector(".listicle__media img").getAttribute("width")})));
+if (withPhoto.length) {
+  const origin=new URL(withPhoto[0].src).origin;
+  await page.goto("http://localhost:8099"+withPhoto[0].href,{waitUntil:"domcontentloaded"});
+  const csp=await page.getAttribute('meta[http-equiv="Content-Security-Policy"]',"content");
+  const imgSrc=/img-src ([^;]+)/.exec(csp)[1];
+  const remote=await page.$$eval("main img",n=>n.map(i=>i.getAttribute("src")).filter(s=>/^https?:/.test(s)));
+  ok(`tour images come from the listing (${remote.length} remote, ${origin} in img-src)`,
+     remote.length>0 && remote.every(s=>s.startsWith("http")) && imgSrc.includes(origin));
+  const sized=await page.$$eval("main img[src^='http']",n=>n.every(i=>i.getAttribute("width")&&i.getAttribute("height")));
+  ok("imported images carry their real width and height", sized && Number(withPhoto[0].w)>0);
+  const clean=await page.goto("http://localhost:8099/about/",{waitUntil:"domcontentloaded"});
+  const otherCsp=await page.getAttribute('meta[http-equiv="Content-Security-Policy"]',"content");
+  ok("a page without those images does not allow their host",
+     !!clean && !otherCsp.includes(origin));
+} else {
+  // Nothing in the data carries its own photo, so check the honest fallback:
+  // a library shot, captioned as stock, and no remote host in the CSP.
+  await page.goto("http://localhost:8099"+internal[0],{waitUntil:"domcontentloaded"});
+  const caption=(await page.textContent(".tour-detail__cover figcaption").catch(()=>"")) || "";
+  const remote=await page.$$eval("main img",n=>n.filter(i=>/^https?:/.test(i.getAttribute("src")||"")).length);
+  ok(`no tour carries its own photo, so a stock shot stands in, labelled as one`,
+     /Stock photo/.test(caption) && remote===0);
+}
 
 await page.goto("http://localhost:8099"+internal[0],{waitUntil:"load"});
 const tourH1=(await page.textContent("h1")).trim();

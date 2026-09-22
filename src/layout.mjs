@@ -49,10 +49,13 @@ function sha256(text) {
  * .htaccess, alongside HSTS and the other transport-level headers.
  */
 /* Third-party hosts a page may opt into, by name, via the `embeds` option.
-   Scoped per page so pages that do not need them keep the tighter policy. */
+   Scoped per page so pages that do not need them keep the tighter policy.
+
+   Remote *images* no longer need an entry here: `imageUrls` on a page adds
+   exactly the origins that page renders, which keeps up with a CDN that changes
+   hostname without anyone editing a list. */
 const EMBED_HOSTS = {
   ridewithgps: { frame: ["https://ridewithgps.com"] },
-  viator: { img: ["https://media.viatorcdn.com", "https://cache-graphicslib.viator.com"] },
 };
 
 /** Origin of the configured tile provider, for img-src. */
@@ -64,7 +67,19 @@ function originOf(url) {
   }
 }
 
-function cspMeta(inlineScripts, { ads, embeds = [], tileOrigin = "" }) {
+/** Distinct https origins from a list of URLs, for a page-scoped img-src. */
+function originsOf(urls) {
+  const origins = new Set();
+  for (const url of urls) {
+    try {
+      const { origin, protocol } = new URL(String(url));
+      if (protocol === "https:") origins.add(origin);
+    } catch { /* not a URL we can serve anyway */ }
+  }
+  return [...origins].sort();
+}
+
+function cspMeta(inlineScripts, { ads, embeds = [], tileOrigin = "", imgHosts = [] }) {
   const hashes = inlineScripts.map(sha256);
   const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : [])];
   const img = [
@@ -78,6 +93,9 @@ function cspMeta(inlineScripts, { ads, embeds = [], tileOrigin = "" }) {
     ...(tileOrigin ? [tileOrigin] : []),
     ...(ads ? [...ADSENSE_HOSTS, "https://www.googletagmanager.com"] : []),
     ...embeds.flatMap((name) => EMBED_HOSTS[name]?.img || []),
+    // Origins taken from the images this page actually renders, so a remote
+    // image host is allowed on the page that needs it and nowhere else.
+    ...imgHosts,
   ];
   const policy = [
     "default-src 'self'",
@@ -245,6 +263,8 @@ function adsenseLoader(site) {
  *  - schema:   array of JSON-LD objects
  *  - noindex:  boolean
  *  - ogImage:  absolute or root-relative image
+ *  - imageUrls: remote images this page renders; their origins, and only
+ *               theirs, are added to this page's CSP img-src
  *  - bodyAttrs, headExtra, footerColumns, inlineScripts
  */
 export function page(site, opts) {
@@ -264,6 +284,7 @@ export function page(site, opts) {
     prev = "",
     next = "",
     embeds = [],
+    imageUrls = [],
   } = opts;
 
   const canonical = `${site.url}${path}`;
@@ -284,6 +305,7 @@ ${cspMeta(allInline, {
   ads,
   embeds,
   tileOrigin: site.map?.enabled ? originOf(site.map?.tileUrl) : "",
+  imgHosts: originsOf(imageUrls),
 })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
