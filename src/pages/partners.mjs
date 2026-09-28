@@ -65,6 +65,7 @@ ${breadcrumbs(crumbs)}
       <p data-nearby-status>Allow location and this page re-sorts to show the e-bike rentals closest to you.</p>
       <button class="btn btn--blue btn--sm" type="button" data-nearby-button>Sort by distance from me</button>
       <span class="muted small">We never send your location anywhere — the sorting happens in your browser.</span>
+      <a class="small" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
     </div>
     ${mapPanel(slice, { id: `map-partners-${pageNumber}`, zoom: 7 })}
     <form class="filterbar" data-filter-form>

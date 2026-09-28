@@ -10,7 +10,7 @@ import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
 
-function filterBar(cities, tags, noun = "listings") {
+export function filterBar(cities, tags, noun = "listings") {
   return `<form class="filterbar" data-filter-form>
   <div class="field">
     <label for="f-q">Search this list</label>
@@ -47,7 +47,7 @@ function filterBar(cities, tags, noun = "listings") {
 <p class="result-count" data-filter-count data-noun="${attr(noun)}" aria-live="polite"></p>`;
 }
 
-function tagsIn(listings) {
+export function tagsIn(listings) {
   const counts = new Map();
   for (const l of listings) for (const t of l.tags || []) counts.set(t, (counts.get(t) || 0) + 1);
   return Array.from(counts.entries())
@@ -79,6 +79,19 @@ ${breadcrumbs([HOME_CRUMB, { href: "/find/", label: "Find" }])}
 </section>
 
 <section class="section section--tint">
+  <div class="wrap">
+    <div class="callout callout--lead">
+      <div>
+        <h2>Already somewhere? Skip the browsing.</h2>
+        <p class="muted">Share your location and every shop in the directory re-sorts by how far it
+        is from you, closest first, with the distance on each one.</p>
+      </div>
+      <a class="btn btn--blue" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
   <div class="wrap">
     <h2>Browse by region</h2>
     <div class="grid grid--3 mt-2">

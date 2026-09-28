@@ -17,6 +17,7 @@ import {
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
+import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
@@ -121,6 +122,21 @@ for (const city of index.cities) {
     },
   });
 }
+
+/* "near me": the biggest non-brand search cluster, which had no page of its own */
+write(NEAR_ME_URL, nearMePage(site, ctx), {
+  priority: 0.9,
+  changefreq: "weekly",
+  group: "find",
+  search: {
+    u: NEAR_ME_URL,
+    t: "E-bike rentals near me",
+    s: "Find",
+    d: "Sort every Florida e-bike rental shop by distance from wherever you are.",
+    k: "ebike rentals near me electric bike rental near me closest nearby distance",
+    w: 11,
+  },
+});
 
 for (const topic of index.topics) {
   write(topic.url, findTopic(site, topic, ctx), {

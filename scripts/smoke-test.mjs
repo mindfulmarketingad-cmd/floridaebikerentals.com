@@ -300,6 +300,36 @@ ok(`tour page books out to Viator with affiliate attributes (${outbound.length} 
    outbound.length>0 && outbound.every(a=>/sponsored/.test(a.rel)&&/nofollow/.test(a.rel)&&/pid=P00320180/.test(a.href)));
 await page.close();
 
+// 4l. /find/ebike-rentals-near-me/ sorts by distance from three different
+// corners of the state, and stands up on its own when location is declined
+for (const [place,latitude,longitude,within] of [
+  ["Key West",24.5551,-81.78,5],["Pensacola",30.4213,-87.2169,5],["Orlando",28.5383,-81.3792,8]]) {
+  const geo=await b.newContext({permissions:["geolocation"],geolocation:{latitude,longitude},viewport:{width:1280,height:1000}});
+  page=await geo.newPage();
+  await page.goto("http://localhost:8099/find/ebike-rentals-near-me/",{waitUntil:"load"});
+  await page.waitForTimeout(1800);
+  const list=await page.$$eval("[data-filter-item]",n=>n.map(x=>({
+    d:parseFloat(x.dataset.distance),
+    badge:x.querySelector(".distance-badge")?.textContent.trim()||""})));
+  const sorted=list.every((v,i)=>i===0||!(v.d<list[i-1].d));
+  ok(`near-me page from ${place}: closest is ${list[0].badge}, ${list.length} shops in distance order`,
+     list.length>20 && sorted && list[0].d<=within && /mi away/.test(list[0].badge));
+  await page.close(); await geo.close();
+}
+
+// no location: still a complete, indexable ranking rather than an empty shell
+const noGeo=await b.newContext({permissions:[],viewport:{width:1280,height:1000}});
+page=await noGeo.newPage();
+await page.goto("http://localhost:8099/find/ebike-rentals-near-me/",{waitUntil:"load"});
+await page.waitForTimeout(2200);
+const shops=await page.$$eval("[data-filter-item]",n=>n.length);
+const badges=(await page.$$(".distance-badge")).length;
+const nearH1=(await page.textContent("h1")).trim();
+const towns=await page.$$eval("[data-filter-item]",n=>new Set(n.map(x=>x.dataset.city)).size);
+ok(`near-me page without location: "${nearH1}", ${shops} shops across ${towns} towns, ${badges} distance badges`,
+   nearH1==="E-Bike Rentals Near Me" && shops>20 && towns>=30 && badges===0);
+await page.close(); await noGeo.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");
