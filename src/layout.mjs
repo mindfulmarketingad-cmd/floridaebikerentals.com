@@ -288,7 +288,9 @@ export function page(site, opts) {
   } = opts;
 
   const canonical = `${site.url}${path}`;
-  const image = ogImage.startsWith("http") ? ogImage : `${site.url}${ogImage}`;
+  // Social cards do not render SVG; every scene has a JPEG beside it.
+  const ogSource = ogImage.replace(/\/assets\/img\/scenes\/([a-z-]+)\.svg$/, "/assets/img/scenes/$1.jpg");
+  const image = ogSource.startsWith("http") ? ogSource : `${site.url}${ogSource}`;
   const ads = Boolean(site.adsense?.enabled);
   const schemaTags = schema.filter(Boolean).map((s) => jsonLd(s));
   const schemaSources = schema.filter(Boolean).map((s) =>

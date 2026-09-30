@@ -650,6 +650,26 @@
     });
   });
 
+  /* ------------------------------------------- /find destination picker */
+  /* "Where" in the /find search bar goes to another town or region's page.
+     The rest of the bar filters this page's list via the engine below. */
+  $$("[data-destination]").forEach(function (select) {
+    var here = window.location.pathname;
+    var go = function () {
+      if (select.value && select.value !== here) window.location.href = select.value;
+    };
+    select.addEventListener("change", go);
+    if (select.form) {
+      select.form.addEventListener("submit", function () {
+        if (select.value && select.value !== here) { go(); return; }
+        var results = $("[data-find-results]");
+        if (results && results.scrollIntoView) {
+          results.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+        }
+      });
+    }
+  });
+
   /* ------------------------------------------------ listicle filters */
   var filterForm = $("[data-filter-form]");
   if (filterForm) {

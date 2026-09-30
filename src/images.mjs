@@ -1,31 +1,74 @@
 /**
- * The site's photo library.
+ * The site's image library.
  *
- * These are stock e-bike photographs, not photographs of any listed business.
- * Anywhere one appears next to a specific shop it is captioned as such, so a
- * reader never mistakes it for that shop's own premises or equipment.
+ * Featured images are illustrations drawn by scripts/make-scenes.mjs: vector
+ * art, sharp at any width. The photographs that used to fill that role were
+ * 499-800px wide and stretched across a 1,180px banner, so every featured image
+ * on the site looked soft. Two of them are still wide enough for the smaller
+ * in-content figures and stay in that rotation only.
+ *
+ * Nothing here is a photograph of a listed business or of a specific town.
+ * Illustrations are captioned as illustrations, and photos beside a specific
+ * shop are captioned as stock.
  */
 import { esc, attr } from "./util.mjs";
 
-export const PHOTOS = [
+/** Drawn scenes. `og` is a 1200x630 JPEG for social cards, which do not render SVG. */
+export const SCENES = [
+  {
+    id: "atlantic",
+    src: "/assets/img/scenes/atlantic.svg",
+    og: "/assets/img/scenes/atlantic.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of two riders on fat-tyre e-bikes along a wide Atlantic beach at sunrise, with a fishing pier behind",
+    caption: "Illustration: Florida's Atlantic beaches are wide and firm enough to ride at low tide.",
+    themes: ["beach", "coast", "atlantic"],
+  },
+  {
+    id: "gulf",
+    src: "/assets/img/scenes/gulf.svg",
+    og: "/assets/img/scenes/gulf.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes crossing Gulf coast dunes at sunset, with palms and sea oats",
+    caption: "Illustration: a sunset ride along the Gulf coast.",
+    themes: ["beach", "coast", "gulf", "sunset"],
+  },
+  {
+    id: "keys",
+    src: "/assets/img/scenes/keys.svg",
+    og: "/assets/img/scenes/keys.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes crossing a long, low bridge over turquoise water",
+    caption: "Illustration: island-hopping by e-bike over the water.",
+    themes: ["keys", "bridge", "island"],
+  },
   {
     id: "trail",
-    src: "/assets/img/ebike-trail-ride.jpg",
-    width: 499,
-    height: 400,
-    alt: "Rider on a fat-tyre electric bike on a wide gravel trail, with two more riders behind",
-    caption: "Fat-tyre e-bikes handle packed trail surfaces that leave a road bike struggling.",
-    themes: ["trail", "tour", "inland", "guide"],
+    src: "/assets/img/scenes/trail.svg",
+    og: "/assets/img/scenes/trail.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes on a paved trail under live oaks hung with Spanish moss",
+    caption: "Illustration: inland Florida's paved rail-trails run under live oak canopy.",
+    themes: ["trail", "inland", "tour"],
   },
   {
-    id: "beach",
-    src: "/assets/img/fat-tire-ebikes-beach.jpg",
-    width: 516,
-    height: 387,
-    alt: "Two riders on fat-tyre electric bikes on hard-packed sand beside the surf",
-    caption: "Beach-town rentals are built for hard-packed sand and seafront paths.",
-    themes: ["beach", "coast", "family", "rental"],
+    id: "boardwalk",
+    src: "/assets/img/scenes/boardwalk.svg",
+    og: "/assets/img/scenes/boardwalk.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of a family on e-bikes riding a wooden boardwalk through the dunes to the beach",
+    caption: "Illustration: a family ride over the dunes to the beach.",
+    themes: ["family", "beach", "boardwalk"],
   },
+];
+
+/** Photographs still sharp enough for the in-content figures (about 580px wide). */
+const FIGURE_PHOTOS = [
   {
     id: "cruiser",
     src: "/assets/img/ebike-cruiser-beachfront.webp",
@@ -46,6 +89,30 @@ export const PHOTOS = [
   },
 ];
 
+export const PHOTOS = [...SCENES, ...FIGURE_PHOTOS];
+
+/**
+ * The scene that suits a region, so a town page shows the kind of place it is:
+ * the Atlantic surf, the Gulf at sunset, the Keys bridges, or inland oaks.
+ */
+const REGION_SCENE = {
+  "daytona-and-the-space-coast": "atlantic",
+  "first-coast": "atlantic",
+  "palm-beaches-and-treasure-coast": "atlantic",
+  "greater-miami-and-fort-lauderdale": "boardwalk",
+  "emerald-coast-and-30a": "gulf",
+  "southwest-florida": "gulf",
+  "sarasota-and-bradenton": "gulf",
+  "tampa-bay": "gulf",
+  "the-florida-keys": "keys",
+  "orlando-and-central-florida": "trail",
+  "north-florida": "trail",
+};
+
+export function sceneForRegion(regionSlug) {
+  return SCENES.find((s) => s.id === REGION_SCENE[regionSlug]) || SCENES[0];
+}
+
 const BY_ID = new Map(PHOTOS.map((p) => [p.id, p]));
 
 function hashOf(text) {
@@ -54,14 +121,19 @@ function hashOf(text) {
   return value;
 }
 
-/** Deterministic photo for a page, so a rebuild never reshuffles the site. */
+/**
+ * Deterministic featured image for a page, so a rebuild never reshuffles the
+ * site. Always a scene: those are the only images sharp at banner width.
+ */
 export function photoFor(seed, offset = 0) {
-  return PHOTOS[(hashOf(seed) + offset) % PHOTOS.length];
+  return SCENES[(hashOf(seed) + offset) % SCENES.length];
 }
 
-/** A second photo guaranteed to differ from the featured one. */
+/** A second image for the page body, guaranteed to differ from the featured one. */
 export function secondPhotoFor(seed) {
-  return PHOTOS[(hashOf(seed) + 1 + (hashOf(seed) % (PHOTOS.length - 1))) % PHOTOS.length];
+  const first = photoFor(seed);
+  const pool = PHOTOS.filter((p) => p.id !== first.id);
+  return pool[(hashOf(`${seed}:2`)) % pool.length];
 }
 
 export function photoById(id) {

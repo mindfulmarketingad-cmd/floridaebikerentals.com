@@ -14,16 +14,17 @@
  * which is also what Google indexes.
  */
 import { esc, attr, formatReviews, plural, clamp } from "../util.mjs";
-import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
+import { page, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, faqBlock, faqSchema, linkCard, linkCloud, statRow,
+  listicle, faqBlock, faqSchema, linkCard, linkCloud,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema,
 } from "../components.mjs";
-import { statsFor } from "../data.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
-import { filterBar, tagsIn } from "./find.mjs";
+import { photoFor, secondPhotoFor, figure } from "../images.mjs";
+import { tagsIn } from "./find.mjs";
+import { findHero, resultsHead } from "../find-hero.mjs";
 
-export const NEAR_ME_URL = "/find/ebike-rentals-near-me/";
+import { NEAR_ME_URL } from "../find-hero.mjs";
+export { NEAR_ME_URL };
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
@@ -69,7 +70,6 @@ export function spreadForNearMe(index, towns = 42, total = 60) {
 export function nearMePage(site, ctx) {
   const { index, stats } = ctx;
   const shown = spreadForNearMe(index);
-  const shownStats = statsFor(shown);
   const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: NEAR_ME_URL, label: "E-bike rentals near me" }];
   const cities = [...new Set(shown.map((l) => l.city))].sort();
   const hero = photoFor("ebike-rentals-near-me");
@@ -118,41 +118,29 @@ export function nearMePage(site, ctx) {
   ];
 
   const body = `
-${breadcrumbs(crumbs)}
-<section class="section" style="padding-top:1.2rem">
-  <div class="wrap">
-    <div class="section__head">
-      <span class="eyebrow">Find</span>
-      <h1>E-Bike Rentals Near Me</h1>
-      <p>Allow location and this page sorts every shop by how far it is from you, closest first,
-      with the distance on each one. ${esc(String(stats.total))} rental partners across ${esc(
-    String(stats.cities)
-  )} Florida towns, ranked by Google rating weighted against review volume. Your location stays in
-      your browser — we never receive it.</p>
-    </div>
-    ${statRow([
-      { value: String(stats.total), label: "Rental partners" },
-      { value: String(stats.cities), label: "Florida towns" },
-      { value: shownStats.avgRating, label: "Average rating" },
-      { value: formatReviews(stats.reviews), label: "Google reviews" },
-    ])}
-    ${banner(hero, { alt: `E-bike rentals near me in Florida - ${hero.alt}` })}
-  </div>
-</section>
+${findHero({
+  crumbs,
+  h1: "E-Bike Rentals Near Me",
+  lead: `Allow location and every shop is sorted by how far it is from you, closest first. ${stats.total} rental shops across ${stats.cities} Florida towns. Your location stays in your browser — we never receive it.`,
+  scene: hero,
+  index,
+  current: NEAR_ME_URL,
+  tags: tagsIn(shown),
+  placeholder: "Shop, town or service",
+})}
 
-<section class="section section--tint">
+<section class="section section--results">
   <div class="wrap" data-nearby-sort>
     <div class="nearby-bar">
       <p data-nearby-status>Allow location and this list re-sorts to the e-bike rentals closest to you.</p>
       <button class="btn btn--blue btn--sm" type="button" data-nearby-button>Find rentals near me</button>
       <span class="muted small">Your location is used in your browser to work out distances and is never sent anywhere.</span>
     </div>
-    <h2>${shown.length} shops, spread across every part of Florida</h2>
+    ${resultsHead(`${shown.length} shops across every part of Florida`, shown.length, "shops")}
     <p class="muted">This list deliberately covers all ${esc(
       String(index.regions.length)
     )} regions rather than only the highest rated shops in the biggest cities, so there is something
     genuinely close wherever you are standing.</p>
-    ${filterBar(cities, tagsIn(shown), "shops")}
     ${listicle(shown)}
     <p class="mt-2"><a class="btn btn--blue" href="/partners/">Browse all ${esc(
       String(stats.total)

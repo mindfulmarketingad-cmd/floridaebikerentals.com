@@ -307,6 +307,27 @@ export function loadHubEntries(hub) {
     .sort((a, b) => Number(a.order || 99) - Number(b.order || 99) || String(a.title).localeCompare(String(b.title)));
 }
 
+/**
+ * Hand-written notes for individual town pages, in content/towns/<slug>.md.
+ *
+ * Front matter can override the page's `title`, `h1`, `description` and `lead`
+ * (each may use {count} for the live number of shops); the body is rendered as
+ * a local guide section, and an "## FAQs" block is merged into the page's FAQs.
+ * Keep shop names out of these files: the page already names shops from the
+ * data, and a hand-written mention goes stale the moment a listing changes.
+ */
+export function loadTownNotes() {
+  const dir = join(ROOT, "content", "towns");
+  const notes = new Map();
+  if (!existsSync(dir)) return notes;
+  for (const file of readdirSync(dir).filter((f) => f.endsWith(".md"))) {
+    const { meta, body } = parseFrontMatter(readFileSync(join(dir, file), "utf8"));
+    const { body: prose, faqs } = extractFaqs(body);
+    notes.set(basename(file, ".md"), { ...meta, html: render(prose).html, faqs });
+  }
+  return notes;
+}
+
 export function loadBlog() {
   const dir = join(ROOT, "content", "blog");
   return readdirSync(dir)
@@ -342,9 +363,18 @@ export function loadStaticPages() {
   return out;
 }
 
+/** Slugs in data/excluded-listings.json: businesses the import let through that are not bike rentals. */
+function excludedSlugs() {
+  const file = join(ROOT, "data", "excluded-listings.json");
+  if (!existsSync(file)) return new Set();
+  const raw = JSON.parse(readFileSync(file, "utf8"));
+  return new Set((raw.listings || []).map((e) => e.slug));
+}
+
 export function loadListings() {
   const payload = JSON.parse(readFileSync(join(ROOT, "data", "listings.json"), "utf8"));
-  return payload.listings.map((l) => ({
+  const excluded = excludedSlugs();
+  return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => ({
     ...l,
     url: `/partners/${l.slug}/`,
     reviewUrl: `/reviews/${l.slug}/`,
@@ -352,6 +382,16 @@ export function loadListings() {
     regionSlug: regionSlug(l.region),
   }));
 }
+
+/**
+ * A town needs at least this many listings to earn a page of its own. A page
+ * for one shop is a thinner copy of that shop's own listing page, and Google
+ * treats hundreds of them as low-quality doorway pages. Towns below the line
+ * are left out of the index entirely -- no page, no sitemap entry, no internal
+ * links -- and their old URLs redirect (see thinTownRedirects in build.mjs).
+ * Their shops stay listed on their region page and on /partners/.
+ */
+export const MIN_TOWN_LISTINGS = 2;
 
 /** Groups listings into the collections every page type needs. */
 export function buildIndex(listings) {
@@ -384,6 +424,14 @@ export function buildIndex(listings) {
     regions.get(listing.regionSlug).listings.push(listing);
   }
 
+  const thinCities = [];
+  for (const [slug, city] of cities) {
+    if (city.listings.length < MIN_TOWN_LISTINGS) {
+      thinCities.push(city);
+      cities.delete(slug);
+    }
+  }
+
   for (const city of cities.values()) {
     city.listings.sort((a, b) => b.score - a.score);
     const region = regions.get(city.regionSlug);
@@ -409,6 +457,7 @@ export function buildIndex(listings) {
     regions: Array.from(regions.values()).sort((a, b) => b.listings.length - a.listings.length),
     regionsBySlug: regions,
     topics,
+    thinCities: thinCities.sort((a, b) => a.slug.localeCompare(b.slug)),
   };
 }
 

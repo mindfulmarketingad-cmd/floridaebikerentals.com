@@ -330,6 +330,75 @@ ok(`near-me page without location: "${nearH1}", ${shops} shops across ${towns} t
    nearH1==="E-Bike Rentals Near Me" && shops>20 && towns>=30 && badges===0);
 await page.close(); await noGeo.close();
 
+// 4m. /find town page: title and search bar first, already set to the town,
+// and the search narrows the list, the service filter narrows it, and "Where"
+// moves to another town
+page=await b.newPage({viewport:{width:1366,height:900}});
+await page.goto("http://localhost:8099/find/ebike-rentals-in-daytona-beach/",{waitUntil:"load"});
+const dTitle=await page.title();
+const dH1=(await page.textContent("h1")).replace(/\s+/g," ").trim();
+const where=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
+const heroFirst=await page.evaluate(()=>{
+  const main=document.querySelector("main"); const first=main.firstElementChild;
+  return first && first.classList.contains("find-hero") && !!first.querySelector("h1") && !!first.querySelector("form");
+});
+const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
+ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
+   /^Daytona Beach Bike Rentals/.test(dTitle) && /^Daytona Beach Bike & E-Bike Rentals$/.test(dH1));
+ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
+   heroFirst && where==="Daytona Beach" && statRows===0);
+
+const allShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
+const noRestaurant=!(await page.content()).includes("Food Trends Restaurant");
+await page.selectOption("#fs-tag","Scooters");
+await page.waitForTimeout(250);
+const scooterShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
+ok(`Daytona service filter narrows ${allShops} -> ${scooterShops} scooter shops; restaurant listing excluded`,
+   scooterShops>0 && scooterShops<allShops && noRestaurant);
+await page.selectOption("#fs-tag","");
+await page.fill("#fs-q","avocado");
+await page.waitForTimeout(250);
+const typed=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
+ok(`Daytona text search narrows ${allShops} -> ${typed}`, typed===1);
+await Promise.all([page.waitForURL(/ormond-beach/),page.selectOption("[data-destination]","/find/ebike-rentals-in-ormond-beach/")]);
+const moved=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
+ok(`"Where" goes to another town's page (${new URL(page.url()).pathname}, preset "${moved}")`, moved==="Ormond Beach");
+await page.close();
+
+// the hub gets the same hero, with just the destination picker
+page=await b.newPage({viewport:{width:1366,height:900}});
+await page.goto("http://localhost:8099/find/",{waitUntil:"load"});
+const hubWhere=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
+await Promise.all([page.waitForURL(/key-west/),page.selectOption("[data-destination]","/find/ebike-rentals-in-key-west/")]);
+ok(`/find/ hub: "Where" preset "${hubWhere}" and picking a town opens it`, hubWhere==="All of Florida" && /key-west/.test(page.url()));
+await page.close();
+
+// 4n. thin towns: no page, and a permanent redirect to the homepage in both
+// host formats; old listicle URLs redirect to the town page that replaced them
+{
+  const { readFileSync, existsSync: has } = await import("node:fs");
+  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const netlify=readFileSync(DIST+"/_redirects","utf8");
+  const thin="/find/ebike-rentals-in-daytona-beach-shores/";
+  const legacy="/blog/5-best-ebike-rental-shops-in-daytona-beach-florida/";
+  const vThin=vercel.find(r=>r.source===thin), vLegacy=vercel.find(r=>r.source===legacy);
+  ok(`thin town page removed and redirected to / (${vercel.length} redirects in vercel.json)`,
+     !has(DIST+thin+"index.html") && vThin && vThin.destination==="/" && vThin.permanent===true && netlify.includes(`${thin}  /  301!`));
+  ok(`legacy Daytona listicle URL redirects to the town page`,
+     vLegacy && vLegacy.destination==="/find/ebike-rentals-in-daytona-beach/");
+}
+
+// 4o. featured images are the vector scenes, sharp at any width
+page=await b.newPage({viewport:{width:1366,height:900}});
+await page.goto("http://localhost:8099/blog/",{waitUntil:"load"});
+const blogBanner=await page.$eval(".page-banner img, .find-hero__art",i=>i.getAttribute("src")).catch(()=>"");
+await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/",{waitUntil:"load"});
+const keysHero=await page.$eval(".find-hero__art",i=>i.getAttribute("src"));
+const og=await page.$eval('meta[property="og:image"]',m=>m.content);
+ok(`featured images are scenes (blog ${blogBanner.split("/").pop()}, Key West hero ${keysHero.split("/").pop()})`,
+   /\/scenes\/[a-z]+\.svg$/.test(blogBanner) && /keys\.svg$/.test(keysHero) && !/\.svg$/.test(og));
+await page.close();
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

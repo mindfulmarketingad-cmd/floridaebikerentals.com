@@ -1,0 +1,9 @@
+{
+  "_readme": "Listings the Outscraper import lets through that are not bike rental businesses. Google lists 'Bicycle rental service' among a business's categories when it is not what the business does, so the importer cannot catch these on its own. Each entry is dropped from every page, index and sitemap. Keep a reason on each so the list stays auditable.",
+  "listings": [
+    {
+      "slug": "food-trends-restaurant-garden",
+      "reason": "Restaurant, caterer and wedding venue in Daytona Beach. 'Bicycle rental service' is one of ten Google categories; one review, rated 1.0."
+    }
+  ]
+}

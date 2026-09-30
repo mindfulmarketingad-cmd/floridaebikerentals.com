@@ -875,6 +875,104 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 
 /* Activity shortcuts above a filtered list: they drive the filter's own select
    rather than adding a second way to narrow the same list. */
+/* ==========================================================================
+   /find pages: title over the scene, with the search bar straight beneath it
+   ========================================================================== */
+.find-hero { position: relative; isolation: isolate; overflow: hidden; background: var(--blue-900); color: #fff; }
+.find-hero__art {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none;
+  object-fit: cover; object-position: center 62%; z-index: -2;
+}
+/* Darkened top and bottom so white text holds its contrast over any scene. */
+.find-hero__shade {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(11, 31, 77, .55) 0%, rgba(11, 31, 77, .28) 55%, rgba(11, 31, 77, 0) 80%),
+    linear-gradient(180deg, rgba(11, 31, 77, .6) 0%, rgba(11, 31, 77, .3) 42%, rgba(11, 31, 77, .75) 100%);
+}
+.nowrap { white-space: nowrap; }
+.find-hero__inner {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: clamp(430px, 56vh, 580px); padding: 1rem 0 2.2rem;
+}
+.find-hero .crumbs { margin-bottom: auto; }
+.find-hero .crumbs ol { margin: 0; row-gap: 0; }
+.find-hero .crumbs li, .find-hero .crumbs a { color: rgba(255, 255, 255, .92); }
+.find-hero .crumbs li[aria-current] { color: #fff; font-weight: 700; }
+.find-hero__title {
+  color: #fff; margin: 1.6rem 0 .35rem; max-width: 26ch; text-wrap: balance;
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.7rem); text-shadow: 0 2px 22px rgba(6, 20, 60, .5);
+}
+.find-hero__lead {
+  color: #f0f4ff; max-width: 62ch; margin: 0; font-size: clamp(1rem, .96rem + .3vw, 1.14rem);
+  text-shadow: 0 1px 12px rgba(6, 20, 60, .6);
+}
+
+.find-search {
+  margin-top: 1.3rem; display: grid; align-items: end; gap: .55rem;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  background: var(--white); color: var(--ink); padding: .75rem; border-radius: var(--radius);
+  box-shadow: var(--shadow-l);
+}
+.find-search__field { display: flex; flex-direction: column; gap: .22rem; min-width: 0; }
+.find-search__field label {
+  padding-left: .15rem; font-size: .72rem; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.find-search select, .find-search input {
+  width: 100%; min-height: 48px; padding: .65rem .75rem; font: inherit; font-size: .98rem;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-s);
+}
+/* The place this page is about, already chosen: made to read as the selection. */
+.find-search__field--where select { font-weight: 800; color: var(--blue-800); background: var(--blue-50); border-color: var(--blue-200); }
+.find-search__go { min-height: 48px; padding-inline: 1.7rem; }
+.find-search--where-only { grid-template-columns: minmax(0, 1fr) auto; max-width: 640px; }
+@media (max-width: 1000px) {
+  .find-search:not(.find-search--where-only) { grid-template-columns: 1fr 1fr; }
+  .find-search__field--where, .find-search__field--q, .find-search__go { grid-column: span 2; }
+}
+@media (max-width: 560px) {
+  .find-hero__inner { min-height: 0; padding-top: .7rem; }
+  .find-hero__title { margin-top: 3.2rem; }
+  .find-search { grid-template-columns: 1fr; }
+  .find-search__field--where, .find-search__field--q, .find-search__go { grid-column: auto; }
+}
+
+.section--results { padding-top: 2rem; }
+.results-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .4rem 1rem; margin-bottom: 1rem; }
+.results-head h2 { margin: 0; }
+.results-head .result-count { margin: 0; }
+
+/* Nearby towns as picture cards. */
+.town-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 900px) { .town-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.town-card {
+  display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: var(--ink);
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-s);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.town-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); color: var(--ink); }
+.town-card__media {
+  position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden;
+  background-color: var(--blue-50); background-size: cover; background-position: center 65%;
+}
+.town-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.town-card__body { display: flex; flex-direction: column; gap: .1rem; padding: .7rem .85rem .85rem; }
+.town-card__name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; }
+.town-card__meta { font-size: .85rem; color: var(--ink-mute); }
+@media (prefers-reduced-motion: reduce) { .town-card { transition: none; } .town-card:hover { transform: none; } }
+
+/* Every town with a page, in columns, grouped by region. */
+.town-grid { columns: 4 220px; column-gap: 2rem; }
+.town-grid__group { break-inside: avoid; margin-bottom: 1.5rem; }
+.town-grid__group h3 { margin-bottom: .45rem; font-size: 1rem; }
+.town-grid__group ul { list-style: none; margin: 0; padding: 0; }
+.town-grid__group li { margin: 0 0 .28rem; font-size: .92rem; }
+.town-grid a { text-decoration: none; }
+.town-grid a:hover { text-decoration: underline; }
+
+.find-guide { align-items: start; }
+
 /* A single prominent route out of a hub page, ahead of the browsing grids. */
 .callout--lead {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 1.5rem;

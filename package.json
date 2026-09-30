@@ -11,7 +11,8 @@
     "import": "python3 scripts/import_outscraper.py data/source/outscraper-florida-bike-rentals.xlsx",
     "serve": "node scripts/serve.mjs",
     "test": "node build.mjs --verify && node scripts/smoke-test.mjs",
-    "import:tours": "node scripts/import_viator.mjs"
+    "import:tours": "node scripts/import_viator.mjs",
+    "redirects": "node scripts/sync-redirects.mjs"
   },
   "engines": {
     "node": ">=18"

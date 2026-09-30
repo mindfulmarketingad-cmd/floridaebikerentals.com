@@ -443,12 +443,20 @@ async function addGalleries(tours, known) {
 /** Viator destination -> the town and region this site already knows about. */
 function placeResolver() {
   const index = buildIndex(loadListings());
-  const cities = new Map(index.cities.map((c) => [c.name.toLowerCase(), c]));
+  // Every known town gives a region; only towns with a page of their own give
+  // a citySlug to link to.
+  const withPage = new Set(index.cities.map((c) => c.slug));
+  const cities = new Map(
+    [...index.cities, ...index.thinCities].map((c) => [c.name.toLowerCase(), c])
+  );
   return (name) => {
     const city = cities.get(String(name || "").toLowerCase());
-    return city
-      ? { name: city.name, citySlug: city.slug, region: city.region }
-      : { name: name || "" };
+    if (!city) return { name: name || "" };
+    return {
+      name: city.name,
+      region: city.region,
+      ...(withPage.has(city.slug) ? { citySlug: city.slug } : {}),
+    };
   };
 }
 

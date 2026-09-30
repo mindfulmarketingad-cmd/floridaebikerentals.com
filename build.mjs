@@ -12,12 +12,13 @@ import { join, dirname } from "node:path";
 
 import { slugify, isoDate } from "./src/util.mjs";
 import {
-  ROOT, loadSite, loadListings, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
+  ROOT, loadSite, loadListings, loadTownNotes, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, loadTours, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
+import { computeRedirects, netlifyRedirects } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
@@ -73,7 +74,13 @@ const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
 const shop = loadShop();
 const tours = loadTours();
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, tours };
+// A tour's town link only stands while that town has a page: towns below
+// MIN_TOWN_LISTINGS are dropped, and tours.json may predate the change.
+for (const tour of tours.tours) {
+  if (tour.citySlug && !index.citiesBySlug.has(tour.citySlug)) delete tour.citySlug;
+}
+const townNotes = loadTownNotes();
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, tours, townNotes };
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -505,6 +512,10 @@ const SECURITY_HEADERS = `/*
 `;
 writeRaw("_headers", SECURITY_HEADERS);
 
+/* redirects: thin towns and legacy listicle URLs (see src/redirects.mjs) */
+const redirects = computeRedirects(index);
+writeRaw("_redirects", netlifyRedirects(redirects));
+
 writeRaw(
   ".htaccess",
   `# Apache / LiteSpeed configuration for ${site.domain}
@@ -578,6 +589,7 @@ console.timeEnd("build");
 
 if (process.argv.includes("--verify")) {
   const { verify } = await import("./scripts/verify.mjs");
-  const ok = verify(DIST, site);
+  const vercelConfig = JSON.parse(readFileSync(join(ROOT, "vercel.json"), "utf8"));
+  const ok = verify(DIST, site, { redirects, vercelConfig });
   if (!ok) process.exitCode = 1;
 }

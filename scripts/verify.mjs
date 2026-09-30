@@ -27,7 +27,7 @@ function urlToFile(dist, url) {
   return join(dist, clean.replace(/^\//, ""), "index.html");
 }
 
-export function verify(dist, site) {
+export function verify(dist, site, { redirects = [], vercelConfig = null } = {}) {
   const files = walk(dist);
   const problems = [];
   const titles = new Map();
@@ -108,6 +108,31 @@ export function verify(dist, site) {
     const html = readFileSync(file, "utf8");
     if (!html.includes("ridewithgps.com/embeds")) {
       problems.push(`${url}: trail guide has no Ride with GPS route map (add "rwgps: <route id>" to its front matter)`);
+    }
+  }
+
+  // Redirects: none may shadow a page that still exists, none may point at
+  // another redirect (a chain), and every destination must be a real page.
+  const sources = new Set(redirects.map((r) => r.source));
+  for (const r of redirects) {
+    if (existsSync(urlToFile(dist, r.source))) {
+      problems.push(`redirect ${r.source}: a page is still built there, so the redirect would hide it`);
+    }
+    if (sources.has(r.destination)) problems.push(`redirect ${r.source}: chains through ${r.destination}`);
+    if (!existsSync(urlToFile(dist, r.destination))) {
+      problems.push(`redirect ${r.source}: destination ${r.destination} does not exist`);
+    }
+  }
+
+  // vercel.json is what the live host reads, and it is committed rather than
+  // built, so check it has not drifted from the data.
+  if (vercelConfig) {
+    const want = JSON.stringify(redirects.map((r) => [r.source, r.destination]));
+    const have = JSON.stringify((vercelConfig.redirects || []).map((r) => [r.source, r.destination]));
+    if (want !== have) {
+      problems.push(
+        `vercel.json redirects are out of date (${(vercelConfig.redirects || []).length} there, ${redirects.length} needed). Run: npm run redirects`
+      );
     }
   }
 
