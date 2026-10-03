@@ -196,7 +196,9 @@ ${adSlotScript(site, 1)}
         keywords: (post.tags || []).join(", "),
         image: `${site.url}${hero.src}`,
         author: author
-          ? { "@type": "Person", name: author.name, url: `${site.url}${author.url}`, jobTitle: author.role }
+          ? author.type === "organization"
+            ? { "@type": "Organization", name: author.name, url: `${site.url}${author.url}` }
+            : { "@type": "Person", name: author.name, url: `${site.url}${author.url}`, jobTitle: author.role }
           : { "@type": "Organization", name: site.name, url: `${site.url}/about/` },
         publisher: { "@id": `${site.url}/#organization` },
         mainEntityOfPage: { "@type": "WebPage", "@id": `${site.url}${post.url}` },

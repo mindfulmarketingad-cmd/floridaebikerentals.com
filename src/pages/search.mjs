@@ -55,7 +55,6 @@ ${adSlot(site, "")}
     <div class="grid grid--4">
       ${linkCard({ href: "/find/", title: "Find by town", text: `All ${index.cities.length} Florida towns we cover.`, more: "Open Find" })}
       ${linkCard({ href: "/partners/", title: "All partners", text: "The full rental partner directory.", more: "Open Partners" })}
-      ${linkCard({ href: "/reviews/", title: "Reviews", text: "Star breakdowns for every rated shop.", more: "Open Reviews" })}
       ${linkCard({ href: "/blog/", title: "Guides", text: "Laws, pricing, routes and checklists.", more: "Open Blog" })}
     </div>
   </div>
@@ -177,6 +176,9 @@ ${adSlotScript(site, 1)}
 
   return page(site, {
     title: `${titleQuery} - Florida Ebike Rentals Search`,
+    // A saved search is a list of results that exist on other pages. Google's
+    // guidelines ask that search-result pages stay out of the index.
+    noindex: true,
     description: clamp(
       `Search results for "${query}" on Florida Ebike Rentals: ${results.length} matching rental partners with hours, ratings, phone numbers and map.`
     ),

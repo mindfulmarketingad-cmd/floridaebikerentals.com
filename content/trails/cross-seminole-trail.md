@@ -2,7 +2,7 @@
 title: The Cross Seminole Trail
 metaTitle: Cross Seminole Trail Guide - Route, Trailheads and E-Bike Rentals
 description: A complete guide to riding the 31.1-mile Cross Seminole Trail by e-bike - the route from Winter Park to Lake Mary, all nine trailheads with addresses, parking, and where to rent nearby.
-author: dev-okafor
+author: editorial-team
 date: 2026-09-03
 updated: 2026-09-03
 category: Central Florida

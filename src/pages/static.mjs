@@ -71,7 +71,6 @@ ${adSlot(site, "")}
     <div class="grid grid--4">
       ${linkCard({ href: "/find/", title: "Find rentals", text: "Browse by Florida region and town.", more: "Open Find" })}
       ${linkCard({ href: "/partners/", title: "All partners", text: "The full directory listicle.", more: "Open Partners" })}
-      ${linkCard({ href: "/reviews/", title: "Reviews", text: "Star breakdowns for rated shops.", more: "Open Reviews" })}
       ${linkCard({ href: "/blog/", title: "Guides", text: "Law, pricing, routes and checklists.", more: "Open Blog" })}
     </div>
   </div>
@@ -104,7 +103,7 @@ ${adSlotScript(site, 1)}
 
 /* ------------------------------------------------------- HTML sitemap */
 
-export function sitemapPage(site, { index, blog, listings, queries, stats, partnerPages, reviewPages }) {
+export function sitemapPage(site, { index, blog, listings, queries, stats, partnerPages }) {
   const section = (title, links, note) => `<section class="section${
     note === "tint" ? " section--tint" : ""
   }">
@@ -126,7 +125,6 @@ ${breadcrumbs([HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }])}
     </div>
     ${statRow([
       { value: String(stats.total), label: "Partner pages" },
-      { value: String(reviewPages), label: "Review pages" },
       { value: String(index.cities.length + index.regions.length + index.topics.length), label: "Find pages" },
       { value: String(blog.length), label: "Guides" },
     ])}
@@ -159,8 +157,7 @@ ${section("Popular searches", queries.map((q) => ({ href: q.url, label: q.query 
 <section class="section section--tint">
   <div class="wrap">
     <h2>Partner listings (${esc(String(listings.length))})</h2>
-    <p class="muted">Every business in the directory. Review breakdowns live at
-    <a href="/reviews/">/reviews/</a>.</p>
+    <p class="muted">Every business in the directory.</p>
     ${linkCloud(listings.map((l) => ({ href: l.url, label: `${l.name} (${l.city})` })))}
   </div>
 </section>
@@ -173,10 +170,6 @@ ${section("Popular searches", queries.map((q) => ({ href: q.url, label: q.query 
       ...Array.from({ length: partnerPages }, (_, i) => ({
         href: i === 0 ? "/partners/" : `/partners/page/${i + 1}/`,
         label: `Partners page ${i + 1}`,
-      })),
-      ...Array.from({ length: reviewPages > 0 ? Math.ceil(reviewPages / 60) : 0 }, (_, i) => ({
-        href: i === 0 ? "/reviews/" : `/reviews/page/${i + 1}/`,
-        label: `Reviews page ${i + 1}`,
       })),
     ])}
   </div>

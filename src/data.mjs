@@ -377,7 +377,6 @@ export function loadListings() {
   return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => ({
     ...l,
     url: `/partners/${l.slug}/`,
-    reviewUrl: `/reviews/${l.slug}/`,
     citySlug: citySlug(l.city),
     regionSlug: regionSlug(l.region),
   }));
@@ -392,6 +391,28 @@ export function loadListings() {
  * Their shops stay listed on their region page and on /partners/.
  */
 export const MIN_TOWN_LISTINGS = 2;
+
+/**
+ * Whether a listing's own page is worth putting in Google's index.
+ *
+ * A partner page restates the business's public Google profile. That is useful
+ * to someone who has landed on it, but on its own it adds little a search
+ * engine does not already have, and hundreds of such pages are what Google's
+ * thin-content and AdSense "low value content" reviews flag. So a listing page
+ * is only offered for indexing when there is enough to it to stand alone: a
+ * real review history, published hours and a website. The rest stay live and
+ * linked, with `noindex, follow`, and are still listed in full on their town
+ * page, which is the page meant to rank.
+ */
+export const INDEX_LISTING_MIN_REVIEWS = 10;
+
+export function isIndexableListing(l) {
+  return (
+    (l.reviews || 0) >= INDEX_LISTING_MIN_REVIEWS &&
+    (l.hours || []).some((h) => !h.closed) &&
+    Boolean(l.site || l.website)
+  );
+}
 
 /** Groups listings into the collections every page type needs. */
 export function buildIndex(listings) {

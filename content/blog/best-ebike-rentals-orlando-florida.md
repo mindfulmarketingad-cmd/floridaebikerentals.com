@@ -4,7 +4,7 @@ metaTitle: Best Ebike Rentals Near Orlando FL - Top Shops Ranked
 description: The best e-bike rentals near Orlando, ranked by Google rating and review volume, plus the West Orange Trail, Winter Garden, and how to take a day off the theme parks.
 date: 2026-08-31
 updated: 2026-09-03
-author: dev-okafor
+author: editorial-team
 category: Destinations
 listicle: true
 tags: [Orlando, Winter Garden, Central Florida]

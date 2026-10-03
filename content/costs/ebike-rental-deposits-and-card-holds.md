@@ -2,7 +2,7 @@
 title: E-Bike Rental Deposits and Card Holds in Florida
 metaTitle: E-Bike Rental Deposits in Florida - What to Expect
 description: What Florida e-bike rental shops hold on your card, why the amount varies so much, how long a hold takes to release, and what to check before you hand over four bikes' worth.
-author: marisa-donnelly
+author: editorial-team
 date: 2026-06-03
 updated: 2026-09-02
 category: Deposits

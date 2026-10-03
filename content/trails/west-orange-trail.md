@@ -2,7 +2,7 @@
 title: The West Orange Trail, Winter Garden
 metaTitle: West Orange Trail E-Bike Guide - Winter Garden and Clermont
 description: Riding the West Orange Trail by e-bike - 22 miles of paved rail trail through Winter Garden and Oakland, the Clermont hills, trailheads and where to rent.
-author: dev-okafor
+author: editorial-team
 date: 2026-05-27
 updated: 2026-09-02
 category: Central Florida

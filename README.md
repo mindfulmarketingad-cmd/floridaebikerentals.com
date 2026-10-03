@@ -95,6 +95,28 @@ matters for a listing that already ranks, add a redirect in your host config.
   drifted, if a redirect would shadow a live page, or if one would chain into another. The build also
   writes `dist/_redirects` for Netlify / Cloudflare Pages.
 
+- **What Google may index** — kept deliberately small, because AdSense rejected the site for "low
+  value content" and the cause was measurable: 98% of 1,566 pages were templated from Google Maps or
+  Viator data, against about 24 pages of original writing.
+  - **Partner pages** are indexable only when the listing can stand alone: at least
+    `INDEX_LISTING_MIN_REVIEWS` (10) reviews, published hours and a website (`isIndexableListing` in
+    `src/data.mjs`). The rest are `noindex, follow` and stay listed in full on their town page.
+  - **Tour detail pages** are `noindex`: their description, photos and rating are Viator's, which is
+    the "thin affiliate" pattern in Google's spam policies. The `/tours/` hub is indexable and no
+    longer reprints Viator's descriptions.
+  - **Saved searches** (`/search/<query>/`) are `noindex`, per Google's guidance on search-result pages.
+  - **`/reviews/` was merged into `/partners/`**: those pages held no reviews, only a star breakdown,
+    which now sits on the partner page. Pattern redirects in `src/redirects.mjs` move every old URL.
+  - A page's own robots meta decides whether it goes in the sitemap (`write()` in `build.mjs`), so a
+    noindex page can never be submitted by accident.
+  - **No third-party ratings in structured data.** Google's review-snippet guidelines forbid marking up
+    ratings aggregated from another site, so listings and tours carry none; `npm run verify` fails if
+    `aggregateRating`, or `Product` outside `/shop/`, appears anywhere.
+  - **Canonical host is `www`**, matching Vercel, which 308-redirects the bare domain. `site.url` in
+    `data/site.json` must stay in step; verify fails on any canonical that does not start with it.
+  - **Authorship is the editorial team** (`content/authors/editorial-team.md`). Do not add named
+    author profiles unless they are real people writing from real experience.
+
 - **Excluded listings** — `data/excluded-listings.json` drops businesses the Outscraper import lets
   through that are not bike rentals (Google often lists "Bicycle rental service" among a restaurant's
   or venue's categories). Each entry carries its reason.
@@ -136,7 +158,8 @@ matters for a listing that already ranks, add a redirect in your host config.
   missing a route map. Add a hub by adding an entry to `CONTENT_HUBS` in `src/data.mjs` and a
   matching content directory.
 - **Authors** — Markdown in `content/authors/`, with `name`, `role`, `expertise`, `short` and a
-  bio in the body. Reference one from a post with `author: <filename-slug>` and the byline, author
+  bio in the body. Add `type: organization` for a team byline (schema becomes `Organization`). Only
+  real people, with their own real experience. Reference one from a post with `author: <filename-slug>` and the byline, author
   card, profile page and `Person` schema are generated automatically.
 - **FAQs** — add an `## FAQs` (or `## Frequently asked questions`) section to any guide with `###`
   question headings. The build lifts it out of the prose, renders it as an accordion and emits

@@ -20,7 +20,6 @@ import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
-import { reviewsHub, reviewPage, PER_PAGE as REVIEWS_PER_PAGE } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
@@ -39,7 +38,10 @@ function write(urlPath, html, meta = {}) {
     : join(DIST, urlPath.replace(/^\//, ""), "index.html");
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, html, "utf8");
-  if (!meta.skipSitemap) {
+  // The page's own robots meta decides sitemap membership, so a noindex page
+  // can never be submitted to Google by mistake.
+  const noindex = /<meta name="robots" content="noindex/.test(html);
+  if (!meta.skipSitemap && !noindex) {
     written.set(urlPath, {
       lastmod: meta.lastmod || isoDate(new Date()),
       priority: meta.priority ?? 0.5,
@@ -182,34 +184,7 @@ for (const listing of listings) {
   });
 }
 
-/* reviews hub (paginated) + review pages */
-const ratedListings = listings.filter((l) => l.rating > 0 && l.reviews >= 5);
-const reviewPageCount = Math.max(1, Math.ceil(ratedListings.length / REVIEWS_PER_PAGE));
-for (let n = 1; n <= reviewPageCount; n++) {
-  const url = n === 1 ? "/reviews/" : `/reviews/page/${n}/`;
-  write(url, reviewsHub(site, { ...ctx, pageNumber: n, totalPages: reviewPageCount }), {
-    priority: n === 1 ? 0.8 : 0.4,
-    changefreq: "weekly",
-    group: "pages",
-    search: n === 1 ? { u: url, t: "Florida e-bike rental reviews", s: "Reviews", d: "Star breakdowns for every rated shop.", k: "reviews ratings stars florida ebike", w: 10 } : null,
-  });
-}
-
-for (const listing of listings) {
-  write(listing.reviewUrl, reviewPage(site, listing, ctx), {
-    priority: 0.5,
-    changefreq: "monthly",
-    group: "reviews",
-    search: {
-      u: listing.reviewUrl,
-      t: `${listing.name} reviews`,
-      s: "Reviews",
-      d: listing.rating ? `${listing.rating.toFixed(1)} stars from ${listing.reviews} Google reviews in ${listing.city}.` : `Review information for ${listing.name}.`,
-      k: `${listing.name} reviews rating ${listing.city}`.toLowerCase(),
-      w: 2,
-    },
-  });
-}
+/* /reviews/ pages were merged into /partners/ (star breakdown included); see src/redirects.mjs */
 
 /* blog */
 write("/blog/", blogHub(site, ctx), {
@@ -388,7 +363,6 @@ for (const [key, meta] of Object.entries(STATIC_META)) {
 write("/sitemap/", sitemapPage(site, {
   index, blog, listings, queries, stats,
   partnerPages: partnerPageCount,
-  reviewPages: ratedListings.length,
 }), {
   priority: 0.4,
   changefreq: "weekly",
@@ -417,7 +391,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "reviews", "blog", "trails", "costs", "shop", "tours", "search"];
+const GROUPS = ["pages", "find", "partners", "blog", "trails", "costs", "shop", "tours", "search"];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);

@@ -75,6 +75,16 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
       }
     }
     if (html.includes("{{")) problems.push(`${pageUrl}: unreplaced template placeholder`);
+    // Ratings here come from Google and Viator; marking them up as this site's
+    // own breaks Google's review-snippet guidelines. Only /shop/ may carry
+    // Product markup, for products it actually links to.
+    if (/"aggregateRating"/.test(html)) problems.push(`${pageUrl}: marks up a third-party rating (aggregateRating)`);
+    if (!pageUrl.startsWith("/shop/") && /"@type":"Product"|"@type": "Product"/.test(html)) {
+      problems.push(`${pageUrl}: Product markup outside /shop/`);
+    }
+    // Every page must name the host the site is actually served from.
+    const canon = /<link rel="canonical" href="([^"]+)"/.exec(html)?.[1] || "";
+    if (canon && !canon.startsWith(site.url)) problems.push(`${pageUrl}: canonical ${canon} is not on ${site.url}`);
     if (/undefined|\[object Object\]/.test(html.replace(/undefined-/g, ""))) {
       problems.push(`${pageUrl}: contains "undefined" or "[object Object]"`);
     }
@@ -115,6 +125,7 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
   // another redirect (a chain), and every destination must be a real page.
   const sources = new Set(redirects.map((r) => r.source));
   for (const r of redirects) {
+    if (r.source.includes(":")) continue; // pattern rule: no single file to check
     if (existsSync(urlToFile(dist, r.source))) {
       problems.push(`redirect ${r.source}: a page is still built there, so the redirect would hide it`);
     }

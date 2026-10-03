@@ -2,7 +2,7 @@
 title: What E-Bike Delivery Costs in Florida
 metaTitle: E-Bike Rental Delivery Fees in Florida - What You Pay
 description: What Florida rental shops charge to deliver e-bikes to a rental house, condo or hotel, when delivery is free, and why it is usually worth paying for with a family.
-author: priya-raman
+author: editorial-team
 date: 2026-07-08
 updated: 2026-09-02
 category: Delivery

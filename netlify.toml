@@ -8,9 +8,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# www is the canonical host, matching Vercel (the live host), which
+# 308-redirects the bare domain to www.
 [[redirects]]
-  from = "https://www.floridaebikerentals.com/*"
-  to = "https://floridaebikerentals.com/:splat"
+  from = "https://floridaebikerentals.com/*"
+  to = "https://www.floridaebikerentals.com/:splat"
   status = 301
   force = true
 

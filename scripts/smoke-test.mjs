@@ -399,6 +399,41 @@ ok(`featured images are scenes (blog ${blogBanner.split("/").pop()}, Key West he
    /\/scenes\/[a-z]+\.svg$/.test(blogBanner) && /keys\.svg$/.test(keysHero) && !/\.svg$/.test(og));
 await page.close();
 
+// 4p. AdSense quality fixes: one canonical host, no thin pages in the
+// sitemap, reviews merged into partners, no invented authors
+{
+  const { readFileSync, readdirSync } = await import("node:fs");
+  const sitemaps=readdirSync(DIST).filter(f=>/^sitemap-.*\.xml$/.test(f));
+  const locs=sitemaps.flatMap(f=>[...readFileSync(DIST+"/"+f,"utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]));
+  const offHost=locs.filter(u=>!u.startsWith("https://www.floridaebikerentals.com/"));
+  const thin=locs.filter(u=>/\/(tours|search)\/[^/]+\/$/.test(u)||/\/reviews\//.test(u));
+  ok(`sitemap: ${locs.length} URLs, all on www, none for tour details, search results or reviews`,
+     locs.length>300 && offHost.length===0 && thin.length===0);
+
+  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const rv=vercel.find(r=>r.source==="/reviews/:slug/");
+  ok("/reviews/<shop>/ redirects to /partners/<shop>/", rv && rv.destination==="/partners/:slug/" && rv.permanent);
+
+  page=await b.newPage();
+  await page.goto("http://localhost:8099/partners/bike-man-bike-rentals/",{waitUntil:"domcontentloaded"});
+  const bars=(await page.$$(".score-bars .row")).length;
+  const robots=await page.getAttribute('meta[name="robots"]',"content");
+  const ld=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
+  ok(`partner page carries the star breakdown (${bars} rows), is indexable, and marks up no third-party rating`,
+     bars===5 && /^index/.test(robots) && !/aggregateRating/.test(ld));
+  await page.goto("http://localhost:8099/tours/clear-kayak-tour-of-shell-key-preserve-and-tampa-bay-area/",{waitUntil:"domcontentloaded"});
+  const tourRobots=await page.getAttribute('meta[name="robots"]',"content");
+  const tourLd=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
+  ok(`tour detail page is "${tourRobots}" with no Product markup`, /^noindex/.test(tourRobots) && !/"Product"/.test(tourLd));
+  await page.close();
+
+  let personas=0;
+  const walk=(d)=>{for(const e of readdirSync(d,{withFileTypes:true})){const f=d+"/"+e.name;
+    if(e.isDirectory()) walk(f); else if(f.endsWith(".html")&&/Dev Okafor|Marisa Donnelly|Priya Raman/.test(readFileSync(f,"utf8"))) personas++;}};
+  walk(DIST);
+  ok(`no invented author personas anywhere on the site (${personas} pages)`, personas===0);
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

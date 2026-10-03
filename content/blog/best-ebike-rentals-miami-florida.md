@@ -4,7 +4,7 @@ metaTitle: Best Ebike Rentals Near Miami FL - Top Shops Ranked
 description: The best e-bike rentals near Miami and Miami Beach, ranked by Google rating and review volume, plus where to ride, the Venetian Causeway, and rules worth knowing.
 date: 2026-08-30
 updated: 2026-09-03
-author: marisa-donnelly
+author: editorial-team
 category: Destinations
 listicle: true
 tags: [Miami, Miami Beach, Southeast Florida]

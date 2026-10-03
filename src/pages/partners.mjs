@@ -3,11 +3,11 @@ import {
 } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
 import {
-  listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
+  scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor,
 } from "../components.mjs";
-import { statsFor, nearbyListings } from "../data.mjs";
+import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
@@ -230,9 +230,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
             listing.reviews
           )} Google ${plural(listing.reviews, "review")}${
             rankInCity ? `, which places it number ${rankInCity} of ${city.listings.length} in ${esc(listing.city)}` : ""
-          }. See the full star breakdown on our <a href="${attr(
-            listing.reviewUrl
-          )}">${esc(listing.name)} reviews page</a>.</p>`
+          }. The star breakdown is on this page.</p>`
         : `<p>This business does not have enough Google reviews to show a star rating yet. That is common for new shops and for businesses that do not ask for reviews — it is not a negative signal on its own.</p>`,
     },
     {
@@ -386,7 +384,8 @@ export function partnerPage(site, listing, { listings, index, blog }) {
         ? `<div class="panel">
       <h2>Google rating</h2>
       <div class="big-score"><strong>${formatRating(listing.rating)}</strong><div>${ratingBlock(listing)}</div></div>
-      <p><a class="btn btn--outline btn--sm btn--block" href="${attr(listing.reviewUrl)}">See the review breakdown</a></p>
+      ${scoreBars(listing)}
+      <p class="small muted mb-0">From the shop's public Google profile. Read recent one- and two-star reviews on Google before you book.</p>
     </div>`
         : ""
     }
@@ -413,6 +412,7 @@ ${adSlotScript(site, 1)}
     title: listing.pageTitle,
     description: metaDescriptionFor(listing),
     path: listing.url,
+    noindex: !isIndexableListing(listing),
     body,
     bodyAttrs: tel || listing.website || listing.maps_link ? 'class="has-action-bar"' : "",
     ogType: "business.business",

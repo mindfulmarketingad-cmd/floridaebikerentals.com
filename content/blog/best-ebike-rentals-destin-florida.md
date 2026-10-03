@@ -4,7 +4,7 @@ metaTitle: Best Ebike Rentals Near Destin FL - Top Shops Ranked
 description: The best e-bike rentals near Destin, Florida, ranked by Google rating and review volume, with hours, phone numbers, delivery options and where to ride once you have the bike.
 date: 2026-08-28
 updated: 2026-09-03
-author: dev-okafor
+author: editorial-team
 category: Destinations
 listicle: true
 tags: [Destin, Emerald Coast, rentals]
@@ -35,7 +35,7 @@ rating is built on. Neither is ours, and no shop pays to appear or to rank highe
 The weighting matters. A 5.0 average from four reviews tells you almost nothing; a 4.8 from nine
 hundred tells you a great deal. Sorting on raw star average alone would put the first above the
 second, which is why we do not do it. You can see the full star breakdown behind any shop on its
-[reviews page](/reviews/).
+[partner page](/partners/).
 
 ## What to rent in Destin
 

@@ -2,7 +2,7 @@
 title: Daily vs Weekly E-Bike Rental Rates in Florida
 metaTitle: Daily vs Weekly E-Bike Rental Rates - Which Is Cheaper?
 description: Where the crossover sits between daily and weekly e-bike rental rates in Florida, how season changes it, and the booking pattern that gets you an extra evening free.
-author: marisa-donnelly
+author: editorial-team
 date: 2026-06-17
 updated: 2026-09-02
 category: Rates

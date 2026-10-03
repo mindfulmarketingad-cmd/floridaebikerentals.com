@@ -2,7 +2,7 @@
 title: The Pinellas Trail, St. Petersburg to Tarpon Springs
 metaTitle: Pinellas Trail E-Bike Guide - Route, Sections and Rentals
 description: Riding the Pinellas Trail by e-bike - the full 45-mile route, the best sections for a day ride, shade, trailheads and where to rent in St. Petersburg, Dunedin and Tarpon Springs.
-author: dev-okafor
+author: editorial-team
 date: 2026-04-22
 updated: 2026-09-02
 category: Tampa Bay

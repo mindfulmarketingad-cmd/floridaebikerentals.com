@@ -214,8 +214,8 @@ ${adSlot(site, "")}
         Beach on 30A</a> to <a href="/find/ebike-rentals-in-key-west/">Key West</a>.</li>
         <li><strong>Compare the shortlist.</strong> Each town page ranks local shops by rating and
         review volume and shows hours, services and location on a map you can toggle on. Open a
-        <a href="/partners/">partner page</a> for the full detail, or a
-        <a href="/reviews/">reviews page</a> to see the star breakdown behind the average.</li>
+        <a href="/partners/">partner page</a> for the full detail, including the star breakdown behind
+        the average.</li>
         <li><strong>Book direct.</strong> Call or visit the shop's own website using the details on the
         listing. Ask about class, minimum age, delivery and the card hold before you pay — our
         <a href="/blog/ebike-rental-checklist/">rental checklist</a> has the exact questions.</li>
@@ -299,7 +299,6 @@ ${adSlot(site, "")}
       ${linkCard({ href: "/partners/", title: "Partners", text: "The full listicle of rental partners.", more: "Open Partners" })}
       ${linkCard({ href: "/trails/", title: "Trails", text: "Where to ride once you have the bike.", more: "Open Trails" })}
       ${linkCard({ href: "/costs/", title: "Costs", text: "Rates, deposits, delivery and waivers.", more: "Open Costs" })}
-      ${linkCard({ href: "/reviews/", title: "Reviews", text: "Rating breakdowns for every shop.", more: "Open Reviews" })}
       ${linkCard({ href: "/blog/", title: "Blog", text: "Guides, laws and city listicles.", more: "Open Blog" })}
       ${linkCard({ href: "/search/", title: "Search", text: "Search every page on the site.", more: "Open Search" })}
       ${linkCard({ href: "/authors/", title: "Authors", text: "The people who write this site.", more: "Open Authors" })}

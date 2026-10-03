@@ -8,12 +8,16 @@ import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 
+function initials(author) {
+  return author.type === "organization" ? "FE" : author.name.split(" ").map((w) => w[0]).join("").slice(0, 2);
+}
+
 /** Byline plus a link to the author's profile. */
 export function byline(author, { date, updated, readingTime, words } = {}) {
   if (!author) return "";
   return `<div class="byline">
   <span class="byline__avatar" aria-hidden="true">${esc(
-    author.name.split(" ").map((w) => w[0]).join("").slice(0, 2)
+    initials(author)
   )}</span>
   <span class="byline__text">
     <span>By <a href="${attr(author.url)}" rel="author">${esc(author.name)}</a>${
@@ -36,14 +40,14 @@ export function authorCard(author) {
   if (!author) return "";
   return `<aside class="author-card">
   <span class="byline__avatar byline__avatar--lg" aria-hidden="true">${esc(
-    author.name.split(" ").map((w) => w[0]).join("").slice(0, 2)
+    initials(author)
   )}</span>
   <div>
     <h2>About ${esc(author.name)}</h2>
     <p class="muted small mb-0">${esc(author.role || "")}</p>
     <p>${esc(author.short || "")}</p>
     <p class="mb-0"><a class="btn btn--outline btn--sm" href="${attr(author.url)}">More from ${esc(
-    author.name.split(" ")[0]
+    author.type === "organization" ? "the team" : author.name.split(" ")[0]
   )}</a></p>
   </div>
 </aside>`;
@@ -293,7 +297,9 @@ ${adSlotScript(site, 1)}
         articleSection: hub.label,
         image: `${site.url}${hero.src}`,
         author: author
-          ? { "@type": "Person", name: author.name, url: `${site.url}${author.url}`, jobTitle: author.role }
+          ? author.type === "organization"
+            ? { "@type": "Organization", name: author.name, url: `${site.url}${author.url}` }
+            : { "@type": "Person", name: author.name, url: `${site.url}${author.url}`, jobTitle: author.role }
           : { "@type": "Organization", name: site.name },
         publisher: { "@id": `${site.url}/#organization` },
         mainEntityOfPage: { "@type": "WebPage", "@id": `${site.url}${entry.url}` },
@@ -398,7 +404,7 @@ ${breadcrumbs(crumbs)}
   <div class="wrap wrap-narrow">
     <div class="author-head">
       <span class="byline__avatar byline__avatar--lg" aria-hidden="true">${esc(
-        author.name.split(" ").map((w) => w[0]).join("").slice(0, 2)
+        initials(author)
       )}</span>
       <div>
         <h1>${esc(author.name)}</h1>
@@ -442,7 +448,10 @@ ${adSlotScript(site, 0)}
 `;
 
   return page(site, {
-    title: `${author.name} - ${author.role || "Author"} at Florida Ebike Rentals`,
+    title:
+      author.type === "organization"
+        ? `${author.name} - How We Research and Edit`
+        : `${author.name} - ${author.role || "Author"} at Florida Ebike Rentals`,
     description: clamp(
       author.short || `${author.name} writes for Florida Ebike Rentals covering ${commaList(author.expertise)}.`
     ),
@@ -458,7 +467,7 @@ ${adSlotScript(site, 0)}
         url: `${site.url}${author.url}`,
         isPartOf: { "@id": `${site.url}/#website` },
         mainEntity: {
-          "@type": "Person",
+          "@type": author.type === "organization" ? "Organization" : "Person",
           "@id": `${site.url}${author.url}#person`,
           name: author.name,
           jobTitle: author.role,

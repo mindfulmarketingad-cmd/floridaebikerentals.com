@@ -51,6 +51,21 @@
   ],
   "redirects": [
     {
+      "source": "/authors/dev-okafor/",
+      "destination": "/authors/editorial-team/",
+      "permanent": true
+    },
+    {
+      "source": "/authors/marisa-donnelly/",
+      "destination": "/authors/editorial-team/",
+      "permanent": true
+    },
+    {
+      "source": "/authors/priya-raman/",
+      "destination": "/authors/editorial-team/",
+      "permanent": true
+    },
+    {
       "source": "/blog/5-best-ebike-rental-shops-in-altamonte-springs-florida/",
       "destination": "/",
       "permanent": true
@@ -1273,6 +1288,21 @@
     {
       "source": "/find/ebike-rentals-in-winter-springs/",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "destination": "/partners/",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/page/:n/",
+      "destination": "/partners/",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/:slug/",
+      "destination": "/partners/:slug/",
       "permanent": true
     }
   ]

@@ -2,7 +2,7 @@
 title: The Timpoochee Trail, 30A
 metaTitle: Timpoochee Trail Guide - Riding 30A by E-Bike
 description: A complete guide to riding the Timpoochee Trail along 30A by e-bike - distance, surface, the towns in order, parking, and where to rent at each end.
-author: dev-okafor
+author: editorial-team
 date: 2026-03-18
 updated: 2026-09-02
 category: Panhandle

@@ -217,7 +217,6 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
       <ul class="listicle__facts">${facts.join("")}</ul>
       <div class="listicle__actions">
         <a class="btn btn--blue btn--sm" href="${url}">Full details</a>
-        <a class="btn btn--outline btn--sm" href="/reviews/${attr(listing.slug)}/">Reviews</a>
         ${
           listing.maps_link
             ? `<a class="btn btn--outline btn--sm" href="${attr(
@@ -291,6 +290,26 @@ export function singleMap(listing) {
   return `<div class="map-panel">
   <div class="map" data-map-auto data-zoom="15" data-points="${attr(JSON.stringify(points))}"></div>
 </div>`;
+}
+
+/* ------------------------------------------------------- star breakdown */
+
+/** Bar chart of a shop's Google reviews by star, from its public profile. */
+export function scoreBars(listing) {
+  const scores = listing.scores || {};
+  const total = [1, 2, 3, 4, 5].reduce((sum, n) => sum + (scores[String(n)] || 0), 0) || listing.reviews || 0;
+  if (!total) return "";
+  return `<div class="score-bars">${[5, 4, 3, 2, 1]
+    .map((n) => {
+      const count = scores[String(n)] || 0;
+      const pct = total ? Math.round((count / total) * 100) : 0;
+      return `<div class="row">
+      <span>${n} star${n === 1 ? "" : "s"}</span>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span class="num">${formatReviews(count)}</span>
+    </div>`;
+    })
+    .join("")}</div>`;
 }
 
 /* --------------------------------------------------------------- FAQ */
@@ -441,15 +460,9 @@ export function localBusinessSchema(site, listing) {
   if (typeof listing.lat === "number") {
     data.geo = { "@type": "GeoCoordinates", latitude: listing.lat, longitude: listing.lng };
   }
-  if (listing.rating && listing.reviews) {
-    data.aggregateRating = {
-      "@type": "AggregateRating",
-      ratingValue: listing.rating,
-      reviewCount: listing.reviews,
-      bestRating: 5,
-      worstRating: 1,
-    };
-  }
+  // No aggregateRating: these ratings are Google's, and Google's review-snippet
+  // guidelines forbid marking up ratings aggregated from another site. The
+  // rating is still shown on the page, attributed to Google.
   const hours = (listing.hours || []).filter((h) => !h.closed && /\d/.test(h.hours));
   if (hours.length) {
     data.openingHours = hours.map((h) => `${h.day.slice(0, 2)} ${h.hours.replace(/\s/g, "")}`);

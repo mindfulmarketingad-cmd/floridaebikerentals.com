@@ -195,7 +195,8 @@ function tourCard(tour, rank, currency) {
             })</span></div>`
           : ""
       }
-      ${tour.summary ? `<p class="listicle__summary">${esc(tour.summary)}</p>` : ""}
+      ${/* No Viator description here: 250 of them copied onto one indexable page is
+         thin affiliate content. It is on the tour's own (noindexed) page instead. */ ""}
       ${
         (tour.features || []).length
           ? `<ul class="tag-row">${tour.features.map((f) => `<li><span class="tag">${esc(f)}</span></li>`).join("")}</ul>`
@@ -646,6 +647,11 @@ ${adSlotScript(site, 1)}
 
   return page(site, {
     title: tour.pageTitle,
+    // The description, photos and rating on this page are Viator's. A page of
+    // copied merchant content plus an affiliate link is the "thin affiliate"
+    // pattern in Google's spam policies, so it stays out of the index. The
+    // /tours/ hub, with its own copy and filters, is the page meant to rank.
+    noindex: true,
     description: clamp(
       tour.summary
         ? `${tour.name} in ${tour.location || "Florida"}. ${tour.summary}`
@@ -662,35 +668,9 @@ ${adSlotScript(site, 1)}
     schema: [
       breadcrumbSchema(site, crumbs),
       faqSchema(faqs),
-      {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: tour.name,
-        url: `${site.url}${tour.url_internal}`,
-        ...(photos.length ? { image: photos.map((p) => p.src) } : {}),
-        ...(tour.summary ? { description: tour.summary } : {}),
-        category: category.name,
-        ...(tour.rating && tour.reviews
-          ? {
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: Number(tour.rating),
-                reviewCount: Number(tour.reviews),
-              },
-            }
-          : {}),
-        ...(Number.isFinite(Number(tour.price)) && url
-          ? {
-              offers: {
-                "@type": "Offer",
-                price: Number(tour.price),
-                priceCurrency: tours.currency || "USD",
-                availability: "https://schema.org/InStock",
-                url,
-              },
-            }
-          : {}),
-      },
+      // No Product, Offer or AggregateRating: this site does not sell the
+      // tour, and the rating is Viator's, which Google's guidelines forbid
+      // marking up as our own.
     ],
   });
 }

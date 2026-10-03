@@ -4,7 +4,7 @@ metaTitle: Best Ebike Rentals Near Panama City FL - Top Shops Ranked
 description: The best e-bike rentals near Panama City and Panama City Beach, ranked by Google rating and review volume, with hours, delivery, prices and where to ride.
 date: 2026-08-29
 updated: 2026-09-03
-author: priya-raman
+author: editorial-team
 category: Destinations
 listicle: true
 tags: [Panama City, Panama City Beach, Emerald Coast]

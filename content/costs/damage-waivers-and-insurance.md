@@ -2,7 +2,7 @@
 title: E-Bike Damage Waivers and Insurance in Florida
 metaTitle: E-Bike Rental Damage Waivers - Are They Worth It?
 description: What a Florida e-bike rental damage waiver actually covers, why theft is nearly always excluded, what your own insurance might do, and when the waiver is worth the money.
-author: marisa-donnelly
+author: editorial-team
 date: 2026-07-29
 updated: 2026-09-02
 category: Protection

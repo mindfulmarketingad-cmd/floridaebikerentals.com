@@ -20,11 +20,10 @@ rate the shop on Google. Whether they run tours or only hand over keys at a coun
 ## What is on the site
 
 - **[Partner listings](/partners/)** — a page for every rental shop and e-bike store we track,
-  built from public Google Business data and refreshed periodically.
+  built from public Google Business data and refreshed periodically, including the star breakdown
+  behind each shop's average so you can see whether a 4.6 comes from 40 reviews or 4,000.
 - **[Find pages](/find/)** — city and region guides that answer "where do I rent an e-bike in
   Key West / Destin / Naples", ranked so the best-reviewed shops sit at the top.
-- **[Reviews](/reviews/)** — the rating breakdown behind each shop's star average, so you can see
-  whether a 4.6 comes from 40 reviews or 4,000.
 - **[Blog guides](/blog/)** — riding routes, Florida e-bike law, pricing, safety with kids, and
   the practical questions that come up before a first rental.
 - **[Search](/search/)** — one box across every page on the site.
