@@ -87,8 +87,7 @@ sheltering; ask about the weather policy if you are booking a full day.
 ## Rules and safety
 
 Florida treats an e-bike as a bicycle: no licence, registration or insurance required for a bike
-with a 750 W or smaller motor and working pedals. Helmets are required under 16, and Class 3 bikes
-carry a minimum operating age of 16.
+with a 750 W or smaller motor and working pedals. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
 
 Front Beach Road deserves specific respect. It carries heavy traffic, a lot of it unfamiliar with
 the area, and the separated path network is the reason to be here rather than the road itself. Use

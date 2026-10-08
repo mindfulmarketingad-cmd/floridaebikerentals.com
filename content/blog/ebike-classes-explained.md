@@ -25,8 +25,8 @@ the bike without pedalling using a thumb throttle or twist grip. This is what mo
 rentals are.
 
 **Class 3 — pedal assist only, up to 28 mph.** Faster assist, no throttle, and a speedometer is
-required. Fastest to cover ground, most restricted on shared paths, and subject to a minimum
-operating age of 16 in Florida.
+required. Fastest to cover ground, most restricted on shared paths, and the class rental shops are most
+likely to keep from younger riders.
 
 All three top out at a **750 watt motor** and must have functioning pedals. Beyond those limits, it
 is not an electric bicycle in the legal sense, and different rules apply entirely.
@@ -61,8 +61,8 @@ and 2 while excluding Class 3.
 **Riding with children who are riding their own bikes — Class 1.** Nobody in the group needs 28 mph,
 and the absence of a throttle removes a temptation.
 
-**Anyone under 16 — Class 1 or 2 only.** Class 3 has a 16 year old minimum operating age in Florida,
-and shop policy is often stricter still.
+**Anyone under 16 — Class 1 or 2.** Most shops will not hand a 28 mph Class 3 bike to a younger
+rider, and many set a minimum age for any e-bike. Ask the shop what it allows.
 
 ## Battery range and what the class does not tell you
 

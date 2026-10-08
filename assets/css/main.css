@@ -156,6 +156,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 @media (max-width: 940px) { .hero__grid { grid-template-columns: 1fr; } }
 .hero h1 { color: #fff; text-shadow: 0 2px 18px rgba(6, 20, 60, .28); }
 .hero p.lede { font-size: clamp(1.02rem, .96rem + .35vw, 1.2rem); color: #e8effe; max-width: 46ch; }
+.hero p.lede a { color: #fff; text-decoration: underline; text-underline-offset: .18em; }
+.hero p.lede a:hover { color: var(--sun-400); }
 .hero__stats { display: flex; flex-wrap: wrap; gap: .55rem; list-style: none; padding: 0; margin: 1.4rem 0 0; }
 .hero__stats li {
   background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.24); backdrop-filter: blur(3px);

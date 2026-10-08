@@ -87,8 +87,7 @@ the beach one. Winter Garden gets busy at weekends year-round, especially on far
 ## Rules worth knowing
 
 Florida treats an e-bike with a 750 W or smaller motor and working pedals as a bicycle: no licence,
-registration or insurance. Helmets are required under 16, and Class 3 bikes carry a minimum
-operating age of 16.
+registration or insurance. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
 
 Shared-use paths are where the local rules bite. Trail systems can restrict faster Class 3 bikes
 while permitting Class 1 and 2, and Winter Garden applies dismount zones through the busiest

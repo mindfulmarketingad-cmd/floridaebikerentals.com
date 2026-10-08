@@ -11,6 +11,17 @@ import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
 
+/**
+ * Guides written about a place: blog posts tagged with one of these town names.
+ * Town and region pages link to them, so a guide such as the Orlando or 30A one
+ * is linked from the directory pages that carry the most weight for that place,
+ * not only from the blog index.
+ */
+export function guidesFor(names, blog) {
+  const wanted = new Set(names.map((n) => n.toLowerCase()));
+  return blog.filter((post) => (post.tags || []).some((t) => wanted.has(String(t).toLowerCase())));
+}
+
 export function filterBar(cities, tags, noun = "listings") {
   return `<form class="filterbar" data-filter-form>
   <div class="field">
@@ -248,7 +259,8 @@ ${adSlot(site, "")}
     )}
     <h3 class="mt-3">Guides worth reading first</h3>
     <div class="grid grid--3 mt-2">
-      ${blog
+      ${[...guidesFor(region.cities.map((c) => c.name), blog), ...blog]
+        .filter((post, i, all) => all.indexOf(post) === i)
         .slice(0, 3)
         .map((post) => linkCard({ href: post.url, title: post.title, meta: post.category, text: post.description, more: "Read the guide" }))
         .join("")}
@@ -286,7 +298,7 @@ ${adSlotScript(site, 1)}
  * title and search bar come first; the ranked list follows immediately; local
  * detail, FAQs and the links out to other towns come after.
  */
-export function findCity(site, city, { index, townNotes }) {
+export function findCity(site, city, { index, townNotes, blog = [] }) {
   const local = city.listings;
   const n = local.length;
   const notes = (townNotes && townNotes.get(city.slug)) || {};
@@ -360,7 +372,7 @@ export function findCity(site, city, { index, townNotes }) {
       : null,
     {
       q: `Do I need a licence to ride an e-bike in ${city.name}?`,
-      a: `<p>No. Florida treats an electric bicycle with a motor of 750 W or less and working pedals as a bicycle, so no licence, registration or insurance is needed. Riders under 16 must wear a helmet, and Class 3 e-bikes have a minimum age of 16. Towns set their own rules for sidewalks, beaches and trails — see our <a href="/blog/florida-ebike-laws/">Florida e-bike law guide</a>.</p>`,
+      a: `<p>No. Florida treats an electric bicycle with a motor of 750 W or less and working pedals as a bicycle, so no licence, registration or insurance is needed. Riders under 16 must wear a helmet, and rental shops set their own minimum ages. Towns set their own rules for sidewalks, beaches and trails — see our <a href="/blog/florida-ebike-laws/">Florida e-bike law guide</a>.</p>`,
     },
   ].filter(Boolean);
 
@@ -380,6 +392,17 @@ ${findHero({
   <div class="wrap">
     ${resultsHead(`${city.name} bike rental shops`, n, "shops")}
     ${listicle(local)}
+    ${(() => {
+      const guides = guidesFor([city.name], blog);
+      return guides.length
+        ? `<div class="local-guides mt-3">
+      <h3>${esc(city.name)} riding guide${guides.length > 1 ? "s" : ""}</h3>
+      <div class="grid grid--${Math.min(3, guides.length)} mt-2">${guides
+        .map((post) => linkCard({ href: post.url, title: post.title, text: post.description, more: "Read the guide" }))
+        .join("")}</div>
+    </div>`
+        : "";
+    })()}
   </div>
 </section>
 

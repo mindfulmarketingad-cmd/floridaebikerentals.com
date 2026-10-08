@@ -89,8 +89,7 @@ and scooters share the same space at different speeds. Use the separated paths w
 ## Rules worth knowing
 
 Florida treats an e-bike with a 750 W or smaller motor and working pedals as a bicycle - no licence,
-registration or insurance required. Helmets are required under 16, and Class 3 bikes carry a minimum
-operating age of 16.
+registration or insurance required. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
 
 Miami Beach regulates where bikes may ride more actively than most Florida towns, and the rules on
 sidewalks, the Beach Walk and Lincoln Road change. Boardwalk sections are often walk-only in

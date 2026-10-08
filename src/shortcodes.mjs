@@ -54,6 +54,8 @@ export function expandShortcodes(html, ctx, seed = "page") {
       return `<div class="shortcode-listicle">
   ${args.map === "false" ? "" : mapPanel(rows, { id, zoom: 10, buttonLabel: "Show these on a map" })}
   ${listicle(rows)}
+  <p class="small muted mt-2">Staying somewhere else in Florida? <a href="/find/ebike-rentals-near-me/">See the
+  e-bike rentals near you</a>, sorted by distance.</p>
 </div>`;
     }
 

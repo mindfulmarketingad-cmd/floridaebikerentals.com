@@ -434,6 +434,24 @@ await page.close();
   ok(`no invented author personas anywhere on the site (${personas} pages)`, personas===0);
 }
 
+// 4q. page-two fixes: local guides linked from their town pages, the homepage
+// pointing at the 30A guide and the near-me page, and no unverified age rule
+{
+  const { readFileSync, readdirSync } = await import("node:fs");
+  const read=(u)=>readFileSync(DIST+u+"index.html","utf8");
+  const main=(h)=>(/<main id="main">([\s\S]*?)<\/main>/.exec(h)||[])[1]||"";
+  ok("Orlando town page links the Orlando guide", main(read("/find/ebike-rentals-in-orlando/")).includes('href="/blog/best-ebike-rentals-orlando-florida/"'));
+  ok("Santa Rosa Beach town page links the 30A guide", main(read("/find/ebike-rentals-in-santa-rosa-beach/")).includes('href="/blog/30a-ebike-rentals-guide/"'));
+  const home=main(read("/"));
+  ok("homepage links the 30A guide and the near-me page",
+     home.includes('href="/blog/30a-ebike-rentals-guide/"') && home.includes('href="/find/ebike-rentals-near-me/"'));
+  let claims=0;
+  const walk=(d)=>{for(const e of readdirSync(d,{withFileTypes:true})){const f=d+"/"+e.name;
+    if(e.isDirectory()) walk(f); else if(f.endsWith(".html")&&/Class\s+3[^.<]{0,40}(has|have|carry|carries|subject\s+to)\s+a\s+minimum\s+(operating\s+)?age|minimum\s+(operating\s+)?age\s+of\s+16|16\s+(year\s+old\s+)?minimum\s+operating\s+age|may\s+operate\s+a\s+Class\s+3/i.test(readFileSync(f,"utf8"))) claims++;}};
+  walk(DIST);
+  ok(`no page states the unverified Class 3 minimum age (${claims} pages)`, claims===0);
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

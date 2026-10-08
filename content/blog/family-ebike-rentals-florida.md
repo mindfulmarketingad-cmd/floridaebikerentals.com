@@ -21,9 +21,9 @@ to plan a family e-bike rental so the ride is the good part of the day.
 option on a busy shared path. Some confident riders in this range are fine on their own pedal bike
 if the route is separated from traffic.
 
-**11 to 15:** capable of riding their own bike on a good path. In Florida, they may not operate a
-Class 3 e-bike — that has a minimum age of 16 — and helmets are legally required under 16. Many
-shops will not rent an e-bike to anyone under 16 at all, and some set the bar at 18.
+**11 to 15:** capable of riding their own bike on a good path. Helmets are legally required under 16 in
+Florida. Many shops will not rent an e-bike to anyone under 16 at all, some set the bar at 18, and
+few will rent a 28 mph Class 3 bike to a teenager.
 
 **16 and over:** treated as an adult rider by most shops, though a parent may need to sign.
 

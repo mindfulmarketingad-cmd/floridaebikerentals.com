@@ -13,7 +13,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Do I need a licence to ride an e-bike in Florida?",
-    a: "<p>No. Florida treats an electric bicycle with a motor of 750 watts or less and working pedals as a bicycle, so there is no driver's licence, registration or insurance requirement for the rider. Class 3 e-bikes, which assist up to 28 mph, have a minimum operating age of 16, and helmets are legally required for anyone under 16. See our <a href=\"/blog/florida-ebike-laws/\">guide to Florida e-bike law</a>.</p>",
+    a: "<p>No. Florida treats an electric bicycle with a motor of 750 watts or less and working pedals as a bicycle, so there is no driver's licence, registration or insurance requirement for the rider. Helmets are legally required for anyone under 16, and rental shops set their own minimum ages. See our <a href=\"/blog/florida-ebike-laws/\">guide to Florida e-bike law</a>.</p>",
   },
   {
     q: "What is the difference between Class 1, Class 2 and Class 3 e-bikes?",
@@ -21,7 +21,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Can children ride e-bikes in Florida?",
-    a: "<p>Children under 16 must wear a helmet, including passengers in a child seat or trailer, and nobody under 16 may operate a Class 3 e-bike. Individual shops set stricter policies — many require riders to be 16 or 18. Families usually rent a cargo e-bike, a child seat or a trailer for younger children. See our <a href=\"/blog/family-ebike-rentals-florida/\">family e-bike rental guide</a>.</p>",
+    a: "<p>Children under 16 must wear a helmet, including passengers in a child seat or trailer. Shops set their own age rules — many require riders to be 16 or 18, and few will rent a 28 mph Class 3 bike to a teenager. Families usually rent a cargo e-bike, a child seat or a trailer for younger children. See our <a href=\"/blog/family-ebike-rentals-florida/\">family e-bike rental guide</a>.</p>",
   },
   {
     q: "Can I ride an e-bike on the beach or on the sidewalk?",
@@ -84,7 +84,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)
-        )} Florida towns — from the Timpoochee Trail on 30A to Key West. Compare hours, ratings and phone numbers, then book direct with the shop.</p>
+        )} Florida towns — from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. Compare hours, ratings and phone numbers, then book direct with the shop.</p>
         <ul class="hero__stats">
           <li><strong>${esc(String(stats.total))}</strong> rental partners</li>
           <li><strong>${esc(String(stats.cities))}</strong> Florida towns</li>
@@ -93,7 +93,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         </ul>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/partners/">Rent Now</a>
-          <a class="btn btn--ghost" href="/find/">Find rentals near you</a>
+          <a class="btn btn--ghost" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
         </div>
       </div>
       <div class="carousel" data-carousel data-near-me>
@@ -228,7 +228,8 @@ ${adSlot(site, "")}
       <h2>Where e-bike riding in Florida is best</h2>
       <p>Florida is flat, which makes people assume pedal assist is unnecessary. What Florida actually
       has is distance, heat and wind, and an e-bike solves all three. The Timpoochee Trail runs the full
-      length of 30A past Seaside and Rosemary Beach. The Legacy Trail links Sarasota to Venice. The
+      length of 30A past Seaside and Rosemary Beach — our <a href="/blog/30a-ebike-rentals-guide/">30A
+      e-bike rentals guide</a> covers where to rent along it. The Legacy Trail links Sarasota to Venice. The
       Pinellas Trail covers 45 miles from St. Petersburg to Tarpon Springs. Sanibel has 25 miles of path
       separated from traffic, and Key West is a town where a bike is genuinely faster than a car.</p>
       <p>Our <a href="/blog/best-ebike-rides-florida/">ten best e-bike rides in Florida</a> covers each

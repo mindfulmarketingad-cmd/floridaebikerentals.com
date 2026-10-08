@@ -101,8 +101,7 @@ happen at return time. The full list is in our
 ## Rules worth knowing
 
 Florida treats an e-bike with a 750 W or smaller motor and working pedals as a bicycle: no licence,
-no registration, no insurance. Helmets are required for riders under 16, and Class 3 bikes have a
-minimum operating age of 16.
+no registration, no insurance. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
 
 Where you may ride is decided locally, not by the state, and beach towns vary. Riding on the beach
 itself is almost always prohibited, sidewalk rules differ block to block, and shops know the current
@@ -138,9 +137,8 @@ ask your rental shop about the current local rules.
 
 ### How old do you have to be to rent an e-bike in Destin?
 
-Florida sets a minimum age of 16 to operate a Class 3 e-bike and requires helmets under 16, but
-shop policy is usually stricter - many require riders to be 16 or 18, and most will not rent to an
-unaccompanied minor. Ask before you book if anyone in your group is under 18.
+Florida requires helmets for riders under 16. Age limits come from the shops - many require riders
+to be 16 or 18, and most will not rent to an unaccompanied minor. Ask before you book if anyone in your group is under 18.
 
 ### Is Destin or 30A better for e-bike riding?
 
