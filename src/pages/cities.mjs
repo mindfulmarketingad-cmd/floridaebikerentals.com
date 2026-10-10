@@ -17,6 +17,7 @@ import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile } from "./find.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
+const YEAR = new Date().getFullYear();
 export const CITIES_CRUMB = { href: "/cities/", label: "Cities" };
 
 /* ------------------------------------------------------------ hub */
@@ -141,7 +142,7 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
   const names = (list) => esc(commaList(list.slice(0, 4).map((l) => l.name)));
 
   // The owner's format for every town page, used for both the H1 and <title>.
-  const h1 = `Electric Ebike Rentals Near Me In ${city.name} Florida: Pricing, Location & Directions`;
+  const h1 = `${city.name} Florida Electric Bike Rentals List ${YEAR}`;
   const lead = notes.lead
     ? fill(notes.lead)
     : `${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. Search them, filter by service, and book direct with the shop.`;
