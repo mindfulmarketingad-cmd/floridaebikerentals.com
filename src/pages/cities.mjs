@@ -49,7 +49,8 @@ ${findHero({
       .map(
         (region) => `<section class="city-region" id="${attr(region.slug)}">
       ${
-        stockFor(region.slug)
+        // Full-width banners only from photos wide enough not to be stretched.
+        stockFor(region.slug) && stockFor(region.slug).width >= 1180
           ? `<div class="city-region__banner">${stockImg(stockFor(region.slug), { alt: `${region.name}, Florida`, large: true })}</div>`
           : ""
       }

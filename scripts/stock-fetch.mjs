@@ -19,6 +19,7 @@ const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8"
 mkdirSync(OUT, { recursive: true });
 
 for (const [slot, id] of Object.entries(picks)) {
+  if (manifest[slot] && existsSync(join(ROOT, manifest[slot].src.replace(/^\//, "")))) continue;
   const c = (candidates[slot] || []).find((x) => x.id === id) || Object.values(candidates).flat().find((x) => x.id === id);
   if (!c) { console.log(`${slot}: candidate ${id} not found`); continue; }
   try {
@@ -26,7 +27,7 @@ for (const [slot, id] of Object.entries(picks)) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const buf = Buffer.from(await res.arrayBuffer());
     const meta = await sharp(buf).metadata();
-    if ((meta.width || 0) < 1200) throw new Error(`only ${meta.width}px wide`);
+    if ((meta.width || 0) < 1000) throw new Error(`only ${meta.width}px wide`);
     const big = Math.min(1600, meta.width);
     const out = {};
     for (const [suffix, w] of [["", big], ["-800", Math.min(800, meta.width)]]) {
@@ -47,4 +48,5 @@ for (const [slot, id] of Object.entries(picks)) {
 }
 
 writeFileSync(MANIFEST, `${JSON.stringify(Object.fromEntries(Object.entries(manifest).sort()), null, 2)}\n`);
-rmSync(join(ROOT, "stock", "candidates"), { recursive: true, force: true });
+// Thumbnails are kept until every pick has been fetched.
+if (Object.keys(picks).every((slot) => manifest[slot])) rmSync(join(ROOT, "stock", "candidates"), { recursive: true, force: true });
