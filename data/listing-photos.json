@@ -1,4 +1,9 @@
 {
+  "8-mile-e-bike-rentals": {
+    "src": "/assets/img/listings/8-mile-e-bike-rentals.jpg",
+    "width": 1024,
+    "height": 640
+  },
   "amalfi-bikes": {
     "src": "/assets/img/listings/amalfi-bikes.jpg",
     "width": 800,
@@ -28,6 +33,11 @@
     "src": "/assets/img/listings/broward-bikes.jpg",
     "width": 800,
     "height": 500
+  },
+  "cantonment-on-wheels-llc": {
+    "src": "/assets/img/listings/cantonment-on-wheels-llc.jpg",
+    "width": 1024,
+    "height": 640
   },
   "captain-bills-beach-bike-rentals": {
     "src": "/assets/img/listings/captain-bills-beach-bike-rentals.jpg",
@@ -188,6 +198,11 @@
     "src": "/assets/img/listings/three-wheelz-better-llc.jpg",
     "width": 800,
     "height": 500
+  },
+  "trek-bicycle-lake-mary": {
+    "src": "/assets/img/listings/trek-bicycle-lake-mary.jpg",
+    "width": 1024,
+    "height": 640
   },
   "wittmer-bike-rental": {
     "src": "/assets/img/listings/wittmer-bike-rental.jpg",
