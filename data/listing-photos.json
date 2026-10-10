@@ -1,1 +1,197 @@
-{}
+{
+  "amalfi-bikes": {
+    "src": "/assets/img/listings/amalfi-bikes.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "bayshore-cart-rentals": {
+    "src": "/assets/img/listings/bayshore-cart-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "bike-with-nature": {
+    "src": "/assets/img/listings/bike-with-nature.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "bikes-for-rental": {
+    "src": "/assets/img/listings/bikes-for-rental.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "billys-rentals-and-bike-shop-warehouse-bikes-boats-beach-stuff-rentals-inc": {
+    "src": "/assets/img/listings/billys-rentals-and-bike-shop-warehouse-bikes-boats-beach-stuff-rentals-inc.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "broward-bikes": {
+    "src": "/assets/img/listings/broward-bikes.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "captain-bills-beach-bike-rentals": {
+    "src": "/assets/img/listings/captain-bills-beach-bike-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "care-center-bicycle-rentals": {
+    "src": "/assets/img/listings/care-center-bicycle-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "citi-bike-miami-beach": {
+    "src": "/assets/img/listings/citi-bike-miami-beach.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "coast-bike-share": {
+    "src": "/assets/img/listings/coast-bike-share.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "crank-works-bicycles-good-neighbor-rentals": {
+    "src": "/assets/img/listings/crank-works-bicycles-good-neighbor-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "custom-cyber-bike": {
+    "src": "/assets/img/listings/custom-cyber-bike.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "darrels-e-bike-rentals": {
+    "src": "/assets/img/listings/darrels-e-bike-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "decobike-surfside-rent-a-bike": {
+    "src": "/assets/img/listings/decobike-surfside-rent-a-bike.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "decostation-141": {
+    "src": "/assets/img/listings/decostation-141.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "decostation-145": {
+    "src": "/assets/img/listings/decostation-145.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "dunedinebikes": {
+    "src": "/assets/img/listings/dunedinebikes.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "e-technologies-lab": {
+    "src": "/assets/img/listings/e-technologies-lab.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west": {
+    "src": "/assets/img/listings/eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "electric-bike-shop-express": {
+    "src": "/assets/img/listings/electric-bike-shop-express.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "electric-bikes-usa": {
+    "src": "/assets/img/listings/electric-bikes-usa.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "i-cycle-305": {
+    "src": "/assets/img/listings/i-cycle-305.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "jnkns": {
+    "src": "/assets/img/listings/jnkns.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "kennys-retro-cruisers-llc": {
+    "src": "/assets/img/listings/kennys-retro-cruisers-llc.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "llamaebike": {
+    "src": "/assets/img/listings/llamaebike.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "ocean-e-bikes": {
+    "src": "/assets/img/listings/ocean-e-bikes.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-185": {
+    "src": "/assets/img/listings/rentabikenow-for-store-185.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-230": {
+    "src": "/assets/img/listings/rentabikenow-for-store-230.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-341": {
+    "src": "/assets/img/listings/rentabikenow-for-store-341.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-369": {
+    "src": "/assets/img/listings/rentabikenow-for-store-369.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-39": {
+    "src": "/assets/img/listings/rentabikenow-for-store-39.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-40": {
+    "src": "/assets/img/listings/rentabikenow-for-store-40.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rentabikenow-for-store-78": {
+    "src": "/assets/img/listings/rentabikenow-for-store-78.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "ridelabs": {
+    "src": "/assets/img/listings/ridelabs.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "rogan-e-bikes-wesley-chapel": {
+    "src": "/assets/img/listings/rogan-e-bikes-wesley-chapel.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "smile": {
+    "src": "/assets/img/listings/smile.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "st-augustine-ac-electric-bike-rentals": {
+    "src": "/assets/img/listings/st-augustine-ac-electric-bike-rentals.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "three-wheelz-better-llc": {
+    "src": "/assets/img/listings/three-wheelz-better-llc.jpg",
+    "width": 800,
+    "height": 500
+  },
+  "wittmer-bike-rental": {
+    "src": "/assets/img/listings/wittmer-bike-rental.jpg",
+    "width": 800,
+    "height": 500
+  }
+}
