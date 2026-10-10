@@ -1,0 +1,1227 @@
+{
+  "cities": {
+    "key-west": {
+      "name": "Key West",
+      "routes": [
+        {
+          "name": "Florida Keys Overseas Heritage Trail",
+          "miles": 8.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/336584173"
+        }
+      ],
+      "totalMiles": 8.2
+    },
+    "miami": {
+      "name": "Miami",
+      "routes": [
+        {
+          "name": "M-Path",
+          "miles": 8.8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1033118579"
+        },
+        {
+          "name": "Rickenbacker Trail",
+          "miles": 3.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/135234446"
+        },
+        {
+          "name": "Old Cutler Trail",
+          "miles": 2.5,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/758818196"
+        },
+        {
+          "name": "Commodore Trail",
+          "miles": 2.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/135206082"
+        },
+        {
+          "name": "Flooded Former Bike Path",
+          "miles": 1,
+          "surface": "Other",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/314486142"
+        },
+        {
+          "name": "Red Road Linear Park Trail",
+          "miles": 0.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/135206078"
+        },
+        {
+          "name": "Riverwalk",
+          "miles": 0.8,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/387368661"
+        },
+        {
+          "name": "Miller Drive Green and White Path",
+          "miles": 0.7,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/710762965"
+        },
+        {
+          "name": "MacArthur Causeway Path",
+          "miles": 0.4,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/403303024"
+        }
+      ],
+      "totalMiles": 20.7
+    },
+    "santa-rosa-beach": {
+      "name": "Santa Rosa Beach",
+      "routes": [
+        {
+          "name": "Timpoochee Trail",
+          "miles": 10.8,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/87318428"
+        },
+        {
+          "name": "Longleaf Greenway",
+          "miles": 7,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/192453717"
+        },
+        {
+          "name": "Longleaf Greenway Trail",
+          "miles": 1.7,
+          "surface": "Sand",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/149658501"
+        }
+      ],
+      "totalMiles": 19.5
+    },
+    "miami-beach": {
+      "name": "Miami Beach",
+      "routes": [
+        {
+          "name": "Rickenbacker Trail",
+          "miles": 4.3,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/321134469"
+        },
+        {
+          "name": "MacArthur Causeway Path",
+          "miles": 1.5,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/230521237"
+        },
+        {
+          "name": "M-Path",
+          "miles": 1.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1033118579"
+        },
+        {
+          "name": "Virginia Key North Point Trails",
+          "miles": 1.3,
+          "surface": "Unpaved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/368590770"
+        },
+        {
+          "name": "Lincoln Road",
+          "miles": 1.1,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/45126145"
+        },
+        {
+          "name": "Riverwalk",
+          "miles": 0.9,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/387368661"
+        },
+        {
+          "name": "Waterfront Outdoor Gym trail",
+          "miles": 0.4,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/417892289"
+        }
+      ],
+      "totalMiles": 10.9
+    },
+    "sarasota": {
+      "name": "Sarasota",
+      "routes": [
+        {
+          "name": "Circus Trail",
+          "miles": 0.6,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/282835949"
+        }
+      ],
+      "totalMiles": 0.6
+    },
+    "naples": {
+      "name": "Naples",
+      "routes": [
+        {
+          "name": "North Berm",
+          "miles": 1.3,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/322012255"
+        },
+        {
+          "name": "South Berm",
+          "miles": 0.8,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/887358665"
+        }
+      ],
+      "totalMiles": 2.1
+    },
+    "st-petersburg": {
+      "name": "St. Petersburg",
+      "routes": [
+        {
+          "name": "Pinellas Trail",
+          "miles": 8.8,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1559027653"
+        },
+        {
+          "name": "North Bay Trail",
+          "miles": 5.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/322765972"
+        },
+        {
+          "name": "Skyway Trail",
+          "miles": 3.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/499313502"
+        },
+        {
+          "name": "Bayway Trail",
+          "miles": 2.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/499308891"
+        },
+        {
+          "name": "Clam Bayou Trail",
+          "miles": 1.3,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158253155"
+        },
+        {
+          "name": "Gulfport Tangerine Greenway",
+          "miles": 0.5,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1531730315"
+        },
+        {
+          "name": "Gulfport Spur",
+          "miles": 0.4,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/85244818"
+        },
+        {
+          "name": "Walter Fuller Trail",
+          "miles": 0.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1447082566"
+        }
+      ],
+      "totalMiles": 22.9
+    },
+    "tampa": {
+      "name": "Tampa",
+      "routes": [
+        {
+          "name": "Tampa Riverwalk",
+          "miles": 2.7,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/27288976"
+        },
+        {
+          "name": "Howard Frankland Shared-Use Path",
+          "miles": 2.5,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1548704935"
+        },
+        {
+          "name": "Green Spine",
+          "miles": 2.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/909435562"
+        },
+        {
+          "name": "U-Path",
+          "miles": 2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1308016769"
+        },
+        {
+          "name": "Selmon Greenway",
+          "miles": 1.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1043472914"
+        },
+        {
+          "name": "Courtney Campbell Causeway Trail",
+          "miles": 1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158446663"
+        },
+        {
+          "name": "Friendship Trail",
+          "miles": 0.9,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/149508545"
+        },
+        {
+          "name": "MacDill Trail",
+          "miles": 0.6,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/356098650"
+        },
+        {
+          "name": "selmon_greenway",
+          "miles": 0.6,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1043476115"
+        },
+        {
+          "name": "MacDill 48 Park Trail",
+          "miles": 0.4,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1479671112"
+        }
+      ],
+      "totalMiles": 14.3
+    },
+    "fort-lauderdale": {
+      "name": "Fort Lauderdale",
+      "routes": [
+        {
+          "name": "Riverwalk",
+          "miles": 0.4,
+          "surface": "Other",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158418204"
+        }
+      ],
+      "totalMiles": 0.4
+    },
+    "fort-myers": {
+      "name": "Fort Myers",
+      "routes": [
+        {
+          "name": "North Colonial Linear Park",
+          "miles": 2.2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/159112758"
+        },
+        {
+          "name": "John Yarbrough Linear Park",
+          "miles": 2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/159112712"
+        }
+      ],
+      "totalMiles": 4.2
+    },
+    "orlando": {
+      "name": "Orlando",
+      "routes": [
+        {
+          "name": "Shingle Creek Trail",
+          "miles": 6.2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/844879420"
+        },
+        {
+          "name": "Kissimmee Trail",
+          "miles": 2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158313934"
+        },
+        {
+          "name": "Countyline Connector",
+          "miles": 1.2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/157774551"
+        }
+      ],
+      "totalMiles": 9.4
+    },
+    "panama-city-beach": {
+      "name": "Panama City Beach",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "jacksonville": {
+      "name": "Jacksonville",
+      "routes": [
+        {
+          "name": "WKC Trail",
+          "miles": 1.5,
+          "surface": "Dirt",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/1370815645"
+        },
+        {
+          "name": "Northbank Riverwalk",
+          "miles": 1.4,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/737888957"
+        },
+        {
+          "name": "Emerald Trail",
+          "miles": 0.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/755358816"
+        }
+      ],
+      "totalMiles": 3.8
+    },
+    "boca-raton": {
+      "name": "Boca Raton",
+      "routes": [
+        {
+          "name": "El Rio Trail",
+          "miles": 4.8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/68280716"
+        },
+        {
+          "name": "Lake Trail",
+          "miles": 0.5,
+          "surface": "Unpaved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/356857928"
+        }
+      ],
+      "totalMiles": 5.3
+    },
+    "fernandina-beach": {
+      "name": "Fernandina Beach",
+      "routes": [
+        {
+          "name": "Amelia Island Trail",
+          "miles": 5,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/294212568"
+        },
+        {
+          "name": "Amelia River To Sea Trail",
+          "miles": 2.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/162329314"
+        },
+        {
+          "name": "Summer Beach Path",
+          "miles": 2.2,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/697256072"
+        },
+        {
+          "name": "Egans Creek Greenway",
+          "miles": 0.5,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/263899124"
+        }
+      ],
+      "totalMiles": 10.1
+    },
+    "fort-myers-beach": {
+      "name": "Fort Myers Beach",
+      "routes": [
+        {
+          "name": "Mangrove Loop",
+          "miles": 0.4,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/215994087"
+        }
+      ],
+      "totalMiles": 0.4
+    },
+    "kissimmee": {
+      "name": "Kissimmee",
+      "routes": [
+        {
+          "name": "Kissimmee Trail",
+          "miles": 5,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158313932"
+        },
+        {
+          "name": "Shingle Creek Trail",
+          "miles": 4.7,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/404177525"
+        },
+        {
+          "name": "Bill Johnston Memorial Pathway",
+          "miles": 3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/69343352"
+        },
+        {
+          "name": "Countyline Connector",
+          "miles": 1.2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/157774551"
+        },
+        {
+          "name": "Lakeshore Trail",
+          "miles": 0.9,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/423907949"
+        },
+        {
+          "name": "Toho Vista",
+          "miles": 0.8,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1081261282"
+        },
+        {
+          "name": "Oak Street Trail",
+          "miles": 0.5,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/423682378"
+        },
+        {
+          "name": "Lawrence Silas Trail",
+          "miles": 0.5,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/423726631"
+        },
+        {
+          "name": "Pioneer Village Trail",
+          "miles": 0.5,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/551998690"
+        },
+        {
+          "name": "Toho Bend",
+          "miles": 0.4,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/614308089"
+        }
+      ],
+      "totalMiles": 17.5
+    },
+    "clearwater": {
+      "name": "Clearwater",
+      "routes": [
+        {
+          "name": "Pinellas Trail",
+          "miles": 7.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/188995730"
+        },
+        {
+          "name": "Duke Energy Trail",
+          "miles": 5.8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158253237"
+        },
+        {
+          "name": "Druid Trail",
+          "miles": 3.8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/729373137"
+        },
+        {
+          "name": "Ream Wilson Clearwater Trail",
+          "miles": 3.1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/139243794"
+        },
+        {
+          "name": "Courtney Campbell Causeway Trail",
+          "miles": 2.5,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158446639"
+        },
+        {
+          "name": "Hulk Hogan Trail",
+          "miles": 1.8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/139322766"
+        },
+        {
+          "name": "Edgewater Trail",
+          "miles": 1.6,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/129075945"
+        },
+        {
+          "name": "Ream Wilson Trail",
+          "miles": 1.3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1488447789"
+        },
+        {
+          "name": "Memorial Causeway Trail",
+          "miles": 1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1474009622"
+        }
+      ],
+      "totalMiles": 28.8
+    },
+    "marco-island": {
+      "name": "Marco Island",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "new-smyrna-beach": {
+      "name": "New Smyrna Beach",
+      "routes": [
+        {
+          "name": "New Smyrna Beach Pedestrian Trail",
+          "miles": 2,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/646130048"
+        },
+        {
+          "name": "East Central Regional Rail Trail",
+          "miles": 1.8,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/962646522"
+        },
+        {
+          "name": "Saxon Trails",
+          "miles": 1.3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/646083763"
+        }
+      ],
+      "totalMiles": 5.1
+    },
+    "ormond-beach": {
+      "name": "Ormond Beach",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "panama-city": {
+      "name": "Panama City",
+      "routes": [
+        {
+          "name": "Lynn Haven Rails To Trails path",
+          "miles": 2.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/163037858"
+        }
+      ],
+      "totalMiles": 2.2
+    },
+    "pensacola": {
+      "name": "Pensacola",
+      "routes": [
+        {
+          "name": "Southwest Greenway",
+          "miles": 0.9,
+          "surface": "Boardwalk",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/194433252"
+        },
+        {
+          "name": "Shoreline Loop",
+          "miles": 0.5,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/262079777"
+        }
+      ],
+      "totalMiles": 1.4
+    },
+    "st-augustine": {
+      "name": "St. Augustine",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "winter-garden": {
+      "name": "Winter Garden",
+      "routes": [
+        {
+          "name": "West Orange Trail",
+          "miles": 8,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/151199847"
+        },
+        {
+          "name": "Lulu Creek Trail",
+          "miles": 0.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/211309592"
+        }
+      ],
+      "totalMiles": 8.4
+    },
+    "daytona-beach": {
+      "name": "Daytona Beach",
+      "routes": [
+        {
+          "name": "East Coast Greenway",
+          "miles": 1.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/835089093"
+        },
+        {
+          "name": "North/South Walk",
+          "miles": 0.5,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/842860584"
+        }
+      ],
+      "totalMiles": 1.7
+    },
+    "dunedin": {
+      "name": "Dunedin",
+      "routes": [
+        {
+          "name": "Pinellas Trail",
+          "miles": 10.1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/143173783"
+        },
+        {
+          "name": "Duke Energy Trail",
+          "miles": 6.6,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/891605048"
+        },
+        {
+          "name": "Druid Trail",
+          "miles": 3.6,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/729373137"
+        },
+        {
+          "name": "Honeymoon Island Trail",
+          "miles": 3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/162011057"
+        },
+        {
+          "name": "Hulk Hogan Trail",
+          "miles": 2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/139322766"
+        },
+        {
+          "name": "Edgewater Trail",
+          "miles": 1.6,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/129075945"
+        },
+        {
+          "name": "Ream Wilson Trail",
+          "miles": 1.3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1488447789"
+        },
+        {
+          "name": "Memorial Causeway Trail",
+          "miles": 1.1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1474009622"
+        },
+        {
+          "name": "Ream Wilson Clearwater Trail",
+          "miles": 0.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/230749292"
+        },
+        {
+          "name": "Beachwalk",
+          "miles": 0.6,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/383719202"
+        },
+        {
+          "name": "Sugarberry Trail",
+          "miles": 0.5,
+          "surface": "Gravel",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/784938729"
+        },
+        {
+          "name": "Grant Trail",
+          "miles": 0.4,
+          "surface": "Gravel",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/688214160"
+        }
+      ],
+      "totalMiles": 31.7
+    },
+    "hollywood": {
+      "name": "Hollywood",
+      "routes": [
+        {
+          "name": "The Don Soffer Excercise Trail",
+          "miles": 1.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/745310675"
+        }
+      ],
+      "totalMiles": 1.9
+    },
+    "holmes-beach": {
+      "name": "Holmes Beach",
+      "routes": [
+        {
+          "name": "Spoonbill Trail",
+          "miles": 2.2,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/42786801"
+        },
+        {
+          "name": "Osprey Loop",
+          "miles": 2.1,
+          "surface": "Unpaved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/42788946"
+        },
+        {
+          "name": "Perico Loop",
+          "miles": 0.6,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/506259875"
+        },
+        {
+          "name": "Heron Trail",
+          "miles": 0.4,
+          "surface": "Gravel",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/622349190"
+        }
+      ],
+      "totalMiles": 5.3
+    },
+    "jacksonville-beach": {
+      "name": "Jacksonville Beach",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "melbourne": {
+      "name": "Melbourne",
+      "routes": [
+        {
+          "name": "Brevard Zoo Linear Trail",
+          "miles": 2.9,
+          "surface": "Other",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/272097124"
+        }
+      ],
+      "totalMiles": 2.9
+    },
+    "ocala": {
+      "name": "Ocala",
+      "routes": [
+        {
+          "name": "Deerwood Village Path",
+          "miles": 0.8,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/812706892"
+        }
+      ],
+      "totalMiles": 0.8
+    },
+    "port-st-lucie": {
+      "name": "Port St. Lucie",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "venice": {
+      "name": "Venice",
+      "routes": [
+        {
+          "name": "Venetian Waterway Trail",
+          "miles": 7.5,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/46974521"
+        },
+        {
+          "name": "Legacy Trail",
+          "miles": 2.6,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/168116535"
+        },
+        {
+          "name": "Waterway Veterans Trail",
+          "miles": 1.6,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/46974532"
+        }
+      ],
+      "totalMiles": 11.7
+    },
+    "bradenton": {
+      "name": "Bradenton",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "cape-coral": {
+      "name": "Cape Coral",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "destin": {
+      "name": "Destin",
+      "routes": [
+        {
+          "name": "Scenic Highway 98 Trail",
+          "miles": 5.1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158142519"
+        }
+      ],
+      "totalMiles": 5.1
+    },
+    "lakeland": {
+      "name": "Lakeland",
+      "routes": [
+        {
+          "name": "Lake Hollingsworth Park & Trail",
+          "miles": 2.8,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/504872874"
+        },
+        {
+          "name": "Fort Fraser Trail",
+          "miles": 1.3,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/135370785"
+        },
+        {
+          "name": "Three Parks Trail",
+          "miles": 0.9,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/618352611"
+        }
+      ],
+      "totalMiles": 5
+    },
+    "riviera-beach": {
+      "name": "Riviera Beach",
+      "routes": [
+        {
+          "name": "Lake Trail",
+          "miles": 3.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/11203464"
+        },
+        {
+          "name": "South Lake Trail",
+          "miles": 0.6,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/540752264"
+        }
+      ],
+      "totalMiles": 3.8
+    },
+    "sanibel": {
+      "name": "Sanibel",
+      "routes": [
+        {
+          "name": "Indigo Trail",
+          "miles": 1.8,
+          "surface": "Unpaved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/48262440"
+        },
+        {
+          "name": "Pond Apple Trail",
+          "miles": 0.4,
+          "surface": "Unpaved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/908540016"
+        }
+      ],
+      "totalMiles": 2.2
+    },
+    "stuart": {
+      "name": "Stuart",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "west-palm-beach": {
+      "name": "West Palm Beach",
+      "routes": [
+        {
+          "name": "Lake Trail",
+          "miles": 3.2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/11203464"
+        },
+        {
+          "name": "Clear Lake Trail",
+          "miles": 1.1,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/1287452004"
+        },
+        {
+          "name": "South Lake Trail",
+          "miles": 1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/209181330"
+        }
+      ],
+      "totalMiles": 5.3
+    },
+    "anna-maria": {
+      "name": "Anna Maria",
+      "routes": [
+        {
+          "name": "Spoonbill Trail",
+          "miles": 2.2,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/42786801"
+        },
+        {
+          "name": "Osprey Loop",
+          "miles": 2.1,
+          "surface": "Unpaved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/42788946"
+        },
+        {
+          "name": "Perico Loop",
+          "miles": 0.6,
+          "surface": "Not recorded",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/506259875"
+        },
+        {
+          "name": "Heron Trail",
+          "miles": 0.4,
+          "surface": "Gravel",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/622349190"
+        }
+      ],
+      "totalMiles": 5.3
+    },
+    "cocoa": {
+      "name": "Cocoa",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "indialantic": {
+      "name": "Indialantic",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "jupiter": {
+      "name": "Jupiter",
+      "routes": [],
+      "totalMiles": 0
+    },
+    "largo": {
+      "name": "Largo",
+      "routes": [
+        {
+          "name": "Pinellas Trail",
+          "miles": 11.1,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/188995730"
+        },
+        {
+          "name": "Druid Trail",
+          "miles": 3.7,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/729373137"
+        },
+        {
+          "name": "Hulk Hogan Trail",
+          "miles": 2,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/139322766"
+        },
+        {
+          "name": "Duke Energy Trail",
+          "miles": 1.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158253241"
+        },
+        {
+          "name": "Memorial Causeway Trail",
+          "miles": 1.1,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/1474009622"
+        },
+        {
+          "name": "Backtrack Loop",
+          "miles": 0.7,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/281122914"
+        },
+        {
+          "name": "Beachwalk",
+          "miles": 0.6,
+          "surface": "Paved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/383719202"
+        }
+      ],
+      "totalMiles": 20.6
+    },
+    "new-port-richey": {
+      "name": "New Port Richey",
+      "routes": [
+        {
+          "name": "Starkey Trail",
+          "miles": 3.5,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/160578673"
+        },
+        {
+          "name": "Starkey Boulevard Trail",
+          "miles": 1.3,
+          "surface": "Not recorded",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/160578659"
+        },
+        {
+          "name": "Starkey Park Bike Trail",
+          "miles": 0.4,
+          "surface": "Paved",
+          "type": "Bike path",
+          "osm": "https://www.openstreetmap.org/way/158059146"
+        }
+      ],
+      "totalMiles": 5.2
+    },
+    "pompano-beach": {
+      "name": "Pompano Beach",
+      "routes": [
+        {
+          "name": "Lake Trail",
+          "miles": 0.5,
+          "surface": "Unpaved",
+          "type": "Shared-use path",
+          "osm": "https://www.openstreetmap.org/way/356857928"
+        }
+      ],
+      "totalMiles": 0.5
+    }
+  },
+  "updated": "2026-10-10",
+  "source": "OpenStreetMap contributors, via the Overpass API (ODbL)",
+  "radiusMiles": 5
+}
