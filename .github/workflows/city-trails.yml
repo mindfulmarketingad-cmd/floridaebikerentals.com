@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: "20"
       - name: Fetch routes from OpenStreetMap
-        timeout-minutes: 40
+        timeout-minutes: 55
         run: node scripts/fetch-trails.mjs
       - name: Build and verify
         run: npm run verify
