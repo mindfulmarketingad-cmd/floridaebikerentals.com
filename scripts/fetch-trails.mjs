@@ -17,7 +17,15 @@ import { ROOT, loadListings, buildIndex } from "../src/data.mjs";
 
 const OUT = join(ROOT, "data", "city-trails.json");
 const RADIUS = 8000; // metres, about 5 miles
-const ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"];
+const ENDPOINTS = [
+  "https://overpass-api.de/api/interpreter",
+  "https://overpass.private.coffee/api/interpreter",
+  "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "https://overpass.kumi.systems/api/interpreter",
+];
+// Stop starting new towns after this long, so the Action can save and commit
+// what it has; the next run picks up the towns still missing.
+const BUDGET_MS = 30 * 60 * 1000;
 const MIN_MILES = 0.4;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -29,21 +37,21 @@ function metres(a, b) {
 }
 
 async function overpass(query) {
-  for (let attempt = 0; attempt < 6; attempt++) {
+  for (let attempt = 0; attempt < ENDPOINTS.length * 2; attempt++) {
     const url = ENDPOINTS[attempt % ENDPOINTS.length];
     try {
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "floridaebikerentals.com city trail guides" },
         body: `data=${encodeURIComponent(query)}`,
-        signal: AbortSignal.timeout(90000),
+        signal: AbortSignal.timeout(130000),
       });
       if (res.ok) return (await res.json()).elements || [];
       console.log(`  ${url} HTTP ${res.status}, retrying`);
     } catch (e) {
       console.log(`  ${url} ${e.message}, retrying`);
     }
-    await sleep(15000 * (attempt + 1));
+    await sleep(5000);
   }
   throw new Error("Overpass unavailable");
 }
@@ -89,9 +97,19 @@ async function main() {
   const index = buildIndex(loadListings());
   const out = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : { cities: {} };
   out.cities ||= {};
+  const started = Date.now();
+  const save = () => {
+    out.updated = new Date().toISOString().slice(0, 10);
+    out.source = "OpenStreetMap contributors, via the Overpass API (ODbL)";
+    out.radiusMiles = 5;
+    writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`);
+  };
+  const force = process.argv.includes("--force");
   for (const city of index.cities) {
     if (typeof city.lat !== "number") continue;
-    const q = `[out:json][timeout:80];
+    if (!force && out.cities[city.slug]) continue;
+    if (Date.now() - started > BUDGET_MS) { console.log("Time budget reached; the next run continues."); break; }
+    const q = `[out:json][timeout:120];
 (
   way["highway"="cycleway"]["name"](around:${RADIUS},${city.lat},${city.lng});
   way["highway"~"^(path|footway)$"]["bicycle"~"^(designated|yes)$"]["name"](around:${RADIUS},${city.lat},${city.lng});
@@ -101,15 +119,15 @@ out tags geom;`;
       const routes = routesFrom(await overpass(q), { lat: city.lat, lon: city.lng });
       out.cities[city.slug] = { name: city.name, routes, totalMiles: Math.round(routes.reduce((s, r) => s + r.miles, 0) * 10) / 10 };
       console.log(`${city.name}: ${routes.length} routes, ${out.cities[city.slug].totalMiles} mi`);
+      save();
     } catch (e) {
       console.log(`${city.name}: skipped (${e.message})`);
     }
     await sleep(6000);
   }
-  out.updated = new Date().toISOString().slice(0, 10);
-  out.source = "OpenStreetMap contributors, via the Overpass API (ODbL)";
-  out.radiusMiles = 5;
-  writeFileSync(OUT, `${JSON.stringify(out, null, 2)}\n`);
+  save();
+  const missing = index.cities.filter((c) => !out.cities[c.slug]).length;
+  console.log(`Towns done: ${Object.keys(out.cities).length}. Still missing: ${missing}.`);
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
