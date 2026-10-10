@@ -64,7 +64,78 @@ export const SCENES = [
     caption: "Illustration: a family ride over the dunes to the beach.",
     themes: ["family", "beach", "boardwalk"],
   },
+  {
+    id: "miami",
+    src: "/assets/img/scenes/miami.svg",
+    og: "/assets/img/scenes/miami.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes passing pastel Art Deco buildings on a palm-lined Miami Beach promenade at dusk",
+    caption: "Illustration: Miami Beach's Art Deco promenade by e-bike.",
+    themes: ["city", "miami", "beach"],
+  },
+  {
+    id: "emerald",
+    src: "/assets/img/scenes/emerald.svg",
+    og: "/assets/img/scenes/emerald.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes passing pastel beach cottages beside emerald water and white sand",
+    caption: "Illustration: pastel cottages and emerald water along 30A.",
+    themes: ["beach", "gulf", "30a"],
+  },
+  {
+    id: "tampa",
+    src: "/assets/img/scenes/tampa.svg",
+    og: "/assets/img/scenes/tampa.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes on a bayside path with a cable-stayed bridge across Tampa Bay behind",
+    caption: "Illustration: a bayside ride with the Sunshine Skyway on the horizon.",
+    themes: ["bay", "bridge", "city"],
+  },
+  {
+    id: "lighthouse",
+    src: "/assets/img/scenes/lighthouse.svg",
+    og: "/assets/img/scenes/lighthouse.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes on an inlet path below a red lighthouse",
+    caption: "Illustration: an inlet ride on Florida's southeast coast.",
+    themes: ["coast", "atlantic", "lighthouse"],
+  },
+  {
+    id: "lifeguard",
+    src: "/assets/img/scenes/lifeguard.svg",
+    og: "/assets/img/scenes/lifeguard.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes on a white Gulf beach past a lifeguard stand",
+    caption: "Illustration: white Gulf sand and a lifeguard stand.",
+    themes: ["beach", "gulf"],
+  },
+  {
+    id: "spiral",
+    src: "/assets/img/scenes/spiral.svg",
+    og: "/assets/img/scenes/spiral.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes on a marsh path below a black-and-white spiral lighthouse",
+    caption: "Illustration: marsh paths below a striped lighthouse in northeast Florida.",
+    themes: ["coast", "marsh", "lighthouse"],
+  },
+  {
+    id: "springs",
+    src: "/assets/img/scenes/springs.svg",
+    og: "/assets/img/scenes/springs.jpg",
+    width: 1600,
+    height: 900,
+    alt: "Illustration of riders on e-bikes beside a clear blue spring under cypress trees",
+    caption: "Illustration: a clear spring under cypress in north Florida.",
+    themes: ["springs", "inland", "trail"],
+  },
 ];
+
 
 /**
  * Every image a page can feature. Only the drawn scenes: the stock photos that
@@ -79,16 +150,16 @@ export const PHOTOS = [...SCENES];
  */
 const REGION_SCENE = {
   "daytona-and-the-space-coast": "atlantic",
-  "first-coast": "atlantic",
-  "palm-beaches-and-treasure-coast": "atlantic",
-  "greater-miami-and-fort-lauderdale": "boardwalk",
-  "emerald-coast-and-30a": "gulf",
+  "first-coast": "spiral",
+  "palm-beaches-and-treasure-coast": "lighthouse",
+  "greater-miami-and-fort-lauderdale": "miami",
+  "emerald-coast-and-30a": "emerald",
   "southwest-florida": "gulf",
-  "sarasota-and-bradenton": "gulf",
-  "tampa-bay": "gulf",
+  "sarasota-and-bradenton": "lifeguard",
+  "tampa-bay": "tampa",
   "the-florida-keys": "keys",
   "orlando-and-central-florida": "trail",
-  "north-florida": "trail",
+  "north-florida": "springs",
 };
 
 export function sceneForRegion(regionSlug) {
@@ -107,14 +178,17 @@ function hashOf(text) {
  * Deterministic featured image for a page, so a rebuild never reshuffles the
  * site. Always a scene: those are the only images sharp at banner width.
  */
+/** Scenes that suit any page; the place-specific ones are kept for their region. */
+const GENERAL = SCENES.filter((s) => ["atlantic", "gulf", "keys", "trail", "boardwalk"].includes(s.id));
+
 export function photoFor(seed, offset = 0) {
-  return SCENES[(hashOf(seed) + offset) % SCENES.length];
+  return GENERAL[(hashOf(seed) + offset) % GENERAL.length];
 }
 
 /** A second image for the page body, guaranteed to differ from the featured one. */
 export function secondPhotoFor(seed) {
   const first = photoFor(seed);
-  const pool = PHOTOS.filter((p) => p.id !== first.id);
+  const pool = GENERAL.filter((p) => p.id !== first.id);
   return pool[(hashOf(`${seed}:2`)) % pool.length];
 }
 

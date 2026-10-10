@@ -6,7 +6,6 @@ import { esc, attr, jsonLd } from "./util.mjs";
 export const HEADER_LINKS = [
   { href: "/cities/", label: "Cities" },
   { href: "/find/", label: "Find" },
-  { href: "/tours/", label: "Tours" },
   { href: "/trails/", label: "Trails" },
   { href: "/blog/", label: "Blog" },
   { href: "/costs/", label: "Costs" },

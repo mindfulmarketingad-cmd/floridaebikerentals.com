@@ -9,55 +9,6 @@ await new Promise(r=>server.listen(8099,r));
 const b=await chromium.launch();
 const ok=(n,c)=>console.log((c?"PASS":"FAIL")+" - "+n);
 
-// 0. the Viator importer's categoriser, which decides what reaches /tours/
-const { categorise, balance, pickImages } = await import("./import_viator.mjs");
-const CASES=[
-  ["Guided E-Bike Tour of Miami Beach","ebike"],
-  ["Electric bicycle rental with self-guided route","ebike"],
-  ["Jet Ski Rental in Key West","jetski"],
-  ["Everglades Airboat Ride and Wildlife Show","airboat"],
-  ["Parasailing Adventure over Destin","watersports"],
-  ["Snorkeling Trip to the Coral Reef by boat","watersports"],
-  ["Sunset Catamaran Cruise with Open Bar","boat"],
-  ["Private Yacht Charter Fort Lauderdale","boat"],
-  ["Helicopter Tour over Miami",null],
-  ["Orlando Theme Park Ticket",null],
-];
-const wrong=CASES.filter(([t,want])=>categorise(t)!==want);
-ok(`importer categorises ${CASES.length} sample products correctly`+
-   (wrong.length?` (missed: ${wrong.map(w=>w[0]).join("; ")})`:""), wrong.length===0);
-
-// e-bikes take the cap first, then the other activities share what is left
-const sample=[
-  ...Array.from({length:40},(_,i)=>({category:"boat",rating:5,reviews:100-i})),
-  ...Array.from({length:5},()=>({category:"ebike",rating:4.5,reviews:10})),
-  ...Array.from({length:20},()=>({category:"jetski",rating:4.8,reviews:50})),
-];
-const mix=balance(sample,20).reduce((m,t)=>(m[t.category]=(m[t.category]||0)+1,m),{});
-ok(`importer keeps every e-bike then shares the rest (${JSON.stringify(mix)})`,
-   mix.ebike===5 && mix.boat>0 && mix.jetski>0 && mix.boat+mix.jetski===15);
-
-// images: cover first, sized variant nearest what the page renders, no
-// duplicates and nothing served over plain http
-const picked=pickImages({images:[
-  {caption:"Riders on the trail",variants:[
-    {width:120,height:80,url:"https://media.viatorcdn.com/a-120.jpg"},
-    {width:720,height:480,url:"https://media.viatorcdn.com/a-720.jpg"}]},
-  {isCover:true,variants:[
-    {width:400,height:250,url:"https://media.viatorcdn.com/cover-400.jpg"},
-    {width:800,height:500,url:"https://media.viatorcdn.com/cover-800.jpg"},
-    {width:1600,height:1000,url:"https://media.viatorcdn.com/cover-1600.jpg"}]},
-  {variants:[{width:800,height:500,url:"https://media.viatorcdn.com/cover-800.jpg"}]},
-  {variants:[{url:"http://insecure.example/x.jpg"}]},
-]});
-ok(`importer picks the cover at the right size (${picked.map(p=>p.src.split("/").pop()+" "+p.width).join(", ")})`,
-   picked.length===2 && /cover-800/.test(picked[0].src) && picked[0].width===800 &&
-   picked[1].width===720 && picked[1].caption==="Riders on the trail" &&
-   !picked.some(p=>/^http:/.test(p.src)));
-ok("importer falls back to a single flat photo URL",
-   pickImages({primaryPhotoURL:"https://cache-graphicslib.viator.com/z.jpg"}).length===1 &&
-   pickImages({}).length===0);
-
 // 1. site search
 let page=await b.newPage();
 await page.goto("http://localhost:8099/search/");
@@ -208,97 +159,15 @@ for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminol
   await page.close();
 }
 
-// 4i. /tours hub: cards, affiliate attributes, filters and sorting
-page=await b.newPage({viewport:{width:1280,height:900}});
-await page.goto("http://localhost:8099/tours/",{waitUntil:"domcontentloaded"});
-await page.waitForTimeout(400);
-const tours=await page.evaluate(()=>{
-  const items=[...document.querySelectorAll("[data-filter-item]")];
-  const a=document.querySelector('.listicle__actions a[href*="viator.com"]');
-  return {n:items.length, rel:a&&a.rel, target:a&&a.target,
-          pid:a&&new URL(a.href).searchParams.get("pid"),
-          facets:[...document.querySelectorAll("[data-filter-field]")].map(e=>e.name)};
-});
-ok(`/tours lists ${tours.n} tours with facets [${tours.facets}] and sponsored links (pid=${tours.pid})`,
-   tours.n>=2&&/sponsored/.test(tours.rel)&&/nofollow/.test(tours.rel)&&tours.target==="_blank"&&tours.pid==="P00320180");
-await page.selectOption("[name=sort]","price-asc");
-await page.waitForTimeout(250);
-const sorted=await page.$$eval("[data-filter-item]",n=>n.map(x=>parseFloat(x.dataset.price)));
-ok(`/tours sorts by price ascending (${sorted.length} tours, ${sorted[0]} to ${sorted[sorted.length-1]})`,
-   sorted.length>1 && sorted.every((v,i)=>i===0||v>=sorted[i-1]));
-await page.close();
-
-// 4k. /tours/ hub: the requested H1, links into our own tour pages, and a
-// tour page that carries the booking link with affiliate attributes
-page=await b.newPage({viewport:{width:1280,height:1000}});
-await page.goto("http://localhost:8099/tours/",{waitUntil:"load"});
-const h1=(await page.textContent("h1")).trim();
-const lede=(await page.textContent(".section__head p")).replace(/\s+/g," ").trim();
-ok(`/tours/ H1 is "${h1}"`, h1==="Florida Electric Bike (E-bike) Rentals & Tours");
-ok(`/tours/ opening line leads with the H1 — "${lede.slice(0,70)}…"`,
-   /^Florida electric bike \(e-bike\) rentals and tours/i.test(lede));
-
-const internal=await page.$$eval(".listicle__title a",n=>n.map(a=>a.getAttribute("href")));
-ok(`/tours/ links ${internal.length} tours to their own pages`,
-   internal.length>0 && internal.every(h=>/^\/tours\/[a-z0-9-]+\/$/.test(h)));
-
-// the filters only render facets that can narrow the list, so check the ones present work
-const fields=await page.$$eval("[data-filter-field]",n=>n.map(x=>x.name));
-const tourCount=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
-let filtered=tourCount;
-if (fields.includes("rating")) {
-  const value=await page.$eval('[data-filter-field="rating"] option:last-child',o=>o.value);
-  await page.selectOption('[data-filter-field="rating"]',value);
-  await page.waitForTimeout(250);
-  const shown=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).map(x=>parseFloat(x.dataset.rating)));
-  filtered=shown.length;
-  ok(`/tours/ min-rating facet keeps only ${value}+ (${tourCount} -> ${filtered})`,
-     filtered>0 && filtered<=tourCount && shown.every(r=>r>=parseFloat(value)));
-  await page.selectOption('[data-filter-field="rating"]',"");
+// 4i. the tours section is gone: hub and every tour page 301 to the homepage
+{
+  const { readFileSync, existsSync: has } = await import("node:fs");
+  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const hub=vercel.find(r=>r.source==="/tours/"), each=vercel.find(r=>r.source==="/tours/:slug/");
+  const linked=readFileSync(DIST+"/index.html","utf8").includes('href="/tours/');
+  ok("/tours/ and /tours/<tour>/ redirect permanently to / and nothing links to them",
+     hub&&each&&hub.destination==="/"&&each.destination==="/"&&hub.permanent&&each.permanent&&!has(DIST+"/tours")&&!linked);
 }
-ok(`/tours/ offers facets [${fields.join(",")}] and a sort`, fields.length>0 && !!(await page.$("[name=sort]")));
-
-// images pulled from the listing: which tours have one depends on the data, so
-// find one that does and check it renders from its own CDN under a CSP that
-// allows exactly that origin
-const withPhoto=await page.$$eval("[data-filter-item]",n=>n
-  .filter(x=>x.querySelector(".listicle__media img"))
-  .map(x=>({href:x.querySelector(".listicle__title a").getAttribute("href"),
-            src:x.querySelector(".listicle__media img").getAttribute("src"),
-            w:x.querySelector(".listicle__media img").getAttribute("width")})));
-if (withPhoto.length) {
-  const origin=new URL(withPhoto[0].src).origin;
-  await page.goto("http://localhost:8099"+withPhoto[0].href,{waitUntil:"domcontentloaded"});
-  const csp=await page.getAttribute('meta[http-equiv="Content-Security-Policy"]',"content");
-  const imgSrc=/img-src ([^;]+)/.exec(csp)[1];
-  const remote=await page.$$eval("main img",n=>n.map(i=>i.getAttribute("src")).filter(s=>/^https?:/.test(s)));
-  ok(`tour images come from the listing (${remote.length} remote, ${origin} in img-src)`,
-     remote.length>0 && remote.every(s=>s.startsWith("http")) && imgSrc.includes(origin));
-  const sized=await page.$$eval("main img[src^='http']",n=>n.every(i=>i.getAttribute("width")&&i.getAttribute("height")));
-  ok("imported images carry their real width and height", sized && Number(withPhoto[0].w)>0);
-  const clean=await page.goto("http://localhost:8099/about/",{waitUntil:"domcontentloaded"});
-  const otherCsp=await page.getAttribute('meta[http-equiv="Content-Security-Policy"]',"content");
-  ok("a page without those images does not allow their host",
-     !!clean && !otherCsp.includes(origin));
-} else {
-  // Nothing in the data carries its own photo, so check the honest fallback:
-  // a library shot, captioned as stock, and no remote host in the CSP.
-  await page.goto("http://localhost:8099"+internal[0],{waitUntil:"domcontentloaded"});
-  const caption=(await page.textContent(".tour-detail__cover figcaption").catch(()=>"")) || "";
-  const remote=await page.$$eval("main img",n=>n.filter(i=>/^https?:/.test(i.getAttribute("src")||"")).length);
-  ok(`no tour carries its own photo, so a stock shot stands in, labelled as one`,
-     /Stock photo/.test(caption) && remote===0);
-}
-
-await page.goto("http://localhost:8099"+internal[0],{waitUntil:"load"});
-const tourH1=(await page.textContent("h1")).trim();
-const outbound=await page.$$eval('a[href*="viator.com"]',n=>n.map(a=>({rel:a.rel,href:a.href})));
-const images=(await page.$$("main img")).length;
-ok(`tour page ${internal[0]} renders "${tourH1.slice(0,40)}" with ${images} images`,
-   tourH1.length>0 && images>=2);
-ok(`tour page books out to Viator with affiliate attributes (${outbound.length} links)`,
-   outbound.length>0 && outbound.every(a=>/sponsored/.test(a.rel)&&/nofollow/.test(a.rel)&&/pid=P00320180/.test(a.href)));
-await page.close();
 
 // 4l. /find/ebike-rentals-near-me/ sorts by distance from three different
 // corners of the state, and stands up on its own when location is declined
@@ -344,7 +213,7 @@ const heroFirst=await page.evaluate(()=>{
 });
 const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
 ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
-   /^\d+ Best Electric Ebike Rentals in Daytona Beach 20\d\d: Pricing, Location & Directions$/.test(dTitle) && /^Daytona Beach Bike & E-Bike Rentals$/.test(dH1));
+   dTitle==="Electric Ebike Rentals Near Me In Daytona Beach Florida: Pricing, Location & Directions" && dH1===dTitle);
 ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
    heroFirst && where==="Daytona Beach" && statRows===0);
 
@@ -423,10 +292,6 @@ await page.close();
   const ld=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
   ok(`partner page carries the star breakdown (${bars} rows), is indexable, and marks up no third-party rating`,
      bars===5 && /^index/.test(robots) && !/aggregateRating/.test(ld));
-  await page.goto("http://localhost:8099/tours/clear-kayak-tour-of-shell-key-preserve-and-tampa-bay-area/",{waitUntil:"domcontentloaded"});
-  const tourRobots=await page.getAttribute('meta[name="robots"]',"content");
-  const tourLd=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
-  ok(`tour detail page is "${tourRobots}" with no Product markup`, /^noindex/.test(tourRobots) && !/"Product"/.test(tourLd));
   await page.close();
 
   let personas=0;

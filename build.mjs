@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadTownNotes, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
-  buildIndex, statsFor, assignTitles, loadShop, loadTours, SEARCH_QUERIES, CONTENT_HUBS,
+  buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
@@ -26,7 +26,6 @@ import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage } from "./src/pages/shop.mjs";
-import { toursHub, tourPage } from "./src/pages/tours.mjs";
 import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
@@ -92,16 +91,10 @@ const authors = loadAuthors();
 const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
 const shop = loadShop();
-const tours = loadTours();
-// A tour's town link only stands while that town has a page: towns below
-// MIN_TOWN_LISTINGS are dropped, and tours.json may predate the change.
-for (const tour of tours.tours) {
-  if (tour.citySlug && !index.citiesBySlug.has(tour.citySlug)) delete tour.citySlug;
-}
 const townNotes = loadTownNotes();
 const redirects = computeRedirects(index, listings);
 redirectsBySource = redirectMap(redirects);
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, tours, townNotes };
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, townNotes };
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -263,39 +256,6 @@ for (const hub of CONTENT_HUBS) {
   }
 }
 
-/* tours: a single listicle hub of bookable Viator experiences */
-write("/tours/", toursHub(site, tours, ctx), {
-  priority: tours.tours.length ? 0.8 : 0.3,
-  changefreq: "weekly",
-  group: "pages",
-  skipSitemap: tours.tours.length === 0,
-  search: {
-    u: "/tours/",
-    t: "Guided e-bike tours in Florida",
-    s: "Tours",
-    d: "Bookable guided e-bike experiences across Florida.",
-    k: `tours guided book experiences jet ski boat watersports ${tours.tours
-      .map((t) => `${t.name} ${t.location || ""}`)
-      .join(" ")}`.toLowerCase(),
-    w: 9,
-  },
-});
-for (const tour of tours.tours) {
-  write(tour.url_internal, tourPage(site, tour, tours, ctx), {
-    priority: 0.6,
-    changefreq: "weekly",
-    group: "tours",
-    search: {
-      u: tour.url_internal,
-      t: tour.name,
-      s: "Tour",
-      d: tour.summary || `${tour.name} in ${tour.location || "Florida"}, bookable through Viator.`,
-      k: `${tour.name} ${tour.location || ""} ${tour.region || ""} ${tour.category}`.toLowerCase(),
-      w: 4,
-    },
-  });
-}
-
 /* shop: hub plus a page per product */
 write("/shop/", shopHub(site, shop, ctx), {
   priority: shop.products.length ? 0.8 : 0.3,
@@ -417,7 +377,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "blog", "trails", "costs", "shop", "tours", "search"];
+const GROUPS = ["pages", "find", "partners", "blog", "trails", "costs", "shop", "search"];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);

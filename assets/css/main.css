@@ -1107,3 +1107,13 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 .data-table tbody th { font-weight: 700; }
 .data-table td:last-child { text-align: right; white-space: nowrap; }
 @media (max-width: 640px) { .data-table { min-width: 560px; } }
+
+/* A link card led by a picture: the image runs edge to edge above the text. */
+.card--media { padding-top: 0; overflow: hidden; }
+.card--media .card__media {
+  display: block; aspect-ratio: 16 / 10; margin: 0 calc(-1 * var(--card-pad, 1.4rem)) 1.1rem; overflow: hidden;
+  background: var(--blue-50);
+}
+.card--media .card__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.card--media:hover .card__media img { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .card--media:hover .card__media img { transform: none; } }

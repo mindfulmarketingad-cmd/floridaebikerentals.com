@@ -7806,6 +7806,16 @@
       "permanent": true
     },
     {
+      "source": "/tours/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/tours/:slug/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/reviews/",
       "destination": "/partners/",
       "permanent": true

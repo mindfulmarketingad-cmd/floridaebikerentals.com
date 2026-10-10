@@ -105,8 +105,7 @@ export function nearMePage(site, ctx) {
       q: "Can I book an e-bike through this page?",
       a: `<p>No, and that is deliberate. We are a directory, not a booking agent: you get the phone
       number, the address and the hours, and you book direct with the shop, usually at a better rate
-      than any middleman offers. If you would rather book a guided ride in advance,
-      <a href="/tours/">the tours page</a> lists bookable experiences.</p>`,
+      than any middleman offers. If you would rather ride with a guide, we list <a href="/find/ebike-tours/">shops that run guided e-bike tours</a>.</p>`,
     },
     {
       q: "What does it cost to rent an e-bike in Florida?",

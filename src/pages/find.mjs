@@ -322,9 +322,7 @@ ${adSlotScript(site, 1)}
       `${n} ${plural(n, "shop")} in ${city.name}, Florida: ${category.blurb.charAt(0).toLowerCase()}${category.blurb.slice(1)} Compare Google ratings, hours and phone numbers.`
     ),
     path: town.url,
-    // Two shops is enough to be useful to someone browsing, but not to stand
-    // as its own search result next to the town page, so those stay unindexed.
-    noindex: n < 3,
+    noindex: !town.indexable,
     body,
     ogImage: best && best.photo ? best.photo : scene.og,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],

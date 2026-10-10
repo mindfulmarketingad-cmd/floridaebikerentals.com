@@ -1,5 +1,5 @@
 import { esc, attr, formatReviews } from "../util.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, sceneForRegion } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
@@ -120,9 +120,9 @@ export function homePage(site, { listings, index, blog, stats }) {
     })}
     <div class="section__head mt-3">
       <h2>Find Ebike Rentals in Florida</h2>
-      <p>Start with the region you are visiting. Every region page lists the towns inside it, and every
-      town page ranks the local shops by Google rating and review volume, so the shortlist worth calling
-      is always at the top.</p>
+      <p>Start with the region you are visiting. We group every town we list by region, and on each
+      town page we rank the local shops by Google rating and review volume, so the shortlist worth
+      calling is always at the top.</p>
     </div>
     <div class="grid grid--3">
       ${index.regions
@@ -130,7 +130,9 @@ export function homePage(site, { listings, index, blog, stats }) {
           linkCard({
             href: region.url,
             title: region.name,
-            meta: `${region.listings.length} rental partners · ${region.cities.length} towns`,
+            meta: `${region.listings.length} rental partners · ${region.cities.length + (region.thinCities || []).length} towns`,
+            // Each region has its own illustration, drawn for that coast.
+            media: `<img src="${attr(sceneForRegion(region.slug).src)}" alt="" loading="lazy" decoding="async" width="1600" height="900">`,
             text: region.cities
               .slice(0, 4)
               .map((c) => c.name)

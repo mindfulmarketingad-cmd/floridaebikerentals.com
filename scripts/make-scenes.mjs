@@ -377,7 +377,247 @@ function boardwalk() {
   );
 }
 
-export const SCENES = { atlantic, gulf, keys, trail, boardwalk };
+
+/** Miami Beach at dusk: pastel Art Deco fronts behind a palm-lined promenade. */
+function miami() {
+  const rand = rng(79);
+  const ground = 640;
+  const pastel = ["#ffb3c7", "#a8e6df", "#ffe0a3", "#c9b8ff", "#ffd1b3", "#b3e0ff"];
+  let fronts = "";
+  let x = -20;
+  let i = 0;
+  while (x < W) {
+    const w = 170 + rand() * 90;
+    const h = 220 + rand() * 170;
+    const c = pastel[i % pastel.length];
+    fronts += `<rect x="${f(x)}" y="${f(ground - h)}" width="${f(w)}" height="${f(h)}" fill="${c}"/>
+      <rect x="${f(x + w / 2 - 14)}" y="${f(ground - h - 40)}" width="28" height="44" fill="${c}"/>
+      <rect x="${f(x)}" y="${f(ground - h)}" width="${f(w)}" height="10" fill="#fff" opacity=".7"/>`;
+    for (let r = 0; r < Math.floor(h / 70); r++) {
+      fronts += `<rect x="${f(x + 18)}" y="${f(ground - h + 34 + r * 66)}" width="${f(w - 36)}" height="26" fill="#2a3a6e" opacity=".55"/>
+        <rect x="${f(x + 18)}" y="${f(ground - h + 34 + r * 66)}" width="${f(w - 36)}" height="26" fill="#ffd98a" opacity="${f(rand() * 0.5)}"/>`;
+    }
+    fronts += `<path d="M${f(x + 10)},${f(ground - h + 20)} h${f(w - 20)}" stroke="#fff" stroke-width="4" opacity=".6"/>`;
+    x += w + 8;
+    i++;
+  }
+  return svg(
+    "miami",
+    "Illustration: riders on e-bikes passing pastel Art Deco buildings on a palm-lined Miami Beach promenade at dusk",
+    `<rect width="${W}" height="${H}" fill="url(#m-sky)"/>
+    ${cloud(1200, 130, 1.2, 0.35)}${cloud(380, 160, 1, 0.3)}
+    ${fronts}
+    <rect y="${ground}" width="${W}" height="40" fill="#e9d9c4"/>
+    <rect y="${ground + 40}" width="${W}" height="${H - ground - 40}" fill="#f4e7d2"/>
+    <path d="M0,${ground + 40} H${W}" stroke="#c9b49a" stroke-width="3"/>
+    ${palm(120, ground + 40, 380, 30)}${palm(560, ground + 40, 420, -20)}${palm(1080, ground + 40, 400, 25)}${palm(1500, ground + 40, 360, -30)}
+    ${rider(640, 840, 1.25, { shirt: "#ff5c8a", helmet: "#ffc233", shorts: "#12307a" })}
+    ${rider(930, 820, 1.1, { shirt: "#2050c8", helmet: "#fff", skin: "#8d5a3b", basket: false })}`,
+    `<linearGradient id="m-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a2f8f"/><stop offset=".5" stop-color="#c46bb0"/><stop offset=".85" stop-color="#ffb38a"/></linearGradient>`
+  );
+}
+
+/** 30A and the Emerald Coast: sugar-white sand, emerald water, pastel cottages. */
+function emerald() {
+  const rand = rng(83);
+  const horizon = 420;
+  const homes = [["#ffd9e0", "#e8778f"], ["#d8f2ec", "#3f9a8a"], ["#fff1c9", "#d9a441"], ["#dfe7ff", "#5b78c8"]];
+  let row = "";
+  homes.forEach(([wall, roof], k) => {
+    const x = 160 + k * 330;
+    row += `<rect x="${x}" y="560" width="220" height="140" fill="${wall}"/>
+      <path d="M${x - 16},562 L${x + 110},470 L${x + 236},562 Z" fill="${roof}"/>
+      <rect x="${x + 30}" y="600" width="44" height="50" fill="#fff"/><rect x="${x + 146}" y="600" width="44" height="50" fill="#fff"/>
+      <rect x="${x + 92}" y="626" width="36" height="74" fill="${roof}"/>
+      <rect x="${x - 6}" y="696" width="232" height="10" fill="#fff"/>`;
+  });
+  let sparkle = "";
+  for (let i = 0; i < 50; i++) sparkle += `<path d="M${f(rand() * W)},${f(horizon + 10 + rand() * 90)} h${f(8 + rand() * 14)}" stroke="#fff" stroke-width="2" opacity="${f(0.3 + rand() * 0.4)}"/>`;
+  return svg(
+    "emerald",
+    "Illustration: riders on e-bikes passing pastel beach cottages beside the emerald water and white sand of 30A",
+    `<rect width="${W}" height="${H}" fill="url(#e-sky)"/>
+    ${cloud(260, 120, 1.2)}${cloud(1100, 150, 1.4, 0.9)}${cloud(760, 90, 0.8, 0.8)}
+    <rect y="${horizon}" width="${W}" height="130" fill="url(#e-sea)"/>
+    ${sparkle}
+    <path d="M0,${horizon + 120} C400,${horizon + 100} 900,${horizon + 140} ${W},${horizon + 110} L${W},${H} L0,${H} Z" fill="#fbf8f0"/>
+    ${seaOats(80, 600, 14, rand)}${seaOats(1500, 596, 14, rand)}
+    ${row}
+    <rect y="706" width="${W}" height="${H - 706}" fill="#c4ccd8"/>
+    <path d="M0,780 H${W}" stroke="#fff" stroke-width="5" stroke-dasharray="40 30"/>
+    ${rider(520, 870, 1.2, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(860, 860, 1.1, { shirt: "#ff8a5b", helmet: "#fff", shorts: "#12307a", basket: false })}`,
+    `<linearGradient id="e-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f63e6"/><stop offset="1" stop-color="#cfe0ff"/></linearGradient>
+    <linearGradient id="e-sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0f7f8a"/><stop offset=".5" stop-color="#18b39a"/><stop offset="1" stop-color="#7fe0c4"/></linearGradient>`
+  );
+}
+
+/** Tampa Bay: the cable-stayed Sunshine Skyway over the bay, waterfront path. */
+function tampa() {
+  const deck = 470;
+  const tower = (x) => {
+    let cables = "";
+    for (let k = 1; k <= 9; k++) {
+      cables += `<path d="M${x},${deck - 250 + k * 10} L${x - k * 62},${deck}" stroke="#ffc233" stroke-width="3"/>
+        <path d="M${x},${deck - 250 + k * 10} L${x + k * 62},${deck}" stroke="#ffc233" stroke-width="3"/>`;
+    }
+    return `${cables}<rect x="${x - 10}" y="${deck - 270}" width="20" height="${270 + 60}" fill="#e9edf5"/>`;
+  };
+  return svg(
+    "tampa",
+    "Illustration: riders on e-bikes on a bayside path with the Sunshine Skyway bridge across Tampa Bay behind them",
+    `<rect width="${W}" height="${H}" fill="url(#tb-sky)"/>
+    ${cloud(220, 120, 1.1, 0.8)}${cloud(1380, 160, 1.2, 0.8)}
+    <rect y="${deck}" width="${W}" height="${H - deck}" fill="url(#tb-sea)"/>
+    <path d="M0,${deck + 30} Q800,${deck - 40} ${W},${deck + 30}" stroke="#e9edf5" stroke-width="14" fill="none"/>
+    ${Array.from({ length: 30 }, (_, k) => `<rect x="${k * 56}" y="${deck + 10}" width="8" height="70" fill="#c9d1e3"/>`).join("")}
+    ${tower(640)}${tower(960)}
+    <path d="M0,${deck + 28} Q800,${deck - 42} ${W},${deck + 28}" stroke="#ffffff" stroke-width="4" fill="none"/>
+    <path d="M0,720 C400,700 900,730 ${W},705 L${W},${H} L0,${H} Z" fill="#c4ccd8"/>
+    <path d="M0,712 C400,692 900,722 ${W},697" stroke="#eef2fa" stroke-width="10" fill="none"/>
+    ${palm(120, 760, 300, 30)}${palm(1480, 760, 280, -30)}
+    ${rider(560, 860, 1.2, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(880, 850, 1.1, { shirt: "#ffffff", shorts: "#12307a", helmet: "#2f63e6", skin: "#8d5a3b", basket: false })}`,
+    `<linearGradient id="tb-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b8bf5"/><stop offset=".7" stop-color="#cfe0ff"/><stop offset="1" stop-color="#ffe9c2"/></linearGradient>
+    <linearGradient id="tb-sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a6fb8"/><stop offset="1" stop-color="#1a3fa0"/></linearGradient>`
+  );
+}
+
+/** Palm Beaches and Treasure Coast: a red lighthouse over the inlet. */
+function lighthouse() {
+  const rand = rng(97);
+  const horizon = 520;
+  let sparkle = "";
+  for (let i = 0; i < 50; i++) sparkle += `<path d="M${f(rand() * W)},${f(horizon + 10 + rand() * 120)} h${f(8 + rand() * 16)}" stroke="#fff" stroke-width="2" opacity="${f(0.3 + rand() * 0.4)}"/>`;
+  return svg(
+    "lighthouse",
+    "Illustration: riders on e-bikes on an inlet path below a red lighthouse on Florida's southeast coast",
+    `<rect width="${W}" height="${H}" fill="url(#lh-sky)"/>
+    ${cloud(300, 140, 1.3)}${cloud(1350, 110, 1.1, 0.85)}
+    <rect y="${horizon}" width="${W}" height="${H - horizon}" fill="url(#lh-sea)"/>
+    ${sparkle}
+    <path d="M820,${horizon + 10} C900,${horizon - 30} 1300,${horizon - 40} 1600,${horizon - 10} L1600,${horizon + 40} L820,${horizon + 40} Z" fill="#3f8a4f"/>
+    <path d="M1080,${horizon - 20} L1110,180 L1170,180 L1200,${horizon - 20} Z" fill="#d6453b"/>
+    <rect x="1098" y="150" width="84" height="34" fill="#2a3550"/>
+    <rect x="1112" y="118" width="56" height="34" fill="#ffe7a0"/>
+    <path d="M1104,118 L1140,86 L1176,118 Z" fill="#2a3550"/>
+    <circle cx="1140" cy="135" r="90" fill="#fff6c8" opacity=".25"/>
+    ${palm(900, horizon + 6, 220, -20)}${palm(1420, horizon + 2, 240, 25)}
+    <path d="M0,700 C400,680 1000,720 ${W},690 L${W},${H} L0,${H} Z" fill="#c4ccd8"/>
+    <path d="M0,690 C400,670 1000,710 ${W},680" stroke="#eef2fa" stroke-width="10" fill="none"/>
+    ${rider(420, 860, 1.25, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(740, 846, 1.1, { shirt: "#ffc233", shorts: "#0b1f4d", helmet: "#2f63e6", skin: "#8d5a3b", basket: false })}`,
+    `<linearGradient id="lh-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2f63e6"/><stop offset=".7" stop-color="#b9cdfb"/><stop offset="1" stop-color="#e2ebfe"/></linearGradient>
+    <linearGradient id="lh-sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a7fb0"/><stop offset="1" stop-color="#2fc0c6"/></linearGradient>`
+  );
+}
+
+/** Sarasota and Bradenton: quartz-white beach and a lifeguard tower. */
+function lifeguard() {
+  const rand = rng(103);
+  const horizon = 460;
+  let sparkle = "";
+  for (let i = 0; i < 60; i++) sparkle += `<path d="M${f(rand() * W)},${f(horizon + 10 + rand() * 120)} h${f(8 + rand() * 16)}" stroke="#fff" stroke-width="2" opacity="${f(0.3 + rand() * 0.4)}"/>`;
+  return svg(
+    "lifeguard",
+    "Illustration: riders on fat-tyre e-bikes on a white Gulf beach past a lifeguard stand near Sarasota",
+    `<rect width="${W}" height="${H}" fill="url(#lg-sky)"/>
+    ${cloud(420, 130, 1.3)}${cloud(1200, 180, 1, 0.85)}
+    <rect y="${horizon}" width="${W}" height="150" fill="url(#lg-sea)"/>
+    ${sparkle}
+    <path d="M0,${horizon + 140} C400,${horizon + 120} 900,${horizon + 160} ${W},${horizon + 130} L${W},${H} L0,${H} Z" fill="#fdfbf5"/>
+    <path d="M0,${horizon + 140} C400,${horizon + 120} 900,${horizon + 160} ${W},${horizon + 130}" stroke="#fff" stroke-width="8" fill="none"/>
+    <g transform="translate(1180,520)">
+      <path d="M0,200 L30,60 M160,200 L130,60 M20,140 H140" stroke="#5a6a8c" stroke-width="10"/>
+      <rect x="10" y="10" width="140" height="60" fill="#ff8a5b"/>
+      <rect x="34" y="24" width="40" height="30" fill="#2a3550" opacity=".7"/>
+      <path d="M0,12 L80,-30 L160,12 Z" fill="#2050c8"/>
+      <rect x="150" y="70" width="70" height="12" fill="#ff8a5b" transform="rotate(30 150 70)"/>
+    </g>
+    ${rider(480, 830, 1.3, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(800, 812, 1.15, { shirt: "#ff8a5b", helmet: "#fff", shorts: "#12307a", basket: false })}`,
+    `<linearGradient id="lg-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b8bf5"/><stop offset="1" stop-color="#e2ebfe"/></linearGradient>
+    <linearGradient id="lg-sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a7fb0"/><stop offset="1" stop-color="#5fd3c8"/></linearGradient>`
+  );
+}
+
+/** First Coast: a black-and-white spiral lighthouse above the marsh. */
+function spiral() {
+  const rand = rng(109);
+  let bands = "";
+  for (let k = 0; k < 6; k++) {
+    const y = 200 + k * 50;
+    bands += `<path d="M${1066 - k * 3},${y} L${1134 + k * 3},${y + 28} L${1134 + k * 3},${y + 50} L${1066 - k * 3},${y + 22} Z" fill="#14182a"/>`;
+  }
+  let reeds = "";
+  for (let i = 0; i < 120; i++) {
+    const x = rand() * W;
+    const h = 20 + rand() * 40;
+    reeds += `<path d="M${f(x)},${f(640)} l${f((rand() - 0.5) * 10)},${f(-h)}" stroke="${rand() > 0.5 ? "#9a8a3c" : "#7a8a3c"}" stroke-width="3"/>`;
+  }
+  return svg(
+    "spiral",
+    "Illustration: riders on e-bikes on a marsh path below a black-and-white spiral lighthouse in northeast Florida",
+    `<rect width="${W}" height="${H}" fill="url(#sp-sky)"/>
+    ${cloud(300, 150, 1.2)}${cloud(1380, 120, 1, 0.85)}
+    <rect y="560" width="${W}" height="80" fill="#5b8bc8"/>
+    <path d="M1060,560 L1070,200 L1130,200 L1140,560 Z" fill="#fff"/>
+    ${bands}
+    <rect x="1060" y="170" width="80" height="32" fill="#c0392b"/>
+    <rect x="1072" y="140" width="56" height="32" fill="#ffe7a0"/>
+    <path d="M1066,140 L1100,112 L1134,140 Z" fill="#14182a"/>
+    <rect x="1020" y="520" width="160" height="40" fill="#e8dcc4"/>
+    <path d="M0,600 C400,580 1000,620 ${W},590 L${W},${H} L0,${H} Z" fill="#8aa35a"/>
+    ${reeds}
+    <path d="M0,730 C400,700 1000,750 ${W},715 L${W},${H} L0,${H} Z" fill="#c4ccd8"/>
+    <path d="M0,722 C400,692 1000,742 ${W},707" stroke="#eef2fa" stroke-width="10" fill="none"/>
+    ${liveOak(220, 700, 0.6, rand)}
+    ${rider(560, 870, 1.2, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(880, 860, 1.05, { shirt: "#ffffff", shorts: "#12307a", helmet: "#2f63e6", skin: "#8d5a3b", basket: false })}`,
+    `<linearGradient id="sp-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5b8bf5"/><stop offset="1" stop-color="#fff3d4"/></linearGradient>`
+  );
+}
+
+/** North Florida: a clear blue spring under cypress, a path along its edge. */
+function springs() {
+  const rand = rng(113);
+  let cypress = "";
+  for (const [x, s] of [[150, 1], [420, 0.8], [1250, 0.95], [1500, 0.85], [980, 0.6]]) {
+    cypress += `<path d="M${x - 24 * s},620 C${x - 10 * s},500 ${x - 8 * s},300 ${x},${620 - 460 * s} C${x + 8 * s},300 ${x + 10 * s},500 ${x + 24 * s},620 Z" fill="#5a4332"/>
+      <ellipse cx="${x}" cy="${620 - 420 * s}" rx="${110 * s}" ry="${60 * s}" fill="#2f6b3f"/>
+      <ellipse cx="${x - 40 * s}" cy="${620 - 360 * s}" rx="${80 * s}" ry="${44 * s}" fill="#3d7a4a"/>
+      <ellipse cx="${x + 46 * s}" cy="${620 - 330 * s}" rx="${70 * s}" ry="${40 * s}" fill="#22502f"/>`;
+  }
+  let ripples = "";
+  for (let i = 0; i < 30; i++) ripples += `<ellipse cx="${f(300 + rand() * 1000)}" cy="${f(650 + rand() * 60)}" rx="${f(20 + rand() * 40)}" ry="4" fill="none" stroke="#fff" opacity="${f(0.3 + rand() * 0.4)}"/>`;
+  return svg(
+    "springs",
+    "Illustration: riders on e-bikes on a path beside a clear blue spring under cypress trees in north Florida",
+    `<rect width="${W}" height="${H}" fill="url(#ss-sky)"/>
+    <path d="M0,560 C400,520 1100,560 ${W},530 L${W},${H} L0,${H} Z" fill="#5f9651"/>
+    ${cypress}
+    <ellipse cx="800" cy="680" rx="640" ry="90" fill="url(#ss-water)"/>
+    ${ripples}
+    <path d="M0,780 C400,750 1000,800 ${W},770 L${W},${H} L0,${H} Z" fill="#c9b38a"/>
+    ${rider(560, 880, 1.15, { shirt: "#2050c8", helmet: "#ffc233" })}
+    ${rider(860, 870, 1.0, { shirt: "#ffc233", shorts: "#0b1f4d", helmet: "#2f63e6", skin: "#8d5a3b", basket: false })}`,
+    `<linearGradient id="ss-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fb3ff"/><stop offset="1" stop-color="#fff3d4"/></linearGradient>
+    <radialGradient id="ss-water"><stop offset="0" stop-color="#5fe0e0"/><stop offset=".6" stop-color="#1fa3c0"/><stop offset="1" stop-color="#1a6fa0"/></radialGradient>`
+  );
+}
+
+export const SCENES = { atlantic, gulf, keys, trail, boardwalk, miami, emerald, tampa, lighthouse, lifeguard, spiral, springs };
 
 /* ------------------------------------------------------------------ main */
 

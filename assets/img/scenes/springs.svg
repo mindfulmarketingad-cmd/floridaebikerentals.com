@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t-springs">
+<title id="t-springs">Illustration: riders on e-bikes on a path beside a clear blue spring under cypress trees in north Florida</title>
+<defs><linearGradient id="ss-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8fb3ff"/><stop offset="1" stop-color="#fff3d4"/></linearGradient>
+    <radialGradient id="ss-water"><stop offset="0" stop-color="#5fe0e0"/><stop offset=".6" stop-color="#1fa3c0"/><stop offset="1" stop-color="#1a6fa0"/></radialGradient></defs>
+<rect width="1600" height="900" fill="url(#ss-sky)"/>
+    <path d="M0,560 C400,520 1100,560 1600,530 L1600,900 L0,900 Z" fill="#5f9651"/>
+    <path d="M126,620 C140,500 142,300 150,160 C158,300 160,500 174,620 Z" fill="#5a4332"/>
+      <ellipse cx="150" cy="200" rx="110" ry="60" fill="#2f6b3f"/>
+      <ellipse cx="110" cy="260" rx="80" ry="44" fill="#3d7a4a"/>
+      <ellipse cx="196" cy="290" rx="70" ry="40" fill="#22502f"/><path d="M400.8,620 C412,500 413.6,300 420,252 C426.4,300 428,500 439.2,620 Z" fill="#5a4332"/>
+      <ellipse cx="420" cy="284" rx="88" ry="48" fill="#2f6b3f"/>
+      <ellipse cx="388" cy="332" rx="64" ry="35.2" fill="#3d7a4a"/>
+      <ellipse cx="456.8" cy="356" rx="56" ry="32" fill="#22502f"/><path d="M1227.2,620 C1240.5,500 1242.4,300 1250,183 C1257.6,300 1259.5,500 1272.8,620 Z" fill="#5a4332"/>
+      <ellipse cx="1250" cy="221" rx="104.5" ry="57" fill="#2f6b3f"/>
+      <ellipse cx="1212" cy="278" rx="76" ry="41.8" fill="#3d7a4a"/>
+      <ellipse cx="1293.7" cy="306.5" rx="66.5" ry="38" fill="#22502f"/><path d="M1479.6,620 C1491.5,500 1493.2,300 1500,229 C1506.8,300 1508.5,500 1520.4,620 Z" fill="#5a4332"/>
+      <ellipse cx="1500" cy="263" rx="93.5" ry="51" fill="#2f6b3f"/>
+      <ellipse cx="1466" cy="314" rx="68" ry="37.4" fill="#3d7a4a"/>
+      <ellipse cx="1539.1" cy="339.5" rx="59.5" ry="34" fill="#22502f"/><path d="M965.6,620 C974,500 975.2,300 980,344 C984.8,300 986,500 994.4,620 Z" fill="#5a4332"/>
+      <ellipse cx="980" cy="368" rx="66" ry="36" fill="#2f6b3f"/>
+      <ellipse cx="956" cy="404" rx="48" ry="26.4" fill="#3d7a4a"/>
+      <ellipse cx="1007.6" cy="422" rx="42" ry="24" fill="#22502f"/>
+    <ellipse cx="800" cy="680" rx="640" ry="90" fill="url(#ss-water)"/>
+    <ellipse cx="579.9" cy="681.7" rx="27.7" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="994.8" cy="656.8" rx="22" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="1292.6" cy="654.4" rx="22.7" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="1299.1" cy="676.4" rx="52.3" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="314.2" cy="651.8" rx="25" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="917.7" cy="658.5" rx="25.5" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="578.4" cy="661.4" rx="48.3" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="1266.5" cy="703.4" rx="49.7" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="525.1" cy="704" rx="55.8" ry="4" fill="none" stroke="#fff" opacity="0.7"/><ellipse cx="702.4" cy="653.5" rx="40" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="1297.9" cy="686.8" rx="53.1" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="626.6" cy="653.8" rx="58.2" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="1253.2" cy="681.8" rx="54.8" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="900.3" cy="696.5" rx="44.7" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="783" cy="666.5" rx="42.5" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="573.8" cy="708.9" rx="23.9" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="449.7" cy="689.4" rx="36" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="926.9" cy="706" rx="20.9" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="433" cy="678.9" rx="37.1" ry="4" fill="none" stroke="#fff" opacity="0.7"/><ellipse cx="823" cy="705.8" rx="51.6" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="1290" cy="675.5" rx="45.2" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="374.7" cy="708.8" rx="24.8" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="1027" cy="708.8" rx="25.9" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="922.3" cy="681.4" rx="37.1" ry="4" fill="none" stroke="#fff" opacity="0.3"/><ellipse cx="485.1" cy="676.9" rx="32.2" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="325.2" cy="662.9" rx="20.1" ry="4" fill="none" stroke="#fff" opacity="0.5"/><ellipse cx="1036.6" cy="651" rx="38" ry="4" fill="none" stroke="#fff" opacity="0.6"/><ellipse cx="565" cy="696.1" rx="60" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="595.1" cy="702.3" rx="43.9" ry="4" fill="none" stroke="#fff" opacity="0.4"/><ellipse cx="661.8" cy="702" rx="30.2" ry="4" fill="none" stroke="#fff" opacity="0.3"/>
+    <path d="M0,780 C400,750 1000,800 1600,770 L1600,900 L0,900 Z" fill="#c9b38a"/>
+    <g transform="translate(560 880) scale(1.15)" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="61" cy="2" rx="96" ry="7" fill="#000" opacity=".16" stroke="none"/>
+    <!-- wheels: fat tyres -->
+    <circle cx="0" cy="-38" r="38" fill="none" stroke="#0d1730" stroke-width="11"/>
+    <circle cx="122" cy="-38" r="38" fill="none" stroke="#0d1730" stroke-width="11"/>
+    <circle cx="0" cy="-38" r="29" fill="none" stroke="#9aa6c2" stroke-width="2"/>
+    <circle cx="122" cy="-38" r="29" fill="none" stroke="#9aa6c2" stroke-width="2"/>
+    <circle cx="0" cy="-38" r="8" fill="#5b6785" stroke="none"/>
+    <circle cx="122" cy="-38" r="5" fill="#5b6785" stroke="none"/>
+    <!-- frame: step-through -->
+    <g fill="none" stroke="#0d1730" stroke-width="7">
+      <path d="M0,-38 L54,-40"/>
+      <path d="M0,-38 L38,-90"/>
+      <path d="M54,-40 L38,-96"/>
+      <path d="M54,-40 Q80,-52 102,-104"/>
+      <path d="M102,-104 L122,-38"/>
+      <path d="M102,-104 L102,-126"/>
+      <path d="M96,-128 L116,-124" stroke-width="6"/>
+    </g>
+    <!-- battery on the down tube -->
+    <rect x="62" y="-66" width="34" height="13" rx="5" fill="#e2ebfe" stroke="#0d1730" stroke-width="2" transform="rotate(-38 79 -59)"/>
+    <!-- saddle -->
+    <path d="M26,-102 q14,-8 30,0" fill="none" stroke="#0d1730" stroke-width="8"/>
+    <rect x="120" y="-120" width="26" height="20" rx="3" fill="#b88a55" stroke="#7a5a33" stroke-width="2"/>
+    <!-- rider -->
+    <path d="M42,-106 L64,-80 L60,-34" fill="none" stroke="#0b1f4d" stroke-width="13"/>
+    <path d="M60,-34 L66,-30" stroke="#c98e62" stroke-width="10"/>
+    <path d="M42,-106 L50,-74 L44,-28" fill="none" stroke="#0b1f4d" stroke-width="12" opacity=".85"/>
+    <path d="M36,-106 L60,-168" stroke="#2050c8" stroke-width="30"/>
+    <path d="M58,-160 L102,-128" stroke="#c98e62" stroke-width="9"/>
+    <path d="M58,-160 L80,-148" stroke="#2050c8" stroke-width="12"/>
+    <circle cx="68" cy="-190" r="15" fill="#c98e62" stroke="none"/>
+    <path d="M52,-192 a17,15 0 0 1 33,-2 l2,5 h-37 z" fill="#ffc233" stroke="none"/>
+  </g>
+    <g transform="translate(860 870) scale(1)" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="61" cy="2" rx="96" ry="7" fill="#000" opacity=".16" stroke="none"/>
+    <!-- wheels: fat tyres -->
+    <circle cx="0" cy="-38" r="38" fill="none" stroke="#0d1730" stroke-width="11"/>
+    <circle cx="122" cy="-38" r="38" fill="none" stroke="#0d1730" stroke-width="11"/>
+    <circle cx="0" cy="-38" r="29" fill="none" stroke="#9aa6c2" stroke-width="2"/>
+    <circle cx="122" cy="-38" r="29" fill="none" stroke="#9aa6c2" stroke-width="2"/>
+    <circle cx="0" cy="-38" r="8" fill="#5b6785" stroke="none"/>
+    <circle cx="122" cy="-38" r="5" fill="#5b6785" stroke="none"/>
+    <!-- frame: step-through -->
+    <g fill="none" stroke="#0d1730" stroke-width="7">
+      <path d="M0,-38 L54,-40"/>
+      <path d="M0,-38 L38,-90"/>
+      <path d="M54,-40 L38,-96"/>
+      <path d="M54,-40 Q80,-52 102,-104"/>
+      <path d="M102,-104 L122,-38"/>
+      <path d="M102,-104 L102,-126"/>
+      <path d="M96,-128 L116,-124" stroke-width="6"/>
+    </g>
+    <!-- battery on the down tube -->
+    <rect x="62" y="-66" width="34" height="13" rx="5" fill="#e2ebfe" stroke="#0d1730" stroke-width="2" transform="rotate(-38 79 -59)"/>
+    <!-- saddle -->
+    <path d="M26,-102 q14,-8 30,0" fill="none" stroke="#0d1730" stroke-width="8"/>
+    
+    <!-- rider -->
+    <path d="M42,-106 L64,-80 L60,-34" fill="none" stroke="#0b1f4d" stroke-width="13"/>
+    <path d="M60,-34 L66,-30" stroke="#8d5a3b" stroke-width="10"/>
+    <path d="M42,-106 L50,-74 L44,-28" fill="none" stroke="#0b1f4d" stroke-width="12" opacity=".85"/>
+    <path d="M36,-106 L60,-168" stroke="#ffc233" stroke-width="30"/>
+    <path d="M58,-160 L102,-128" stroke="#8d5a3b" stroke-width="9"/>
+    <path d="M58,-160 L80,-148" stroke="#ffc233" stroke-width="12"/>
+    <circle cx="68" cy="-190" r="15" fill="#8d5a3b" stroke="none"/>
+    <path d="M52,-192 a17,15 0 0 1 33,-2 l2,5 h-37 z" fill="#2f63e6" stroke="none"/>
+  </g>
+</svg>

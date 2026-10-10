@@ -160,8 +160,9 @@ export function listingCard(listing) {
 </a>`;
 }
 
-export function linkCard({ href, title, text, meta, more = "Explore" }) {
-  return `<a class="card card--link" href="${attr(href)}">
+export function linkCard({ href, title, text, meta, more = "Explore", media = "" }) {
+  return `<a class="card card--link${media ? " card--media" : ""}" href="${attr(href)}">
+  ${media ? `<span class="card__media">${media}</span>` : ""}
   <h3>${esc(title)}</h3>
   ${meta ? `<p class="card__count">${esc(meta)}</p>` : ""}
   ${text ? `<p>${esc(text)}</p>` : ""}

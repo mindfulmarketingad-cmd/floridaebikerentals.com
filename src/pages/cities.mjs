@@ -17,7 +17,6 @@ import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile } from "./find.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
-const YEAR = new Date().getFullYear();
 export const CITIES_CRUMB = { href: "/cities/", label: "Cities" };
 
 /* ------------------------------------------------------------ hub */
@@ -131,7 +130,8 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
   const openSeven = local.filter((l) => (l.hours || []).filter((h) => !h.closed).length === 7);
   const names = (list) => esc(commaList(list.slice(0, 4).map((l) => l.name)));
 
-  const h1 = notes.h1 ? fill(notes.h1) : `${city.name} E-Bike & Bike Rentals`;
+  // The owner's format for every town page, used for both the H1 and <title>.
+  const h1 = `Electric Ebike Rentals Near Me In ${city.name} Florida: Pricing, Location & Directions`;
   const lead = notes.lead
     ? fill(notes.lead)
     : `${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. Search them, filter by service, and book direct with the shop.`;
@@ -172,7 +172,7 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
       q: `Are there guided e-bike tours in ${city.name}?`,
       a: withTours.length
         ? `<p>Yes — ${names(withTours)} ${withTours.length === 1 ? "runs" : "run"} guided rides as well as renting bikes. Tours are usually priced per person and run two to three hours.</p>`
-        : `<p>No ${esc(city.name)} shop in our directory advertises guided tours right now. See every Florida operator that does on the <a href="/find/ebike-tours/">e-bike tours page</a>, or <a href="/tours/">book a tour through Viator</a>.</p>`,
+        : `<p>No ${esc(city.name)} shop in our directory advertises guided tours right now. See every Florida operator that does on our <a href="/find/ebike-tours/">e-bike tours page</a>.</p>`,
     },
     openSeven.length
       ? {
@@ -331,9 +331,7 @@ ${adSlot(site, "")}
 ${adSlotScript(site, 1)}
 `;
 
-  // The site-wide format for town pages, chosen by the owner. It runs past the
-  // ~60 characters Google shows, so the count and town lead the string.
-  const title = `${n} Best Electric Ebike Rentals in ${city.name} ${YEAR}: Pricing, Location & Directions`;
+  const title = h1;
 
   return page(site, {
     title,

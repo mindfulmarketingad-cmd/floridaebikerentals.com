@@ -65,6 +65,7 @@ export const RETIRED_PAGES = [
   { source: "/authors/dev-okafor/", destination: "/authors/editorial-team/" },
   { source: "/authors/marisa-donnelly/", destination: "/authors/editorial-team/" },
   { source: "/authors/priya-raman/", destination: "/authors/editorial-team/" },
+  { source: "/tours/", destination: "/" },
 ];
 
 /**
@@ -73,6 +74,8 @@ export const RETIRED_PAGES = [
  * URL for a shop no longer listed. Kept last so the specific rules win.
  */
 export const MERGED_SECTIONS = [
+  // The Viator tours section was removed; the hub and every tour page go home.
+  { source: "/tours/:slug/", destination: "/" },
   { source: "/reviews/", destination: "/partners/" },
   { source: "/reviews/page/:n/", destination: "/partners/" },
   { source: "/reviews/:slug/", destination: "/partners/" },

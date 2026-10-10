@@ -128,9 +128,9 @@ export const CATEGORIES = [
   },
 ];
 
-/** A category needs this many shops statewide to get a page, and this many in a town for a town page. */
+/** A category needs this many shops statewide for a page; a town page this many to be indexed. */
 export const MIN_CATEGORY_LISTINGS = 5;
-export const MIN_CATEGORY_TOWN_LISTINGS = 2;
+export const MIN_CATEGORY_TOWN_INDEX = 3;
 
 /** Curated search landing pages: real queries with their own indexable page. */
 export const SEARCH_QUERIES = [
@@ -196,86 +196,6 @@ export function loadShop() {
     affiliateDisclosure: raw.affiliateDisclosure || "",
     categories: Array.isArray(raw.categories) ? raw.categories : [],
     products,
-  };
-}
-
-/**
- * Activity categories for /tours/. The importer tags every product with one of
- * these keys; the order here is the order they appear in the filter and on the
- * hub, so e-bikes lead, as they do everywhere else on the site.
- */
-export const TOUR_CATEGORIES = [
-  { key: "ebike", name: "E-bike tours", short: "E-bike",
-    blurb: "Guided rides on electric bikes, with the bike, helmet and a guide who knows the route." },
-  { key: "jetski", name: "Jet ski & watercraft", short: "Jet ski",
-    blurb: "Waverunner and jet ski rentals and guided runs, from single hops to island tours." },
-  { key: "boat", name: "Boat & sailing", short: "Boat",
-    blurb: "Charters, sunset sails, catamarans and pontoon rentals along the coast and the Keys." },
-  { key: "watersports", name: "Watersports", short: "Watersports",
-    blurb: "Parasailing, kayaking, paddleboarding, snorkelling and the rest of the on-the-water list." },
-  { key: "airboat", name: "Airboat & Everglades", short: "Airboat",
-    blurb: "Airboat runs and Everglades wildlife trips through the sawgrass." },
-  { key: "other", name: "More Florida experiences", short: "More",
-    blurb: "Everything else worth booking while you are here." },
-];
-
-const TOUR_CATEGORY_KEYS = new Set(TOUR_CATEGORIES.map((c) => c.key));
-
-/**
- * Bookable Viator experiences listed at /tours/, each with its own page at
- * /tours/<slug>/. The file is written by scripts/import_viator.mjs, so slugs
- * are derived and de-duplicated here rather than stored, and every field is
- * treated as untrusted: URLs are validated at render, and an unknown category
- * falls back to "other" rather than producing a page nothing links to.
- */
-export function loadTours() {
-  const file = join(ROOT, "data", "tours.json");
-  if (!existsSync(file)) return { currency: "USD", disclosure: "", tours: [], categories: [] };
-  const raw = JSON.parse(readFileSync(file, "utf8"));
-
-  const used = new Set();
-  const tours = (Array.isArray(raw.tours) ? raw.tours : [])
-    .filter((t) => t && t.name)
-    .map((t) => {
-      const base = slugify(t.slug || t.name, "tour").slice(0, 70).replace(/-+$/, "");
-      let slug = base;
-      let n = 2;
-      while (used.has(slug)) slug = `${base}-${n++}`;
-      used.add(slug);
-      return {
-        ...t,
-        slug,
-        url_internal: `/tours/${slug}/`,
-        category: TOUR_CATEGORY_KEYS.has(t.category) ? t.category : "other",
-        features: Array.isArray(t.features) ? t.features : [],
-      };
-    });
-
-  // Page titles are fitted to the SERP budget and made unique here, for the
-  // same reason listings' are: two operators can run identically named tours.
-  const takenTitles = new Map();
-  for (const tour of tours) {
-    const suffix = tour.location ? ` - ${tour.location}, FL` : " - Florida";
-    let title = fitTitle(tour.name, suffix);
-    if (takenTitles.has(title)) {
-      const base = title;
-      let n = 2;
-      // The name is truncated to fit, so only a counter added after fitting is
-      // guaranteed to change the string.
-      while (takenTitles.has(title)) title = `${base} (${n++})`;
-    }
-    takenTitles.set(title, tour.slug);
-    tour.pageTitle = title;
-  }
-
-  // Only advertise categories that something actually falls into.
-  const present = new Set(tours.map((t) => t.category));
-  return {
-    currency: raw.currency || "USD",
-    disclosure: raw.disclosure || "",
-    updated: raw.updated || "",
-    tours,
-    categories: TOUR_CATEGORIES.filter((c) => present.has(c.key)),
   };
 }
 
@@ -556,18 +476,18 @@ export function buildIndex(listings) {
   const categories = CATEGORIES.map((cat) => {
     const matched = listings.filter(cat.match).sort((a, b) => b.score - a.score);
     const towns = [];
-    for (const city of cities.values()) {
+    for (const city of [...cities.values(), ...thinCities]) {
       const local = city.listings.filter(cat.match);
-      // A town gets its own category page only when the category is a real
-      // subset of the town: if every shop in town matches, that page would be
-      // a copy of the town page, so the link goes to the town page instead.
-      const own = local.length >= MIN_CATEGORY_TOWN_LISTINGS && local.length < city.listings.length;
       if (!local.length) continue;
+      // Every town with a matching shop gets a page, so each category covers
+      // the whole state. It is only offered to search engines when it is a
+      // real list (3+ shops) and not the town page over again (a strict subset).
       towns.push({
         city,
         listings: local,
-        url: own ? `/find/${cat.slug}/${city.slug}/` : city.url,
-        ownPage: own,
+        url: `/find/${cat.slug}/${city.slug}/`,
+        ownPage: true,
+        indexable: local.length >= MIN_CATEGORY_TOWN_INDEX && local.length < city.listings.length,
       });
     }
     towns.sort((a, b) => b.listings.length - a.listings.length || a.city.name.localeCompare(b.city.name));
@@ -575,7 +495,7 @@ export function buildIndex(listings) {
   }).filter((c) => c.listings.length >= MIN_CATEGORY_LISTINGS);
 
   // Each town page links to its own slice of every category.
-  for (const city of cities.values()) city.categories = [];
+  for (const city of [...cities.values(), ...thinCities]) city.categories = [];
   for (const cat of categories) {
     for (const town of cat.towns) {
       if (town.ownPage) town.city.categories.push({ category: cat, url: town.url, count: town.listings.length });
