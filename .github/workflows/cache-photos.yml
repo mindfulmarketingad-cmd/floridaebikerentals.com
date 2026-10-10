@@ -52,4 +52,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Cache listing photos and logos ($count served from this site)"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
