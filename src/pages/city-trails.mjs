@@ -36,9 +36,23 @@ const EXCLUDED_ROUTES = new Map([
   ["Lincoln Road", "a pedestrian mall"],
 ]);
 
-/** Drops excluded names and raw tag-style duplicates (e.g. "selmon_greenway"). */
+/**
+ * Name patterns we leave out: mountain-bike and off-road trails (e-bikes are
+ * often barred from natural-surface trails), colour-coded loop labels, generic
+ * labels that are not route names, and combined or tag-style duplicates.
+ */
+const EXCLUDED_PATTERNS = [
+  /mountain bike|off[- ]road|\bmtb\b/i,
+  /gun range/i,
+  /^(red|green|blue|yellow|orange|white|purple) (trail|loop)$/i,
+  /^(multi[- ]*mod[ae]l path|nature trail|main trail|bike path|trail|path)$/i,
+  /[\/_]/,
+];
+
 function cleanRoutes(routes) {
-  return routes.filter((r) => !EXCLUDED_ROUTES.has(r.name) && !/_/.test(r.name) && /^[A-Z0-9]/.test(r.name));
+  return routes.filter(
+    (r) => !EXCLUDED_ROUTES.has(r.name) && /^[A-Z0-9]/.test(r.name) && !EXCLUDED_PATTERNS.some((re) => re.test(r.name))
+  );
 }
 
 /** Towns with a guide, each paired with its route data, most routes first. */
