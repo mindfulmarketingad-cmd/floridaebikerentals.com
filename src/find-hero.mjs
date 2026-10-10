@@ -14,6 +14,7 @@
 import { esc, attr, plural } from "./util.mjs";
 import { breadcrumbsBare } from "./layout.mjs";
 import { photo } from "./components.mjs";
+import { stockFor, stockImg } from "./images.mjs";
 
 /** Lives here, not in near-me.mjs, so pages can link to it without an import cycle. */
 export const NEAR_ME_URL = "/find/ebike-rentals-near-me/";
@@ -128,12 +129,14 @@ export function resultsHead(title, total, noun = "shops") {
  * row. Each card shows the top-ranked shop's own photo when it has one, since
  * that is a real picture from that town; otherwise the region's illustration.
  */
-export function townCards(towns) {
+export function townCards(towns, { stock = false } = {}) {
   return `<div class="town-cards">${towns
     .map((town) => {
-      const lead = town.listings.find((l) => l.photo) || town.listings[0];
+      const lead = town.listings.find((l) => l.logo || l.photo) || town.listings[0];
+      // A stock photo of the town itself, where we have one confirmed to show it.
+      const own = stock ? stockFor(`town-${town.slug}`) : null;
       return `<a class="town-card" href="${attr(town.url)}">
-  <span class="town-card__media">${photo(lead)}</span>
+  <span class="town-card__media">${own ? stockImg(own, { alt: `${town.name}, Florida` }) : photo(lead)}</span>
   <span class="town-card__body">
     <span class="town-card__name">${esc(town.name)}</span>
     <span class="town-card__meta">${esc(String(town.listings.length))} ${plural(town.listings.length, "listing")}${

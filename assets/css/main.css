@@ -1133,3 +1133,11 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 .detail-hero__title { display: flex; align-items: center; gap: 1rem; }
 .detail-hero__title h1 { margin: 0; }
 .card--media .card__media { position: relative; }
+
+/* /cities/ region banner and photo credits */
+.city-region__banner { margin-bottom: 1rem; border-radius: var(--radius-l); overflow: hidden; aspect-ratio: 16 / 5; background: var(--blue-50); }
+.city-region__banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 640px) { .city-region__banner { aspect-ratio: 16 / 8; } }
+.photo-credits { margin: 1.5rem 0; font-size: .85rem; color: var(--ink-mute); }
+.photo-credits summary { cursor: pointer; font-weight: 700; }
+.photo-credits ul { margin: .5rem 0 0; padding-left: 1.1rem; }

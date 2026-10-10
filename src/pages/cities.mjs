@@ -12,7 +12,7 @@ import {
   listicle, faqBlock, faqSchema, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, photo,
 } from "../components.mjs";
 import { nearbyCities } from "../data.mjs";
-import { secondPhotoFor, figure, sceneForRegion, photoFor } from "../images.mjs";
+import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits } from "../images.mjs";
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile } from "./find.mjs";
 
@@ -48,6 +48,11 @@ ${findHero({
     ${regions
       .map(
         (region) => `<section class="city-region" id="${attr(region.slug)}">
+      ${
+        stockFor(region.slug)
+          ? `<div class="city-region__banner">${stockImg(stockFor(region.slug), { alt: `${region.name}, Florida`, large: true })}</div>`
+          : ""
+      }
       <div class="city-region__head">
         <h2>${esc(region.name)}</h2>
         <p class="muted">${region.listings.length} ${plural(region.listings.length, "shop")} in ${allTowns(region).length} ${plural(
@@ -55,7 +60,7 @@ ${findHero({
           "town"
         )}</p>
       </div>
-      ${townCards(allTowns(region))}
+      ${townCards(allTowns(region), { stock: true })}
     </section>`
       )
       .join("")}
@@ -66,6 +71,10 @@ ${adSlot(site, "")}
 
 <section class="section section--tint">
   <div class="wrap wrap-narrow prose">
+    ${stockCredits([
+      ...regions.map((r) => stockFor(r.slug)),
+      ...regions.flatMap((r) => allTowns(r).map((t) => stockFor(`town-${t.slug}`))),
+    ])}
     <h2>How we build these lists</h2>
     <p>We start from public Google Maps data for bike and e-bike rental, sales and repair businesses
     across Florida. We remove businesses Google marks as closed, and anything that is clearly not a

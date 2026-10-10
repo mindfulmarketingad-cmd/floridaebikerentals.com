@@ -10,7 +10,43 @@
  * Illustrations are captioned as illustrations, and photos beside a specific
  * shop are captioned as stock.
  */
+import { readFileSync, existsSync } from "node:fs";
 import { esc, attr } from "./util.mjs";
+
+/**
+ * Openverse stock photos picked for specific places and categories, keyed by
+ * slot (a region slug, "town-<slug>", or a category slug). Written by
+ * scripts/stock-fetch.mjs; each carries its creator and licence.
+ */
+const STOCK_FILE = new URL("../data/stock-photos.json", import.meta.url);
+const STOCK = existsSync(STOCK_FILE) ? JSON.parse(readFileSync(STOCK_FILE, "utf8")) : {};
+
+export function stockFor(slot) {
+  return STOCK[slot] || null;
+}
+
+/** A stock photo as an <img>, the 800px file by default, never wider than its file. */
+export function stockImg(photo, { alt, large = false, eager = false } = {}) {
+  const [src, w, h] = large ? [photo.src, photo.width, photo.height] : [photo.small, photo.smallWidth, photo.smallHeight];
+  return `<img src="${attr(src)}" alt="${attr(alt || photo.title || "")}" width="${w}" height="${h}" loading="${eager ? "eager" : "lazy"}" decoding="async">`;
+}
+
+const LICENCE_NAMES = { cc0: "CC0", pdm: "Public domain", by: "CC BY", "by-sa": "CC BY-SA" };
+
+/** "Photo credits" list for the stock photos a page shows. */
+export function stockCredits(photos) {
+  const list = [...new Set(photos.filter(Boolean))];
+  if (!list.length) return "";
+  return `<details class="photo-credits"><summary>Photo credits</summary><ul>${list
+    .map((p) => {
+      const who = p.creator ? (p.creatorUrl ? `<a href="${attr(p.creatorUrl)}" rel="nofollow noopener" target="_blank">${esc(p.creator)}</a>` : esc(p.creator)) : "Unknown";
+      const lic = LICENCE_NAMES[p.license] || String(p.license || "").toUpperCase();
+      const licLink = p.licenseUrl ? `<a href="${attr(p.licenseUrl)}" rel="nofollow noopener" target="_blank">${esc(lic)}${p.licenseVersion && !["cc0", "pdm"].includes(p.license) ? ` ${esc(p.licenseVersion)}` : ""}</a>` : esc(lic);
+      const title = p.landing ? `<a href="${attr(p.landing)}" rel="nofollow noopener" target="_blank">${esc(p.title || "Photo")}</a>` : esc(p.title || "Photo");
+      return `<li>${title} by ${who}, ${licLink}, via Openverse</li>`;
+    })
+    .join("")}</ul></details>`;
+}
 
 /** Drawn scenes. `og` is a 1200x630 JPEG for social cards, which do not render SVG. */
 export const SCENES = [

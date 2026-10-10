@@ -1,5 +1,5 @@
 import { esc, attr, formatReviews } from "../util.mjs";
-import { photoFor, secondPhotoFor, figure, banner, sceneForRegion } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, sceneForRegion, stockFor, stockImg, stockCredits } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
@@ -131,8 +131,11 @@ export function homePage(site, { listings, index, blog, stats }) {
             href: region.url,
             title: region.name,
             meta: `${region.listings.length} rental partners · ${region.cities.length + (region.thinCities || []).length} towns`,
-            // Each region has its own illustration, drawn for that coast.
-            media: `<img src="${attr(sceneForRegion(region.slug).src)}" alt="" loading="lazy" decoding="async" width="1600" height="900">`,
+            // A stock photo of the region where we have one confirmed to show
+            // it; otherwise the illustration drawn for that coast.
+            media: stockFor(region.slug)
+              ? stockImg(stockFor(region.slug), { alt: `${region.name}, Florida` })
+              : `<img src="${attr(sceneForRegion(region.slug).src)}" alt="" loading="lazy" decoding="async" width="1600" height="900">`,
             text: region.cities
               .slice(0, 4)
               .map((c) => c.name)
@@ -306,6 +309,10 @@ ${adSlot(site, "")}
     </div>
   </div>
 </section>
+${(() => {
+  const credits = stockCredits(index.regions.map((r) => stockFor(r.slug)));
+  return credits ? `<div class="wrap">${credits}</div>` : "";
+})()}
 ${adSlotScript(site, 2)}
 `;
 
