@@ -100,19 +100,35 @@ export function tagList(tags, limit = 5) {
 }
 
 /**
- * A listing's photo, served from this site at its real size. A shop with no
- * photo gets its region's illustration, marked as such, so a list never shows
- * an empty box.
+ * The picture for a listing card: the business's own logo first, then its
+ * Google photo, then its region's illustration, so no card is ever an empty
+ * box. Everything is served from this site at its real size. `prefer: "photo"`
+ * puts the photo ahead of the logo, for the listing's own page.
  */
-export function photo(listing, { className = "", sizes = "", eager = false } = {}) {
+export function photo(listing, { className = "", sizes = "", eager = false, prefer = "logo" } = {}) {
   const loading = `loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"`;
-  if (!listing.photo) {
-    const scene = sceneForRegion(listing.regionSlug);
-    return `<img src="${attr(scene.src)}" alt="" class="is-illustration${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.width}" height="${scene.height}">`;
+  const logoTile = () =>
+    `<span class="logo-tile"><img src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" ${loading} width="${listing.logoWidth}" height="${listing.logoHeight}"></span>`;
+  const photoImg = () =>
+    `<img src="${attr(listing.photo)}" alt="${attr(`${listing.name} in ${listing.city}, Florida`)}"${
+      className ? ` class="${attr(className)}"` : ""
+    } ${loading}${sizes ? ` sizes="${attr(sizes)}"` : ""} width="${listing.photoWidth}" height="${listing.photoHeight}">`;
+  const order = prefer === "photo" ? ["photo", "logo"] : ["logo", "photo"];
+  for (const kind of order) {
+    if (kind === "logo" && listing.logo) return logoTile();
+    if (kind === "photo" && listing.photo) return photoImg();
   }
-  return `<img src="${attr(listing.photo)}" alt="${attr(`${listing.name} in ${listing.city}, Florida`)}"${
-    className ? ` class="${attr(className)}"` : ""
-  } ${loading}${sizes ? ` sizes="${attr(sizes)}"` : ""} width="${listing.photoWidth}" height="${listing.photoHeight}">`;
+  const scene = sceneForRegion(listing.regionSlug);
+  return `<img src="${attr(scene.src)}" alt="" class="is-illustration${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.width}" height="${scene.height}">`;
+}
+
+/** The business's logo as a small mark beside its name, or nothing. */
+export function logoMark(listing, size = 72) {
+  if (!listing.logo) return "";
+  const px = Math.min(size, listing.logoWidth);
+  return `<img class="logo-mark" src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" width="${px}" height="${Math.round(
+    (px * listing.logoHeight) / listing.logoWidth
+  )}" decoding="async">`;
 }
 
 /** Resolves a placement key to a real AdSense slot ID, or "" if none is set. */
@@ -465,7 +481,8 @@ export function localBusinessSchema(site, listing) {
   };
   if (listing.phone) data.telephone = listing.phone;
   if (listing.website) data.sameAs = [listing.website];
-  if (listing.photo) data.image = `${site.url}${listing.photo}`;
+  if (listing.logo) data.logo = `${site.url}${listing.logo}`;
+  if (listing.photo || listing.logo) data.image = `${site.url}${listing.photo || listing.logo}`;
   if (typeof listing.lat === "number") {
     data.geo = { "@type": "GeoCoordinates", latitude: listing.lat, longitude: listing.lng };
   }

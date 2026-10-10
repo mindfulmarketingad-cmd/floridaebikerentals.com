@@ -5,7 +5,7 @@ import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.
 import {
   scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
-  summaryFor, metaDescriptionFor,
+  summaryFor, metaDescriptionFor, logoMark,
 } from "../components.mjs";
 import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
@@ -262,7 +262,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 <section class="detail-hero">
   <div class="wrap">
     ${breadcrumbsBare(crumbs)}
-    <h1>${esc(listing.name)}</h1>
+    <div class="detail-hero__title">${logoMark(listing)}<h1>${esc(listing.name)}</h1></div>
     <div class="detail-hero__meta">
       ${listing.rating ? ratingBlock(listing) : '<span>No Google rating yet</span>'}
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
@@ -274,8 +274,8 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 <div class="wrap detail-layout">
   <div>
     ${
-      listing.photo
-        ? `<div class="photo-hero mb-2">${photo(listing, { eager: true })}</div>`
+      listing.photo || listing.logo
+        ? `<div class="photo-hero mb-2">${photo(listing, { eager: true, prefer: "photo" })}</div>`
         : banner(photoFor(listing.slug), {
             alt: `E-bike rentals in ${listing.city}, Florida - ${photoFor(listing.slug).alt}`,
           })

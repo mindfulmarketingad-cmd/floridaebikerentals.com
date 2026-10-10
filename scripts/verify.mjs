@@ -98,7 +98,7 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
       const main = html.slice(mainStart, mainEnd);
       const contentImages = [...main.matchAll(/<img [^>]*src="([^"]+)"/g)]
         .map((m) => m[1])
-        .filter((src) => !/logo|favicon|mark\.svg/.test(src));
+        .filter((src) => !/\/assets\/img\/(logo|logo-white|mark)\.svg|favicon/.test(src));
       if (contentImages.length < 2) {
         problems.push(`${pageUrl}: has ${contentImages.length} content image(s), expected a featured image plus one more`);
       }

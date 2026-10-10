@@ -351,6 +351,12 @@ export function loadListingPhotos() {
   return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
 }
 
+/** Business logos served from this site, keyed by slug; written by the same script. */
+export function loadListingLogos() {
+  const file = join(ROOT, "data", "listing-logos.json");
+  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+}
+
 export function listingUrl(l) {
   return `/cities/${citySlug(l.city)}/${l.slug}/`;
 }
@@ -363,8 +369,10 @@ export function loadListings({ raw = false } = {}) {
   const payload = JSON.parse(readFileSync(join(ROOT, "data", "listings.json"), "utf8"));
   const excluded = excludedSlugs();
   const photos = raw ? {} : loadListingPhotos();
+  const logos = raw ? {} : loadListingLogos();
   return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => {
     const cached = photos[l.slug];
+    const logo = logos[l.slug];
     return {
       ...l,
       ...(raw
@@ -373,6 +381,9 @@ export function loadListings({ raw = false } = {}) {
             photo: cached ? cached.src : "",
             photoWidth: cached ? cached.width : 0,
             photoHeight: cached ? cached.height : 0,
+            logo: logo ? logo.src : "",
+            logoWidth: logo ? logo.width : 0,
+            logoHeight: logo ? logo.height : 0,
           }),
       url: listingUrl(l),
       citySlug: citySlug(l.city),
