@@ -1,0 +1,36 @@
+name: City trails
+
+# Refreshes data/city-trails.json: named bike routes around each town, from
+# OpenStreetMap. The town trail guides at /trails/ are built from it.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: city-trails
+  cancel-in-progress: false
+
+jobs:
+  trails:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Fetch routes from OpenStreetMap
+        timeout-minutes: 40
+        run: node scripts/fetch-trails.mjs
+      - name: Build and verify
+        run: npm run verify
+      - name: Commit
+        run: |
+          git add data/city-trails.json
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh city trail routes from OpenStreetMap"
+          git push
