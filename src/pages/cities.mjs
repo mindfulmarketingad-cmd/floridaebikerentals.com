@@ -61,7 +61,7 @@ ${findHero({
           "town"
         )}</p>
       </div>
-      ${townCards(allTowns(region), { stock: true })}
+      ${townCards(allTowns(region))}
     </section>`
       )
       .join("")}

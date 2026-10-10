@@ -1,158 +1,251 @@
 {
-  "emerald-coast-and-30a": [
-    "pensacola beach",
-    "destin harbor",
-    "panama city beach",
-    "seaside florida town"
-  ],
-  "palm-beaches-and-treasure-coast": [
-    "west palm beach",
-    "jupiter inlet lighthouse",
-    "worth avenue palm beach",
-    "stuart florida"
-  ],
-  "sarasota-and-bradenton": [
-    "siesta key",
-    "lido key sarasota",
-    "venice florida beach",
-    "bradenton beach"
-  ],
-  "the-florida-keys": [
-    "key west",
-    "florida keys overseas highway",
-    "islamorada",
-    "key largo"
-  ],
-  "first-coast": [
-    "st augustine lighthouse",
-    "castillo de san marcos",
-    "jacksonville beach",
-    "fernandina beach"
-  ],
-  "north-florida": [
-    "ginnie springs",
-    "rainbow springs florida",
-    "tallahassee florida",
-    "gainesville florida"
-  ],
-  "town-key-west": [
-    "Key West florida"
-  ],
-  "town-miami": [
-    "Miami florida"
-  ],
   "town-santa-rosa-beach": [
-    "Santa Rosa Beach florida"
-  ],
-  "town-miami-beach": [
-    "Miami Beach florida"
+    "Santa Rosa Beach florida",
+    "Santa Rosa Beach fl beach"
   ],
   "town-sarasota": [
-    "Sarasota florida"
+    "Sarasota florida",
+    "Sarasota fl beach"
   ],
   "town-naples": [
-    "Naples florida"
+    "Naples florida",
+    "Naples fl beach"
   ],
   "town-st-petersburg": [
-    "St. Petersburg florida"
-  ],
-  "town-tampa": [
-    "Tampa florida"
+    "St. Petersburg florida",
+    "St. Petersburg fl beach"
   ],
   "town-fort-lauderdale": [
-    "Fort Lauderdale florida"
+    "Fort Lauderdale florida",
+    "Fort Lauderdale fl beach"
   ],
   "town-fort-myers": [
-    "Fort Myers florida"
-  ],
-  "town-orlando": [
-    "Orlando florida"
+    "Fort Myers florida",
+    "Fort Myers fl beach"
   ],
   "town-panama-city-beach": [
-    "Panama City Beach florida"
-  ],
-  "town-jacksonville": [
-    "Jacksonville florida"
+    "Panama City Beach florida",
+    "Panama City Beach fl beach"
   ],
   "town-boca-raton": [
-    "Boca Raton florida"
+    "Boca Raton florida",
+    "Boca Raton fl beach"
   ],
   "town-fernandina-beach": [
-    "Fernandina Beach florida"
+    "Fernandina Beach florida",
+    "Fernandina Beach fl beach"
   ],
   "town-fort-myers-beach": [
-    "Fort Myers Beach florida"
+    "Fort Myers Beach florida",
+    "Fort Myers Beach fl beach"
   ],
   "town-kissimmee": [
-    "Kissimmee florida"
-  ],
-  "town-clearwater": [
-    "Clearwater florida"
+    "Kissimmee florida",
+    "Kissimmee fl beach"
   ],
   "town-marco-island": [
-    "Marco Island florida"
+    "Marco Island florida",
+    "Marco Island fl beach"
   ],
   "town-new-smyrna-beach": [
-    "New Smyrna Beach florida"
+    "New Smyrna Beach florida",
+    "New Smyrna Beach fl beach"
   ],
   "town-ormond-beach": [
-    "Ormond Beach florida"
+    "Ormond Beach florida",
+    "Ormond Beach fl beach"
   ],
   "town-panama-city": [
-    "Panama City florida"
+    "Panama City florida",
+    "Panama City fl beach"
   ],
   "town-pensacola": [
-    "Pensacola florida"
+    "Pensacola florida",
+    "Pensacola fl beach"
   ],
   "town-st-augustine": [
-    "St. Augustine florida"
+    "St. Augustine florida",
+    "St. Augustine fl beach"
   ],
   "town-winter-garden": [
-    "Winter Garden florida"
-  ],
-  "town-daytona-beach": [
-    "Daytona Beach florida"
+    "Winter Garden florida",
+    "Winter Garden fl beach"
   ],
   "town-dunedin": [
-    "Dunedin florida"
-  ],
-  "town-hollywood": [
-    "Hollywood florida"
+    "Dunedin florida",
+    "Dunedin fl beach"
   ],
   "town-holmes-beach": [
-    "Holmes Beach florida"
+    "Holmes Beach florida",
+    "Holmes Beach fl beach"
   ],
   "town-jacksonville-beach": [
-    "Jacksonville Beach florida"
+    "Jacksonville Beach florida",
+    "Jacksonville Beach fl beach"
   ],
   "town-melbourne": [
-    "Melbourne florida"
+    "Melbourne florida",
+    "Melbourne fl beach"
   ],
   "town-miramar-beach": [
-    "Miramar Beach florida"
+    "Miramar Beach florida",
+    "Miramar Beach fl beach"
   ],
   "town-ocala": [
-    "Ocala florida"
+    "Ocala florida",
+    "Ocala fl beach"
   ],
   "town-port-st-lucie": [
-    "Port St. Lucie florida"
+    "Port St. Lucie florida",
+    "Port St. Lucie fl beach"
   ],
   "town-venice": [
-    "Venice florida"
+    "Venice florida",
+    "Venice fl beach"
   ],
   "town-bradenton": [
-    "Bradenton florida"
+    "Bradenton florida",
+    "Bradenton fl beach"
   ],
   "town-cape-coral": [
-    "Cape Coral florida"
-  ],
-  "town-destin": [
-    "Destin florida"
+    "Cape Coral florida",
+    "Cape Coral fl beach"
   ],
   "town-lakeland": [
-    "Lakeland florida"
+    "Lakeland florida",
+    "Lakeland fl beach"
   ],
   "town-riviera-beach": [
-    "Riviera Beach florida"
+    "Riviera Beach florida",
+    "Riviera Beach fl beach"
+  ],
+  "town-sanibel": [
+    "Sanibel florida"
+  ],
+  "town-stuart": [
+    "Stuart florida"
+  ],
+  "town-west-palm-beach": [
+    "West Palm Beach florida"
+  ],
+  "town-anna-maria": [
+    "Anna Maria florida"
+  ],
+  "town-cocoa": [
+    "Cocoa florida"
+  ],
+  "town-deerfield-beach": [
+    "Deerfield Beach florida"
+  ],
+  "town-indialantic": [
+    "Indialantic florida"
+  ],
+  "town-jupiter": [
+    "Jupiter florida"
+  ],
+  "town-largo": [
+    "Largo florida"
+  ],
+  "town-navarre": [
+    "Navarre florida"
+  ],
+  "town-new-port-richey": [
+    "New Port Richey florida"
+  ],
+  "town-pompano-beach": [
+    "Pompano Beach florida"
+  ],
+  "town-port-st-joe": [
+    "Port St Joe florida"
+  ],
+  "town-punta-gorda": [
+    "Punta Gorda florida"
+  ],
+  "town-st-pete-beach": [
+    "St Pete Beach florida"
+  ],
+  "town-tallahassee": [
+    "Tallahassee florida"
+  ],
+  "town-treasure-island": [
+    "Treasure Island florida"
+  ],
+  "town-wildwood": [
+    "Wildwood florida"
+  ],
+  "town-big-pine-key": [
+    "Big Pine Key florida"
+  ],
+  "town-brooksville": [
+    "Brooksville florida"
+  ],
+  "town-clearwater-beach": [
+    "Clearwater Beach florida"
+  ],
+  "town-clermont": [
+    "Clermont florida"
+  ],
+  "town-delray-beach": [
+    "Delray Beach florida"
+  ],
+  "town-englewood": [
+    "Englewood florida"
+  ],
+  "town-gainesville": [
+    "Gainesville florida"
+  ],
+  "town-gulf-breeze": [
+    "Gulf Breeze florida"
+  ],
+  "town-indian-shores": [
+    "Indian Shores florida"
+  ],
+  "town-inlet-beach": [
+    "Inlet Beach florida"
+  ],
+  "town-inverness": [
+    "Inverness florida"
+  ],
+  "town-key-largo": [
+    "Key Largo florida"
+  ],
+  "town-lake-worth-beach": [
+    "Lake Worth Beach florida"
+  ],
+  "town-lauderdale-by-the-sea": [
+    "Lauderdale-By-The-Sea florida"
+  ],
+  "town-marathon": [
+    "Marathon florida"
+  ],
+  "town-mexico-beach": [
+    "Mexico Beach florida"
+  ],
+  "town-palm-coast": [
+    "Palm Coast florida"
+  ],
+  "town-ponte-vedra-beach": [
+    "Ponte Vedra Beach florida"
+  ],
+  "town-safety-harbor": [
+    "Safety Harbor florida"
+  ],
+  "town-seminole": [
+    "Seminole florida"
+  ],
+  "town-st-george-island": [
+    "St George Island florida"
+  ],
+  "town-sunrise": [
+    "Sunrise florida"
+  ],
+  "town-watersound": [
+    "Watersound florida"
+  ],
+  "town-west-melbourne": [
+    "West Melbourne florida"
+  ],
+  "town-weston": [
+    "Weston florida"
   ]
 }

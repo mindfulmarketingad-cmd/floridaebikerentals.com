@@ -198,6 +198,30 @@ const REGION_SCENE = {
   "north-florida": "springs",
 };
 
+/**
+ * Illustrations that fit each kind of coast, for town cards with no photo of
+ * their own. Several per region so a row of towns is not one picture repeated.
+ */
+const REGION_POOL = {
+  "daytona-and-the-space-coast": ["atlantic", "lighthouse", "boardwalk", "spiral"],
+  "first-coast": ["spiral", "atlantic", "boardwalk", "trail"],
+  "palm-beaches-and-treasure-coast": ["lighthouse", "atlantic", "boardwalk", "miami"],
+  "greater-miami-and-fort-lauderdale": ["miami", "boardwalk", "atlantic", "lighthouse"],
+  "emerald-coast-and-30a": ["emerald", "gulf", "boardwalk", "lifeguard"],
+  "southwest-florida": ["gulf", "lifeguard", "boardwalk", "emerald"],
+  "sarasota-and-bradenton": ["lifeguard", "gulf", "emerald", "boardwalk"],
+  "tampa-bay": ["tampa", "gulf", "lifeguard", "boardwalk"],
+  "the-florida-keys": ["keys", "lifeguard", "gulf", "boardwalk"],
+  "orlando-and-central-florida": ["trail", "springs", "boardwalk", "lighthouse"],
+  "north-florida": ["springs", "trail", "spiral", "gulf"],
+};
+
+/** The n-th illustration in a region's pool, for the n-th town card in a row. */
+export function sceneForTown(regionSlug, n) {
+  const pool = REGION_POOL[regionSlug] || ["atlantic", "gulf", "trail", "boardwalk"];
+  return SCENES.find((s) => s.id === pool[n % pool.length]) || SCENES[0];
+}
+
 export function sceneForRegion(regionSlug) {
   return SCENES.find((s) => s.id === REGION_SCENE[regionSlug]) || SCENES[0];
 }
