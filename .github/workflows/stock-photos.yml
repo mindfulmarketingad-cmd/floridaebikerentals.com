@@ -1,0 +1,47 @@
+name: Stock photos
+
+# Openverse stock photos for the site's feature, region and category images.
+# "search" saves small thumbnails of candidates for review; "fetch" downloads
+# the photos listed in stock/picks.json at full size into assets/img/stock/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      step:
+        description: "search or fetch"
+        required: true
+        default: "search"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-photos
+  cancel-in-progress: false
+
+jobs:
+  stock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Search candidates
+        if: ${{ inputs.step == 'search' }}
+        timeout-minutes: 20
+        run: node scripts/stock-search.mjs
+      - name: Fetch picks
+        if: ${{ inputs.step == 'fetch' }}
+        timeout-minutes: 20
+        run: |
+          npm install --no-save sharp@0.33.5
+          node scripts/stock-fetch.mjs
+      - name: Commit
+        run: |
+          git add -A stock assets/img/stock data/stock-photos.json 2>/dev/null || git add -A stock
+          if git diff --cached --quiet; then echo "Nothing to commit."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Stock photos: ${{ inputs.step }}"
+          git push
