@@ -43,13 +43,13 @@ jobs:
 
       - name: Commit the photos
         run: |
-          git add assets/img/listings data/listing-photos.json
+          git add assets/img/listings data/listing-photos.json assets/img/logos data/listing-logos.json
           if git diff --cached --quiet; then
             echo "No photo changes."
             exit 0
           fi
-          count=$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('data/listing-photos.json','utf8'))).length)")
+          count=$(node -e "const r=(f)=>Object.keys(JSON.parse(require('fs').readFileSync(f,'utf8'))).length;console.log(r('data/listing-photos.json')+' photos, '+r('data/listing-logos.json')+' logos')")
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Cache listing photos ($count served from this site)"
+          git commit -m "Cache listing photos and logos ($count served from this site)"
           git push

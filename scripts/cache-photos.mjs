@@ -24,6 +24,8 @@ import { ROOT, loadListings } from "../src/data.mjs";
 
 const OUT_DIR = join(ROOT, "assets/img/listings");
 const MANIFEST = join(ROOT, "data/listing-photos.json");
+const LOGO_DIR = join(ROOT, "assets/img/logos");
+const LOGO_MANIFEST = join(ROOT, "data/listing-logos.json");
 const force = process.argv.includes("--force");
 const POOL = 6;
 
@@ -81,16 +83,29 @@ export function candidateUrls(l) {
   return out;
 }
 
-async function fetchFirst(urls) {
+async function fetchFirst(urls, opts) {
   let last = { error: "no photo" };
   for (const url of urls) {
-    last = await fetchPhoto(url);
+    last = await fetchPhoto(url, opts);
     if (!last.error) return last;
   }
   return last;
 }
 
-async function fetchPhoto(url) {
+/**
+ * A business's Google profile logo at the largest size Google will serve, best
+ * first. The export links the 44px thumbnail; the size sits in the path
+ * ("/s44-p-k-no-ns-nd/") or after "=".
+ */
+export function logoUrls(l) {
+  const u = l.logo;
+  if (!u || !/^https:\/\//.test(u)) return [];
+  const sized = (n) =>
+    /\/s\d+-[^/]*\//.test(u) ? u.replace(/\/s\d+(-[^/]*)\//, `/s${n}$1/`) : `${u.split("=")[0]}=s${n}-p-k-no`;
+  return [...new Set([sized(512), sized(256), sized(160), u])];
+}
+
+async function fetchPhoto(url, { minWidth = 200, minHeight = 120 } = {}) {
   const res = await fetch(url, {
     headers: { Accept: "image/jpeg,image/png,image/*;q=0.8", "User-Agent": "Mozilla/5.0 (photo cache)" },
     redirect: "follow",
@@ -103,7 +118,7 @@ async function fetchPhoto(url) {
   const size = imageSize(buf);
   if (!size) return { error: "unreadable image" };
   // Google answers some dead links with a tiny placeholder rather than an error.
-  if (size.width < 200 || size.height < 120) return { error: `too small (${size.width}x${size.height})` };
+  if (size.width < minWidth || size.height < minHeight) return { error: `too small (${size.width}x${size.height})` };
   // Keep files no wider than the site ever shows them.
   if (size.width > 1600) return { error: `too large (${size.width}px)` };
   return { buf, size };
@@ -149,6 +164,46 @@ async function main() {
   writeFileSync(MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);
   console.log(`Listings with a source photo: ${listings.length}. Tried: ${todo.length}. Saved: ${fetched}. Cached in total: ${Object.keys(sorted).length}.`);
   if (Object.keys(failures).length) console.log("Not saved:", failures);
+
+  await cacheLogos(loadListings({ raw: true }));
+}
+
+/** Same as the photo pass, for logos: smallest kept is 96px, so none is upscaled into mush. */
+async function cacheLogos(all) {
+  mkdirSync(LOGO_DIR, { recursive: true });
+  const manifest = existsSync(LOGO_MANIFEST) ? JSON.parse(readFileSync(LOGO_MANIFEST, "utf8")) : {};
+  const listings = all.filter((l) => logoUrls(l).length);
+  const live = new Set(listings.map((l) => l.slug));
+  const queue = listings.filter((l) => force || !manifest[l.slug] || !existsSync(join(ROOT, manifest[l.slug].src)));
+  const failures = {};
+  let fetched = 0;
+  await Promise.all(
+    Array.from({ length: POOL }, async () => {
+      while (queue.length) {
+        const l = queue.shift();
+        try {
+          const got = await fetchFirst(logoUrls(l), { minWidth: 96, minHeight: 96 });
+          if (got.error) { failures[got.error] = (failures[got.error] || 0) + 1; continue; }
+          const file = `${l.slug}.${got.size.type}`;
+          writeFileSync(join(LOGO_DIR, file), got.buf);
+          manifest[l.slug] = { src: `/assets/img/logos/${file}`, width: got.size.width, height: got.size.height };
+          fetched++;
+        } catch (err) {
+          const key = err.name === "TimeoutError" ? "timeout" : err.message;
+          failures[key] = (failures[key] || 0) + 1;
+        }
+      }
+    })
+  );
+  for (const slug of Object.keys(manifest)) if (!live.has(slug)) delete manifest[slug];
+  const keep = new Set(Object.values(manifest).map((m) => m.src.split("/").pop()));
+  for (const file of readdirSync(LOGO_DIR)) if (!file.startsWith(".") && !keep.has(file)) unlinkSync(join(LOGO_DIR, file));
+  const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
+  writeFileSync(LOGO_MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);
+  const sizes = {};
+  for (const m of Object.values(sorted)) sizes[`${m.width}px`] = (sizes[`${m.width}px`] || 0) + 1;
+  console.log(`Logos: ${listings.length} linked. Saved: ${fetched}. Cached in total: ${Object.keys(sorted).length}.`, sizes);
+  if (Object.keys(failures).length) console.log("Logos not saved:", failures);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
