@@ -78,7 +78,7 @@ const SORTS = [
  * @param {Array}  o.tags        services present in the list, for the filter
  * @param {string} o.placeholder text-search hint
  */
-export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true }) {
+export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "" }) {
   return `<section class="find-hero">
   <img class="find-hero__art" src="${attr(scene.src)}" alt="${attr(scene.alt)}" width="${scene.width}" height="${scene.height}" fetchpriority="high" decoding="async">
   <div class="find-hero__shade" aria-hidden="true"></div>
@@ -89,7 +89,7 @@ export function findHero({ crumbs, h1, lead, scene, index, current, category = n
     <form class="find-search${filters ? "" : " find-search--where-only"}"${filters ? " data-filter-form" : ""} data-find-search role="search" aria-label="Search e-bike rentals">
       <div class="find-search__field find-search__field--where">
         <label for="fs-where">Where</label>
-        <select id="fs-where" data-destination>${destinationOptions(index, current, category)}</select>
+        <select id="fs-where" data-destination>${whereOptions || destinationOptions(index, current, category)}</select>
       </div>
       ${filters ? `<div class="find-search__field find-search__field--q">
         <label for="fs-q">Search</label>

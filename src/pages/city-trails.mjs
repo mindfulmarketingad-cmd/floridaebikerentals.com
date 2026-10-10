@@ -80,8 +80,13 @@ ${findHero({
   lead: `For ${city.name} bike routes, start with ${top3.slice(0, -1).join(", ")}${top3.length > 1 ? " and " : ""}${top3[top3.length - 1]}. We list ${routes.length} named routes mapped within about five miles of town, with distances, surfaces and map links, and the Florida rules that apply when you ride.`,
   scene: sceneForRegion(city.regionSlug),
   index,
-  current: city.url,
+  current: url,
   filters: false,
+  // "Where" switches between town riding guides, not to the rental lists.
+  whereOptions: `<option value="/trails/">All Florida trails</option>${[...guides]
+    .sort((a, b) => a.city.name.localeCompare(b.city.name))
+    .map((g) => `<option value="${attr(g.url)}"${g.url === url ? " selected" : ""}>${esc(g.city.name)}</option>`)
+    .join("")}`,
 })}
 
 <section class="section">
