@@ -56,6 +56,40 @@ export function imageSize(buf) {
   return null;
 }
 
+/**
+ * Every address worth trying for a listing's photo, best first. Google serves
+ * the same image at any size by rewriting the "=w..-h.." suffix, and a link
+ * refused at one size is sometimes served at another; the export also carries
+ * a larger copy of the same photo in its street_view column.
+ */
+export function candidateUrls(l) {
+  const out = [];
+  const add = (u) => {
+    if (u && /^https:\/\//.test(u) && !out.includes(u)) out.push(u);
+  };
+  for (const u of [l.photo, l.street_view]) {
+    if (!u) continue;
+    add(u);
+    if (/googleusercontent\.com/.test(u)) {
+      const base = u.split("=")[0];
+      add(`${base}=w800-h500-k-no`);
+      add(`${base}=s800`);
+      add(`${base}=w1200`);
+      add(base);
+    }
+  }
+  return out;
+}
+
+async function fetchFirst(urls) {
+  let last = { error: "no photo" };
+  for (const url of urls) {
+    last = await fetchPhoto(url);
+    if (!last.error) return last;
+  }
+  return last;
+}
+
 async function fetchPhoto(url) {
   const res = await fetch(url, {
     headers: { Accept: "image/jpeg,image/png,image/*;q=0.8", "User-Agent": "Mozilla/5.0 (photo cache)" },
@@ -70,13 +104,15 @@ async function fetchPhoto(url) {
   if (!size) return { error: "unreadable image" };
   // Google answers some dead links with a tiny placeholder rather than an error.
   if (size.width < 200 || size.height < 120) return { error: `too small (${size.width}x${size.height})` };
+  // Keep files no wider than the site ever shows them.
+  if (size.width > 1600) return { error: `too large (${size.width}px)` };
   return { buf, size };
 }
 
 async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
   const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : {};
-  const listings = loadListings({ raw: true }).filter((l) => l.photo && /^https:\/\//.test(l.photo));
+  const listings = loadListings({ raw: true }).filter((l) => candidateUrls(l).length);
   const live = new Set(listings.map((l) => l.slug));
   const todo = listings.filter((l) => force || !manifest[l.slug] || !existsSync(join(ROOT, manifest[l.slug].src)));
   const failures = {};
@@ -88,7 +124,7 @@ async function main() {
       while (queue.length) {
         const l = queue.shift();
         try {
-          const got = await fetchPhoto(l.photo);
+          const got = await fetchFirst(candidateUrls(l));
           if (got.error) { failures[got.error] = (failures[got.error] || 0) + 1; continue; }
           const file = `${l.slug}.${got.size.type}`;
           writeFileSync(join(OUT_DIR, file), got.buf);
