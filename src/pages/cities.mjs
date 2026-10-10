@@ -14,7 +14,7 @@ import {
 import { nearbyCities } from "../data.mjs";
 import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits } from "../images.mjs";
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
-import { tagsIn, guidesFor, categoryTile } from "./find.mjs";
+import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const YEAR = new Date().getFullYear();
@@ -143,9 +143,10 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
 
   // The owner's format for every town page, used for both the H1 and <title>.
   const h1 = `${city.name} Florida Electric Bike Rentals List ${YEAR}`;
+  const facts = townFacts(city, local);
   const lead = notes.lead
     ? fill(notes.lead)
-    : `${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. Search them, filter by service, and book direct with the shop.`;
+    : `We list ${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. ${facts.sentences.slice(0, 2).join(" ")}`;
 
   const faqs = [
     ...(notes.faqs || []),
@@ -349,9 +350,9 @@ ${adSlotScript(site, 1)}
     description: clamp(
       notes.description
         ? fill(notes.description)
-        : `Compare ${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, FL: Google ratings, hours, phone numbers and who delivers.${
-            best ? ` ${best.name} leads our ranking.` : ""
-          }`,
+        : `${n} e-bike rental ${plural(n, "shop")} in ${city.name}, FL, ranked. ${facts.best.name} leads${
+            facts.best.rating ? ` (${facts.best.rating.toFixed(1)} stars, ${formatReviews(facts.best.reviews)} reviews)` : ""
+          }. Hours, phones and directions.`,
       165
     ),
     path: city.url,

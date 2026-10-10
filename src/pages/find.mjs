@@ -239,6 +239,42 @@ ${adSlotScript(site, 1)}
 
 /* ------------------------------------------- category + town page */
 
+const listNames = (names) =>
+  names.length <= 1 ? names.join("") : `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+
+/**
+ * Facts about one set of shops in one town, in plain sentences, drawn only
+ * from the listing data: who leads and on what rating, how many reviews the
+ * set carries, which neighbourhoods they sit in, and who delivers or opens
+ * every day. Every town's set is different, so every page's copy is too.
+ */
+export function townFacts(city, local) {
+  const n = local.length;
+  const best = local[0];
+  const rated = local.filter((l) => l.rating > 0);
+  const reviews = local.reduce((s, l) => s + (l.reviews || 0), 0);
+  const avg = rated.length ? rated.reduce((s, l) => s + l.rating, 0) / rated.length : 0;
+  const hoods = [...new Set(local.map((l) => l.neighborhood).filter((h) => h && h !== city.name))].slice(0, 3);
+  const delivers = local.filter((l) => (l.tags || []).includes("Delivery available"));
+  const seven = local.filter((l) => (l.hours || []).filter((h) => !h.closed).length === 7);
+  const mostReviewed = [...local].sort((a, b) => (b.reviews || 0) - (a.reviews || 0))[0];
+  const out = [];
+  out.push(
+    best.rating
+      ? `${best.name} leads our ranking with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews.`
+      : `${best.name} leads our ranking.`
+  );
+  if (mostReviewed && mostReviewed !== best && mostReviewed.reviews) {
+    out.push(`${mostReviewed.name} has the most reviews, at ${formatReviews(mostReviewed.reviews)}.`);
+  }
+  if (rated.length > 1) out.push(`Together they hold ${formatReviews(reviews)} Google reviews, averaging ${avg.toFixed(1)} stars.`);
+  if (hoods.length) out.push(`You will find them in ${listNames(hoods)}${hoods.length < n ? " and elsewhere in town" : ""}.`);
+  if (delivers.length && delivers.length < n) out.push(`${listNames(delivers.slice(0, 3).map((l) => l.name))} ${delivers.length === 1 ? "lists" : "list"} delivery.`);
+  else if (delivers.length === n && n > 1) out.push(`All ${n} list delivery.`);
+  if (seven.length) out.push(`${seven.length === n ? (n === 1 ? "It posts" : `All ${n} post`) : `${listNames(seven.slice(0, 2).map((l) => l.name))} ${seven.length === 1 ? "posts" : "post"}`} hours for all seven days.`);
+  return { best, reviews, avg, sentences: out };
+}
+
 /** Short, town-specific wording for each category's title and heading. */
 const TOWN_PHRASE = {
   "ebike-rentals": (t) => `E-Bike Rentals in ${t}`,
@@ -265,12 +301,13 @@ export function categoryTownPage(site, category, town, { index }) {
   const scene = sceneForRegion(city.regionSlug);
   const best = local[0];
   const others = city.categories.filter((c) => c.category.slug !== category.slug);
+  const facts = townFacts(city, local);
 
   const body = `
 ${findHero({
   crumbs,
   h1: `${phrase}, Florida`,
-  lead: `${n} of the ${city.listings.length} shops we list in ${city.name} match: ${category.blurb.charAt(0).toLowerCase()}${category.blurb.slice(1)}`,
+  lead: `${n === city.listings.length ? (n === 1 ? "The one shop" : `All ${n} shops`) : `${n === 1 ? "One" : n} of the ${city.listings.length} shops`} we list in ${city.name} ${n === 1 ? "is" : "are"} in this category: ${listNames(local.slice(0, 3).map((l) => l.name))}${n > 3 ? ` and ${n - 3} more` : ""}. ${facts.sentences[0]}`,
   scene,
   index,
   current: town.url,
@@ -291,11 +328,9 @@ ${findHero({
 
 <section class="section section--tint">
   <div class="wrap wrap-narrow prose">
-    <h2>About this list</h2>
-    <p>${esc(category.intro)}</p>
-    <p>In ${esc(city.name)}, ${esc(best.name)} leads our ranking${
-      best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
-    }. We rank by Google rating weighted against review count, and we don't accept payment for placement.</p>
+    <h2>${esc(phrase)}: what we found</h2>
+    <p>${esc(facts.sentences.join(" "))}</p>
+    <p>${esc(category.intro)} We rank by Google rating weighted against review count, and we don't accept payment for placement.</p>
   </div>
 </section>
 
@@ -319,7 +354,10 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title: `${phrase}, FL - ${n} ${plural(n, "Shop")}`,
     description: clamp(
-      `${n} ${plural(n, "shop")} in ${city.name}, Florida: ${category.blurb.charAt(0).toLowerCase()}${category.blurb.slice(1)} Compare Google ratings, hours and phone numbers.`
+      `${phrase}, FL: ${n} ${plural(n, "shop")} compared. ${facts.best.name} leads${
+        facts.best.rating ? ` (${facts.best.rating.toFixed(1)} stars, ${formatReviews(facts.best.reviews)} reviews)` : ""
+      }. Hours, phones and directions.`,
+      160
     ),
     path: town.url,
     noindex: !town.indexable,

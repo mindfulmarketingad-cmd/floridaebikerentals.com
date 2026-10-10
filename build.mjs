@@ -18,6 +18,7 @@ import {
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
+import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
@@ -219,6 +220,27 @@ for (const post of blog) {
     lastmod: isoDate(post.updated || post.date),
     group: "blog",
     search: { u: post.url, t: post.title, s: "Guide", d: post.description, k: `${post.title} ${(post.tags || []).join(" ")} ${post.category}`.toLowerCase(), w: 7 },
+  });
+}
+
+/* town riding guides under /trails/, from OpenStreetMap route data */
+const trailFile = join(ROOT, "data", "city-trails.json");
+const trailData = existsSync(trailFile) ? JSON.parse(readFileSync(trailFile, "utf8")) : { cities: {} };
+const cityGuides = cityTrailGuides(index, trailData);
+ctx.cityTrailSection = cityTrailHubSection(cityGuides);
+for (const guide of cityGuides) {
+  write(guide.url, cityTrailPage(site, guide, { ...ctx, trailData, guides: cityGuides }), {
+    priority: 0.7,
+    changefreq: "monthly",
+    group: "trails",
+    search: {
+      u: guide.url,
+      t: guide.title,
+      s: "Trails",
+      d: `${guide.data.routes.length} mapped bike routes around ${guide.city.name}.`,
+      k: `${guide.city.name} bike routes trails rules ${guide.data.routes.map((r) => r.name).join(" ")}`.toLowerCase(),
+      w: 6,
+    },
   });
 }
 

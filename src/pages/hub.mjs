@@ -130,6 +130,8 @@ ${breadcrumbs(crumbs)}
   </div>
 </section>
 
+${hub.slug === "trails" && ctx.cityTrailSection ? ctx.cityTrailSection : ""}
+
 ${adSlot(site, "")}
 
 <section class="section">

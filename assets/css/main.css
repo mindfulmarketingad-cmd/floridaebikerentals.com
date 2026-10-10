@@ -1141,3 +1141,30 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 .photo-credits { margin: 1.5rem 0; font-size: .85rem; color: var(--ink-mute); }
 .photo-credits summary { cursor: pointer; font-weight: 700; }
 .photo-credits ul { margin: .5rem 0 0; padding-left: 1.1rem; }
+
+/* ---------- town riding guides ---------- */
+.trail-jump { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.2rem; }
+.trail-jump a { padding: .45rem .9rem; border-radius: 999px; background: var(--blue-50); border: 1px solid var(--line); font-weight: 700; font-size: .9rem; color: var(--blue-800); text-decoration: none; }
+.fact-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+@media (max-width: 760px) { .fact-cards { grid-template-columns: 1fr; } }
+.fact-card { display: flex; flex-direction: column; gap: .25rem; padding: 1.1rem 1.2rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-s); }
+.fact-card__label { font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--blue-600); }
+.fact-card strong { font-size: 1.1rem; color: var(--ink); }
+.fact-card span:last-child { font-size: .9rem; color: var(--ink-soft); }
+.quick-answer { background: var(--white); border-left: 4px solid var(--blue-600); border-radius: var(--radius-s); padding: .9rem 1.1rem; margin: 1rem 0; }
+.quick-answer p { margin: .3rem 0 0; }
+.route-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; margin-bottom: 1rem; }
+.route-stats div { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-s); padding: .8rem; text-align: center; }
+.route-stats strong { display: block; font-size: 1.3rem; color: var(--blue-700); }
+.route-stats span { font-size: .8rem; color: var(--ink-mute); }
+.route-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.route { display: grid; grid-template-columns: 2rem minmax(0, 1fr) 6rem 8rem 8.5rem auto; align-items: center; gap: .8rem; margin: 0; padding: .7rem .9rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-s); }
+.route__n { width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; background: var(--blue-800); color: #fff; font-weight: 800; font-size: .85rem; }
+.route__name { font-weight: 700; }
+.route__fact { display: flex; flex-direction: column; font-size: .9rem; }
+.route__fact small { color: var(--ink-mute); font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; }
+@media (max-width: 760px) {
+  .route { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+  .route__fact { grid-column: 2; flex-direction: row; gap: .4rem; }
+  .route .btn { grid-column: 2; justify-self: start; }
+}
