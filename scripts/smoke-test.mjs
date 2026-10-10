@@ -71,7 +71,7 @@ await page.close();
 
 // 2. filter bar on a city page
 page=await b.newPage();
-await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/");
+await page.goto("http://localhost:8099/cities/key-west/");
 await page.waitForTimeout(400);
 const before=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
 await page.fill("[data-filter-form] input[name=q]","eaton");
@@ -85,7 +85,7 @@ await page.close();
 page=await b.newPage();
 const asked=[];
 page.on("request",r=>{ if(/leaflet|cartocdn|tile/i.test(r.url())) asked.push(r.url()); });
-await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/",{waitUntil:"load"});
+await page.goto("http://localhost:8099/cities/key-west/",{waitUntil:"load"});
 await page.waitForTimeout(600);
 const mapBits=await page.evaluate(()=>document.querySelectorAll(".map,.map-panel,[data-map-toggle]").length);
 ok(`maps removed (0 map nodes, ${asked.length} tile/library requests)`, mapBits===0&&asked.length===0);
@@ -334,7 +334,7 @@ await page.close(); await noGeo.close();
 // and the search narrows the list, the service filter narrows it, and "Where"
 // moves to another town
 page=await b.newPage({viewport:{width:1366,height:900}});
-await page.goto("http://localhost:8099/find/ebike-rentals-in-daytona-beach/",{waitUntil:"load"});
+await page.goto("http://localhost:8099/cities/daytona-beach/",{waitUntil:"load"});
 const dTitle=await page.title();
 const dH1=(await page.textContent("h1")).replace(/\s+/g," ").trim();
 const where=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
@@ -344,7 +344,7 @@ const heroFirst=await page.evaluate(()=>{
 });
 const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
 ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
-   /^Daytona Beach Bike Rentals/.test(dTitle) && /^Daytona Beach Bike & E-Bike Rentals$/.test(dH1));
+   /^\d+ Best Electric Ebike Rentals in Daytona Beach 20\d\d: Pricing, Location & Directions$/.test(dTitle) && /^Daytona Beach Bike & E-Bike Rentals$/.test(dH1));
 ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
    heroFirst && where==="Daytona Beach" && statRows===0);
 
@@ -360,7 +360,7 @@ await page.fill("#fs-q","avocado");
 await page.waitForTimeout(250);
 const typed=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
 ok(`Daytona text search narrows ${allShops} -> ${typed}`, typed===1);
-await Promise.all([page.waitForURL(/ormond-beach/),page.selectOption("[data-destination]","/find/ebike-rentals-in-ormond-beach/")]);
+await Promise.all([page.waitForURL(/ormond-beach/),page.selectOption("[data-destination]","/cities/ormond-beach/")]);
 const moved=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
 ok(`"Where" goes to another town's page (${new URL(page.url()).pathname}, preset "${moved}")`, moved==="Ormond Beach");
 await page.close();
@@ -369,7 +369,7 @@ await page.close();
 page=await b.newPage({viewport:{width:1366,height:900}});
 await page.goto("http://localhost:8099/find/",{waitUntil:"load"});
 const hubWhere=await page.$eval("[data-destination]",s=>s.options[s.selectedIndex].text);
-await Promise.all([page.waitForURL(/key-west/),page.selectOption("[data-destination]","/find/ebike-rentals-in-key-west/")]);
+await Promise.all([page.waitForURL(/key-west/),page.selectOption("[data-destination]","/cities/key-west/")]);
 ok(`/find/ hub: "Where" preset "${hubWhere}" and picking a town opens it`, hubWhere==="All of Florida" && /key-west/.test(page.url()));
 await page.close();
 
@@ -385,14 +385,14 @@ await page.close();
   ok(`thin town page removed and redirected to / (${vercel.length} redirects in vercel.json)`,
      !has(DIST+thin+"index.html") && vThin && vThin.destination==="/" && vThin.permanent===true && netlify.includes(`${thin}  /  301!`));
   ok(`legacy Daytona listicle URL redirects to the town page`,
-     vLegacy && vLegacy.destination==="/find/ebike-rentals-in-daytona-beach/");
+     vLegacy && vLegacy.destination==="/cities/daytona-beach/");
 }
 
 // 4o. featured images are the vector scenes, sharp at any width
 page=await b.newPage({viewport:{width:1366,height:900}});
 await page.goto("http://localhost:8099/blog/",{waitUntil:"load"});
 const blogBanner=await page.$eval(".page-banner img, .find-hero__art",i=>i.getAttribute("src")).catch(()=>"");
-await page.goto("http://localhost:8099/find/ebike-rentals-in-key-west/",{waitUntil:"load"});
+await page.goto("http://localhost:8099/cities/key-west/",{waitUntil:"load"});
 const keysHero=await page.$eval(".find-hero__art",i=>i.getAttribute("src"));
 const og=await page.$eval('meta[property="og:image"]',m=>m.content);
 ok(`featured images are scenes (blog ${blogBanner.split("/").pop()}, Key West hero ${keysHero.split("/").pop()})`,
@@ -411,11 +411,13 @@ await page.close();
      locs.length>300 && offHost.length===0 && thin.length===0);
 
   const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
-  const rv=vercel.find(r=>r.source==="/reviews/:slug/");
-  ok("/reviews/<shop>/ redirects to /partners/<shop>/", rv && rv.destination==="/partners/:slug/" && rv.permanent);
+  const rv=vercel.find(r=>r.source==="/reviews/bike-man-bike-rentals/");
+  const pv=vercel.find(r=>r.source==="/partners/bike-man-bike-rentals/");
+  ok("/reviews/<shop>/ and /partners/<shop>/ both go straight to /cities/<town>/<shop>/",
+     rv && pv && rv.destination==="/cities/key-west/bike-man-bike-rentals/" && pv.destination===rv.destination && rv.permanent && pv.permanent);
 
   page=await b.newPage();
-  await page.goto("http://localhost:8099/partners/bike-man-bike-rentals/",{waitUntil:"domcontentloaded"});
+  await page.goto("http://localhost:8099/cities/key-west/bike-man-bike-rentals/",{waitUntil:"domcontentloaded"});
   const bars=(await page.$$(".score-bars .row")).length;
   const robots=await page.getAttribute('meta[name="robots"]',"content");
   const ld=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
@@ -440,8 +442,8 @@ await page.close();
   const { readFileSync, readdirSync } = await import("node:fs");
   const read=(u)=>readFileSync(DIST+u+"index.html","utf8");
   const main=(h)=>(/<main id="main">([\s\S]*?)<\/main>/.exec(h)||[])[1]||"";
-  ok("Orlando town page links the Orlando guide", main(read("/find/ebike-rentals-in-orlando/")).includes('href="/blog/best-ebike-rentals-orlando-florida/"'));
-  ok("Santa Rosa Beach town page links the 30A guide", main(read("/find/ebike-rentals-in-santa-rosa-beach/")).includes('href="/blog/30a-ebike-rentals-guide/"'));
+  ok("Orlando town page links the Orlando guide", main(read("/cities/orlando/")).includes('href="/blog/best-ebike-rentals-orlando-florida/"'));
+  ok("Santa Rosa Beach town page links the 30A guide", main(read("/cities/santa-rosa-beach/")).includes('href="/blog/30a-ebike-rentals-guide/"'));
   const home=main(read("/"));
   ok("homepage links the 30A guide and the near-me page",
      home.includes('href="/blog/30a-ebike-rentals-guide/"') && home.includes('href="/find/ebike-rentals-near-me/"'));
@@ -450,6 +452,88 @@ await page.close();
     if(e.isDirectory()) walk(f); else if(f.endsWith(".html")&&/Class\s+3[^.<]{0,40}(has|have|carry|carries|subject\s+to)\s+a\s+minimum\s+(operating\s+)?age|minimum\s+(operating\s+)?age\s+of\s+16|16\s+(year\s+old\s+)?minimum\s+operating\s+age|may\s+operate\s+a\s+Class\s+3/i.test(readFileSync(f,"utf8"))) claims++;}};
   walk(DIST);
   ok(`no page states the unverified Class 3 minimum age (${claims} pages)`, claims===0);
+}
+
+// 4r. /cities/ and /find/ restructure, photos and the header call button
+{
+  const { readFileSync, existsSync: has, readdirSync } = await import("node:fs");
+  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const to=(src)=>(vercel.find(r=>r.source===src)||{}).destination;
+  const sources=new Set(vercel.map(r=>r.source));
+  const chained=vercel.filter(r=>sources.has(r.destination.split("#")[0]));
+  ok(`old town, region and topic URLs redirect in one hop (${vercel.length} rules, ${chained.length} chains)`,
+     to("/find/ebike-rentals-in-key-west/")==="/cities/key-west/" &&
+     to("/find/ebike-rentals-in-the-florida-keys/")==="/cities/" &&
+     to("/find/guided-ebike-tours-in-florida/")==="/find/ebike-tours/" &&
+     chained.length===0 && vercel.length<2000);
+  ok("one-shop town: /cities/<town>/ redirects to its shop, old /find/ URL to /",
+     to("/cities/daytona-beach-shores/")==="/cities/daytona-beach-shores/blue-coast-shop/" &&
+     to("/find/ebike-rentals-in-daytona-beach-shores/")==="/" && has(DIST+"/cities/daytona-beach-shores/blue-coast-shop/index.html"));
+  ok("no page lives at an old /partners/<shop>/ or /find/ebike-rentals-in-<town>/ address",
+     !has(DIST+"/partners/bike-man-bike-rentals") && !has(DIST+"/find/ebike-rentals-in-key-west"));
+
+  page=await b.newPage({viewport:{width:1366,height:900}});
+  await page.goto("http://localhost:8099/cities/",{waitUntil:"load"});
+  const hub=await page.evaluate(()=>({
+    h1:document.querySelector("h1").textContent.trim(),
+    regions:document.querySelectorAll(".city-region").length,
+    cards:document.querySelectorAll(".city-region .town-card").length,
+    counted:[...document.querySelectorAll(".city-region .town-card__meta")].every(m=>/\d+ listings?/.test(m.textContent)),
+  }));
+  ok(`/cities/ hub: ${hub.regions} regions, ${hub.cards} town cards, each with its listing count`, hub.regions>=8 && hub.cards>150 && hub.counted);
+
+  await page.goto("http://localhost:8099/find/",{waitUntil:"load"});
+  const tiles=await page.$$eval(".category-tile .category-tile__name",n=>n.map(x=>x.textContent.trim()));
+  ok(`/find/ is a category grid: ${tiles.join(", ")}`, tiles.includes("E-bike tours") && tiles.includes("Family-friendly") && tiles.includes("Delivery"));
+
+  await page.goto("http://localhost:8099/find/delivery/",{waitUntil:"load"});
+  const catWhere=await page.$eval("[data-destination]",s=>s.value);
+  const townLink=await page.$eval('.pagelink-cloud a[href^="/find/delivery/"]',a=>a.getAttribute("href"));
+  ok(`category page links its town pages (${townLink}) and "Where" stays in the category`, catWhere==="/find/delivery/" && /^\/find\/delivery\/[a-z-]+\/$/.test(townLink));
+  await page.goto("http://localhost:8099"+townLink,{waitUntil:"load"});
+  const ct=await page.evaluate(()=>({where:document.querySelector("[data-destination]").value,
+    crumbs:[...document.querySelectorAll(".crumbs a, nav[aria-label=Breadcrumb] a")].map(a=>a.getAttribute("href")),
+    items:document.querySelectorAll("[data-filter-item]").length}));
+  ok(`category + town page: ${ct.items} shops, "Where" preset to itself, crumbs back to category and /find/`,
+     ct.where===townLink && ct.items>=2 && ct.crumbs.includes("/find/delivery/") && ct.crumbs.includes("/find/"));
+
+  // Listing pages: breadcrumb through the city, photo never upscaled
+  await page.goto("http://localhost:8099/cities/key-west/bike-man-bike-rentals/",{waitUntil:"load"});
+  const lp=await page.evaluate(()=>({crumbs:[...document.querySelectorAll(".crumbs a, nav[aria-label=Breadcrumb] a")].map(a=>a.getAttribute("href"))}));
+  ok("listing page breadcrumb runs Home > Cities > Key West", lp.crumbs.includes("/cities/") && lp.crumbs.includes("/cities/key-west/"));
+
+  // No listing image anywhere is hotlinked or drawn wider than its file
+  await page.goto("http://localhost:8099/cities/daytona-beach/",{waitUntil:"load"});
+  await page.evaluate(()=>window.scrollTo(0,document.body.scrollHeight)); await page.waitForTimeout(600);
+  const imgs=await page.$$eval("main img",n=>n.map(i=>({src:i.getAttribute("src"),w:i.clientWidth,nw:i.naturalWidth,ok:i.complete&&i.naturalWidth>0})));
+  const remote=imgs.filter(i=>/^https?:/.test(i.src));
+  const broken=imgs.filter(i=>!i.ok);
+  const stretched=imgs.filter(i=>i.nw && !/\.svg$/.test(i.src) && i.w>i.nw*1.05);
+  ok(`Daytona page: ${imgs.length} images, ${remote.length} hotlinked, ${broken.length} broken, ${stretched.length} upscaled`,
+     imgs.length>3 && remote.length===0 && broken.length===0 && stretched.length===0);
+  await page.close();
+
+  // Header call button on every page
+  page=await b.newPage({viewport:{width:390,height:800}});
+  for (const path of ["/","/cities/","/blog/florida-ebike-laws/"]) {
+    await page.goto("http://localhost:8099"+path,{waitUntil:"domcontentloaded"});
+    const call=await page.evaluate(()=>{const a=document.querySelector(".site-header .header-call");
+      if(!a) return null; const r=a.getBoundingClientRect();
+      return {href:a.getAttribute("href"),text:a.textContent.replace(/\s+/g," ").trim(),visible:r.width>0&&r.right<=innerWidth,overflow:document.documentElement.scrollWidth>innerWidth};});
+    ok(`${path}: header shows "${call&&call.text}" -> ${call&&call.href} at 390px`,
+       call && call.href==="tel:+13053631922" && /Rent Now/.test(call.text) && /305/.test(call.text) && call.visible && !call.overflow);
+  }
+  await page.close();
+}
+
+// 4s. town pages carry location & directions for every shop and an honest pricing section
+{
+  const { readFileSync } = await import("node:fs");
+  const h=readFileSync(DIST+"/cities/key-west/index.html","utf8");
+  const shops=(h.match(/data-filter-item/g)||[]).length;
+  const rows=((/<section[^>]*id="location"[\s\S]*?<\/section>/.exec(h)||[""])[0].match(/<tr>/g)||[]).length-1; // less the header row
+  ok(`Key West: location table has a row per shop (${rows}/${shops}) and a pricing section that quotes no rate`,
+     rows===shops && /id="pricing"/.test(h) && !/id="pricing"[\s\S]{0,1500}\$\d/.test(h));
 }
 
 // 5. nav toggle on mobile

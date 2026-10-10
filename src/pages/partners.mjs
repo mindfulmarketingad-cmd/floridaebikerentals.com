@@ -120,8 +120,8 @@ ${adSlot(site, "")}
     ${linkCloud(
       index.cities.slice(0, 60).map((c) => ({ href: c.url, label: c.name, count: c.listings.length }))
     )}
-    <p class="mt-2"><a class="btn btn--outline btn--sm" href="/find/">All ${esc(
-      String(index.cities.length)
+    <p class="mt-2"><a class="btn btn--outline btn--sm" href="/cities/">All ${esc(
+      String(index.cities.length + index.thinCities.length)
     )} towns</a></p>
     <h2 class="mt-3">Browse by region</h2>
     ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
@@ -192,9 +192,19 @@ export function partnerPage(site, listing, { listings, index, blog }) {
   const nearby = nearbyListings(listing, listings, 6);
   const crumbs = [
     HOME_CRUMB,
-    PARTNERS_CRUMB,
+    { href: "/cities/", label: "Cities" },
+    ...(city ? [{ href: city.url, label: listing.city }] : []),
     { href: listing.url, label: listing.name },
   ];
+  // Every category this shop is listed under, at the most local page there is.
+  const listedUnder = (index.categories || [])
+    .filter((c) => c.match(listing))
+    .map((c) => {
+      const town = c.towns.find((t) => t.city.slug === listing.citySlug && t.ownPage);
+      return town
+        ? { href: town.url, label: `${c.name} in ${listing.city}` }
+        : { href: c.url, label: `${c.name} in Florida` };
+    });
   const tel = phoneHref(listing.phone);
   const rankInCity = city ? city.listings.findIndex((l) => l.slug === listing.slug) + 1 : 0;
 
@@ -305,25 +315,28 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 
     ${adSlot(site, "")}
 
-    ${figure(secondPhotoFor(listing.slug), {
-      alt: `Riding a rented e-bike around ${listing.city}, Florida - ${secondPhotoFor(listing.slug).alt}`,
-      caption: `Illustrative photo of e-bike riding in Florida, not of ${listing.name}.`,
-      className: "figure--stock",
-    })}
+    ${
+      listedUnder.length
+        ? `<h2 class="mt-3">Where we list ${esc(listing.name)}</h2>
+    <ul class="pagelink-cloud">${listedUnder
+      .map((l) => `<li><a href="${attr(l.href)}">${esc(l.label)}</a></li>`)
+      .join("")}</ul>`
+        : ""
+    }
 
     <h2 class="mt-3">Other e-bike rentals near ${esc(listing.city)}</h2>
-    <div class="grid grid--3">
+    <div class="town-cards town-cards--3">
       ${nearby
-        .map((l) =>
-          linkCard({
-            href: l.url,
-            title: l.name,
-            meta: `${l.city}, FL${typeof l.distance === "number" ? ` · ${l.distance.toFixed(1)} mi away` : ""}${
-              l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""
-            }`,
-            text: clamp(summaryFor(l), 110),
-            more: "View listing",
-          })
+        .map(
+          (l) => `<a class="town-card" href="${attr(l.url)}">
+        <span class="town-card__media">${photo(l)}</span>
+        <span class="town-card__body">
+          <span class="town-card__name">${esc(l.name)}</span>
+          <span class="town-card__meta">${esc(l.city)}, FL${typeof l.distance === "number" ? ` · ${l.distance.toFixed(1)} mi away` : ""}${
+            l.rating ? ` · ${l.rating.toFixed(1)} stars` : ""
+          }</span>
+        </span>
+      </a>`
         )
         .join("")}
     </div>

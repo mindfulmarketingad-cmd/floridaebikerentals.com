@@ -4,8 +4,7 @@
  * Featured images are illustrations drawn by scripts/make-scenes.mjs: vector
  * art, sharp at any width. The photographs that used to fill that role were
  * 499-800px wide and stretched across a 1,180px banner, so every featured image
- * on the site looked soft. Two of them are still wide enough for the smaller
- * in-content figures and stay in that rotation only.
+ * on the site looked soft, so they are no longer used.
  *
  * Nothing here is a photograph of a listed business or of a specific town.
  * Illustrations are captioned as illustrations, and photos beside a specific
@@ -67,29 +66,12 @@ export const SCENES = [
   },
 ];
 
-/** Photographs still sharp enough for the in-content figures (about 580px wide). */
-const FIGURE_PHOTOS = [
-  {
-    id: "cruiser",
-    src: "/assets/img/ebike-cruiser-beachfront.webp",
-    width: 800,
-    height: 800,
-    alt: "Rider on an electric beach cruiser moving along a seafront promenade",
-    caption: "The step-through beach cruiser is the most rented e-bike style in Florida.",
-    themes: ["cruiser", "town", "rental", "promenade"],
-  },
-  {
-    id: "coastal",
-    src: "/assets/img/couple-ebike-coastal-path.avif",
-    width: 750,
-    height: 1132,
-    alt: "Two riders on electric bikes on a sandy coastal path with the ocean behind them",
-    caption: "Coastal paths are where an e-bike earns its keep: flat, exposed and windy.",
-    themes: ["coast", "couple", "beach", "tour"],
-  },
-];
-
-export const PHOTOS = [...SCENES, ...FIGURE_PHOTOS];
+/**
+ * Every image a page can feature. Only the drawn scenes: the stock photos that
+ * used to sit here were 750-800px files shown at up to 1,180px, which is what
+ * made them look stretched and soft.
+ */
+export const PHOTOS = [...SCENES];
 
 /**
  * The scene that suits a region, so a town page shows the kind of place it is:

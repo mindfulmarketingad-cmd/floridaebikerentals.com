@@ -125,7 +125,7 @@ ${breadcrumbs([HOME_CRUMB, { href: "/sitemap/", label: "Sitemap" }])}
     </div>
     ${statRow([
       { value: String(stats.total), label: "Partner pages" },
-      { value: String(index.cities.length + index.regions.length + index.topics.length), label: "Find pages" },
+      { value: String(index.cities.length + index.categories.reduce((n, c) => n + 1 + c.towns.filter((t) => t.ownPage).length, 0)), label: "City and category pages" },
       { value: String(blog.length), label: "Guides" },
     ])}
     ${banner(photoFor("sitemap"), { alt: `Florida Ebike Rentals sitemap - ${photoFor("sitemap").alt}` })}
@@ -137,11 +137,9 @@ ${section("Main pages", [
   ...FOOTER_LINKS.filter((l) => !HEADER_LINKS.some((h) => h.href === l.href)).map((l) => ({ href: l.href, label: l.label })),
 ], "tint")}
 
-${section("Regions", index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
-
 ${section(
-  "Find pages by topic",
-  index.topics.map((t) => ({ href: t.url, label: t.title, count: t.listings.length })),
+  "Find by category",
+  index.categories.map((t) => ({ href: t.url, label: t.name, count: t.listings.length })),
   "tint"
 )}
 

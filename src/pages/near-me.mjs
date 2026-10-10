@@ -159,10 +159,10 @@ ${adSlot(site, "")}
         <p>Location sorting is the fastest way in when you are already somewhere. If you are planning
         a trip instead, the town pages are the better starting point — each one lists every shop in
         that town with hours, phone numbers and what they rent.</p>
-        <p>Every listing here is a real business pulled from public Google Maps data, refreshed
-        periodically. We do not take bookings or commission on rentals: you call the shop direct.</p>
-        <p><a class="btn btn--outline" href="/find/">All ${esc(
-          String(index.cities.length)
+        <p>Every listing here is a real business we pulled from public Google Maps data, and we refresh
+        it periodically. We do not take bookings or commission on rentals: you call the shop direct.</p>
+        <p><a class="btn btn--outline" href="/cities/">All ${esc(
+          String(index.cities.length + index.thinCities.length)
         )} Florida towns</a></p>
       </div>
     </div>

@@ -4,16 +4,15 @@ import { esc, attr, jsonLd } from "./util.mjs";
 /* --------------------------------------------------------------- config */
 
 export const HEADER_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/blog/", label: "Blog" },
-  { href: "/trails/", label: "Trails" },
+  { href: "/cities/", label: "Cities" },
+  { href: "/find/", label: "Find" },
   { href: "/tours/", label: "Tours" },
+  { href: "/trails/", label: "Trails" },
+  { href: "/blog/", label: "Blog" },
   { href: "/costs/", label: "Costs" },
   { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
-  { href: "/find/", label: "Find" },
-  { href: "/partners/", label: "Partners" },
-  { href: "/search/", label: "Search", cta: true },
+  { href: "/search/", label: "Search" },
 ];
 
 export const FOOTER_LINKS = [
@@ -179,7 +178,7 @@ function promoBanner(site) {
 </aside>`;
 }
 
-function header(current) {
+function header(current, site) {
   const items = HEADER_LINKS.map((link) => {
     const active = link.href === current || (link.href !== "/" && current.startsWith(link.href));
     return `<li${link.cta ? ' class="nav-cta"' : ""}><a href="${attr(link.href)}"${
@@ -198,8 +197,20 @@ function header(current) {
     <nav class="main-nav" id="site-nav" aria-label="Primary">
       <ul>${items}</ul>
     </nav>
+    ${headerCall(site)}
   </div>
 </header>`;
+}
+
+/** The site-wide call button: "Rent Now" with the number, on every page. */
+function headerCall(site) {
+  const phone = site.phone;
+  if (!phone || !phone.number) return "";
+  return `<a class="header-call" href="tel:${attr(phone.number)}" aria-label="${attr(`${phone.label || "Rent Now"}: call ${phone.display || phone.number}`)}">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>
+      <span class="header-call__label">${esc(phone.label || "Rent Now")}</span>
+      <span class="header-call__number">${esc(phone.display || phone.number)}</span>
+    </a>`;
 }
 
 function footer(site, extras) {
@@ -353,7 +364,7 @@ ${adsenseLoader(site)}
   }>
 <a class="skip-link" href="#main">Skip to content</a>
 ${promoBanner(site)}
-${header(path)}
+${header(path, site)}
 <main id="main">
 ${body}
 </main>

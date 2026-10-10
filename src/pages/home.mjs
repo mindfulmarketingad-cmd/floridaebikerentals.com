@@ -3,7 +3,7 @@ import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
-  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta,
+  adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta, photo,
 } from "../components.mjs";
 
 export const HOME_FAQS = [
@@ -55,9 +55,7 @@ export function homePage(site, { listings, index, blog, stats }) {
     .map(
       (l, i) => `<a class="slide" href="${attr(l.url)}">
       <span class="slide__media">${
-        l.photo
-          ? `<img src="${attr(l.photo)}" alt="${attr(`${l.name} e-bike rentals in ${l.city}, Florida`)}" loading="${i < 2 ? "eager" : "lazy"}"${i === 0 ? ' fetchpriority="high"' : ""} decoding="async" referrerpolicy="no-referrer" data-fallback="1" width="800" height="500">`
-          : ""
+        photo(l, { eager: i < 2 })
       }${l.rating >= 4.8 ? '<span class="slide__badge">Top rated</span>' : ""}</span>
       <span class="slide__body">
         <span class="slide__name">${esc(l.name)}</span>

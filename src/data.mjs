@@ -13,73 +13,124 @@ export function citySlug(city) {
   return slugify(city);
 }
 
-/** Topic hubs: curated cross-cuts of the directory that people actually search for. */
-export const TOPICS = [
+const tagged = (tag) => (l) => (l.tags || []).includes(tag);
+const sevenDays = (l) => (l.hours || []).filter((h) => !h.closed).length === 7;
+/** Google's "Children" attributes: good for kids, kids' discounts, family discount. */
+const familyFriendly = (l) => (l.about || []).some((g) => g.group === "Children" && g.items.length);
+
+/**
+ * The categories /find/ is organised by. Each is a cross-cut of the directory
+ * backed by a field in the listing data, never by a guess: a shop is only in
+ * "E-bike tours" if its public profile says it runs tours. Categories the data
+ * cannot support (child seats, for example, which no profile records) are left
+ * out rather than approximated.
+ *
+ * `legacy` is the URL the same list used to live at, redirected here.
+ */
+export const CATEGORIES = [
   {
-    slug: "guided-ebike-tours-in-florida",
+    slug: "ebike-rentals",
+    name: "E-bike rentals",
+    title: "E-Bike Rentals in Florida",
+    h1: "E-Bike Rentals in Florida",
+    blurb: "Shops that rent electric bikes, not just sell them.",
+    intro:
+      "We list every shop whose public profile says it both rents bikes and carries electric bikes, ranked by Google rating weighted against review volume.",
+    match: (l) => l.is_ebike && tagged("Rentals")(l),
+  },
+  {
+    slug: "ebike-tours",
+    name: "E-bike tours",
     title: "Guided E-Bike Tours in Florida",
     h1: "Guided E-Bike Tours in Florida",
+    blurb: "Operators that run guided rides as well as rentals.",
     intro:
-      "Operators across Florida that run guided electric bike tours as well as renting bikes. A guided ride is the fastest way to learn a town, and the only way to find the routes locals actually use.",
-    match: (l) => (l.tags || []).includes("Guided tours"),
+      "These operators list guided tours on their public profile. We include them because a guided ride is the quickest way to learn a town's routes, and the guide handles the bike fitting and the safety talk.",
+    match: tagged("Guided tours"),
+    legacy: "/find/guided-ebike-tours-in-florida/",
   },
   {
-    slug: "beach-ebike-rentals-in-florida",
+    slug: "beach-rentals",
+    name: "Beach rentals",
     title: "Beach E-Bike Rentals in Florida",
-    h1: "Beach E-Bike Rentals in Florida",
+    h1: "Beach Bike & E-Bike Rentals in Florida",
+    blurb: "Rental shops in Florida's beach towns.",
     intro:
-      "Rental shops in Florida's beach towns, from the Panhandle to the Keys. These are the shops within riding distance of the sand, where a bike is usually faster than finding a parking space.",
-    match: (l) => (l.tags || []).includes("Beach town"),
+      "We group rental shops in Florida's beach towns here, from the Panhandle to the Keys. In these towns a bike is often quicker than finding a parking space near the sand.",
+    match: (l) => tagged("Beach town")(l) && tagged("Rentals")(l),
+    legacy: "/find/beach-ebike-rentals-in-florida/",
   },
   {
-    slug: "electric-bike-shops-in-florida",
-    title: "Electric Bike Shops in Florida",
-    h1: "Electric Bike Shops in Florida",
-    intro:
-      "Shops that specialise in electric bikes — sales, service and rentals. If you are staying in Florida for a season and weighing renting against buying, start here.",
-    match: (l) => l.is_ebike,
-  },
-  {
-    slug: "ebike-rentals-with-delivery-in-florida",
+    slug: "delivery",
+    name: "Delivery",
     title: "E-Bike Rentals With Delivery in Florida",
     h1: "Florida E-Bike Rentals That Deliver",
+    blurb: "Bikes dropped at your hotel, condo or rental house.",
     intro:
-      "Shops whose public profile lists delivery. Having bikes dropped at your rental house or hotel removes the single most annoying part of a family rental: moving four bikes in a hire car.",
-    match: (l) => (l.tags || []).includes("Delivery available"),
+      "Every shop here lists delivery on its public profile. We pulled them out because getting bikes to a rental house without a rack is the hardest part of a family rental. Ask each shop about its delivery radius and fee.",
+    match: tagged("Delivery available"),
+    legacy: "/find/ebike-rentals-with-delivery-in-florida/",
   },
   {
-    slug: "top-rated-ebike-rentals-in-florida",
-    title: "Top Rated E-Bike Rentals in Florida",
-    h1: "Florida's Top Rated E-Bike Rentals",
+    slug: "family-friendly",
+    name: "Family-friendly",
+    title: "Family-Friendly Bike Rentals in Florida",
+    h1: "Family-Friendly Bike & E-Bike Rentals in Florida",
+    blurb: "Shops Google lists as good for kids or offering family discounts.",
     intro:
-      "The highest-rated rental shops in the directory, filtered so that a 5.0 star average from three reviews does not outrank a 4.9 from eight hundred. Rating plus review volume, statewide.",
-    match: (l) => l.rating >= 4.7 && l.reviews >= 60,
+      "We only include a shop here when its Google profile says it is good for kids or offers kids' or family discounts. Equipment such as child seats, trailers and tag-alongs is not recorded in public profiles, so ask the shop directly before you book.",
+    match: familyFriendly,
+    legacy: "/find/family-ebike-rentals-in-florida/",
   },
   {
-    slug: "ebike-and-scooter-rentals-in-florida",
+    slug: "ebike-shops",
+    name: "E-bike shops & repairs",
+    title: "Electric Bike Shops in Florida",
+    h1: "Electric Bike Shops in Florida",
+    blurb: "Specialists for sales, service and repairs.",
+    intro:
+      "These shops specialise in electric bikes, covering sales, service and often rentals. If you are in Florida for a season and deciding whether to rent or buy, we suggest starting here.",
+    match: (l) => l.is_ebike,
+    legacy: "/find/electric-bike-shops-in-florida/",
+  },
+  {
+    slug: "scooter-rentals",
+    name: "Scooters & mopeds",
     title: "E-Bike and Scooter Rentals in Florida",
     h1: "E-Bike and Scooter Rentals in Florida",
+    blurb: "Shops that rent scooters or mopeds alongside bikes.",
     intro:
-      "Shops that rent both electric bikes and scooters or mopeds. Useful when a group cannot agree, or when you want two wheels with a bit more range than a bike gives you.",
-    match: (l) => (l.tags || []).includes("Scooters"),
+      "These shops rent scooters or mopeds as well as bikes. That helps when a group can't agree, or when someone wants more range than a bike gives.",
+    match: tagged("Scooters"),
+    legacy: "/find/ebike-and-scooter-rentals-in-florida/",
   },
   {
-    slug: "ebike-rentals-open-seven-days-in-florida",
+    slug: "open-7-days",
+    name: "Open 7 days",
     title: "Florida E-Bike Rentals Open Seven Days a Week",
     h1: "Florida E-Bike Rentals Open Seven Days",
+    blurb: "Posted Google hours cover every day of the week.",
     intro:
-      "Shops whose posted Google hours cover all seven days. Handy when your only free morning is a Sunday, which is exactly when half of Florida's bike shops are shut.",
-    match: (l) => (l.hours || []).filter((h) => !h.closed).length === 7,
+      "Every shop here posts Google hours for all seven days. That matters when Sunday morning is your only free time. Seasonal hours change, so we always suggest calling first.",
+    match: sevenDays,
+    legacy: "/find/ebike-rentals-open-seven-days-in-florida/",
   },
   {
-    slug: "family-ebike-rentals-in-florida",
-    title: "Family E-Bike Rentals in Florida",
-    h1: "Family Friendly E-Bike Rentals in Florida",
+    slug: "top-rated",
+    name: "Top rated",
+    title: "Top Rated E-Bike Rentals in Florida",
+    h1: "Florida's Top Rated E-Bike Rentals",
+    blurb: "4.7 stars or better, from at least 60 Google reviews.",
     intro:
-      "Well-reviewed rental shops in beach towns with paths that suit riding with children. Every shop here rents bikes rather than only selling them, and holds a strong public rating.",
-    match: (l) => (l.tags || []).includes("Rentals") && (l.tags || []).includes("Beach town") && l.rating >= 4.5,
+      "We set two bars for this list: at least 4.7 stars and at least 60 Google reviews. That way a perfect score from three reviews doesn't outrank a 4.9 from eight hundred.",
+    match: (l) => l.rating >= 4.7 && l.reviews >= 60,
+    legacy: "/find/top-rated-ebike-rentals-in-florida/",
   },
 ];
+
+/** A category needs this many shops statewide to get a page, and this many in a town for a town page. */
+export const MIN_CATEGORY_LISTINGS = 5;
+export const MIN_CATEGORY_TOWN_LISTINGS = 2;
 
 /** Curated search landing pages: real queries with their own indexable page. */
 export const SEARCH_QUERIES = [
@@ -371,15 +422,43 @@ function excludedSlugs() {
   return new Set((raw.listings || []).map((e) => e.slug));
 }
 
-export function loadListings() {
+/**
+ * Listing photos served from this site (see scripts/cache-photos.mjs), keyed by
+ * slug. The Google URLs in the raw export are never rendered: they expire.
+ */
+export function loadListingPhotos() {
+  const file = join(ROOT, "data", "listing-photos.json");
+  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+}
+
+export function listingUrl(l) {
+  return `/cities/${citySlug(l.city)}/${l.slug}/`;
+}
+
+/**
+ * Every listing, with its URL and its locally cached photo. `raw: true` keeps
+ * the original Google photo URL, which only the photo cache script needs.
+ */
+export function loadListings({ raw = false } = {}) {
   const payload = JSON.parse(readFileSync(join(ROOT, "data", "listings.json"), "utf8"));
   const excluded = excludedSlugs();
-  return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => ({
-    ...l,
-    url: `/partners/${l.slug}/`,
-    citySlug: citySlug(l.city),
-    regionSlug: regionSlug(l.region),
-  }));
+  const photos = raw ? {} : loadListingPhotos();
+  return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => {
+    const cached = photos[l.slug];
+    return {
+      ...l,
+      ...(raw
+        ? {}
+        : {
+            photo: cached ? cached.src : "",
+            photoWidth: cached ? cached.width : 0,
+            photoHeight: cached ? cached.height : 0,
+          }),
+      url: listingUrl(l),
+      citySlug: citySlug(l.city),
+      regionSlug: regionSlug(l.region),
+    };
+  });
 }
 
 /**
@@ -427,7 +506,7 @@ export function buildIndex(listings) {
           slug: listing.citySlug,
           region: listing.region,
           regionSlug: listing.regionSlug,
-          url: `/find/ebike-rentals-in-${listing.citySlug}/`,
+          url: `/cities/${listing.citySlug}/`,
           listings: [],
         });
       }
@@ -437,7 +516,7 @@ export function buildIndex(listings) {
       regions.set(listing.regionSlug, {
         name: listing.region,
         slug: listing.regionSlug,
-        url: `/find/ebike-rentals-in-${listing.regionSlug}/`,
+        url: `/cities/#${listing.regionSlug}`,
         listings: [],
         cities: [],
       });
@@ -467,17 +546,48 @@ export function buildIndex(listings) {
     region.cities.sort((a, b) => b.listings.length - a.listings.length || a.name.localeCompare(b.name));
   }
 
-  const topics = TOPICS.map((topic) => {
-    const matched = listings.filter(topic.match).sort((a, b) => b.score - a.score);
-    return { ...topic, url: `/find/${topic.slug}/`, listings: matched };
-  }).filter((t) => t.listings.length >= 5);
+  // A thin town has one shop, so its card and links go straight to that shop.
+  for (const city of thinCities) {
+    city.url = city.listings[0].url;
+    const region = regions.get(city.regionSlug);
+    if (region) region.thinCities = [...(region.thinCities || []), city];
+  }
+
+  const categories = CATEGORIES.map((cat) => {
+    const matched = listings.filter(cat.match).sort((a, b) => b.score - a.score);
+    const towns = [];
+    for (const city of cities.values()) {
+      const local = city.listings.filter(cat.match);
+      // A town gets its own category page only when the category is a real
+      // subset of the town: if every shop in town matches, that page would be
+      // a copy of the town page, so the link goes to the town page instead.
+      const own = local.length >= MIN_CATEGORY_TOWN_LISTINGS && local.length < city.listings.length;
+      if (!local.length) continue;
+      towns.push({
+        city,
+        listings: local,
+        url: own ? `/find/${cat.slug}/${city.slug}/` : city.url,
+        ownPage: own,
+      });
+    }
+    towns.sort((a, b) => b.listings.length - a.listings.length || a.city.name.localeCompare(b.city.name));
+    return { ...cat, url: `/find/${cat.slug}/`, listings: matched, towns };
+  }).filter((c) => c.listings.length >= MIN_CATEGORY_LISTINGS);
+
+  // Each town page links to its own slice of every category.
+  for (const city of cities.values()) city.categories = [];
+  for (const cat of categories) {
+    for (const town of cat.towns) {
+      if (town.ownPage) town.city.categories.push({ category: cat, url: town.url, count: town.listings.length });
+    }
+  }
 
   return {
     cities: Array.from(cities.values()).sort((a, b) => b.listings.length - a.listings.length || a.name.localeCompare(b.name)),
     citiesBySlug: cities,
     regions: Array.from(regions.values()).sort((a, b) => b.listings.length - a.listings.length),
     regionsBySlug: regions,
-    topics,
+    categories,
     thinCities: thinCities.sort((a, b) => a.slug.localeCompare(b.slug)),
   };
 }

@@ -489,7 +489,7 @@ export function tourPage(site, tour, tours, ctx) {
           : "Yes. Plenty of visitors pair a day on the water with a ride."
       } ${
         tour.citySlug
-          ? `See <a href="/find/ebike-rentals-in-${attr(tour.citySlug)}/">e-bike rentals in ${esc(
+          ? `See <a href="/cities/${attr(tour.citySlug)}/">e-bike rentals in ${esc(
               tour.location
             )}</a>`
           : `See our <a href="/partners/">directory of ${esc(
@@ -601,7 +601,7 @@ ${adSlot(site, "")}
   )} Florida towns</a> and sorts itself by distance from wherever you are.
         ${
           tour.citySlug
-            ? `Start with <a href="/find/ebike-rentals-in-${attr(tour.citySlug)}/">e-bike rentals in ${esc(
+            ? `Start with <a href="/cities/${attr(tour.citySlug)}/">e-bike rentals in ${esc(
                 tour.location
               )}</a>.`
             : ""

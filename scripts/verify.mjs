@@ -45,7 +45,9 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
     const title = decode(/<title>([\s\S]*?)<\/title>/.exec(html)?.[1] || "");
     if (!title) problems.push(`${pageUrl}: missing <title>`);
     else {
-      if (title.length > 70) problems.push(`${pageUrl}: title is ${title.length} chars — "${title}"`);
+      // Town pages use the owner's longer "Best Electric Ebike Rentals" format.
+      const maxTitle = /^\/cities\/[^/]+\/$/.test(pageUrl) ? 100 : 70;
+      if (title.length > maxTitle) problems.push(`${pageUrl}: title is ${title.length} chars — "${title}"`);
       const seen = titles.get(title);
       if (seen) problems.push(`${pageUrl}: duplicate title with ${seen}`);
       else titles.set(title, pageUrl);

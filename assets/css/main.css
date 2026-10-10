@@ -125,8 +125,19 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 }
 .main-nav .nav-cta a:hover { background: var(--blue-700); color: #fff; }
 
+.header-call {
+  display: inline-flex; align-items: center; gap: .45rem; flex-shrink: 0; padding: .55rem .95rem;
+  background: var(--blue-600); color: #fff; border-radius: var(--radius-s); font-weight: 800;
+  text-decoration: none; box-shadow: var(--shadow-s); white-space: nowrap;
+}
+.header-call:hover { background: var(--blue-700); color: #fff; }
+.header-call__number { font-weight: 600; opacity: .92; padding-left: .45rem; border-left: 1px solid rgba(255,255,255,.4); }
+@media (max-width: 1180px) { .main-nav a { padding: .55rem .6rem; font-size: .93rem; } }
+
 @media (max-width: 900px) {
   .brand img { width: 158px; }
+  .header-call { margin-left: auto; order: 2; }
+  .nav-toggle { order: 3; margin-left: 0; }
   .nav-toggle { display: inline-flex; }
   .main-nav {
     position: fixed; inset: var(--header-h) 0 auto 0; background: var(--white); margin: 0;
@@ -137,6 +148,15 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
   .main-nav ul { flex-direction: column; align-items: stretch; gap: 0; padding: .5rem 1.2rem 1.2rem; }
   .main-nav a { padding: .85rem .6rem; border-bottom: 1px solid var(--line-soft); border-radius: 0; }
   .main-nav .nav-cta a { margin: .8rem 0 0; text-align: center; border-radius: var(--radius-s); }
+}
+@media (max-width: 560px) {
+  .site-header__inner { gap: .5rem; }
+  .brand img { width: 128px; }
+  .header-call { display: grid; grid-template-columns: auto auto; column-gap: .4rem; padding: .35rem .65rem; line-height: 1.15; }
+  .header-call svg { grid-row: span 2; }
+  .header-call__label { font-size: .9rem; }
+  .header-call__number { border: 0; padding: 0; font-size: .74rem; }
+  .nav-toggle { padding: .5rem .6rem; }
 }
 
 /* ---------- hero ---------- */
@@ -485,12 +505,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .feature-groups ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
 .feature-groups li { margin: 0; }
 
+/* A shop's own photo, never wider than the 800px file behind it. */
 .photo-hero {
   border-radius: var(--radius-l); overflow: hidden; border: 1px solid var(--line);
-  box-shadow: var(--shadow-s); aspect-ratio: 16 / 9;
-  background: var(--blue-100) url("/assets/img/mark.svg") center / 72px no-repeat;
+  box-shadow: var(--shadow-s); max-width: 800px; background: var(--blue-50);
 }
-.photo-hero img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.photo-hero img { display: block; width: 100%; height: auto; aspect-ratio: 8 / 5; object-fit: cover; }
 
 /* review score bars */
 .score-bars { display: grid; gap: .4rem; margin: 0; }
@@ -947,7 +967,8 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 
 /* Nearby towns as picture cards. */
 .town-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
-@media (max-width: 900px) { .town-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.town-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) { .town-cards, .town-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .town-card {
   display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: var(--ink);
   background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-s);
@@ -1046,3 +1067,43 @@ a, button, summary, label, .slide { -webkit-tap-highlight-color: rgba(47, 99, 23
 .map-panel--open .map { height: clamp(360px, 58vh, 560px); }
 .map-caption { margin-top: .5rem; }
 
+
+/* A region illustration standing in for a shop with no photo. */
+img.is-illustration { object-fit: cover; object-position: 50% 72%; }
+
+/* ---------- category grid (/find/) ---------- */
+.category-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; }
+.category-grid--compact { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .7rem; }
+.category-tile {
+  display: flex; flex-direction: column; gap: .3rem; padding: 1.1rem 1.2rem; text-decoration: none;
+  color: var(--ink); background: var(--white); border: 1px solid var(--line); border-top: 4px solid var(--blue-600);
+  border-radius: var(--radius); box-shadow: var(--shadow-s); transition: transform .15s ease, box-shadow .15s ease;
+}
+.category-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); color: var(--ink); }
+.category-tile__name { font-family: var(--font-display); font-weight: 800; font-size: 1.12rem; color: var(--blue-800); }
+.category-tile__count { font-size: .85rem; font-weight: 700; color: var(--blue-600); }
+.category-tile__blurb { font-size: .92rem; color: var(--ink-soft); }
+.category-grid--compact .category-tile { padding: .8rem 1rem; }
+.category-grid--compact .category-tile__name { font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { .category-tile:hover { transform: none; } }
+
+/* ---------- /cities/ hub ---------- */
+.region-jump { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.6rem; }
+.region-jump a {
+  padding: .4rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--blue-50);
+  color: var(--blue-800); font-weight: 700; font-size: .9rem; text-decoration: none;
+}
+.region-jump a:hover { background: var(--blue-100); }
+.city-region { scroll-margin-top: calc(var(--header-h) + 1rem); padding: 1.4rem 0; border-top: 1px solid var(--line-soft); }
+.city-region__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem 1rem; margin-bottom: 1rem; }
+.city-region__head h2, .city-region__head p { margin: 0; }
+
+/* ---------- data tables (town "Location & directions") ---------- */
+.table-wrap { overflow-x: auto; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-s); }
+.data-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.data-table th, .data-table td { padding: .75rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line-soft); }
+.data-table thead th { background: var(--blue-50); color: var(--blue-800); font-size: .82rem; text-transform: uppercase; letter-spacing: .04em; }
+.data-table tbody tr:last-child > * { border-bottom: 0; }
+.data-table tbody th { font-weight: 700; }
+.data-table td:last-child { text-align: right; white-space: nowrap; }
+@media (max-width: 640px) { .data-table { min-width: 560px; } }

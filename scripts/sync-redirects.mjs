@@ -17,7 +17,8 @@ import { computeRedirects, vercelRedirects } from "../src/redirects.mjs";
 
 const file = join(ROOT, "vercel.json");
 const config = JSON.parse(readFileSync(file, "utf8"));
-const list = computeRedirects(buildIndex(loadListings()));
+const listings = loadListings();
+const list = computeRedirects(buildIndex(listings), listings);
 config.redirects = vercelRedirects(list);
 writeFileSync(file, `${JSON.stringify(config, null, 2)}\n`);
 console.log(`vercel.json: ${list.length} redirects`);

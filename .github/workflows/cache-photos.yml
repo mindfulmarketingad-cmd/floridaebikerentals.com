@@ -1,0 +1,55 @@
+name: Cache listing photos
+
+# Downloads each listing's Google photo into assets/img/listings/ and records
+# its real size in data/listing-photos.json, so the site serves every photo
+# from its own domain. Google's photo links expire, which is why hotlinked
+# photos disappeared. Run it after every listings import.
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-download photos that are already cached"
+        type: boolean
+        required: false
+        default: false
+  push:
+    branches: [claude/florida-ebike-rentals-site-44t7s5]
+    paths: [data/listings.json]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cache-photos
+  cancel-in-progress: false
+
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Download photos
+        timeout-minutes: 20
+        run: node scripts/cache-photos.mjs ${{ inputs.force == true && '--force' || '' }}
+
+      - name: Build and verify
+        run: npm run verify
+
+      - name: Commit the photos
+        run: |
+          git add assets/img/listings data/listing-photos.json
+          if git diff --cached --quiet; then
+            echo "No photo changes."
+            exit 0
+          fi
+          count=$(node -e "console.log(Object.keys(JSON.parse(require('fs').readFileSync('data/listing-photos.json','utf8'))).length)")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Cache listing photos ($count served from this site)"
+          git push

@@ -4,9 +4,17 @@ import {
   listicle, faqBlock, faqSchema, linkCard, linkCloud,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
-import { statsFor, nearbyCities } from "../data.mjs";
+import { statsFor } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, sceneForRegion } from "../images.mjs";
-import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
+import { findHero, resultsHead, NEAR_ME_URL } from "../find-hero.mjs";
+
+/**
+ * /find/ is the directory by what you need: a grid of categories (e-bike
+ * tours, delivery, family-friendly and so on), each with a statewide page at
+ * /find/<category>/ and a page per town at /find/<category>/<town>/ where the
+ * town has enough matching shops. The categories themselves are defined, with
+ * the data field behind each one, in CATEGORIES in src/data.mjs.
+ */
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const FIND_CRUMB = { href: "/find/", label: "Find" };
@@ -67,454 +75,139 @@ export function tagsIn(listings) {
     .map(([t]) => t);
 }
 
+/** One tile in a category grid. */
+export function categoryTile({ href, name, count, blurb }) {
+  return `<a class="category-tile" href="${attr(href)}">
+  <span class="category-tile__name">${esc(name)}</span>
+  ${count ? `<span class="category-tile__count">${esc(String(count))} ${plural(count, "shop")}</span>` : ""}
+  ${blurb ? `<span class="category-tile__blurb">${esc(blurb)}</span>` : ""}
+</a>`;
+}
+
 /* ------------------------------------------------------------ find hub */
 
-export function findHub(site, { index, listings, stats }) {
+export function findHub(site, { index, stats }) {
+  const scene = photoFor("find");
   const body = `
 ${findHero({
-  crumbs: [HOME_CRUMB, { href: "/find/", label: "Find" }],
+  crumbs: [HOME_CRUMB, FIND_CRUMB],
   h1: "Find Bike & E-Bike Rentals in Florida",
-  lead: `${stats.total} rental shops across ${stats.cities} Florida towns. Choose a town or region, or let us sort every shop by distance from you.`,
-  scene: photoFor("find"),
+  lead: `Choose what you need, and we will show you every Florida shop that offers it, ranked by Google rating and review count. ${stats.total} shops across ${stats.cities} towns.`,
+  scene,
   index,
   current: "/find/",
   filters: false,
 })}
 
-<section class="section section--tint">
-  <div class="wrap">
-    <div class="callout callout--lead">
-      <div>
-        <h2>Already somewhere? Skip the browsing.</h2>
-        <p class="muted">Share your location and every shop in the directory re-sorts by how far it
-        is from you, closest first, with the distance on each one.</p>
-      </div>
-      <a class="btn btn--blue" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
-    </div>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap">
-    <h2>Browse by region</h2>
-    <div class="grid grid--3 mt-2">
-      ${index.regions
-        .map((region) =>
-          linkCard({
-            href: region.url,
-            title: `E-bike rentals in ${region.name}`,
-            meta: `${region.listings.length} partners · ${region.cities.length} towns`,
-            text: region.cities.slice(0, 5).map((c) => c.name).join(", "),
-            more: "Open region",
-          })
-        )
+    <h2>Browse by category</h2>
+    <div class="category-grid mt-2">
+      ${index.categories
+        .map((c) => categoryTile({ href: c.url, name: c.name, count: c.listings.length, blurb: c.blurb }))
         .join("")}
+      ${categoryTile({ href: NEAR_ME_URL, name: "Near me", blurb: "Every shop sorted by distance from where you are." })}
+      ${categoryTile({ href: "/cities/", name: "By city", blurb: `All ${index.cities.length + index.thinCities.length} Florida towns we list.` })}
     </div>
   </div>
 </section>
 
 ${adSlot(site, "")}
 
-<section class="section">
-  <div class="wrap">
-    <h2>Browse by what you need</h2>
-    <div class="grid grid--3 mt-2">
-      ${index.topics
-        .map((topic) =>
-          linkCard({
-            href: topic.url,
-            title: topic.title,
-            meta: `${topic.listings.length} ${plural(topic.listings.length, "shop")}`,
-            text: clamp(topic.intro, 120),
-            more: "Open list",
-          })
-        )
-        .join("")}
-    </div>
-  </div>
-</section>
-
 <section class="section section--tint">
-  <div class="wrap">
-    ${figure(secondPhotoFor("find"), { alt: `Riding a rented e-bike in Florida - ${secondPhotoFor("find").alt}` })}
-    <h2>All Florida towns with e-bike rentals</h2>
-    <p class="muted">${esc(String(index.cities.length))} towns, ordered by how many rental partners we
-    track in each.</p>
-    ${linkCloud(
-      index.cities.map((city) => ({
-        href: city.url,
-        label: `${city.name} e-bike rentals`,
-        count: city.listings.length,
-      }))
-    )}
+  <div class="wrap grid grid--2 find-guide">
+    ${figure(secondPhotoFor("find"), { alt: secondPhotoFor("find").alt })}
+    <div class="prose">
+    <h2>How we sort shops into categories</h2>
+    <p>Each category comes from a specific field in a shop's public Google profile, not from our own
+    guesswork. A shop is listed under "E-bike tours" only if its profile says it runs tours, and under
+    "Delivery" only if its profile lists delivery. Profiles can be out of date, so we always suggest
+    calling the shop to confirm before you book.</p>
+    <p>Some things renters ask about, such as child seats, trailers and tag-along bikes, are not
+    recorded in public profiles. We don't list categories we can't verify. For those, the
+    <a href="/find/family-friendly/">family-friendly</a> shops are a good place to start your calls.</p>
+    </div>
   </div>
 </section>
 ${adSlotScript(site, 1)}
 `;
 
   return page(site, {
-    title: `Find E-Bike Rentals in Florida - ${stats.cities} Towns, ${stats.total} Shops`,
-    description: `Browse Florida e-bike rentals by region and town. ${stats.total} rental partners across ${stats.cities} Florida towns, ranked by Google rating and review volume.`,
+    title: `Find E-Bike Rentals in Florida by Category - ${stats.total} Shops`,
+    description: clamp(
+      `Find Florida e-bike rentals by what you need: guided tours, delivery, beach rentals, family-friendly shops, scooters and more. ${stats.total} shops ranked by Google rating.`
+    ),
     path: "/find/",
     body,
-    ogImage: photoFor("find").src,
+    ogImage: scene.og,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, [HOME_CRUMB, FIND_CRUMB]),
       {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
-        name: "Find E-Bike Rentals in Florida",
+        name: "Find e-bike rentals in Florida by category",
         url: `${site.url}/find/`,
-        description: `Florida e-bike rental directory covering ${stats.cities} towns.`,
         isPartOf: { "@id": `${site.url}/#website` },
       },
     ],
   });
 }
 
-/* --------------------------------------------------------- region page */
-
-export function findRegion(site, region, { index, blog }) {
-  const stats = statsFor(region.listings);
-  const top = region.listings.slice(0, 30);
-  const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: region.url, label: region.name }];
-  const townNames = region.cities.slice(0, 6).map((c) => c.name);
-
-  const faqs = [
-    {
-      q: `Where can I rent an e-bike in ${region.name}?`,
-      a: `<p>We track ${stats.total} rental partners across ${stats.cities} ${plural(
-        stats.cities,
-        "town"
-      )} in ${esc(region.name)}, including ${esc(commaList(townNames))}. The list on this page is ordered by Google rating weighted against review volume, so the shops with a proven track record appear first.</p>`,
-    },
-    {
-      q: `Which town in ${region.name} has the most e-bike rental shops?`,
-      a: `<p>${esc(region.cities[0]?.name || region.name)} has the most in this region, with ${esc(
-        String(region.cities[0]?.listings.length || 0)
-      )} rental partners. ${
-        region.cities[1]
-          ? `${esc(region.cities[1].name)} is next with ${esc(String(region.cities[1].listings.length))}.`
-          : ""
-      }</p>`,
-    },
-    {
-      q: `Do ${region.name} rental shops deliver e-bikes?`,
-      a: `<p>Some do. ${esc(
-        String(region.listings.filter((l) => (l.tags || []).includes("Delivery available")).length)
-      )} shops in this region list delivery on their public profile, which usually means dropping bikes at a rental house, condo or hotel. Confirm the delivery radius and fee when you call — it is often free inside a few miles and charged beyond that.</p>`,
-    },
-    {
-      q: `What does it cost to rent an e-bike in ${region.name}?`,
-      a: `<p>Expect roughly $30 to $55 for two hours and $60 to $95 for a full day, with weekly rates from about $200. Beach towns run at the higher end in peak season. Our <a href="/blog/ebike-rental-cost-florida/">Florida e-bike rental pricing guide</a> covers deposits, delivery fees and add-ons.</p>`,
-    },
-  ];
-
-  const body = `
-${findHero({
-  crumbs,
-  h1: `${region.name} Bike & E-Bike Rentals`,
-  lead: `${stats.total} rental shops across ${stats.cities} ${plural(stats.cities, "town")} in ${region.name}, including ${commaList(
-    townNames
-  )}. Ranked by Google rating and review count.`,
-  scene: sceneForRegion(region.slug),
-  index,
-  current: region.url,
-  tags: tagsIn(top),
-  placeholder: "Shop, town or service",
-})}
-
-<section class="section section--results">
-  <div class="wrap">
-    ${resultsHead(`Top ${top.length} rental shops in ${region.name}`, top.length, "shops")}
-    ${listicle(top)}
-  </div>
-</section>
-
-<section class="section section--tint">
-  <div class="wrap">
-    <h2>Towns in ${esc(region.name)}</h2>
-    ${townCards(region.cities, sceneForRegion)}
-  </div>
-</section>
-
-${adSlot(site, "")}
-
-<section class="section section--tint">
-  <div class="wrap wrap-narrow">
-    <h2>${esc(region.name)} e-bike rental questions</h2>
-    ${faqBlock(faqs)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    ${figure(secondPhotoFor(region.slug), { alt: `Riding in ${region.name}, Florida - ${secondPhotoFor(region.slug).alt}` })}
-    <h2>Other Florida regions</h2>
-    ${linkCloud(
-      index.regions
-        .filter((r) => r.slug !== region.slug)
-        .map((r) => ({ href: r.url, label: r.name, count: r.listings.length }))
-    )}
-    <h3 class="mt-3">Guides worth reading first</h3>
-    <div class="grid grid--3 mt-2">
-      ${[...guidesFor(region.cities.map((c) => c.name), blog), ...blog]
-        .filter((post, i, all) => all.indexOf(post) === i)
-        .slice(0, 3)
-        .map((post) => linkCard({ href: post.url, title: post.title, meta: post.category, text: post.description, more: "Read the guide" }))
-        .join("")}
-    </div>
-  </div>
-</section>
-${adSlotScript(site, 1)}
-`;
-
-  return page(site, {
-    title: `E-Bike Rentals in ${region.name} - ${stats.total} Shops Compared`,
-    description: clamp(
-      `Compare ${stats.total} e-bike rental shops across ${region.name}, Florida — ${commaList(
-        townNames
-      )}. Hours, ratings, phone numbers and map.`
-    ),
-    path: region.url,
-    body,
-    ogImage: sceneForRegion(region.slug).src,
-    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
-    schema: [
-      breadcrumbSchema(site, crumbs),
-      faqSchema(faqs),
-      itemListSchema(site, top, { name: `E-bike rentals in ${region.name}`, url: region.url }),
-    ],
-  });
+/** Links from one category to the others, and to its towns. */
+function categoryLinks(index, category, { exclude = "" } = {}) {
+  return `<div class="category-grid category-grid--compact mt-2">${index.categories
+    .filter((c) => c.slug !== exclude)
+    .map((c) => categoryTile({ href: c.url, name: c.name, count: c.listings.length }))
+    .join("")}</div>`;
 }
 
-/* ----------------------------------------------------------- city page */
+/* ------------------------------------------------------ category page */
 
-/**
- * A town page. Built around what Search Console shows people typing: they
- * search "<town> bike rentals" and "e bikes <town>" far more than "e-bike
- * rentals in <town>", so that phrasing leads the title and the heading. The
- * title and search bar come first; the ranked list follows immediately; local
- * detail, FAQs and the links out to other towns come after.
- */
-export function findCity(site, city, { index, townNotes, blog = [] }) {
-  const local = city.listings;
-  const n = local.length;
-  const notes = (townNotes && townNotes.get(city.slug)) || {};
-  const fill = (text) => String(text || "").replace(/\{count\}/g, String(n));
-  const near = nearbyCities(city, index.cities, 8);
-  const scene = sceneForRegion(city.regionSlug);
-  const crumbs = [
-    HOME_CRUMB,
-    FIND_CRUMB,
-    { href: `/find/ebike-rentals-in-${city.regionSlug}/`, label: city.region },
-    { href: city.url, label: city.name },
-  ];
-  const best = local[0];
-  const tagged = (tag) => local.filter((l) => (l.tags || []).includes(tag));
-  const withDelivery = tagged("Delivery available");
-  const withTours = tagged("Guided tours");
-  const withScooters = tagged("Scooters");
-  const withCarts = tagged("Golf carts");
-  const specialists = tagged("Electric bikes");
-  const openSeven = local.filter((l) => (l.hours || []).filter((h) => !h.closed).length === 7);
-  const names = (list) => esc(commaList(list.slice(0, 4).map((l) => l.name)));
-
-  const h1 = notes.h1 ? fill(notes.h1) : `${city.name} E-Bike & Bike Rentals`;
-  const lead = notes.lead
-    ? fill(notes.lead)
-    : `${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. Search them, filter by service, and book direct with the shop.`;
-
-  const faqs = [
-    ...(notes.faqs || []),
-    {
-      q: `Where can I rent a bike or e-bike in ${city.name}?`,
-      a: `<p>We track ${n} rental ${plural(n, "shop")} in ${esc(city.name)}. ${esc(best.name)} leads our ranking${
-        best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
-      }. Every listing above shows the address, phone number and today's hours, so you can call before you go.</p>`,
-    },
-    specialists.length
-      ? {
-          q: `Where can I buy an electric bike in ${city.name}?`,
-          a: `<p>Start with the e-bike specialists: ${names(specialists)}. Shops that focus on electric bikes usually sell as well as rent, and several will let a rental count towards a purchase — ask when you call.</p>`,
-        }
-      : null,
-    withScooters.length
-      ? {
-          q: `Can I rent a scooter in ${city.name}?`,
-          a: `<p>Yes. ${names(withScooters)} ${withScooters.length === 1 ? "lists" : "list"} scooter rentals alongside bikes. Filter the list above by "Scooters" to see just those shops.</p>`,
-        }
-      : null,
-    withCarts.length
-      ? {
-          q: `Can I rent a golf cart in ${city.name}?`,
-          a: `<p>${names(withCarts)} ${withCarts.length === 1 ? "rents" : "rent"} golf carts as well as bikes. Street-legal carts need a licensed driver, so check the shop's age rule before you book.</p>`,
-        }
-      : null,
-    {
-      q: `Do ${city.name} bike rental shops deliver?`,
-      a: withDelivery.length
-        ? `<p>${withDelivery.length} of the ${n} shops we track list delivery: ${names(withDelivery)}. Delivery is often free inside a short radius and charged beyond it, so ask when you call.</p>`
-        : `<p>None of the ${esc(city.name)} shops we track advertise delivery, though many arrange it on request for multi-day rentals. Shops elsewhere that do deliver are on our <a href="/find/ebike-rentals-with-delivery-in-florida/">delivery page</a>.</p>`,
-    },
-    {
-      q: `Are there guided e-bike tours in ${city.name}?`,
-      a: withTours.length
-        ? `<p>Yes — ${names(withTours)} ${withTours.length === 1 ? "runs" : "run"} guided rides as well as renting bikes. Tours are usually priced per person and run two to three hours.</p>`
-        : `<p>No ${esc(city.name)} shop in our directory advertises guided tours right now. See every Florida operator that does on the <a href="/find/guided-ebike-tours-in-florida/">guided tours page</a>, or <a href="/tours/">book a tour through Viator</a>.</p>`,
-    },
-    openSeven.length
-      ? {
-          q: `Which ${city.name} rental shops are open seven days a week?`,
-          a: `<p>${names(openSeven)} ${openSeven.length === 1 ? "posts" : "post"} hours for all seven days. Seasonal hours change in Florida beach towns, so confirm by phone before a Sunday ride.</p>`,
-        }
-      : null,
-    {
-      q: `Do I need a licence to ride an e-bike in ${city.name}?`,
-      a: `<p>No. Florida treats an electric bicycle with a motor of 750 W or less and working pedals as a bicycle, so no licence, registration or insurance is needed. Riders under 16 must wear a helmet, and rental shops set their own minimum ages. Towns set their own rules for sidewalks, beaches and trails — see our <a href="/blog/florida-ebike-laws/">Florida e-bike law guide</a>.</p>`,
-    },
-  ].filter(Boolean);
+export function categoryPage(site, category, { index }) {
+  const stats = statsFor(category.listings);
+  const shown = category.listings.slice(0, 40);
+  const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: category.url, label: category.name }];
+  const scene = photoFor(category.slug);
+  const towns = category.towns;
 
   const body = `
 ${findHero({
   crumbs,
-  h1,
-  lead,
+  h1: category.h1,
+  lead: category.intro,
   scene,
   index,
-  current: city.url,
-  tags: tagsIn(local),
-  placeholder: `Search ${city.name} shops`,
-})}
-
-<section class="section section--results">
-  <div class="wrap">
-    ${resultsHead(`${city.name} bike rental shops`, n, "shops")}
-    ${listicle(local)}
-    ${(() => {
-      const guides = guidesFor([city.name], blog);
-      return guides.length
-        ? `<div class="local-guides mt-3">
-      <h3>${esc(city.name)} riding guide${guides.length > 1 ? "s" : ""}</h3>
-      <div class="grid grid--${Math.min(3, guides.length)} mt-2">${guides
-        .map((post) => linkCard({ href: post.url, title: post.title, text: post.description, more: "Read the guide" }))
-        .join("")}</div>
-    </div>`
-        : "";
-    })()}
-  </div>
-</section>
-
-${
-  near.length
-    ? `<section class="section section--tint">
-  <div class="wrap">
-    <h2>Popular towns near ${esc(city.name)}</h2>
-    ${townCards(near.slice(0, 8), sceneForRegion)}
-  </div>
-</section>`
-    : ""
-}
-
-${adSlot(site, "")}
-
-<section class="section">
-  <div class="wrap">
-    <div class="grid grid--2 find-guide">
-      <div class="prose">
-        ${
-          notes.html ||
-          `<h2>Renting a bike in ${esc(city.name)}</h2>
-        <p>${esc(city.name)} sits in ${esc(city.region)}. The ${esc(String(n))} ${plural(n, "shop")} we track ${
-            n === 1 ? "holds" : "hold"
-          } ${esc(formatReviews(local.reduce((sum, l) => sum + (l.reviews || 0), 0)))} Google reviews between them. ${
-            withDelivery.length
-              ? `${withDelivery.length} ${plural(withDelivery.length, "shop")} ${withDelivery.length === 1 ? "lists" : "list"} delivery, which matters if you are staying in a rental house without a bike rack.`
-              : "Ask about delivery when you call — many Florida shops arrange it for multi-day rentals even when they do not advertise it."
-          }</p>`
-        }
-        <h2>Before you book</h2>
-        <p>Confirm four things with any shop: the class of bike you are getting, the minimum age for every
-        rider in your group, the size of the card hold, and whether helmets and locks are included. Our
-        <a href="/blog/ebike-rental-checklist/">pre-rental checklist</a> has the full list, and
-        <a href="/costs/">what it costs</a> covers day rates, deposits and damage waivers.</p>
-      </div>
-      ${figure(secondPhotoFor(city.slug), { alt: secondPhotoFor(city.slug).alt })}
-    </div>
-  </div>
-</section>
-
-<section class="section section--tint">
-  <div class="wrap wrap-narrow">
-    <h2>${esc(city.name)} bike rental FAQs</h2>
-    ${faqBlock(faqs)}
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <h2>Bike rentals across Florida</h2>
-    ${townGrid(index, { exclude: city.slug })}
-  </div>
-</section>
-${adSlotScript(site, 1)}
-`;
-
-  const defaultTitle = (withNearYou) =>
-    `${city.name} Bike Rentals: ${n} E-Bike Rental ${plural(n, "Shop")}${withNearYou ? " Near You" : ""}`;
-  const title = notes.title
-    ? fill(notes.title)
-    : defaultTitle(true).length <= 62
-      ? defaultTitle(true)
-      : defaultTitle(false);
-
-  return page(site, {
-    title,
-    description: clamp(
-      notes.description
-        ? fill(notes.description)
-        : `Compare ${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, FL: Google ratings, hours, phone numbers and who delivers.${
-            best ? ` ${best.name} leads our ranking.` : ""
-          }`,
-      165
-    ),
-    path: city.url,
-    body,
-    ogImage: best && best.photo ? best.photo : scene.src,
-    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
-    schema: [
-      breadcrumbSchema(site, crumbs),
-      faqSchema(faqs),
-      itemListSchema(site, local, { name: `Bike and e-bike rentals in ${city.name}, Florida`, url: city.url }),
-    ],
-  });
-}
-
-/* ---------------------------------------------------------- topic page */
-
-export function findTopic(site, topic, { index }) {
-  const stats = statsFor(topic.listings);
-  const shown = topic.listings.slice(0, 40);
-  const crumbs = [HOME_CRUMB, FIND_CRUMB, { href: topic.url, label: topic.title }];
-  const cities = [...new Set(shown.map((l) => l.city))].sort();
-
-  const body = `
-${findHero({
-  crumbs,
-  h1: topic.h1,
-  lead: topic.intro,
-  scene: photoFor(topic.slug),
-  index,
-  current: topic.url,
+  current: category.url,
+  category,
   tags: tagsIn(shown),
   placeholder: "Shop, town or service",
 })}
 
 <section class="section section--results">
   <div class="wrap">
-    ${resultsHead(`Top ${shown.length} of ${stats.total}`, shown.length, "shops")}
+    ${resultsHead(
+      shown.length < stats.total ? `Top ${shown.length} of ${stats.total} shops` : `${stats.total} shops`,
+      shown.length,
+      "shops"
+    )}
     ${listicle(shown)}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <h2>${esc(category.name)} by town</h2>
+    <p class="muted">We list ${esc(category.name.toLowerCase())} in ${towns.length} Florida ${plural(
+      towns.length,
+      "town"
+    )}.</p>
+    <ul class="pagelink-cloud">${towns
+      .map(
+        (t) =>
+          `<li><a href="${attr(t.url)}">${esc(t.city.name)} <span class="count">${t.listings.length}</span></a></li>`
+      )
+      .join("")}</ul>
   </div>
 </section>
 
@@ -522,30 +215,122 @@ ${adSlot(site, "")}
 
 <section class="section">
   <div class="wrap">
-    ${figure(secondPhotoFor(topic.slug), { alt: `${topic.h1} - ${secondPhotoFor(topic.slug).alt}` })}
-    <h2>Browse by region instead</h2>
-    ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
-    <h3 class="mt-3">Other ways to search</h3>
-    ${linkCloud(
-      index.topics
-        .filter((t) => t.slug !== topic.slug)
-        .map((t) => ({ href: t.url, label: t.title, count: t.listings.length }))
-    )}
+    ${figure(secondPhotoFor(category.slug), { alt: secondPhotoFor(category.slug).alt })}
+    <h2>Other categories</h2>
+    ${categoryLinks(index, category, { exclude: category.slug })}
   </div>
 </section>
 ${adSlotScript(site, 1)}
 `;
 
   return page(site, {
-    title: `${topic.title} - ${stats.total} Shops Compared`,
-    description: clamp(topic.intro),
-    path: topic.url,
+    title: `${category.title} - ${stats.total} Shops Compared`,
+    description: clamp(category.intro),
+    path: category.url,
     body,
-    ogImage: photoFor(topic.slug).src,
+    ogImage: scene.og,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
-      itemListSchema(site, shown, { name: topic.title, url: topic.url }),
+      itemListSchema(site, shown, { name: category.title, url: category.url }),
+    ],
+  });
+}
+
+/* ------------------------------------------- category + town page */
+
+/** Short, town-specific wording for each category's title and heading. */
+const TOWN_PHRASE = {
+  "ebike-rentals": (t) => `E-Bike Rentals in ${t}`,
+  "ebike-tours": (t) => `Guided E-Bike Tours in ${t}`,
+  "beach-rentals": (t) => `Beach Bike Rentals in ${t}`,
+  delivery: (t) => `${t} Bike Rentals That Deliver`,
+  "family-friendly": (t) => `Family-Friendly Bike Rentals in ${t}`,
+  "ebike-shops": (t) => `Electric Bike Shops in ${t}`,
+  "scooter-rentals": (t) => `Bike and Scooter Rentals in ${t}`,
+  "open-7-days": (t) => `${t} Bike Rentals Open 7 Days`,
+  "top-rated": (t) => `Top Rated Bike Rentals in ${t}`,
+};
+
+export function categoryTownPage(site, category, town, { index }) {
+  const { city, listings: local } = town;
+  const n = local.length;
+  const phrase = (TOWN_PHRASE[category.slug] || ((t) => `${category.name} in ${t}`))(city.name);
+  const crumbs = [
+    HOME_CRUMB,
+    FIND_CRUMB,
+    { href: category.url, label: category.name },
+    { href: town.url, label: city.name },
+  ];
+  const scene = sceneForRegion(city.regionSlug);
+  const best = local[0];
+  const others = city.categories.filter((c) => c.category.slug !== category.slug);
+
+  const body = `
+${findHero({
+  crumbs,
+  h1: `${phrase}, Florida`,
+  lead: `${n} of the ${city.listings.length} shops we list in ${city.name} match: ${category.blurb.charAt(0).toLowerCase()}${category.blurb.slice(1)}`,
+  scene,
+  index,
+  current: town.url,
+  category,
+  tags: tagsIn(local),
+  placeholder: `Search ${city.name} shops`,
+})}
+
+<section class="section section--results">
+  <div class="wrap">
+    ${resultsHead(`${n} ${plural(n, "shop")} in ${city.name}`, n, "shops")}
+    ${listicle(local)}
+    <p class="mt-2"><a class="btn btn--outline" href="${attr(city.url)}">All ${city.listings.length} shops in ${esc(
+      city.name
+    )}</a> <a class="btn btn--outline" href="${attr(category.url)}">${esc(category.name)} across Florida</a></p>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap wrap-narrow prose">
+    <h2>About this list</h2>
+    <p>${esc(category.intro)}</p>
+    <p>In ${esc(city.name)}, ${esc(best.name)} leads our ranking${
+      best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
+    }. We rank by Google rating weighted against review count, and we don't accept payment for placement.</p>
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+${
+  others.length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>More ways to search ${esc(city.name)}</h2>
+    <div class="category-grid category-grid--compact mt-2">${others
+      .map((c) => categoryTile({ href: c.url, name: c.category.name, count: c.count }))
+      .join("")}</div>
+  </div>
+</section>`
+    : ""
+}
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title: `${phrase}, FL - ${n} ${plural(n, "Shop")}`,
+    description: clamp(
+      `${n} ${plural(n, "shop")} in ${city.name}, Florida: ${category.blurb.charAt(0).toLowerCase()}${category.blurb.slice(1)} Compare Google ratings, hours and phone numbers.`
+    ),
+    path: town.url,
+    // Two shops is enough to be useful to someone browsing, but not to stand
+    // as its own search result next to the town page, so those stay unindexed.
+    noindex: n < 3,
+    body,
+    ogImage: best && best.photo ? best.photo : scene.og,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [
+      breadcrumbSchema(site, crumbs),
+      itemListSchema(site, local, { name: `${phrase}, Florida`, url: town.url }),
     ],
   });
 }

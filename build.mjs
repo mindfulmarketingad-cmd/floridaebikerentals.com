@@ -16,9 +16,10 @@ import {
   buildIndex, statsFor, assignTitles, loadShop, loadTours, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
-import { findHub, findRegion, findCity, findTopic } from "./src/pages/find.mjs";
+import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
+import { citiesHub, cityPage } from "./src/pages/cities.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
-import { computeRedirects, netlifyRedirects } from "./src/redirects.mjs";
+import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
@@ -31,8 +32,24 @@ import { summaryFor } from "./src/components.mjs";
 const DIST = join(ROOT, "dist");
 const written = new Map(); // url path -> { lastmod, priority, changefreq, group }
 const searchIndex = [];
+let redirectsBySource = new Map();
+
+/**
+ * Points every internal link at its final URL. Hand-written links in posts and
+ * templates still name old addresses (/partners/<shop>/, the old /find/ town
+ * pages); rewriting them here means no page ever links through a redirect.
+ */
+function resolveLinks(html) {
+  if (!redirectsBySource.size) return html;
+  return html.replace(/href="(\/[^"#?]*)([#?][^"]*)?"/g, (match, path, rest = "") => {
+    const to = redirectsBySource.get(path);
+    if (!to) return match;
+    return `href="${to}${to.includes("#") ? "" : rest}"`;
+  });
+}
 
 function write(urlPath, html, meta = {}) {
+  html = resolveLinks(html);
   const file = urlPath.endsWith(".html")
     ? join(DIST, urlPath.replace(/^\//, ""))
     : join(DIST, urlPath.replace(/^\//, ""), "index.html");
@@ -82,6 +99,8 @@ for (const tour of tours.tours) {
   if (tour.citySlug && !index.citiesBySlug.has(tour.citySlug)) delete tour.citySlug;
 }
 const townNotes = loadTownNotes();
+const redirects = computeRedirects(index, listings);
+redirectsBySource = redirectMap(redirects);
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, tours, townNotes };
 
 /* home */
@@ -92,32 +111,16 @@ write("/", homePage(site, ctx), {
   search: { u: "/", t: "Florida Ebike Rentals", s: "Home", d: site.description, k: "florida ebike rentals home directory electric bike", w: 20 },
 });
 
-/* find hub + regions + cities + topics */
-write("/find/", findHub(site, ctx), {
+/* /cities/: the directory by place */
+write("/cities/", citiesHub(site, ctx), {
   priority: 0.9,
   changefreq: "weekly",
   group: "find",
-  search: { u: "/find/", t: "Find E-Bike Rentals in Florida", s: "Find", d: "Browse every Florida region and town in the directory.", k: "find towns regions florida ebike rentals", w: 15 },
+  search: { u: "/cities/", t: "Florida cities with bike rentals", s: "Cities", d: "Every Florida town in the directory, with the number of shops in each.", k: "cities towns regions florida ebike rentals", w: 15 },
 });
 
-for (const region of index.regions) {
-  write(region.url, findRegion(site, region, ctx), {
-    priority: 0.8,
-    changefreq: "weekly",
-    group: "find",
-    search: {
-      u: region.url,
-      t: `E-bike rentals in ${region.name}`,
-      s: "Region",
-      d: `${region.listings.length} rental partners across ${region.cities.length} towns.`,
-      k: `${region.name} ${region.cities.slice(0, 12).map((c) => c.name).join(" ")}`.toLowerCase(),
-      w: 10,
-    },
-  });
-}
-
 for (const city of index.cities) {
-  write(city.url, findCity(site, city, ctx), {
+  write(city.url, cityPage(site, city, ctx), {
     priority: 0.8,
     changefreq: "weekly",
     group: "find",
@@ -125,11 +128,43 @@ for (const city of index.cities) {
       u: city.url,
       t: `E-bike rentals in ${city.name}, FL`,
       s: "Town",
-      d: `${city.listings.length} rental partner${city.listings.length === 1 ? "" : "s"} in ${city.name}.`,
+      d: `${city.listings.length} rental shops in ${city.name}.`,
       k: `${city.name} ${city.region} ${city.listings.slice(0, 6).map((l) => l.name).join(" ")}`.toLowerCase(),
       w: 8,
     },
   });
+}
+
+/* /find/: the directory by category, statewide and per town */
+write("/find/", findHub(site, ctx), {
+  priority: 0.9,
+  changefreq: "weekly",
+  group: "find",
+  search: { u: "/find/", t: "Find e-bike rentals by category", s: "Find", d: "Tours, delivery, beach rentals, family-friendly shops and more.", k: "find category tours delivery family beach scooters florida ebike rentals", w: 15 },
+});
+
+for (const category of index.categories) {
+  write(category.url, categoryPage(site, category, ctx), {
+    priority: 0.8,
+    changefreq: "weekly",
+    group: "find",
+    search: { u: category.url, t: category.title, s: "Find", d: category.blurb, k: `${category.name} ${category.title}`.toLowerCase(), w: 9 },
+  });
+  for (const town of category.towns.filter((t) => t.ownPage)) {
+    write(town.url, categoryTownPage(site, category, town, ctx), {
+      priority: 0.6,
+      changefreq: "weekly",
+      group: "find",
+      search: {
+        u: town.url,
+        t: `${category.name} in ${town.city.name}, FL`,
+        s: "Find",
+        d: `${town.listings.length} shops in ${town.city.name}.`,
+        k: `${category.name} ${town.city.name}`.toLowerCase(),
+        w: 5,
+      },
+    });
+  }
 }
 
 /* "near me": the biggest non-brand search cluster, which had no page of its own */
@@ -146,15 +181,6 @@ write(NEAR_ME_URL, nearMePage(site, ctx), {
     w: 11,
   },
 });
-
-for (const topic of index.topics) {
-  write(topic.url, findTopic(site, topic, ctx), {
-    priority: 0.7,
-    changefreq: "weekly",
-    group: "find",
-    search: { u: topic.url, t: topic.title, s: "Find", d: topic.intro.slice(0, 120), k: topic.title.toLowerCase(), w: 8 },
-  });
-}
 
 /* partners hub (paginated) + partner pages */
 const partnerPageCount = Math.ceil(listings.length / PARTNERS_PER_PAGE);
@@ -487,7 +513,6 @@ const SECURITY_HEADERS = `/*
 writeRaw("_headers", SECURITY_HEADERS);
 
 /* redirects: thin towns and legacy listicle URLs (see src/redirects.mjs) */
-const redirects = computeRedirects(index);
 writeRaw("_redirects", netlifyRedirects(redirects));
 
 writeRaw(

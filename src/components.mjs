@@ -5,6 +5,7 @@ import {
   commaList, plural, clamp, todayIndex,
 } from "./util.mjs";
 import { ROOT } from "./data.mjs";
+import { sceneForRegion } from "./images.mjs";
 
 /**
  * Maps are switched off site-wide from data/site.json (`map.enabled`). The
@@ -98,13 +99,20 @@ export function tagList(tags, limit = 5) {
     .join("")}</ul>`;
 }
 
+/**
+ * A listing's photo, served from this site at its real size. A shop with no
+ * photo gets its region's illustration, marked as such, so a list never shows
+ * an empty box.
+ */
 export function photo(listing, { className = "", sizes = "", eager = false } = {}) {
-  if (!listing.photo) return "";
-  return `<img src="${attr(listing.photo)}" alt="${attr(`${listing.name} — e-bike rentals in ${listing.city}, Florida`)}"${
+  const loading = `loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"`;
+  if (!listing.photo) {
+    const scene = sceneForRegion(listing.regionSlug);
+    return `<img src="${attr(scene.src)}" alt="" class="is-illustration${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.width}" height="${scene.height}">`;
+  }
+  return `<img src="${attr(listing.photo)}" alt="${attr(`${listing.name} in ${listing.city}, Florida`)}"${
     className ? ` class="${attr(className)}"` : ""
-  } loading="${eager ? "eager" : "lazy"}" decoding="async" referrerpolicy="no-referrer" data-fallback="1"${
-    sizes ? ` sizes="${attr(sizes)}"` : ""
-  } width="800" height="500">`;
+  } ${loading}${sizes ? ` sizes="${attr(sizes)}"` : ""} width="${listing.photoWidth}" height="${listing.photoHeight}">`;
 }
 
 /** Resolves a placement key to a real AdSense slot ID, or "" if none is set. */
@@ -143,7 +151,7 @@ export function adSlotScript(site, count, key = "default") {
 /* ------------------------------------------------------------- cards */
 
 export function listingCard(listing) {
-  return `<a class="card card--link" href="/partners/${attr(listing.slug)}/">
+  return `<a class="card card--link" href="${attr(listing.url)}">
   <h3>${esc(listing.name)}</h3>
   <p class="card__count">${esc(listing.city)}, FL · ${esc(listing.region)}</p>
   ${ratingBlock(listing)}
@@ -170,7 +178,7 @@ function hoursToday(listing) {
 }
 
 export function listicleItem(listing, rank, { showSummary = true } = {}) {
-  const url = `/partners/${attr(listing.slug)}/`;
+  const url = attr(listing.url);
   const facts = [];
   facts.push(`<li><b>Address</b> <span>${esc(listing.address || `${listing.city}, FL`)}</span></li>`);
   if (listing.phone) {
@@ -250,7 +258,7 @@ export function mapPoints(listings, startRank = 1) {
       lng: Number(l.lng.toFixed(5)),
       rating: l.rating || 0,
       reviews: l.reviews || 0,
-      url: `/partners/${l.slug}/`,
+      url: l.url,
       rank: startRank === 0 ? 0 : startRank + i,
     }));
 }
@@ -432,7 +440,7 @@ export function itemListSchema(site, listings, { name, url }) {
     itemListElement: listings.slice(0, 100).map((l, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `${site.url}/partners/${l.slug}/`,
+      url: `${site.url}${l.url}`,
       name: l.name,
     })),
   };
@@ -442,9 +450,9 @@ export function localBusinessSchema(site, listing) {
   const data = {
     "@context": "https://schema.org",
     "@type": "BicycleStore",
-    "@id": `${site.url}/partners/${listing.slug}/#business`,
+    "@id": `${site.url}${listing.url}#business`,
     name: listing.name,
-    url: `${site.url}/partners/${listing.slug}/`,
+    url: `${site.url}${listing.url}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: listing.street || undefined,
@@ -456,7 +464,7 @@ export function localBusinessSchema(site, listing) {
   };
   if (listing.phone) data.telephone = listing.phone;
   if (listing.website) data.sameAs = [listing.website];
-  if (listing.photo) data.image = listing.photo;
+  if (listing.photo) data.image = `${site.url}${listing.photo}`;
   if (typeof listing.lat === "number") {
     data.geo = { "@type": "GeoCoordinates", latitude: listing.lat, longitude: listing.lng };
   }

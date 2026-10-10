@@ -109,7 +109,7 @@ export function matchQuery(query, { listings, index, blog }) {
   for (const region of index.regions) {
     if (lower.includes(region.name.toLowerCase().replace(" & ", " and "))) pages.push({ href: region.url, label: region.name, count: region.listings.length });
   }
-  for (const topic of index.topics) {
+  for (const topic of index.categories) {
     const words = topic.title.toLowerCase().split(/\s+/);
     if (words.some((w) => w.length > 4 && lower.includes(w))) pages.push({ href: topic.url, label: topic.title, count: topic.listings.length });
   }

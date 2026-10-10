@@ -51,5 +51,10 @@
     "disclosure": "Viator is an affiliate partner. We may earn a commission on bookings made through this link, at no extra cost to you."
   },
   "contactFormEndpoint": "",
-  "primaryKeyword": "Florida Ebike Rentals"
+  "primaryKeyword": "Florida Ebike Rentals",
+  "phone": {
+    "number": "+13053631922",
+    "display": "(305) 363-1922",
+    "label": "Rent Now"
+  }
 }
