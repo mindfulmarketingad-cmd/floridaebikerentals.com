@@ -7,12 +7,12 @@
  *
  * Only licences that allow commercial use without changing the image are kept
  * (CC0, public domain, CC BY, CC BY-SA), and only landscape photos at least
- * 1600px wide, so nothing is ever stretched. Writes stock/candidates/<slot>/
+ * 1200px wide, so nothing is ever stretched. Writes stock/candidates/<slot>/
  * thumbnails plus stock/candidates.json with each photo's source, creator and
  * licence. scripts/stock-fetch.mjs then downloads the ones picked in
  * stock/picks.json at full size.
  */
-import { mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { mkdirSync, writeFileSync, rmSync, readFileSync, existsSync } from "node:fs";
 import { join, resolve } from "node:path";
 
 const ROOT = resolve(new URL("..", import.meta.url).pathname);
@@ -68,23 +68,28 @@ async function search(q) {
 }
 
 async function main() {
-  rmSync(OUT, { recursive: true, force: true });
-  const all = {};
-  for (const [slot, queries] of Object.entries(SLOTS)) {
+  // stock/queries.json, when present, replaces the built-in list, and results
+  // are merged into the existing candidates so earlier rounds stay reviewable.
+  const QUERIES = join(ROOT, "stock", "queries.json");
+  const slots = existsSync(QUERIES) ? JSON.parse(readFileSync(QUERIES, "utf8")) : SLOTS;
+  const CANDIDATES = join(ROOT, "stock", "candidates.json");
+  const all = existsSync(CANDIDATES) ? JSON.parse(readFileSync(CANDIDATES, "utf8")) : {};
+  for (const [slot, queries] of Object.entries(slots)) {
+    rmSync(join(OUT, slot), { recursive: true, force: true });
     const seen = new Set();
     const keep = [];
     for (const q of queries) {
       let results = [];
       try { results = await search(q); } catch (e) { console.log(e.message); }
       for (const r of results) {
-        if (seen.has(r.id) || (r.width || 0) < 1600 || (r.width || 0) < (r.height || 0) * 1.2) continue;
+        if (seen.has(r.id) || (r.width || 0) < 1200 || (r.width || 0) < (r.height || 0) * 1.2) continue;
         seen.add(r.id);
         keep.push({ id: r.id, query: q, title: r.title, creator: r.creator, creator_url: r.creator_url,
           license: r.license, license_version: r.license_version, license_url: r.license_url,
           landing: r.foreign_landing_url, url: r.url, thumbnail: r.thumbnail, width: r.width, height: r.height,
           source: r.source, attribution: r.attribution });
       }
-      await sleep(3500);
+      await sleep(4500);
     }
     const picks = keep.slice(0, PER_SLOT);
     mkdirSync(join(OUT, slot), { recursive: true });
