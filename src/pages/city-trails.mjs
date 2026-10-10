@@ -25,10 +25,31 @@ export function cityTrailUrl(city) {
   return `/trails/${slugify(cityTrailTitle(city))}/`;
 }
 
+/**
+ * OpenStreetMap names we do not publish as routes, each for a stated reason.
+ * The map is crowd-edited, so a name is checked before it reaches a page.
+ */
+const EXCLUDED_ROUTES = new Map([
+  ["Hulk Hogan Trail", "cannot be verified as an official trail name"],
+  ["Flooded Former Bike Path", "a disused path, not somewhere to send riders"],
+  ["Waterfront Outdoor Gym trail", "a fitness loop, not a riding route"],
+  ["Lincoln Road", "a pedestrian mall"],
+]);
+
+/** Drops excluded names and raw tag-style duplicates (e.g. "selmon_greenway"). */
+function cleanRoutes(routes) {
+  return routes.filter((r) => !EXCLUDED_ROUTES.has(r.name) && !/_/.test(r.name) && /^[A-Z0-9]/.test(r.name));
+}
+
 /** Towns with a guide, each paired with its route data, most routes first. */
 export function cityTrailGuides(index, trailData) {
   return index.cities
-    .map((city) => ({ city, data: trailData?.cities?.[city.slug] }))
+    .map((city) => {
+      const raw = trailData?.cities?.[city.slug];
+      if (!raw) return { city, data: null };
+      const routes = cleanRoutes(raw.routes);
+      return { city, data: { ...raw, routes, totalMiles: Math.round(routes.reduce((s, r) => s + r.miles, 0) * 10) / 10 } };
+    })
     .filter((g) => g.data && g.data.routes.length >= MIN_TRAIL_ROUTES)
     .map((g) => ({ ...g, url: cityTrailUrl(g.city), title: cityTrailTitle(g.city) }))
     .sort((a, b) => b.data.totalMiles - a.data.totalMiles);
