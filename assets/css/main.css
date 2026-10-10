@@ -1168,3 +1168,5 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
   .route__fact { grid-column: 2; flex-direction: row; gap: .4rem; }
   .route .btn { grid-column: 2; justify-self: start; }
 }
+.trail-figure .figure { margin: 0 0 1.5rem; }
+.trail-figure img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; border-radius: var(--radius-l); }

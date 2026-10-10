@@ -113,10 +113,11 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
     }
   }
 
-  // A trail guide without a route map is incomplete; the hub page itself is exempt.
+  // A trail guide without a route map is incomplete; the hub page itself is
+  // exempt, and so are the town riding guides, which link a map per route.
   for (const file of files) {
     const url = "/" + relative(dist, file).replace(/index\.html$/, "").replace(/\\/g, "/");
-    if (!/^\/trails\/.+\//.test(url)) continue;
+    if (!/^\/trails\/.+\//.test(url) || /^\/trails\/e-bike-routes-rules-in-/.test(url)) continue;
     const html = readFileSync(file, "utf8");
     if (!html.includes("ridewithgps.com/embeds")) {
       problems.push(`${url}: trail guide has no Ride with GPS route map (add "rwgps: <route id>" to its front matter)`);

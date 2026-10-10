@@ -11,7 +11,7 @@
 import { esc, attr, plural, clamp, slugify, formatReviews } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { faqBlock, faqSchema, linkCard, adSlot, adSlotScript, ADSENSE_INLINE } from "../components.mjs";
-import { sceneForRegion, stockFor, stockImg } from "../images.mjs";
+import { sceneForRegion, sceneForTown, stockFor, stockImg, figure } from "../images.mjs";
 import { findHero } from "../find-hero.mjs";
 
 /** A town gets a guide when OpenStreetMap shows at least this many named routes around it. */
@@ -138,6 +138,11 @@ ${adSlot(site, "")}
 
 <section class="section section--tint">
   <div class="wrap">
+    <div class="trail-figure">${
+      photo
+        ? `<figure class="figure">${stockImg(photo, { alt: `${city.name}, Florida`, large: photo.width >= 1180 })}<figcaption>${esc(city.name)}, Florida. Photo: ${esc(photo.creator || "Openverse")}, ${esc(String(photo.license).toUpperCase())}.</figcaption></figure>`
+        : figure(sceneForTown(city.regionSlug, 1), { alt: `Illustration of e-bike riding near ${city.name}, Florida` })
+    }</div>
     <h2>Rent an e-bike in ${esc(city.name)}</h2>
     <p class="muted">The top-ranked of the ${city.listings.length} rental shops we list in ${esc(city.name)}, by Google rating and review count.</p>
     <div class="grid grid--3 mt-2">${shops
