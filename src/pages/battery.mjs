@@ -7,10 +7,10 @@
  *      Their profiles do not mention batteries, and the page says so: we do
  *      not claim a service a shop has not listed.
  */
-import { esc, attr, plural, clamp } from "../util.mjs";
+import { esc, attr, plural, clamp, miles, formatReviews } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { listicle, faqBlock, faqSchema, itemListSchema, adSlot, adSlotScript, ADSENSE_INLINE } from "../components.mjs";
-import { photoFor, secondPhotoFor, figure } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, sceneForRegion } from "../images.mjs";
 import { findHero, resultsHead } from "../find-hero.mjs";
 import { tagsIn } from "./find.mjs";
 
@@ -30,7 +30,139 @@ export function batteryShops(listings) {
   return { specialists: specialists.sort(byScore), repairers: repairers.sort(byScore) };
 }
 
-export function batteryPage(site, { listings, index }) {
+/** Shops further than this from a town centre are not "near" it. */
+const NEARBY_MILES = 15;
+/** A town page needs this many qualifying shops in the town itself, and this many to be indexed. */
+const MIN_LOCAL = 2;
+const MIN_INDEX = 3;
+
+/**
+ * Town pages, only where they make sense: at least MIN_LOCAL qualifying shops
+ * in the town itself. Each also lists qualifying shops within NEARBY_MILES of
+ * the town centre, with the straight-line distance.
+ */
+export function batteryTowns(listings, index) {
+  const { specialists, repairers } = batteryShops(listings);
+  const all = [...specialists, ...repairers];
+  const isSpecialist = new Set(specialists.map((l) => l.slug));
+  return index.cities
+    .map((city) => {
+      const local = all.filter((l) => l.citySlug === city.slug).sort((a, b) => isSpecialist.has(b.slug) - isSpecialist.has(a.slug) || b.score - a.score);
+      if (local.length < MIN_LOCAL || typeof city.lat !== "number") return null;
+      const nearby = all
+        .filter((l) => l.citySlug !== city.slug && typeof l.lat === "number")
+        .map((l) => ({ ...l, distance: miles(city.lat, city.lng, l.lat, l.lng) }))
+        .filter((l) => l.distance <= NEARBY_MILES)
+        .sort((a, b) => a.distance - b.distance);
+      return { city, local, nearby, url: `${BATTERY_URL}${city.slug}/`, isSpecialist };
+    })
+    .filter(Boolean)
+    .sort((a, b) => b.local.length - a.local.length || a.city.name.localeCompare(b.city.name));
+}
+
+export function batteryTownPage(site, town, { index, batteryTownList }) {
+  const { city, local, nearby, url, isSpecialist } = town;
+  const n = local.length;
+  const title = `Ebike Battery Replacement Near Me In ${city.name}`;
+  const crumbs = [
+    { href: "/", label: "Home" },
+    { href: "/find/", label: "Find" },
+    { href: BATTERY_URL, label: "Battery replacement" },
+    { href: url, label: city.name },
+  ];
+  const specialistsHere = local.filter((l) => isSpecialist.has(l.slug));
+  const best = local[0];
+  const others = batteryTownList.filter((t) => t.city.slug !== city.slug);
+  const sameRegion = others.filter((t) => t.city.regionSlug === city.regionSlug);
+
+  const body = `
+${findHero({
+  crumbs,
+  h1: title,
+  lead: `We list ${n} shops in ${city.name} to call about an e-bike battery${
+    specialistsHere.length ? `, including ${specialistsHere.length === 1 ? "a battery specialist" : `${specialistsHere.length} battery specialists`}` : ""
+  }${nearby.length ? `, and ${nearby.length} more within ${NEARBY_MILES} miles` : ""}. ${best.name} leads our ranking${
+    best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
+  }.`,
+  scene: sceneForRegion(city.regionSlug),
+  index,
+  current: "/find/",
+  tags: tagsIn([...local, ...nearby]),
+  placeholder: `Search ${city.name} shops`,
+})}
+
+<section class="section section--results">
+  <div class="wrap">
+    ${resultsHead(`In ${city.name}`, n, "shops")}
+    <p class="muted">${
+      specialistsHere.length
+        ? `${specialistsHere.map((l) => esc(l.name)).join(" and ")} ${specialistsHere.length === 1 ? "is" : "are"} listed by Google as a battery store. `
+        : ""
+    }${specialistsHere.length < n ? "The others sell and repair e-bikes, but battery replacement is not listed on their profiles, so call to confirm." : ""}</p>
+    ${listicle(local)}
+    ${
+      nearby.length
+        ? `<div class="mt-3">
+      <h2>Within ${NEARBY_MILES} miles of ${esc(city.name)}</h2>
+      <p class="muted">Distances are straight-line from the centre of ${esc(city.name)}. Driving distance will be longer.</p>
+      <ul class="pagelink-cloud">${nearby
+        .map((l) => `<li><a href="${attr(l.url)}">${esc(l.name)}, ${esc(l.city)} <span class="count">${l.distance.toFixed(1)} mi</span></a></li>`)
+        .join("")}</ul>
+    </div>`
+        : ""
+    }
+  </div>
+</section>
+
+${adSlot(site, "")}
+
+<section class="section section--tint">
+  <div class="wrap wrap-narrow prose">
+    <h2>Before you call</h2>
+    <p>Have your bike's make and model ready, and the label on the battery, which usually shows the voltage,
+    capacity and a model number. Batteries are often specific to a brand and frame, so the shop needs those details
+    to tell you whether it can supply one that fits. If the bike is a rental, call the rental shop instead: the
+    battery is theirs to swap.</p>
+    <p>We list a shop here only for what its Google profile records. Know a ${esc(city.name)} shop that replaces
+    batteries and is missing? <a href="/contact/">Tell us</a>.</p>
+    <p><a href="${BATTERY_URL}">All Florida battery replacement shops</a> · <a href="${attr(city.url)}">All ${esc(city.name)} e-bike rentals</a></p>
+  </div>
+</section>
+
+${
+  sameRegion.length || others.length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Battery replacement in other towns</h2>
+    <ul class="pagelink-cloud">${(sameRegion.length ? sameRegion : others)
+      .slice(0, 12)
+      .map((t) => `<li><a href="${attr(t.url)}">${esc(t.city.name)} <span class="count">${t.local.length}</span></a></li>`)
+      .join("")}</ul>
+  </div>
+</section>`
+    : ""
+}
+${adSlotScript(site, 1)}
+`;
+
+  return page(site, {
+    title,
+    description: clamp(
+      `Ebike battery replacement in ${city.name}, FL: ${n} shops to call${nearby.length ? ` plus ${nearby.length} within ${NEARBY_MILES} miles` : ""}. ${best.name} leads${
+        best.rating ? ` (${best.rating.toFixed(1)} stars)` : ""
+      }. Hours, phones and directions.`,
+      160
+    ),
+    path: url,
+    noindex: n < MIN_INDEX,
+    body,
+    ogImage: sceneForRegion(city.regionSlug).og,
+    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    schema: [breadcrumbSchema(site, crumbs), itemListSchema(site, local, { name: title, url })],
+  });
+}
+
+export function batteryPage(site, { listings, index, batteryTownList = [] }) {
   const { specialists, repairers } = batteryShops(listings);
   const all = [...specialists, ...repairers];
   const towns = new Set(all.map((l) => l.city)).size;
@@ -83,6 +215,20 @@ ${findHero({
     </div>
   </div>
 </section>
+
+${
+  batteryTownList.length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Battery replacement by town</h2>
+    <p class="muted">Towns with at least two shops to call.</p>
+    <ul class="pagelink-cloud">${batteryTownList
+      .map((t) => `<li><a href="${attr(t.url)}">${esc(t.city.name)} <span class="count">${t.local.length}</span></a></li>`)
+      .join("")}</ul>
+  </div>
+</section>`
+    : ""
+}
 
 ${adSlot(site, "")}
 

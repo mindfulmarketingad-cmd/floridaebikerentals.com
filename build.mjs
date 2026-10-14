@@ -18,7 +18,7 @@ import {
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
-import { batteryPage, BATTERY_URL } from "./src/pages/battery.mjs";
+import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/pages/battery.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -162,7 +162,16 @@ for (const category of index.categories) {
   }
 }
 
-/* e-bike battery replacement */
+/* e-bike battery replacement, statewide and per town */
+ctx.batteryTownList = batteryTowns(listings, index);
+for (const town of ctx.batteryTownList) {
+  write(town.url, batteryTownPage(site, town, ctx), {
+    priority: 0.6,
+    changefreq: "weekly",
+    group: "find",
+    search: { u: town.url, t: `Ebike battery replacement in ${town.city.name}`, s: "Find", d: `${town.local.length} shops in ${town.city.name}.`, k: `ebike battery replacement ${town.city.name}`.toLowerCase(), w: 5 },
+  });
+}
 write(BATTERY_URL, batteryPage(site, ctx), {
   priority: 0.8,
   changefreq: "weekly",
