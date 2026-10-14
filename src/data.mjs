@@ -385,6 +385,10 @@ export function loadListings({ raw = false } = {}) {
             logoWidth: logo ? logo.width : 0,
             logoHeight: logo ? logo.height : 0,
           }),
+      // Business phone numbers and websites are never shown: calls go to the
+      // site's own rental line (site.phone). hadWebsite keeps the indexing
+      // rule, which counts a website as a sign of an established business.
+      ...(raw ? {} : { phone: "", website: "", site: "", hadWebsite: Boolean(l.site || l.website) }),
       url: listingUrl(l),
       citySlug: citySlug(l.city),
       regionSlug: regionSlug(l.region),
@@ -420,7 +424,7 @@ export function isIndexableListing(l) {
   return (
     (l.reviews || 0) >= INDEX_LISTING_MIN_REVIEWS &&
     (l.hours || []).some((h) => !h.closed) &&
-    Boolean(l.site || l.website)
+    Boolean(l.hadWebsite || l.site || l.website)
   );
 }
 

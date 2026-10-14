@@ -5,7 +5,7 @@ import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.
 import {
   scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
-  summaryFor, metaDescriptionFor, logoMark,
+  summaryFor, metaDescriptionFor, logoMark, rentalLine,
 } from "../components.mjs";
 import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
@@ -137,8 +137,8 @@ ${adSlotScript(site, 1)}
         : `Florida E-Bike Rental Partners - Page ${pageNumber} of ${totalPages}`,
     description: clamp(
       pageNumber === 1
-        ? `The full directory of ${stats.total} e-bike and bike rental partners across ${stats.cities} Florida towns. Hours, ratings, phone numbers, services and map for every shop.`
-        : `Florida e-bike rental partners ${start + 1} to ${Math.min(start + PER_PAGE, listings.length)} of ${stats.total}, ranked by Google rating and review volume, with hours, phone numbers and map.`
+        ? `The full directory of ${stats.total} e-bike and bike rental partners across ${stats.cities} Florida towns. Hours, ratings, services and directions for every shop.`
+        : `Florida e-bike rental partners ${start + 1} to ${Math.min(start + PER_PAGE, listings.length)} of ${stats.total}, ranked by Google rating and review volume, with hours and directions.`
     ),
     path,
     body,
@@ -205,7 +205,9 @@ export function partnerPage(site, listing, { listings, index, blog }) {
         ? { href: town.url, label: `${c.name} in ${listing.city}` }
         : { href: c.url, label: `${c.name} in Florida` };
     });
-  const tel = phoneHref(listing.phone);
+  // Calls go to the site's rental line, labelled as ours, never as the shop's.
+  const line = rentalLine();
+  const tel = line ? line.tel : "";
   const rankInCity = city ? city.listings.findIndex((l) => l.slug === listing.slug) + 1 : 0;
 
   const faqs = [
@@ -226,12 +228,8 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       a: listing.hours && listing.hours.length
         ? `<p>Published hours are: ${esc(
             listing.hours.map((h) => `${h.day} ${h.hours}`).join("; ")
-          )}. Florida beach town hours change seasonally, so call ${
-            listing.phone ? esc(listing.phone) : "ahead"
-          } to confirm before you travel.</p>`
-        : `<p>Opening hours are not published for this business. Call ${
-            listing.phone ? esc(listing.phone) : "the shop"
-          } before travelling.</p>`,
+          )}. Florida beach town hours change seasonally, so check before you travel.</p>`
+        : `<p>Opening hours are not published for this business, so check before travelling.</p>`,
     },
     {
       q: `How is ${listing.name} rated?`,
@@ -244,17 +242,14 @@ export function partnerPage(site, listing, { listings, index, blog }) {
         : `<p>This business does not have enough Google reviews to show a star rating yet. That is common for new shops and for businesses that do not ask for reviews — it is not a negative signal on its own.</p>`,
     },
     {
-      q: `How do I book with ${listing.name}?`,
-      a: `<p>Book direct. ${
-        tel ? `Call <a href="tel:${attr(tel)}">${esc(listing.phone)}</a>` : "Contact the shop"
+      q: `How do I rent from ${listing.name}?`,
+      a: `<p>${
+        tel ? `Call our rental line on <a href="tel:${attr(tel)}">${esc(line.display)}</a>, or ` : ""
       }${
-        listing.website
-          ? ` or visit <a href="${attr(listing.website)}" rel="nofollow noopener" target="_blank">${esc(
-              hostOf(listing.website)
-            )}</a>`
-          : ""
-      }. We are a directory and do not take bookings, hold deposits or set prices — going direct is also
-      how you avoid third-party booking fees.</p>`,
+        listing.maps_link
+          ? `${tel ? "use" : "Use"} <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> to visit ${esc(listing.name)}`
+          : `visit ${esc(listing.name)} at ${esc(listing.address || listing.city)}`
+      }. Confirm prices, availability and rental terms before you pay.</p>`,
     },
   ];
 
@@ -344,15 +339,8 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 
   <aside class="sidebar">
     <div class="panel panel--cta">
-      <h2>Contact ${esc(listing.name)}</h2>
-      ${tel ? `<p><a class="btn btn--blue btn--block" href="tel:${attr(tel)}">Call ${esc(listing.phone)}</a></p>` : ""}
-      ${
-        listing.website
-          ? `<p><a class="btn btn--outline btn--block" href="${attr(
-              listing.website
-            )}" rel="nofollow noopener" target="_blank">Visit website</a></p>`
-          : ""
-      }
+      <h2>Rent from ${esc(listing.name)}</h2>
+      ${tel ? `<p><a class="btn btn--blue btn--block" href="tel:${attr(tel)}">Call our rental line</a></p><p class="small muted">${esc(line.display)} is the Florida Ebike Rentals line, not ${esc(listing.name)}'s own number.</p>` : ""}
       ${
         listing.maps_link
           ? `<p><a class="btn btn--outline btn--block" href="${attr(
@@ -360,22 +348,12 @@ export function partnerPage(site, listing, { listings, index, blog }) {
             )}" rel="nofollow noopener" target="_blank">Get directions</a></p>`
           : ""
       }
-      <p class="small muted mb-0">We do not take bookings. Contacting the shop direct avoids
-      third-party fees.</p>
     </div>
 
     <div class="panel">
       <h2>Business details</h2>
       <dl class="datalist">
         <div><dt>Address</dt><dd>${esc(listing.address || `${listing.city}, FL`)}</dd></div>
-        ${listing.phone ? `<div><dt>Phone</dt><dd>${tel ? `<a href="tel:${attr(tel)}">${esc(listing.phone)}</a>` : esc(listing.phone)}</dd></div>` : ""}
-        ${
-          listing.website
-            ? `<div><dt>Website</dt><dd><a href="${attr(listing.website)}" rel="nofollow noopener" target="_blank">${esc(
-                hostOf(listing.website)
-              )}</a></dd></div>`
-            : ""
-        }
         <div><dt>Town</dt><dd>${city ? `<a href="${attr(city.url)}">${esc(listing.city)}</a>` : esc(listing.city)}, FL</dd></div>
         <div><dt>Region</dt><dd>${region ? `<a href="${attr(region.url)}">${esc(listing.region)}</a>` : esc(listing.region)}</dd></div>
         ${listing.type ? `<div><dt>Category</dt><dd>${esc(listing.type)}</dd></div>` : ""}
@@ -406,15 +384,10 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 </div>
 
 <div class="action-bar">
-  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call</a>` : ""}
+  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call our line</a>` : ""}
   ${
     listing.maps_link
       ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
-      : ""
-  }
-  ${
-    listing.website
-      ? `<a class="btn btn--outline" href="${attr(listing.website)}" rel="nofollow noopener" target="_blank">Website</a>`
       : ""
   }
 </div>
@@ -427,7 +400,7 @@ ${adSlotScript(site, 1)}
     path: listing.url,
     noindex: !isIndexableListing(listing),
     body,
-    bodyAttrs: tel || listing.website || listing.maps_link ? 'class="has-action-bar"' : "",
+    bodyAttrs: tel || listing.maps_link ? 'class="has-action-bar"' : "",
     ogType: "business.business",
     ogImage: listing.photo || photoFor(listing.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],

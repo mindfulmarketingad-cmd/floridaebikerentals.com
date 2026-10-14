@@ -357,7 +357,7 @@ ${adSlotScript(site, 1)}
     description: clamp(
       `${phrase}, FL: ${n} ${plural(n, "shop")} compared. ${facts.best.name} leads${
         facts.best.rating ? ` (${facts.best.rating.toFixed(1)} stars, ${formatReviews(facts.best.reviews)} reviews)` : ""
-      }. Hours, phones and directions.`,
+      }. Hours, ratings and directions.`,
       160
     ),
     path: town.url,

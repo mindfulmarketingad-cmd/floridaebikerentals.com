@@ -30,8 +30,9 @@ rate the shop on Google. Whether they run tours or only hand over keys at a coun
 
 ## How we choose what to list
 
-Every listing on this site comes from public business data: name, address, phone number, website,
-opening hours, category, and the Google review count and star average. We import that data, then
+Every listing on this site comes from public business data: name, address, opening hours, category,
+and the Google review count and star average. We do not publish shops' own phone numbers or websites:
+calls placed through this site go to our rental line, (305) 363-1922. We import that data, then
 apply three filters before a business gets a page.
 
 1. **It must be in Florida.** Nothing outside the state is published, even when it shows up in a

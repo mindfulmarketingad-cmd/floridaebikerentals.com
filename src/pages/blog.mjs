@@ -143,7 +143,7 @@ export function blogPost(site, post, ctx) {
     ${authorCard(author)}
     ${ctaBand({
       title: "Ready to ride?",
-      text: "Every rental partner in the directory, with hours, ratings and phone numbers, sorted by how close they are to you.",
+      text: "Every rental partner in the directory, with hours, ratings and directions, sorted by how close they are to you.",
       buttons: [
         { href: "/partners/", label: "Rent Now", variant: "btn--primary" },
         { href: "/find/", label: "Browse by town", variant: "btn--ghost" },

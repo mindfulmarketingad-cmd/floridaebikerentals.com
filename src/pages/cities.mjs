@@ -85,7 +85,7 @@ ${adSlot(site, "")}
     rests on, so a 4.8 from 400 riders ranks above a 5.0 from three. We don't accept payment for
     placement, and we don't take bookings: you contact the shop directly.</p>
     <p>Looking for something specific, like tours, delivery or shops open on Sundays? <a href="/find/">Browse
-    by category</a>. Spotted a closed shop or a wrong phone number? <a href="/contact/">Tell us</a> and
+    by category</a>. Spotted a closed shop or a wrong address? <a href="/contact/">Tell us</a> and
     we will fix it.</p>
   </div>
 </section>
@@ -154,7 +154,7 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
       q: `Where can I rent a bike or e-bike in ${city.name}?`,
       a: `<p>We track ${n} rental ${plural(n, "shop")} in ${esc(city.name)}. ${esc(best.name)} leads our ranking${
         best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
-      }. Every listing above shows the address, phone number and today's hours, so you can call before you go.</p>`,
+      }. Every listing above shows the address, today's hours and directions.</p>`,
     },
     specialists.length
       ? {
@@ -189,7 +189,7 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
     openSeven.length
       ? {
           q: `Which ${city.name} rental shops are open seven days a week?`,
-          a: `<p>${names(openSeven)} ${openSeven.length === 1 ? "posts" : "post"} hours for all seven days. Seasonal hours change in Florida beach towns, so confirm by phone before a Sunday ride.</p>`,
+          a: `<p>${names(openSeven)} ${openSeven.length === 1 ? "posts" : "post"} hours for all seven days. Seasonal hours change in Florida beach towns, so check before a Sunday ride.</p>`,
         }
       : null,
     {
@@ -231,10 +231,10 @@ ${findHero({
 <section class="section section--tint" id="location">
   <div class="wrap">
     <h2>Location &amp; directions</h2>
-    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.</p>
+    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.${(() => { const p = site.phone; return p && p.number ? ` To ask about a rental, call our line on <a href="tel:${attr(p.number)}">${esc(p.display || p.number)}</a>.` : ""; })()}</p>
     <div class="table-wrap">
       <table class="data-table">
-        <thead><tr><th scope="col">Shop</th><th scope="col">Address</th><th scope="col">Phone</th><th scope="col"><span class="visually-hidden">Directions</span></th></tr></thead>
+        <thead><tr><th scope="col">Shop</th><th scope="col">Address</th><th scope="col"><span class="visually-hidden">Directions</span></th></tr></thead>
         <tbody>${local
           .map(
             (l) => `<tr>
@@ -242,7 +242,6 @@ ${findHero({
           <td>${esc(l.address || `${l.city}, FL`)}${
               l.neighborhood && l.neighborhood !== l.city ? `<br><span class="muted small">${esc(l.neighborhood)}</span>` : ""
             }</td>
-          <td>${l.phone ? `<a href="tel:${attr(phoneHref(l.phone))}">${esc(l.phone)}</a>` : "—"}</td>
           <td>${
               l.maps_link
                 ? `<a class="btn btn--outline btn--sm" href="${attr(l.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
@@ -352,7 +351,7 @@ ${adSlotScript(site, 1)}
         ? fill(notes.description)
         : `${n} e-bike rental ${plural(n, "shop")} in ${city.name}, FL, ranked. ${facts.best.name} leads${
             facts.best.rating ? ` (${facts.best.rating.toFixed(1)} stars, ${formatReviews(facts.best.reviews)} reviews)` : ""
-          }. Hours, phones and directions.`,
+          }. Hours, ratings and directions.`,
       165
     ),
     path: city.url,

@@ -34,8 +34,8 @@ timing. We will reply with what is available.
 
 We are an independent directory, not a rental company. We cannot take a booking, change a
 reservation, quote a price, issue a refund, or chase a deposit for you. Every one of those has to go
-directly to the rental shop — you will find their phone number and website on their
-[partner listing](/partners/).
+directly to the rental shop you rented from. To ask about a new rental, call our rental line on
+(305) 363-1922. Every [listing](/partners/) has directions to the shop.
 
 ## Response times
 

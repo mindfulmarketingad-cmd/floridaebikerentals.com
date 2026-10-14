@@ -401,6 +401,21 @@ await page.close();
      rows===shops && /id="pricing"/.test(h) && !/id="pricing"[\s\S]{0,1500}\$\d/.test(h));
 }
 
+// 4t. no business phone numbers or websites anywhere; calls go to the site's line
+{
+  const { readFileSync, readdirSync } = await import("node:fs");
+  const L=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/listings.json","utf8")).listings;
+  const phones=new Set(L.filter(l=>l.phone).map(l=>l.phone.replace(/\D/g,"").slice(-10)));
+  let leaks=0, tels=new Set();
+  const walk=(d)=>{for(const e of readdirSync(d,{withFileTypes:true})){const f=d+"/"+e.name;
+    if(e.isDirectory()) walk(f); else if(f.endsWith(".html")){const t=readFileSync(f,"utf8");
+      for(const m of t.matchAll(/href="tel:([^"]+)"/g)) tels.add(m[1]);
+      for(const m of t.matchAll(/\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}/g)) if(phones.has(m[0].replace(/\D/g,"").slice(-10))) leaks++;}}};
+  walk(DIST);
+  ok(`no business phone numbers on the site (${leaks}); every tel: link is the rental line (${[...tels].join(", ")})`,
+     leaks===0 && tels.size===1 && tels.has("+13053631922"));
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

@@ -1,8 +1,8 @@
 ---
 title: "Daytona Beach Bike Rentals: E-Bikes, Fat Tires & Scooters"
 h1: "Daytona Beach Bike & E-Bike Rentals"
-description: "Daytona Beach bike rentals compared: e-bikes, fat-tire beach bikes and scooters from {count} local shops, with Google ratings, hours and phone numbers."
-lead: "{count} bike and e-bike rental shops in Daytona Beach, ranked by Google rating and review count. Search them, filter by service, and book direct with the shop."
+description: "Daytona Beach bike rentals compared: e-bikes, fat-tire beach bikes and scooters from {count} local shops, with Google ratings, hours and directions."
+lead: "{count} bike and e-bike rental shops in Daytona Beach, ranked by Google rating and review count. Search them, filter by service, and get directions to each shop."
 ---
 
 ## Riding a rented bike in Daytona Beach

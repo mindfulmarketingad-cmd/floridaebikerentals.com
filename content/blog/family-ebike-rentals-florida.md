@@ -108,8 +108,8 @@ Do that on day one and you will spend the rest of the week riding.
 ## Where to look
 
 Start with the town you are staying in on our [find pages](/find/), then filter for shops tagged
-for rentals and family gear. Every listing shows hours, phone number and Google rating so you can
-call ahead and ask the seven questions above.
+for rentals and family gear. Every listing shows hours, directions and Google rating. Call our
+rental line on (305) 363-1922 to ask the seven questions above.
 
 ## Related reading
 

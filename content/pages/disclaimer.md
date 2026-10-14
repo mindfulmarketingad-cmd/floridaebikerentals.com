@@ -23,9 +23,13 @@ equipment condition, damage, injury, refunds or cancellations is between you and
 
 ## Accuracy of listing data
 
-Business names, addresses, phone numbers, websites, opening hours, categories, photos, star ratings
-and review counts are compiled from publicly available sources, primarily Google Business Profile
-data, and are refreshed periodically.
+Business names, addresses, opening hours, categories, photos, star ratings and review counts are
+compiled from publicly available sources, primarily Google Business Profile data, and are refreshed
+periodically.
+
+**Phone calls.** We do not list businesses' own phone numbers. Every "Call our rental line" button on
+this site dials (305) 363-1922, which is operated by Florida Ebike Rentals, not by the businesses listed.
+It is a call-tracking number, which tells us which page a call came from.
 
 That data can be wrong or out of date. Shops change hours seasonally, move, rebrand, close, or stop
 renting e-bikes without updating their public profile. We make no warranty — express or implied —

@@ -103,9 +103,8 @@ export function nearMePage(site, ctx) {
     },
     {
       q: "Can I book an e-bike through this page?",
-      a: `<p>No, and that is deliberate. We are a directory, not a booking agent: you get the phone
-      number, the address and the hours, and you book direct with the shop, usually at a better rate
-      than any middleman offers. If you would rather ride with a guide, we list <a href="/find/ebike-tours/">shops that run guided e-bike tours</a>.</p>`,
+      a: `<p>Not through this page. Each listing has the address, hours and directions, and you can call
+      our rental line on (305) 363-1922 to ask about a rental. If you would rather ride with a guide, we list <a href="/find/ebike-tours/">shops that run guided e-bike tours</a>.</p>`,
     },
     {
       q: "What does it cost to rent an e-bike in Florida?",
@@ -157,9 +156,9 @@ ${adSlot(site, "")}
         <h2>Prefer to search by town?</h2>
         <p>Location sorting is the fastest way in when you are already somewhere. If you are planning
         a trip instead, the town pages are the better starting point — each one lists every shop in
-        that town with hours, phone numbers and what they rent.</p>
+        that town with hours, directions and what they rent.</p>
         <p>Every listing here is a real business we pulled from public Google Maps data, and we refresh
-        it periodically. We do not take bookings or commission on rentals: you call the shop direct.</p>
+        it periodically.</p>
         <p><a class="btn btn--outline" href="/cities/">All ${esc(
           String(index.cities.length + index.thinCities.length)
         )} Florida towns</a></p>
@@ -215,7 +214,7 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title: `E-Bike Rentals Near Me - ${stats.total} Florida Shops by Distance`,
     description: clamp(
-      `Find e-bike rentals near you in Florida. Allow location and this page sorts ${stats.total} rental shops across ${stats.cities} towns by distance, closest first, with ratings and phone numbers.`,
+      `Find e-bike rentals near you in Florida. Allow location and this page sorts ${stats.total} rental shops across ${stats.cities} towns by distance, closest first, with ratings and directions.`,
       170
     ),
     path: NEAR_ME_URL,

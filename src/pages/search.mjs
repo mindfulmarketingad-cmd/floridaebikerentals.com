@@ -180,7 +180,7 @@ ${adSlotScript(site, 1)}
     // guidelines ask that search-result pages stay out of the index.
     noindex: true,
     description: clamp(
-      `Search results for "${query}" on Florida Ebike Rentals: ${results.length} matching rental partners with hours, ratings, phone numbers and map.`
+      `Search results for "${query}" on Florida Ebike Rentals: ${results.length} matching rental partners with hours, ratings and directions.`
     ),
     path: url,
     body,

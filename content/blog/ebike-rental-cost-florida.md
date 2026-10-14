@@ -86,8 +86,8 @@ in most contracts, theft is excluded, which is the risk people most want covered
 
 ## How to actually get a better price
 
-1. **Book direct with the shop.** Third-party marketplaces add a booking fee. Every phone number and
-   website in our [directory](/partners/) links straight to the business.
+1. **Skip the marketplace fee.** Third-party marketplaces add a booking fee. Call our rental line on
+   (305) 363-1922, or use the directions on any listing in our [directory](/partners/) to visit the shop.
 2. **Ask for the multi-day rate explicitly.** Website pricing is often the walk-up rate.
 3. **Rent a day longer than you need.** A 24-hour rental picked up at 4pm gets you an evening ride
    and a full next morning for one day's charge.

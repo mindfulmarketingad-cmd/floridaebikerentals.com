@@ -79,7 +79,7 @@ export function batteryTownPage(site, town, { index, batteryTownList }) {
 ${findHero({
   crumbs,
   h1: title,
-  lead: `We list ${n} shops in ${city.name} to call about an e-bike battery${
+  lead: `We list ${n} shops in ${city.name} for an e-bike battery${
     specialistsHere.length ? `, including ${specialistsHere.length === 1 ? "a battery specialist" : `${specialistsHere.length} battery specialists`}` : ""
   }${nearby.length ? `, and ${nearby.length} more within ${NEARBY_MILES} miles` : ""}. ${best.name} leads our ranking${
     best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
@@ -98,7 +98,7 @@ ${findHero({
       specialistsHere.length
         ? `${specialistsHere.map((l) => esc(l.name)).join(" and ")} ${specialistsHere.length === 1 ? "is" : "are"} listed by Google as a battery store. `
         : ""
-    }${specialistsHere.length < n ? "The others sell and repair e-bikes, but battery replacement is not listed on their profiles, so call to confirm." : ""}</p>
+    }${specialistsHere.length < n ? "The others sell and repair e-bikes, but battery replacement is not listed on their profiles, so confirm before you go." : ""}</p>
     ${listicle(local)}
     ${
       nearby.length
@@ -118,7 +118,7 @@ ${adSlot(site, "")}
 
 <section class="section section--tint">
   <div class="wrap wrap-narrow prose">
-    <h2>Before you call</h2>
+    <h2>Before you go</h2>
     <p>Have your bike's make and model ready, and the label on the battery, which usually shows the voltage,
     capacity and a model number. Batteries are often specific to a brand and frame, so the shop needs those details
     to tell you whether it can supply one that fits. If the bike is a rental, call the rental shop instead: the
@@ -148,9 +148,9 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title,
     description: clamp(
-      `Ebike battery replacement in ${city.name}, FL: ${n} shops to call${nearby.length ? ` plus ${nearby.length} within ${NEARBY_MILES} miles` : ""}. ${best.name} leads${
+      `Ebike battery replacement in ${city.name}, FL: ${n} shops${nearby.length ? ` plus ${nearby.length} within ${NEARBY_MILES} miles` : ""}. ${best.name} leads${
         best.rating ? ` (${best.rating.toFixed(1)} stars)` : ""
-      }. Hours, phones and directions.`,
+      }. Hours, ratings and directions.`,
       160
     ),
     path: url,
@@ -177,15 +177,15 @@ export function batteryPage(site, { listings, index, batteryTownList = [] }) {
   const faqs = [
     {
       q: "How do I know a shop can replace my e-bike battery?",
-      a: `<p>Call before you go. The ${specialists.length} specialists at the top of this page are listed on Google as battery stores. The other ${repairers.length} shops sell and repair electric bikes, but their profiles do not mention batteries, so we cannot promise they replace them. Ask whether they stock or can order your battery, and whether they fit it.</p>`,
+      a: `<p>Check before you go. The ${specialists.length} specialists at the top of this page are listed on Google as battery stores. The other ${repairers.length} shops sell and repair electric bikes, but their profiles do not mention batteries, so we cannot promise they replace them. Ask whether they stock or can order your battery, and whether they fit it. You can also call our rental line on (305) 363-1922.</p>`,
     },
     {
-      q: "What should I have ready when I call?",
-      a: "<p>The make and model of your bike, and the label on the battery itself, which usually shows the voltage, capacity and a model number. Batteries are often specific to a brand and frame, so a shop needs those details to tell you whether it can supply one that fits.</p>",
+      q: "What should I have ready?",
+      a: "<p>Take the make and model of your bike, and the label on the battery itself, which usually shows the voltage, capacity and a model number. Batteries are often specific to a brand and frame, so a shop needs those details to tell you whether it can supply one that fits.</p>",
     },
     {
       q: "Is a rental bike's battery my problem?",
-      a: `<p>No. If a rented e-bike's battery fails, call the rental shop: the bike and its battery are theirs to swap. Our <a href="/cities/">town pages</a> list every rental shop's phone number.</p>`,
+      a: `<p>No. If a rented e-bike's battery fails, contact the shop you rented from: the bike and its battery are theirs to swap.</p>`,
     },
   ];
 
@@ -193,7 +193,7 @@ export function batteryPage(site, { listings, index, batteryTownList = [] }) {
 ${findHero({
   crumbs,
   h1: "Ebike Battery Replacement",
-  lead: `We list ${all.length} Florida shops in ${towns} towns to call about an e-bike battery: ${specialists.length} battery specialists, and ${repairers.length} e-bike stores that also do repairs. Search by town or shop name.`,
+  lead: `We list ${all.length} Florida shops in ${towns} towns for an e-bike battery: ${specialists.length} battery specialists, and ${repairers.length} e-bike stores that also do repairs. Search by town or shop name.`,
   scene,
   index,
   current: "/find/",
@@ -210,7 +210,7 @@ ${findHero({
     <div class="mt-3">
       <h2>E-bike stores that also do repairs</h2>
       <p class="muted">These shops sell electric bikes and list bicycle or electric motor repair on their Google
-      profile. Battery replacement is not listed, so call to confirm before you go.</p>
+      profile. Battery replacement is not listed, so confirm before you go.</p>
       ${listicle(repairers, { start: specialists.length + 1 })}
     </div>
   </div>
@@ -221,7 +221,7 @@ ${
     ? `<section class="section section--tint">
   <div class="wrap">
     <h2>Battery replacement by town</h2>
-    <p class="muted">Towns with at least two shops to call.</p>
+    <p class="muted">Towns with at least two shops.</p>
     <ul class="pagelink-cloud">${batteryTownList
       .map((t) => `<li><a href="${attr(t.url)}">${esc(t.city.name)} <span class="count">${t.local.length}</span></a></li>`)
       .join("")}</ul>
@@ -258,7 +258,7 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title: "Ebike Battery Replacement",
     description: clamp(
-      `Ebike battery replacement in Florida: ${specialists.length} battery specialists and ${repairers.length} e-bike repair shops in ${towns} towns, with ratings, hours and phone numbers.`,
+      `Ebike battery replacement in Florida: ${specialists.length} battery specialists and ${repairers.length} e-bike repair shops in ${towns} towns, with ratings, hours and directions.`,
       160
     ),
     path: BATTERY_URL,

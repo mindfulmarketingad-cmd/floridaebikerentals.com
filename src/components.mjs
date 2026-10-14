@@ -4,7 +4,20 @@ import {
   esc, attr, ratingBlock, formatRating, formatReviews, phoneHref, hostOf,
   commaList, plural, clamp, todayIndex,
 } from "./util.mjs";
-import { ROOT } from "./data.mjs";
+import { ROOT, loadSite } from "./data.mjs";
+
+/** The site's own rental line, shown in place of business phone numbers. */
+const SITE = loadSite();
+export function rentalLine() {
+  const p = SITE.phone || {};
+  return p.number ? { tel: p.number, display: p.display || p.number } : null;
+}
+
+/** A call button for the site's rental line, labelled as ours. */
+export function callLineButton(className = "btn btn--blue btn--sm") {
+  const line = rentalLine();
+  return line ? `<a class="${attr(className)}" href="tel:${attr(line.tel)}">Call our rental line</a>` : "";
+}
 import { sceneForRegion } from "./images.mjs";
 
 /**
@@ -85,7 +98,7 @@ export function summaryFor(listing) {
 export function metaDescriptionFor(listing) {
   const parts = [`${listing.name} in ${listing.city}, FL`];
   if (listing.rating) parts.push(`rated ${formatRating(listing.rating)} from ${formatReviews(listing.reviews)} Google reviews`);
-  parts.push("See hours, phone, address, services and directions before you book your e-bike rental.");
+  parts.push("See hours, address, services and directions for your e-bike rental.");
   return clamp(parts.join(" — "));
 }
 
@@ -242,6 +255,7 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
       <ul class="listicle__facts">${facts.join("")}</ul>
       <div class="listicle__actions">
         <a class="btn btn--blue btn--sm" href="${url}">Full details</a>
+        ${callLineButton("btn btn--outline btn--sm")}
         ${
           listing.maps_link
             ? `<a class="btn btn--outline btn--sm" href="${attr(

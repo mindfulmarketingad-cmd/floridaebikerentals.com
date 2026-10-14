@@ -1,7 +1,7 @@
 ---
 title: Best E-Bike Rentals Near Destin, Florida
 metaTitle: Best Ebike Rentals Near Destin FL - Top Shops Ranked
-description: The best e-bike rentals near Destin, Florida, ranked by Google rating and review volume, with hours, phone numbers, delivery options and where to ride once you have the bike.
+description: The best e-bike rentals near Destin, Florida, ranked by Google rating and review volume, with hours, directions, delivery options and where to ride once you have the bike.
 date: 2026-08-28
 updated: 2026-09-03
 author: editorial-team
@@ -18,8 +18,8 @@ way to move.
 
 This list ranks the rental shops within about 20 miles of Destin by Google star rating weighted
 against review volume, so a shop with 4.9 stars across hundreds of reviews outranks a 5.0 built on
-three. Everything here is currently operating, and every entry links to the shop's own phone number
-and website so you can book direct.
+three. Everything here is currently operating, and every entry has directions to the shop. To ask
+about a rental, call our rental line on (305) 363-1922.
 
 {{PHOTO|id:coastal|alt:Two riders on fat-tyre electric bikes on a sandy coastal path near Destin, Florida}}
 

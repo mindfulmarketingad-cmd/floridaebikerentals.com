@@ -37,7 +37,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Is Florida Ebike Rentals a rental company?",
-    a: "<p>No. We are a free, independent directory. We do not own bikes, take bookings or process payments — we list the shops that do, with their hours, phone numbers, websites and Google ratings, so you can contact them directly. Read more <a href=\"/about/\">about how the site works</a>.</p>",
+    a: "<p>No. We are a free, independent directory. We do not own bikes — we list the shops that rent them, with their hours, directions and Google ratings. To ask about a rental, call our rental line on (305) 363-1922. Read more <a href=\"/about/\">about how the site works</a>.</p>",
   },
   {
     q: "How often is the directory updated?",
@@ -82,7 +82,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)
-        )} Florida towns — from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. Compare hours, ratings and phone numbers, then book direct with the shop.</p>
+        )} Florida towns — from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. Compare hours, ratings and directions, or call our rental line.</p>
         <ul class="hero__stats">
           <li><strong>${esc(String(stats.total))}</strong> rental partners</li>
           <li><strong>${esc(String(stats.cities))}</strong> Florida towns</li>
@@ -200,7 +200,7 @@ ${adSlot(site, "")}
       )} Florida towns</strong>, carrying ${esc(formatReviews(stats.reviews))} Google reviews between
       them. ${esc(String(stats.ebikeShops))} of those specialise in electric bikes and ${esc(
         String(stats.tourOperators)
-      )} run guided rides as well as rentals. Every listing shows the address, phone number, website,
+      )} run guided rides as well as rentals. Every listing shows the address, directions,
       opening hours, services and the shop's Google rating with its review count, so you can judge
       whether a 4.6 average comes from forty reviews or four thousand.</p>
       <p>We are not a rental company. We take no bookings, hold no deposits and set no prices — you

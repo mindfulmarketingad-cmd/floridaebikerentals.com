@@ -137,5 +137,5 @@ Orlando riding means driving twenty minutes to Winter Garden and getting on the 
 or an extra fifteen to Clermont if you want hills. Rent a Class 1 or 2 for the rail trail, ask for
 more assist if you are heading to the climbs, and go early in summer.
 
-Then call the shop before you drive - inland Central Florida shops keep more conventional hours than
+Then check hours before you drive - inland Central Florida shops keep more conventional hours than
 the beach towns, and several are closed Sundays.
