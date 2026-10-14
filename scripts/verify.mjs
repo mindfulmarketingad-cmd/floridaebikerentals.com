@@ -36,6 +36,8 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
 
   for (const file of files) {
     const html = readFileSync(file, "utf8");
+    // Case-variant forwarding pages (see build.mjs) carry no content to check.
+    if (html.includes("<body data-redirect>")) continue;
     const pageUrl = "/" + relative(dist, file).replace(/index\.html$/, "").replace(/\\/g, "/");
 
     const h1s = html.match(/<h1[\s>]/g) || [];

@@ -172,6 +172,18 @@ for (const town of ctx.batteryTownList) {
     search: { u: town.url, t: `Ebike battery replacement in ${town.city.name}`, s: "Find", d: `${town.local.length} shops in ${town.city.name}.`, k: `ebike battery replacement ${town.city.name}`.toLowerCase(), w: 5 },
   });
 }
+// The capitalised spelling (/find/Battery-replacement/...) forwards to the
+// lowercase pages. Host redirects may match paths case-insensitively, which
+// would loop, so these are static pages with an instant refresh and a
+// canonical link, which search engines treat as a permanent redirect.
+for (const target of [BATTERY_URL, ...ctx.batteryTownList.map((t) => t.url)]) {
+  const from = target.replace("/find/battery-replacement/", "/find/Battery-replacement/");
+  const abs = `${site.url}${target}`;
+  writeRaw(
+    `${from.slice(1)}index.html`,
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title><meta name="robots" content="noindex, follow"><link rel="canonical" href="${abs}"><meta http-equiv="refresh" content="0; url=${target}"></head><body data-redirect><p><a href="${target}">This page has moved.</a></p></body></html>`
+  );
+}
 write(BATTERY_URL, batteryPage(site, ctx), {
   priority: 0.8,
   changefreq: "weekly",
