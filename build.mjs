@@ -18,6 +18,7 @@ import {
 import { homePage } from "./src/pages/home.mjs";
 import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
+import { batteryPage, BATTERY_URL } from "./src/pages/battery.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -160,6 +161,14 @@ for (const category of index.categories) {
     });
   }
 }
+
+/* e-bike battery replacement */
+write(BATTERY_URL, batteryPage(site, ctx), {
+  priority: 0.8,
+  changefreq: "weekly",
+  group: "find",
+  search: { u: BATTERY_URL, t: "Ebike battery replacement", s: "Find", d: "Battery specialists and e-bike repair shops in Florida.", k: "ebike battery replacement repair lithium e-bike battery shop", w: 9 },
+});
 
 /* "near me": the biggest non-brand search cluster, which had no page of its own */
 write(NEAR_ME_URL, nearMePage(site, ctx), {

@@ -106,6 +106,7 @@ ${findHero({
       ${index.categories
         .map((c) => categoryTile({ href: c.url, name: c.name, count: c.listings.length, blurb: c.blurb }))
         .join("")}
+      ${categoryTile({ href: "/find/battery-replacement/", name: "Battery replacement", blurb: "Battery specialists and e-bike repair shops." })}
       ${categoryTile({ href: NEAR_ME_URL, name: "Near me", blurb: "Every shop sorted by distance from where you are." })}
       ${categoryTile({ href: "/cities/", name: "By city", blurb: `All ${index.cities.length + index.thinCities.length} Florida towns we list.` })}
     </div>
