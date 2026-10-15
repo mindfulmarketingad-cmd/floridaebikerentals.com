@@ -203,9 +203,9 @@ ${adSlot(site, "")}
       )} run guided rides as well as rentals. Every listing shows the address, directions,
       opening hours, services and the shop's Google rating with its review count, so you can judge
       whether a 4.6 average comes from forty reviews or four thousand.</p>
-      <p>We are not a rental company. We take no bookings, hold no deposits and set no prices — you
-      contact the shop directly, which is also how you get the best rate. There is no paid placement:
-      ranking is generated from public rating data, not from who pays us. That is covered in full on our
+      <p>We are not a rental company. We hold no deposits and set no prices. Rankings are never paid:
+      they come from public rating data, not from who pays us. Partner shops can pay to be rung first
+      when you call our rental line, and that is all they can pay for. It is covered in full on our
       <a href="/about/">about page</a> and in our <a href="/disclaimer/">disclaimer</a>.</p>
 
       <h2>How Does Florida Ebike Rentals Work?</h2>

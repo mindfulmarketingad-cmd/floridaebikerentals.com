@@ -47,8 +47,12 @@ a business appears:
    such as a restaurant, are taken out.
 
 We rank by Google star rating weighted against review count, so a shop with 4.9 stars across 800
-reviews outranks a 5.0 from three reviews. A handful of reviews is not yet evidence. There is no paid
-placement: no business can buy a higher spot.
+reviews outranks a 5.0 from three reviews. A handful of reviews is not yet evidence. Rankings are
+never paid: no business can buy a higher spot.
+
+**Partner shops.** Shops can subscribe to [priority caller status](/business/) for their region. When
+you call our rental line and choose a region, a partner shop in that region is rung first. That is the
+only thing a subscription changes; it has no effect on listings or rankings.
 
 We only say what a shop's public profile records. If a profile does not list a service, we do not
 claim the shop offers it. That is why, for example, our battery page separates confirmed battery
@@ -75,8 +79,8 @@ Shops move, change hours, get bought and close. Two things keep the directory cu
 
 ## How the site pays for itself
 
-Florida Ebike Rentals is free to use and free to be listed in. It is supported by clearly marked
-advertising and by affiliate links: we earn a commission on qualifying Amazon purchases and on tours
+Florida Ebike Rentals is free to use and free to be listed in. It is supported by subscriptions from
+partner shops for priority caller status, by clearly marked advertising, and by affiliate links: we earn a commission on qualifying Amazon purchases and on tours
 booked through Viator. None of that affects which shops are listed or how they are ranked. The full
 detail is in our [disclaimer](/disclaimer/) and [privacy policy](/privacy/).
 

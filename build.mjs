@@ -19,6 +19,7 @@ import { homePage } from "./src/pages/home.mjs";
 import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
 import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/pages/battery.mjs";
+import { businessPage, BUSINESS_URL } from "./src/pages/business.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
@@ -168,6 +169,14 @@ for (const category of index.categories) {
     });
   }
 }
+
+/* for businesses: priority caller status */
+write(BUSINESS_URL, businessPage(site, ctx), {
+  priority: 0.6,
+  changefreq: "monthly",
+  group: "pages",
+  search: { u: BUSINESS_URL, t: "For businesses", s: "Page", d: "Priority caller status for rental shops.", k: "business partner priority calls rental shop advertise list my shop", w: 5 },
+});
 
 /* e-bike battery replacement, statewide and per town */
 ctx.batteryTownList = batteryTowns(listings, index);

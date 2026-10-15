@@ -416,6 +416,19 @@ await page.close();
      leaks===0 && tels.size===1 && tels.has("+13053631922"));
 }
 
+// 4u. /business/: header link, Costs out of the header, a Stripe checkout per open region
+{
+  const { readFileSync } = await import("node:fs");
+  const h=readFileSync(DIST+"/business/index.html","utf8");
+  const nav=(/<nav class="main-nav"[\s\S]*?<\/nav>/.exec(h)||[""])[0];
+  const links=[...h.matchAll(/href="(https:\/\/buy\.stripe\.com\/[^"]+)"/g)].map(m=>m[1]);
+  const offer=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/business.json","utf8"));
+  const open=offer.regions.filter(r=>r.status!=="taken").length;
+  ok(`/business/: in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
+     nav.includes('href="/business/"') && !nav.includes('href="/costs/"') && h.includes("$29.99") &&
+     links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) && h.includes("call-demo"));
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

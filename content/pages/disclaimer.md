@@ -31,6 +31,11 @@ periodically.
 this site dials (305) 363-1922, which is operated by Florida Ebike Rentals, not by the businesses listed.
 It is a call-tracking number, which tells us which page a call came from.
 
+**Partner shops.** When you call our rental line and choose a region, the call is offered first to that
+region's partner shop, a business that pays us a monthly fee for [priority caller status](/business/).
+If the partner does not answer, the call moves to other shops in the region. Partner status has no
+effect on which businesses are listed or how they are ranked: rankings are never paid.
+
 That data can be wrong or out of date. Shops change hours seasonally, move, rebrand, close, or stop
 renting e-bikes without updating their public profile. We make no warranty — express or implied —
 that any listing is accurate, complete, current or fit for any purpose.

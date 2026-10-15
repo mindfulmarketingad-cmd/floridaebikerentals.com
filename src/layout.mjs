@@ -8,15 +8,17 @@ export const HEADER_LINKS = [
   { href: "/find/", label: "Find" },
   { href: "/trails/", label: "Trails" },
   { href: "/blog/", label: "Blog" },
-  { href: "/costs/", label: "Costs" },
   { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
   { href: "/search/", label: "Search" },
+  { href: "/business/", label: "Business" },
 ];
 
 export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
+  { href: "/costs/", label: "Costs" },
+  { href: "/business/", label: "For businesses" },
   { href: "/contact/", label: "Contact" },
   { href: "/disclaimer/", label: "Disclaimer" },
   { href: "/privacy/", label: "Privacy" },

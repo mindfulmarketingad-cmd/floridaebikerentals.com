@@ -1,0 +1,17 @@
+{
+  "_readme": "Priority caller status for /business/. Set a region's status to \"taken\" (and add the partner's name) when a shop subscribes, and move them to first ring for that region in CallRail. The page shows each region as Open or Taken from this file.",
+  "price": "$29.99",
+  "period": "month",
+  "stripeUrl": "https://buy.stripe.com/00wdRa5U644Ed6S6dwfrW0i",
+  "regions": [
+    { "key": 1, "name": "Miami & Fort Lauderdale", "siteRegions": ["greater-miami-and-fort-lauderdale"], "status": "open" },
+    { "key": 2, "name": "Florida Keys", "siteRegions": ["the-florida-keys"], "status": "open" },
+    { "key": 3, "name": "Palm Beach & Treasure Coast", "siteRegions": ["palm-beaches-and-treasure-coast"], "status": "open" },
+    { "key": 4, "name": "Orlando & Central Florida", "siteRegions": ["orlando-and-central-florida"], "status": "open" },
+    { "key": 5, "name": "Tampa Bay & St. Pete", "siteRegions": ["tampa-bay"], "status": "open" },
+    { "key": 6, "name": "Sarasota to Naples", "siteRegions": ["sarasota-and-bradenton", "southwest-florida"], "status": "open" },
+    { "key": 7, "name": "Panhandle, 30A & Destin", "siteRegions": ["emerald-coast-and-30a"], "status": "open" },
+    { "key": 8, "name": "Daytona & Space Coast", "siteRegions": ["daytona-and-the-space-coast"], "status": "open" },
+    { "key": 9, "name": "Jacksonville, St. Augustine & North Florida", "siteRegions": ["first-coast", "north-florida"], "status": "open" }
+  ]
+}

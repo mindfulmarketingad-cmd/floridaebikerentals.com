@@ -97,7 +97,7 @@ ${ownPhoto()}
 ${h2("how-we-ranked", "How we ranked these shops")}
 <p>We start from each business's public Google profile and keep only shops that rent bikes, post opening hours and
 have at least ten reviews, so a brand-new listing cannot top the list on two five-star ratings. We then rank by star
-rating weighted against review count. We don't accept payment for placement. Ratings and hours change, so check
+rating weighted against review count. Rankings are never paid. Ratings and hours change, so check
 before you go, and <a href="/contact/">tell us</a> if something here is out of date.</p>
 <p>To ask about a rental anywhere in ${esc(group.name)}, call our rental line on <a href="tel:+13053631922">(305) 363-1922</a>.</p>
 `;

@@ -331,7 +331,7 @@ ${findHero({
   <div class="wrap wrap-narrow prose">
     <h2>${esc(phrase)}: what we found</h2>
     <p>${esc(facts.sentences.join(" "))}</p>
-    <p>${esc(category.intro)} We rank by Google rating weighted against review count, and we don't accept payment for placement.</p>
+    <p>${esc(category.intro)} We rank by Google rating weighted against review count, and rankings are never paid.</p>
   </div>
 </section>
 
