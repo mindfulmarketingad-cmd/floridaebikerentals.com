@@ -1,5 +1,5 @@
 import { esc, attr, formatReviews } from "../util.mjs";
-import { photoFor, secondPhotoFor, figure, banner, sceneForRegion, stockFor, stockImg, stockCredits } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, sceneForRegion, stockFor, stockImg, stockCredits, ownPhoto } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
@@ -238,9 +238,7 @@ ${adSlot(site, "")}
       <p>Our <a href="/blog/best-ebike-rides-florida/">ten best e-bike rides in Florida</a> covers each
       of them, with the town page for renting nearby, and our
       <a href="/trails/">trail guides</a> cover the routes in detail.</p>
-      ${figure(secondPhotoFor("home"), {
-        alt: `Riding a rented electric bike in Florida - ${secondPhotoFor("home").alt}`,
-      })}
+      ${ownPhoto()}
     </div>
   </div>
 </section>

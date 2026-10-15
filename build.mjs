@@ -20,6 +20,7 @@ import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
 import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/pages/battery.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
+import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
@@ -96,6 +97,12 @@ const shop = loadShop();
 const townNotes = loadTownNotes();
 const redirects = computeRedirects(index, listings);
 redirectsBySource = redirectMap(redirects);
+const trailFile = join(ROOT, "data", "city-trails.json");
+const trailData = existsSync(trailFile) ? JSON.parse(readFileSync(trailFile, "utf8")) : { cities: {} };
+const cityGuides = cityTrailGuides(index, trailData);
+// Region roundups join the blog, newest first.
+blog.push(...regionPosts({ listings, index, cityGuides, date: "2026-10-15" }));
+blog.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, townNotes };
 
 /* home */
@@ -254,9 +261,6 @@ for (const post of blog) {
 }
 
 /* town riding guides under /trails/, from OpenStreetMap route data */
-const trailFile = join(ROOT, "data", "city-trails.json");
-const trailData = existsSync(trailFile) ? JSON.parse(readFileSync(trailFile, "utf8")) : { cities: {} };
-const cityGuides = cityTrailGuides(index, trailData);
 ctx.cityTrailSection = cityTrailHubSection(cityGuides);
 for (const guide of cityGuides) {
   write(guide.url, cityTrailPage(site, guide, { ...ctx, trailData, guides: cityGuides }), {

@@ -1170,3 +1170,7 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 }
 .trail-figure .figure { margin: 0 0 1.5rem; }
 .trail-figure img { display: block; width: 100%; height: auto; max-height: 420px; object-fit: cover; border-radius: var(--radius-l); }
+
+/* Our own photos: shown at no more than their real width. */
+.figure--own { max-width: 650px; }
+.figure--own img { width: 100%; height: auto; aspect-ratio: auto; border-radius: var(--radius-l); }

@@ -1,7 +1,7 @@
 import { esc, attr, prettyDate, clamp, formatReviews } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbSchema, FOOTER_LINKS, HEADER_LINKS } from "../layout.mjs";
 import { linkCloud, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, statRow } from "../components.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, ownPhoto } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 
@@ -60,7 +60,7 @@ ${breadcrumbs(crumbs)}
     ${content.updated ? `<p class="post-meta"><span>Last updated ${esc(prettyDate(content.updated))}</span></p>` : ""}
     ${banner(photoFor(key), { alt: `${content.title} - ${photoFor(key).alt}` })}
     <div class="prose mt-2">${html}</div>
-    ${figure(secondPhotoFor(key), { alt: `Florida e-bike rentals - ${secondPhotoFor(key).alt}`, className: "mt-2" })}
+    ${key === "about" ? ownPhoto("beach-cruiser-ride", { className: "mt-2" }) : figure(secondPhotoFor(key), { alt: `Florida e-bike rentals - ${secondPhotoFor(key).alt}`, className: "mt-2" })}
     ${extras.after || ""}
   </div>
 </section>

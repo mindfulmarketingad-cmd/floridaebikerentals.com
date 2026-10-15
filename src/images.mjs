@@ -25,6 +25,30 @@ export function stockFor(slot) {
   return STOCK[slot] || null;
 }
 
+/**
+ * Our own photographs, taken for this site. Captioned as ours; nothing about
+ * where or what is claimed beyond what the picture shows.
+ */
+export const OWN_PHOTOS = [
+  {
+    id: "beach-cruiser-ride",
+    src: "/assets/img/original/beach-cruiser-ride.webp",
+    width: 650,
+    height: 464,
+    alt: "Rider on a teal beach cruiser with a front basket, on a brick bike path lined with hedges",
+    caption: "Photo: Florida Ebike Rentals.",
+  },
+];
+
+/** One of our own photos as a captioned figure, never wider than the file. */
+export function ownPhoto(id = "beach-cruiser-ride", { className = "" } = {}) {
+  const p = OWN_PHOTOS.find((x) => x.id === id) || OWN_PHOTOS[0];
+  return `<figure class="figure figure--own ${attr(className)}">
+  <img src="${attr(p.src)}" alt="${attr(p.alt)}" width="${p.width}" height="${p.height}" loading="lazy" decoding="async">
+  <figcaption>${esc(p.caption)}</figcaption>
+</figure>`;
+}
+
 /** A stock photo as an <img>, the 800px file by default, never wider than its file. */
 export function stockImg(photo, { alt, large = false, eager = false } = {}) {
   const [src, w, h] = large ? [photo.src, photo.width, photo.height] : [photo.small, photo.smallWidth, photo.smallHeight];
