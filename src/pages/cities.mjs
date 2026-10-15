@@ -142,7 +142,7 @@ export function cityPage(site, city, { index, townNotes, blog = [] }) {
   const names = (list) => esc(commaList(list.slice(0, 4).map((l) => l.name)));
 
   // The owner's format for every town page, used for both the H1 and <title>.
-  const h1 = `${city.name} Florida Electric Bike Rentals List ${YEAR}`;
+  const h1 = `Ebike Rentals Near Me In ${city.name} ${YEAR}`;
   const facts = townFacts(city, local);
   const lead = notes.lead
     ? fill(notes.lead)

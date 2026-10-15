@@ -213,7 +213,7 @@ const heroFirst=await page.evaluate(()=>{
 });
 const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
 ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
-   /^Daytona Beach Florida Electric Bike Rentals List 20\d\d$/.test(dTitle) && dH1===dTitle);
+   /^Ebike Rentals Near Me In Daytona Beach 20\d\d$/.test(dTitle) && dH1===dTitle);
 ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
    heroFirst && where==="Daytona Beach" && statRows===0);
 
