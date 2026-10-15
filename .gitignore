@@ -6,3 +6,4 @@ node_modules/
 # Never commit API credentials
 .env
 .env.*
+__pycache__/
