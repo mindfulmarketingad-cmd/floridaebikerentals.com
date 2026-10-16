@@ -104,6 +104,8 @@ async function main() {
     }
     all[slot] = picks.filter((c) => c.file);
     console.log(`${slot}: ${all[slot].length} candidates`);
+    // Saved after every slot, so a run cut short by a timeout keeps what it found.
+    writeFileSync(CANDIDATES, `${JSON.stringify(all, null, 2)}\n`);
   }
   writeFileSync(join(ROOT, "stock", "candidates.json"), `${JSON.stringify(all, null, 2)}\n`);
 }
