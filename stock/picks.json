@@ -21,5 +21,12 @@
   "town-tallahassee": "653b2913-5033-4032-a08b-98b2bce3d7e4",
   "town-cocoa": "1b77f2ae-53db-45f8-85be-0ddfe99be24a",
   "town-panama-city": "5666cfc6-8b9e-490d-8f82-4bfc833ddd59",
-  "town-ponte-vedra-beach": "0af95adb-980e-4446-9e47-3971e55c9aea"
+  "town-ponte-vedra-beach": "0af95adb-980e-4446-9e47-3971e55c9aea",
+  "scene-atlantic": "4abfaae6-aae1-4d95-96e2-4504e949507c",
+  "scene-gulf": "74c42f67-8354-4e6f-ae92-0908cb8768d5",
+  "scene-keys": "b1bcc281-05b4-4d3e-a780-f9cab67d4666",
+  "scene-boardwalk": "24a8c07e-3341-42c9-898d-450f148eb12b",
+  "scene-lighthouse": "3dd9cf18-e5ac-414d-b280-f318a37e9378",
+  "scene-lifeguard": "796bb7f4-53a5-46ae-be68-ac5175d0bb7b",
+  "scene-ebike": "7293abf5-6b15-4837-a05b-afc74390de74"
 }
