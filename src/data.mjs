@@ -572,10 +572,11 @@ export function statsFor(listings) {
  */
 export function assignTitles(listings) {
   const build = (listing, kind, extra) => {
-    const suffix =
-      kind === "partner" ? ` - E-Bike Rentals in ${listing.city}, FL` : ` Reviews - ${listing.city}, FL`;
+    // Listing pages use the owner's format, "<Name> - <City> Florida", with the
+    // full name; a clash adds the street or neighbourhood in brackets.
+    if (kind === "partner") return `${listing.name}${extra ? ` (${extra})` : ""} - ${listing.city} Florida`;
     const name = extra ? `${listing.name} ${extra}` : listing.name;
-    return fitTitle(name, suffix);
+    return fitTitle(name, ` Reviews - ${listing.city}, FL`);
   };
 
   for (const kind of ["partner", "review"]) {

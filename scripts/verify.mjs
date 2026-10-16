@@ -48,7 +48,8 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
     if (!title) problems.push(`${pageUrl}: missing <title>`);
     else {
       // Town pages use the owner's longer "Best Electric Ebike Rentals" format.
-      const maxTitle = /^\/cities\/[^/]+\/$/.test(pageUrl) ? 100 : 70;
+      // Town and listing pages use the owner's formats, which carry full names.
+      const maxTitle = /^\/cities\/[^/]+\/([^/]+\/)?$/.test(pageUrl) ? 160 : 70;
       if (title.length > maxTitle) problems.push(`${pageUrl}: title is ${title.length} chars — "${title}"`);
       const seen = titles.get(title);
       if (seen) problems.push(`${pageUrl}: duplicate title with ${seen}`);

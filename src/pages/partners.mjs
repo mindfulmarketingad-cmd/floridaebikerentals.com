@@ -257,7 +257,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 <section class="detail-hero">
   <div class="wrap">
     ${breadcrumbsBare(crumbs)}
-    <div class="detail-hero__title">${logoMark(listing)}<h1>${esc(listing.name)}</h1></div>
+    <div class="detail-hero__title">${logoMark(listing)}<h1>${esc(listing.pageTitle)}</h1></div>
     <div class="detail-hero__meta">
       ${listing.rating ? ratingBlock(listing) : '<span>No Google rating yet</span>'}
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
