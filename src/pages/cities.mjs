@@ -220,7 +220,7 @@ ${findHero({
 
 <section class="section section--results">
   <div class="wrap">
-    ${resultsHead(`${city.name} bike rental shops`, n, "shops")}
+    ${resultsHead(`${city.name} electric bike rental shops`, n, "shops")}
     ${listicle(local)}
     ${(() => {
       const guides = guidesFor([city.name], blog);
