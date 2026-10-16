@@ -11,7 +11,7 @@ export const HEADER_LINKS = [
   { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
   { href: "/search/", label: "Search" },
-  { href: "/business/", label: "Business" },
+  { href: "/business/", label: "Businesses", cta: true },
 ];
 
 export const FOOTER_LINKS = [

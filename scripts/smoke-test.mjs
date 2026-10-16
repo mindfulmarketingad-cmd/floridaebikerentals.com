@@ -426,7 +426,11 @@ await page.close();
   const open=offer.regions.filter(r=>r.status!=="taken").length;
   ok(`/business/: in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
      nav.includes('href="/business/"') && !nav.includes('href="/costs/"') && h.includes("$29.99") &&
-     links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) && h.includes("call-demo"));
+     links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
+     h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"') && />Businesses<\/a>/.test(nav));
+  const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
+  ok("listing page: 'Become The Priority Shop For <city>' links to /business/",
+     /href="\/business\/#regions">Become The Priority Shop For [^<]+<\/a>/.test(lp));
 }
 
 // 5. nav toggle on mobile

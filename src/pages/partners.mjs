@@ -350,6 +350,12 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       }
     </div>
 
+    <div class="panel panel--biz">
+      <h2>Own a shop in ${esc(listing.city)}?</h2>
+      <p class="small">Get rental calls from our line before other shops in your region.</p>
+      <p class="mb-0"><a class="btn btn--primary btn--block" href="/business/#regions">Become The Priority Shop For ${esc(listing.city)}</a></p>
+    </div>
+
     <div class="panel">
       <h2>Business details</h2>
       <dl class="datalist">

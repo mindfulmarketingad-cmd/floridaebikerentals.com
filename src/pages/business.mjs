@@ -27,43 +27,21 @@ function checkoutUrl(offer, region) {
   return `${offer.stripeUrl}?client_reference_id=region-${region.key}-${slug}`;
 }
 
-/** The demo: a call travelling from a rider to a partner shop, step by step. */
+/** The demo: a 16-second video of a call travelling from a rider to a partner shop, with the same steps as text. */
 function demo(offer, line) {
   const region = offer.regions[0];
-  return `<div class="call-demo" role="img" aria-label="How a call reaches your shop: a rider calls our rental line, presses ${region.key} for ${esc(region.name)}, your phone rings first and you hear a short message that the call came from Florida Ebike Rentals, then you take the booking.">
-  <ol class="call-demo__steps">
-    <li class="call-demo__step" style="--i:0">
-      <span class="call-demo__icon" aria-hidden="true">1</span>
-      <strong>A rider calls</strong>
-      <span>They tap "Call our rental line" on a page about your area: ${esc(line)}.</span>
-    </li>
-    <li class="call-demo__step" style="--i:1">
-      <span class="call-demo__icon" aria-hidden="true">2</span>
-      <strong>They pick your region</strong>
-      <span>"For ${esc(region.name)}, press ${region.key}."</span>
-    </li>
-    <li class="call-demo__step call-demo__step--you" style="--i:2">
-      <span class="call-demo__icon" aria-hidden="true">3</span>
-      <strong>Your phone rings first</strong>
-      <span>Before you're connected you hear: <em>"Rental call from Florida Ebike Rentals."</em></span>
-    </li>
-    <li class="call-demo__step" style="--i:3">
-      <span class="call-demo__icon" aria-hidden="true">4</span>
-      <strong>You take the booking</strong>
-      <span>The rider is on the line with you. Price, booking and payment are yours.</span>
-    </li>
+  return `<figure class="demo-video">
+    <video src="/assets/video/how-priority-calls-work.mp4" poster="/assets/video/how-priority-calls-work.jpg" width="1280" height="720"
+      autoplay muted loop playsinline controls preload="metadata"
+      aria-label="Video: how a rental call reaches your shop, from the rider tapping Call to you taking the booking. No sound."></video>
+  </figure>
+  <ol class="demo-steps">
+    <li><strong>A rider taps Call.</strong> They find shops in your area on our site and call our rental line, ${esc(line)}.</li>
+    <li><strong>They pick your region.</strong> "For ${esc(region.name)}, press ${region.key}."</li>
+    <li><strong>Your phone rings first.</strong> Before you're connected you hear: <em>"Rental call from Florida Ebike Rentals."</em></li>
+    <li><strong>You take the booking.</strong> The rider is on the line with you. Price, booking and payment are yours.</li>
   </ol>
-  <div class="call-demo__phone" aria-hidden="true">
-    <div class="call-demo__screen">
-      <span class="call-demo__label">Incoming call</span>
-      <span class="call-demo__from">Florida Ebike Rentals</span>
-      <span class="call-demo__region">${esc(region.name)} · rider</span>
-      <span class="call-demo__whisper">"Rental call from Florida Ebike Rentals."</span>
-      <span class="call-demo__buttons"><span class="call-demo__decline"></span><span class="call-demo__accept"></span></span>
-    </div>
-  </div>
-  <p class="call-demo__note">Don't answer? The call moves to the next shop in your region, so the rider is never left hanging.</p>
-</div>`;
+  <p class="muted">Don't answer? The call moves to the next shop in your region, so the rider is never left hanging.</p>`;
 }
 
 export function businessPage(site, { listings }) {
@@ -71,7 +49,7 @@ export function businessPage(site, { listings }) {
   const line = site.phone?.display || "(305) 363-1922";
   const crumbs = [
     { href: "/", label: "Home" },
-    { href: BUSINESS_URL, label: "For businesses" },
+    { href: BUSINESS_URL, label: "Businesses" },
   ];
   const shopsIn = (r) => listings.filter((l) => r.siteRegions.includes(l.regionSlug)).length;
   const open = offer.regions.filter((r) => r.status !== "taken");
@@ -106,7 +84,7 @@ export function businessPage(site, { listings }) {
   const body = `
 <section class="biz-hero">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">For businesses</li></ol></nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Businesses</li></ol></nav>
     <span class="eyebrow">For e-bike rental shops</span>
     <h1>Get the e-bike rental calls in your region, first</h1>
     <p class="biz-hero__lead">Riders across Florida use our site to find a rental, then call our rental line. Priority caller
@@ -141,22 +119,28 @@ export function businessPage(site, { listings }) {
   <div class="wrap">
     <h2>Claim your region</h2>
     <p class="muted">${esc(offer.price)} a ${esc(offer.period)} per region. One priority shop per region, first come, first served. The number is the key riders press in our phone menu.</p>
-    <div class="region-board mt-2">${offer.regions
-      .map((r) => {
-        const taken = r.status === "taken";
-        const n = shopsIn(r);
-        return `<div class="region-slot${taken ? " is-taken" : ""}">
-        <span class="region-slot__key">${r.key}</span>
-        <span class="region-slot__name">${esc(r.name)}</span>
-        <span class="region-slot__meta">${n} ${plural(n, "shop")} listed in this region</span>
-        ${
-          taken
-            ? `<span class="region-slot__status">Taken</span>`
-            : `<a class="btn btn--blue btn--sm" href="${attr(checkoutUrl(offer, r))}" rel="noopener" target="_blank">Claim for ${esc(offer.price)}/mo</a>`
-        }
-      </div>`;
-      })
-      .join("")}</div>
+    <div class="table-wrap mt-2">
+      <table class="data-table region-table">
+        <thead><tr><th scope="col">Key</th><th scope="col">Region</th><th scope="col">Shops listed</th><th scope="col">Status</th><th scope="col">Claim</th></tr></thead>
+        <tbody>${offer.regions
+          .map((r) => {
+            const taken = r.status === "taken";
+            const n = shopsIn(r);
+            return `<tr${taken ? ' class="is-taken"' : ""}>
+            <td><span class="region-table__key">${r.key}</span></td>
+            <th scope="row">${esc(r.name)}</th>
+            <td>${n} ${plural(n, "shop")}</td>
+            <td><span class="region-table__status region-table__status--${taken ? "taken" : "open"}">${taken ? "Taken" : "Open"}</span></td>
+            <td>${
+              taken
+                ? "Not available"
+                : `<a class="btn btn--blue btn--sm" href="${attr(checkoutUrl(offer, r))}" rel="noopener" target="_blank">Claim for ${esc(offer.price)}/mo</a>`
+            }</td>
+          </tr>`;
+          })
+          .join("")}</tbody>
+      </table>
+    </div>
     <p class="small muted mt-2">Checkout is handled by Stripe. After you pay, we'll contact you to confirm your shop's phone number, and your priority ring is usually live within one business day.</p>
   </div>
 </section>
