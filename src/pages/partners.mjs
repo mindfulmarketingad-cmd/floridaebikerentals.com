@@ -340,7 +340,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
   <aside class="sidebar">
     <div class="panel panel--cta">
       <h2>Rent from ${esc(listing.name)}</h2>
-      ${tel ? `<p><a class="btn btn--blue btn--block" href="tel:${attr(tel)}">Call our rental line</a></p><p class="small muted">${esc(line.display)} is the Florida Ebike Rentals line, not ${esc(listing.name)}'s own number.</p>` : ""}
+      ${tel ? `<p><a class="btn btn--blue btn--block" href="tel:${attr(tel)}">Call ${esc(line.display)}</a></p><p class="small muted">This is the Florida Ebike Rentals rental line, not ${esc(listing.name)}'s own number.</p>` : ""}
       ${
         listing.maps_link
           ? `<p><a class="btn btn--outline btn--block" href="${attr(
@@ -384,7 +384,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 </div>
 
 <div class="action-bar">
-  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call our line</a>` : ""}
+  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call ${esc(line.display)}</a>` : ""}
   ${
     listing.maps_link
       ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
