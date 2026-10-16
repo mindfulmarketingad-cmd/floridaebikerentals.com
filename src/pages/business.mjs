@@ -61,7 +61,7 @@ export function businessPage(site, { listings }) {
     },
     {
       q: "How many calls will I get?",
-      a: "<p>We can't promise a number: calls depend on the season and on how many riders look for your area. You see every call in your monthly report, and you can cancel at any time if it isn't worth it to you.</p>",
+      a: "<p>Shops can add an additional 3 to 5 leads a month, depending on their region. It isn't a guarantee: calls depend on the season and on how many riders look for your area. You see every call in your monthly report, and you can cancel at any time if it isn't worth it to you.</p>",
     },
     {
       q: "Does paying move my shop up the rankings?",
@@ -88,7 +88,8 @@ export function businessPage(site, { listings }) {
     <span class="eyebrow">For e-bike rental shops</span>
     <h1>Get the e-bike rental calls in your region, first</h1>
     <p class="biz-hero__lead">Riders across Florida use our site to find a rental, then call our rental line. Priority caller
-    status puts your shop first in line for every call in your region, for ${esc(offer.price)} a ${esc(offer.period)}.</p>
+    status puts your shop first in line for every call in your region, for ${esc(offer.price)} a ${esc(offer.period)}.
+    Shops can add an additional 3 to 5 leads a month, depending on their region.</p>
     <p><a class="btn btn--primary" href="#regions">See open regions</a> <a class="btn btn--outline-light" href="#how-it-works">How it works</a></p>
     <p class="biz-hero__meta">${open.length} of ${offer.regions.length} regions open · One priority shop per region · Cancel any time</p>
   </div>
@@ -107,7 +108,7 @@ export function businessPage(site, { listings }) {
     ${figure(photoFor("business"), { alt: "Illustration of riders on e-bikes in Florida", caption: null, className: "biz-figure" })}
     <h2>What you get</h2>
     <div class="grid grid--3 mt-2">
-      <div class="card"><h3>First ring in your region</h3><p>When a rider picks your region in our phone menu, your phone rings before any other shop's.</p></div>
+      <div class="card"><h3>First ring in your region</h3><p>When a rider picks your region in our phone menu, your phone rings before any other shop's. Shops can add an additional 3 to 5 leads a month, depending on their region.</p></div>
       <div class="card"><h3>You know it's us</h3><p>A short whisper before each call, "Rental call from Florida Ebike Rentals", so you can answer ready to book.</p></div>
       <div class="card"><h3>A monthly call report</h3><p>Every call in your region, answered and missed, with time and length, so you can judge it on results.</p></div>
     </div>
