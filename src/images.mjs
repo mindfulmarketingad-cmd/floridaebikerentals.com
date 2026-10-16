@@ -73,7 +73,7 @@ export function stockCredits(photos) {
 }
 
 /** Drawn scenes. `og` is a 1200x630 JPEG for social cards, which do not render SVG. */
-export const SCENES = [
+const DRAWN = [
   {
     id: "atlantic",
     src: "/assets/img/scenes/atlantic.svg",
@@ -195,6 +195,29 @@ export const SCENES = [
     themes: ["springs", "inland", "trail"],
   },
 ];
+
+/**
+ * What each scene's stock photo shows, written after looking at it. A scene
+ * with a photo in data/stock-photos.json (slot "scene-<id>") shows that photo
+ * everywhere the drawing used to appear; one without keeps its drawing.
+ */
+const SCENE_PHOTO_ALT = {};
+
+export const SCENES = DRAWN.map((scene) => {
+  const p = stockFor(`scene-${scene.id}`);
+  if (!p) return scene;
+  const alt = SCENE_PHOTO_ALT[scene.id] || p.title || "";
+  return {
+    ...scene,
+    src: p.src,
+    width: p.width,
+    height: p.height,
+    og: p.og || p.src,
+    alt,
+    caption: `Stock photo: ${alt}`,
+    stock: p,
+  };
+});
 
 
 /**

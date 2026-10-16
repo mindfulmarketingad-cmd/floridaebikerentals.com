@@ -263,6 +263,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
       ${rankInCity ? `<span>Ranked #${rankInCity} of ${city.listings.length} in ${esc(listing.city)}</span>` : ""}
     </div>
+    <p class="detail-hero__biz"><a class="btn btn--primary" href="/business/#regions">Become The Priority Shop For ${esc(listing.city)}</a></p>
   </div>
 </section>
 
@@ -348,12 +349,6 @@ export function partnerPage(site, listing, { listings, index, blog }) {
             )}" rel="nofollow noopener" target="_blank">Get directions</a></p>`
           : ""
       }
-    </div>
-
-    <div class="panel panel--biz">
-      <h2>Own a shop in ${esc(listing.city)}?</h2>
-      <p class="small">Get rental calls from our line before other shops in your region.</p>
-      <p class="mb-0"><a class="btn btn--primary btn--block" href="/business/#regions">Become The Priority Shop For ${esc(listing.city)}</a></p>
     </div>
 
     <div class="panel">

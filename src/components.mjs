@@ -132,6 +132,10 @@ export function photo(listing, { className = "", sizes = "", eager = false, pref
     if (kind === "photo" && listing.photo) return photoImg();
   }
   const scene = sceneForRegion(listing.regionSlug);
+  if (scene.stock) {
+    // Labelled, so a stock picture is never taken for the shop's own photo.
+    return `<img src="${attr(scene.stock.small)}" alt="" class="is-stock${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.stock.smallWidth}" height="${scene.stock.smallHeight}"><span class="stock-tag">Stock photo</span>`;
+  }
   return `<img src="${attr(scene.src)}" alt="" class="is-illustration${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.width}" height="${scene.height}">`;
 }
 
