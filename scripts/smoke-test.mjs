@@ -433,6 +433,17 @@ await page.close();
      /href="\/business\/#regions">Become The Priority Shop For [^<]+<\/a>/.test(lp));
 }
 
+// 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town
+{
+  const pg=await b.newPage();
+  await pg.goto("http://localhost:8099/cities/");
+  await pg.fill("#town-q","naples");
+  const shown=await pg.$$eval("[data-town]",cs=>cs.filter(c=>c.offsetParent).map(c=>c.dataset.town));
+  await Promise.all([pg.waitForURL(/\/cities\/naples\/$/), pg.press("#town-q","Enter")]);
+  ok(`/cities/ town search: "naples" shows ${shown.join(", ")} and Enter opens /cities/naples/`, shown.length===1 && shown[0]==="Naples");
+  await pg.close();
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

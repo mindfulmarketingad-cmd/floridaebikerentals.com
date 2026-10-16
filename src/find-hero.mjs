@@ -74,11 +74,12 @@ const SORTS = [
  * @param {string} o.lead        one or two sentences under the title
  * @param {object} o.scene       entry from SCENES
  * @param {object} o.index       the directory index, for the destination list
+ * @param {string} o.form        replaces the search form entirely (the /cities/ town search)
  * @param {string} o.current     URL of this page, preselected in "Where"
  * @param {Array}  o.tags        services present in the list, for the filter
  * @param {string} o.placeholder text-search hint
  */
-export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "" }) {
+export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "", form = "" }) {
   return `<section class="find-hero">
   <img class="find-hero__art" src="${attr(scene.src)}" alt="${attr(scene.alt)}" width="${scene.width}" height="${scene.height}" fetchpriority="high" decoding="async">
   <div class="find-hero__shade" aria-hidden="true"></div>
@@ -86,7 +87,7 @@ export function findHero({ crumbs, h1, lead, scene, index, current, category = n
     ${breadcrumbsBare(crumbs)}
     <h1 class="find-hero__title">${keepHyphenatedWhole(h1)}</h1>
     ${lead ? `<p class="find-hero__lead">${esc(lead)}</p>` : ""}
-    <form class="find-search${filters ? "" : " find-search--where-only"}"${filters ? " data-filter-form" : ""} data-find-search role="search" aria-label="Search e-bike rentals">
+    ${form || `<form class="find-search${filters ? "" : " find-search--where-only"}"${filters ? " data-filter-form" : ""} data-find-search role="search" aria-label="Search e-bike rentals">
       <div class="find-search__field find-search__field--where">
         <label for="fs-where">Where</label>
         <select id="fs-where" data-destination>${whereOptions || destinationOptions(index, current, category)}</select>
@@ -107,7 +108,7 @@ export function findHero({ crumbs, h1, lead, scene, index, current, category = n
         <select id="fs-sort" name="sort">${SORTS.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select>
       </div>` : ""}
       <button class="btn btn--primary find-search__go" type="submit">${filters ? "Search" : "Go"}</button>
-    </form>
+    </form>`}
   </div>
 </section>`;
 }
@@ -138,7 +139,7 @@ export function townCards(towns) {
       const media = own
         ? stockImg(own, { alt: `${town.name}, Florida` })
         : `<img src="${attr(scene.src)}" alt="" class="is-illustration" loading="lazy" decoding="async" width="${scene.width}" height="${scene.height}">`;
-      return `<a class="town-card" href="${attr(town.url)}">
+      return `<a class="town-card" href="${attr(town.url)}" data-town="${attr(town.name)}">
   <span class="town-card__media">${media}</span>
   <span class="town-card__body">
     <span class="town-card__name">${esc(town.name)}</span>

@@ -1215,3 +1215,8 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 
 .panel--biz { border-top: 4px solid var(--sun-500); }
 .panel--biz h2 { font-size: 1.1rem; }
+
+.town-search__status { margin: .7rem 0 0; color: #fff; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+.town-search__status:empty { display: none; }
+.town-card[hidden], .city-region[hidden], .region-jump[hidden] { display: none !important; }
+.is-town-search .city-region__banner { display: none; }

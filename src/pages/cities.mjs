@@ -39,6 +39,14 @@ ${findHero({
   index,
   current: "/cities/",
   filters: false,
+  form: `<form class="find-search find-search--where-only" action="/search/" method="get" role="search" data-town-search>
+      <div class="find-search__field">
+        <label for="town-q">Search for your city</label>
+        <input type="search" id="town-q" name="q" placeholder="Type a city, e.g. Key West" autocomplete="off" enterkeyhint="search">
+      </div>
+      <button class="btn btn--primary find-search__go" type="submit">Search</button>
+    </form>
+    <p class="town-search__status" aria-live="polite" data-town-status></p>`,
 })}
 
 <section class="section">
@@ -48,7 +56,7 @@ ${findHero({
       .join("")}</nav>
     ${regions
       .map(
-        (region) => `<section class="city-region" id="${attr(region.slug)}">
+        (region) => `<section class="city-region" id="${attr(region.slug)}" data-region="${attr(region.name)}">
       ${
         // Full-width banners only from photos wide enough not to be stretched.
         stockFor(region.slug) && stockFor(region.slug).width >= 1180

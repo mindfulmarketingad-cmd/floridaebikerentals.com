@@ -670,6 +670,52 @@
     }
   });
 
+  /* ------------------------------------------- /cities/ town search */
+  /* Filters the town cards as you type. Enter opens the town when only one
+     matches; with no match the form falls through to /search/, which also
+     looks at shop names and services. */
+  var townForm = $("[data-town-search]");
+  if (townForm) {
+    var townInput = $("input[name=q]", townForm);
+    var townStatus = $("[data-town-status]");
+    var townRegions = $$("[data-region]");
+    var townJump = $(".region-jump");
+    var norm = function (v) {
+      return String(v || "").toLowerCase().replace(/\bst\.?\s/g, "saint ").replace(/[^a-z0-9]+/g, " ").trim();
+    };
+    var townMatches = [];
+    var filterTowns = function () {
+      var q = norm(townInput.value);
+      townMatches = [];
+      townRegions.forEach(function (region) {
+        var regionHit = q.length >= 4 && norm(region.getAttribute("data-region")).indexOf(q) !== -1;
+        var shown = 0;
+        $$("[data-town]", region).forEach(function (card) {
+          var hit = !q || regionHit || norm(card.getAttribute("data-town")).indexOf(q) !== -1;
+          card.hidden = !hit;
+          if (hit) { shown++; townMatches.push(card); }
+        });
+        region.hidden = shown === 0;
+      });
+      if (townJump) townJump.hidden = !!q;
+      d.body.classList.toggle("is-town-search", !!q);
+      if (!q) townStatus.textContent = "";
+      else if (!townMatches.length) townStatus.textContent = "No town by that name. Press Search to look through shop names and services instead.";
+      else townStatus.textContent = townMatches.length + (townMatches.length === 1 ? " town matches." : " towns match.");
+    };
+    townInput.addEventListener("input", filterTowns);
+    townForm.addEventListener("submit", function (e) {
+      filterTowns();
+      if (!norm(townInput.value) || !townMatches.length) return;
+      e.preventDefault();
+      var q = norm(townInput.value);
+      var exact = townMatches.filter(function (c) { return norm(c.getAttribute("data-town")) === q; })[0];
+      if (exact || townMatches.length === 1) { window.location.href = (exact || townMatches[0]).href; return; }
+      townMatches[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      townMatches[0].focus({ preventScroll: true });
+    });
+  }
+
   /* ------------------------------------------------ listicle filters */
   var filterForm = $("[data-filter-form]");
   if (filterForm) {
