@@ -56,6 +56,18 @@ export function businessPage(site, { listings }) {
 
   const faqs = [
     {
+      q: "How do I get more leads to my bike shop?",
+      a: `<p>Complete your Google Business Profile, collect Google reviews from every happy customer, answer every call, get listed on directories riders use (including <a href="/cities/">this site, free</a>), and partner with vacation rentals and hotels. Priority caller status adds calls from our rental line on top. <a href="#grow">Read the full guide</a>.</p>`,
+    },
+    {
+      q: "How do I get more customers to my e-bike store?",
+      a: `<p>Show clear prices, let people book or reserve online, offer delivery and guided rides if you can, and treat every rental as a test ride with a credit toward buying the bike. <a href="#grow">More in our guide</a>.</p>`,
+    },
+    {
+      q: "How should I run ads for my e-bike shop?",
+      a: `<p>Start with Google Search ads on local, high-intent searches like "e-bike rental near me", limited to a radius around your shop and with a call button. Use Facebook and Instagram for tours and sales. Set a daily budget and judge ads on calls and bookings, not clicks. <a href="#grow">See the ad checklist</a>.</p>`,
+    },
+    {
       q: "What exactly do I get for $29.99 a month?",
       a: `<p>Priority caller status for one region. When a rider calls our rental line and picks your region in the phone menu, your phone rings first. Every call starts with a short whisper, "Rental call from Florida Ebike Rentals", that only you hear, so you know where it came from. Each month we send you the call report for your region.</p>`,
     },
@@ -86,11 +98,11 @@ export function businessPage(site, { listings }) {
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Businesses</li></ol></nav>
     <span class="eyebrow">For e-bike rental shops</span>
-    <h1>Get the e-bike rental calls in your region, first</h1>
+    <h1>Get more leads and customers to your e-bike shop</h1>
     <p class="biz-hero__lead">Riders across Florida use our site to find a rental, then call our rental line. Priority caller
     status puts your shop first in line for every call in your region, for ${esc(offer.price)} a ${esc(offer.period)}.
     Shops can add an additional 3 to 5 leads a month, depending on their region.</p>
-    <p><a class="btn btn--primary" href="#regions">See open regions</a> <a class="btn btn--outline-light" href="#how-it-works">How it works</a></p>
+    <p><a class="btn btn--primary" href="#regions">See open regions</a> <a class="btn btn--outline-light" href="#how-it-works">How it works</a> <a class="btn btn--outline-light" href="#grow">Free guide: more leads</a></p>
     <p class="biz-hero__meta">${open.length} of ${offer.regions.length} regions open · One priority shop per region · Cancel any time</p>
   </div>
 </section>
@@ -160,6 +172,65 @@ export function businessPage(site, { listings }) {
   </div>
 </section>
 
+<section class="section section--tint" id="grow">
+  <div class="wrap wrap-narrow prose">
+    <h2>How to get more leads to your bike shop</h2>
+    <p>Most rental customers decide on their phone, often the day before or the morning of the ride, and they pick from
+    the first few shops they find. Getting more leads comes down to being in those first few results and making it easy
+    to call or book. Start with the free steps:</p>
+    <ol>
+      <li><strong>Complete your Google Business Profile.</strong> Pick the right primary category (for example "Bicycle
+      rental service" or "Electric bicycle store"), add your real hours, holiday hours, services, prices and plenty of
+      current photos of your bikes and storefront. This profile is what shows in Google Maps and the local results.</li>
+      <li><strong>Ask every happy customer for a Google review.</strong> Rating and review count weigh heavily when riders
+      choose a shop; our own rankings use them too. A QR code at the counter and a follow-up text after the ride both work.
+      Reply to every review, including the bad ones.</li>
+      <li><strong>Answer the phone.</strong> A missed call is usually a lost rental: the rider calls the next shop. Forward
+      calls to a mobile or set up a callback, especially on weekend mornings.</li>
+      <li><strong>Get listed where riders look.</strong> Directories like ours, your town's visitor bureau and the
+      local chamber of commerce send riders who are already planning a trip. Your <a href="/cities/">listing on this
+      site</a> is free.</li>
+      <li><strong>Partner with the places tourists stay.</strong> Vacation rental managers, hotels and campgrounds get asked
+      "where can we rent bikes?" every day. Offer them a flyer, a code or delivery to their guests.</li>
+    </ol>
+
+    <h2>How to get more customers to your e-bike store</h2>
+    <p>Leads only pay off if they turn into rentals and sales. A few things make the difference:</p>
+    <ul>
+      <li><strong>Show your prices.</strong> Riders compare. A clear hourly, half-day and daily price on your website and
+      Google profile gets more calls than "call for pricing".</li>
+      <li><strong>Let people book online</strong>, or at least reserve, so you can take a booking at 10pm when riders plan
+      the next day.</li>
+      <li><strong>Offer what visitors ask for:</strong> delivery to rental houses, guided rides, family bikes and trailers,
+      multi-day rates. If you offer them, say so on your profile and website.</li>
+      <li><strong>Turn renters into buyers.</strong> An e-bike rental is a test ride. Offer to credit part of the rental
+      fee toward buying the same model.</li>
+      <li><strong>Keep in touch.</strong> Ask renters for an email or phone number and send a short note before next
+      season. Florida visitors come back.</li>
+    </ul>
+
+    <h2>How to run ads for your e-bike shop</h2>
+    <p>Ads work best once the free basics above are in place, because they send people to your profile and website. Keep
+    it small and local at first:</p>
+    <ul>
+      <li><strong>Google Search ads.</strong> Target searches with buying intent, such as "e-bike rental near me" and
+      "bike rentals [your town]", and limit the ads to a radius around your shop. Add your phone number as a call asset so
+      riders can call straight from the ad.</li>
+      <li><strong>Google Local Services and Maps.</strong> Check whether Local Services Ads are offered for your category
+      in your area; if not, location assets put your address on your search ads and in Maps.</li>
+      <li><strong>Facebook and Instagram ads.</strong> Better for awareness than for same-day rentals. Short videos of
+      riders on your bikes in recognisable local spots, shown to people in and travelling to your town, work well for
+      tours and sales.</li>
+      <li><strong>Set a daily budget and measure calls and bookings</strong>, not clicks. Use a tracking number or ask every
+      caller how they found you, and stop what doesn't bring rentals.</li>
+      <li><strong>Run hardest in your season.</strong> Spend more around spring break, holidays and peak months in your
+      area, and less when bikes would sit unused anyway.</li>
+    </ul>
+    <p>Want calls without managing ads? Riders already find shops through our site and call our rental line.
+    <a href="#regions">Claim your region</a> and those calls ring your phone first, for ${esc(offer.price)} a ${esc(offer.period)}.</p>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap wrap-narrow">
     <h2>Questions from shop owners</h2>
@@ -178,8 +249,8 @@ export function businessPage(site, { listings }) {
 `;
 
   return page(site, {
-    title: "For Businesses: Get E-Bike Rental Calls First",
-    description: `Priority caller status for Florida e-bike rental shops: your phone rings first for every rental call in your region, for ${offer.price} a ${offer.period}. One shop per region.`,
+    title: "How to Get More Leads & Customers to Your E-Bike Shop",
+    description: `How to get more leads and customers to your bike or e-bike shop, and how to run ads that bring rentals. Plus priority caller status in Florida: ${offer.price} a ${offer.period}.`,
     path: BUSINESS_URL,
     body,
     ogImage: "/assets/img/scenes/atlantic.jpg",
