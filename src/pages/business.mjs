@@ -52,7 +52,8 @@ export function businessPage(site, { listings }) {
     { href: BUSINESS_URL, label: "Businesses" },
   ];
   const shopsIn = (r) => listings.filter((l) => r.siteRegions.includes(l.regionSlug)).length;
-  const open = offer.regions.filter((r) => r.status !== "taken");
+  // "taken": a shop holds the slot; "closed": we are not selling lead slots there.
+  const open = offer.regions.filter((r) => r.status === "open");
 
   const faqs = [
     {
@@ -117,7 +118,7 @@ export function businessPage(site, { listings }) {
 
 <section class="section section--tint">
   <div class="wrap">
-    ${figure(photoFor("business"), { alt: "Illustration of riders on e-bikes in Florida", caption: null, className: "biz-figure" })}
+    ${figure(photoFor("business"), { caption: null, className: "biz-figure" })}
     <h2>What you get</h2>
     <div class="grid grid--3 mt-2">
       <div class="card"><h3>First ring in your region</h3><p>When a rider picks your region in our phone menu, your phone rings before any other shop's. Shops can add an additional 3 to 5 leads a month, depending on their region.</p></div>
@@ -137,16 +138,17 @@ export function businessPage(site, { listings }) {
         <thead><tr><th scope="col">Key</th><th scope="col">Region</th><th scope="col">Shops listed</th><th scope="col">Status</th><th scope="col">Claim</th></tr></thead>
         <tbody>${offer.regions
           .map((r) => {
-            const taken = r.status === "taken";
+            const taken = r.status !== "open";
+            const label = { taken: "Taken", closed: "Closed" }[r.status] || "Open";
             const n = shopsIn(r);
             return `<tr${taken ? ' class="is-taken"' : ""}>
             <td><span class="region-table__key">${r.key}</span></td>
             <th scope="row">${esc(r.name)}</th>
             <td>${n} ${plural(n, "shop")}</td>
-            <td><span class="region-table__status region-table__status--${taken ? "taken" : "open"}">${taken ? "Taken" : "Open"}</span></td>
+            <td><span class="region-table__status region-table__status--${taken ? "taken" : "open"}">${label}</span></td>
             <td>${
               taken
-                ? "Not available"
+                ? r.status === "closed" ? "Closed for lead slots" : "Not available"
                 : `<a class="btn btn--blue btn--sm" href="${attr(checkoutUrl(offer, r))}" rel="noopener" target="_blank">Claim for ${esc(offer.price)}/mo</a>`
             }</td>
           </tr>`;
@@ -253,7 +255,7 @@ export function businessPage(site, { listings }) {
     description: `How to get more leads and customers to your bike or e-bike shop, and how to run ads that bring rentals. Plus priority caller status in Florida: ${offer.price} a ${offer.period}.`,
     path: BUSINESS_URL,
     body,
-    ogImage: "/assets/img/scenes/atlantic.jpg",
+    ogImage: photoFor("business").og,
     schema: [breadcrumbSchema(site, crumbs), faqSchema(faqs)],
   });
 }

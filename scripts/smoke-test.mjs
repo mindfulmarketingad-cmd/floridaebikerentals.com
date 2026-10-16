@@ -257,15 +257,16 @@ await page.close();
      vLegacy && vLegacy.destination==="/cities/daytona-beach/");
 }
 
-// 4o. featured images are the vector scenes, sharp at any width
+// 4o. featured images are stock photos at least 1,400px wide, so heroes never stretch
 page=await b.newPage({viewport:{width:1366,height:900}});
 await page.goto("http://localhost:8099/blog/",{waitUntil:"load"});
-const blogBanner=await page.$eval(".page-banner img, .find-hero__art",i=>i.getAttribute("src")).catch(()=>"");
+const blogBanner=await page.$eval(".page-banner img, .find-hero__art",i=>[i.getAttribute("src"),+i.getAttribute("width")]).catch(()=>["",0]);
 await page.goto("http://localhost:8099/cities/key-west/",{waitUntil:"load"});
-const keysHero=await page.$eval(".find-hero__art",i=>i.getAttribute("src"));
+const keysHero=await page.$eval(".find-hero__art",i=>[i.getAttribute("src"),+i.getAttribute("width")]);
 const og=await page.$eval('meta[property="og:image"]',m=>m.content);
-ok(`featured images are scenes (blog ${blogBanner.split("/").pop()}, Key West hero ${keysHero.split("/").pop()})`,
-   /\/scenes\/[a-z]+\.svg$/.test(blogBanner) && /keys\.svg$/.test(keysHero) && !/\.svg$/.test(og));
+const svgs=(await import("node:child_process")).execSync(`grep -rl 'scenes/[a-z]*\\.svg' ${DIST} --include=*.html | wc -l`).toString().trim();
+ok(`featured images are wide stock photos (blog ${blogBanner[0].split("/").pop()} ${blogBanner[1]}px, Key West hero ${keysHero[0].split("/").pop()} ${keysHero[1]}px; pages with illustrations: ${svgs})`,
+   /\/stock\//.test(blogBanner[0]) && blogBanner[1]>=1400 && /\/stock\/scene-keys\.jpg$/.test(keysHero[0]) && keysHero[1]>=1400 && !/\.svg$/.test(og) && svgs==="0");
 await page.close();
 
 // 4p. AdSense quality fixes: one canonical host, no thin pages in the
@@ -423,14 +424,14 @@ await page.close();
   const nav=(/<nav class="main-nav"[\s\S]*?<\/nav>/.exec(h)||[""])[0];
   const links=[...h.matchAll(/href="(https:\/\/buy\.stripe\.com\/[^"]+)"/g)].map(m=>m[1]);
   const offer=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/business.json","utf8"));
-  const open=offer.regions.filter(r=>r.status!=="taken").length;
+  const open=offer.regions.filter(r=>r.status==="open").length;
   ok(`/business/: in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
      nav.includes('href="/business/"') && !nav.includes('href="/costs/"') && h.includes("$29.99") &&
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
      h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"') && />Businesses<\/a>/.test(nav));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
-  ok("listing page: 'Become The Priority Shop For <city>' links to /business/",
-     /href="\/business\/#regions">Become The Priority Shop For [^<]+<\/a>/.test(lp));
+  ok("listing page: 'Get More Leads' button links to /business/",
+     /class="detail-hero__biz"><a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
 }
 
 // 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town

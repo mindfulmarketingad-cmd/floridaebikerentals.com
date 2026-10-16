@@ -335,8 +335,8 @@ ${next ? `<link rel="next" href="${attr(site.url + next)}">` : ""}
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:url" content="${attr(canonical)}">
 <meta property="og:image" content="${attr(image)}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+${/\/assets\/img\/stock\//.test(image) ? "" : `<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">`}
 <meta property="og:locale" content="${attr(site.locale)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${attr(title)}">

@@ -139,7 +139,7 @@ export function townCards(towns) {
       const media = own
         ? stockImg(own, { alt: `${town.name}, Florida` })
         : scene.stock
-          ? stockImg(scene.stock, { alt: "" }).replace("<img ", '<img class="is-stock" ')
+          ? `${stockImg(scene.stock, { alt: "" }).replace("<img ", '<img class="is-stock" ')}<span class="stock-tag">Stock photo</span>`
           : `<img src="${attr(scene.src)}" alt="" class="is-illustration" loading="lazy" decoding="async" width="${scene.width}" height="${scene.height}">`;
       return `<a class="town-card" href="${attr(town.url)}" data-town="${attr(town.name)}">
   <span class="town-card__media">${media}</span>

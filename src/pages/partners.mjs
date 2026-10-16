@@ -263,7 +263,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
       ${rankInCity ? `<span>Ranked #${rankInCity} of ${city.listings.length} in ${esc(listing.city)}</span>` : ""}
     </div>
-    <p class="detail-hero__biz"><a class="btn btn--primary" href="/business/#regions">Become The Priority Shop For ${esc(listing.city)}</a></p>
+    <p class="detail-hero__biz"><a class="btn btn--primary" href="/business/">Get More Leads</a></p>
   </div>
 </section>
 

@@ -181,7 +181,7 @@ ${adSlot(site, "")}
     <div class="trail-figure">${
       photo
         ? `<figure class="figure">${stockImg(photo, { alt: `${city.name}, Florida`, large: photo.width >= 1180 })}<figcaption>${esc(city.name)}, Florida. Photo: ${esc(photo.creator || "Openverse")}, ${esc(String(photo.license).toUpperCase())}.</figcaption></figure>`
-        : figure(sceneForTown(city.regionSlug, 1), { alt: `Illustration of e-bike riding near ${city.name}, Florida` })
+        : figure(sceneForTown(city.regionSlug, 1))
     }</div>
     <h2>Rent an e-bike in ${esc(city.name)}</h2>
     <p class="muted">The top-ranked of the ${city.listings.length} rental shops we list in ${esc(city.name)}, by Google rating and review count.</p>

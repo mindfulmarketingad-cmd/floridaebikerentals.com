@@ -1,10 +1,9 @@
 /**
  * The site's image library.
  *
- * Featured images are illustrations drawn by scripts/make-scenes.mjs: vector
- * art, sharp at any width. The photographs that used to fill that role were
- * 499-800px wide and stretched across a 1,180px banner, so every featured image
- * on the site looked soft, so they are no longer used.
+ * Featured images are CC0 stock photos, at least 1,600px wide where a banner
+ * needs it, standing in for the illustrations drawn by scripts/make-scenes.mjs
+ * (which remain the fallback for any scene without a photo).
  *
  * Nothing here is a photograph of a listed business or of a specific town.
  * Illustrations are captioned as illustrations, and photos beside a specific
@@ -197,25 +196,57 @@ const DRAWN = [
 ];
 
 /**
- * What each scene's stock photo shows, written after looking at it. A scene
- * with a photo in data/stock-photos.json (slot "scene-<id>") shows that photo
- * everywhere the drawing used to appear; one without keeps its drawing.
+ * The stock photo that stands in for each drawn scene, and what it shows
+ * (written after looking at it, and never claiming more about the place than
+ * the photo's source does). A scene whose photo is missing keeps its drawing.
  */
-const SCENE_PHOTO_ALT = {};
+const SCENE_PHOTO = {
+  atlantic: ["daytona-and-the-space-coast", "Early morning sunrise over the beach at Daytona Beach, Florida"],
+  gulf: ["scene-gulf", "A cyclist silhouetted on the beach at sunset"],
+  keys: ["scene-keys", "A row of blue and aqua beach cruiser bikes in the Florida Keys"],
+  trail: ["scene-ebike", "A white step-through electric bike parked on grass"],
+  boardwalk: ["scene-boardwalk", "A bike parked at the end of a beach boardwalk, with a kite surfer offshore"],
+  miami: ["town-miami-beach", "Aerial view of the hotels and beach of Miami Beach, Florida"],
+  emerald: ["town-destin", "Crab Island sandbar near Destin, Florida"],
+  tampa: ["tampa-bay", "Aerial view over John's Pass, Florida"],
+  lighthouse: ["scene-lighthouse", "The red tower of Ponce Inlet Lighthouse, Florida"],
+  lifeguard: ["scene-lifeguard", "A red lifeguard stand on a sunny beach"],
+  spiral: ["scene-gulf", "A cyclist silhouetted on the beach at sunset"],
+  springs: ["north-florida", "James D. Westcott Memorial Building, Tallahassee, Florida"],
+};
+
+/**
+ * Heroes and banners run full width, so a scene whose photo is under 1,400px
+ * wide uses this 1,600px photo there instead (and in figures and social
+ * cards); its own photo still fills the small cards, where it is sharp.
+ */
+const WIDE_PHOTO = {
+  gulf: ["town-clearwater", "Sun setting over the Gulf of Mexico at Clearwater Beach, Florida"],
+  trail: ["orlando-and-central-florida", "Panorama of Lake Eola in Orlando, Florida"],
+  boardwalk: ["daytona-and-the-space-coast", "Early morning sunrise over the beach at Daytona Beach, Florida"],
+  miami: ["scene-keys", "A row of blue and aqua beach cruiser bikes in the Florida Keys"],
+  emerald: ["emerald-coast-and-30a", "A colorful sunset over the docks in Destin, Florida"],
+  lifeguard: ["southwest-florida", "Lighthouse at the southern tip of Sanibel Island, Florida"],
+  springs: ["orlando-and-central-florida", "Panorama of Lake Eola in Orlando, Florida"],
+};
+const WIDE_ENOUGH = 1400;
 
 export const SCENES = DRAWN.map((scene) => {
-  const p = stockFor(`scene-${scene.id}`);
-  if (!p) return scene;
-  const alt = SCENE_PHOTO_ALT[scene.id] || p.title || "";
+  const [slot, cardAlt] = SCENE_PHOTO[scene.id] || [];
+  const card = slot && stockFor(slot);
+  if (!card) return scene;
+  const [wideSlot, wideAlt] = WIDE_PHOTO[scene.id] || [];
+  const wide = card.width >= WIDE_ENOUGH ? card : wideSlot && stockFor(wideSlot);
+  const [big, alt] = wide && wide !== card ? [wide, wideAlt] : [card, cardAlt];
   return {
     ...scene,
-    src: p.src,
-    width: p.width,
-    height: p.height,
-    og: p.og || p.src,
+    src: big.src,
+    width: big.width,
+    height: big.height,
+    og: big.src,
     alt,
     caption: `Stock photo: ${alt}`,
-    stock: p,
+    stock: card,
   };
 });
 
@@ -265,8 +296,12 @@ const REGION_POOL = {
 
 /** The n-th illustration in a region's pool, for the n-th town card in a row. */
 export function sceneForTown(regionSlug, n) {
-  const pool = REGION_POOL[regionSlug] || ["atlantic", "gulf", "trail", "boardwalk"];
-  return SCENES.find((s) => s.id === pool[n % pool.length]) || SCENES[0];
+  // Two scenes can share a photo, so repeats are dropped before cycling.
+  const seen = new Set();
+  const pool = (REGION_POOL[regionSlug] || ["atlantic", "gulf", "trail", "boardwalk"])
+    .map((id) => SCENES.find((s) => s.id === id))
+    .filter((s) => s && !seen.has(s.stock?.src || s.src) && seen.add(s.stock?.src || s.src));
+  return pool[n % pool.length] || SCENES[0];
 }
 
 export function sceneForRegion(regionSlug) {
