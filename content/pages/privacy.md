@@ -2,7 +2,7 @@
 title: Privacy Policy
 metaTitle: Privacy Policy - Florida Ebike Rentals
 description: How Florida Ebike Rentals handles your data, including cookies, Google AdSense advertising, location permissions, contact form submissions and your privacy rights.
-updated: 2026-09-02
+updated: 2026-10-17
 ---
 
 ## The short version
@@ -33,11 +33,16 @@ so we never handle payment card data.
 
 ## Cookies and similar technologies
 
-We do not set our own tracking or analytics cookies. The site's own functionality runs without
-them.
+We use Google Analytics to count visits and see which pages are used, so we can improve the site.
+It sets first-party cookies (named `_ga` and `_ga_*`) that let it recognise a returning browser. It
+does not tell us who you are. The site's own features run without these cookies.
 
 Third parties on this site may set cookies or use similar identifiers:
 
+- **Google Analytics** collects your IP address, browser and device type, the pages you visit and
+  how you reached them, and reports them to us in aggregate. Google processes this under its own
+  privacy policy. You can opt out with Google's
+  [Analytics opt-out browser add-on](https://tools.google.com/dlpage/gaoptout).
 - **Google AdSense** serves the advertising that funds this site. Google and its partners may use
   cookies and device identifiers to serve and measure ads, including personalised ads based on your
   prior visits to this and other sites.

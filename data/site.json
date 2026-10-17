@@ -10,6 +10,9 @@
   "language": "en",
   "twitter": "",
   "founded": "2026",
+  "analytics": {
+    "ga4": "G-DX557E1PNG"
+  },
   "adsense": {
     "enabled": true,
     "publisherId": "pub-9332749804326149",

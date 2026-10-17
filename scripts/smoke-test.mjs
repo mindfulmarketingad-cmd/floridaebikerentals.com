@@ -445,6 +445,17 @@ await page.close();
   await pg.close();
 }
 
+// 4w. GA4 tag on every page, allowed by the page's CSP
+{
+  const pg=await b.newPage(); const blocked=[]; const ga=[];
+  pg.on("console",m=>{ if(/Content Security Policy/.test(m.text()) && /google/.test(m.text())) blocked.push(m.text()); });
+  pg.on("request",r=>{ if(/googletagmanager\.com\/gtag\/js\?id=G-DX557E1PNG/.test(r.url())) ga.push(r.url()); });
+  await pg.goto("http://localhost:8099/cities/key-west/"); await pg.waitForTimeout(500);
+  const dl=await pg.evaluate(()=>(window.dataLayer||[]).map(a=>Array.from(a)[0]));
+  ok(`GA4 tag G-DX557E1PNG loads and configures, no CSP blocks (${blocked.length})`, ga.length===1 && dl.includes("config") && blocked.length===0);
+  await pg.close();
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");
