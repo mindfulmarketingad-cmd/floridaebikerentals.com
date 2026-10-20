@@ -1300,3 +1300,7 @@ img.is-stock { object-fit: cover; }
 .hero--photo .hero__actions .small { text-shadow: 0 1px 4px rgba(6, 20, 60, .85), 0 0 12px rgba(6, 20, 60, .6); }
 .hero__grid--single { grid-template-columns: minmax(0, 660px); }
 .hero--photo .hero__inner { min-height: clamp(440px, 64vh, 620px); display: flex; align-items: center; }
+.text-link { font-weight: 800; color: var(--blue-700); text-decoration: underline; text-underline-offset: .2em; }
+.text-link::after { content: " \2192"; }
+.text-link:hover { color: var(--blue-500); }
+.cta-band .text-link, .section--blue .text-link { color: #fff; }

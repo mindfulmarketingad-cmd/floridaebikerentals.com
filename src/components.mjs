@@ -216,7 +216,7 @@ function hoursToday(listing) {
   return row.closed ? "Closed today" : `Today: ${row.hours}`;
 }
 
-export function listicleItem(listing, rank, { showSummary = true } = {}) {
+export function listicleItem(listing, rank, { showSummary = true, rentOnly = false } = {}) {
   const url = attr(listing.url);
   const facts = [];
   facts.push(`<li><b>Address</b> <span>${esc(listing.address || `${listing.city}, FL`)}</span></li>`);
@@ -263,10 +263,10 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
       ${tagList(listing.tags, 4)}
       <ul class="listicle__facts">${facts.join("")}</ul>
       <div class="listicle__actions">
-        <a class="btn btn--blue btn--sm" href="${url}">Full details</a>
+        ${rentOnly ? "" : `<a class="btn btn--blue btn--sm" href="${url}">Full details</a>`}
         ${rentNowButton("btn btn--primary btn--sm", { town: listing.citySlug, listing: listing.slug })}
         ${
-          listing.maps_link
+          !rentOnly && listing.maps_link
             ? `<a class="btn btn--outline btn--sm" href="${attr(
                 listing.maps_link
               )}" rel="nofollow noopener" target="_blank">Directions</a>`
@@ -398,7 +398,7 @@ export function faqSchema(items) {
  * town or trail: the affiliate link lands on Viator's statewide e-bike tour
  * category, not a page filtered to wherever the reader happens to be.
  */
-export function bookingCta(site, { variant = "band", title, text, secondary } = {}) {
+export function bookingCta(site, { variant = "band", title, text, secondary, asLinks = false } = {}) {
   const viator = site.viator;
   if (!viator || !viator.enabled) return "";
   const url = String(viator.url || "");
@@ -410,7 +410,8 @@ export function bookingCta(site, { variant = "band", title, text, secondary } = 
     text ||
     "Guided e-bike tours across Florida include the bike, the helmet and a guide who knows the route. Browse what is running and book direct.";
 
-  const link = `<a class="btn btn--primary" href="${attr(url)}" rel="sponsored nofollow noopener" target="_blank">${esc(
+  // asLinks: plain text links, for pages where Rent Now is the only button.
+  const link = `<a class="${asLinks ? "text-link" : "btn btn--primary"}" href="${attr(url)}" rel="sponsored nofollow noopener" target="_blank">${esc(
     label
   )}</a>`;
   const disclosure = viator.disclosure
@@ -436,7 +437,7 @@ export function bookingCta(site, { variant = "band", title, text, secondary } = 
   <p>${esc(body)}</p>
   <div class="btn-row">
     ${link}
-    ${secondary ? `<a class="btn btn--ghost" href="${attr(secondary.href)}">${esc(secondary.label)}</a>` : ""}
+    ${secondary ? `<a class="${asLinks ? "text-link" : "btn btn--ghost"}" href="${attr(secondary.href)}">${esc(secondary.label)}</a>` : ""}
   </div>
   ${disclosure}
 </div>`;

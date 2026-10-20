@@ -71,7 +71,6 @@ export function homePage(site, { listings, index, blog, stats }) {
         </ul>
         <div class="hero__actions">
           <a class="btn btn--primary" href="/rent/">Rent Now</a>
-          <a class="btn btn--ghost" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
         </div>
       </div>
     </div>
@@ -115,7 +114,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         count: city.listings.length,
       }))
     )}
-    <p class="mt-2"><a class="btn btn--outline btn--sm" href="/find/">See all ${esc(
+    <p class="mt-2"><a class="text-link" href="/find/">See all ${esc(
       String(index.cities.length)
     )} Florida towns</a></p>
   </div>
@@ -132,8 +131,8 @@ ${adSlot(site, "")}
       outrank a perfect score from a handful of reviews.</p>
     </div>
     ${mapPanel(topTen, { id: "home-map", zoom: 7, buttonLabel: "Show map view" })}
-    ${listicle(topTen)}
-    <p class="mt-2"><a class="btn btn--blue" href="/partners/">Browse all ${esc(
+    ${listicle(topTen, { rentOnly: true })}
+    <p class="mt-2"><a class="text-link" href="/partners/">Browse all ${esc(
       String(stats.total)
     )} partners</a></p>
   </div>
@@ -145,6 +144,7 @@ ${adSlot(site, "")}
       title: "Book a guided e-bike experience in Florida",
       text: "Renting a bike and riding it yourself is one way to do it. The other is a guided tour, where the bike, the helmet and someone who knows the route are all included in the price. Guided e-bike tours run across Florida's beach towns and cities, and most are two to three hours.",
       secondary: { href: "/find/guided-ebike-tours-in-florida/", label: "See Florida tour operators" },
+      asLinks: true,
     })}
   </div>
 </section>
@@ -229,7 +229,7 @@ ${adSlot(site, "")}
         )
         .join("")}
     </div>
-    <p class="mt-2"><a class="btn btn--outline btn--sm" href="/blog/">All guides</a></p>
+    <p class="mt-2"><a class="text-link" href="/blog/">All guides</a></p>
   </div>
 </section>
 
@@ -246,12 +246,9 @@ ${adSlot(site, "")}
 <section class="section">
   <div class="wrap">
     ${ctaBand({
-      title: "Find the e-bike rentals closest to you",
-      text: "The partner directory sorts itself by distance from wherever you are, so the shops at the top are the ones you can walk or drive to today.",
-      buttons: [
-        { href: "/partners/", label: "Rent Now", variant: "btn--primary" },
-        { href: "/contact/", label: "Add your shop", variant: "btn--ghost" },
-      ],
+      title: "Rent an e-bike anywhere in Florida",
+      text: "Tell us the town, the date and the style of bike. We find a shop that has it and send you a quote to approve.",
+      buttons: [{ href: "/rent/", label: "Rent Now", variant: "btn--primary" }],
     })}
   </div>
 </section>
