@@ -9,7 +9,9 @@
  *                 lead, with the shops in or near that town that offer the
  *                 service asked for, so the request can be passed to one.
  *
- * Nothing is booked or paid on the form: we confirm with a shop first, and say so.
+ * Nothing is charged on the form. We confirm with a shop, send the rider a quote
+ * (the shop's price and our booking fee, shown separately) with a Stripe payment
+ * link from the lead desk (/api/quote/), and book the shop once it is paid.
  */
 import { esc, attr } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
@@ -99,8 +101,8 @@ export function rentPage(site, { index, listings }) {
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Rent Now</li></ol></nav>
     <h1>Rent an e-bike in Florida</h1>
     ${figure(photoFor("rent-now"), { caption: null, className: "rent-figure", eager: true })}
-    <p class="lede">Tell us where and when, and we will find a shop near you that has what you need, check price and
-    availability, and get back to you to confirm. Nothing is booked and nothing is paid on this form.</p>
+    <p class="lede">Tell us where and when, and we will find a shop near you that has what you need, then send you a
+    quote. Pay it securely online and we book the rental for you. Nothing is charged until you accept a quote.</p>
 
     <form class="rent-form" data-rent-form${cfg ? ` data-endpoint="${attr(cfg.url)}" data-key="${attr(cfg.key)}"` : ""} novalidate>
       <p class="rent-form__shop" data-rent-shop hidden></p>
@@ -133,7 +135,7 @@ export function rentPage(site, { index, listings }) {
         </div>
         <p class="rent-styles__fine small muted">You choose a style of bike, not a specific make or model: each shop
         has its own fleet, so the exact e-bike is not guaranteed. The style is. We confirm it with the shop before
-        anything is booked, and if no shop near you has that style, we tell you and nothing is booked.</p>
+        we quote, and if no shop near you has that style, we tell you and nothing is charged.</p>
       </fieldset>
 
       <div class="rent-form__grid">
@@ -171,8 +173,8 @@ export function rentPage(site, { index, listings }) {
       <label class="rent-form__hp" aria-hidden="true">Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label>
       <label class="rent-form__consent">
         <input type="checkbox" name="consent" required>
-        <span>We may share these details with the shop that takes your rental, so they can confirm it with you.
-        See our <a href="/privacy/">privacy policy</a>.</span>
+        <span>You can call or text me about this request, and share the booking details with the shop you book.
+        See our <a href="/privacy/">privacy policy</a> and <a href="/terms/#rent-now-bookings">booking terms</a>.</span>
       </label>
       <p class="small muted">Give us a phone number or an email, so we can reach you.</p>
       <button class="btn btn--primary btn--block" type="submit">Send my request</button>
@@ -182,16 +184,20 @@ export function rentPage(site, { index, listings }) {
 
     <div class="rent-done" data-rent-done hidden>
       <h2>Thanks, we have your request</h2>
-      <p>We will check with shops near you and get back to you to confirm price and availability before anything is booked.</p>
+      <p>We will check with shops near you and send you a quote with the price and a secure payment link.
+      Nothing is charged until you pay it.</p>
       <p><a class="btn btn--outline" href="/cities/">Browse shops while you wait</a></p>
     </div>
 
     <h2 class="mt-3">How it works</h2>
     <ol class="rent-steps">
       <li><strong>You send a request</strong> with the town, the date and what you need.</li>
-      <li><strong>We find a shop</strong> in or near that town that offers it, and check price and availability.</li>
-      <li><strong>We get back to you</strong> to confirm. You book and pay the shop, and your rental agreement is with them.</li>
+      <li><strong>We find a shop</strong> in or near that town that has it free, in the style you chose.</li>
+      <li><strong>You get a quote</strong>: the shop's price for the rental and our booking fee, shown separately.</li>
+      <li><strong>You pay online</strong> through Stripe, and we book the rental and send you the shop's name and pickup details.</li>
     </ol>
+    <p class="small muted">Full refund if you cancel 24 hours or more before your rental; no refund after that. If the
+    shop cancels or can't provide your booking, you get a full refund. <a href="/terms/#rent-now-bookings">Booking terms</a>.</p>
     ${ownPhoto()}
   </div>
 </section>
@@ -206,6 +212,34 @@ export function rentPage(site, { index, listings }) {
     body,
     connectHosts: cfg ? [cfg.url] : [],
     schema: [breadcrumbSchema(site, crumbs)],
+  });
+}
+
+/** Where Stripe sends a rider after paying. */
+export const RENT_PAID_URL = "/rent/paid/";
+export function rentPaidPage(site) {
+  const line = site.phone?.display ? site.phone : null;
+  const body = `
+<section class="section rent">
+  <div class="wrap wrap-narrow">
+    <h1>Payment received, thank you</h1>
+    ${figure(photoFor("rent-paid"), { caption: null, className: "rent-figure", eager: true })}
+    <p class="lede">We are booking your rental with the shop now. When it is confirmed we will send you the shop's
+    name, where to collect your bikes and when.</p>
+    <p>Stripe emails your receipt to the address you gave at checkout. Need to change or cancel? Reply to your quote
+    message${line ? `, call us on <a href="tel:${attr(line.number)}">${esc(line.display)}</a>,` : ""} or use our
+    <a href="/contact/">contact page</a>. Cancel 24 hours or more before your rental for a full refund
+    (<a href="/terms/#rent-now-bookings">booking terms</a>).</p>
+    <p><a class="btn btn--outline" href="/trails/">Find somewhere to ride</a></p>
+    ${ownPhoto()}
+  </div>
+</section>`;
+  return page(site, {
+    title: "Payment Received - Florida Ebike Rentals",
+    description: "Your rental payment was received. We are booking it with the shop.",
+    path: RENT_PAID_URL,
+    body,
+    noindex: true,
   });
 }
 
@@ -235,10 +269,12 @@ export function adminLeadsPage(site) {
         <div class="admin-bar">
           <label class="field"><span>Status</span>
             <select data-admin-filter>
-              <option value="open">Open (new, contacted, matched)</option>
+              <option value="open">To do (new to paid)</option>
               <option value="">All</option>
               <option value="new">New</option><option value="contacted">Contacted</option>
-              <option value="matched">Matched</option><option value="booked">Booked</option><option value="lost">Lost</option>
+              <option value="matched">Matched</option><option value="quoted">Quoted</option>
+              <option value="paid">Paid: book the shop</option><option value="booked">Booked</option>
+              <option value="cancelled">Cancelled</option><option value="refunded">Refunded</option><option value="lost">Lost</option>
             </select>
           </label>
           <button class="btn btn--outline btn--sm" type="button" data-admin-refresh>Refresh</button>

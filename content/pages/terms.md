@@ -2,7 +2,7 @@
 title: Terms of Service
 metaTitle: Terms of Service - Florida Ebike Rentals
 description: The terms that govern your use of FloridaEbikeRentals.com, including acceptable use, listing content, intellectual property, disclaimers and limitation of liability.
-updated: 2026-09-02
+updated: 2026-10-20
 ---
 
 ## 1. Acceptance
@@ -17,10 +17,49 @@ The Site is a free, independent directory of bicycle and electric bicycle rental
 and tour operators located in Florida. We publish business information compiled from public sources
 so that visitors can find and contact those businesses directly.
 
-We are not a rental company, booking platform, travel agent, broker or agent of any listed
-business. We do not take reservations, process payments, hold deposits, supply equipment, or
-guarantee availability. Any transaction you enter into with a listed business is solely between you
-and that business.
+We are not a rental company: we do not own, supply or maintain bikes, and we are not an agent of any
+listed business. Through our [Rent Now](/rent/) page we offer one service of our own, a booking
+service, which is covered in [Rent Now bookings](#rent-now-bookings) below. Apart from that service,
+any transaction you enter into with a listed business is solely between you and that business.
+
+## Rent Now bookings
+
+**What we do.** When you send a request on our Rent Now page, we look for a shop in or near your town
+that can provide what you asked for. If we find one, we send you a quote. If you accept and pay it,
+we book the rental with that shop on your behalf and send you a confirmation with the shop's name,
+where to collect the bikes and when.
+
+**Price.** Every quote shows two amounts before you pay: the shop's price for the rental, and our
+booking fee. The shop's price is what the shop charges us for your rental, including any tax it
+charges. We do not add anything to it; our booking fee is shown separately. You pay us the total
+through Stripe; we never see or store your card number. Nothing is charged until you pay a quote,
+and a quote's payment link expires after 23 hours.
+
+**Bike style.** You choose a style of bike, not a make or model. The exact e-bike is not guaranteed.
+The style is: we confirm it with the shop before we quote, and if the shop cannot provide that style
+when you collect your rental, you are entitled to a full refund.
+
+**Cancellations and refunds.**
+
+- Cancel 24 hours or more before the start of your rental: full refund of everything you paid,
+  including our booking fee.
+- Cancel less than 24 hours before the start, or do not turn up: no refund.
+- If the shop cancels, cannot provide your booking, or closes for weather or safety: full refund,
+  or a new date if you prefer.
+
+To cancel, reply to your quote or confirmation message, or use our [contact page](/contact/).
+Refunds go back to the card you paid with, normally within 5 to 10 business days of our processing them.
+
+**At pickup.** The shop provides the bikes and runs the rental. It may ask you to show ID, sign its own
+rental agreement and liability waiver, leave a security deposit, and follow its rules on age, helmets
+and where you may ride. Those terms are between you and the shop. If you do not meet them, for example
+by refusing to sign the shop's waiver, the shop may refuse the rental, and that counts as a
+cancellation by you.
+
+**Our responsibility.** We are responsible for making the booking we confirmed to you and for refunds
+under this section. We are not responsible for the condition, safety or operation of the bikes, or for
+the shop's staff and premises, though we will help if something goes wrong with a booking we made.
+Our total liability for a booking is limited to the amount you paid us for it.
 
 ## 3. Use of the Site
 

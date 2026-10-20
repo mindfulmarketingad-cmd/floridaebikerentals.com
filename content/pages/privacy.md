@@ -21,8 +21,14 @@ correct the directory. We do not add you to a marketing list.
 **Rent Now requests.** If you send a request on the [Rent Now](/rent/) page, we receive the town, the
 date and service you asked for, the number of bikes, your name, your phone number and/or email, and
 any note you add. It is stored in our database, hosted by Supabase, and only we can read it. We use
-it to find a shop for your rental and to contact you about it, and we share it with the shop we ask
-to fulfil it, so they can confirm your rental with you. We do not sell it or use it for marketing.
+it to find a shop for your rental, to send you a quote and confirmation, and to book the rental; we
+share your name, the booking details and, where the shop needs it, your phone number with the shop
+we book.
+
+**Payments.** If you pay a quote, the payment is handled by Stripe. You enter your card details on
+Stripe's page, not ours; we never see or store your card number. Stripe tells us the amount, that the
+payment succeeded, and the email address you gave it, and keeps its own records under its
+[privacy policy](https://stripe.com/privacy). We do not sell it or use it for marketing.
 
 **Automatically collected technical data.** Like nearly every website, our hosting provider records
 standard server data when a page is requested — IP address, browser user agent, referring page,
@@ -34,8 +40,8 @@ browser's geolocation API, which always asks your permission first. Your coordin
 your own browser to sort the list of listings and are never transmitted to us or stored anywhere.
 Decline the prompt and the site works normally, showing top-rated statewide results instead.
 
-**What we do not collect.** No accounts, no passwords, no payment details. We never take payment for
-a rental, so we never handle payment card data.
+**What we do not collect.** No accounts and no passwords for visitors. We never see or store card
+numbers: card payments for Rent Now bookings go through Stripe.
 
 ## Cookies and similar technologies
 
@@ -96,7 +102,8 @@ businesses listed on this site unless you specifically ask us to pass it on.
 
 Contact-form messages are kept for as long as needed to handle your request and to maintain a
 record of listing corrections, then deleted. Rent Now requests are kept for up to 12 months after
-your rental date, then deleted; ask us on the [contact page](/contact/) to delete yours sooner. Server logs are retained by our hosting provider on
+your rental date, then deleted, except that records of paid bookings are kept as long as tax and
+accounting law requires; ask us on the [contact page](/contact/) to delete yours sooner. Server logs are retained by our hosting provider on
 their standard schedule, typically a short rolling window.
 
 ## Your privacy rights

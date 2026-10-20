@@ -203,7 +203,8 @@ ${adSlot(site, "")}
       )} run guided rides as well as rentals. Every listing shows the address, directions,
       opening hours, services and the shop's Google rating with its review count, so you can judge
       whether a 4.6 average comes from forty reviews or four thousand.</p>
-      <p>We are not a rental company. We hold no deposits and set no prices. Rankings are never paid:
+      <p>We are not a rental company. We hold no deposits and don't set shops' prices; when you book through
+      Rent Now, you see the shop's price and our booking fee separately before you pay. Rankings are never paid:
       they come from public rating data, not from who pays us. Partner shops can pay to be rung first
       when you call our rental line, and that is all they can pay for. It is covered in full on our
       <a href="/about/">about page</a> and in our <a href="/disclaimer/">disclaimer</a>.</p>

@@ -14,10 +14,12 @@ particular business, product or activity. You use the information on this site a
 ## We are a directory, not a rental company
 
 Florida Ebike Rentals does not own, operate, staff, insure, inspect or control any of the
-businesses listed on this site. We do not rent bicycles or electric bikes, run tours, take
-reservations, process payments, or hold deposits.
+businesses listed on this site. We do not own or rent out bicycles or electric bikes, run tours, or
+hold deposits. The one exception to "we do not book" is our [Rent Now](/rent/) service, where we book
+a rental with a shop on your behalf and take payment for it; its terms are in our
+[terms of use](/terms/#rent-now-bookings).
 
-When you contact or book with a business you found here, you enter into an agreement with that
+When you contact or book directly with a business you found here, you enter into an agreement with that
 business alone. Florida Ebike Rentals is not a party to it. Any dispute over price, availability,
 equipment condition, damage, injury, refunds or cancellations is between you and the business.
 
@@ -28,13 +30,14 @@ compiled from publicly available sources, primarily Google Business Profile data
 periodically.
 
 **Rent Now requests.** When you send a request on our [Rent Now](/rent/) page, we look for a shop in or
-near your town that offers what you asked for, check with them, and get back to you. We do not take
-payment. The shop sets the price and terms, and your rental agreement is with them.
+near your town that offers what you asked for, check with them, and send you a quote: the shop's price plus our
+booking fee, shown separately. If you pay it, we book the rental for you. The shop's own rental
+agreement, waiver and deposit rules still apply when you collect the bikes.
 
 **Bike style, not model.** We do not own bikes, so a Rent Now request asks for a style of bike (a beach
 cruiser e-bike or a fat-tire e-bike, for example), not a particular make or model. The exact e-bike is
-not guaranteed. The style you choose is: we confirm it with the shop before anything is booked, and if
-no shop near you has that style, we tell you and nothing is booked.
+not guaranteed. The style you choose is: we confirm it with the shop before we quote, and if no shop
+near you has that style, we tell you and nothing is charged.
 
 **Phone calls.** We do not list businesses' own phone numbers. Our rental line, (305) 363-1922, is operated by Florida Ebike Rentals, not by the businesses listed.
 It is a call-tracking number, which tells us which page a call came from.

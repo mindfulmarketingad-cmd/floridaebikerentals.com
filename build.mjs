@@ -20,7 +20,7 @@ import { findHub, categoryPage, categoryTownPage } from "./src/pages/find.mjs";
 import { citiesHub, cityPage } from "./src/pages/cities.mjs";
 import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/pages/battery.mjs";
 import { businessPage, BUSINESS_URL } from "./src/pages/business.mjs";
-import { rentPage, adminLeadsPage, adminShopsJson, RENT_URL, ADMIN_LEADS_URL, ADMIN_SHOPS_JSON } from "./src/pages/rent.mjs";
+import { rentPage, rentPaidPage, adminLeadsPage, adminShopsJson, RENT_URL, RENT_PAID_URL, ADMIN_LEADS_URL, ADMIN_SHOPS_JSON } from "./src/pages/rent.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
@@ -186,6 +186,7 @@ write(RENT_URL, rentPage(site, ctx), {
   group: "pages",
   search: { u: RENT_URL, t: "Rent Now", s: "Page", d: "Send a rental request and we find a shop for you.", k: "rent book booking reserve request e-bike rental now", w: 6 },
 });
+write(RENT_PAID_URL, rentPaidPage(site), { skipSitemap: true });
 write(ADMIN_LEADS_URL, adminLeadsPage(site), { skipSitemap: true });
 writeRaw(ADMIN_SHOPS_JSON.replace(/^\//, ""), adminShopsJson(assignTitles(loadListings({ raw: true })), index));
 

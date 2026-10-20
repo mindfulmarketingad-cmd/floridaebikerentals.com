@@ -792,7 +792,7 @@
     var loadLeads = function () {
       var f = $("[data-admin-filter]").value;
       var q = "/rest/v1/leads?select=*&order=created_at.desc&limit=500";
-      if (f === "open") q += "&status=in.(new,contacted,matched)";
+      if (f === "open") q += "&status=in.(new,contacted,matched,quoted,paid)";
       else if (f) q += "&status=eq." + encodeURIComponent(f);
       api(q).then(function (rows) {
         A.leads = rows || [];
@@ -837,8 +837,9 @@
           row("Came from shop", esc(l.listing)) +
           row("Assigned to", esc(l.assigned_listing)) +
         "</dl>" +
+        quoteBox(l) +
         '<div class="admin-edit"><label class="field"><span>Status</span><select data-lead-status>' +
-          ["new", "contacted", "matched", "booked", "lost"].map(function (s) { return '<option' + (s === l.status ? " selected" : "") + ">" + s + "</option>"; }).join("") +
+          ["new", "contacted", "matched", "quoted", "paid", "booked", "cancelled", "refunded", "lost"].map(function (s) { return '<option' + (s === l.status ? " selected" : "") + ">" + s + "</option>"; }).join("") +
         '</select></label><label class="field"><span>Your notes</span><textarea rows="2" data-lead-notes>' + esc(l.admin_notes) + '</textarea></label>' +
         '<button class="btn btn--blue btn--sm" type="button" data-lead-save>Save</button> <span class="small" data-lead-saved></span></div>' +
         '<h3>Shops that can fulfil this (' + list.length + ')</h3>' +
@@ -860,6 +861,63 @@
         }).join("") || '<li class="muted">No shops within ' + radius + " miles. Widen the distance.</li>") + "</ol>";
       detail.setAttribute("data-lead", i);
     };
+    var money = function (c) { return "$" + (c / 100).toFixed(2); };
+    var shopName = function (slug) {
+      var s = slug && A.shops.shops.filter(function (x) { return x.s === slug; })[0];
+      return s ? s.n : (slug || "");
+    };
+    var dateText = function (l) { return [l.start_date, l.duration && l.duration !== "not sure" ? l.duration : ""].filter(Boolean).join(", "); };
+    var quoteMessage = function (l) {
+      var total = (l.quote_rental_cents || 0) + (l.quote_fee_cents || 0);
+      return "Hi " + l.name.split(" ")[0] + ", here is your e-bike rental quote from Florida Ebike Rentals.\n" +
+        (l.bikes ? l.bikes + " x " : "") + (A.styles[l.bike_style] && l.bike_style !== "any" ? A.styles[l.bike_style] : "bike") +
+        " in " + (l.town_name || l.town) + (dateText(l) ? ", " + dateText(l) : "") + ".\n" +
+        (l.quote_details ? l.quote_details + "\n" : "") +
+        "Rental " + money(l.quote_rental_cents) + " + booking fee " + money(l.quote_fee_cents) + " = " + money(total) + ".\n" +
+        "Pay here to confirm (link valid 23 hours): " + l.quote_url + "\n" +
+        "Full refund if you cancel 24+ hours before your rental. Booking terms: " + location.origin + "/terms/#rent-now-bookings";
+    };
+    var confirmMessage = function (l) {
+      return "Hi " + l.name.split(" ")[0] + ", you're booked! " +
+        (l.quote_shop ? "Your rental is with " + l.quote_shop + " in " + (l.town_name || l.town) + ". " : "") +
+        (dateText(l) ? "When: " + dateText(l) + ". " : "") +
+        (l.quote_details ? l.quote_details + " " : "") +
+        "Bring a photo ID; the shop may ask you to sign its rental agreement and waiver at pickup. " +
+        "Need to change anything? Reply to this message. - Florida Ebike Rentals";
+    };
+    var shareLinks = function (l, text) {
+      var enc = encodeURIComponent(text);
+      return '<div class="admin-shop__actions">' +
+        '<button class="btn btn--outline btn--sm" type="button" data-copy>Copy message</button>' +
+        (l.phone ? '<a class="btn btn--outline btn--sm" href="sms:' + esc(l.phone.replace(/[^0-9+]/g, "")) + "?&body=" + enc + '">Text it</a>' : "") +
+        (l.email ? '<a class="btn btn--outline btn--sm" href="mailto:' + esc(l.email) + "?subject=" + encodeURIComponent("Your e-bike rental") + "&body=" + enc + '">Email it</a>' : "") +
+        '</div><textarea class="admin-msg" rows="6" readonly data-msg>' + esc(text) + "</textarea>";
+    };
+    var quoteBox = function (l) {
+      var paid = l.status === "paid" || l.status === "booked";
+      var h = '<div class="admin-quote"><h3>Quote and payment</h3>';
+      if (paid) {
+        h += '<p class="admin-paid">Paid ' + money(l.paid_cents || 0) + (l.paid_at ? " on " + esc(new Date(l.paid_at).toLocaleString()) : "") +
+          (l.stripe_payment_intent ? ' · <a href="https://dashboard.stripe.com/payments/' + esc(l.stripe_payment_intent) + '" target="_blank" rel="noopener">View in Stripe</a> (refunds are made there)' : "") + "</p>" +
+          (l.status === "paid" ? '<p class="small"><strong>Next:</strong> book ' + esc(l.quote_shop || "the shop") + ', then set the status to Booked and send the rider this confirmation:</p>' : "<p class=small>Confirmation for the rider:</p>") +
+          shareLinks(l, confirmMessage(l));
+        return h + "</div>";
+      }
+      h += '<div class="admin-quote__grid">' +
+        '<label class="field"><span>Shop you will book</span><input type="text" data-q-shop value="' + esc(l.quote_shop || shopName(l.assigned_listing)) + '"></label>' +
+        '<label class="field"><span>Shop\'s price for the rental, incl. tax ($)</span><input type="number" min="1" step="0.01" data-q-rental value="' + (l.quote_rental_cents ? (l.quote_rental_cents / 100).toFixed(2) : "") + '"></label>' +
+        '<label class="field"><span>Your booking fee ($)</span><input type="number" min="0" step="0.01" data-q-fee value="' + (l.quote_fee_cents != null ? (l.quote_fee_cents / 100).toFixed(2) : "") + '"></label>' +
+        "</div>" +
+        '<label class="field"><span>Details for the rider (pickup time and place, what is included)</span><textarea rows="2" maxlength="1000" data-q-details>' + esc(l.quote_details) + "</textarea></label>" +
+        '<p class="small muted">Check before you quote: the shop has the ' + esc(A.styles[l.bike_style] || "bike") + ' style free on that date, and its cancellation terms are no stricter than ours (full refund 24h+).</p>' +
+        '<button class="btn btn--blue btn--sm" type="button" data-q-send>' + (l.quote_url ? "Make a new payment link" : "Create payment link") + '</button> <span class="small" data-q-status></span>';
+      if (l.quote_url) {
+        var expired = l.quote_expires_at && new Date(l.quote_expires_at) < new Date();
+        h += '<p class="small">' + (expired ? '<strong>This link has expired.</strong> Make a new one.' : "Link expires " + esc(new Date(l.quote_expires_at).toLocaleString()) + ".") + "</p>" +
+          (expired ? "" : shareLinks(l, quoteMessage(l)));
+      }
+      return h + "</div>";
+    };
     var patch = function (i, fields) {
       var l = A.leads[i];
       return api("/rest/v1/leads?id=eq." + encodeURIComponent(l.id), {
@@ -880,6 +938,24 @@
       if (e.target.matches("[data-lead-save]")) {
         patch(i, { status: $("[data-lead-status]", detail).value, admin_notes: $("[data-lead-notes]", detail).value || null })
           .then(function () { $("[data-lead-saved]", detail).textContent = "Saved."; loadLeads(); });
+      }
+      if (e.target.matches("[data-copy]")) {
+        var msg = $("[data-msg]", detail);
+        msg.select();
+        (navigator.clipboard ? navigator.clipboard.writeText(msg.value) : Promise.reject()).then(function () { e.target.textContent = "Copied"; }, function () { document.execCommand("copy"); e.target.textContent = "Copied"; });
+      }
+      if (e.target.matches("[data-q-send]")) {
+        var st = $("[data-q-status]", detail);
+        var cents = function (sel) { var v = parseFloat($(sel, detail).value); return isNaN(v) ? NaN : Math.round(v * 100); };
+        var body = { lead_id: A.leads[i].id, shop: $("[data-q-shop]", detail).value, rental_cents: cents("[data-q-rental]"), fee_cents: cents("[data-q-fee]"), details: $("[data-q-details]", detail).value };
+        if (!(body.rental_cents > 0)) { st.textContent = "Enter the shop's price."; return; }
+        if (!(body.fee_cents >= 0)) { st.textContent = "Enter your booking fee (0 is fine)."; return; }
+        e.target.disabled = true;
+        st.textContent = "Creating the Stripe link...";
+        fetch("/api/quote/", { method: "POST", headers: { Authorization: "Bearer " + A.token, "Content-Type": "application/json" }, body: JSON.stringify(body) })
+          .then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || "Failed"); return j; }); })
+          .then(function (j) { A.leads[i] = j.lead; showLead(i); loadLeads(); })
+          .catch(function (err) { e.target.disabled = false; st.textContent = err.message; });
       }
       var a = e.target.closest("[data-assign]");
       if (a) patch(i, { assigned_listing: a.getAttribute("data-assign"), status: "matched" }).then(loadLeads);

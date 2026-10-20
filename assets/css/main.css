@@ -1280,3 +1280,12 @@ img.is-stock { object-fit: cover; }
 .rent-style__body strong { color: var(--ink); }
 .rent-style__body span { font-size: .85rem; color: var(--ink-mute); }
 .rent-styles__fine { margin: 0; }
+.admin-quote { margin: 1rem 0; padding: 1rem; border: 2px solid var(--blue-100); border-radius: var(--radius); background: var(--blue-50); display: grid; gap: .6rem; }
+.admin-quote h3 { margin: 0; }
+.admin-quote__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+@media (max-width: 640px) { .admin-quote__grid { grid-template-columns: 1fr; } }
+.admin-paid { margin: 0; font-weight: 700; color: #1b7f4b; }
+.admin-msg { width: 100%; font: inherit; font-size: .85rem; padding: .6rem; border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--white); }
+.admin-lead__status.s-quoted { background: #e8eefc; color: var(--blue-700); }
+.admin-lead__status.s-paid { background: #1b7f4b; color: #fff; }
+.admin-lead__status.s-cancelled, .admin-lead__status.s-refunded { background: #f1f1f1; color: #666; }

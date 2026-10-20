@@ -82,3 +82,37 @@ create policy "admins delete leads" on public.leads
 grant insert on public.leads to anon;
 grant select, insert, update, delete on public.leads to authenticated;
 revoke all on public.admins from anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Paid bookings (safe to re-run). The rider pays us through Stripe; we book
+-- the shop. Quote fields are written by the lead desk through /api/quote/
+-- (as the signed-in admin); paid fields by the Stripe webhook (service key).
+
+alter table public.leads drop constraint if exists leads_status_check;
+alter table public.leads add constraint leads_status_check
+  check (status in ('new', 'contacted', 'matched', 'quoted', 'paid', 'booked', 'cancelled', 'refunded', 'lost'));
+
+alter table public.leads add column if not exists quote_shop          text;
+alter table public.leads add column if not exists quote_details       text check (char_length(quote_details) <= 1000);
+alter table public.leads add column if not exists quote_rental_cents  int  check (quote_rental_cents between 0 and 10000000);
+alter table public.leads add column if not exists quote_fee_cents     int  check (quote_fee_cents between 0 and 10000000);
+alter table public.leads add column if not exists quote_url           text;
+alter table public.leads add column if not exists quote_session_id    text;
+alter table public.leads add column if not exists quote_expires_at    timestamptz;
+alter table public.leads add column if not exists paid_at             timestamptz;
+alter table public.leads add column if not exists paid_cents          int;
+alter table public.leads add column if not exists stripe_payment_intent text;
+
+-- The public insert policy must not let a rider write quote or payment fields.
+drop policy if exists "anyone can send a booking request" on public.leads;
+create policy "anyone can send a booking request" on public.leads
+  for insert to anon, authenticated
+  with check (
+    status = 'new' and admin_notes is null and assigned_listing is null
+    and quote_shop is null and quote_details is null and quote_rental_cents is null and quote_fee_cents is null
+    and quote_url is null and quote_session_id is null and quote_expires_at is null
+    and paid_at is null and paid_cents is null and stripe_payment_intent is null
+  );
+
+-- /api/quote/ asks this, with the caller's own token, before creating a payment link.
+grant execute on function public.is_admin() to authenticated;

@@ -243,8 +243,9 @@ function footer(site, extras) {
     <div class="legal">
       <p>&copy; ${year} ${esc(site.name)}. All rights reserved.</p>
       <p>${esc(site.name)} is an independent directory, not affiliated with the businesses listed. When you
-      send a Rent Now request, we pass it to a shop that can fulfil it; you book and pay the shop, and your
-      rental agreement is with them. Always confirm prices, hours and availability with the rental shop.</p>
+      book through Rent Now, we book the rental with a shop for you under our
+      <a href="/terms/#rent-now-bookings">booking terms</a>. If you book directly with a shop, your agreement is with
+      them, so confirm prices, hours and availability with the shop.</p>
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are
       refreshed periodically. Report an error on our <a href="/contact/">contact page</a>.</p>
       <p>${esc(site.name)} is a participant in the Amazon Services LLC Associates Program. As an

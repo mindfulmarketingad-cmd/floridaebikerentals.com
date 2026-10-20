@@ -61,10 +61,11 @@ specialists from repair shops you should call to check.
 
 ## What we are not
 
-We are not a rental company. We do not own bikes, set prices, take payment or hold deposits. When you
-send a Rent Now request we find a shop that can fulfil it and put you in touch; when you rent, your
-agreement is with the shop, so confirm price, deposit, helmet policy, minimum age and cancellation
-terms with them before you pay.
+We are not a rental company. We do not own bikes, set shops' prices or hold deposits. When you send a
+[Rent Now](/rent/) request, we find a shop that has what you need, send you a quote (the shop's price
+plus our booking fee, shown separately) and, if you pay it, book the rental for you. If you contact a
+shop directly instead, your agreement is with the shop, so confirm price, deposit, helmet policy,
+minimum age and cancellation terms with them before you pay.
 
 We do not write the reviews either. Star ratings and review counts are Google's, shown as data and
 refreshed on a schedule. They can lag behind reality, so treat them as a starting point.
