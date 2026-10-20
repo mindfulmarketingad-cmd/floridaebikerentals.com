@@ -172,7 +172,7 @@ export function rentPage(site, { index, listings }) {
         <span>Anything else? <small class="muted">(optional)</small></span>
         <textarea name="notes" rows="3" maxlength="2000" placeholder="Riders' heights, a child seat, where you're staying, a time..."></textarea>
       </label>
-      <label class="rent-form__hp" aria-hidden="true">Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+      <label class="rent-form__hp" aria-hidden="true">Leave this empty <input type="text" name="fer_hp" tabindex="-1" autocomplete="off" value=""></label>
       <label class="rent-form__consent">
         <input type="checkbox" name="consent" required>
         <span>You can call or text me about this request, and share the booking details with the shop you book.

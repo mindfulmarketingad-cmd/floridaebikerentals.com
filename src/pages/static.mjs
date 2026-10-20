@@ -35,7 +35,7 @@ function contactForm(site) {
   </div>
   <div class="field" aria-hidden="true" style="position:absolute;left:-9999px">
     <label for="c-company">Company</label>
-    <input type="text" id="c-company" name="company" tabindex="-1" autocomplete="off">
+    <input type="text" id="c-company" name="fer_hp" tabindex="-1" autocomplete="off" value="">
   </div>
   <div class="field">
     <button class="btn btn--blue" type="submit">Send message</button>

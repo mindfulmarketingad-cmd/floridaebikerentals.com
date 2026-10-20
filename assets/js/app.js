@@ -705,7 +705,10 @@
       e.preventDefault();
       var f = rentForm;
       var say = function (msg, bad) { rentStatus.textContent = msg; rentStatus.classList.toggle("is-error", !!bad); };
-      if (f.company.value) return; // bots fill the hidden field
+      // Bots fill the hidden field. Its name means nothing to browser autofill
+      // (a field called "company" got filled from saved addresses and silently
+      // dropped real requests), and a hit still ends on the thank-you screen.
+      if (f.fer_hp && f.fer_hp.value) { f.hidden = true; $("[data-rent-done]").hidden = false; return; }
       if (!f.town.value) return say("Choose the town you want to ride in.", true);
       if (!f.name.value.trim()) return say("Add your name.", true);
       if (!f.phone.value.trim() && !f.email.value.trim()) return say("Add a phone number or an email so we can reach you.", true);
@@ -737,13 +740,20 @@
         headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json", Prefer: "return=minimal" },
         body: JSON.stringify(lead)
       }).then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (!res.ok) {
+          return res.text().then(function (t) {
+            var detail = "";
+            try { var j = JSON.parse(t); detail = j.message || j.msg || j.error || ""; } catch (e2) { detail = t.slice(0, 160); }
+            throw new Error("error " + res.status + (detail ? ": " + detail : ""));
+          });
+        }
         f.hidden = true;
         $("[data-rent-done]").hidden = false;
         if (typeof window.gtag === "function") window.gtag("event", "generate_lead", { service: lead.service, town: lead.town });
-      }).catch(function () {
+      }).catch(function (err) {
         btn.disabled = false;
-        say("Sorry, that didn't go through. Please try again, or call us.", true);
+        if (window.console) console.error("Rent Now request failed:", err);
+        say("Sorry, that didn't go through (" + ((err && err.message) || "network error") + "). Please try again, or call us.", true);
       });
     });
   }
@@ -1226,7 +1236,7 @@
       if (contactForm.getAttribute("action")) return; /* a real endpoint is configured */
       e.preventDefault();
       var status = $("[data-form-status]", contactForm);
-      if ($("[name=company]", contactForm) && $("[name=company]", contactForm).value) return; /* honeypot */
+      if ($("[name=fer_hp]", contactForm) && $("[name=fer_hp]", contactForm).value) return; /* honeypot */
       var name = ($("[name=name]", contactForm) || {}).value || "";
       var subject = ($("[name=subject]", contactForm) || {}).value || "Website enquiry";
       var message = ($("[name=message]", contactForm) || {}).value || "";
