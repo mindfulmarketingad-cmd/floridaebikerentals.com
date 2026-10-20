@@ -191,14 +191,7 @@ export function rentPage(site, { index, listings }) {
       <p><a class="btn btn--outline" href="/cities/">Browse shops while you wait</a></p>
     </div>
 
-    <h2 class="mt-3">How it works</h2>
-    <ol class="rent-steps">
-      <li><strong>You send a request</strong> with the town, the date and what you need.</li>
-      <li><strong>We find a shop</strong> in or near that town that has it free, in the style you chose.</li>
-      <li><strong>You get a quote</strong>: the shop's price for the rental and our booking fee, shown separately.</li>
-      <li><strong>You pay online</strong> through Stripe, and we book the rental and send you the shop's name and pickup details.</li>
-    </ol>
-    <p class="small muted">Full refund if you cancel 24 hours or more before your rental; no refund after that. If the
+    <p class="small muted mt-3">Full refund if you cancel 24 hours or more before your rental; no refund after that. If the
     shop cancels or can't provide your booking, you get a full refund. <a href="/terms/#rent-now-bookings">Booking terms</a>.</p>
     ${ownPhoto()}
   </div>

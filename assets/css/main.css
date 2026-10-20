@@ -1240,7 +1240,6 @@ img.is-stock { object-fit: cover; }
 .rent-form__status.is-error { color: #b42318; }
 .rent-form__call { margin: 0; text-align: center; }
 .rent-done { margin-top: 1.2rem; padding: 1.4rem; background: var(--blue-50); border-radius: var(--radius-l); }
-.rent-steps { padding-left: 1.3rem; display: grid; gap: .4rem; color: var(--ink-soft); }
 .find-hero__cta { margin: 0 0 1rem; }
 .detail-hero__biz .btn + .btn { margin-left: .4rem; }
 
