@@ -42,43 +42,22 @@ const mapBits=await page.evaluate(()=>document.querySelectorAll(".map,.map-panel
 ok(`maps removed (0 map nodes, ${asked.length} tile/library requests)`, mapBits===0&&asked.length===0);
 await page.close();
 
-// 4. geolocation is requested automatically on landing, no click needed
-const ctx=await b.newContext({permissions:["geolocation"],geolocation:{latitude:24.5551,longitude:-81.78},viewport:{width:1200,height:900}});
-page=await ctx.newPage();
-await page.goto("http://localhost:8099/",{waitUntil:"load"});
-await page.waitForTimeout(1800);
-const label=await page.textContent("[data-near-label]");
-const first=await page.textContent(".carousel__track .slide .slide__name");
-const badge=await page.textContent(".carousel__track .slide .slide__badge");
-ok(`homepage auto-locates: "${label.trim()}" -> ${first.trim()} (${badge.trim()})`, /Closest/.test(label)&&/mi away/.test(badge));
-await page.close(); await ctx.close();
-
-// 4b. declining location still leaves a usable carousel
-const denied=await b.newContext({permissions:[],viewport:{width:1200,height:900}});
-page=await denied.newPage();
-await page.goto("http://localhost:8099/",{waitUntil:"load"});
-await page.waitForTimeout(1500);
-const fallbackSlides=await page.$$eval(".carousel__track .slide",n=>n.length);
-ok(`declined location falls back to ${fallbackSlides} featured slides`, fallbackSlides>0);
-await page.close(); await denied.close();
-
-// 4c. hero images keep one height whatever the source photo's aspect ratio is
-page=await b.newPage({viewport:{width:1280,height:900}});
-await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
-await page.waitForTimeout(400);
-const svg=(w,h)=>"data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><rect width="${w}" height="${h}" fill="#204080"/></svg>`);
-const heights=await page.evaluate(([tall,wide])=>{
-  document.querySelectorAll(".carousel__track .slide__media").forEach((box,i)=>{
-    box.querySelectorAll("img").forEach((n)=>n.remove());
-    const im=document.createElement("img");
-    im.src=i%2?tall:wide; im.alt="";
-    box.appendChild(im);
-  });
-  return new Promise(res=>setTimeout(()=>res([...new Set([...document.querySelectorAll(".carousel__track .slide__media")]
-    .map(m=>Math.round(m.getBoundingClientRect().height)))]),500));
-},[svg(600,900),svg(1600,600)]);
-ok(`hero images share one height (${heights.join(", ")}px) across aspect ratios`, heights.length===1);
-await page.close();
+// 4. home hero: rider photo, no listing carousel, no decoration bubbles, and no location prompt on landing
+{
+  const ctx=await b.newContext({viewport:{width:1366,height:900}});
+  page=await ctx.newPage();
+  let askedLocation=false;
+  await page.exposeFunction("__geo",()=>{askedLocation=true;});
+  await page.addInitScript(()=>{ const g=navigator.geolocation; if(g){ const f=g.getCurrentPosition.bind(g); g.getCurrentPosition=(...a)=>{window.__geo();return f(...a);}; } });
+  await page.goto("http://localhost:8099/",{waitUntil:"load"});
+  await page.waitForTimeout(1200);
+  const hero=await page.evaluate(()=>{const h=document.querySelector(".hero"); const img=h.querySelector(".hero__bg img");
+    return {carousel:h.querySelectorAll(".carousel,.slide").length, bubbles:document.querySelectorAll(".bubbles").length,
+      bg:img&&img.currentSrc, loaded:!!(img&&img.naturalWidth), rentNow:!!h.querySelector('a.btn[href="/rent/"]')};});
+  ok(`home hero: photo ${hero.bg&&hero.bg.split("/").pop()} loaded, ${hero.carousel} carousel nodes, ${hero.bubbles} bubbles, location asked: ${askedLocation}`,
+     hero.loaded && /hero-ebike-waterfront\.(avif|jpg)$/.test(hero.bg) && hero.carousel===0 && hero.bubbles===0 && hero.rentNow && !askedLocation);
+  await page.close(); await ctx.close();
+}
 
 // 4d. the partners page re-sorts itself to the visitor's location
 const near=await b.newContext({permissions:["geolocation"],geolocation:{latitude:30.3671,longitude:-86.2216},viewport:{width:1200,height:900}});

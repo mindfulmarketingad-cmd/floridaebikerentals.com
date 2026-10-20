@@ -1,5 +1,5 @@
 import { esc, attr, formatReviews } from "../util.mjs";
-import { photoFor, secondPhotoFor, figure, banner, sceneForRegion, stockFor, stockImg, stockCredits, ownPhoto } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, sceneForRegion, stockFor, stockImg, stockCredits, ownPhoto } from "../images.mjs";
 import { page, breadcrumbs } from "../layout.mjs";
 import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
@@ -46,26 +46,8 @@ export const HOME_FAQS = [
 ];
 
 export function homePage(site, { listings, index, blog, stats }) {
-  const featured = listings.filter((l) => l.is_rental && l.reviews >= 25).slice(0, 14);
-  const heroSlides = featured.slice(0, 12);
   const topTen = listings.filter((l) => l.is_rental && l.reviews >= 40).slice(0, 10);
   const topCities = index.cities.slice(0, 24);
-
-  const slideMarkup = heroSlides
-    .map(
-      (l, i) => `<a class="slide" href="${attr(l.url)}">
-      <span class="slide__media">${
-        photo(l, { eager: i < 2 })
-      }${l.rating >= 4.8 ? '<span class="slide__badge">Top rated</span>' : ""}</span>
-      <span class="slide__body">
-        <span class="slide__name">${esc(l.name)}</span>
-        <span class="slide__meta">${esc(l.city)}, FL · ${esc(l.region)}</span>
-        <span class="rating">${l.rating ? `<span>${l.rating.toFixed(1)} stars</span><span class="rating__count">(${formatReviews(l.reviews)})</span>` : ""}</span>
-        <span class="slide__foot">View details</span>
-      </span>
-    </a>`
-    )
-    .join("");
 
   const body = `
 <section class="hero hero--photo">
@@ -73,14 +55,8 @@ export function homePage(site, { listings, index, blog, stats }) {
     <source type="image/avif" srcset="/assets/img/original/hero-ebike-waterfront.avif">
     <img src="/assets/img/original/hero-ebike-waterfront.jpg" alt="" width="1125" height="750" fetchpriority="high" decoding="async">
   </picture>
-  <div class="bubbles" aria-hidden="true">
-    <i style="width:180px;height:180px;left:4%;top:12%"></i>
-    <i style="width:90px;height:90px;left:22%;top:64%"></i>
-    <i style="width:260px;height:260px;right:-4%;top:-12%"></i>
-    <i style="width:120px;height:120px;right:18%;bottom:-6%"></i>
-  </div>
   <div class="wrap hero__inner">
-    <div class="hero__grid">
+    <div class="hero__grid hero__grid--single">
       <div>
         <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's e-bike rental directory</span>
         <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
@@ -98,31 +74,13 @@ export function homePage(site, { listings, index, blog, stats }) {
           <a class="btn btn--ghost" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
         </div>
       </div>
-      <div class="carousel" data-carousel data-near-me>
-        <div class="carousel__head">
-          <span class="carousel__title" data-near-label>Featured Florida e-bike rentals</span>
-          <div class="carousel__nav">
-            <button class="carousel__btn" type="button" data-carousel-prev aria-label="Previous listings">&#8249;</button>
-            <button class="carousel__btn" type="button" data-carousel-next aria-label="Next listings">&#8250;</button>
-          </div>
-        </div>
-        <div class="carousel__track">${slideMarkup}</div>
-        <div class="hero__actions" style="margin-top:.9rem">
-          <button class="btn btn--ghost btn--sm" type="button" data-near-button>Show rentals near me</button>
-          <span class="small" style="color:#c9d9fd;align-self:center">Allow location to sort by distance from you</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
-    ${banner(photoFor("home"), {
-      alt: `Florida e-bike rentals - ${photoFor("home").alt}`,
-      eager: false,
-    })}
-    <div class="section__head mt-3">
+    <div class="section__head">
       <h2>Find Ebike Rentals in Florida</h2>
       <p>Start with the region you are visiting. We group every town we list by region, and on each
       town page we rank the local shops by Google rating and review volume, so the shortlist worth
