@@ -24,6 +24,7 @@ create table if not exists public.leads (
   service          text not null
                      check (service in ('ebike-rental', 'bike-rental', 'guided-tour', 'delivery', 'scooter', 'repair')),
   start_date       date,
+  bike_style       text check (bike_style in ('cruiser', 'fat-tire', 'step-through', 'hybrid', 'trike', 'cargo', 'pedal', 'any')),
   duration         text check (duration in ('1-2 hours', 'half day', 'full day', 'multi-day', 'not sure')),
   bikes            int check (bikes between 1 and 50),
   notes            text check (char_length(notes) <= 2000),
@@ -33,6 +34,10 @@ create table if not exists public.leads (
   assigned_listing text,
   constraint leads_contact_required check (coalesce(phone, '') <> '' or coalesce(email, '') <> '')
 );
+
+-- Added after the first version: safe to run again on an existing table.
+alter table public.leads add column if not exists bike_style text
+  check (bike_style in ('cruiser', 'fat-tire', 'step-through', 'hybrid', 'trike', 'cargo', 'pedal', 'any'));
 
 create index if not exists leads_created_at_idx on public.leads (created_at desc);
 

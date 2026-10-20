@@ -30,6 +30,25 @@ export const SERVICES = [
 ];
 const DURATIONS = ["not sure", "1-2 hours", "half day", "full day", "multi-day"];
 
+/**
+ * Bike styles a rider can pick. We don't hold inventory, so a rider chooses a
+ * style, not a model; we confirm the style with the shop before anything is
+ * booked. Public shop profiles don't record which styles a fleet has, so the
+ * lead desk shows the style for the owner to check with the shop.
+ */
+export const BIKE_STYLES = [
+  { value: "cruiser", label: "Beach cruiser e-bike", note: "Upright seat, wide handlebars, easy riding on beach paths" },
+  { value: "fat-tire", label: "Fat-tire e-bike", note: "Wide tires for sand, gravel and rougher paths" },
+  { value: "step-through", label: "Step-through e-bike", note: "Low frame that is easy to get on and off" },
+  { value: "hybrid", label: "Commuter / hybrid e-bike", note: "Lighter and quicker on paved trails and roads" },
+  { value: "trike", label: "Electric trike", note: "Three wheels, the most stable choice" },
+  { value: "cargo", label: "Family / cargo e-bike", note: "Room for a child seat, a kid or gear" },
+  { value: "pedal", label: "Regular beach cruiser", note: "No motor, pedal power only" },
+  { value: "any", label: "No preference", note: "Whatever the shop has that suits you" },
+];
+/** Services where the style of bike matters. */
+const STYLE_SERVICES = ["ebike-rental", "bike-rental", "delivery"];
+
 function has(listing, tag) {
   return (listing.tags || []).includes(tag);
 }
@@ -100,6 +119,24 @@ export function rentPage(site, { index, listings }) {
             ${SERVICES.map((s) => `<option value="${attr(s.value)}">${esc(s.label)}</option>`).join("")}
           </select>
         </label>
+      </div>
+
+      <fieldset class="rent-styles" data-rent-styles data-style-services="${attr(STYLE_SERVICES.join(" "))}">
+        <legend>Bike style</legend>
+        <div class="rent-styles__grid">
+          ${BIKE_STYLES.map(
+            (s, i) => `<label class="rent-style">
+            <input type="radio" name="bike_style" value="${attr(s.value)}"${i === 0 ? " checked" : ""}>
+            <span class="rent-style__body"><strong>${esc(s.label)}</strong><span>${esc(s.note)}</span></span>
+          </label>`
+          ).join("")}
+        </div>
+        <p class="rent-styles__fine small muted">You choose a style of bike, not a specific make or model: each shop
+        has its own fleet, so the exact e-bike is not guaranteed. The style is. We confirm it with the shop before
+        anything is booked, and if no shop near you has that style, we tell you and nothing is booked.</p>
+      </fieldset>
+
+      <div class="rent-form__grid">
         <label class="field">
           <span>Date</span>
           <input type="date" name="start_date">
@@ -185,7 +222,8 @@ export function adminLeadsPage(site) {
         : `<p class="notice">Booking is not connected yet. Add your Supabase project URL and anon key to <code>data/site.json</code> under <code>booking</code>.</p>`
     }
     <div data-admin${cfg ? ` data-endpoint="${attr(cfg.url)}" data-key="${attr(cfg.key)}"` : ""} data-shops="${attr(ADMIN_SHOPS_JSON)}"
-      data-services="${attr(JSON.stringify(SERVICES.map((s) => [s.value, s.label])))}">
+      data-services="${attr(JSON.stringify(SERVICES.map((s) => [s.value, s.label])))}"
+      data-styles="${attr(JSON.stringify(BIKE_STYLES.map((s) => [s.value, s.label])))}">
       <form class="admin-login" data-admin-login>
         <label class="field"><span>Email</span><input type="email" name="email" required autocomplete="username"></label>
         <label class="field"><span>Password</span><input type="password" name="password" required autocomplete="current-password"></label>

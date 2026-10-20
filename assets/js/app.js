@@ -694,6 +694,12 @@
     }
     var today = new Date();
     rentForm.start_date.min = today.toISOString().slice(0, 10);
+    // Bike style only matters for rentals; tours and repairs hide it.
+    var styleBox = $("[data-rent-styles]");
+    var styleServices = (styleBox.getAttribute("data-style-services") || "").split(" ");
+    var syncStyles = function () { styleBox.hidden = styleServices.indexOf(rentForm.service.value) === -1; };
+    rentForm.service.addEventListener("change", syncStyles);
+    syncStyles();
 
     rentForm.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -715,6 +721,7 @@
         town: f.town.value,
         town_name: townOpt ? townOpt.textContent : null,
         service: f.service.value,
+        bike_style: styleBox.hidden ? null : ((f.querySelector("input[name=bike_style]:checked") || {}).value || null),
         start_date: f.start_date.value || null,
         duration: f.duration.value || null,
         bikes: Math.max(1, Math.min(50, parseInt(f.bikes.value, 10) || 1)),
@@ -757,6 +764,8 @@
       token: null
     };
     JSON.parse(admin.getAttribute("data-services") || "[]").forEach(function (s) { A.services[s[0]] = s[1]; });
+    A.styles = {};
+    JSON.parse(admin.getAttribute("data-styles") || "[]").forEach(function (s) { A.styles[s[0]] = s[1]; });
     var loginForm = $("[data-admin-login]"), app = $("[data-admin-app]");
     var listEl = $("[data-admin-leads]"), detail = $("[data-admin-detail]");
     var esc = function (v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
@@ -790,7 +799,7 @@
         $("[data-admin-count]").textContent = A.leads.length + (A.leads.length === 1 ? " lead" : " leads");
         listEl.innerHTML = A.leads.map(function (l, i) {
           return '<li><button type="button" class="admin-lead" data-i="' + i + '"><span class="admin-lead__status s-' + esc(l.status) + '">' + esc(l.status) + '</span>' +
-            '<strong>' + esc(l.name) + '</strong> <span>' + esc(A.services[l.service] || l.service) + '</span>' +
+            '<strong>' + esc(l.name) + '</strong> <span>' + esc(A.services[l.service] || l.service) + (l.bike_style && l.bike_style !== "any" ? " · " + esc(A.styles[l.bike_style] || l.bike_style) : "") + '</span>' +
             '<span class="muted">' + esc(l.town_name || l.town) + (l.start_date ? " · " + esc(l.start_date) : "") + " · " + esc(new Date(l.created_at).toLocaleString()) + '</span></button></li>';
         }).join("") || '<li class="muted">No leads here yet.</li>';
       }).catch(function () {});
@@ -818,6 +827,7 @@
         '<h2>' + esc(l.name) + '</h2>' +
         '<dl class="datalist">' +
           row("Wants", esc(A.services[l.service] || l.service)) +
+          row("Bike style", l.bike_style ? esc(A.styles[l.bike_style] || l.bike_style) + ' <span class="admin-off">confirm the shop has this style; it is guaranteed to the rider</span>' : "") +
           row("Where", esc(l.town_name || l.town)) +
           row("When", esc([l.start_date, l.duration].filter(Boolean).join(", "))) +
           row("Bikes", esc(l.bikes)) +

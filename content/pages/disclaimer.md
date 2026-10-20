@@ -31,6 +31,11 @@ periodically.
 near your town that offers what you asked for, check with them, and get back to you. We do not take
 payment. The shop sets the price and terms, and your rental agreement is with them.
 
+**Bike style, not model.** We do not own bikes, so a Rent Now request asks for a style of bike (a beach
+cruiser e-bike or a fat-tire e-bike, for example), not a particular make or model. The exact e-bike is
+not guaranteed. The style you choose is: we confirm it with the shop before anything is booked, and if
+no shop near you has that style, we tell you and nothing is booked.
+
 **Phone calls.** We do not list businesses' own phone numbers. Our rental line, (305) 363-1922, is operated by Florida Ebike Rentals, not by the businesses listed.
 It is a call-tracking number, which tells us which page a call came from.
 

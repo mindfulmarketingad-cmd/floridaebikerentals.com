@@ -1267,3 +1267,16 @@ img.is-stock { object-fit: cover; }
 .admin-shops li.is-off { opacity: .6; }
 .admin-shop__actions { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
 .admin-off { font-size: .75rem; color: #b42318; font-weight: 700; }
+.rent-styles { margin: 0; padding: 0; border: 0; display: grid; gap: .6rem; }
+.rent-styles[hidden] { display: none; }
+.rent-styles legend { font-weight: 700; margin-bottom: .5rem; padding: 0; }
+.rent-styles__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+@media (max-width: 640px) { .rent-styles__grid { grid-template-columns: 1fr; } }
+.rent-style { display: flex; gap: .6rem; align-items: flex-start; padding: .7rem .8rem; border: 2px solid var(--line); border-radius: var(--radius-s); cursor: pointer; background: var(--white); }
+.rent-style:hover { border-color: var(--blue-400); }
+.rent-style:has(input:checked) { border-color: var(--blue-600); background: var(--blue-50); }
+.rent-style input { margin-top: .2rem; flex-shrink: 0; }
+.rent-style__body { display: grid; gap: .1rem; }
+.rent-style__body strong { color: var(--ink); }
+.rent-style__body span { font-size: .85rem; color: var(--ink-mute); }
+.rent-styles__fine { margin: 0; }
