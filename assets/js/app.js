@@ -732,7 +732,7 @@
       var btn = f.querySelector("button[type=submit]");
       btn.disabled = true;
       say("Sending...");
-      fetch(endpoint + "/rest/v1/leads", {
+      fetch(endpoint + "/rest/v1/fer_leads", {
         method: "POST",
         headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json", Prefer: "return=minimal" },
         body: JSON.stringify(lead)
@@ -791,7 +791,7 @@
     };
     var loadLeads = function () {
       var f = $("[data-admin-filter]").value;
-      var q = "/rest/v1/leads?select=*&order=created_at.desc&limit=500";
+      var q = "/rest/v1/fer_leads?select=*&order=created_at.desc&limit=500";
       if (f === "open") q += "&status=in.(new,contacted,matched,quoted,paid)";
       else if (f) q += "&status=eq." + encodeURIComponent(f);
       api(q).then(function (rows) {
@@ -923,7 +923,7 @@
     };
     var patch = function (i, fields) {
       var l = A.leads[i];
-      return api("/rest/v1/leads?id=eq." + encodeURIComponent(l.id), {
+      return api("/rest/v1/fer_leads?id=eq." + encodeURIComponent(l.id), {
         method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify(fields)
       }).then(function (rows) { if (rows && rows[0]) A.leads[i] = rows[0]; showLead(i); });
     };

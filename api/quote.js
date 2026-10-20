@@ -2,7 +2,7 @@
  * POST /api/quote/  — the lead desk creates a Stripe payment link for a lead.
  *
  * Only a signed-in admin can call it: the caller's Supabase token is checked
- * with is_admin(), and the lead is read and updated with that same token, so
+ * with fer_is_admin(), and the lead is read and updated with that same token, so
  * row-level security applies exactly as it does in the lead desk.
  *
  * The rider sees two lines at checkout: the shop's rental price, and our
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
     if (req.method !== "POST") throw new HttpError(405, "Use POST.");
     const token = String(req.headers.authorization || "").replace(/^Bearer\s+/i, "");
     if (!token) throw new HttpError(401, "Sign in first.");
-    const isAdmin = await supabase("/rest/v1/rpc/is_admin", { token, method: "POST", body: {} });
+    const isAdmin = await supabase("/rest/v1/rpc/fer_is_admin", { token, method: "POST", body: {} });
     if (isAdmin !== true) throw new HttpError(403, "This account cannot send quotes.");
 
     const input = JSON.parse((await readBody(req)).toString("utf8") || "{}");
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     const shop = String(input.shop || "").slice(0, 200);
     const details = String(input.details || "").slice(0, 1000);
 
-    const [lead] = await supabase(`/rest/v1/leads?id=eq.${id}&select=*`, { token });
+    const [lead] = await supabase(`/rest/v1/fer_leads?id=eq.${id}&select=*`, { token });
     if (!lead) throw new HttpError(404, "Lead not found.");
     if (lead.status === "paid" || lead.status === "booked") throw new HttpError(409, "This lead is already paid.");
 
@@ -75,7 +75,7 @@ export default async function handler(req, res) {
     if (lead.email) params.customer_email = lead.email;
     const session = await stripe("/checkout/sessions", params);
 
-    const [updated] = await supabase(`/rest/v1/leads?id=eq.${id}`, {
+    const [updated] = await supabase(`/rest/v1/fer_leads?id=eq.${id}`, {
       token,
       method: "PATCH",
       prefer: "return=representation",

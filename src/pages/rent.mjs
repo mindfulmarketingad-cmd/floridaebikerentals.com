@@ -2,7 +2,7 @@
  * Booking requests ("Rent Now") and the private lead desk.
  *
  * /rent/          A rider says where, when and what they need. The request is
- *                 saved straight to the site owner's Supabase table `leads`
+ *                 saved straight to the site owner's Supabase table `fer_leads`
  *                 (supabase/leads.sql) with the public anon key; row-level
  *                 security lets the public insert a lead and nothing else.
  * /admin/leads/   The owner signs in with their Supabase account and sees every

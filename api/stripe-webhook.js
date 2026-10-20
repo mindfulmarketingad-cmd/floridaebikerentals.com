@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       const s = event.data.object;
       const id = s.metadata && s.metadata.lead_id;
       if (id && /^[0-9a-f-]{36}$/.test(id) && s.payment_status === "paid") {
-        await supabase(`/rest/v1/leads?id=eq.${id}&quote_session_id=eq.${encodeURIComponent(s.id)}`, {
+        await supabase(`/rest/v1/fer_leads?id=eq.${id}&quote_session_id=eq.${encodeURIComponent(s.id)}`, {
           token: env("SUPABASE_SERVICE_ROLE_KEY"),
           method: "PATCH",
           prefer: "return=minimal",

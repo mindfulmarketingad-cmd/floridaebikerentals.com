@@ -5,12 +5,18 @@ price plus your booking fee), they pay you through Stripe, and you book the shop
 
 ## 1. Supabase
 
-1. SQL Editor: run `supabase/leads.sql` (safe to run again after updates).
-2. Authentication > Users > Add user: your email and a strong password.
-3. SQL Editor: `insert into public.admins (email) values ('your@email');`
-4. Authentication > Sign In / Providers: turn off "Allow new users to sign up".
-5. Project Settings > API: copy the Project URL and the anon (publishable) key into
-   `data/site.json` under `booking` (these two are public by design).
+This can share a Supabase project with other sites: everything is prefixed
+`fer_` (tables `fer_leads` and `fer_admins`, function `fer_is_admin()`) and the
+script changes nothing else.
+
+1. SQL Editor: run `supabase/leads.sql` (safe to run again).
+2. Authentication > Users: add yourself (email + strong password), or use the user
+   you already have in this project.
+3. SQL Editor: `insert into public.fer_admins (email) values ('your@email');`
+4. Leave "Allow new users to sign up" as your other sites need it: being signed in
+   is not enough to read these leads, only emails in `fer_admins` can.
+5. Project Settings > API: the Project URL and anon key go in `data/site.json`
+   under `booking` (already done).
 
 ## 2. Stripe webhook
 
