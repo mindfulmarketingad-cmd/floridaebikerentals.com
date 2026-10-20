@@ -13,8 +13,8 @@
   "booking": {
     "_comment": "Supabase project URL and anon (publishable) key only. Never the service_role/secret key. Run supabase/leads.sql first.",
     "enabled": true,
-    "supabaseUrl": "",
-    "supabaseAnonKey": ""
+    "supabaseUrl": "https://tbqigevoksabizjogvtm.supabase.co",
+    "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRicWlnZXZva3NhYml6am9ndnRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNjQ3NTUsImV4cCI6MjA5NTY0MDc1NX0.2jK6OVrl3Mdw_xj-Z6G9QsfvZxxv28z8nriLYsJYvFw"
   },
   "analytics": {
     "ga4": "G-DX557E1PNG"

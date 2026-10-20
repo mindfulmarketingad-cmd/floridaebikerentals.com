@@ -68,7 +68,11 @@ export function homePage(site, { listings, index, blog, stats }) {
     .join("");
 
   const body = `
-<section class="hero">
+<section class="hero hero--photo">
+  <picture class="hero__bg">
+    <source type="image/avif" srcset="/assets/img/original/hero-ebike-waterfront.avif">
+    <img src="/assets/img/original/hero-ebike-waterfront.jpg" alt="" width="1125" height="750" fetchpriority="high" decoding="async">
+  </picture>
   <div class="bubbles" aria-hidden="true">
     <i style="width:180px;height:180px;left:4%;top:12%"></i>
     <i style="width:90px;height:90px;left:22%;top:64%"></i>
