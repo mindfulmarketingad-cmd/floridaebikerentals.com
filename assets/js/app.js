@@ -813,9 +813,10 @@
       var town = A.shops.towns[lead.town] || {};
       return A.shops.shops.map(function (s) {
         var dist = s.t === lead.town ? 0 : (town.lat != null && s.lat != null ? miles(town.lat, town.lng, s.lat, s.lng) : Infinity);
-        return { s: s, dist: dist, fits: s.sv.indexOf(lead.service) !== -1 };
-      }).filter(function (m) { return m.dist <= radius && (anyService || m.fits); })
-        .sort(function (x, y) { return (x.dist - y.dist) || (y.s.ra - x.s.ra) || (y.s.rv - x.s.rv); });
+        return { s: s, dist: dist, fits: s.sv.indexOf(lead.service) !== -1, asked: !!lead.listing && s.s === lead.listing };
+      // The shop the rider came from is always shown, first: the form told them we would ask it first.
+      }).filter(function (m) { return m.asked || (m.dist <= radius && (anyService || m.fits)); })
+        .sort(function (x, y) { return (y.asked - x.asked) || (x.dist - y.dist) || (y.s.ra - x.s.ra) || (y.s.rv - x.s.rv); });
     };
     var showLead = function (i) {
       var l = A.leads[i];
@@ -834,7 +835,7 @@
           row("Phone", l.phone ? '<a href="tel:' + esc(l.phone) + '">' + esc(l.phone) + "</a>" : "") +
           row("Email", l.email ? '<a href="mailto:' + esc(l.email) + '">' + esc(l.email) + "</a>" : "") +
           row("Notes", esc(l.notes)) +
-          row("Came from shop", esc(l.listing)) +
+          row("Came from shop", l.listing ? esc(shopName(l.listing)) : "") +
           row("Assigned to", esc(l.assigned_listing)) +
         "</dl>" +
         quoteBox(l) +
@@ -848,7 +849,9 @@
         '</select></label><label class="admin-check"><input type="checkbox" data-any' + (anyService ? " checked" : "") + "> Show shops without this service</label></div>" +
         '<ol class="admin-shops">' + (list.map(function (m) {
           var s = m.s;
-          return '<li class="' + (m.fits ? "" : "is-off") + '"><div><a href="' + esc(s.u) + '" target="_blank" rel="noopener"><strong>' + esc(s.n) + "</strong></a> " +
+          return '<li class="' + (m.fits ? "" : "is-off") + (m.asked ? " is-asked" : "") + '"><div>' +
+            (m.asked ? '<span class="admin-asked">Rider asked for this shop: ask them first</span>' : "") +
+            '<a href="' + esc(s.u) + '" target="_blank" rel="noopener"><strong>' + esc(s.n) + "</strong></a> " +
             '<span class="muted">' + esc(s.c) + (m.dist ? " · " + m.dist.toFixed(1) + " mi" : " · in town") + (s.ra ? " · " + s.ra.toFixed(1) + "★ (" + s.rv + ")" : "") + "</span>" +
             (m.fits ? "" : ' <span class="admin-off">does not list this service</span>') +
             '<div class="small muted">' + esc(s.tg.join(" · ")) + "</div></div>" +
@@ -904,7 +907,7 @@
         return h + "</div>";
       }
       h += '<div class="admin-quote__grid">' +
-        '<label class="field"><span>Shop you will book</span><input type="text" data-q-shop value="' + esc(l.quote_shop || shopName(l.assigned_listing)) + '"></label>' +
+        '<label class="field"><span>Shop you will book</span><input type="text" data-q-shop value="' + esc(l.quote_shop || shopName(l.assigned_listing || l.listing)) + '"></label>' +
         '<label class="field"><span>Shop\'s price for the rental, incl. tax ($)</span><input type="number" min="1" step="0.01" data-q-rental value="' + (l.quote_rental_cents ? (l.quote_rental_cents / 100).toFixed(2) : "") + '"></label>' +
         '<label class="field"><span>Your booking fee ($)</span><input type="number" min="0" step="0.01" data-q-fee value="' + (l.quote_fee_cents != null ? (l.quote_fee_cents / 100).toFixed(2) : "") + '"></label>' +
         "</div>" +

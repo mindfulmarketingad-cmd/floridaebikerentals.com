@@ -1292,3 +1292,5 @@ img.is-stock { object-fit: cover; }
 .admin-lead__status.s-quoted { background: #e8eefc; color: var(--blue-700); }
 .admin-lead__status.s-paid { background: #1b7f4b; color: #fff; }
 .admin-lead__status.s-cancelled, .admin-lead__status.s-refunded { background: #f1f1f1; color: #666; }
+.admin-shops li.is-asked { border: 2px solid var(--sun-500); background: #fffaeb; opacity: 1; }
+.admin-asked { display: block; margin-bottom: .25rem; font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #8a5a00; }
