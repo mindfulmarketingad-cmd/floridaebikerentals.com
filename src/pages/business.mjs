@@ -168,7 +168,7 @@ export function businessPage(site, { listings }) {
       <p>Riders who have already decided to rent. They reach us from our town pages, regional guides and "near me"
       search, read about the shops in your area, and tap to call. By the time your phone rings, they want a bike.</p>
       <p>We list ${listings.length} rental shops and e-bike services across Florida, and every page has a
-      "Call our rental line" button. Our <a href="/about/">about page</a> explains how the site works and how
+      "Rent Now" button for booking requests, and riders can call our rental line. Our <a href="/about/">about page</a> explains how the site works and how
       shops are ranked.</p>
     </div>
   </div>

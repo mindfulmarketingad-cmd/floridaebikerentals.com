@@ -82,7 +82,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)
-        )} Florida towns — from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. Compare hours, ratings and directions, or call our rental line.</p>
+        )} Florida towns — from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. Compare hours, ratings and directions, or tap Rent Now and we will find you a bike.</p>
         <ul class="hero__stats">
           <li><strong>${esc(String(stats.total))}</strong> rental partners</li>
           <li><strong>${esc(String(stats.cities))}</strong> Florida towns</li>
@@ -90,7 +90,7 @@ export function homePage(site, { listings, index, blog, stats }) {
           <li><strong>${esc(stats.avgRating)}</strong> average rating</li>
         </ul>
         <div class="hero__actions">
-          <a class="btn btn--primary" href="/partners/">Rent Now</a>
+          <a class="btn btn--primary" href="/rent/">Rent Now</a>
           <a class="btn btn--ghost" href="/find/ebike-rentals-near-me/">E-bike rentals near me</a>
         </div>
       </div>

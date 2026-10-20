@@ -2,7 +2,7 @@
 title: About Florida Ebike Rentals
 metaTitle: About Us - Florida Ebike Rentals
 description: Florida Ebike Rentals makes finding e-bike rentals and e-bike services in Florida easy, from beach cruiser rentals and guided tours to repairs, battery help and where to ride.
-updated: 2026-10-15
+updated: 2026-10-20
 ---
 
 ## We make finding an e-bike in Florida easy
@@ -32,7 +32,8 @@ what you need to choose one.
   distances, surfaces and the Florida e-bike rules that apply.
 - **[Guides](/blog/)**: regional roundups, Florida e-bike law, what rentals cost, and checklists
   for a first rental.
-- **Our rental line, (305) 363-1922**: every "Call our rental line" button on the site dials it.
+- **[Rent Now](/rent/)**: tell us the town, the date and what you need, and we find a shop that has
+  it and get back to you to confirm. Prefer to call? Our rental line is (305) 363-1922.
 
 ## How we choose and rank shops
 
@@ -60,7 +61,8 @@ specialists from repair shops you should call to check.
 
 ## What we are not
 
-We are not a rental company. We do not own bikes, set prices or hold deposits. When you rent, your
+We are not a rental company. We do not own bikes, set prices, take payment or hold deposits. When you
+send a Rent Now request we find a shop that can fulfil it and put you in touch; when you rent, your
 agreement is with the shop, so confirm price, deposit, helmet policy, minimum age and cancellation
 terms with them before you pay.
 
@@ -87,5 +89,5 @@ detail is in our [disclaimer](/disclaimer/) and [privacy policy](/privacy/).
 ## Get in touch
 
 Corrections, listing requests, partnership questions and press enquiries all go to our
-[contact page](/contact/). To ask about a rental, call our rental line on
+[contact page](/contact/). To rent, send a [Rent Now request](/rent/) or call our rental line on
 [(305) 363-1922](tel:+13053631922).

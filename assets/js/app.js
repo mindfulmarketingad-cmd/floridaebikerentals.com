@@ -670,6 +670,238 @@
     }
   });
 
+  /* ------------------------------------------------ Rent Now request */
+  /* Saves the request to the site's Supabase table with the public anon key;
+     row-level security lets that key insert a lead and do nothing else. */
+  (function () {
+  var rentForm = $("[data-rent-form]");
+  if (!rentForm) return;
+  {
+    var rentStatus = $("[data-rent-status]");
+    var params = new URLSearchParams(window.location.search);
+    var shopsEl = d.getElementById("rent-shops");
+    var shopNames = {};
+    try { shopNames = JSON.parse(shopsEl ? shopsEl.textContent : "{}"); } catch (e) {}
+    var pTown = params.get("town"), pListing = params.get("listing"), pService = params.get("service");
+    var shop = pListing && shopNames[pListing];
+    if (shop && !pTown) pTown = shop[1];
+    if (pTown && rentForm.town.querySelector('option[value="' + pTown.replace(/[^a-z0-9-]/g, "") + '"]')) rentForm.town.value = pTown;
+    if (pService && rentForm.service.querySelector('option[value="' + pService.replace(/[^a-z0-9-]/g, "") + '"]')) rentForm.service.value = pService;
+    if (shop) {
+      var shopNote = $("[data-rent-shop]");
+      shopNote.textContent = "You came from " + shop[0] + ". We will ask them first, and find another shop nearby if they can't help.";
+      shopNote.hidden = false;
+    }
+    var today = new Date();
+    rentForm.start_date.min = today.toISOString().slice(0, 10);
+
+    rentForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = rentForm;
+      var say = function (msg, bad) { rentStatus.textContent = msg; rentStatus.classList.toggle("is-error", !!bad); };
+      if (f.company.value) return; // bots fill the hidden field
+      if (!f.town.value) return say("Choose the town you want to ride in.", true);
+      if (!f.name.value.trim()) return say("Add your name.", true);
+      if (!f.phone.value.trim() && !f.email.value.trim()) return say("Add a phone number or an email so we can reach you.", true);
+      if (f.email.value && !f.email.checkValidity()) return say("That email address doesn't look right.", true);
+      if (!f.consent.checked) return say("Tick the box so we can share your request with the shop.", true);
+      var endpoint = f.getAttribute("data-endpoint"), key = f.getAttribute("data-key");
+      if (!endpoint || !key) return say("Online requests aren't switched on yet. Please call us instead.", true);
+      var townOpt = f.town.options[f.town.selectedIndex];
+      var lead = {
+        name: f.name.value.trim().slice(0, 120),
+        phone: f.phone.value.trim().slice(0, 40) || null,
+        email: f.email.value.trim().slice(0, 180) || null,
+        town: f.town.value,
+        town_name: townOpt ? townOpt.textContent : null,
+        service: f.service.value,
+        start_date: f.start_date.value || null,
+        duration: f.duration.value || null,
+        bikes: Math.max(1, Math.min(50, parseInt(f.bikes.value, 10) || 1)),
+        notes: f.notes.value.trim().slice(0, 2000) || null,
+        listing: shop ? pListing : null,
+        source: (d.referrer || "").slice(0, 300) || null
+      };
+      var btn = f.querySelector("button[type=submit]");
+      btn.disabled = true;
+      say("Sending...");
+      fetch(endpoint + "/rest/v1/leads", {
+        method: "POST",
+        headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify(lead)
+      }).then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        f.hidden = true;
+        $("[data-rent-done]").hidden = false;
+        if (typeof window.gtag === "function") window.gtag("event", "generate_lead", { service: lead.service, town: lead.town });
+      }).catch(function () {
+        btn.disabled = false;
+        say("Sorry, that didn't go through. Please try again, or call us.", true);
+      });
+    });
+  }
+
+  })();
+
+  /* ---------------------------------------------------- lead desk */
+  (function () {
+  var admin = $("[data-admin]");
+  if (!admin) return;
+  {
+    var A = {
+      url: admin.getAttribute("data-endpoint"),
+      key: admin.getAttribute("data-key"),
+      services: {},
+      shops: null,
+      leads: [],
+      token: null
+    };
+    JSON.parse(admin.getAttribute("data-services") || "[]").forEach(function (s) { A.services[s[0]] = s[1]; });
+    var loginForm = $("[data-admin-login]"), app = $("[data-admin-app]");
+    var listEl = $("[data-admin-leads]"), detail = $("[data-admin-detail]");
+    var esc = function (v) { return String(v == null ? "" : v).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
+    var api = function (path, opts) {
+      opts = opts || {};
+      opts.headers = Object.assign({ apikey: A.key, Authorization: "Bearer " + (A.token || A.key), "Content-Type": "application/json" }, opts.headers || {});
+      return fetch(A.url + path, opts).then(function (r) {
+        if (r.status === 401) { signOut("Your session ended. Sign in again."); throw new Error("401"); }
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.status === 204 ? null : r.json();
+      });
+    };
+    var signOut = function (msg) {
+      A.token = null;
+      try { sessionStorage.removeItem("fer-admin"); } catch (e) {}
+      app.hidden = true; loginForm.hidden = false;
+      $("[data-admin-login-status]").textContent = msg || "";
+    };
+    var start = function () {
+      loginForm.hidden = true; app.hidden = false;
+      var shopsReady = A.shops ? Promise.resolve() : fetch(admin.getAttribute("data-shops")).then(function (r) { return r.json(); }).then(function (j) { A.shops = j; });
+      shopsReady.then(loadLeads);
+    };
+    var loadLeads = function () {
+      var f = $("[data-admin-filter]").value;
+      var q = "/rest/v1/leads?select=*&order=created_at.desc&limit=500";
+      if (f === "open") q += "&status=in.(new,contacted,matched)";
+      else if (f) q += "&status=eq." + encodeURIComponent(f);
+      api(q).then(function (rows) {
+        A.leads = rows || [];
+        $("[data-admin-count]").textContent = A.leads.length + (A.leads.length === 1 ? " lead" : " leads");
+        listEl.innerHTML = A.leads.map(function (l, i) {
+          return '<li><button type="button" class="admin-lead" data-i="' + i + '"><span class="admin-lead__status s-' + esc(l.status) + '">' + esc(l.status) + '</span>' +
+            '<strong>' + esc(l.name) + '</strong> <span>' + esc(A.services[l.service] || l.service) + '</span>' +
+            '<span class="muted">' + esc(l.town_name || l.town) + (l.start_date ? " · " + esc(l.start_date) : "") + " · " + esc(new Date(l.created_at).toLocaleString()) + '</span></button></li>';
+        }).join("") || '<li class="muted">No leads here yet.</li>';
+      }).catch(function () {});
+    };
+    var miles = function (a, b, c, e) {
+      var R = 3958.8, toR = Math.PI / 180, dLat = (c - a) * toR, dLng = (e - b) * toR;
+      var h = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(a * toR) * Math.cos(c * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      return 2 * R * Math.asin(Math.sqrt(h));
+    };
+    var matches = function (lead, radius, anyService) {
+      var town = A.shops.towns[lead.town] || {};
+      return A.shops.shops.map(function (s) {
+        var dist = s.t === lead.town ? 0 : (town.lat != null && s.lat != null ? miles(town.lat, town.lng, s.lat, s.lng) : Infinity);
+        return { s: s, dist: dist, fits: s.sv.indexOf(lead.service) !== -1 };
+      }).filter(function (m) { return m.dist <= radius && (anyService || m.fits); })
+        .sort(function (x, y) { return (x.dist - y.dist) || (y.s.ra - x.s.ra) || (y.s.rv - x.s.rv); });
+    };
+    var showLead = function (i) {
+      var l = A.leads[i];
+      var radius = parseInt(detail.getAttribute("data-radius") || "15", 10);
+      var anyService = detail.getAttribute("data-any") === "1";
+      var list = matches(l, radius, anyService);
+      var row = function (k, v) { return v ? "<div><dt>" + k + "</dt><dd>" + v + "</dd></div>" : ""; };
+      detail.innerHTML =
+        '<h2>' + esc(l.name) + '</h2>' +
+        '<dl class="datalist">' +
+          row("Wants", esc(A.services[l.service] || l.service)) +
+          row("Where", esc(l.town_name || l.town)) +
+          row("When", esc([l.start_date, l.duration].filter(Boolean).join(", "))) +
+          row("Bikes", esc(l.bikes)) +
+          row("Phone", l.phone ? '<a href="tel:' + esc(l.phone) + '">' + esc(l.phone) + "</a>" : "") +
+          row("Email", l.email ? '<a href="mailto:' + esc(l.email) + '">' + esc(l.email) + "</a>" : "") +
+          row("Notes", esc(l.notes)) +
+          row("Came from shop", esc(l.listing)) +
+          row("Assigned to", esc(l.assigned_listing)) +
+        "</dl>" +
+        '<div class="admin-edit"><label class="field"><span>Status</span><select data-lead-status>' +
+          ["new", "contacted", "matched", "booked", "lost"].map(function (s) { return '<option' + (s === l.status ? " selected" : "") + ">" + s + "</option>"; }).join("") +
+        '</select></label><label class="field"><span>Your notes</span><textarea rows="2" data-lead-notes>' + esc(l.admin_notes) + '</textarea></label>' +
+        '<button class="btn btn--blue btn--sm" type="button" data-lead-save>Save</button> <span class="small" data-lead-saved></span></div>' +
+        '<h3>Shops that can fulfil this (' + list.length + ')</h3>' +
+        '<div class="admin-bar"><label class="field"><span>Within</span><select data-radius>' +
+          [5, 15, 30, 60].map(function (r) { return "<option value=" + r + (r === radius ? " selected" : "") + ">" + r + " miles</option>"; }).join("") +
+        '</select></label><label class="admin-check"><input type="checkbox" data-any' + (anyService ? " checked" : "") + "> Show shops without this service</label></div>" +
+        '<ol class="admin-shops">' + (list.map(function (m) {
+          var s = m.s;
+          return '<li class="' + (m.fits ? "" : "is-off") + '"><div><a href="' + esc(s.u) + '" target="_blank" rel="noopener"><strong>' + esc(s.n) + "</strong></a> " +
+            '<span class="muted">' + esc(s.c) + (m.dist ? " · " + m.dist.toFixed(1) + " mi" : " · in town") + (s.ra ? " · " + s.ra.toFixed(1) + "★ (" + s.rv + ")" : "") + "</span>" +
+            (m.fits ? "" : ' <span class="admin-off">does not list this service</span>') +
+            '<div class="small muted">' + esc(s.tg.join(" · ")) + "</div></div>" +
+            '<div class="admin-shop__actions">' +
+              (s.p ? '<a class="btn btn--outline btn--sm" href="tel:' + esc(s.p) + '">' + esc(s.p) + "</a>" : "") +
+              (s.w ? '<a class="btn btn--outline btn--sm" href="' + esc(s.w) + '" target="_blank" rel="noopener nofollow">Website</a>' : "") +
+              (s.m ? '<a class="btn btn--outline btn--sm" href="' + esc(s.m) + '" target="_blank" rel="noopener nofollow">Map</a>' : "") +
+              '<button class="btn btn--blue btn--sm" type="button" data-assign="' + esc(s.s) + '">Assign</button>' +
+            "</div></li>";
+        }).join("") || '<li class="muted">No shops within ' + radius + " miles. Widen the distance.</li>") + "</ol>";
+      detail.setAttribute("data-lead", i);
+    };
+    var patch = function (i, fields) {
+      var l = A.leads[i];
+      return api("/rest/v1/leads?id=eq." + encodeURIComponent(l.id), {
+        method: "PATCH", headers: { Prefer: "return=representation" }, body: JSON.stringify(fields)
+      }).then(function (rows) { if (rows && rows[0]) A.leads[i] = rows[0]; showLead(i); });
+    };
+    listEl.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-i]");
+      if (b) showLead(+b.getAttribute("data-i"));
+    });
+    detail.addEventListener("change", function (e) {
+      var i = +detail.getAttribute("data-lead");
+      if (e.target.matches("[data-radius]")) { detail.setAttribute("data-radius", e.target.value); showLead(i); }
+      if (e.target.matches("[data-any]")) { detail.setAttribute("data-any", e.target.checked ? "1" : "0"); showLead(i); }
+    });
+    detail.addEventListener("click", function (e) {
+      var i = +detail.getAttribute("data-lead");
+      if (e.target.matches("[data-lead-save]")) {
+        patch(i, { status: $("[data-lead-status]", detail).value, admin_notes: $("[data-lead-notes]", detail).value || null })
+          .then(function () { $("[data-lead-saved]", detail).textContent = "Saved."; loadLeads(); });
+      }
+      var a = e.target.closest("[data-assign]");
+      if (a) patch(i, { assigned_listing: a.getAttribute("data-assign"), status: "matched" }).then(loadLeads);
+    });
+    $("[data-admin-filter]").addEventListener("change", loadLeads);
+    $("[data-admin-refresh]").addEventListener("click", loadLeads);
+    $("[data-admin-logout]").addEventListener("click", function () { signOut("Signed out."); });
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var st = $("[data-admin-login-status]");
+      if (!A.url) { st.textContent = "Booking is not connected yet."; return; }
+      st.textContent = "Signing in...";
+      fetch(A.url + "/auth/v1/token?grant_type=password", {
+        method: "POST",
+        headers: { apikey: A.key, "Content-Type": "application/json" },
+        body: JSON.stringify({ email: loginForm.email.value, password: loginForm.password.value })
+      }).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error_description || j.msg || "Sign-in failed"); return j; }); })
+        .then(function (j) {
+          A.token = j.access_token;
+          try { sessionStorage.setItem("fer-admin", JSON.stringify({ t: j.access_token, x: Date.now() + (j.expires_in || 3600) * 1000 })); } catch (e2) {}
+          loginForm.password.value = "";
+          st.textContent = "";
+          start();
+        }).catch(function (err) { st.textContent = err.message; });
+    });
+    try {
+      var saved = JSON.parse(sessionStorage.getItem("fer-admin") || "null");
+      if (saved && saved.x > Date.now() + 60000) { A.token = saved.t; start(); }
+    } catch (e3) {}
+  }
+  })();
+
   /* ------------------------------------------- /cities/ town search */
   /* Filters the town cards as you type. Enter opens the town when only one
      matches; with no match the form falls through to /search/, which also

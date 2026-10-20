@@ -10,6 +10,12 @@
   "language": "en",
   "twitter": "",
   "founded": "2026",
+  "booking": {
+    "_comment": "Supabase project URL and anon (publishable) key only. Never the service_role/secret key. Run supabase/leads.sql first.",
+    "enabled": true,
+    "supabaseUrl": "",
+    "supabaseAnonKey": ""
+  },
   "analytics": {
     "ga4": "G-DX557E1PNG"
   },

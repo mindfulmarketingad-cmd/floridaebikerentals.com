@@ -79,7 +79,7 @@ function originsOf(urls) {
   return [...origins].sort();
 }
 
-function cspMeta(inlineScripts, { ads, analytics, embeds = [], tileOrigin = "", imgHosts = [] }) {
+function cspMeta(inlineScripts, { ads, analytics, embeds = [], tileOrigin = "", imgHosts = [], connectHosts = [] }) {
   const hashes = inlineScripts.map(sha256);
   const script = ["'self'", ...hashes, ...(ads ? ADSENSE_HOSTS : []), ...(analytics ? GA_HOSTS : [])];
   const img = [
@@ -107,7 +107,9 @@ function cspMeta(inlineScripts, { ads, analytics, embeds = [], tileOrigin = "", 
     "style-src 'self' 'unsafe-inline'",
     `img-src ${img.join(" ")}`,
     "font-src 'self'",
-    `connect-src 'self'${ads ? ` ${ADSENSE_HOSTS.join(" ")}` : ""}${analytics ? ` ${GA_HOSTS.join(" ")}` : ""}`,
+    `connect-src 'self'${ads ? ` ${ADSENSE_HOSTS.join(" ")}` : ""}${analytics ? ` ${GA_HOSTS.join(" ")}` : ""}${
+      connectHosts.length ? ` ${connectHosts.join(" ")}` : ""
+    }`,
     `frame-src ${
       [
         ...(ads
@@ -204,14 +206,10 @@ function header(current, site) {
 </header>`;
 }
 
-/** The site-wide call button: "Rent Now" with the number, on every page. */
+/** The site-wide "Rent Now" button: opens the booking request form. */
 function headerCall(site) {
-  const phone = site.phone;
-  if (!phone || !phone.number) return "";
-  return `<a class="header-call" href="tel:${attr(phone.number)}" aria-label="${attr(`${phone.label || "Rent Now"}: call ${phone.display || phone.number}`)}">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>
-      <span class="header-call__label">${esc(phone.label || "Rent Now")}</span>
-      <span class="header-call__number">${esc(phone.display || phone.number)}</span>
+  return `<a class="header-call" href="/rent/">
+      <span class="header-call__label">Rent Now</span>
     </a>`;
 }
 
@@ -244,9 +242,9 @@ function footer(site, extras) {
     </nav>
     <div class="legal">
       <p>&copy; ${year} ${esc(site.name)}. All rights reserved.</p>
-      <p>${esc(site.name)} is an independent directory. We are not affiliated with, and do not take
-      bookings on behalf of, the businesses listed. Always confirm prices, hours and availability directly
-      with the rental shop.</p>
+      <p>${esc(site.name)} is an independent directory, not affiliated with the businesses listed. When you
+      send a Rent Now request, we pass it to a shop that can fulfil it; you book and pay the shop, and your
+      rental agreement is with them. Always confirm prices, hours and availability with the rental shop.</p>
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are
       refreshed periodically. Report an error on our <a href="/contact/">contact page</a>.</p>
       <p>${esc(site.name)} is a participant in the Amazon Services LLC Associates Program. As an
@@ -301,6 +299,7 @@ function adsenseLoader(site) {
  *  - ogImage:  absolute or root-relative image
  *  - imageUrls: remote images this page renders; their origins, and only
  *               theirs, are added to this page's CSP img-src
+ *  - connectHosts: origins this page's scripts may fetch from (the booking backend)
  *  - bodyAttrs, headExtra, footerColumns, inlineScripts
  */
 export function page(site, opts) {
@@ -321,6 +320,7 @@ export function page(site, opts) {
     next = "",
     embeds = [],
     imageUrls = [],
+    connectHosts = [],
   } = opts;
 
   const canonical = `${site.url}${path}`;
@@ -347,6 +347,7 @@ ${cspMeta(allInline, {
   embeds,
   tileOrigin: site.map?.enabled ? originOf(site.map?.tileUrl) : "",
   imgHosts: originsOf(imageUrls),
+  connectHosts,
 })}
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">

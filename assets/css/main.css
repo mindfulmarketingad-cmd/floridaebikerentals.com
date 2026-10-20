@@ -1224,3 +1224,46 @@ img.is-stock { object-fit: cover; }
   position: absolute; right: .5rem; bottom: .5rem; z-index: 2; padding: .15rem .45rem; border-radius: 4px;
   background: rgba(10, 25, 60, .72); color: #fff; font-size: .7rem; font-weight: 700; letter-spacing: .02em; pointer-events: none;
 }
+
+/* Rent Now request form */
+.rent h1 { margin-top: .6rem; }
+.rent-figure { margin: 1rem 0; }
+.rent-figure img { width: 100%; max-height: 260px; object-fit: cover; border-radius: var(--radius-l); }
+.rent-form { margin-top: 1.2rem; padding: 1.3rem; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-l); box-shadow: var(--shadow-s); display: grid; gap: .9rem; }
+.rent-form__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+@media (max-width: 640px) { .rent-form__grid { grid-template-columns: 1fr; } }
+.rent-form__shop { margin: 0; padding: .7rem .9rem; background: var(--blue-50); border-radius: var(--radius-s); color: var(--blue-800); font-weight: 700; }
+.rent-form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.rent-form__consent { display: flex; gap: .6rem; align-items: flex-start; font-size: .95rem; color: var(--ink-soft); }
+.rent-form__consent input { margin-top: .25rem; width: 1.1rem; height: 1.1rem; flex-shrink: 0; }
+.rent-form__status { margin: 0; min-height: 1.2em; font-weight: 700; color: var(--blue-700); }
+.rent-form__status.is-error { color: #b42318; }
+.rent-form__call { margin: 0; text-align: center; }
+.rent-done { margin-top: 1.2rem; padding: 1.4rem; background: var(--blue-50); border-radius: var(--radius-l); }
+.rent-steps { padding-left: 1.3rem; display: grid; gap: .4rem; color: var(--ink-soft); }
+.find-hero__cta { margin: 0 0 1rem; }
+.detail-hero__biz .btn + .btn { margin-left: .4rem; }
+
+/* Lead desk */
+.admin { padding-top: 1.5rem; }
+.admin .notice { padding: .8rem 1rem; background: #fff4d6; border-radius: var(--radius-s); }
+.admin-login { max-width: 360px; display: grid; gap: .8rem; }
+.admin-bar { display: flex; flex-wrap: wrap; gap: .7rem; align-items: flex-end; margin-bottom: 1rem; }
+.admin-grid { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(0, 2fr); gap: 1.2rem; align-items: start; }
+@media (max-width: 860px) { .admin-grid { grid-template-columns: 1fr; } }
+.admin-leads { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; max-height: 75vh; overflow: auto; }
+.admin-lead { width: 100%; text-align: left; display: grid; gap: .15rem; padding: .7rem .8rem; border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--white); cursor: pointer; font: inherit; }
+.admin-lead:hover { border-color: var(--blue-500); }
+.admin-lead .muted { font-size: .8rem; }
+.admin-lead__status { justify-self: start; font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; padding: .1rem .4rem; border-radius: 4px; background: var(--blue-50); color: var(--blue-700); }
+.admin-lead__status.s-new { background: #fff4d6; color: #8a5a00; }
+.admin-lead__status.s-booked { background: #e3f6ea; color: #1b7f4b; }
+.admin-lead__status.s-lost { background: #f1f1f1; color: #666; }
+.admin-detail { padding: 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+.admin-edit { display: grid; gap: .6rem; margin: 1rem 0; }
+.admin-check { display: flex; gap: .4rem; align-items: center; font-size: .9rem; }
+.admin-shops { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.admin-shops li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem; padding: .7rem .8rem; border: 1px solid var(--line-soft); border-radius: var(--radius-s); }
+.admin-shops li.is-off { opacity: .6; }
+.admin-shop__actions { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
+.admin-off { font-size: .75rem; color: #b42318; font-weight: 700; }

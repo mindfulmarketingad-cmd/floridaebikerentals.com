@@ -111,8 +111,8 @@ await page.close();
 page=await b.newPage();
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
 const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
-const rentNow=await page.$eval('a.btn[href="/partners/"]',e=>e.textContent.trim());
-ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /partners/`, radius==="0px"&&/Rent Now/i.test(rentNow));
+const rentNow=await page.$eval('.hero a.btn[href="/rent/"]',e=>e.textContent.trim());
+ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /rent/`, radius==="0px"&&/Rent Now/i.test(rentNow));
 await page.close();
 
 // 4g. sitewide promo banner: present, correctly attributed, dismissible
@@ -387,7 +387,7 @@ await page.close();
       if(!a) return null; const r=a.getBoundingClientRect();
       return {href:a.getAttribute("href"),text:a.textContent.replace(/\s+/g," ").trim(),visible:r.width>0&&r.right<=innerWidth,overflow:document.documentElement.scrollWidth>innerWidth};});
     ok(`${path}: header shows "${call&&call.text}" -> ${call&&call.href} at 390px`,
-       call && call.href==="tel:+13053631922" && /Rent Now/.test(call.text) && /305/.test(call.text) && call.visible && !call.overflow);
+       call && call.href==="/rent/" && call.text==="Rent Now" && call.visible && !call.overflow);
   }
   await page.close();
 }
@@ -430,8 +430,8 @@ await page.close();
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
      h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"') && />Businesses<\/a>/.test(nav));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
-  ok("listing page: 'Get More Leads' button links to /business/",
-     /class="detail-hero__biz"><a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
+  ok("listing page: hero has 'Rent Now' (with town and shop) and 'Get More Leads' to /business/",
+     /class="detail-hero__biz"><a [^>]*href="\/rent\/\?town=[a-z0-9-]+&amp;listing=[a-z0-9-]+"[^>]*>Rent Now<\/a> <a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
 }
 
 // 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town
@@ -454,6 +454,21 @@ await page.close();
   const dl=await pg.evaluate(()=>(window.dataLayer||[]).map(a=>Array.from(a)[0]));
   ok(`GA4 tag G-DX557E1PNG loads and configures, no CSP blocks (${blocked.length})`, ga.length===1 && dl.includes("config") && blocked.length===0);
   await pg.close();
+}
+
+// 4x. Rent Now: request form, CTAs on city and listing pages, private lead desk
+{
+  const { readFileSync } = await import("node:fs");
+  const rent=readFileSync(DIST+"/rent/index.html","utf8");
+  const city=readFileSync(DIST+"/cities/key-west/index.html","utf8");
+  const adm=readFileSync(DIST+"/admin/leads/index.html","utf8");
+  const robots=readFileSync(DIST+"/robots.txt","utf8");
+  const sitemap=readFileSync(DIST+"/sitemap-pages.xml","utf8");
+  const shops=JSON.parse(readFileSync(DIST+"/admin/shops.json","utf8"));
+  const fields=["town","service","start_date","duration","bikes","name","phone","email","notes","consent"].every(n=>rent.includes(`name="${n}"`));
+  ok(`/rent/: form with every field, in the sitemap; city hero Rent Now carries the town; /admin/ noindex, disallowed, ${shops.shops.length} shops for matching`,
+     fields && sitemap.includes("/rent/</loc>") && /class="find-hero__cta"><a [^>]*href="\/rent\/\?town=key-west"/.test(city) &&
+     /<meta name="robots" content="noindex/.test(adm) && !sitemap.includes("/admin/") && robots.includes("Disallow: /admin/") && shops.shops.length>400);
 }
 
 // 5. nav toggle on mobile

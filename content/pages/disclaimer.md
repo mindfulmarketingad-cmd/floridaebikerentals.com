@@ -2,7 +2,7 @@
 title: Disclaimer
 metaTitle: Disclaimer - Florida Ebike Rentals
 description: Read the Florida Ebike Rentals disclaimer covering directory accuracy, third-party businesses, affiliate and advertising relationships, and safety information.
-updated: 2026-09-02
+updated: 2026-10-20
 ---
 
 ## General information only
@@ -27,8 +27,11 @@ Business names, addresses, opening hours, categories, photos, star ratings and r
 compiled from publicly available sources, primarily Google Business Profile data, and are refreshed
 periodically.
 
-**Phone calls.** We do not list businesses' own phone numbers. Every "Call our rental line" button on
-this site dials (305) 363-1922, which is operated by Florida Ebike Rentals, not by the businesses listed.
+**Rent Now requests.** When you send a request on our [Rent Now](/rent/) page, we look for a shop in or
+near your town that offers what you asked for, check with them, and get back to you. We do not take
+payment. The shop sets the price and terms, and your rental agreement is with them.
+
+**Phone calls.** We do not list businesses' own phone numbers. Our rental line, (305) 363-1922, is operated by Florida Ebike Rentals, not by the businesses listed.
 It is a call-tracking number, which tells us which page a call came from.
 
 **Partner shops.** When you call our rental line and choose a region, the call is offered first to that

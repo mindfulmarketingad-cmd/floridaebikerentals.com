@@ -13,10 +13,15 @@ export function rentalLine() {
   return p.number ? { tel: p.number, display: p.display || p.number } : null;
 }
 
-/** A call button for the site's rental line, labelled as ours. */
-export function callLineButton(className = "btn btn--blue btn--sm") {
-  const line = rentalLine();
-  return line ? `<a class="${attr(className)}" href="tel:${attr(line.tel)}">Call our rental line</a>` : "";
+/** Link to the booking request form, carrying the town and shop it came from. */
+export function rentNowHref({ town = "", listing = "" } = {}) {
+  const q = [town && `town=${encodeURIComponent(town)}`, listing && `listing=${encodeURIComponent(listing)}`].filter(Boolean).join("&");
+  return `/rent/${q ? `?${q}` : ""}`;
+}
+
+/** The "Rent Now" button that replaced the old call button. */
+export function rentNowButton(className = "btn btn--primary btn--sm", where = {}) {
+  return `<a class="${attr(className)}" href="${attr(rentNowHref(where))}" rel="nofollow">Rent Now</a>`;
 }
 import { sceneForRegion } from "./images.mjs";
 
@@ -259,7 +264,7 @@ export function listicleItem(listing, rank, { showSummary = true } = {}) {
       <ul class="listicle__facts">${facts.join("")}</ul>
       <div class="listicle__actions">
         <a class="btn btn--blue btn--sm" href="${url}">Full details</a>
-        ${callLineButton("btn btn--outline btn--sm")}
+        ${rentNowButton("btn btn--primary btn--sm", { town: listing.citySlug, listing: listing.slug })}
         ${
           listing.maps_link
             ? `<a class="btn btn--outline btn--sm" href="${attr(

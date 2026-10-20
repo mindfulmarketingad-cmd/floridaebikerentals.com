@@ -2,7 +2,7 @@ import {
   esc, attr, formatReviews, formatRating, phoneHref, hostOf, plural, clamp, commaList, ratingBlock,
 } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
-import {
+import { rentNowHref,
   scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor, logoMark, rentalLine,
@@ -243,11 +243,11 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     },
     {
       q: `How do I rent from ${listing.name}?`,
-      a: `<p>${
-        tel ? `Call our rental line on <a href="tel:${attr(tel)}">${esc(line.display)}</a>, or ` : ""
-      }${
+      a: `<p>Send a <a href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now request</a> and we will check with ${esc(listing.name)} and get back to you${
+        tel ? `, or call our rental line on <a href="tel:${attr(tel)}">${esc(line.display)}</a>` : ""
+      }. You can also ${
         listing.maps_link
-          ? `${tel ? "use" : "Use"} <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> to visit ${esc(listing.name)}`
+          ? `use <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> to visit ${esc(listing.name)}`
           : `visit ${esc(listing.name)} at ${esc(listing.address || listing.city)}`
       }. Confirm prices, availability and rental terms before you pay.</p>`,
     },
@@ -263,7 +263,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
       ${rankInCity ? `<span>Ranked #${rankInCity} of ${city.listings.length} in ${esc(listing.city)}</span>` : ""}
     </div>
-    <p class="detail-hero__biz"><a class="btn btn--primary" href="/business/">Get More Leads</a></p>
+    <p class="detail-hero__biz"><a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a> <a class="btn btn--outline-light" href="/business/">Get More Leads</a></p>
   </div>
 </section>
 
@@ -341,7 +341,10 @@ export function partnerPage(site, listing, { listings, index, blog }) {
   <aside class="sidebar">
     <div class="panel panel--cta">
       <h2>Rent from ${esc(listing.name)}</h2>
-      ${tel ? `<p><a class="btn btn--blue btn--block" href="tel:${attr(tel)}">Call ${esc(line.display)}</a></p><p class="small muted">This is the Florida Ebike Rentals rental line, not ${esc(listing.name)}'s own number.</p>` : ""}
+      <p><a class="btn btn--primary btn--block" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a></p>
+      <p class="small muted">Tell us when and what you need, and we will check with ${esc(listing.name)} and confirm with you.${
+        tel ? ` Prefer to call? Our rental line is <a href="tel:${attr(tel)}">${esc(line.display)}</a> (ours, not the shop's).` : ""
+      }</p>
       ${
         listing.maps_link
           ? `<p><a class="btn btn--outline btn--block" href="${attr(
@@ -385,7 +388,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 </div>
 
 <div class="action-bar">
-  ${tel ? `<a class="btn btn--blue" href="tel:${attr(tel)}">Call ${esc(line.display)}</a>` : ""}
+  <a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a>
   ${
     listing.maps_link
       ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
@@ -401,7 +404,7 @@ ${adSlotScript(site, 1)}
     path: listing.url,
     noindex: !isIndexableListing(listing),
     body,
-    bodyAttrs: tel || listing.maps_link ? 'class="has-action-bar"' : "",
+    bodyAttrs: 'class="has-action-bar"',
     ogType: "business.business",
     ogImage: listing.photo || photoFor(listing.slug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],

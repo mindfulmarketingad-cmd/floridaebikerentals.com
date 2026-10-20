@@ -2,21 +2,27 @@
 title: Privacy Policy
 metaTitle: Privacy Policy - Florida Ebike Rentals
 description: How Florida Ebike Rentals handles your data, including cookies, Google AdSense advertising, location permissions, contact form submissions and your privacy rights.
-updated: 2026-10-17
+updated: 2026-10-20
 ---
 
 ## The short version
 
 Florida Ebike Rentals is a static directory. We do not require an account, we do not sell personal
 information, and we collect as little as the site can function on. The two places data does get
-involved are advertising, which is served by Google, and the contact form, which you choose to
-send us.
+involved are advertising and analytics, which are run by Google, and the contact and Rent Now
+forms, which you choose to send us.
 
 ## Information we collect
 
 **Information you give us.** If you use the [contact form](/contact/), we receive whatever you put
 in it: your name, email address, and the content of your message. We use it to answer you and to
 correct the directory. We do not add you to a marketing list.
+
+**Rent Now requests.** If you send a request on the [Rent Now](/rent/) page, we receive the town, the
+date and service you asked for, the number of bikes, your name, your phone number and/or email, and
+any note you add. It is stored in our database, hosted by Supabase, and only we can read it. We use
+it to find a shop for your rental and to contact you about it, and we share it with the shop we ask
+to fulfil it, so they can confirm your rental with you. We do not sell it or use it for marketing.
 
 **Automatically collected technical data.** Like nearly every website, our hosting provider records
 standard server data when a page is requested — IP address, browser user agent, referring page,
@@ -28,8 +34,8 @@ browser's geolocation API, which always asks your permission first. Your coordin
 your own browser to sort the list of listings and are never transmitted to us or stored anywhere.
 Decline the prompt and the site works normally, showing top-rated statewide results instead.
 
-**What we do not collect.** No accounts, no passwords, no payment details. We never take a booking,
-so we never handle payment card data.
+**What we do not collect.** No accounts, no passwords, no payment details. We never take payment for
+a rental, so we never handle payment card data.
 
 ## Cookies and similar technologies
 
@@ -89,7 +95,8 @@ businesses listed on this site unless you specifically ask us to pass it on.
 ## Data retention
 
 Contact-form messages are kept for as long as needed to handle your request and to maintain a
-record of listing corrections, then deleted. Server logs are retained by our hosting provider on
+record of listing corrections, then deleted. Rent Now requests are kept for up to 12 months after
+your rental date, then deleted; ask us on the [contact page](/contact/) to delete yours sooner. Server logs are retained by our hosting provider on
 their standard schedule, typically a short rolling window.
 
 ## Your privacy rights

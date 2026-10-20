@@ -99,7 +99,7 @@ ${h2("how-we-ranked", "How we ranked these shops")}
 have at least ten reviews, so a brand-new listing cannot top the list on two five-star ratings. We then rank by star
 rating weighted against review count. Rankings are never paid. Ratings and hours change, so check
 before you go, and <a href="/contact/">tell us</a> if something here is out of date.</p>
-<p>To ask about a rental anywhere in ${esc(group.name)}, call our rental line on <a href="tel:+13053631922">(305) 363-1922</a>.</p>
+<p>To rent anywhere in ${esc(group.name)}, send a <a href="/rent/" rel="nofollow">Rent Now request</a> and we will find a shop that has what you need, or call our rental line on <a href="tel:+13053631922">(305) 363-1922</a>.</p>
 `;
 
     const faqs = [

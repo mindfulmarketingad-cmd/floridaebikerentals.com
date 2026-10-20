@@ -97,7 +97,8 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
     // Every page carries a featured image plus at least one more in the content.
     const mainStart = html.indexOf('<main id="main">');
     const mainEnd = html.indexOf("</main>");
-    if (mainStart !== -1 && mainEnd !== -1) {
+    // The private lead desk under /admin/ is a tool, not a page for readers.
+    if (mainStart !== -1 && mainEnd !== -1 && !pageUrl.startsWith("/admin/")) {
       const main = html.slice(mainStart, mainEnd);
       const contentImages = [...main.matchAll(/<img [^>]*src="([^"]+)"/g)]
         .map((m) => m[1])
