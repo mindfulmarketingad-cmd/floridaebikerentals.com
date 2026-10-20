@@ -1270,15 +1270,18 @@ img.is-stock { object-fit: cover; }
 .rent-styles { margin: 0; padding: 0; border: 0; display: grid; gap: .6rem; }
 .rent-styles[hidden] { display: none; }
 .rent-styles legend { font-weight: 700; margin-bottom: .5rem; padding: 0; }
-.rent-styles__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
-@media (max-width: 640px) { .rent-styles__grid { grid-template-columns: 1fr; } }
-.rent-style { display: flex; gap: .6rem; align-items: flex-start; padding: .7rem .8rem; border: 2px solid var(--line); border-radius: var(--radius-s); cursor: pointer; background: var(--white); }
+.rent-styles__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
+@media (max-width: 860px) { .rent-styles__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rent-style { position: relative; display: grid; justify-items: center; text-align: center; gap: .35rem; padding: .7rem .5rem .8rem; border: 2px solid var(--line); border-radius: var(--radius-s); cursor: pointer; background: var(--white); color: var(--blue-600); }
 .rent-style:hover { border-color: var(--blue-400); }
-.rent-style:has(input:checked) { border-color: var(--blue-600); background: var(--blue-50); }
-.rent-style input { margin-top: .2rem; flex-shrink: 0; }
-.rent-style__body { display: grid; gap: .1rem; }
-.rent-style__body strong { color: var(--ink); }
-.rent-style__body span { font-size: .85rem; color: var(--ink-mute); }
+.rent-style:has(input:checked) { border-color: var(--blue-600); background: var(--blue-50); box-shadow: 0 0 0 2px var(--blue-100); }
+.rent-style:has(input:focus-visible) { outline: 3px solid var(--blue-400); outline-offset: 2px; }
+.rent-style input { position: absolute; top: .5rem; left: .5rem; margin: 0; }
+.rent-style .bike-ico { width: 100%; max-width: 120px; height: auto; }
+.rent-style .bike-ico__bolt { color: var(--sun-500); }
+.rent-style__body { display: grid; gap: .15rem; }
+.rent-style__body strong { color: var(--ink); font-size: .92rem; line-height: 1.25; }
+.rent-style__body span { font-size: .78rem; color: var(--ink-mute); line-height: 1.35; }
 .rent-styles__fine { margin: 0; }
 .admin-quote { margin: 1rem 0; padding: 1rem; border: 2px solid var(--blue-100); border-radius: var(--radius); background: var(--blue-50); display: grid; gap: .6rem; }
 .admin-quote h3 { margin: 0; }

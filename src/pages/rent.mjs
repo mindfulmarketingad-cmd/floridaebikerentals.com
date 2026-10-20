@@ -16,6 +16,7 @@
 import { esc, attr } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { photoFor, figure, ownPhoto } from "../images.mjs";
+import { bikeIcon } from "../bike-icons.mjs";
 
 export const RENT_URL = "/rent/";
 export const ADMIN_LEADS_URL = "/admin/leads/";
@@ -124,11 +125,12 @@ export function rentPage(site, { index, listings }) {
       </div>
 
       <fieldset class="rent-styles" data-rent-styles data-style-services="${attr(STYLE_SERVICES.join(" "))}">
-        <legend>Bike style</legend>
+        <legend>Bike style <small class="muted">(the yellow bolt means electric)</small></legend>
         <div class="rent-styles__grid">
           ${BIKE_STYLES.map(
             (s, i) => `<label class="rent-style">
             <input type="radio" name="bike_style" value="${attr(s.value)}"${i === 0 ? " checked" : ""}>
+            ${bikeIcon(s.value)}
             <span class="rent-style__body"><strong>${esc(s.label)}</strong><span>${esc(s.note)}</span></span>
           </label>`
           ).join("")}
