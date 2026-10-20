@@ -450,6 +450,21 @@ await page.close();
      /<meta name="robots" content="noindex/.test(adm) && !sitemap.includes("/admin/") && robots.includes("Disallow: /admin/") && shops.shops.length>400);
 }
 
+// 4y. every page title and H1 is in Title Case (shop names keep their own spelling)
+{
+  const fs=await import("node:fs"); const path=await import("node:path");
+  const small=new Set("a an and as at but by en for if in nor of on or per so the to up via vs yet from into onto with".split(" "));
+  let pages=0; const bad=new Set();
+  (function walk(d){ for(const f of fs.readdirSync(d)){ const p=path.join(d,f);
+    if(fs.statSync(p).isDirectory()) { if(!p.includes("/cities/")||p.split("/").length<8) walk(p); }
+    else if(f==="index.html"){ const h=fs.readFileSync(p,"utf8"); if(h.includes("<body data-redirect>")) continue; pages++;
+      for(const re of [/<title>([^<]*)<\/title>/,/<h1[^>]*>([\s\S]*?)<\/h1>/]){ const m=h.match(re); if(!m) continue;
+        const words=m[1].replace(/<[^>]+>/g,"").replace(/&amp;/g,"&").split(/\s+/);
+        words.forEach((w,i)=>{ const b=w.replace(/^[^A-Za-z]+/,""); const bare=b.toLowerCase().replace(/[^a-z]/g,"");
+          if(/^[a-z]/.test(b) && !(small.has(bare)&&i>0&&i<words.length-1) && !/[@/]|\.\w/.test(b) && !/^[a-z]+[A-Z]/.test(b)) bad.add(p.replace(DIST,"")); }); } } } })(DIST);
+  ok(`title case: ${pages} page titles and H1s checked (listing pages keep shop names as written), ${bad.size} with a lowercase word${bad.size?": "+[...bad].slice(0,3).join(", "):""}`, bad.size===0);
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { esc, attr, jsonLd } from "./util.mjs";
+import { titleCase, esc, attr, jsonLd } from "./util.mjs";
 
 /* --------------------------------------------------------------- config */
 
@@ -353,7 +353,7 @@ ${cspMeta(allInline, {
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 ${gaLoader(site)}
-<title>${esc(title)}</title>
+<title>${esc(titleCase(title))}</title>
 <meta name="description" content="${attr(description)}">
 <link rel="canonical" href="${attr(canonical)}">
 ${noindex ? '<meta name="robots" content="noindex, follow">' : '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">'}
@@ -361,7 +361,7 @@ ${prev ? `<link rel="prev" href="${attr(site.url + prev)}">` : ""}
 ${next ? `<link rel="next" href="${attr(site.url + next)}">` : ""}
 <meta property="og:site_name" content="${attr(site.name)}">
 <meta property="og:type" content="${attr(ogType)}">
-<meta property="og:title" content="${attr(title)}">
+<meta property="og:title" content="${attr(titleCase(title))}">
 <meta property="og:description" content="${attr(description)}">
 <meta property="og:url" content="${attr(canonical)}">
 <meta property="og:image" content="${attr(image)}">
@@ -369,7 +369,7 @@ ${/\/assets\/img\/stock\//.test(image) ? "" : `<meta property="og:image:width" c
 <meta property="og:image:height" content="630">`}
 <meta property="og:locale" content="${attr(site.locale)}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${attr(title)}">
+<meta name="twitter:title" content="${attr(titleCase(title))}">
 <meta name="twitter:description" content="${attr(description)}">
 <meta name="twitter:image" content="${attr(image)}">
 <meta name="theme-color" content="#2050c8">

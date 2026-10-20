@@ -10,7 +10,7 @@
 import { mkdirSync, writeFileSync, readFileSync, cpSync, rmSync, existsSync, statSync } from "node:fs";
 import { join, dirname } from "node:path";
 
-import { slugify, isoDate } from "./src/util.mjs";
+import { titleCase, slugify, isoDate } from "./src/util.mjs";
 import {
   ROOT, loadSite, loadListings, loadTownNotes, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
@@ -52,8 +52,15 @@ function resolveLinks(html) {
   });
 }
 
+/** Every page's H1 in Title Case, text only (tags and attributes untouched). */
+function titleCaseH1(html) {
+  return html.replace(/(<h1\b[^>]*>)([\s\S]*?)(<\/h1>)/g, (_, open, inner, close) =>
+    open + inner.replace(/(^|>)([^<]+)/g, (m, gt, text) => gt + titleCase(text)) + close
+  );
+}
+
 function write(urlPath, html, meta = {}) {
-  html = resolveLinks(html);
+  html = titleCaseH1(resolveLinks(html));
   const file = urlPath.endsWith(".html")
     ? join(DIST, urlPath.replace(/^\//, ""))
     : join(DIST, urlPath.replace(/^\//, ""), "index.html");

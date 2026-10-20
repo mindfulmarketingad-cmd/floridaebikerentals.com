@@ -23,6 +23,37 @@ export function jsonLd(data) {
   return `<script type="application/ld+json">${json}</script>`;
 }
 
+/**
+ * Title Case for page titles and H1s. It only ever raises a lowercase word, so
+ * shop names, acronyms (30A, FL), mixed-case brands (eBike) and anything the
+ * owner capitalised on purpose ("Near Me In") are left exactly as written.
+ * Short articles, conjunctions and prepositions stay lowercase unless they
+ * open or close the title or follow a colon or dash. Hyphenated words are
+ * capitalised on both sides: "e-bike" becomes "E-Bike".
+ */
+const SMALL_WORDS = new Set(
+  "a an and as at but by en for if in nor of on or per so the to up via vs yet from into onto with".split(" ")
+);
+export function titleCase(text) {
+  const parts = String(text).split(/(\s+)/);
+  const words = parts.map((p, i) => (i % 2 ? null : p));
+  const lastIndex = words.reduce((last, w, i) => (w ? i : last), -1);
+  let afterBreak = true;
+  return parts
+    .map((part, i) => {
+      if (i % 2) return part;
+      if (!part) return part;
+      const raise = (w) => (/^[a-z]/.test(w) ? w[0].toUpperCase() + w.slice(1) : w);
+      const bare = part.toLowerCase().replace(/[^a-z]/g, "");
+      const keepSmall = !afterBreak && i !== lastIndex && SMALL_WORDS.has(bare) && part === part.toLowerCase();
+      afterBreak = /[:\u2014\u2013-]$/.test(part) || part === "-" || part === "|";
+      // Leave anything that is not plain lowercase-led text alone (URLs, emails, mixed case).
+      if (keepSmall || /[@/]|\.\w/.test(part) || /^[a-z]+[A-Z]/.test(part)) return part;
+      return part.split("-").map(raise).join("-");
+    })
+    .join("");
+}
+
 export function slugify(text, fallback = "page") {
   return (
     String(text || "")
@@ -35,13 +66,6 @@ export function slugify(text, fallback = "page") {
       .slice(0, 80)
       .replace(/-+$/g, "") || fallback
   );
-}
-
-export function titleCase(text) {
-  return String(text || "")
-    .split(" ")
-    .map((w) => (w.length > 2 ? w[0].toUpperCase() + w.slice(1) : w))
-    .join(" ");
 }
 
 export function unique(list) {

@@ -134,7 +134,7 @@ export const MIN_CATEGORY_TOWN_INDEX = 3;
 
 /** Curated search landing pages: real queries with their own indexable page. */
 export const SEARCH_QUERIES = [
-  "ebike rentals near me", "florida ebike rentals", "30a ebike rentals", "key west ebike rental",
+  "ebike rentals near me", "florida ebike rentals", "30A ebike rentals", "key west ebike rental",
   "electric bike rental miami", "destin ebike rentals", "beach cruiser rental florida",
   "santa rosa beach bike rentals", "naples fl bike rentals", "sarasota ebike rental",
   "clearwater beach bike rental", "st augustine bike rentals", "fort myers beach bike rental",
