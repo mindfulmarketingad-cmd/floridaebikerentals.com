@@ -1,5 +1,17 @@
 import { createHash } from "node:crypto";
 import { titleCase, esc, attr, jsonLd } from "./util.mjs";
+import { readFileSync } from "node:fs";
+
+/**
+ * /assets/ is served with a one-year immutable cache, so the stylesheet and
+ * script carry a fingerprint of their contents: every change gets a new URL,
+ * and no browser keeps running a stale app.js (which is how the Rent Now form
+ * once appeared to do nothing for returning visitors).
+ */
+const fingerprint = (rel) =>
+  createHash("sha256").update(readFileSync(new URL(`../${rel}`, import.meta.url))).digest("hex").slice(0, 10);
+const CSS_URL = `/assets/css/main.css?v=${fingerprint("assets/css/main.css")}`;
+const JS_URL = `/assets/js/app.js?v=${fingerprint("assets/js/app.js")}`;
 
 /* --------------------------------------------------------------- config */
 
@@ -379,7 +391,7 @@ ${/\/assets\/img\/stock\//.test(image) ? "" : `<meta property="og:image:width" c
 <link rel="manifest" href="/site.webmanifest">
 <link rel="preconnect" href="https://lh3.googleusercontent.com" crossorigin>
 ${embeds.includes("ridewithgps") ? '<link rel="preconnect" href="https://ridewithgps.com">' : ""}
-<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="${CSS_URL}">
 ${headExtra}
 ${schemaTags.join("\n")}
 ${adsenseLoader(site)}
@@ -400,7 +412,7 @@ ${header(path, site)}
 ${body}
 </main>
 ${footer(site, footerColumns)}
-<script src="/assets/js/app.js" defer></script>
+<script src="${JS_URL}" defer></script>
 </body>
 </html>
 `;
