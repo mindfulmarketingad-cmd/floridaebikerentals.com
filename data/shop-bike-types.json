@@ -1,0 +1,4 @@
+{
+  "_readme": "Bike styles each shop rents, by listing slug, when you know them (from the shop, its website or a call). Styles: cruiser, fat-tire, step-through, hybrid (commuter), cargo, trike, folding, mountain, lightweight, pedal. Example: \"legacy-trail-e-bike-rentals\": [\"cruiser\", \"fat-tire\"]",
+  "shops": {}
+}

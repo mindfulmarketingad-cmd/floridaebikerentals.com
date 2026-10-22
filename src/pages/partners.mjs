@@ -1,3 +1,4 @@
+import { bikeIcon } from "../bike-icons.mjs";
 import {
   esc, attr, formatReviews, formatRating, phoneHref, hostOf, plural, clamp, commaList, ratingBlock,
 } from "../util.mjs";
@@ -186,7 +187,7 @@ function featureGroups(listing) {
     .join("")}</div>`;
 }
 
-export function partnerPage(site, listing, { listings, index, blog, cityLinker }) {
+export function partnerPage(site, listing, { listings, index, blog, cityLinker, cityTypeList = [] }) {
   const city = index.citiesBySlug.get(listing.citySlug);
   const region = index.regionsBySlug.get(listing.regionSlug);
   const nearby = nearbyListings(listing, listings, 6);
@@ -296,6 +297,8 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker }
       refreshed periodically. Confirm prices, availability and rental terms directly with the shop.
       Spot an error? <a href="/contact/">Tell us</a>.</p>
     </div>
+
+    ${bikePanel(listing, cityTypeList)}
 
     ${featureGroups(listing) ? `<div class="panel mt-2"><h2>Services and features</h2>${featureGroups(listing)}</div>` : ""}
 
@@ -411,4 +414,35 @@ ${adSlotScript(site, 1)}
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [breadcrumbSchema(site, crumbs), localBusinessSchema(site, listing), faqSchema(faqs)],
   });
+}
+
+/**
+ * The bikes this shop offers, as icons. Specific styles show only when the
+ * shop's Google profile names them or the site owner has confirmed them; each
+ * links to that style's page for the shop's town where there is one.
+ */
+const possessive = (name) => (/s$/i.test(name) ? `${name}'` : `${name}'s`);
+
+function bikePanel(listing, cityTypeList) {
+  const list = listing.bikeTypes || [];
+  if (!list.length) return "";
+  const pageFor = (style) => cityTypeList.find((x) => x.city.slug === listing.citySlug && x.type.style === style);
+  const specific = list.filter((t) => !t.general);
+  return `<div class="panel mt-2 bike-panel">
+    <h2>Bikes at ${esc(listing.name)}</h2>
+    <ul class="bike-types bike-types--large">${list
+      .map((t) => {
+        const p = t.general ? null : pageFor(t.style);
+        const inner = `${bikeIcon(t.style)}<span>${esc(t.label)}</span>`;
+        return `<li class="bike-types__item">${p ? `<a href="${attr(p.url)}">${inner}</a>` : inner}</li>`;
+      })
+      .join("")}</ul>
+    <p class="small muted">${
+      specific.length
+        ? `${specific.some((t) => t.source === "owner") ? "Styles confirmed by us or named" : "Styles named"} in ${esc(possessive(listing.name))} own Google profile. Fleets change, so confirm before you go.`
+        : `${esc(possessive(listing.name))} public listing doesn't say which styles it rents, so we show only the general kind. Ask the shop, or <a href="${attr(
+            `/rent/?town=${listing.citySlug}&listing=${listing.slug}`
+          )}" rel="nofollow">send a booking request</a> with the style you want and we check for you.`
+    }</p>
+  </div>`;
 }

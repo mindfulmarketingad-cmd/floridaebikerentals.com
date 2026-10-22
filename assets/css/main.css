@@ -1576,3 +1576,16 @@ img.is-stock { object-fit: cover; }
 .city-links__group a { font-weight: 600; }
 .type-town-table td, .type-town-table th { white-space: nowrap; }
 .quick-rent .field > span { color: var(--ink-soft); font-weight: 700; }
+
+/* Bikes offered: icon row on listing cards and listing pages */
+.bike-types { list-style: none; padding: 0; margin: .5rem 0; display: flex; flex-wrap: wrap; gap: .45rem; }
+.bike-types__item {
+  display: inline-flex; align-items: center; gap: .35rem; padding: .2rem .6rem .2rem .3rem; margin: 0;
+  background: var(--blue-50); border: 1px solid var(--blue-100); border-radius: 999px; color: var(--blue-900);
+  font-size: .85rem; font-weight: 700;
+}
+.bike-types__item svg { width: 42px; height: 25px; flex-shrink: 0; }
+.bike-types--large .bike-types__item { padding: .45rem .9rem .45rem .5rem; font-size: .95rem; border-radius: var(--radius); }
+.bike-types--large .bike-types__item svg { width: 72px; height: 43px; }
+.bike-types--large a { display: inline-flex; align-items: center; gap: .45rem; color: var(--blue-700); text-decoration: none; }
+.bike-types--large a:hover span { text-decoration: underline; }

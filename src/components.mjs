@@ -24,6 +24,7 @@ export function rentNowButton(className = "btn btn--primary btn--sm", where = {}
   return `<a class="${attr(className)}" href="${attr(rentNowHref(where))}" rel="nofollow">Book Now</a>`;
 }
 import { sceneForRegion } from "./images.mjs";
+import { bikeTypeRow } from "./bike-types.mjs";
 
 /**
  * Maps are switched off site-wide from data/site.json (`map.enabled`). The
@@ -259,6 +260,7 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
     listing.name
   )}</a></h3>
       <div>${ratingBlock(listing)}</div>
+      ${bikeTypeRow(listing)}
       ${showSummary ? `<p class="listicle__summary">${esc(summaryFor(listing))}</p>` : ""}
       ${tagList(listing.tags, 4)}
       <ul class="listicle__facts">${facts.join("")}</ul>

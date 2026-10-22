@@ -24,6 +24,7 @@ import { rentPage, rentPaidPage, adminLeadsPage, adminShopsJson, RENT_URL, RENT_
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { cityTypePages, cityTypePage } from "./src/pages/city-types.mjs";
 import { makeCityLinker } from "./src/city-links.mjs";
+import { assignBikeTypes } from "./src/bike-types.mjs";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -104,6 +105,7 @@ const queries = SEARCH_QUERIES.map((query) => ({ query, slug: slugify(query), ur
 const authors = loadAuthors();
 const authorsBySlug = new Map(authors.map((a) => [a.slug, a]));
 const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadHubEntries(hub)]));
+assignBikeTypes(listings, hubEntries["electric-bike-types"]);
 const shop = loadShop();
 const townNotes = loadTownNotes();
 const redirects = computeRedirects(index, listings);

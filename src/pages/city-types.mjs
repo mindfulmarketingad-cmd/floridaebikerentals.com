@@ -101,8 +101,9 @@ export function cityTypeTitle(type, city) {
 /** Shops whose own public profile names the type (the same test the type guides use). */
 function naming(guides, listings) {
   const res = guides.filter((g) => g.match).map((g) => new RegExp(g.match, "i"));
-  if (!res.length) return [];
+  const styles = new Set(guides.map((g) => g.style));
   return listings.filter((l) => {
+    if ((l.bikeTypes || []).some((t) => t.source === "owner" && styles.has(t.style))) return true;
     const text = [l.name, l.description, l.subtypes, l.category, l.type].filter(Boolean).join(" ");
     return res.some((re) => re.test(text));
   });
