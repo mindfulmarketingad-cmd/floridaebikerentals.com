@@ -186,7 +186,7 @@ function featureGroups(listing) {
     .join("")}</div>`;
 }
 
-export function partnerPage(site, listing, { listings, index, blog }) {
+export function partnerPage(site, listing, { listings, index, blog, cityLinker }) {
   const city = index.citiesBySlug.get(listing.citySlug);
   const region = index.regionsBySlug.get(listing.regionSlug);
   const nearby = nearbyListings(listing, listings, 6);
@@ -395,6 +395,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       : ""
   }
 </div>
+${city && cityLinker ? cityLinker.section(city, { title: `More about ${city.name}`, current: listing.url }) : ""}
 ${adSlotScript(site, 1)}
 `;
 

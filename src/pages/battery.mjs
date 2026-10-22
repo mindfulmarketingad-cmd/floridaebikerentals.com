@@ -60,7 +60,7 @@ export function batteryTowns(listings, index) {
     .sort((a, b) => b.local.length - a.local.length || a.city.name.localeCompare(b.city.name));
 }
 
-export function batteryTownPage(site, town, { index, batteryTownList }) {
+export function batteryTownPage(site, town, { index, batteryTownList, cityLinker }) {
   const { city, local, nearby, url, isSpecialist } = town;
   const n = local.length;
   const title = `Ebike Battery Replacement Near Me In ${city.name}`;
@@ -142,6 +142,7 @@ ${
 </section>`
     : ""
 }
+${cityLinker ? cityLinker.section(city, { title: `More about ${city.name}`, current: url, tint: true }) : ""}
 ${adSlotScript(site, 1)}
 `;
 

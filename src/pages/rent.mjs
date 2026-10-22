@@ -103,12 +103,12 @@ function townOptions(index, selected = "") {
  * A short "rent this" form for content pages. It submits to /rent/ with the town,
  * day and style filled in, so the rider finishes the same request form there.
  */
-export function quickRent(index, { style = "", service = "ebike-rental", heading = "Rent this e-bike" } = {}) {
+export function quickRent(index, { style = "", service = "ebike-rental", heading = "Rent this e-bike", town = "" } = {}) {
   return `<form class="quick-rent" action="${RENT_URL}" method="get">
   <p class="quick-rent__title">${esc(heading)}</p>
   <input type="hidden" name="service" value="${attr(service)}">
   ${style ? `<input type="hidden" name="style" value="${attr(style)}">` : ""}
-  <label class="field"><span>Where</span><select name="town" required><option value="">Choose a town</option>${townOptions(index)}</select></label>
+  <label class="field"><span>Where</span><select name="town" required><option value="">Choose a town</option>${townOptions(index, town)}</select></label>
   <label class="field"><span>Day</span><input type="date" name="date" required></label>
   <button class="btn btn--primary" type="submit">Book Now</button>
   <p class="quick-rent__note small muted">Next you add the time and your contact details. Nothing is charged until you accept a quote.</p>

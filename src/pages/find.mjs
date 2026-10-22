@@ -289,7 +289,7 @@ const TOWN_PHRASE = {
   "top-rated": (t) => `Top Rated Bike Rentals in ${t}`,
 };
 
-export function categoryTownPage(site, category, town, { index }) {
+export function categoryTownPage(site, category, town, { index, cityLinker }) {
   const { city, listings: local } = town;
   const n = local.length;
   const phrase = (TOWN_PHRASE[category.slug] || ((t) => `${category.name} in ${t}`))(city.name);
@@ -349,6 +349,7 @@ ${
 </section>`
     : ""
 }
+${cityLinker ? cityLinker.section(city, { title: `More about ${city.name}`, current: town.url, tint: true }) : ""}
 ${adSlotScript(site, 1)}
 `;
 

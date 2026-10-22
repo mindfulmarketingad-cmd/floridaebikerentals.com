@@ -1558,3 +1558,21 @@ img.is-stock { object-fit: cover; }
 .ready-band h2 { color: #fff; font-size: clamp(2rem, 1.3rem + 3vw, 3.4rem); text-transform: uppercase; font-weight: 900; margin-bottom: .4rem; }
 .ready-band p { color: #e8effe; font-size: 1.15rem; margin: 0 0 1.3rem; max-width: 46ch; }
 @media (max-width: 760px) { .ready-band p { margin-inline: auto; } }
+
+/* Town + bike type tiles and the per-town link block */
+.type-town-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.type-town-tile {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: .25rem; padding: 1rem;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); text-decoration: none;
+}
+.type-town-tile:hover { border-color: var(--blue-500); box-shadow: var(--shadow-s); }
+.type-town-tile__art { width: 100%; max-width: 150px; color: var(--blue-900); }
+.type-town-tile__art svg { width: 100%; height: 70px; display: block; }
+.type-town-tile__name { font-weight: 800; color: var(--blue-700); line-height: 1.25; }
+.type-town-tile__meta { font-size: .9rem; color: var(--ink-soft); }
+.city-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem 2rem; margin-top: 1rem; }
+.city-links__group h3 { font-size: 1.02rem; margin-bottom: .4rem; color: var(--blue-900); }
+.city-links__group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .35rem; }
+.city-links__group a { font-weight: 600; }
+.type-town-table td, .type-town-table th { white-space: nowrap; }
+.quick-rent .field > span { color: var(--ink-soft); font-weight: 700; }

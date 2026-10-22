@@ -450,6 +450,27 @@ await page.close();
      /<meta name="robots" content="noindex/.test(adm) && !sitemap.includes("/admin/") && robots.includes("Disallow: /admin/") && shops.shops.length>400);
 }
 
+// 4z. town + bike type pages, the town link block, and Book Now right under each type guide's description
+{
+  const { readFileSync, existsSync } = await import("node:fs");
+  const R=(u)=>readFileSync(DIST+u+"index.html","utf8");
+  const types=["fat-tire-electric-bike-rentals","beach-cruiser-rentals","step-through-electric-bike-rentals","cargo-electric-bike-rentals","commuter-electric-bike-rentals"];
+  const hubHtml=R("/cities/sarasota/");
+  const allLinked=types.every(t=>hubHtml.includes(`href="/cities/sarasota/${t}/"`)&&existsSync(DIST+`/cities/sarasota/${t}/index.html`));
+  const ft=R("/cities/sarasota/fat-tire-electric-bike-rentals/");
+  const ftOk=/<title>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/title>/.test(ft) && /<h1[^>]*>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/h1>/.test(ft) &&
+    /<form class="quick-rent"[\s\S]*?name="style" value="fat-tire"[\s\S]*?<option value="sarasota" selected>/.test(ft) && ft.includes('href="/cities/sarasota/"') && ft.includes("More about Sarasota");
+  const sm=readFileSync(DIST+"/sitemap-bike-type-towns.xml","utf8"); const smN=(sm.match(/<loc>/g)||[]).length;
+  const idx=readFileSync(DIST+"/sitemap.xml","utf8").includes("sitemap-bike-type-towns.xml");
+  const guide=R("/electric-bike-types/fat-tire-electric-bikes/");
+  const afterLede=/<p class="lede muted">[^<]*<\/p>\s*<form class="quick-rent"/.test(guide) && guide.includes('href="/cities/sarasota/fat-tire-electric-bike-rentals/"');
+  const listing=R("/cities/sarasota/legacy-trail-e-bike-rentals/");
+  const backLinks=listing.includes("More about Sarasota") && listing.includes('href="/cities/sarasota/beach-cruiser-rentals/"') &&
+    R("/find/delivery/sarasota/").includes('href="/cities/sarasota/cargo-electric-bike-rentals/"');
+  ok(`town + type pages: Sarasota hub links all 5 (${allLinked}), fat-tire page title/form ok (${ftOk}), ${smN} in sitemap (index lists it: ${idx}), guide Book Now under description (${afterLede}), back-links (${backLinks})`,
+     allLinked && ftOk && smN>=100 && idx && afterLede && backLinks);
+}
+
 // 4y. every page title and H1 is in Title Case (shop names keep their own spelling)
 {
   const fs=await import("node:fs"); const path=await import("node:path");

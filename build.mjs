@@ -22,6 +22,8 @@ import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/p
 import { businessPage, BUSINESS_URL } from "./src/pages/business.mjs";
 import { rentPage, rentPaidPage, adminLeadsPage, adminShopsJson, RENT_URL, RENT_PAID_URL, ADMIN_LEADS_URL, ADMIN_SHOPS_JSON } from "./src/pages/rent.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
+import { cityTypePages, cityTypePage } from "./src/pages/city-types.mjs";
+import { makeCityLinker } from "./src/city-links.mjs";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -113,6 +115,10 @@ const cityGuides = cityTrailGuides(index, trailData);
 blog.push(...regionPosts({ listings, index, cityGuides, date: "2026-10-15" }));
 blog.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, townNotes };
+// Town + bike type pages, and the block that links every page about a town together.
+ctx.batteryTownList = batteryTowns(listings, index);
+ctx.cityTypeList = cityTypePages(index, hubEntries, cityGuides);
+ctx.cityLinker = makeCityLinker({ index, blog, hubEntries, cityGuides, batteryTownList: ctx.batteryTownList, cityTypeList: ctx.cityTypeList });
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -144,6 +150,29 @@ for (const city of index.cities) {
       w: 8,
     },
   });
+}
+
+/* town + bike type pages: /cities/<town>/<type>-rentals/ */
+{
+  const taken = new Set(listings.map((l) => l.url));
+  for (const p of ctx.cityTypeList) {
+    if (taken.has(p.url)) throw new Error(`town type page ${p.url} collides with a listing page`);
+    write(p.url, cityTypePage(site, p, ctx), {
+      priority: 0.6,
+      changefreq: "weekly",
+      group: "bike-type-towns",
+      search: p.indexable
+        ? {
+            u: p.url,
+            t: p.title,
+            s: "Town",
+            d: `${p.rentals.length} rental shops in ${p.city.name}.`,
+            k: `${p.type.name} ${p.type.short} ${p.city.name}`.toLowerCase(),
+            w: 4,
+          }
+        : undefined,
+    });
+  }
 }
 
 /* /find/: the directory by category, statewide and per town */
@@ -198,7 +227,6 @@ write(ADMIN_LEADS_URL, adminLeadsPage(site), { skipSitemap: true });
 writeRaw(ADMIN_SHOPS_JSON.replace(/^\//, ""), adminShopsJson(assignTitles(loadListings({ raw: true })), index));
 
 /* e-bike battery replacement, statewide and per town */
-ctx.batteryTownList = batteryTowns(listings, index);
 for (const town of ctx.batteryTownList) {
   write(town.url, batteryTownPage(site, town, ctx), {
     priority: 0.6,
@@ -462,7 +490,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 /* ----------------------------------------------------------- sitemaps */
 
 // Every content hub gets its own sitemap, so a new hub can't drop its guides.
-const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "shop", "search"])];
+const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "shop", "search"])];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);

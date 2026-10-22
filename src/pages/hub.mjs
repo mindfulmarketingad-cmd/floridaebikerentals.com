@@ -8,6 +8,7 @@ import { photoFor, secondPhotoFor, figure, banner, photoById, sitePhoto } from "
 import { loadHubBody } from "../data.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 import { quickRent } from "./rent.mjs";
+import { typeTownCloud, typeTownTable } from "./city-types.mjs";
 
 /* ---------------------------------------------- electric bike type cluster */
 
@@ -75,7 +76,7 @@ function typeTable(entries) {
  * type. The directory has no field for which bikes a shop rents, so nothing
  * else counts as evidence and no shop is listed on a guess.
  */
-function shopsNaming(entry, listings) {
+export function shopsNaming(entry, listings) {
   if (!entry.match) return [];
   const re = new RegExp(entry.match, "i");
   return listings.filter((l) => re.test([l.name, l.description, l.subtypes, l.category, l.type].filter(Boolean).join(" ")));
@@ -208,6 +209,7 @@ ${breadcrumbs(crumbs)}
       <h1>${esc(hub.h1)}</h1>
       <p>${esc(hub.intro)}</p>
     </div>
+    ${hub.slug === TYPES_HUB ? quickRent(ctx.index, { heading: "Rent an e-bike in Florida" }) : ""}
     ${banner(hero, { alt: `${hub.h1} - ${hero.alt}` })}
   </div>
 </section>
@@ -217,7 +219,6 @@ ${
     ? `<section class="section">
   <div class="wrap wrap-narrow">
     ${hub.image ? sitePhoto(hub.image, { className: "type-photo" }) : ""}
-    ${quickRent(ctx.index, { heading: "Rent an e-bike in Florida" })}
     <nav class="toc type-toc" aria-label="Types on this page">
       <h2>The ${entries.length} types of electric bikes</h2>
       <ol>${entries.map((e) => `<li><a href="#${attr(e.slug)}">${esc(e.shortTitle || e.title)}</a></li>`).join("")}</ol>
@@ -234,6 +235,7 @@ ${
     <div class="mt-3">${typeTable(entries)}</div>
   </div>
 </section>
+${typeTownTable(ctx.cityTypeList || [])}
 ${
   hubBody
     ? `<section class="section">
@@ -351,6 +353,7 @@ export function contentEntry(site, hub, entry, ctx) {
     ${breadcrumbs(crumbs).replace('<div class="wrap">', "<div>")}
     <h1>${esc(entry.title)}</h1>
     <p class="lede muted">${esc(entry.description)}</p>
+    ${isType ? quickRent(ctx.index, { style: entry.rentStyle, service: entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental", heading: `Rent ${/^[aeiou]/i.test(entry.shortTitle || entry.title) ? "an" : "a"} ${(entry.shortTitle || entry.title).replace(/s$/, "").toLowerCase()} in Florida` }) : ""}
     ${byline(author, { date: entry.date, updated: entry.updated, readingTime: entry.readingTime, words: entry.words })}
   </div>
 </section>
@@ -366,7 +369,6 @@ export function contentEntry(site, hub, entry, ctx) {
         : ""
     }
     ${isType && entry.image ? sitePhoto(entry.image, { className: "type-photo" }) : ""}
-    ${isType ? quickRent(ctx.index, { style: entry.rentStyle, service: entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental", heading: `Rent ${/^[aeiou]/i.test(entry.shortTitle || entry.title) ? "an" : "a"} ${(entry.shortTitle || entry.title).replace(/s$/, "").toLowerCase()} in Florida` }) : ""}
     ${facts.length ? `<div class="mt-2">${statRow(facts).replace('class="stat-row"', 'class="stat-row stat-row--facts"')}</div>` : ""}
     ${routeEmbed(entry)}
     ${tocFor(entry.headings)}
@@ -384,6 +386,7 @@ export function contentEntry(site, hub, entry, ctx) {
 ${adSlot(site, "")}
 
 ${isType ? whereToRent(entry, ctx) : ""}
+${isType ? typeTownCloud(ctx.cityTypeList || [], entry.slug) : ""}
 
 ${
   hub.slug === "trails"

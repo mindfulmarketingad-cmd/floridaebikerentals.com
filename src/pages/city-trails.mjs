@@ -71,7 +71,7 @@ export function cityTrailGuides(index, trailData) {
 
 const LAW = "/blog/florida-ebike-laws/";
 
-export function cityTrailPage(site, guide, { index, trailData, guides }) {
+export function cityTrailPage(site, guide, { index, trailData, guides, cityLinker }) {
   const { city, data, url, title } = guide;
   const routes = data.routes;
   const top3 = routes.slice(0, 3).map((r) => r.name);
@@ -210,6 +210,7 @@ ${adSlot(site, "")}
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/trails/#city-guides">All ${guides.length} city guides</a></p>
   </div>
 </section>
+${cityLinker ? cityLinker.section(city, { title: `More about ${city.name}`, current: url, tint: true }) : ""}
 ${adSlotScript(site, 1)}
 `;
 

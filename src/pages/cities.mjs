@@ -15,6 +15,7 @@ import { nearbyCities } from "../data.mjs";
 import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits } from "../images.mjs";
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
+import { typeTiles } from "./city-types.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const YEAR = new Date().getFullYear();
@@ -132,7 +133,7 @@ ${adSlotScript(site, 1)}
  * title and search bar come first; the ranked list follows immediately; local
  * detail, FAQs and the links out to other towns come after.
  */
-export function cityPage(site, city, { index, townNotes, blog = [] }) {
+export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList = [], cityLinker }) {
   const local = city.listings;
   const n = local.length;
   const notes = (townNotes && townNotes.get(city.slug)) || {};
@@ -283,6 +284,19 @@ ${findHero({
   </div>
 </section>
 
+${(() => {
+  const types = cityTypeList.filter((x) => x.city.slug === city.slug);
+  return types.length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Rent by bike type in ${esc(city.name)}</h2>
+    <p class="muted">Pick a style to see the ${esc(city.name)} shops to ask, where to ride it, and a booking form set to that bike.</p>
+    ${typeTiles(types)}
+  </div>
+</section>`
+    : "";
+})()}
+
 ${
   city.categories.length
     ? `<section class="section">
@@ -341,6 +355,8 @@ ${adSlot(site, "")}
     ${faqBlock(faqs)}
   </div>
 </section>
+
+${cityLinker ? cityLinker.section(city, { title: `Everything about ${city.name} on our site`, current: city.url, skip: [`Rent in ${city.name}`, "By bike type", "By what you need", `Towns near ${city.name}`] }) : ""}
 
 <section class="section">
   <div class="wrap">

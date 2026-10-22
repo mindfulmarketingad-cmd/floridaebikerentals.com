@@ -133,6 +133,7 @@ before you go, and <a href="/contact/">tell us</a> if something here is out of d
       category: "Regions",
       listicle: true,
       tags: [region, ...rankedTowns],
+      regions: group.regions,
       readingTime: 5,
       faqs,
       html,
