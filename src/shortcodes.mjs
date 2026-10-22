@@ -75,7 +75,7 @@ export function expandShortcodes(html, ctx, seed = "page") {
     if (name === "CTA") {
       return `<div class="cta-inline">
   <p><strong>${esc(args.title || "Ready to ride?")}</strong> ${esc(args.text || "")}</p>
-  <a class="btn btn--primary" href="${esc(args.href || "/partners/")}">${esc(args.label || "Rent Now")}</a>
+  <a class="btn btn--primary" href="${esc(args.href || "/partners/")}">${esc(args.label || "Book Now")}</a>
 </div>`;
     }
 

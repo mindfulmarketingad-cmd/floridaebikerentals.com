@@ -197,7 +197,7 @@ export function notFoundPage(site, { index }) {
     <p class="muted">The page you asked for does not exist, or it moved when we last refreshed the
     directory. Try one of these instead.</p>
     <p class="mt-2">
-      <a class="btn btn--primary" href="/partners/">Rent Now</a>
+      <a class="btn btn--primary" href="/rent/">Book Now</a>
       <a class="btn btn--outline" href="/find/">Find rentals by town</a>
       <a class="btn btn--outline" href="/search/">Search the site</a>
     </p>

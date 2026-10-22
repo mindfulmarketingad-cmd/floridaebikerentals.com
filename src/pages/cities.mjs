@@ -91,7 +91,7 @@ ${adSlot(site, "")}
     bike business. Each shop is placed in the town on its Google address.</p>
     <p>Within a town, we rank shops by Google star rating weighted against how many reviews the rating
     rests on, so a 4.8 from 400 riders ranks above a 5.0 from three. We don't accept payment for
-    placement. To rent, contact a shop directly, or send a <a href="/rent/" rel="nofollow">Rent Now request</a>
+    placement. To rent, contact a shop directly, or send a <a href="/rent/" rel="nofollow">booking request</a>
     and we will find one that has what you need.</p>
     <p>Looking for something specific, like tours, delivery or shops open on Sundays? <a href="/find/">Browse
     by category</a>. Spotted a closed shop or a wrong address? <a href="/contact/">Tell us</a> and
@@ -241,7 +241,7 @@ ${findHero({
 <section class="section section--tint" id="location">
   <div class="wrap">
     <h2>Location &amp; directions</h2>
-    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.${(() => { const p = site.phone; return p && p.number ? ` To rent, send a <a href="/rent/?town=${attr(city.slug)}" rel="nofollow">Rent Now request</a> or call our line on <a href="tel:${attr(p.number)}">${esc(p.display || p.number)}</a>.` : ""; })()}</p>
+    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.${(() => { const p = site.phone; return p && p.number ? ` To rent, send a <a href="/rent/?town=${attr(city.slug)}" rel="nofollow">booking request</a> or call our line on <a href="tel:${attr(p.number)}">${esc(p.display || p.number)}</a>.` : ""; })()}</p>
     <div class="table-wrap">
       <table class="data-table">
         <thead><tr><th scope="col">Shop</th><th scope="col">Address</th><th scope="col"><span class="visually-hidden">Directions</span></th></tr></thead>

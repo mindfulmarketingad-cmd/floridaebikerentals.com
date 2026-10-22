@@ -21,7 +21,7 @@ export function rentNowHref({ town = "", listing = "" } = {}) {
 
 /** The "Rent Now" button that replaced the old call button. */
 export function rentNowButton(className = "btn btn--primary btn--sm", where = {}) {
-  return `<a class="${attr(className)}" href="${attr(rentNowHref(where))}" rel="nofollow">Rent Now</a>`;
+  return `<a class="${attr(className)}" href="${attr(rentNowHref(where))}" rel="nofollow">Book Now</a>`;
 }
 import { sceneForRegion } from "./images.mjs";
 

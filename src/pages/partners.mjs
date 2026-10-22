@@ -243,7 +243,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
     },
     {
       q: `How do I rent from ${listing.name}?`,
-      a: `<p>Send a <a href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now request</a> and we will check with ${esc(listing.name)} and get back to you${
+      a: `<p>Send a <a href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">booking request</a> and we will check with ${esc(listing.name)} and get back to you${
         tel ? `, or call our rental line on <a href="tel:${attr(tel)}">${esc(line.display)}</a>` : ""
       }. You can also ${
         listing.maps_link
@@ -263,7 +263,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
       ${rankInCity ? `<span>Ranked #${rankInCity} of ${city.listings.length} in ${esc(listing.city)}</span>` : ""}
     </div>
-    <p class="detail-hero__biz"><a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a> <a class="btn btn--outline-light" href="/business/">Get More Leads</a></p>
+    <p class="detail-hero__biz"><a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a> <a class="btn btn--outline-light" href="/business/">Get More Leads</a></p>
   </div>
 </section>
 
@@ -341,7 +341,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
   <aside class="sidebar">
     <div class="panel panel--cta">
       <h2>Rent from ${esc(listing.name)}</h2>
-      <p><a class="btn btn--primary btn--block" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a></p>
+      <p><a class="btn btn--primary btn--block" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a></p>
       <p class="small muted">Tell us when and what you need, and we will check with ${esc(listing.name)} and confirm with you.${
         tel ? ` Prefer to call? Our rental line is <a href="tel:${attr(tel)}">${esc(line.display)}</a> (ours, not the shop's).` : ""
       }</p>
@@ -388,7 +388,7 @@ export function partnerPage(site, listing, { listings, index, blog }) {
 </div>
 
 <div class="action-bar">
-  <a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Rent Now</a>
+  <a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a>
   ${
     listing.maps_link
       ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`

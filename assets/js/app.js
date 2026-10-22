@@ -20,6 +20,23 @@
   function num(v) { return typeof v === "number" && isFinite(v) ? v : null; }
 
   /* ---------------------------------------------------------------- nav */
+  // Header dropdowns: the arrow button opens the menu on touch screens and in the mobile menu.
+  $$(".nav-drop__toggle").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var open = btn.parentNode.classList.toggle("is-open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  d.addEventListener("click", function (e) {
+    $$(".nav-drop.is-open").forEach(function (li) {
+      if (!li.contains(e.target)) { li.classList.remove("is-open"); $(".nav-drop__toggle", li).setAttribute("aria-expanded", "false"); }
+    });
+  });
+  // Quick Book Now forms on content pages: no past days.
+  $$(".quick-rent input[type=date]").forEach(function (inp) {
+    var t = new Date();
+    inp.min = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
+  });
   var navToggle = $(".nav-toggle");
   var nav = $("#site-nav");
   if (navToggle && nav) {
@@ -700,6 +717,9 @@
     var today = new Date();
     var ymd = function (dt) { return dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2); };
     rentForm.start_date.min = ymd(today);
+    // ?date= from a quick Rent Now form on a content page.
+    var pDate = (params.get("date") || "").replace(/[^0-9-]/g, "");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(pDate) && pDate >= ymd(today)) rentForm.start_date.value = pDate;
     // Day: show the weekday under the date so "Saturday" is never a guess.
     var dayNote = $("[data-rent-day]");
     var dayText = function (v) {
@@ -709,6 +729,7 @@
       return dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
     };
     rentForm.start_date.addEventListener("input", function () { dayNote.textContent = dayText(rentForm.start_date.value); });
+    if (rentForm.start_date.value) dayNote.textContent = dayText(rentForm.start_date.value);
     // An exact start time picks the matching time of day.
     var todInputs = $$("input[name=time_of_day]", rentForm);
     $("[data-rent-start]").addEventListener("change", function () {

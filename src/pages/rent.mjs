@@ -99,11 +99,27 @@ function townOptions(index, selected = "") {
     .join("");
 }
 
+/**
+ * A short "rent this" form for content pages. It submits to /rent/ with the town,
+ * day and style filled in, so the rider finishes the same request form there.
+ */
+export function quickRent(index, { style = "", service = "ebike-rental", heading = "Rent this e-bike" } = {}) {
+  return `<form class="quick-rent" action="${RENT_URL}" method="get">
+  <p class="quick-rent__title">${esc(heading)}</p>
+  <input type="hidden" name="service" value="${attr(service)}">
+  ${style ? `<input type="hidden" name="style" value="${attr(style)}">` : ""}
+  <label class="field"><span>Where</span><select name="town" required><option value="">Choose a town</option>${townOptions(index)}</select></label>
+  <label class="field"><span>Day</span><input type="date" name="date" required></label>
+  <button class="btn btn--primary" type="submit">Book Now</button>
+  <p class="quick-rent__note small muted">Next you add the time and your contact details. Nothing is charged until you accept a quote.</p>
+</form>`;
+}
+
 /** Questions people ask when they want a bike today. Every answer matches how Rent Now works. */
 const RENT_FAQS = [
   {
     q: "Can I rent an ebike today?",
-    a: "<p>Often, yes. Send a Rent Now request with today's date and the time you want to ride, and we check with shops in your town that have electric bikes free. Same-day rentals depend on what shops have left, so the earlier in the day you ask, the better your chances.</p>",
+    a: "<p>Often, yes. Send a booking request with today's date and the time you want to ride, and we check with shops in your town that have electric bikes free. Same-day rentals depend on what shops have left, so the earlier in the day you ask, the better your chances.</p>",
   },
   {
     q: "How do I rent an ebike now?",
@@ -135,18 +151,23 @@ export function rentPage(site, { index, listings }) {
   const shopNames = Object.fromEntries(listings.map((l) => [l.slug, [l.name, l.citySlug]]));
   const crumbs = [
     { href: "/", label: "Home" },
-    { href: RENT_URL, label: "Rent Now" },
+    { href: RENT_URL, label: "Book Now" },
   ];
 
   const body = `
 <section class="section rent">
   <div class="wrap wrap-narrow">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Rent Now</li></ol></nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Book Now</li></ol></nav>
     <h1>Rent an Ebike Today in Florida</h1>
-    ${sitePhoto("cruiser-ebikes-baskets", { className: "rent-figure", eager: true })}
-    <p class="lede">Rent an ebike now: tell us the town, the day and the time, and we find a shop near you with an
-    electric bike free, then send you a quote. Pay it securely online and we book the rental for you. Nothing is
+    <p class="lede">Rent an ebike now: send one request and we handle the rest. We find a shop near you with an
+    electric bike free, send you one quote, and book the rental on your behalf once you pay. Nothing is
     charged until you accept a quote.</p>
+    <figure class="demo-video rent-video">
+      <video src="/assets/video/how-rent-now-works.mp4" poster="/assets/video/how-rent-now-works.jpg" width="1280" height="720"
+        autoplay muted loop playsinline controls preload="metadata"
+        aria-label="Video: how booking works. You request a rental, we find a shop with your bike, you approve one quote, and we book it for you. No sound."></video>
+      <figcaption class="rent-video__steps"><span><b>1</b> You request</span><span><b>2</b> We find the shop</span><span><b>3</b> You approve one quote</span><span><b>4</b> We book it</span></figcaption>
+    </figure>
 
     <form class="rent-form" data-rent-form${cfg ? ` data-endpoint="${attr(cfg.url)}" data-key="${attr(cfg.key)}"` : ""} novalidate>
       <p class="rent-form__shop" data-rent-shop hidden></p>
@@ -261,6 +282,7 @@ export function rentPage(site, { index, listings }) {
     quickest way to find one is to ask several at once. That is what this form does: send it with today's date and a
     time, and we check with shops in your town while you get ready. Weekends, holidays and spring break book up
     first, so for those days rent your ebike as early as you can.</p>
+    ${sitePhoto("cruiser-ebikes-baskets", { className: "rent-figure" })}
     ${ownPhoto()}
     ${faqBlock(RENT_FAQS)}
   </div>

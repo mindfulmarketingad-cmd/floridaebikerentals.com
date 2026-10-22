@@ -18,7 +18,22 @@ const JS_URL = `/assets/js/app.js?v=${fingerprint("assets/js/app.js")}`;
 export const HEADER_LINKS = [
   { href: "/cities/", label: "Cities" },
   { href: "/find/", label: "Find" },
-  { href: "/electric-bike-types/", label: "Bike Types" },
+  {
+    href: "/electric-bike-types/",
+    label: "Bike Types",
+    children: [
+      { href: "/electric-bike-types/", label: "All bike types" },
+      { href: "/electric-bike-types/folding-electric-bikes/", label: "Folding" },
+      { href: "/electric-bike-types/fat-tire-electric-bikes/", label: "Fat-Tire" },
+      { href: "/electric-bike-types/cargo-electric-bikes/", label: "Cargo" },
+      { href: "/electric-bike-types/electric-mountain-bikes/", label: "Electric Mountain" },
+      { href: "/electric-bike-types/commuter-electric-bikes/", label: "Commuter" },
+      { href: "/electric-bike-types/step-through-electric-bikes/", label: "Step-Through" },
+      { href: "/electric-bike-types/cruiser-electric-bikes/", label: "Cruiser" },
+      { href: "/electric-bike-types/lightweight-electric-bikes/", label: "Lightweight" },
+      { href: "/electric-bike-types/beach-cruiser/", label: "Beach Cruiser" },
+    ],
+  },
   { href: "/trails/", label: "Trails" },
   { href: "/blog/", label: "Blog" },
   { href: "/shop/", label: "Shop" },
@@ -199,9 +214,16 @@ function promoBanner(site) {
 function header(current, site) {
   const items = HEADER_LINKS.map((link) => {
     const active = link.href === current || (link.href !== "/" && current.startsWith(link.href));
-    return `<li${link.cta ? ' class="nav-cta"' : ""}><a href="${attr(link.href)}"${
-      active ? ' aria-current="page"' : ""
-    }>${esc(link.label)}</a></li>`;
+    const a = `<a href="${attr(link.href)}"${active ? ' aria-current="page"' : ""}>${esc(link.label)}</a>`;
+    if (link.children) {
+      // A dropdown: hover or focus opens it on desktop; the toggle opens it on touch and in the mobile menu.
+      return `<li class="nav-drop">${a}<button class="nav-drop__toggle" type="button" aria-expanded="false" aria-label="${attr(
+        `${link.label} menu`
+      )}"></button><ul class="nav-drop__menu">${link.children
+        .map((c) => `<li><a href="${attr(c.href)}"${c.href === current ? ' aria-current="page"' : ""}>${esc(c.label)}</a></li>`)
+        .join("")}</ul></li>`;
+    }
+    return `<li${link.cta ? ' class="nav-cta"' : ""}>${a}</li>`;
   }).join("");
 
   return `<header class="site-header">
@@ -223,7 +245,7 @@ function header(current, site) {
 /** The site-wide "Rent Now" button: opens the booking request form. */
 function headerCall(site) {
   return `<a class="header-call" href="/rent/">
-      <span class="header-call__label">Rent Now</span>
+      <span class="header-call__label">Book Now</span>
     </a>`;
 }
 
@@ -257,7 +279,7 @@ function footer(site, extras) {
     <div class="legal">
       <p>&copy; ${year} ${esc(site.name)}. All rights reserved.</p>
       <p>${esc(site.name)} is an independent directory, not affiliated with the businesses listed. When you
-      book through Rent Now, we book the rental with a shop for you under our
+      book through Book Now, we book the rental with a shop for you under our
       <a href="/terms/#rent-now-bookings">booking terms</a>. If you book directly with a shop, your agreement is with
       them, so confirm prices, hours and availability with the shop.</p>
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are

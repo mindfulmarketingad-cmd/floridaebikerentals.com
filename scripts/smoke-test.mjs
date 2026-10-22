@@ -91,7 +91,7 @@ page=await b.newPage();
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
 const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
 const rentNow=await page.$eval('.hero a.btn[href="/rent/"]',e=>e.textContent.trim());
-ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /rent/`, radius==="0px"&&/Rent Now/i.test(rentNow));
+ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /rent/`, radius==="0px"&&/Book Now/i.test(rentNow));
 await page.close();
 
 // 4g. sitewide promo banner: present, correctly attributed, dismissible
@@ -366,7 +366,7 @@ await page.close();
       if(!a) return null; const r=a.getBoundingClientRect();
       return {href:a.getAttribute("href"),text:a.textContent.replace(/\s+/g," ").trim(),visible:r.width>0&&r.right<=innerWidth,overflow:document.documentElement.scrollWidth>innerWidth};});
     ok(`${path}: header shows "${call&&call.text}" -> ${call&&call.href} at 390px`,
-       call && call.href==="/rent/" && call.text==="Rent Now" && call.visible && !call.overflow);
+       call && call.href==="/rent/" && call.text==="Book Now" && call.visible && !call.overflow);
   }
   await page.close();
 }
@@ -409,8 +409,8 @@ await page.close();
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
      h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"') && />Businesses<\/a>/.test(nav));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
-  ok("listing page: hero has 'Rent Now' (with town and shop) and 'Get More Leads' to /business/",
-     /class="detail-hero__biz"><a [^>]*href="\/rent\/\?town=[a-z0-9-]+&amp;listing=[a-z0-9-]+"[^>]*>Rent Now<\/a> <a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
+  ok("listing page: hero has 'Book Now' (with town and shop) and 'Get More Leads' to /business/",
+     /class="detail-hero__biz"><a [^>]*href="\/rent\/\?town=[a-z0-9-]+&amp;listing=[a-z0-9-]+"[^>]*>Book Now<\/a> <a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
 }
 
 // 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town

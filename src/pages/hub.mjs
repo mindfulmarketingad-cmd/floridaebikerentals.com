@@ -7,6 +7,7 @@ import {
 import { photoFor, secondPhotoFor, figure, banner, photoById, sitePhoto } from "../images.mjs";
 import { loadHubBody } from "../data.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
+import { quickRent } from "./rent.mjs";
 
 /* ---------------------------------------------- electric bike type cluster */
 
@@ -51,7 +52,7 @@ function typeSection(e, n) {
     ${e.terrain ? `<li><b>Florida terrain</b> ${esc(e.terrain)}</li>` : ""}
   </ul>
   <p class="type-section__cta"><a class="btn btn--blue" href="${attr(e.url)}">Read the ${esc(name.toLowerCase())} guide</a>
-  <a class="btn btn--primary" href="${attr(rentStyleHref(e))}" rel="nofollow">Rent Now</a></p>
+  <a class="btn btn--primary" href="${attr(rentStyleHref(e))}" rel="nofollow">Book Now</a></p>
 </section>`;
 }
 
@@ -97,15 +98,15 @@ function whereToRent(entry, ctx) {
     ${
       named.length
         ? `<p class="muted">These ${named.length} Florida ${plural(named.length, "shop")} name ${esc(lower)} in their own
-    Google profile. Profiles go out of date, so confirm the bike is available before you go, or send a Rent Now
+    Google profile. Profiles go out of date, so confirm the bike is available before you go, or send a booking
     request and we will check for you.</p>
     ${listicle(named)}`
         : `<p class="muted">No shop in our directory names ${esc(lower)} in its public Google profile, so we will not guess
     which ones have them. Shops that rent electric bikes are the ones to ask. These are the top-rated of them; call
-    ahead, or send a Rent Now request with this style and we will check with shops in your town for you.</p>
+    ahead, or send a booking request with this style and we will check with shops in your town for you.</p>
     ${listicle(fallback)}`
     }
-    <p class="mt-2"><a class="btn btn--primary" href="${attr(rentStyleHref(entry))}" rel="nofollow">Rent Now</a></p>
+    <p class="mt-2"><a class="btn btn--primary" href="${attr(rentStyleHref(entry))}" rel="nofollow">Book Now</a></p>
   </div>
 </section>`;
 }
@@ -216,6 +217,7 @@ ${
     ? `<section class="section">
   <div class="wrap wrap-narrow">
     ${hub.image ? sitePhoto(hub.image, { className: "type-photo" }) : ""}
+    ${quickRent(ctx.index, { heading: "Rent an e-bike in Florida" })}
     <nav class="toc type-toc" aria-label="Types on this page">
       <h2>The ${entries.length} types of electric bikes</h2>
       <ol>${entries.map((e) => `<li><a href="#${attr(e.slug)}">${esc(e.shortTitle || e.title)}</a></li>`).join("")}</ol>
@@ -364,6 +366,7 @@ export function contentEntry(site, hub, entry, ctx) {
         : ""
     }
     ${isType && entry.image ? sitePhoto(entry.image, { className: "type-photo" }) : ""}
+    ${isType ? quickRent(ctx.index, { style: entry.rentStyle, service: entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental", heading: `Rent ${/^[aeiou]/i.test(entry.shortTitle || entry.title) ? "an" : "a"} ${(entry.shortTitle || entry.title).replace(/s$/, "").toLowerCase()} in Florida` }) : ""}
     ${facts.length ? `<div class="mt-2">${statRow(facts).replace('class="stat-row"', 'class="stat-row stat-row--facts"')}</div>` : ""}
     ${routeEmbed(entry)}
     ${tocFor(entry.headings)}
@@ -526,7 +529,7 @@ ${breadcrumbs(crumbs)}
         Rankings come from Google rating and review volume, never from payment.</p>
         <p>Our <a href="/about/">about page</a> explains how listings are chosen, and the
         <a href="/disclaimer/">disclaimer</a> sets out the limits of the data.</p>
-        <p><a class="btn btn--primary" href="/partners/">Rent Now</a></p>
+        <p><a class="btn btn--primary" href="/rent/">Book Now</a></p>
       </div>
     </div>
   </div>
