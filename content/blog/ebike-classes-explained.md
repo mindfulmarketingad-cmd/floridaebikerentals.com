@@ -102,3 +102,9 @@ is not what you remember from a beach cruiser.
 - [Florida E-Bike Laws Explained](/blog/florida-ebike-laws/)
 - [What to Check Before You Rent an E-Bike](/blog/ebike-rental-checklist/)
 - [The Best E-Bike Rides in Florida](/blog/best-ebike-rides-florida/)
+
+## Class is not the same as type
+
+The class describes how the motor assists you. The type describes how the bike is built: cruiser,
+fat-tire, folding, cargo and so on. Our guide to the [types of electric bicycles](/electric-bike-types/)
+compares all nine you are likely to meet at a Florida rental counter.

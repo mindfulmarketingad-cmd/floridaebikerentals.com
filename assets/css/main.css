@@ -1399,3 +1399,27 @@ img.is-stock { object-fit: cover; }
 .rent-tod:hover span { border-color: var(--blue-400); }
 .rent-tod input:checked + span { border-color: var(--blue-600); background: var(--blue-50); box-shadow: 0 0 0 2px var(--blue-100); }
 .rent-tod input:focus-visible + span { outline: 3px solid var(--spark); outline-offset: 2px; }
+
+/* Electric bike types cluster */
+.type-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: .7rem; margin-top: 1rem; }
+.type-card { display: grid; justify-items: center; text-align: center; gap: .3rem; padding: .9rem .6rem 1rem; background: var(--white); border: 2px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--blue-600); transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+.type-card .bike-ico { width: 100%; max-width: 130px; height: auto; }
+.type-card .bike-ico__bolt { color: var(--sun-500); }
+.type-card strong { color: var(--ink); font-size: .95rem; line-height: 1.25; }
+.type-card span { font-size: .8rem; color: var(--ink-mute); line-height: 1.35; }
+.type-card:hover { border-color: var(--blue-400); transform: translateY(-2px); box-shadow: 0 0 0 1px var(--blue-400), 0 12px 30px rgba(32, 80, 200, .18), 0 0 26px rgba(56, 198, 255, .2); }
+.type-card.is-current { border-color: var(--blue-600); background: var(--blue-50); }
+.type-table th[scope=row] a { font-weight: 800; }
+.type-diagram { margin: 1.2rem 0; padding: 1rem; display: grid; justify-items: center; gap: .4rem; background: var(--blue-50); border: 1px solid var(--line); border-radius: var(--radius-l); color: var(--blue-600); }
+.type-diagram .bike-ico { width: min(360px, 100%); height: auto; }
+.type-diagram .bike-ico__bolt { color: var(--sun-500); }
+.type-diagram figcaption { font-size: .85rem; color: var(--ink-mute); text-align: center; }
+.type-toc ol { columns: 2; column-gap: 2rem; }
+@media (max-width: 640px) { .type-toc ol { columns: 1; } }
+.type-section { padding: 2rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--header-h) + 1rem); }
+.type-section h2 { text-transform: uppercase; letter-spacing: .02em; color: var(--blue-800); }
+.type-section h3 { margin-top: 1.2rem; font-size: 1.12rem; }
+.type-facts { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; gap: .5rem; }
+.type-facts li { margin: 0; padding: .45rem .8rem; background: var(--blue-50); border-radius: 999px; font-size: .88rem; }
+.type-facts b { color: var(--blue-800); margin-right: .3rem; }
+.type-section__cta { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }

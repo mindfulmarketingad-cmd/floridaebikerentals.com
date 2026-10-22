@@ -4,7 +4,110 @@ import {
   linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema,
   listicle, mapPanel, statRow, bookingCta,
 } from "../components.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, photoById } from "../images.mjs";
+import { loadHubBody } from "../data.mjs";
+import { bikeIcon } from "../bike-icons.mjs";
+
+/* ---------------------------------------------- electric bike type cluster */
+
+const TYPES_HUB = "electric-bike-types";
+
+/** A type card: the bike's diagram, its name and what it is best for. */
+function typeCards(entries, current = "") {
+  return `<div class="type-cards">${entries
+    .map(
+      (e) => `<a class="type-card${e.slug === current ? " is-current" : ""}" href="${attr(e.url)}"${
+        e.slug === current ? ' aria-current="page"' : ""
+      }>
+      ${bikeIcon(e.style)}
+      <strong>${esc(e.shortTitle || e.title)}</strong>
+      ${e.bestFor ? `<span>${esc(e.bestFor)}</span>` : ""}
+    </a>`
+    )
+    .join("")}</div>`;
+}
+
+/**
+ * One numbered section of the hub, buyer's-guide style: the diagram, what the
+ * type is, two quick answers from its guide, its key facts and the next steps.
+ */
+function typeSection(e, n) {
+  const name = e.shortTitle || e.title;
+  const singular = name.replace(/s$/, "").replace(/Bikes$/, "Bike");
+  const article = /^[aeiou]/i.test(singular) ? "an" : "a";
+  const quick = (e.faqs || []).slice(0, 2);
+  return `<section class="type-section" id="${attr(e.slug)}">
+  <h2>${n}. ${esc(name)}</h2>
+  <figure class="type-diagram">${bikeIcon(e.style)}<figcaption>${esc(
+    e.diagramCaption ? `The typical shape of ${e.diagramCaption}.` : name
+  )}</figcaption></figure>
+  <h3>What is ${article} ${esc(singular.toLowerCase())}?</h3>
+  <p>${esc(e.summary || e.description)}</p>
+  ${quick.map((f) => `<h3>${esc(f.q)}</h3>${f.a}`).join("")}
+  <ul class="type-facts">
+    ${e.bestFor ? `<li><b>Best for</b> ${esc(e.bestFor)}</li>` : ""}
+    ${e.weight ? `<li><b>Typical weight</b> ${esc(e.weight)}</li>` : ""}
+    ${e.terrain ? `<li><b>Florida terrain</b> ${esc(e.terrain)}</li>` : ""}
+  </ul>
+  <p class="type-section__cta"><a class="btn btn--blue" href="${attr(e.url)}">Read the ${esc(name.toLowerCase())} guide</a>
+  <a class="btn btn--primary" href="${attr(rentStyleHref(e))}" rel="nofollow">Rent Now</a></p>
+</section>`;
+}
+
+/** Side-by-side comparison of every type, linking each row to its guide. */
+function typeTable(entries) {
+  return `<div class="table-wrap"><table class="data-table type-table">
+  <thead><tr><th scope="col">Type</th><th scope="col">Best for</th><th scope="col">Typical weight</th><th scope="col">Where it shines in Florida</th></tr></thead>
+  <tbody>${entries
+    .map(
+      (e) => `<tr><th scope="row"><a href="${attr(e.url)}">${esc(e.shortTitle || e.title)}</a></th><td>${esc(
+        e.bestFor || ""
+      )}</td><td>${esc(e.weight || "")}</td><td>${esc(e.terrain || "")}</td></tr>`
+    )
+    .join("")}</tbody>
+</table></div>`;
+}
+
+/**
+ * Shops whose own public profile (name, description, categories) names this
+ * type. The directory has no field for which bikes a shop rents, so nothing
+ * else counts as evidence and no shop is listed on a guess.
+ */
+function shopsNaming(entry, listings) {
+  if (!entry.match) return [];
+  const re = new RegExp(entry.match, "i");
+  return listings.filter((l) => re.test([l.name, l.description, l.subtypes, l.category, l.type].filter(Boolean).join(" ")));
+}
+
+function rentStyleHref(entry) {
+  const service = entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental";
+  return `/rent/?service=${service}${entry.rentStyle ? `&style=${encodeURIComponent(entry.rentStyle)}` : ""}`;
+}
+
+function whereToRent(entry, ctx) {
+  const named = shopsNaming(entry, ctx.listings).slice(0, 10);
+  const lower = (entry.shortTitle || entry.title).toLowerCase();
+  const fallback = named.length
+    ? []
+    : ctx.listings.filter((l) => l.is_ebike && (l.tags || []).includes("Rentals")).slice(0, 6);
+  return `<section class="section section--tint" id="where-to-rent">
+  <div class="wrap">
+    <h2>Where to rent ${esc(entry.rentHeading || `${/^[aeiou]/.test(lower) ? "an" : "a"} ${lower.replace(/s$/, "")}`)} in Florida</h2>
+    ${
+      named.length
+        ? `<p class="muted">These ${named.length} Florida ${plural(named.length, "shop")} name ${esc(lower)} in their own
+    Google profile. Profiles go out of date, so confirm the bike is available before you go, or send a Rent Now
+    request and we will check for you.</p>
+    ${listicle(named)}`
+        : `<p class="muted">No shop in our directory names ${esc(lower)} in its public Google profile, so we will not guess
+    which ones have them. Shops that rent electric bikes are the ones to ask. These are the top-rated of them; call
+    ahead, or send a Rent Now request with this style and we will check with shops in your town for you.</p>
+    ${listicle(fallback)}`
+    }
+    <p class="mt-2"><a class="btn btn--primary" href="${attr(rentStyleHref(entry))}" rel="nofollow">Rent Now</a></p>
+  </div>
+</section>`;
+}
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 
@@ -90,6 +193,7 @@ function tocFor(headings) {
 
 export function contentHub(site, hub, entries, ctx) {
   const crumbs = [HOME_CRUMB, { href: `/${hub.slug}/`, label: hub.label }];
+  const hubBody = loadHubBody(hub.hubBody);
   const hero = photoFor(hub.slug);
   const extra = secondPhotoFor(hub.slug);
 
@@ -98,7 +202,7 @@ ${breadcrumbs(crumbs)}
 <section class="section" style="padding-top:1.2rem">
   <div class="wrap">
     <div class="section__head">
-      <span class="eyebrow">${esc(hub.label)} hub</span>
+      <span class="eyebrow">${esc(hub.label)}${hub.slug === TYPES_HUB ? "" : " hub"}</span>
       <h1>${esc(hub.h1)}</h1>
       <p>${esc(hub.intro)}</p>
     </div>
@@ -106,7 +210,38 @@ ${breadcrumbs(crumbs)}
   </div>
 </section>
 
+${
+  hub.slug === TYPES_HUB && entries.length
+    ? `<section class="section">
+  <div class="wrap wrap-narrow">
+    <nav class="toc type-toc" aria-label="Types on this page">
+      <h2>The ${entries.length} types of electric bikes</h2>
+      <ol>${entries.map((e) => `<li><a href="#${attr(e.slug)}">${esc(e.shortTitle || e.title)}</a></li>`).join("")}</ol>
+    </nav>
+    ${entries.map((e, i) => typeSection(e, i + 1)).join("")}
+  </div>
+</section>
 <section class="section section--tint">
+  <div class="wrap">
+    <h2>How the types compare</h2>
+    <p class="muted">Tap a type for its full guide. The diagrams show each type's typical shape; the yellow bolt
+    marks an electric bike.</p>
+    ${typeCards(entries)}
+    <div class="mt-3">${typeTable(entries)}</div>
+  </div>
+</section>
+${
+  hubBody
+    ? `<section class="section">
+  <div class="wrap wrap-narrow">
+    ${tocFor(hubBody.headings)}
+    <div class="prose">${hubBody.html}</div>
+    ${hubBody.faqs.length ? `<h2 class="mt-3">Frequently asked questions</h2>${faqBlock(hubBody.faqs)}` : ""}
+  </div>
+</section>`
+    : ""
+}`
+    : `<section class="section section--tint">
   <div class="wrap">
     <h2>${entries.length ? `All ${entries.length} ${plural(entries.length, hub.noun)}` : `${hub.label} guides`}</h2>
     ${
@@ -128,7 +263,8 @@ ${breadcrumbs(crumbs)}
            <a href="/blog/">main guides</a> or find a shop on the <a href="/find/">find pages</a>.</p>`
     }
   </div>
-</section>
+</section>`
+}
 
 ${hub.slug === "trails" && ctx.cityTrailSection ? ctx.cityTrailSection : ""}
 
@@ -172,6 +308,7 @@ ${adSlotScript(site, 1)}
           url: `${site.url}${e.url}`,
         })),
       },
+      hubBody && hubBody.faqs.length ? faqSchema(hubBody.faqs) : null,
     ],
   });
 }
@@ -181,9 +318,10 @@ ${adSlotScript(site, 1)}
 export function contentEntry(site, hub, entry, ctx) {
   const crumbs = [HOME_CRUMB, { href: `/${hub.slug}/`, label: hub.label }, { href: entry.url, label: entry.title }];
   const author = ctx.authorsBySlug.get(entry.author);
-  const hero = photoFor(entry.slug);
-  const extra = secondPhotoFor(entry.slug);
-  const related = ctx.hubEntries[hub.slug].filter((e) => e.slug !== entry.slug).slice(0, 3);
+  const hero = entry.photo ? photoById(entry.photo) : photoFor(entry.slug);
+  const extra = entry.photo2 ? photoById(entry.photo2) : secondPhotoFor(entry.slug);
+  const isType = hub.slug === TYPES_HUB;
+  const related = ctx.hubEntries[hub.slug].filter((e) => e.slug !== entry.slug).slice(0, isType ? 99 : 3);
 
   const towns = entry.towns
     .map((slug) => ctx.index.citiesBySlug.get(slug))
@@ -198,6 +336,9 @@ export function contentEntry(site, hub, entry, ctx) {
     entry.region ? { value: entry.region, label: "Region" } : null,
     entry.typical ? { value: entry.typical, label: "Typical cost" } : null,
     entry.range ? { value: entry.range, label: "Usual range" } : null,
+    entry.bestFor ? { value: entry.bestFor, label: "Best for" } : null,
+    entry.weight ? { value: entry.weight, label: "Typical weight" } : null,
+    entry.terrain ? { value: entry.terrain, label: "Florida terrain" } : null,
   ].filter(Boolean);
 
   const body = `
@@ -213,6 +354,13 @@ export function contentEntry(site, hub, entry, ctx) {
 <article class="post-body">
   <div class="wrap wrap-narrow">
     ${banner(hero, { alt: `${entry.title} - ${hero.alt}` })}
+    ${
+      isType && entry.style
+        ? `<figure class="type-diagram">${bikeIcon(entry.style)}<figcaption>Diagram: the typical shape of ${esc(
+            entry.diagramCaption || (entry.shortTitle || entry.title).toLowerCase()
+          )}${entry.style === "pedal" ? "" : ". The yellow bolt marks an electric bike"}.</figcaption></figure>`
+        : ""
+    }
     ${facts.length ? `<div class="mt-2">${statRow(facts).replace('class="stat-row"', 'class="stat-row stat-row--facts"')}</div>` : ""}
     ${routeEmbed(entry)}
     ${tocFor(entry.headings)}
@@ -228,6 +376,8 @@ export function contentEntry(site, hub, entry, ctx) {
 </article>
 
 ${adSlot(site, "")}
+
+${isType ? whereToRent(entry, ctx) : ""}
 
 ${
   hub.slug === "trails"
@@ -259,7 +409,16 @@ ${
     : ""
 }
 
-<section class="section">
+${
+  isType
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Other types of electric bikes</h2>
+    <p class="muted">Every guide in this series. Not sure which one fits? <a href="/${attr(hub.slug)}/">Compare all the types side by side</a>.</p>
+    ${typeCards(related)}
+  </div>
+</section>`
+    : `<section class="section">
   <div class="wrap">
     <h2>More ${esc(plural(2, hub.noun))}</h2>
     <div class="grid grid--3 mt-2">
@@ -270,7 +429,8 @@ ${
     <p class="mt-2"><a class="btn btn--outline btn--sm" href="/${attr(hub.slug)}/">All ${esc(hub.label.toLowerCase())} guides</a>
     <a class="btn btn--outline btn--sm" href="/find/">Find a rental shop</a></p>
   </div>
-</section>
+</section>`
+}
 ${adSlotScript(site, 1)}
 `;
 

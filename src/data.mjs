@@ -249,6 +249,20 @@ export const CONTENT_HUBS = [
     intro:
       "Every cost question in one place. Rental rates by duration and season, the card hold you should expect, what delivery and damage waivers add, and where the money actually goes on a family booking.",
   },
+  {
+    slug: "electric-bike-types",
+    dir: "electric-bike-types",
+    label: "Electric Bike Types",
+    noun: "type guide",
+    h1: "Types of Electric Bicycles (Ebikes)",
+    title: "Types of Electric Bicycles (Ebikes)",
+    description:
+      "The main types of electric bicycles explained: cruiser, beach cruiser, fat-tire, folding, cargo, mountain, commuter, step-through and lightweight e-bikes, and which to rent in Florida.",
+    intro:
+      "Every kind of e-bike you are likely to be offered at a Florida rental counter, explained in plain words: how each one rides, who it suits, where in Florida it makes sense, and what to ask the shop before you take one out.",
+    // Hub prose, H2s and FAQs live in content/hubs/<slug>.md.
+    hubBody: "electric-bike-types",
+  },
 ];
 
 export function loadHubEntries(hub) {
@@ -273,9 +287,20 @@ export function loadHubEntries(hub) {
         html,
         headings,
         words: wordCount(prose),
+        readingTime: meta.readingTime || Math.max(1, Math.round(wordCount(prose) / 230)),
       };
     })
     .sort((a, b) => Number(a.order || 99) - Number(b.order || 99) || String(a.title).localeCompare(String(b.title)));
+}
+
+/** Prose, H2s and FAQs for a hub page itself, from content/hubs/<name>.md. */
+export function loadHubBody(name) {
+  const file = join(ROOT, "content", "hubs", `${name}.md`);
+  if (!name || !existsSync(file)) return null;
+  const { meta, body } = parseFrontMatter(readFileSync(file, "utf8"));
+  const { body: prose, faqs } = extractFaqs(body);
+  const { html, headings } = render(prose);
+  return { ...meta, html, headings, faqs };
 }
 
 /**

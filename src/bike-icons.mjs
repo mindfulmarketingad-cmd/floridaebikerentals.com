@@ -60,6 +60,29 @@ const SHAPES = {
     <path d="M58 54C68 48 76 38 86 28"/>
     <path d="M86 28L98 52"/><path d="M86 28L84 19C82 15 76 15 74 16"/>
     ${saddle(52, 25, true)}${crank(58, 54)}${battery(63, 40, -52)}`,
+  // Small 16-20in wheels, a hinge in the main tube, tall seat and bar posts.
+  folding: () => `
+    ${wheel(32, 56, 11)}${wheel(90, 56, 11)}
+    <path d="M32 56L58 56L50 24"/><path d="M32 56L50 40"/>
+    <path d="M50 40H80"/><circle cx="64" cy="40" r="2.6" fill="currentColor" stroke="none" class="bike-ico__hinge"/>
+    <path d="M58 56L80 40"/><path d="M80 40L82 18L90 56"/><path d="M82 18H74"/>
+    ${saddle(50, 21)}${crank(58, 56)}${battery(58, 44, -35)}`,
+  // Knobby tires, a suspension fork, a sloping frame and flat bars.
+  mountain: () => `
+    ${wheel(27, 51, 16, 3.5)}${wheel(95, 51, 16, 3.5)}
+    <circle cx="27" cy="51" r="19" stroke-dasharray="2 2.6" stroke-width="2"/><circle cx="95" cy="51" r="19" stroke-dasharray="2 2.6" stroke-width="2"/>
+    <path d="M27 51L56 53L49 25"/><path d="M27 51L50 32"/>
+    <path d="M50 31L84 24"/><path d="M56 53L84 24"/>
+    <path d="M84 24L88 34" stroke-width="4"/><path d="M88 34L95 51"/><path d="M84 24L83 15H73"/>
+    ${saddle(49, 22)}${crank(56, 53)}${battery(60, 36, -40)}`,
+  // A slim frame with the battery hidden in the down tube.
+  lightweight: () => `
+    ${wheel(27, 50, 17, 1.8)}${wheel(95, 50, 17, 1.8)}
+    <path d="M27 50L56 53L49 23" stroke-width="2"/><path d="M27 50L51 27" stroke-width="2"/>
+    <path d="M51 26L86 25" stroke-width="2"/><path d="M56 53L86 25" stroke-width="3.6"/>
+    <path d="M86 25L95 50" stroke-width="2"/><path d="M86 25L87 16C87 13 83 12 80 13" stroke-width="2"/>
+    <circle cx="27" cy="50" r="4.5" stroke-width="2"/>
+    ${saddle(49, 20)}${crank(56, 53)}`,
   // The cruiser without a motor: no battery.
   pedal: () => SHAPES.cruiser(false),
   // Any style: a plain bike outline with a question mark.
@@ -69,7 +92,7 @@ const SHAPES = {
     <path d="M54 12c0-5 4-8 8-8s8 3 8 7c0 5-7 6-7 11" stroke-width="3.2"/><circle cx="63" cy="29" r="2.2" fill="currentColor" stroke="none"/>`,
 };
 
-const ELECTRIC = new Set(["cruiser", "fat-tire", "step-through", "hybrid", "trike", "cargo"]);
+const ELECTRIC = new Set(["cruiser", "fat-tire", "step-through", "hybrid", "trike", "cargo", "folding", "mountain", "lightweight"]);
 
 export function bikeIcon(style) {
   const draw = SHAPES[style] || SHAPES.any;

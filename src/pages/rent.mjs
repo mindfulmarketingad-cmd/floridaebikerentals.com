@@ -168,7 +168,7 @@ export function rentPage(site, { index, listings }) {
       </div>
 
       <fieldset class="rent-styles" data-rent-styles data-style-services="${attr(STYLE_SERVICES.join(" "))}">
-        <legend>Preferred bike style <small class="muted">(the yellow bolt means electric)</small></legend>
+        <legend>Preferred bike style <small class="muted">(the yellow bolt means electric; <a href="/electric-bike-types/">compare e-bike types</a>)</small></legend>
         <div class="rent-styles__grid">
           ${BIKE_STYLES.map(
             (s, i) => `<label class="rent-style">

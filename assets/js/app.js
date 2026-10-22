@@ -687,6 +687,10 @@
     if (shop && !pTown) pTown = shop[1];
     if (pTown && rentForm.town.querySelector('option[value="' + pTown.replace(/[^a-z0-9-]/g, "") + '"]')) rentForm.town.value = pTown;
     if (pService && rentForm.service.querySelector('option[value="' + pService.replace(/[^a-z0-9-]/g, "") + '"]')) rentForm.service.value = pService;
+    // ?style= from an electric-bike-type guide preselects that style.
+    var pStyle = (params.get("style") || "").replace(/[^a-z-]/g, "");
+    var styleInput = pStyle && rentForm.querySelector('input[name=bike_style][value="' + pStyle + '"]');
+    if (styleInput) styleInput.checked = true;
     if (shop) {
       var shopNote = $("[data-rent-shop]");
       shopNote.textContent = "You came from " + shop[0] + ". We will ask them first, and find another shop nearby if they can't help.";

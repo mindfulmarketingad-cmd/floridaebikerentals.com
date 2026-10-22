@@ -30,6 +30,7 @@ export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
   { href: "/costs/", label: "Costs" },
+  { href: "/electric-bike-types/", label: "E-bike types" },
   { href: "/business/", label: "For businesses" },
   { href: "/contact/", label: "Contact" },
   { href: "/disclaimer/", label: "Disclaimer" },
