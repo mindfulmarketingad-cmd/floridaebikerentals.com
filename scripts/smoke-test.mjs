@@ -465,6 +465,24 @@ await page.close();
   ok(`title case: ${pages} page titles and H1s checked (listing pages keep shop names as written), ${bad.size} with a lowercase word${bad.size?": "+[...bad].slice(0,3).join(", "):""}`, bad.size===0);
 }
 
+// 4z. every indexable page is in a sitemap, and the e-bike types cluster is complete
+{
+  const fs=await import("node:fs"); const path=await import("node:path");
+  const inMaps=new Set();
+  for (const f of fs.readdirSync(DIST).filter(f=>/^sitemap-.*\.xml$/.test(f)))
+    for (const m of fs.readFileSync(path.join(DIST,f),"utf8").matchAll(/<loc>https:\/\/www\.floridaebikerentals\.com([^<]*)<\/loc>/g)) inMaps.add(m[1]);
+  const missing=[];
+  (function walk(d){ for(const f of fs.readdirSync(d)){ const p=path.join(d,f);
+    if(fs.statSync(p).isDirectory()) walk(p);
+    else if(f==="index.html"){ const h=fs.readFileSync(p,"utf8");
+      if(h.includes("<body data-redirect>") || /<meta name="robots" content="noindex/.test(h)) continue;
+      const u=p.replace(DIST,"").replace(/index\.html$/,""); if(!inMaps.has(u)) missing.push(u); } } })(DIST);
+  const types=[...inMaps].filter(u=>u.startsWith("/electric-bike-types/"));
+  const hub=fs.readFileSync(DIST+"/electric-bike-types/index.html","utf8");
+  ok(`sitemaps cover every indexable page (${missing.length} missing${missing.length?": "+missing.slice(0,3).join(", "):""}); e-bike types cluster: ${types.length} URLs, hub H1 and title`,
+     missing.length===0 && types.length===10 && /<h1[^>]*>Types of Electric Bicycles \(Ebikes\)<\/h1>/.test(hub) && hub.includes("<title>Types of Electric Bicycles (Ebikes)</title>"));
+}
+
 // 5. nav toggle on mobile
 page=await b.newPage({viewport:{width:390,height:800}});
 await page.goto("http://localhost:8099/");

@@ -461,7 +461,8 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 
 /* ----------------------------------------------------------- sitemaps */
 
-const GROUPS = ["pages", "find", "partners", "blog", "trails", "costs", "shop", "search"];
+// Every content hub gets its own sitemap, so a new hub can't drop its guides.
+const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "shop", "search"])];
 const sitemapFiles = [];
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);
