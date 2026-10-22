@@ -47,7 +47,8 @@ export default async function handler(req, res) {
     const site = env("SITE_URL").replace(/\/+$/, "");
     const style = STYLE_LABELS[lead.bike_style] || "";
     const service = SERVICE_LABELS[lead.service] || "rental";
-    const what = `${lead.bikes ? `${lead.bikes} x ` : ""}${style ? `${style}, ` : ""}${service}`;
+    // The style is the rider's preference, not a promise, so it stays out of the product name.
+    const what = `${lead.bikes ? `${lead.bikes} x ` : ""}${service}`;
     const where = lead.town_name || lead.town;
     const TIME_OF_DAY = { morning: "morning", midday: "midday", afternoon: "afternoon", sunset: "evening / sunset", flexible: "" };
     const day = lead.start_date
@@ -72,7 +73,10 @@ export default async function handler(req, res) {
       "line_items[0][price_data][currency]": "usd",
       "line_items[0][price_data][unit_amount]": String(rental),
       "line_items[0][price_data][product_data][name]": `${what} in ${where}`.slice(0, 250),
-      "line_items[0][price_data][product_data][description]": (when || "Rental").slice(0, 250),
+      "line_items[0][price_data][product_data][description]": [when || "Rental", style ? `preferred style: ${style}, subject to availability` : ""]
+        .filter(Boolean)
+        .join(". ")
+        .slice(0, 250),
       "custom_text[submit][message]": `Full refund if you cancel 24 hours or more before your rental; no refund after that. Booking terms: ${site}/terms/#rent-now-bookings`.slice(0, 1000),
     };
     if (fee > 0) {

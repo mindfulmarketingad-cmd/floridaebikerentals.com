@@ -2,7 +2,7 @@
 title: Terms of Service
 metaTitle: Terms of Service - Florida Ebike Rentals
 description: The terms that govern your use of FloridaEbikeRentals.com, including acceptable use, listing content, intellectual property, disclaimers and limitation of liability.
-updated: 2026-10-20
+updated: 2026-10-22
 ---
 
 ## 1. Acceptance
@@ -35,9 +35,10 @@ charges. We do not add anything to it; our booking fee is shown separately. You 
 through Stripe; we never see or store your card number. Nothing is charged until you pay a quote,
 and a quote's payment link expires after 23 hours.
 
-**Bike style.** You choose a style of bike, not a make or model. The exact e-bike is not guaranteed.
-The style is: we confirm it with the shop before we quote, and if the shop cannot provide that style
-when you collect your rental, you are entitled to a full refund.
+**Bike style.** The bike style you choose is a preference, not a guarantee, and the exact make and model
+are up to the shop. Your quote tells you what the shop has before you pay; if it is not what you want,
+decline the quote and nothing is charged. If at pickup the shop cannot provide what your quote
+described, you are entitled to a full refund.
 
 **Cancellations and refunds.**
 

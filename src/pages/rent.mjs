@@ -55,10 +55,10 @@ function startTimeOptions() {
 }
 
 /**
- * Bike styles a rider can pick. We don't hold inventory, so a rider chooses a
- * style, not a model; we confirm the style with the shop before anything is
- * booked. Public shop profiles don't record which styles a fleet has, so the
- * lead desk shows the style for the owner to check with the shop.
+ * Bike styles a rider can prefer. We don't hold inventory, so the style is a
+ * preference, not a promise: shops' fleets vary, and the quote says what the
+ * shop actually has before the rider pays. Public shop profiles don't record
+ * which styles a fleet has, so the lead desk shows it for the owner to check.
  */
 export const BIKE_STYLES = [
   { value: "cruiser", label: "Beach cruiser e-bike", note: "Upright seat, wide handlebars, easy riding on beach paths" },
@@ -146,7 +146,7 @@ export function rentPage(site, { index, listings }) {
       </div>
 
       <fieldset class="rent-styles" data-rent-styles data-style-services="${attr(STYLE_SERVICES.join(" "))}">
-        <legend>Bike style <small class="muted">(the yellow bolt means electric)</small></legend>
+        <legend>Preferred bike style <small class="muted">(the yellow bolt means electric)</small></legend>
         <div class="rent-styles__grid">
           ${BIKE_STYLES.map(
             (s, i) => `<label class="rent-style">
@@ -156,9 +156,9 @@ export function rentPage(site, { index, listings }) {
           </label>`
           ).join("")}
         </div>
-        <p class="rent-styles__fine small muted">You choose a style of bike, not a specific make or model: each shop
-        has its own fleet, so the exact e-bike is not guaranteed. The style is. We confirm it with the shop before
-        we quote, and if no shop near you has that style, we tell you and nothing is charged.</p>
+        <p class="rent-styles__fine small muted">This is your preference, not a guarantee. Each shop has its own fleet, so
+        the exact style may or may not be available on your day, and the exact make and model are up to the shop. Your
+        quote says what the shop has before you pay, so you can decline it if it isn't what you want.</p>
       </fieldset>
 
       <fieldset class="rent-when">

@@ -883,7 +883,7 @@
         '<h2>' + esc(l.name) + '</h2>' +
         '<dl class="datalist">' +
           row("Wants", esc(A.services[l.service] || l.service)) +
-          row("Bike style", l.bike_style ? esc(A.styles[l.bike_style] || l.bike_style) + ' <span class="admin-off">confirm the shop has this style; it is guaranteed to the rider</span>' : "") +
+          row("Preferred style", l.bike_style ? esc(A.styles[l.bike_style] || l.bike_style) + ' <span class="admin-off">a preference: put what the shop actually has in the quote details</span>' : "") +
           row("Where", esc(l.town_name || l.town)) +
           row("When", esc(dateText(l))) +
           row("Bikes", esc(l.bikes)) +
@@ -939,8 +939,9 @@
     var quoteMessage = function (l) {
       var total = (l.quote_rental_cents || 0) + (l.quote_fee_cents || 0);
       return "Hi " + l.name.split(" ")[0] + ", here is your e-bike rental quote from Florida Ebike Rentals.\n" +
-        (l.bikes ? l.bikes + " x " : "") + (A.styles[l.bike_style] && l.bike_style !== "any" ? A.styles[l.bike_style] : "bike") +
+        (l.bikes ? l.bikes + (l.bikes > 1 ? " bikes" : " bike") : "Bike rental") +
         " in " + (l.town_name || l.town) + (dateText(l) ? ", " + dateText(l) : "") + ".\n" +
+        (A.styles[l.bike_style] && l.bike_style !== "any" ? "You asked for: " + A.styles[l.bike_style] + " (a preference; the shop's bikes are described below).\n" : "") +
         (l.quote_details ? l.quote_details + "\n" : "") +
         "Rental " + money(l.quote_rental_cents) + " + booking fee " + money(l.quote_fee_cents) + " = " + money(total) + ".\n" +
         "Pay here to confirm (link valid 23 hours): " + l.quote_url + "\n" +
@@ -978,7 +979,7 @@
         '<label class="field"><span>Your booking fee ($)</span><input type="number" min="0" step="0.01" data-q-fee value="' + (l.quote_fee_cents != null ? (l.quote_fee_cents / 100).toFixed(2) : "") + '"></label>' +
         "</div>" +
         '<label class="field"><span>Details for the rider (pickup time and place, what is included)</span><textarea rows="2" maxlength="1000" data-q-details>' + esc(l.quote_details) + "</textarea></label>" +
-        '<p class="small muted">Check before you quote: the shop has the ' + esc(A.styles[l.bike_style] || "bike") + ' style free on that date, and its cancellation terms are no stricter than ours (full refund 24h+).</p>' +
+        '<p class="small muted">Before you quote: check the shop has bikes free that day (ideally the ' + esc(A.styles[l.bike_style] || "preferred") + ' style; if not, say what they have in the details) and that its cancellation terms are no stricter than ours (full refund 24h+).</p>' +
         '<button class="btn btn--blue btn--sm" type="button" data-q-send>' + (l.quote_url ? "Make a new payment link" : "Create payment link") + '</button> <span class="small" data-q-status></span>';
       if (l.quote_url) {
         var expired = l.quote_expires_at && new Date(l.quote_expires_at) < new Date();

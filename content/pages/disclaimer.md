@@ -2,7 +2,7 @@
 title: Disclaimer
 metaTitle: Disclaimer - Florida Ebike Rentals
 description: Read the Florida Ebike Rentals disclaimer covering directory accuracy, third-party businesses, affiliate and advertising relationships, and safety information.
-updated: 2026-10-20
+updated: 2026-10-22
 ---
 
 ## General information only
@@ -34,10 +34,10 @@ near your town that offers what you asked for, check with them, and send you a q
 booking fee, shown separately. If you pay it, we book the rental for you. The shop's own rental
 agreement, waiver and deposit rules still apply when you collect the bikes.
 
-**Bike style, not model.** We do not own bikes, so a Rent Now request asks for a style of bike (a beach
-cruiser e-bike or a fat-tire e-bike, for example), not a particular make or model. The exact e-bike is
-not guaranteed. The style you choose is: we confirm it with the shop before we quote, and if no shop
-near you has that style, we tell you and nothing is charged.
+**Bike style is a preference.** We do not own bikes, so a Rent Now request asks for a preferred style of
+bike (a beach cruiser e-bike or a fat-tire e-bike, for example). Shops' fleets vary, so the exact style may
+or may not be available, and the make and model are up to the shop. Your quote says what the shop has
+before you pay, and nothing is charged unless you accept it.
 
 **Phone calls.** We do not list businesses' own phone numbers. Our rental line, (305) 363-1922, is operated by Florida Ebike Rentals, not by the businesses listed.
 It is a call-tracking number, which tells us which page a call came from.
