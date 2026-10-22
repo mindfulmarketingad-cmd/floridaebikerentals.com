@@ -15,6 +15,7 @@
  */
 import { esc, attr } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
+import { faqBlock, faqSchema } from "../components.mjs";
 import { photoFor, figure, ownPhoto } from "../images.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 
@@ -98,6 +99,26 @@ function townOptions(index, selected = "") {
     .join("");
 }
 
+/** Questions people ask when they want a bike today. Every answer matches how Rent Now works. */
+const RENT_FAQS = [
+  {
+    q: "Can I rent an ebike today?",
+    a: "<p>Often, yes. Send a Rent Now request with today's date and the time you want to ride, and we check with shops in your town that have electric bikes free. Same-day rentals depend on what shops have left, so the earlier in the day you ask, the better your chances.</p>",
+  },
+  {
+    q: "How do I rent an ebike now?",
+    a: "<p>Fill in the form on this page: your town, the day and time, the style of bike you would like and how to reach you. We send you a quote with the shop's price and our booking fee. Pay it online and we book the bike for you.</p>",
+  },
+  {
+    q: "Do I pay anything to send a request?",
+    a: "<p>No. Nothing is charged until you accept and pay a quote, and you can cancel for a full refund up to 24 hours before your rental.</p>",
+  },
+  {
+    q: "Will I get the exact e-bike I pick?",
+    a: "<p>The bike style is a preference. Each shop has its own fleet, so the exact style may or may not be available on your day, and your quote tells you what the shop has before you pay.</p>",
+  },
+];
+
 /** A "Rent Now" link that carries the town (and shop) it was clicked from. */
 export function rentHref({ town = "", listing = "", service = "" } = {}) {
   const q = new URLSearchParams();
@@ -121,10 +142,11 @@ export function rentPage(site, { index, listings }) {
 <section class="section rent">
   <div class="wrap wrap-narrow">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Rent Now</li></ol></nav>
-    <h1>Rent an e-bike in Florida</h1>
+    <h1>Rent an Ebike Today in Florida</h1>
     ${figure(photoFor("rent-now"), { caption: null, className: "rent-figure", eager: true })}
-    <p class="lede">Tell us where and when, and we will find a shop near you that has what you need, then send you a
-    quote. Pay it securely online and we book the rental for you. Nothing is charged until you accept a quote.</p>
+    <p class="lede">Rent an ebike now: tell us the town, the day and the time, and we find a shop near you with an
+    electric bike free, then send you a quote. Pay it securely online and we book the rental for you. Nothing is
+    charged until you accept a quote.</p>
 
     <form class="rent-form" data-rent-form${cfg ? ` data-endpoint="${attr(cfg.url)}" data-key="${attr(cfg.key)}"` : ""} novalidate>
       <p class="rent-form__shop" data-rent-shop hidden></p>
@@ -233,20 +255,27 @@ export function rentPage(site, { index, listings }) {
 
     <p class="small muted mt-3">Full refund if you cancel 24 hours or more before your rental; no refund after that. If the
     shop cancels or can't provide your booking, you get a full refund. <a href="/terms/#rent-now-bookings">Booking terms</a>.</p>
+
+    <h2 class="mt-3">Ebike rental today, or any day</h2>
+    <p>Most Florida rental shops can hand over an electric bike the same day when they have bikes free, and the
+    quickest way to find one is to ask several at once. That is what this form does: send it with today's date and a
+    time, and we check with shops in your town while you get ready. Weekends, holidays and spring break book up
+    first, so for those days rent your ebike as early as you can.</p>
     ${ownPhoto()}
+    ${faqBlock(RENT_FAQS)}
   </div>
 </section>
 <script type="application/json" id="rent-shops">${JSON.stringify(shopNames).replace(/</g, "\\u003c")}</script>
 `;
 
   return page(site, {
-    title: "Rent Now: E-Bike Rental Request - Florida Ebike Rentals",
+    title: "Rent an Ebike Today in Florida - Ebike Rental Now",
     description:
-      "Tell us where and when you want to ride. We find a Florida shop that has the e-bike, tour or delivery you need and get back to you to confirm.",
+      "Rent an ebike now or for any day: pick your town, day and time, and we find a Florida shop with an electric bike for you. Ebike rental today, quoted before you pay.",
     path: RENT_URL,
     body,
     connectHosts: cfg ? [cfg.url] : [],
-    schema: [breadcrumbSchema(site, crumbs)],
+    schema: [breadcrumbSchema(site, crumbs), faqSchema(RENT_FAQS)],
   });
 }
 
