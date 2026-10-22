@@ -221,6 +221,19 @@ ${findHero({
   cta: rentNowButton("btn btn--primary", { town: city.slug }),
 })}
 
+${(() => {
+  const types = cityTypeList.filter((x) => x.city.slug === city.slug);
+  return types.length
+    ? `<section class="section section--tint">
+  <div class="wrap">
+    <h2>Rent by bike type in ${esc(city.name)}</h2>
+    <p class="muted">Pick a style to see the ${esc(city.name)} shops to ask, where to ride it, and a booking form set to that bike.</p>
+    ${typeTiles(types)}
+  </div>
+</section>`
+    : "";
+})()}
+
 <section class="section section--results">
   <div class="wrap">
     ${resultsHead(`${city.name} electric bike rental shops`, n, "shops")}
@@ -284,18 +297,6 @@ ${findHero({
   </div>
 </section>
 
-${(() => {
-  const types = cityTypeList.filter((x) => x.city.slug === city.slug);
-  return types.length
-    ? `<section class="section section--tint">
-  <div class="wrap">
-    <h2>Rent by bike type in ${esc(city.name)}</h2>
-    <p class="muted">Pick a style to see the ${esc(city.name)} shops to ask, where to ride it, and a booking form set to that bike.</p>
-    ${typeTiles(types)}
-  </div>
-</section>`
-    : "";
-})()}
 
 ${
   city.categories.length
