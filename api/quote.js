@@ -49,7 +49,16 @@ export default async function handler(req, res) {
     const service = SERVICE_LABELS[lead.service] || "rental";
     const what = `${lead.bikes ? `${lead.bikes} x ` : ""}${style ? `${style}, ` : ""}${service}`;
     const where = lead.town_name || lead.town;
-    const when = [lead.start_date, lead.duration].filter(Boolean).join(", ");
+    const TIME_OF_DAY = { morning: "morning", midday: "midday", afternoon: "afternoon", sunset: "evening / sunset", flexible: "" };
+    const day = lead.start_date
+      ? new Date(`${lead.start_date}T12:00:00Z`).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" })
+      : "";
+    const start = lead.start_time
+      ? (() => { const h = parseInt(lead.start_time, 10); return `${((h + 11) % 12) + 1}:${lead.start_time.slice(3, 5)} ${h < 12 ? "AM" : "PM"} start`; })()
+      : "";
+    const when = [day, TIME_OF_DAY[lead.time_of_day] || "", start, lead.duration && lead.duration !== "not sure" ? lead.duration : ""]
+      .filter(Boolean)
+      .join(", ");
     const expiresAt = Math.floor(Date.now() / 1000) + 23 * 3600;
     const params = {
       mode: "payment",

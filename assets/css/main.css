@@ -1386,3 +1386,16 @@ img.is-stock { object-fit: cover; }
   .site-header::after, .hero .btn--primary { animation: none; }
   .btn--primary:hover::after, .header-call:hover::after { transition: none; transform: translateX(-120%); }
 }
+.rent-when { margin: 0; padding: 0; border: 0; display: grid; gap: .7rem; }
+.rent-when legend { font-weight: 700; margin-bottom: .5rem; padding: 0; }
+.rent-when__day { min-height: 1.2em; font-weight: 700; color: var(--blue-700); }
+.rent-when__tod { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .45rem; }
+@media (max-width: 760px) { .rent-when__tod { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rent-tod { position: relative; cursor: pointer; }
+.rent-tod input { position: absolute; opacity: 0; pointer-events: none; }
+.rent-tod span { display: grid; gap: .1rem; text-align: center; padding: .6rem .4rem; border: 2px solid var(--line); border-radius: var(--radius-s); background: var(--white); }
+.rent-tod strong { font-size: .9rem; color: var(--ink); }
+.rent-tod small { font-size: .75rem; color: var(--ink-mute); }
+.rent-tod:hover span { border-color: var(--blue-400); }
+.rent-tod input:checked + span { border-color: var(--blue-600); background: var(--blue-50); box-shadow: 0 0 0 2px var(--blue-100); }
+.rent-tod input:focus-visible + span { outline: 3px solid var(--spark); outline-offset: 2px; }

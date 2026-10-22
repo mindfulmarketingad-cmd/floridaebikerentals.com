@@ -692,8 +692,30 @@
       shopNote.textContent = "You came from " + shop[0] + ". We will ask them first, and find another shop nearby if they can't help.";
       shopNote.hidden = false;
     }
+    // Local date, not UTC: an evening visitor in Florida must still be able to pick today.
     var today = new Date();
-    rentForm.start_date.min = today.toISOString().slice(0, 10);
+    var ymd = function (dt) { return dt.getFullYear() + "-" + ("0" + (dt.getMonth() + 1)).slice(-2) + "-" + ("0" + dt.getDate()).slice(-2); };
+    rentForm.start_date.min = ymd(today);
+    // Day: show the weekday under the date so "Saturday" is never a guess.
+    var dayNote = $("[data-rent-day]");
+    var dayText = function (v) {
+      var p = (v || "").split("-");
+      if (p.length !== 3) return "";
+      var dt = new Date(+p[0], +p[1] - 1, +p[2]);
+      return dt.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+    };
+    rentForm.start_date.addEventListener("input", function () { dayNote.textContent = dayText(rentForm.start_date.value); });
+    // An exact start time picks the matching time of day.
+    var todInputs = $$("input[name=time_of_day]", rentForm);
+    $("[data-rent-start]").addEventListener("change", function () {
+      var v = this.value;
+      if (!v) return;
+      var h = parseInt(v, 10) + parseInt(v.slice(3), 10) / 60;
+      todInputs.forEach(function (r) {
+        var from = parseFloat(r.getAttribute("data-from")), to = parseFloat(r.getAttribute("data-to"));
+        if (!isNaN(from) && h >= from && h < to) r.checked = true;
+      });
+    });
     // Bike style only matters for rentals; tours and repairs hide it.
     var styleBox = $("[data-rent-styles]");
     var styleServices = (styleBox.getAttribute("data-style-services") || "").split(" ");
@@ -710,6 +732,10 @@
       // dropped real requests), and a hit still ends on the thank-you screen.
       if (f.fer_hp && f.fer_hp.value) { f.hidden = true; $("[data-rent-done]").hidden = false; return; }
       if (!f.town.value) return say("Choose the town you want to ride in.", true);
+      if (!f.start_date.value) return say("Choose the day you want to ride.", true);
+      if (f.start_date.value < f.start_date.min) return say("That day has already passed. Choose today or later.", true);
+      var tod = f.querySelector("input[name=time_of_day]:checked");
+      if (!tod) return say("Choose a time of day, or Flexible.", true);
       if (!f.name.value.trim()) return say("Add your name.", true);
       if (!f.phone.value.trim() && !f.email.value.trim()) return say("Add a phone number or an email so we can reach you.", true);
       if (f.email.value && !f.email.checkValidity()) return say("That email address doesn't look right.", true);
@@ -726,6 +752,8 @@
         service: f.service.value,
         bike_style: styleBox.hidden ? null : ((f.querySelector("input[name=bike_style]:checked") || {}).value || null),
         start_date: f.start_date.value || null,
+        time_of_day: tod.value,
+        start_time: f.start_time.value || null,
         duration: f.duration.value || null,
         bikes: Math.max(1, Math.min(50, parseInt(f.bikes.value, 10) || 1)),
         notes: f.notes.value.trim().slice(0, 2000) || null,
@@ -735,10 +763,27 @@
       var btn = f.querySelector("button[type=submit]");
       btn.disabled = true;
       say("Sending...");
-      fetch(endpoint + "/rest/v1/fer_leads", {
-        method: "POST",
-        headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json", Prefer: "return=minimal" },
-        body: JSON.stringify(lead)
+      var post = function (body) {
+        return fetch(endpoint + "/rest/v1/fer_leads", {
+          method: "POST",
+          headers: { apikey: key, Authorization: "Bearer " + key, "Content-Type": "application/json", Prefer: "return=minimal" },
+          body: JSON.stringify(body)
+        });
+      };
+      post(lead).then(function (res) {
+        // Until the time columns are added to fer_leads (supabase/leads.sql),
+        // Supabase rejects them as unknown (PGRST204): keep the lead, with the
+        // time written into the notes instead.
+        if (res.status !== 400) return res;
+        return res.clone().json().then(function (j) {
+          if (!j || j.code !== "PGRST204") return res;
+          var fallback = Object.assign({}, lead);
+          var timeLabel = (tod.parentNode.querySelector("strong") || {}).textContent || tod.value;
+          var startOpt = f.start_time.options[f.start_time.selectedIndex];
+          delete fallback.time_of_day; delete fallback.start_time;
+          fallback.notes = ("[Time: " + timeLabel + (f.start_time.value ? ", start " + startOpt.textContent : "") + "] " + (lead.notes || "")).trim().slice(0, 2000);
+          return post(fallback);
+        }, function () { return res; });
       }).then(function (res) {
         if (!res.ok) {
           return res.text().then(function (t) {
@@ -810,7 +855,7 @@
         listEl.innerHTML = A.leads.map(function (l, i) {
           return '<li><button type="button" class="admin-lead" data-i="' + i + '"><span class="admin-lead__status s-' + esc(l.status) + '">' + esc(l.status) + '</span>' +
             '<strong>' + esc(l.name) + '</strong> <span>' + esc(A.services[l.service] || l.service) + (l.bike_style && l.bike_style !== "any" ? " · " + esc(A.styles[l.bike_style] || l.bike_style) : "") + '</span>' +
-            '<span class="muted">' + esc(l.town_name || l.town) + (l.start_date ? " · " + esc(l.start_date) : "") + " · " + esc(new Date(l.created_at).toLocaleString()) + '</span></button></li>';
+            '<span class="muted">' + esc(l.town_name || l.town) + (l.start_date ? " · " + esc(dayLabel(l.start_date)) + (l.start_time ? " " + esc(clock(l.start_time)) : TOD[l.time_of_day] && l.time_of_day !== "flexible" ? " " + esc(TOD[l.time_of_day].toLowerCase()) : "") : "") + " · " + esc(new Date(l.created_at).toLocaleString()) + '</span></button></li>';
         }).join("") || '<li class="muted">No leads here yet.</li>';
       }).catch(function () {});
     };
@@ -840,7 +885,7 @@
           row("Wants", esc(A.services[l.service] || l.service)) +
           row("Bike style", l.bike_style ? esc(A.styles[l.bike_style] || l.bike_style) + ' <span class="admin-off">confirm the shop has this style; it is guaranteed to the rider</span>' : "") +
           row("Where", esc(l.town_name || l.town)) +
-          row("When", esc([l.start_date, l.duration].filter(Boolean).join(", "))) +
+          row("When", esc(dateText(l))) +
           row("Bikes", esc(l.bikes)) +
           row("Phone", l.phone ? '<a href="tel:' + esc(l.phone) + '">' + esc(l.phone) + "</a>" : "") +
           row("Email", l.email ? '<a href="mailto:' + esc(l.email) + '">' + esc(l.email) + "</a>" : "") +
@@ -879,7 +924,18 @@
       var s = slug && A.shops.shops.filter(function (x) { return x.s === slug; })[0];
       return s ? s.n : (slug || "");
     };
-    var dateText = function (l) { return [l.start_date, l.duration && l.duration !== "not sure" ? l.duration : ""].filter(Boolean).join(", "); };
+    var TOD = { morning: "Morning", midday: "Midday", afternoon: "Afternoon", sunset: "Evening / sunset", flexible: "Flexible time" };
+    var clock = function (t) { if (!t) return ""; var h = parseInt(t, 10), m = t.slice(3, 5); return ((h + 11) % 12 + 1) + ":" + m + (h < 12 ? " AM" : " PM"); };
+    var dayLabel = function (v) {
+      var p = (v || "").split("-");
+      if (p.length !== 3) return v || "";
+      return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    };
+    // "Sat, Nov 2 · Morning · 9:00 AM start · full day"
+    var dateText = function (l) {
+      return [l.start_date ? dayLabel(l.start_date) : "", TOD[l.time_of_day] || "", l.start_time ? clock(l.start_time) + " start" : "",
+        l.duration && l.duration !== "not sure" ? l.duration : ""].filter(Boolean).join(" · ");
+    };
     var quoteMessage = function (l) {
       var total = (l.quote_rental_cents || 0) + (l.quote_fee_cents || 0);
       return "Hi " + l.name.split(" ")[0] + ", here is your e-bike rental quote from Florida Ebike Rentals.\n" +

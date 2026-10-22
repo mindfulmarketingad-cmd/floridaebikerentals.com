@@ -33,6 +33,27 @@ export const SERVICES = [
 ];
 const DURATIONS = ["not sure", "1-2 hours", "half day", "full day", "multi-day"];
 
+/** When in the day the rider wants the bikes. Values match the fer_leads check. */
+export const TIMES_OF_DAY = [
+  { value: "morning", label: "Morning", hint: "8 to 11am", from: 7, to: 11 },
+  { value: "midday", label: "Midday", hint: "11am to 2pm", from: 11, to: 14 },
+  { value: "afternoon", label: "Afternoon", hint: "2 to 5pm", from: 14, to: 17 },
+  { value: "sunset", label: "Evening / sunset", hint: "5pm to close", from: 17, to: 21 },
+  { value: "flexible", label: "Flexible", hint: "Any time that day" },
+];
+
+/** Half-hour start times a shop is plausibly open, 7:00 AM to 7:30 PM. */
+function startTimeOptions() {
+  const out = ['<option value="">No exact time</option>'];
+  for (let m = 7 * 60; m <= 19 * 60 + 30; m += 30) {
+    const h = Math.floor(m / 60), min = m % 60;
+    const value = `${String(h).padStart(2, "0")}:${String(min).padStart(2, "0")}`;
+    const label = `${((h + 11) % 12) + 1}:${String(min).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+    out.push(`<option value="${value}">${label}</option>`);
+  }
+  return out.join("");
+}
+
 /**
  * Bike styles a rider can pick. We don't hold inventory, so a rider chooses a
  * style, not a model; we confirm the style with the shop before anything is
@@ -140,11 +161,30 @@ export function rentPage(site, { index, listings }) {
         we quote, and if no shop near you has that style, we tell you and nothing is charged.</p>
       </fieldset>
 
+      <fieldset class="rent-when">
+        <legend>When do you want to ride?</legend>
+        <div class="rent-form__grid">
+          <label class="field">
+            <span>Day</span>
+            <input type="date" name="start_date" required>
+            <small class="rent-when__day muted" data-rent-day aria-live="polite"></small>
+          </label>
+          <label class="field">
+            <span>Exact start time <small class="muted">(optional)</small></span>
+            <select name="start_time" data-rent-start>${startTimeOptions()}</select>
+          </label>
+        </div>
+        <div class="rent-when__tod" role="radiogroup" aria-label="Time of day">
+          ${TIMES_OF_DAY.map(
+            (t) => `<label class="rent-tod">
+            <input type="radio" name="time_of_day" value="${attr(t.value)}"${t.from != null ? ` data-from="${t.from}" data-to="${t.to}"` : ""}>
+            <span><strong>${esc(t.label)}</strong><small>${esc(t.hint)}</small></span>
+          </label>`
+          ).join("")}
+        </div>
+      </fieldset>
+
       <div class="rent-form__grid">
-        <label class="field">
-          <span>Date</span>
-          <input type="date" name="start_date">
-        </label>
         <label class="field">
           <span>How long?</span>
           <select name="duration">

@@ -29,6 +29,8 @@ create table if not exists public.fer_leads (
                           check (service in ('ebike-rental', 'bike-rental', 'guided-tour', 'delivery', 'scooter', 'repair')),
   bike_style            text check (bike_style in ('cruiser', 'fat-tire', 'step-through', 'hybrid', 'trike', 'cargo', 'pedal', 'any')),
   start_date            date,
+  time_of_day           text check (time_of_day in ('morning', 'midday', 'afternoon', 'sunset', 'flexible')),
+  start_time            time,
   duration              text check (duration in ('1-2 hours', 'half day', 'full day', 'multi-day', 'not sure')),
   bikes                 int check (bikes between 1 and 50),
   notes                 text check (char_length(notes) <= 2000),
@@ -48,6 +50,11 @@ create table if not exists public.fer_leads (
   stripe_payment_intent text,
   constraint fer_leads_contact_required check (coalesce(phone, '') <> '' or coalesce(email, '') <> '')
 );
+
+-- Added 2026-10-22 (safe to run again; needed if fer_leads already existed).
+alter table public.fer_leads add column if not exists time_of_day text
+  check (time_of_day in ('morning', 'midday', 'afternoon', 'sunset', 'flexible'));
+alter table public.fer_leads add column if not exists start_time time;
 
 create index if not exists fer_leads_created_at_idx on public.fer_leads (created_at desc);
 
