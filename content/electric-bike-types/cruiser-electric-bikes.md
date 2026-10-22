@@ -4,6 +4,7 @@ shortTitle: Cruiser Electric Bikes
 metaTitle: Cruiser Electric Bikes - How They Ride and Where to Rent in Florida
 description: What a cruiser electric bike is, how it rides, who it suits, and how to rent one in Florida's beach towns, with the questions to ask the shop before you ride.
 summary: A cruiser e-bike puts the classic American beach cruiser shape, with swept-back bars, a wide saddle and balloon tires, on top of an electric motor. You sit upright, ride slowly and comfortably, and let the motor handle headwinds and bridges.
+image: cruiser-ebikes-baskets
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

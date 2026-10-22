@@ -1429,3 +1429,8 @@ img.is-stock { object-fit: cover; }
 .type-facts li { margin: 0; padding: .45rem .8rem; background: var(--blue-50); border-radius: 999px; font-size: .88rem; }
 .type-facts b { color: var(--blue-800); margin-right: .3rem; }
 .type-section__cta { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.2rem; }
+.site-photo { margin: 1.2rem auto; }
+.site-photo img { width: 100%; height: auto; border-radius: var(--radius-l); box-shadow: var(--shadow); }
+.type-photo { margin-left: auto; margin-right: auto; }
+.rent-figure.site-photo { max-width: 100% !important; }
+.rent-figure.site-photo img { max-height: 360px; object-fit: cover; object-position: center 12%; }

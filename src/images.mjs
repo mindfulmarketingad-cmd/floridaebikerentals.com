@@ -39,6 +39,39 @@ export const OWN_PHOTOS = [
   },
 ];
 
+/**
+ * E-bike photos supplied by the site owner for the bike type guides and other
+ * pages, keyed by id. Alt text says only what each photo shows; several are
+ * not taken in Florida, so none claims to be.
+ */
+export const SITE_PHOTOS = {
+  "fat-tire-ebike-couple": {
+    src: "/assets/img/original/fat-tire-ebike-couple.jpg", width: 700, height: 443,
+    alt: "Two riders sharing a fat-tire electric bike on a mountain road",
+  },
+  "trail-ebikes-pair": {
+    src: "/assets/img/original/trail-ebikes-pair.jpg", width: 1024, height: 576,
+    alt: "Two riders in helmets on mountain-style electric bikes on a paved trail through the trees",
+  },
+  "cruiser-ebikes-baskets": {
+    src: "/assets/img/original/cruiser-ebikes-baskets.jpg", width: 900, height: 942,
+    alt: "Two smiling riders on cruiser electric bikes with front baskets on a waterside path lined with palms",
+  },
+  "step-through-comfort-ebike": {
+    src: "/assets/img/original/step-through-comfort-ebike.jpg", width: 640, height: 640,
+    alt: "A rider on a low-frame comfort electric bike on a riverside bike path",
+  },
+};
+
+/** A supplied photo as a figure, never shown wider than the file itself. */
+export function sitePhoto(id, { className = "", eager = false, alt } = {}) {
+  const p = SITE_PHOTOS[id];
+  if (!p) return "";
+  return `<figure class="figure site-photo ${attr(className)}" style="max-width:${p.width}px">
+  <img src="${attr(p.src)}" alt="${attr(alt || p.alt)}" width="${p.width}" height="${p.height}" loading="${eager ? "eager" : "lazy"}" decoding="async">
+</figure>`;
+}
+
 /** One of our own photos as a captioned figure, never wider than the file. */
 export function ownPhoto(id = "beach-cruiser-ride", { className = "" } = {}) {
   const p = OWN_PHOTOS.find((x) => x.id === id) || OWN_PHOTOS[0];

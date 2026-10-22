@@ -4,6 +4,7 @@ shortTitle: Commuter Electric Bikes
 metaTitle: Commuter Electric Bikes - City and Trail E-Bikes in Florida
 summary: A commuter e-bike, sometimes called a hybrid or city e-bike, is built to cover distance efficiently on pavement: larger, narrower wheels, a slightly forward riding position, and practical extras like lights, fenders and a rack. It is the quickest and least tiring e-bike for long paved rides.
 description: What commuter electric bikes are, how they differ from cruisers, Class 3 speed, the practical extras, and the Florida cities and long paved trails where a commuter e-bike is the best rental.
+image: step-through-comfort-ebike
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

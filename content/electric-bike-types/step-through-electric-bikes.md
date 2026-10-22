@@ -4,6 +4,7 @@ shortTitle: Step-Through Electric Bikes
 metaTitle: Step-Through Electric Bikes - Easy On, Easy Off
 summary: A step-through e-bike has a low frame with no high crossbar, so you step through it instead of swinging a leg over the saddle. It is the easiest e-bike to get on and off, which makes it a favourite for older riders, beach stops and anyone in a skirt or dress.
 description: What step-through electric bikes are, why the low frame matters, who they suit, how they ride, and how to rent a step-through e-bike in Florida's beach towns and on its trails.
+image: step-through-comfort-ebike
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

@@ -4,6 +4,7 @@ shortTitle: Beach Cruisers
 metaTitle: Beach Cruiser Bikes - Electric vs Pedal and Where to Rent in Florida
 description: Everything about beach cruiser bikes, electric and pedal: how they ride, coaster brakes, care in salt air, and how to rent a beach cruiser in Florida's beach towns.
 summary: The beach cruiser is the classic seaside bike: a long curved frame, balloon tires, swept-back bars and often a single gear and a coaster brake. You can rent one with pedals only or with an electric motor, and it is made for slow, flat rides by the water.
+image: cruiser-ebikes-baskets
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

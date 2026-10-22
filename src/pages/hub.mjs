@@ -4,7 +4,7 @@ import {
   linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema,
   listicle, mapPanel, statRow, bookingCta,
 } from "../components.mjs";
-import { photoFor, secondPhotoFor, figure, banner, photoById } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, photoById, sitePhoto } from "../images.mjs";
 import { loadHubBody } from "../data.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 
@@ -38,6 +38,7 @@ function typeSection(e, n) {
   const quick = (e.faqs || []).slice(0, 2);
   return `<section class="type-section" id="${attr(e.slug)}">
   <h2>${n}. ${esc(name)}</h2>
+  ${e.image ? sitePhoto(e.image, { className: "type-photo" }) : ""}
   <figure class="type-diagram">${bikeIcon(e.style)}<figcaption>${esc(
     e.diagramCaption ? `The typical shape of ${e.diagramCaption}.` : name
   )}</figcaption></figure>
@@ -214,6 +215,7 @@ ${
   hub.slug === TYPES_HUB && entries.length
     ? `<section class="section">
   <div class="wrap wrap-narrow">
+    ${hub.image ? sitePhoto(hub.image, { className: "type-photo" }) : ""}
     <nav class="toc type-toc" aria-label="Types on this page">
       <h2>The ${entries.length} types of electric bikes</h2>
       <ol>${entries.map((e) => `<li><a href="#${attr(e.slug)}">${esc(e.shortTitle || e.title)}</a></li>`).join("")}</ol>
@@ -361,6 +363,7 @@ export function contentEntry(site, hub, entry, ctx) {
           )}${entry.style === "pedal" ? "" : ". The yellow bolt marks an electric bike"}.</figcaption></figure>`
         : ""
     }
+    ${isType && entry.image ? sitePhoto(entry.image, { className: "type-photo" }) : ""}
     ${facts.length ? `<div class="mt-2">${statRow(facts).replace('class="stat-row"', 'class="stat-row stat-row--facts"')}</div>` : ""}
     ${routeEmbed(entry)}
     ${tocFor(entry.headings)}

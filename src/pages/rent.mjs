@@ -16,7 +16,7 @@
 import { esc, attr } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { faqBlock, faqSchema } from "../components.mjs";
-import { photoFor, figure, ownPhoto } from "../images.mjs";
+import { photoFor, figure, ownPhoto, sitePhoto } from "../images.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 
 export const RENT_URL = "/rent/";
@@ -143,7 +143,7 @@ export function rentPage(site, { index, listings }) {
   <div class="wrap wrap-narrow">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Rent Now</li></ol></nav>
     <h1>Rent an Ebike Today in Florida</h1>
-    ${figure(photoFor("rent-now"), { caption: null, className: "rent-figure", eager: true })}
+    ${sitePhoto("cruiser-ebikes-baskets", { className: "rent-figure", eager: true })}
     <p class="lede">Rent an ebike now: tell us the town, the day and the time, and we find a shop near you with an
     electric bike free, then send you a quote. Pay it securely online and we book the rental for you. Nothing is
     charged until you accept a quote.</p>

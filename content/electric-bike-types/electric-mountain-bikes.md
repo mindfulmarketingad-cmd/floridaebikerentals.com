@@ -4,6 +4,7 @@ shortTitle: Electric Mountain Bikes
 metaTitle: Electric Mountain Bikes (eMTB) - Off-Road E-Bikes in Florida
 summary: An electric mountain bike, or eMTB, is a mountain bike with a motor: suspension, knobby tires, strong brakes and usually a motor at the pedals. It is built for off-road trails, and in Florida that means dirt and singletrack, not hills.
 description: What electric mountain bikes are, hardtail vs full suspension, mid-drive motors, where e-bikes are allowed off-road, and the Florida trails and shops for eMTB riding.
+image: trail-ebikes-pair
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

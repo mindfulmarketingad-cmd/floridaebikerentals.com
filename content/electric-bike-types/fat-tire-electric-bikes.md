@@ -4,6 +4,7 @@ shortTitle: Fat-Tire Electric Bikes
 metaTitle: Fat-Tire Electric Bikes - Sand, Stability and Renting in Florida
 description: What fat-tire electric bikes are, why their four-inch tires float on sand and shell, what they weigh, and how to rent one in Florida, plus the beach rules to check.
 summary: A fat-tire e-bike runs tires around four inches wide at low pressure, so it floats over sand, shell and loose ground that stop a normal bike. It is very stable and very popular in beach towns, but heavy, at around 60 to 80 pounds.
+image: fat-tire-ebike-couple
 author: editorial-team
 date: 2026-10-22
 category: E-bike types

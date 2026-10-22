@@ -262,6 +262,7 @@ export const CONTENT_HUBS = [
       "Every kind of e-bike you are likely to be offered at a Florida rental counter, explained in plain words: how each one rides, who it suits, where in Florida it makes sense, and what to ask the shop before you take one out.",
     // Hub prose, H2s and FAQs live in content/hubs/<slug>.md.
     hubBody: "electric-bike-types",
+    image: "cruiser-ebikes-baskets",
   },
 ];
 
