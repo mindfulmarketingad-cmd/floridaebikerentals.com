@@ -134,6 +134,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .header-call:hover { background: var(--blue-700); color: #fff; }
 .header-call__number { font-weight: 600; opacity: .92; padding-left: .45rem; border-left: 1px solid rgba(255,255,255,.4); }
 @media (max-width: 1180px) { .main-nav a { padding: .55rem .6rem; font-size: .93rem; } }
+.main-nav a { white-space: nowrap; }
+@media (max-width: 1080px) and (min-width: 901px) {
+  .main-nav a { padding: .5rem .42rem; font-size: .88rem; }
+  .main-nav .nav-cta a { margin-left: .2rem; }
+  .header-call { padding: .5rem .75rem; }
+}
 
 @media (max-width: 900px) {
   .brand img { width: 158px; }

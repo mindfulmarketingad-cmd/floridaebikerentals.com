@@ -18,6 +18,7 @@ const JS_URL = `/assets/js/app.js?v=${fingerprint("assets/js/app.js")}`;
 export const HEADER_LINKS = [
   { href: "/cities/", label: "Cities" },
   { href: "/find/", label: "Find" },
+  { href: "/electric-bike-types/", label: "Bike Types" },
   { href: "/trails/", label: "Trails" },
   { href: "/blog/", label: "Blog" },
   { href: "/shop/", label: "Shop" },
