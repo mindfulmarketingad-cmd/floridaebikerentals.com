@@ -393,3 +393,14 @@ export function banner(photo, { alt, eager = true, className = "" } = {}) {
     loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async">
 </div>`;
 }
+
+/** Every stock photo, keyed by slot, with the best description we have for it. */
+export function allStock() {
+  const known = new Map();
+  for (const [slot, alt] of [...Object.values(SCENE_PHOTO), ...Object.values(WIDE_PHOTO)]) if (!known.has(slot)) known.set(slot, alt);
+  return Object.entries(STOCK).map(([slot, p]) => ({
+    slot,
+    photo: p,
+    caption: known.get(slot) || (p.title && !/public domain image|wikimedia/i.test(p.title) ? p.title : slot.replace(/^(town|scene)-/, "").replace(/-/g, " ")),
+  }));
+}

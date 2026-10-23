@@ -25,6 +25,7 @@ import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages
 import { cityTypePages, cityTypePage } from "./src/pages/city-types.mjs";
 import { makeCityLinker } from "./src/city-links.mjs";
 import { assignBikeTypes } from "./src/bike-types.mjs";
+import { galleryPage, GALLERY_URL } from "./src/pages/gallery.mjs";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -208,6 +209,14 @@ for (const category of index.categories) {
     });
   }
 }
+
+/* /gallery/: every photo on the site */
+write(GALLERY_URL, galleryPage(site, ctx), {
+  priority: 0.5,
+  changefreq: "monthly",
+  group: "pages",
+  search: { u: GALLERY_URL, t: "Electric Bike Rentals in Florida Gallery", s: "Page", d: "Every photo on the site: e-bikes, rental shops and Florida towns.", k: "gallery photos pictures images ebike rentals florida", w: 5 },
+});
 
 /* for businesses: priority caller status */
 write(BUSINESS_URL, businessPage(site, ctx), {

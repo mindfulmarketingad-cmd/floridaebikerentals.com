@@ -404,10 +404,10 @@ await page.close();
   const links=[...h.matchAll(/href="(https:\/\/buy\.stripe\.com\/[^"]+)"/g)].map(m=>m[1]);
   const offer=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/business.json","utf8"));
   const open=offer.regions.filter(r=>r.status==="open").length;
-  ok(`/business/: in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
-     nav.includes('href="/business/"') && !nav.includes('href="/costs/"') && h.includes("$29.99") &&
+  ok(`/business/: out of the header but in the footer, Gallery in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
+     !nav.includes('href="/business/"') && nav.includes('href="/gallery/"') && /<footer[\s\S]*href="\/business\/"/.test(h) && !nav.includes('href="/costs/"') && h.includes("$29.99") &&
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
-     h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"') && />Businesses<\/a>/.test(nav));
+     h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"'));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
   ok("listing page: hero has 'Book Now' (with town and shop) and 'Get More Leads' to /business/",
      /class="detail-hero__biz"><a [^>]*href="\/rent\/\?town=[a-z0-9-]+&amp;listing=[a-z0-9-]+"[^>]*>Book Now<\/a> <a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));

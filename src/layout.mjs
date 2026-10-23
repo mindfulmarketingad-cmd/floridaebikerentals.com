@@ -47,9 +47,9 @@ export const HEADER_LINKS = [
     ],
   },
   { href: "/blog/", label: "Blog" },
+  { href: "/gallery/", label: "Gallery" },
   { href: "/about/", label: "About" },
   { href: "/search/", label: "Search" },
-  { href: "/business/", label: "Businesses", cta: true },
 ];
 
 export const FOOTER_LINKS = [
@@ -57,6 +57,7 @@ export const FOOTER_LINKS = [
   { href: "/about/", label: "About" },
   { href: "/costs/", label: "Costs" },
   { href: "/electric-bike-types/", label: "E-bike types" },
+  { href: "/gallery/", label: "Gallery" },
   { href: "/business/", label: "For businesses" },
   { href: "/contact/", label: "Contact" },
   { href: "/disclaimer/", label: "Disclaimer" },
