@@ -79,7 +79,7 @@ export function homePage(site, { listings, index, blog, stats }) {
       <div>
         <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's e-bike rental directory · ${esc(String(stats.total))} shops · ${esc(String(stats.cities))} towns</span>
         <p class="home-slogan">Ride Florida.<br>We book the bike.</p>
-        <h1>Florida E-bike Rentals 30A Guided Tours &amp; More!</h1>
+        <h1>Electric Bike Rentals in Florida - Rent Now</h1>
         <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
           String(stats.cities)
         )} Florida towns, from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. See <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>, or rent an ebike today: tap Book Now and we find you a bike.</p>
@@ -374,7 +374,7 @@ ${adSlotScript(site, 2)}
 `;
 
   return page(site, {
-    title: "Florida E-bike Rentals 30A - Electric Bike Rentals",
+    title: "Electric Bike Rentals in Florida - Rent Now",
     description: `Rent an electric bicycle ebike today in Florida. Compare ${stats.total} e-bike rental shops in ${stats.cities} towns, from 30A to Key West, or tap Book Now.`,
     path: "/",
     body,
