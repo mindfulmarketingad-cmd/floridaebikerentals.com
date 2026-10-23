@@ -47,7 +47,6 @@ export const HEADER_LINKS = [
     ],
   },
   { href: "/blog/", label: "Blog" },
-  { href: "/shop/", label: "Shop" },
   { href: "/about/", label: "About" },
   { href: "/search/", label: "Search" },
   { href: "/business/", label: "Businesses", cta: true },

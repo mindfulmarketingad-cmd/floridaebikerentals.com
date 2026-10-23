@@ -11,7 +11,13 @@ import { nearbyCities } from "./data.mjs";
 import { cityTrailUrl } from "./pages/city-trails.mjs";
 import { guidesFor } from "./pages/find.mjs";
 
-export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides = [], batteryTownList = [], cityTypeList = [] }) {
+/** A town's name as a whole-word pattern, with "St." matching "St" too. */
+function namePattern(name) {
+  const body = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\\\./g, "\\.?");
+  return new RegExp(`\\b${body}\\b`, "i");
+}
+
+export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides = [], batteryTownList = [], cityTypeList = [], queries = [] }) {
   const trailBySlug = new Map(cityGuides.map((g) => [g.city.slug, g]));
   const batteryBySlug = new Map(batteryTownList.map((t) => [t.city.slug, t]));
   const hubLabel = { trails: "Trail guide", costs: "Costs", "electric-bike-types": "Bike type guide" };
@@ -24,6 +30,7 @@ export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides =
       links: [
         { href: city.url, label: `All ${city.listings.length} ${city.name} rental shops` },
         { href: `/rent/?town=${city.slug}`, label: `Book an e-bike in ${city.name}`, nofollow: true },
+        ...(index.regionsBySlug.get(city.regionSlug) ? [{ href: index.regionsBySlug.get(city.regionSlug).url, label: `All ${city.region} towns` }] : []),
       ],
     });
     if (types.length) {
@@ -39,9 +46,11 @@ export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides =
     const trail = trailBySlug.get(city.slug);
     if (trail) ride.push({ href: trail.url, label: trail.title });
     const guides = [];
+    const named = namePattern(city.name);
+    const mentions = (item) => named.test(`${item.title || ""} ${item.description || ""} ${item.html || ""}`);
     for (const [hub, entries] of Object.entries(hubEntries)) {
       for (const e of entries || []) {
-        if (!(e.towns || []).includes(city.slug)) continue;
+        if (!(e.towns || []).includes(city.slug) && !mentions(e)) continue;
         (hub === "trails" ? ride : guides).push({ href: e.url, label: `${e.shortTitle || e.title}${hub === "trails" ? "" : ` (${hubLabel[hub] || hub})`}` });
       }
     }
@@ -49,6 +58,7 @@ export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides =
     const posts = [
       ...guidesFor([city.name], blog),
       ...blog.filter((p) => (p.regions || []).includes(city.regionSlug)),
+      ...blog.filter(mentions),
     ];
     const seen = new Set();
     for (const p of posts) {
@@ -57,6 +67,8 @@ export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides =
       guides.push({ href: p.url, label: p.title });
     }
     if (guides.length) out.push({ title: "Guides", links: guides });
+    const searches = queries.filter((q) => named.test(q.query));
+    if (searches.length) out.push({ title: "Searches", links: searches.map((q) => ({ href: q.url, label: q.query })) });
     const battery = batteryBySlug.get(city.slug);
     if (battery) out.push({ title: "Service", links: [{ href: battery.url, label: `E-bike battery replacement in ${city.name}` }] });
     const near = nearbyCities(city, index.cities, 6);

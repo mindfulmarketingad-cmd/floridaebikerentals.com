@@ -120,7 +120,7 @@ const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySl
 // Town + bike type pages, and the block that links every page about a town together.
 ctx.batteryTownList = batteryTowns(listings, index);
 ctx.cityTypeList = cityTypePages(index, hubEntries, cityGuides);
-ctx.cityLinker = makeCityLinker({ index, blog, hubEntries, cityGuides, batteryTownList: ctx.batteryTownList, cityTypeList: ctx.cityTypeList });
+ctx.cityLinker = makeCityLinker({ index, blog, hubEntries, cityGuides, batteryTownList: ctx.batteryTownList, cityTypeList: ctx.cityTypeList, queries });
 
 /* home */
 write("/", homePage(site, ctx), {

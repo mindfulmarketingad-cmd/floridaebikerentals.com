@@ -6,13 +6,13 @@
  * page; a town with one links straight to that shop, because a "list" of one
  * would only repeat the shop's own page.
  */
-import { esc, attr, formatReviews, commaList, plural, clamp, phoneHref } from "../util.mjs";
+import { esc, attr, formatReviews, commaList, plural, clamp, phoneHref, seededPick } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { rentNowButton,
   listicle, faqBlock, faqSchema, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, photo,
 } from "../components.mjs";
 import { nearbyCities } from "../data.mjs";
-import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits } from "../images.mjs";
+import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits, SITE_PHOTOS, OWN_PHOTOS } from "../images.mjs";
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
 import { typeTiles } from "./city-types.mjs";
@@ -357,7 +357,7 @@ ${adSlot(site, "")}
   </div>
 </section>
 
-${cityLinker ? cityLinker.section(city, { title: `Everything about ${city.name} on our site`, current: city.url, skip: [`Rent in ${city.name}`, "By bike type", "By what you need", `Towns near ${city.name}`] }) : ""}
+${cityLinker ? cityLinker.section(city, { title: `Everything about ${city.name} on our site`, current: city.url, skip: ["By bike type", "By what you need", `Towns near ${city.name}`] }) : ""}
 
 <section class="section">
   <div class="wrap">
@@ -366,6 +366,8 @@ ${cityLinker ? cityLinker.section(city, { title: `Everything about ${city.name} 
     ${townGrid(index, { exclude: city.slug })}
   </div>
 </section>
+
+${cityGallery(city, index)}
 ${adSlotScript(site, 1)}
 `;
 
@@ -393,3 +395,65 @@ ${adSlotScript(site, 1)}
   });
 }
 
+/**
+ * Photo gallery at the foot of a town hub. Every picture is labelled for what
+ * it is: a shop's own photo (from its Google listing), a stock photo of this
+ * town or a nearby one, or a general e-bike photo that makes no claim about
+ * the place. Thumbnails open full size in a lightbox (assets/js/app.js).
+ */
+function cityGallery(city, index) {
+  const items = [];
+  for (const l of city.listings.filter((l) => l.photo).slice(0, 6)) {
+    items.push({ src: l.photo, w: l.photoWidth, h: l.photoHeight, full: l.photo, alt: `${l.name} in ${city.name}, Florida`, caption: l.name, tag: "Shop photo", href: l.url });
+  }
+  const stock = [];
+  const own = stockFor(`town-${city.slug}`);
+  if (own) stock.push({ photo: own, caption: own.title || city.name });
+  for (const c of nearbyCities(city, index.cities, 20)) {
+    if (stock.length >= 3) break;
+    const p = stockFor(`town-${c.slug}`);
+    if (p && c.regionSlug === city.regionSlug) stock.push({ photo: p, caption: `${p.title || c.name} (nearby)` });
+  }
+  for (const s of stock) {
+    items.push({ src: s.photo.small, w: s.photo.smallWidth, h: s.photo.smallHeight, full: s.photo.src, alt: s.photo.title || s.caption, caption: s.caption, tag: "Stock photo" });
+  }
+  const bikes = [
+    ...Object.values(SITE_PHOTOS).map((p) => ({ src: p.src, w: p.width, h: p.height, alt: p.alt })),
+    ...OWN_PHOTOS.map((p) => ({ src: p.src, w: p.width, h: p.height, alt: p.alt })),
+  ];
+  for (const p of seededPick(bikes, Math.max(3, 8 - items.length), city.slug)) {
+    items.push({ ...p, full: p.src, caption: p.alt, tag: "E-bike photo" });
+  }
+  // Bike scenes with no place in them top the grid up to full rows of four.
+  const scenes = [
+    ["scene-ebike", "A white step-through electric bike parked on grass"],
+    ["scene-boardwalk", "A bike parked at the end of a beach boardwalk, with a kite surfer offshore"],
+    ["scene-gulf", "A cyclist silhouetted on the beach at sunset"],
+  ];
+  for (const [slot, alt] of seededPick(scenes, 3, `${city.slug}-scenes`)) {
+    if (items.length % 4 === 0) break;
+    const p = stockFor(slot);
+    if (!p) continue;
+    stock.push({ photo: p });
+    items.push({ src: p.small, w: p.smallWidth, h: p.smallHeight, full: p.src, alt, caption: alt, tag: "Stock photo" });
+  }
+  if (!items.length) return "";
+  return `<section class="section section--tint city-gallery" id="photos">
+  <div class="wrap">
+    <h2>${esc(city.name)} photo gallery</h2>
+    <p class="muted">Shop photos come from each shop's Google listing. Stock photos show ${esc(city.name)} or a nearby town, and e-bike photos show the kinds of bikes you can rent; neither shows a specific shop.</p>
+    <ul class="gallery-grid">${items
+      .map(
+        (it) => `<li class="gallery-grid__item">
+        <a href="${attr(it.full)}" data-lightbox data-caption="${attr(it.caption)}">
+          <img src="${attr(it.src)}" alt="${attr(it.alt)}" width="${it.w}" height="${it.h}" loading="lazy" decoding="async">
+          <span class="gallery-grid__tag">${esc(it.tag)}</span>
+        </a>
+        <p class="gallery-grid__caption">${it.href ? `<a href="${attr(it.href)}">${esc(it.caption)}</a>` : esc(it.caption)}</p>
+      </li>`
+      )
+      .join("")}</ul>
+    ${stockCredits(stock.map((s) => s.photo))}
+  </div>
+</section>`;
+}

@@ -37,12 +37,41 @@
     var t = new Date();
     inp.min = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
   });
+  // Photo gallery lightbox: opens a thumbnail full size; Escape, the button or the backdrop closes it.
+  var lightLinks = $$("[data-lightbox]");
+  if (lightLinks.length && typeof HTMLDialogElement === "function") {
+    var box = el("dialog", "lightbox");
+    var boxImg = el("img"), boxCap = el("p"), boxClose = el("button", "lightbox__close", "\u00d7");
+    boxClose.type = "button";
+    boxClose.setAttribute("aria-label", "Close photo");
+    box.appendChild(boxClose); box.appendChild(boxImg); box.appendChild(boxCap);
+    d.body.appendChild(box);
+    lightLinks.forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        var img = $("img", a);
+        boxImg.src = a.getAttribute("href");
+        boxImg.alt = img ? img.alt : "";
+        boxCap.textContent = a.getAttribute("data-caption") || "";
+        box.showModal();
+      });
+    });
+    boxClose.addEventListener("click", function () { box.close(); });
+    box.addEventListener("click", function (e) { if (e.target === box) box.close(); });
+  }
   var navToggle = $(".nav-toggle");
   var nav = $("#site-nav");
   if (navToggle && nav) {
     navToggle.addEventListener("click", function () {
       var open = nav.classList.toggle("is-open");
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      // Open the menu just under the header wherever it sits (the promo bar can push it down).
+      if (open) {
+        var head = $(".site-header");
+        var top = head ? Math.max(0, Math.round(head.getBoundingClientRect().bottom)) : 0;
+        nav.style.top = top + "px";
+        nav.style.maxHeight = "calc(100vh - " + top + "px)";
+      }
     });
     d.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("is-open")) {
