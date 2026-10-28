@@ -9,7 +9,9 @@
  * never contains rider names, emails, phones or payment details.
  *
  * A shop is bookable for a stay when, for EVERY day in the stay, its fleet
- * total minus blocked bikes minus already-booked bikes is >= qty. Bookings
+ * total minus blocked bikes minus already-booked bikes is >= qty, and the
+ * day is not one of the shop's closed_weekdays (0=Sunday .. 6=Saturday;
+ * a closed day counts as zero availability for that shop). Bookings
  * counted: paid and confirmed, plus pending ones created in the last 24h
  * (a pending hold matches the Stripe session expiry; an unpaid session
  * releases the bikes when it expires). api/book.js re-checks the same
@@ -67,7 +69,7 @@ export default async function handler(req, res) {
     const dates = dateRange(date, days);
 
     const shops = await supabase(
-      `/rest/v1/fer_partner_shops?select=id,shop_name,city,city_name,address,neighborhood,phone_public,website,delivery_available&city=eq.${city}&onboarded=eq.true&order=shop_name`,
+      `/rest/v1/fer_partner_shops?select=id,shop_name,city,city_name,address,neighborhood,phone_public,website,delivery_available,closed_weekdays&city=eq.${city}&onboarded=eq.true&order=shop_name`,
       { token: anon }
     );
     if (!shops.length) {
@@ -113,7 +115,8 @@ export default async function handler(req, res) {
         const b = blockedByKey.get(`${shop.id}|${d}`);
         const blocked = b ? (b.full_block ? f.total : b.blocked) : 0;
         const booked = bookedByKey.get(`${shop.id}|${d}`) || 0;
-        available = Math.min(available, f.total - blocked - booked);
+        const closed = (shop.closed_weekdays || []).includes(new Date(`${d}T12:00:00Z`).getUTCDay());
+        available = Math.min(available, closed ? 0 : f.total - blocked - booked);
       }
       if (available < qty) continue;
       const rental = f.day_cents * qty * days;
@@ -127,6 +130,7 @@ export default async function handler(req, res) {
         phone_public: shop.phone_public,
         website: shop.website,
         delivery_available: shop.delivery_available,
+        closed_weekdays: shop.closed_weekdays || [],
         day_cents: f.day_cents,
         available,
         rental_cents: rental,

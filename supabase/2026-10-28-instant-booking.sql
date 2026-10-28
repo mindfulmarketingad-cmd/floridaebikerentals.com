@@ -15,6 +15,21 @@
 --   * Bookings are private: no anon access at all. The server route
 --     (api/book.js) writes them with the service key; a signed-in shop user
 --     reads/updates only its own rows, via fer_shop_ids() below.
+--   * fer_leads is the system of record for customer requests (see
+--     supabase/leads.sql): api/book.js creates a fer_leads row FIRST
+--     (status 'matched', source 'instant', shop in quote_shop), then the
+--     fer_bookings row carrying lead_id. The lead desk therefore sees
+--     instant bookings alongside quote leads; there is no parallel leads
+--     universe. fer_bookings holds only instant-specific state
+--     (availability, fulfillment, amounts, Stripe session).
+--     Status sync (webhook, booking branch): booking paid -> lead paid;
+--     a later shop-confirm step maps booking confirmed -> lead booked,
+--     and booking cancelled/refunded -> lead cancelled/refunded.
+--     'pending' is not a fer_leads status: a booking awaiting payment
+--     shows in the desk as 'matched' (shop already assigned).
+--   * closed_weekdays on a shop (0=Sunday .. 6=Saturday, JS getUTCDay)
+--     makes the shop unbookable for any stay including that weekday
+--     (api/availability.js and api/book.js both enforce it).
 --   * fer_shop_users maps a sign-in email to a shop, like fer_admins maps
 --     admin emails. It has no policies: nobody reads it through the API.
 --   * Payouts are NOT handled here. This chunk collects payment to the
@@ -38,7 +53,12 @@ create table if not exists public.fer_partner_shops (
   delivery_available  boolean not null default false,
   onboarded           boolean not null default false,
   payout_status       text not null default 'pending'
-                        check (payout_status in ('pending', 'connected'))
+                        check (payout_status in ('pending', 'connected')),
+  -- Weekdays the shop is closed, 0=Sunday .. 6=Saturday (JS getUTCDay).
+  -- Empty (default) = open every day. A stay including a closed weekday
+  -- is not bookable; see api/availability.js and api/book.js.
+  closed_weekdays     smallint[] not null default '{}'
+                        check (closed_weekdays <@ array[0,1,2,3,4,5,6]::smallint[])
 );
 
 create table if not exists public.fer_shop_users (
@@ -98,6 +118,11 @@ create table if not exists public.fer_bookings (
   id                    uuid primary key default gen_random_uuid(),
   created_at            timestamptz not null default now(),
   shop_id               uuid not null references public.fer_partner_shops (id) on delete cascade,
+  -- The fer_leads row for this request (system of record, see header).
+  -- A booking without a lead must not happen: api/book.js creates the
+  -- lead first. On lead delete the booking survives as the fulfillment
+  -- record, with the link cleared.
+  lead_id               uuid references public.fer_leads (id) on delete set null,
   style                 text not null
                           check (style in ('cruiser', 'fat-tire', 'step-through', 'hybrid', 'trike', 'cargo', 'pedal')),
   qty                   int not null check (qty between 1 and 50),
@@ -124,6 +149,8 @@ create index if not exists fer_booking_blocks_shop_date_idx
   on public.fer_booking_blocks (shop_id, block_date);
 create index if not exists fer_bookings_shop_start_idx
   on public.fer_bookings (shop_id, start_date);
+create index if not exists fer_bookings_lead_idx
+  on public.fer_bookings (lead_id);
 create unique index if not exists fer_bookings_session_unique_idx
   on public.fer_bookings (stripe_session_id) where stripe_session_id is not null;
 
@@ -206,11 +233,19 @@ revoke all on function public.fer_shop_ids() from public, anon;
 grant execute on function public.fer_shop_ids() to authenticated;
 
 -- ============================================================ EXAMPLE SEED DATA
--- The Miami pilot's one onboarded shop, so the instant flow is testable
--- before any real shop onboards. THESE RATES AND FLEET COUNTS ARE PLACEHOLDERS:
--- replace them with the shop's real rates at onboarding, and never take a
--- real payment against seed rates. No shop sign-in is seeded here: onboarding
--- inserts the shop's email into fer_shop_users (never invent an address).
+-- The Miami pilot's three onboarded seed shops, so the instant flow is
+-- testable before any real shop onboards. SunCycling carries placeholder
+-- fleet/rates; Brickell Bikes and Mack Cycle & Fitness carry NO fleet
+-- rows and NO rates: nothing about their rates or fleet counts was
+-- verified, so nothing is invented for them. An onboarded shop with no
+-- fleet simply never appears in availability results until fleet is added
+-- (via the partner dashboard, once its sign-in email is onboarded).
+-- Neither Brickell Bikes nor Mack Cycle & Fitness appears among the 28
+-- shops on the live /cities/miami/ page, so both are seeded here as newly
+-- added partner entries (listing_slug NULL), not as flags on existing
+-- directory rows. No fer_shop_users sign-in rows are seeded for any shop:
+-- onboarding inserts the shop's email there; the verified contact emails
+-- below are recorded in comments so the human onboarding step knows them.
 -- ============================================================
 insert into public.fer_partner_shops
   (id, shop_name, city, city_name, address, neighborhood, delivery_available, onboarded, payout_status)
@@ -221,8 +256,43 @@ values
 on conflict (id) do nothing;
 
 -- EXAMPLE SEED DATA: placeholder fleet and rates for SunCycling.
+-- THESE RATES AND FLEET COUNTS ARE PLACEHOLDERS: replace them with the
+-- shop's real rates at onboarding, and never take a real payment against
+-- seed rates.
 insert into public.fer_fleet (shop_id, style, total, day_cents, half_day_cents, week_cents) values
   ('11111111-1111-4111-8111-111111111111', 'cruiser', 12, 6500, 4000, 35000),
   ('11111111-1111-4111-8111-111111111111', 'fat-tire', 6, 8500, 5500, 45000),
   ('11111111-1111-4111-8111-111111111111', 'step-through', 8, 7000, 4500, 40000)
 on conflict (shop_id, style) do nothing;
+
+-- SEED SHOP: Brickell Bikes, Miami Brickell area. David's rank-and-rent
+-- trial partner #1. Verified: phone (305) 373-3633; contact
+-- info@brickellbikes.com (onboarding inserts it into fer_shop_users; not
+-- seeded here). TBD (NULL, never invented): street address, website,
+-- delivery, fleet counts and rates. REFERENCE ONLY, not a rate: the shop's
+-- site previously listed e-bikes at $75/day marked "(coming soon)" —
+-- unconfirmed, so no fleet row is created from it.
+insert into public.fer_partner_shops
+  (id, shop_name, city, city_name, neighborhood, phone_public, onboarded, payout_status)
+values
+  ('22222222-2222-4222-8222-222222222222',
+   'Brickell Bikes', 'miami', 'Miami',
+   'Brickell', '(305) 373-3633', true, 'pending')
+on conflict (id) do nothing;
+
+-- SEED SHOP: Mack Cycle & Fitness, Sunset Drive area. Verified: contacts
+-- info@mackcycleandfitness.com and Ricardo Rix
+-- (ricardo@mackcycleandfitness.com) — onboarding inserts the sign-in
+-- email into fer_shop_users; not seeded here. TBD (NULL, never invented):
+-- street address, phone, website, delivery, fleet counts and rates.
+-- CLOSED ON MONDAYS: closed_weekdays {1} makes any stay including a
+-- Monday unbookable (availability + book both enforce it). REFERENCE
+-- ONLY, not a rate card: a past reply offered Charge City step-through
+-- e-bikes — no fleet row is created from it.
+insert into public.fer_partner_shops
+  (id, shop_name, city, city_name, neighborhood, onboarded, payout_status, closed_weekdays)
+values
+  ('33333333-3333-4333-8333-333333333333',
+   'Mack Cycle & Fitness', 'miami', 'Miami',
+   'Sunset Drive area', true, 'pending', '{1}')
+on conflict (id) do nothing;

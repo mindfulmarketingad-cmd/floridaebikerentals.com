@@ -4,11 +4,20 @@
  * Body: { shop_id, style, qty, start_date, days, rider_name, rider_email,
  *   rider_phone } (email or phone required, like fer_leads).
  *
- * Only onboarded Miami shops are bookable here: this is the pilot gate, and
- * lifting the city check is the multi-city step. The shop, its fleet rate
- * and its blocks are re-read server-side and availability is re-checked
- * before any payment is created, so a rider can never pay for bikes that
- * are not free. Prices come from fer_fleet, never from the request.
+ * fer_leads is the system of record for customer requests (see
+ * supabase/leads.sql): this route creates a fer_leads row FIRST (status
+ * 'matched', source 'instant', shop in quote_shop, rental/fee in the
+ * quote_*_cents fields), then the fer_bookings row carrying lead_id, so
+ * the existing lead desk sees instant bookings alongside quote leads.
+ * The lead insert uses the service key, which bypasses the anon-insert
+ * policy (that policy only allows status 'new' with no quote fields);
+ * the desk still reads the row through its normal admin policy.
+ * Status sync lives in the webhook's booking branch: booking paid ->
+ * lead paid; a later shop-confirm step maps booking confirmed -> lead
+ * booked. 'pending' is not a fer_leads status: while payment is awaited
+ * the desk shows the lead as 'matched' (shop already assigned).
+ * Closed weekdays: a stay including one of the shop's closed_weekdays
+ * (0=Sunday .. 6=Saturday) is rejected here, mirroring availability.js.
  *
  * This chunk collects payment to the site's Stripe account, exactly like
  * the quote flow does today (api/quote.js). Stripe Connect transfers to
@@ -85,6 +94,11 @@ export default async function handler(req, res) {
     if (!shop) throw new HttpError(404, "Shop not found.");
     if (!shop.onboarded) throw new HttpError(409, "This shop is not bookable instantly yet.");
     if (shop.city !== "miami") throw new HttpError(409, "Instant booking is Miami only in this pilot.");
+    for (const d of dates) {
+      if ((shop.closed_weekdays || []).includes(new Date(`${d}T12:00:00Z`).getUTCDay())) {
+        throw new HttpError(409, `This shop is closed on ${d}.`);
+      }
+    }
     const [fleet] = await supabase(
       `/rest/v1/fer_fleet?shop_id=eq.${shopId}&style=eq.${style}&select=*`,
       { token: service }
@@ -118,12 +132,41 @@ export default async function handler(req, res) {
     const total = rental + fee;
     if (!(rental > 0 && total <= MAX_CENTS)) throw new HttpError(400, "That booking is priced out of range.");
 
+    // The lead first: fer_leads is the system of record, so a booking
+    // must never exist without its lead. If the booking insert below
+    // fails, the lead still sits in the desk as a request to follow up.
+    const [lead] = await supabase("/rest/v1/fer_leads", {
+      token: service,
+      method: "POST",
+      prefer: "return=representation",
+      body: {
+        status: "matched",
+        name,
+        phone: phone || null,
+        email: email || null,
+        town: "miami",
+        town_name: shop.city_name || "Miami",
+        service: "ebike-rental",
+        bike_style: style,
+        start_date: startDate,
+        duration: days === 1 ? "full day" : "multi-day",
+        bikes: qty,
+        quote_shop: shop.shop_name,
+        assigned_listing: shop.listing_slug || null,
+        quote_rental_cents: rental,
+        quote_fee_cents: fee,
+        quote_details: `Instant booking at ${shop.shop_name} - ${qty} x ${style}, ${startDate} for ${days} day${days === 1 ? "" : "s"}.`.slice(0, 1000),
+        source: "instant",
+      },
+    });
+
     const [booking] = await supabase("/rest/v1/fer_bookings", {
       token: service,
       method: "POST",
       prefer: "return=representation",
       body: {
         shop_id: shopId,
+        lead_id: lead.id,
         style,
         qty,
         start_date: startDate,
@@ -139,6 +182,20 @@ export default async function handler(req, res) {
         source: "instant",
       },
     });
+
+    // Best-effort: name the booking on the lead so the desk shows the
+    // link. The link already exists via booking.lead_id, so a failure
+    // here must not fail the booking.
+    try {
+      await supabase(`/rest/v1/fer_leads?id=eq.${lead.id}`, {
+        token: service,
+        method: "PATCH",
+        prefer: "return=minimal",
+        body: { admin_notes: `Instant booking ${booking.id} (fulfillment state in fer_bookings).` },
+      });
+    } catch {
+      // Link survives via booking.lead_id; the note is a convenience.
+    }
 
     const site = env("SITE_URL").replace(/\/+$/, "");
     const when = `${startDate} for ${days} day${days === 1 ? "" : "s"}`;
