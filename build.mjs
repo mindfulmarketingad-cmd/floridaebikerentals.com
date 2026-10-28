@@ -21,6 +21,7 @@ import { citiesHub, cityPage } from "./src/pages/cities.mjs";
 import { batteryPage, batteryTowns, batteryTownPage, BATTERY_URL } from "./src/pages/battery.mjs";
 import { businessPage, BUSINESS_URL } from "./src/pages/business.mjs";
 import { rentPage, rentPaidPage, adminLeadsPage, adminShopsJson, RENT_URL, RENT_PAID_URL, ADMIN_LEADS_URL, ADMIN_SHOPS_JSON } from "./src/pages/rent.mjs";
+import { miamiBookPage, partnerDashboardPage, MIAMI_BOOK_URL, PARTNER_DASHBOARD_URL } from "./src/pages/instant.mjs";
 import { cityTrailGuides, cityTrailPage, cityTrailHubSection } from "./src/pages/city-trails.mjs";
 import { cityTypePages, cityTypePage } from "./src/pages/city-types.mjs";
 import { makeCityLinker } from "./src/city-links.mjs";
@@ -235,6 +236,16 @@ write(RENT_URL, rentPage(site, ctx), {
 });
 write(RENT_PAID_URL, rentPaidPage(site), { skipSitemap: true });
 write(ADMIN_LEADS_URL, adminLeadsPage(site), { skipSitemap: true });
+
+/* Miami instant booking (pilot) + partner dashboard: new pages only. The
+   existing rent/quote flow and every existing page are untouched. */
+write(MIAMI_BOOK_URL, miamiBookPage(site), {
+  priority: 0.7,
+  changefreq: "weekly",
+  group: "pages",
+  search: { u: MIAMI_BOOK_URL, t: "Book an ebike instantly in Miami", s: "Page", d: "See live availability from onboarded Miami rental shops and book instantly.", k: "miami book instantly instant booking ebike rental", w: 6 },
+});
+write(PARTNER_DASHBOARD_URL, partnerDashboardPage(site), { skipSitemap: true });
 writeRaw(ADMIN_SHOPS_JSON.replace(/^\//, ""), adminShopsJson(assignTitles(loadListings({ raw: true })), index));
 
 /* e-bike battery replacement, statewide and per town */
