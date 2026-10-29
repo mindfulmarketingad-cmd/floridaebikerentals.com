@@ -6,9 +6,10 @@
  * page; a town with one links straight to that shop, because a "list" of one
  * would only repeat the shop's own page.
  */
+import { facetPanel, facetsOf } from "../facets.mjs";
 import { esc, attr, formatReviews, commaList, plural, clamp, phoneHref, seededPick } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
-import { rentNowButton,
+import {
   listicle, faqBlock, faqSchema, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, photo,
 } from "../components.mjs";
 import { nearbyCities } from "../data.mjs";
@@ -16,6 +17,7 @@ import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, s
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
 import { typeTiles } from "./city-types.mjs";
+import { finderHref } from "../finder.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const YEAR = new Date().getFullYear();
@@ -92,8 +94,7 @@ ${adSlot(site, "")}
     bike business. Each shop is placed in the town on its Google address.</p>
     <p>Within a town, we rank shops by Google star rating weighted against how many reviews the rating
     rests on, so a 4.8 from 400 riders ranks above a 5.0 from three. We don't accept payment for
-    placement. To rent, contact a shop directly, or send a <a href="/rent/" rel="nofollow">booking request</a>
-    and we will find one that has what you need.</p>
+    placement. To rent, call the shop or book on its website: both are on every listing.</p>
     <p>Looking for something specific, like tours, delivery or shops open on Sundays? <a href="/find/">Browse
     by category</a>. Spotted a closed shop or a wrong address? <a href="/contact/">Tell us</a> and
     we will fix it.</p>
@@ -152,11 +153,16 @@ export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList
   const names = (list) => esc(commaList(list.slice(0, 4).map((l) => l.name)));
 
   // The owner's format for every town page, used for both the H1 and <title>.
-  const h1 = `Ebike Rentals Near Me In ${city.name} ${YEAR}`;
+  // Search Console shows people search "electric bike rental(s) <town>" far more than
+  // anything with "near me" and a town name, so the title leads with that phrase
+  // and the H1 carries the "rent an electric bike in <town>" form.
+  const h1 = `Rent an Electric Bike in ${city.name}, Florida`;
+  const longTitle = `Electric Bike Rentals in ${city.name}, FL - Rent an E-Bike Today`;
   const facts = townFacts(city, local);
-  const lead = notes.lead
-    ? fill(notes.lead)
-    : `We list ${n} bike and e-bike rental ${plural(n, "shop")} in ${city.name}, Florida, ranked by Google rating and review count. ${facts.sentences.slice(0, 2).join(" ")}`;
+  // The owner's format for town descriptions: "[count] [what the town offers] in [town], Florida. Browse ...".
+  const offered = offerings(local);
+  const blurb = `${n} ${commaList(offered)} in ${city.name}, Florida. Browse through our listings to find the best option for your rental needs.`;
+  const lead = `${blurb} ${facts.sentences[0]}`;
 
   const faqs = [
     ...(notes.faqs || []),
@@ -217,8 +223,9 @@ ${findHero({
   index,
   current: city.url,
   tags: tagsIn(local),
+  facets: facetPanel(local),
   placeholder: `Search ${city.name} shops`,
-  cta: rentNowButton("btn btn--primary", { town: city.slug }),
+  cta: `<a class="btn btn--primary" href="${attr(finderHref({ town: city.slug }))}">Find an E-bike in ${esc(city.name)}</a>`,
 })}
 
 ${(() => {
@@ -255,7 +262,7 @@ ${(() => {
 <section class="section section--tint" id="location">
   <div class="wrap">
     <h2>Location &amp; directions</h2>
-    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.${(() => { const p = site.phone; return p && p.number ? ` To rent, send a <a href="/rent/?town=${attr(city.slug)}" rel="nofollow">booking request</a> or call our line on <a href="tel:${attr(p.number)}">${esc(p.display || p.number)}</a>.` : ""; })()}</p>
+    <p class="muted">Where each ${esc(city.name)} shop is, from its Google listing. Directions open in Google Maps.${(() => { const p = site.phone; return p && p.number ? ` Each shop's phone number and website are on its listing above.` : ""; })()}</p>
     <div class="table-wrap">
       <table class="data-table">
         <thead><tr><th scope="col">Shop</th><th scope="col">Address</th><th scope="col"><span class="visually-hidden">Directions</span></th></tr></thead>
@@ -371,18 +378,11 @@ ${cityGallery(city, index)}
 ${adSlotScript(site, 1)}
 `;
 
-  const title = h1;
+  const title = longTitle.length <= 70 ? longTitle : `Electric Bike Rentals in ${city.name}, FL`;
 
   return page(site, {
     title,
-    description: clamp(
-      notes.description
-        ? fill(notes.description)
-        : `${n} e-bike rental ${plural(n, "shop")} in ${city.name}, FL, ranked. ${facts.best.name} leads${
-            facts.best.rating ? ` (${facts.best.rating.toFixed(1)} stars, ${formatReviews(facts.best.reviews)} reviews)` : ""
-          }. Hours, ratings and directions.`,
-      165
-    ),
+    description: blurb,
     path: city.url,
     body,
     ogImage: best && best.photo ? best.photo : scene.og,
@@ -456,4 +456,17 @@ function cityGallery(city, index) {
     ${stockCredits(stock.map((s) => s.photo))}
   </div>
 </section>`;
+}
+
+/** What a town's shops offer, most useful first, for the town description. Up to three, each backed by at least one shop. */
+function offerings(local) {
+  const has = (key) => local.some((l) => facetsOf(l).includes(key));
+  const out = [];
+  if (has("ebike")) out.push("e-bike rentals");
+  if (local.some((l) => l.is_rental && !facetsOf(l).includes("ebike"))) out.push(has("style-cruiser") ? "beach cruisers" : "bike rentals");
+  if (has("tours")) out.push("guided tours");
+  if (out.length < 3 && has("scooters")) out.push("scooter rentals");
+  if (out.length < 3 && has("golf")) out.push("golf cart rentals");
+  if (out.length < 3 && has("repairs")) out.push("e-bike repairs");
+  return out.length ? out.slice(0, 3) : ["e-bike shops"];
 }

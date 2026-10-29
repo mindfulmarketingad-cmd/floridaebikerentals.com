@@ -79,7 +79,7 @@ const SORTS = [
  * @param {Array}  o.tags        services present in the list, for the filter
  * @param {string} o.placeholder text-search hint
  */
-export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "", form = "", cta = "" }) {
+export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "", form = "", cta = "", facets = "" }) {
   return `<section class="find-hero">
   <img class="find-hero__art" src="${attr(scene.src)}" alt="${attr(scene.alt)}" width="${scene.width}" height="${scene.height}" fetchpriority="high" decoding="async">
   <div class="find-hero__shade" aria-hidden="true"></div>
@@ -97,18 +97,19 @@ export function findHero({ crumbs, h1, lead, scene, index, current, category = n
         <label for="fs-q">Search</label>
         <input id="fs-q" type="search" name="q" placeholder="${attr(placeholder)}" autocomplete="off">
       </div>
-      <div class="find-search__field">
+      ${facets ? "" : `<div class="find-search__field">
         <label for="fs-tag">Service</label>
         <select id="fs-tag" name="tag">
           <option value="">Any service</option>
           ${tags.map((t) => `<option value="${attr(t)}">${esc(t)}</option>`).join("")}
         </select>
-      </div>
+      </div>`}
       <div class="find-search__field">
         <label for="fs-sort">Sort</label>
         <select id="fs-sort" name="sort">${SORTS.map(([v, l]) => `<option value="${v}">${l}</option>`).join("")}</select>
       </div>` : ""}
       <button class="btn btn--primary find-search__go" type="submit">${filters ? "Search" : "Go"}</button>
+      ${filters && facets ? facets : ""}
     </form>`}
   </div>
 </section>`;

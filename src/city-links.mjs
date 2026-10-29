@@ -29,7 +29,7 @@ export function makeCityLinker({ index, blog = [], hubEntries = {}, cityGuides =
       title: `Rent in ${city.name}`,
       links: [
         { href: city.url, label: `All ${city.listings.length} ${city.name} rental shops` },
-        { href: `/rent/?town=${city.slug}`, label: `Book an e-bike in ${city.name}`, nofollow: true },
+        { href: `/?town=${city.slug}#results`, label: `Find an e-bike in ${city.name}`, nofollow: true },
         ...(index.regionsBySlug.get(city.regionSlug) ? [{ href: index.regionsBySlug.get(city.regionSlug).url, label: `All ${city.region} towns` }] : []),
       ],
     });

@@ -7,7 +7,7 @@ import {
 import { photoFor, secondPhotoFor, figure, banner, photoById, sitePhoto } from "../images.mjs";
 import { loadHubBody } from "../data.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
-import { quickRent } from "./rent.mjs";
+import { quickFind, finderHref } from "../finder.mjs";
 import { typeTownCloud, typeTownTable } from "./city-types.mjs";
 
 /* ---------------------------------------------- electric bike type cluster */
@@ -53,7 +53,7 @@ function typeSection(e, n) {
     ${e.terrain ? `<li><b>Florida terrain</b> ${esc(e.terrain)}</li>` : ""}
   </ul>
   <p class="type-section__cta"><a class="btn btn--blue" href="${attr(e.url)}">Read the ${esc(name.toLowerCase())} guide</a>
-  <a class="btn btn--primary" href="${attr(rentStyleHref(e))}" rel="nofollow">Book Now</a></p>
+  <a class="btn btn--primary" href="${attr(rentStyleHref(e))}">Find Shops</a></p>
 </section>`;
 }
 
@@ -82,10 +82,9 @@ export function shopsNaming(entry, listings) {
   return listings.filter((l) => re.test([l.name, l.description, l.subtypes, l.category, l.type].filter(Boolean).join(" ")));
 }
 
-function rentStyleHref(entry) {
-  const service = entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental";
-  return `/rent/?service=${service}${entry.rentStyle ? `&style=${encodeURIComponent(entry.rentStyle)}` : ""}`;
-}
+/** The finder's bike option for a type guide ("any" means any e-bike). */
+const finderType = (entry) => (!entry.rentStyle || entry.rentStyle === "any" ? "ebike" : entry.rentStyle);
+const rentStyleHref = (entry) => finderHref({ type: finderType(entry) });
 
 function whereToRent(entry, ctx) {
   const named = shopsNaming(entry, ctx.listings).slice(0, 10);
@@ -99,15 +98,14 @@ function whereToRent(entry, ctx) {
     ${
       named.length
         ? `<p class="muted">These ${named.length} Florida ${plural(named.length, "shop")} name ${esc(lower)} in their own
-    Google profile. Profiles go out of date, so confirm the bike is available before you go, or send a booking
-    request and we will check for you.</p>
+    Google profile. Profiles go out of date, so call to confirm the bike is free before you go.</p>
     ${listicle(named)}`
         : `<p class="muted">No shop in our directory names ${esc(lower)} in its public Google profile, so we will not guess
-    which ones have them. Shops that rent electric bikes are the ones to ask. These are the top-rated of them; call
-    ahead, or send a booking request with this style and we will check with shops in your town for you.</p>
+    which ones have them. Shops that rent electric bikes are the ones to ask. These are the top-rated of them. Call ahead,
+    or use our finder to see the e-bike shops in your town that are open on your day.</p>
     ${listicle(fallback)}`
     }
-    <p class="mt-2"><a class="btn btn--primary" href="${attr(rentStyleHref(entry))}" rel="nofollow">Book Now</a></p>
+    <p class="mt-2"><a class="btn btn--primary" href="${attr(rentStyleHref(entry))}">Find Shops Near You</a></p>
   </div>
 </section>`;
 }
@@ -209,7 +207,7 @@ ${breadcrumbs(crumbs)}
       <h1>${esc(hub.h1)}</h1>
       <p>${esc(hub.intro)}</p>
     </div>
-    ${hub.slug === TYPES_HUB ? quickRent(ctx.index, { heading: "Rent an e-bike in Florida" }) : ""}
+    ${hub.slug === TYPES_HUB ? quickFind(ctx.index, { heading: "Find an e-bike rental in Florida" }) : ""}
     ${banner(hero, { alt: `${hub.h1} - ${hero.alt}` })}
   </div>
 </section>
@@ -353,7 +351,7 @@ export function contentEntry(site, hub, entry, ctx) {
     ${breadcrumbs(crumbs).replace('<div class="wrap">', "<div>")}
     <h1>${esc(entry.title)}</h1>
     <p class="lede muted">${esc(entry.description)}</p>
-    ${isType ? quickRent(ctx.index, { style: entry.rentStyle, service: entry.rentStyle === "pedal" ? "bike-rental" : "ebike-rental", heading: `Rent ${/^[aeiou]/i.test(entry.shortTitle || entry.title) ? "an" : "a"} ${(entry.shortTitle || entry.title).replace(/s$/, "").toLowerCase()} in Florida` }) : ""}
+    ${isType ? quickFind(ctx.index, { type: finderType(entry), heading: `Find ${/^[aeiou]/i.test(entry.shortTitle || entry.title) ? "an" : "a"} ${(entry.shortTitle || entry.title).replace(/s$/, "").toLowerCase()} rental in Florida` }) : ""}
     ${byline(author, { date: entry.date, updated: entry.updated, readingTime: entry.readingTime, words: entry.words })}
   </div>
 </section>
@@ -532,7 +530,7 @@ ${breadcrumbs(crumbs)}
         Rankings come from Google rating and review volume, never from payment.</p>
         <p>Our <a href="/about/">about page</a> explains how listings are chosen, and the
         <a href="/disclaimer/">disclaimer</a> sets out the limits of the data.</p>
-        <p><a class="btn btn--primary" href="/rent/">Book Now</a></p>
+        <p><a class="btn btn--primary" href="/#finder">Find an E-bike</a></p>
       </div>
     </div>
   </div>

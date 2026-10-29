@@ -151,7 +151,7 @@ ${adSlot(site, "")}
         <p>Try the style you are thinking of buying before you commit. Renting a step-through for a
         day tells you more than any review, and every shop in the
         <a href="/partners/">partner directory</a> will happily talk you through what they stock.</p>
-        <p><a class="btn btn--primary" href="/rent/">Book Now</a></p>
+        <p><a class="btn btn--primary" href="/#finder">Find a Rental</a></p>
       </div>
     </div>
   </div>
@@ -286,7 +286,7 @@ ${adSlot(site, "")}
       title: "Try it before you buy it",
       text: "Renting the same style for a day tells you more than any spec sheet. Every rental partner in Florida, sorted by distance from you.",
       buttons: [
-        { href: "/rent/", label: "Book Now", variant: "btn--primary" },
+        { href: "/#finder", label: "Find a Rental", variant: "btn--primary" },
         { href: "/shop/", label: "Back to shop", variant: "btn--ghost" },
       ],
     })}

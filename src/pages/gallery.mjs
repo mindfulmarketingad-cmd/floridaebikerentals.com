@@ -58,7 +58,7 @@ export function galleryPage(site, { listings, index }) {
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Gallery</li></ol></nav>
     <h1>${esc(h1)}</h1>
     <p class="lede">All ${total} photos on our site in one place: e-bikes, the rental shops we list, and Florida's beach towns
-    and trails. Tap a photo to see it full size. Ready to ride? <a href="/rent/">Book an e-bike</a>.</p>
+    and trails. Tap a photo to see it full size. Ready to ride? <a href="/#finder">Find an e-bike near you</a>.</p>
     <p class="small muted">Jump to: <a href="#ebikes">E-bikes</a> · <a href="#shops">Rental shops</a> · <a href="#florida">Florida towns and scenery</a> · <a href="#towns">Town galleries</a></p>
   </div>
 </section>

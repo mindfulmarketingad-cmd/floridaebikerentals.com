@@ -13,6 +13,7 @@
  * device -- and the page is a complete, useful ranking before any of that runs,
  * which is also what Google indexes.
  */
+import { facetPanel } from "../facets.mjs";
 import { esc, attr, formatReviews, plural, clamp } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import {
@@ -124,6 +125,7 @@ ${findHero({
   index,
   current: NEAR_ME_URL,
   tags: tagsIn(shown),
+  facets: facetPanel(shown),
   placeholder: "Shop, town or service",
 })}
 

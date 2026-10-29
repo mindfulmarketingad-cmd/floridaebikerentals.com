@@ -1,4 +1,5 @@
 import { esc, attr, formatReviews, commaList, plural, clamp } from "../util.mjs";
+import { facetPanel } from "../facets.mjs";
 import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import {
   listicle, faqBlock, faqSchema, linkCard, linkCloud,
@@ -182,6 +183,7 @@ ${findHero({
   current: category.url,
   category,
   tags: tagsIn(shown),
+  facets: facetPanel(shown),
   placeholder: "Shop, town or service",
 })}
 
@@ -314,6 +316,7 @@ ${findHero({
   current: town.url,
   category,
   tags: tagsIn(local),
+  facets: facetPanel(local),
   placeholder: `Search ${city.name} shops`,
 })}
 

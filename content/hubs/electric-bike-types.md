@@ -68,9 +68,9 @@ suit the widest range of riders on flat, paved beach paths. Fat-tire bikes are c
 Cargo, folding and mountain e-bikes are less common in rental fleets and are worth asking about before
 you travel.
 
-You choose a type of bike, but the exact make and model is always up to the shop. When you send a
-[Rent Now](/rent/) request, the bike style you pick is a preference: we check what shops near you
-actually have and your quote says what you would get before you pay.
+You choose a type of bike, but the exact make and model is always up to the shop. Our
+[e-bike finder](/#finder) shows the shops that name your style in their listing first, then the other
+e-bike shops worth asking. Call to confirm the bike is free before you go.
 
 ## FAQs
 

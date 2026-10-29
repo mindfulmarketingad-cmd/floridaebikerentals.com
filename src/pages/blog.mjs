@@ -56,7 +56,7 @@ ${adSlot(site, "")}
         <p class="muted">Start with the region you are visiting, or jump straight to the full partner
         directory sorted by distance from you.</p>
         ${linkCloud(index.regions.map((r) => ({ href: r.url, label: r.name, count: r.listings.length })))}
-        <p class="mt-2"><a class="btn btn--primary" href="/rent/">Book Now</a></p>
+        <p class="mt-2"><a class="btn btn--primary" href="/#finder">Find an E-bike</a></p>
       </div>
     </div>
   </div>
@@ -145,7 +145,7 @@ export function blogPost(site, post, ctx) {
       title: "Ready to ride?",
       text: "Every rental partner in the directory, with hours, ratings and directions, sorted by how close they are to you.",
       buttons: [
-        { href: "/rent/", label: "Book Now", variant: "btn--primary" },
+        { href: "/#finder", label: "Find an E-bike", variant: "btn--primary" },
         { href: "/find/", label: "Browse by town", variant: "btn--ghost" },
       ],
     })}

@@ -253,10 +253,10 @@ function header(current, site) {
 </header>`;
 }
 
-/** The site-wide "Rent Now" button: opens the booking request form. */
+/** The site-wide header button: opens the homepage finder. */
 function headerCall(site) {
-  return `<a class="header-call" href="/rent/">
-      <span class="header-call__label">Book Now</span>
+  return `<a class="header-call" href="/#finder">
+      <span class="header-call__label">Find an E-bike</span>
     </a>`;
 }
 
@@ -290,9 +290,9 @@ function footer(site, extras) {
     <div class="legal">
       <p>&copy; ${year} ${esc(site.name)}. All rights reserved.</p>
       <p>${esc(site.name)} is an independent directory, not affiliated with the businesses listed. When you
-      book through Book Now, we book the rental with a shop for you under our
-      <a href="/terms/#rent-now-bookings">booking terms</a>. If you book directly with a shop, your agreement is with
-      them, so confirm prices, hours and availability with the shop.</p>
+      choose Book Through Us, we book the rental with a shop for you under our
+      <a href="/terms/#book-through-us">booking terms</a>. When you call or book with a shop directly, your agreement
+      is with the shop, so confirm prices, hours and availability with them.</p>
       <p>Business details, ratings and review counts are sourced from public Google Maps data and are
       refreshed periodically. Report an error on our <a href="/contact/">contact page</a>.</p>
       <p>${esc(site.name)} is a participant in the Amazon Services LLC Associates Program. As an

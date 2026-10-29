@@ -18,13 +18,13 @@ and tour operators located in Florida. We publish business information compiled 
 so that visitors can find and contact those businesses directly.
 
 We are not a rental company: we do not own, supply or maintain bikes, and we are not an agent of any
-listed business. Through our [Rent Now](/rent/) page we offer one service of our own, a booking
-service, which is covered in [Rent Now bookings](#rent-now-bookings) below. Apart from that service,
+listed business. Through [Book Through Us](/rent/) we offer one service of our own, a booking
+service, which is covered in [Book Through Us](#book-through-us) below. Apart from that service,
 any transaction you enter into with a listed business is solely between you and that business.
 
-## Rent Now bookings
+## Book Through Us
 
-**What we do.** When you send a request on our Rent Now page, we look for a shop in or near your town
+**What we do.** When you send a request through Book Through Us, we look for a shop in or near your town
 that can provide what you asked for. If we find one, we send you a quote. If you accept and pay it,
 we book the rental with that shop on your behalf and send you a confirmation with the shop's name,
 where to collect the bikes and when.

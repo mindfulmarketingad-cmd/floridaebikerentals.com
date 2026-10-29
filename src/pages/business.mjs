@@ -167,8 +167,8 @@ export function businessPage(site, { listings }) {
       <h2>Who calls our line</h2>
       <p>Riders who have already decided to rent. They reach us from our town pages, regional guides and "near me"
       search, read about the shops in your area, and tap to call. By the time your phone rings, they want a bike.</p>
-      <p>We list ${listings.length} rental shops and e-bike services across Florida, and every page has a
-      "Book Now" button for booking requests, and riders can call our rental line. Our <a href="/about/">about page</a> explains how the site works and how
+      <p>We list ${listings.length} rental shops and e-bike services across Florida. Riders find them through our
+      e-bike finder, which matches their town, bike and day to the shops that fit. Our <a href="/about/">about page</a> explains how the site works and how
       shops are ranked.</p>
     </div>
   </div>

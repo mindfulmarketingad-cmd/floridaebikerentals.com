@@ -32,7 +32,7 @@
       if (!li.contains(e.target)) { li.classList.remove("is-open"); $(".nav-drop__toggle", li).setAttribute("aria-expanded", "false"); }
     });
   });
-  // Quick Book Now forms on content pages: no past days.
+  // Quick finder forms on content pages: no past days.
   $$(".quick-rent input[type=date]").forEach(function (inp) {
     var t = new Date();
     inp.min = t.getFullYear() + "-" + ("0" + (t.getMonth() + 1)).slice(-2) + "-" + ("0" + t.getDate()).slice(-2);
@@ -716,6 +716,339 @@
     }
   });
 
+  /* ------------------------------------------- partner click tracking */
+  /* Every link out to a listed shop (website, booking page, phone) and every
+     Book Through Us click carries data-out; GA4 gets a partner_click event. */
+  d.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[data-out]");
+    if (!a || typeof window.gtag !== "function") return;
+    window.gtag("event", "partner_click", {
+      link_type: a.getAttribute("data-out"),
+      partner: a.getAttribute("data-partner") || "",
+      link_url: a.href,
+      page_path: window.location.pathname,
+    });
+  });
+
+  /* ------------------------------------------------------ e-bike finder */
+  /* The homepage search. Loads the directory (src/finder.mjs writes it), plays
+     the e-bike animation while it matches, then lists the shops that fit. Every
+     string from the data is written with textContent. */
+  (function () {
+    var form = $("[data-finder]");
+    var box = $("[data-finder-results]");
+    if (!form || !box) return;
+    var out = $("[data-finder-output]", box);
+    var loading = $("[data-finder-loading]", box);
+    var stepText = $("[data-finder-step]", box);
+    var errBox = $("[data-finder-error]", form);
+    var data = null, dataPromise = null;
+    var DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    var LEN = { "2h": 120, half: 240, full: 480, multi: 0, week: 0 };
+    var STYLE = { cruiser: "beach cruiser e-bikes", "fat-tire": "fat-tire e-bikes", "step-through": "step-through e-bikes", hybrid: "commuter e-bikes", cargo: "cargo e-bikes", trike: "electric trikes" };
+
+    function load() {
+      if (!dataPromise) {
+        dataPromise = fetch(form.getAttribute("data-src")).then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        }).then(function (d) { data = d; return d; });
+      }
+      return dataPromise;
+    }
+    function miles(a, b, c, d) {
+      var R = 3958.8, toR = Math.PI / 180, dLa = (c - a) * toR, dLo = (d - b) * toR;
+      var x = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(a * toR) * Math.cos(c * toR) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
+      return 2 * R * Math.asin(Math.sqrt(x));
+    }
+    function clockText(m) {
+      m = m % 1440;
+      var h = Math.floor(m / 60), mm = m % 60;
+      return (h % 12 || 12) + (mm ? ":" + ("0" + mm).slice(-2) : "") + (h < 12 ? " AM" : " PM");
+    }
+    function telHref(p) {
+      var d = String(p).replace(/[^0-9]/g, "");
+      if (d.length === 10) d = "1" + d;
+      return d ? "tel:+" + d : "";
+    }
+    function dayIndex(ymd) {
+      var p = ymd.split("-");
+      return (new Date(+p[0], +p[1] - 1, +p[2]).getDay() + 6) % 7;
+    }
+    function fits(windows, start, len) {
+      for (var i = 0; i < windows.length; i++) {
+        var o = windows[i][0], c = windows[i][1];
+        if (start != null) { if (o <= start && c >= start + Math.max(len, 30)) return true; }
+        else if (c - o >= len) return true;
+      }
+      return false;
+    }
+
+    function readQuery() {
+      var fd = new FormData(form);
+      return {
+        town: fd.get("town") || "",
+        type: fd.get("type") || "ebike",
+        date: fd.get("date") || "",
+        time: fd.get("time") ? +fd.get("time") : null,
+        length: fd.get("length") || "half",
+        f: fd.getAll("f"),
+      };
+    }
+    function fill(params) {
+      ["town", "type", "date", "time", "length"].forEach(function (k) {
+        var v = params.get(k);
+        if (v == null || !form[k]) return;
+        if (form[k].tagName === "SELECT" && !form[k].querySelector('option[value="' + v.replace(/"/g, "") + '"]')) return;
+        form[k].value = v;
+      });
+      var fs = params.getAll("f");
+      $$("input[name=f]", form).forEach(function (c) { c.checked = fs.indexOf(c.value) !== -1; });
+      var more = $(".facets--finder", form);
+      if (more && $$(".facets--finder input:checked", form).length) more.open = true;
+    }
+
+    /* One shop against the search: null if it does not fit, else why it fits. */
+    function match(s, q) {
+      var m = { s: s, rank: 0, notes: [] };
+      if (q.type === "tour") {
+        if (!s.g) return null;
+        m.notes.push("Runs guided tours");
+      } else {
+        if (!s.r) return null;
+        if (q.type === "ebike") {
+          if (!s.e) return null;
+          m.notes.push("Rents e-bikes");
+        } else if (q.type === "pedal") {
+          m.notes.push(s.e ? "Rents bikes and e-bikes" : "Bike rentals");
+        } else if (s.b.indexOf(q.type) !== -1) {
+          m.rank = 2;
+          m.notes.push("Lists " + STYLE[q.type]);
+        } else if (s.e) {
+          m.notes.push("E-bike shop: ask about " + STYLE[q.type]);
+        } else return null;
+      }
+      for (var fi = 0; fi < q.f.length; fi++) if (s.f.indexOf(q.f[fi]) === -1) return null;
+      var len = LEN[q.length] || 0;
+      if (!s.h) {
+        m.hours = "Hours not listed: call to check";
+        m.unknown = true;
+      } else if (q.date) {
+        var di = dayIndex(q.date), day = s.h[di];
+        if (day === 0) return null;
+        if (day === null) { m.hours = "No hours listed for " + DAYS[di] + ": call to check"; m.unknown = true; }
+        else {
+          if ((q.time != null || len) && !fits(day, q.time, len)) return null;
+          m.hours = "Open " + DAYS[di] + " " + s.hs[di];
+        }
+      } else if (q.time != null) {
+        if (!s.h.some(function (d) { return d && fits(d, q.time, len); })) return null;
+        m.hours = "Open from " + clockText(q.time) + " on some days";
+      } else {
+        var open = s.h.filter(function (d) { return d && d.length; }).length;
+        m.hours = open === 7 ? "Open 7 days" : "Open " + open + " days a week";
+      }
+      if (s.d) m.notes.push("Delivers");
+      return m;
+    }
+
+    function search(q, origin) {
+      var all = [], local = [], near = [];
+      data.forEach(function (s) {
+        var m = match(s, q);
+        if (!m) return;
+        if (origin.coords && s.la != null) m.dist = miles(origin.coords[0], origin.coords[1], s.la, s.lo);
+        if (origin.town && s.cs === origin.town) local.push(m);
+        else if (m.dist != null && m.dist <= (origin.town ? 25 : 30)) near.push(m);
+      });
+      var order = function (a, b) {
+        return (b.rank - a.rank) || ((a.unknown ? 1 : 0) - (b.unknown ? 1 : 0)) ||
+          (origin.town ? b.s.sc - a.s.sc : (a.dist - b.dist)) || (b.s.sc - a.s.sc);
+      };
+      local.sort(order);
+      near.sort(function (a, b) { return (b.rank - a.rank) || ((a.unknown ? 1 : 0) - (b.unknown ? 1 : 0)) || (a.dist - b.dist); });
+      if (origin.town) {
+        all = local.concat(local.length < 6 ? near.slice(0, 12 - local.length) : []);
+      } else all = near.slice(0, 30);
+      return { list: all, local: local.length };
+    }
+
+    function townCentre(slug) {
+      var la = 0, lo = 0, n = 0;
+      data.forEach(function (s) { if (s.cs === slug && s.la != null) { la += s.la; lo += s.lo; n++; } });
+      return n ? [la / n, lo / n] : null;
+    }
+
+    function icon(style) {
+      var t = $('template[data-bike-icon="' + style + '"]', box);
+      return t ? t.content.firstElementChild.cloneNode(true) : null;
+    }
+
+    function button(cls, href, label, ext, out, partner) {
+      var a = el("a", "btn " + cls, label);
+      a.href = href;
+      if (ext) { a.target = "_blank"; a.rel = "nofollow noopener"; }
+      if (out) { a.setAttribute("data-out", out); a.setAttribute("data-partner", partner); }
+      return a;
+    }
+
+    function card(m, q, origin, i) {
+      var s = m.s;
+      var li = el("li", "finder-card" + (i === 0 ? " finder-card--top" : ""));
+      if (i === 0) li.appendChild(el("span", "finder-card__badge", "#1 Best match"));
+      var media = el("a", "finder-card__media");
+      media.href = s.u;
+      media.setAttribute("aria-hidden", "true");
+      media.tabIndex = -1;
+      if (s.im) {
+        var img = el("img");
+        img.src = s.im; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+        if (s.lg) media.classList.add("is-logo");
+        media.appendChild(img);
+      } else {
+        var ic = icon("cruiser");
+        if (ic) media.appendChild(ic);
+      }
+      li.appendChild(media);
+      var body = el("div", "finder-card__body");
+      var h = el("h3", "finder-card__title");
+      var link = el("a", "", s.n);
+      link.href = s.u;
+      h.appendChild(link);
+      body.appendChild(h);
+      var meta = el("p", "finder-card__meta");
+      if (s.ra) {
+        meta.appendChild(el("span", "finder-card__stars", "★ " + s.ra.toFixed(1)));
+        meta.appendChild(document.createTextNode(" (" + s.rv.toLocaleString() + " reviews) · "));
+      }
+      meta.appendChild(document.createTextNode(s.c + (m.dist != null && (origin.coords && (!origin.town || s.cs !== origin.town)) ? " · " + m.dist.toFixed(1) + " mi away" : "")));
+      body.appendChild(meta);
+      var tags = el("ul", "finder-card__tags");
+      tags.appendChild(el("li", m.unknown ? "is-warn" : "is-ok", m.hours));
+      m.notes.forEach(function (n) { tags.appendChild(el("li", m.rank && n.indexOf("Lists") === 0 ? "is-match" : "", n)); });
+      body.appendChild(tags);
+      if (s.b.length) {
+        var bikes = el("p", "finder-card__bikes");
+        s.b.forEach(function (st) { var i = icon(st); if (i) bikes.appendChild(i); });
+        body.appendChild(bikes);
+      }
+      body.appendChild(el("p", "finder-card__addr", s.a));
+      var acts = el("div", "finder-card__actions");
+      if (s.w || s.bk) acts.appendChild(button("btn--blue btn--sm", s.w || s.bk, "Visit Website", true, s.w ? "website" : "booking", s.n));
+      if (s.ph) acts.appendChild(button("btn--outline btn--sm", telHref(s.ph), "Call Now", false, "call", s.n));
+      var rent = new URLSearchParams();
+      rent.set("town", s.cs);
+      rent.set("listing", s.s);
+      rent.set("service", q.type === "tour" ? "guided-tour" : q.type === "pedal" ? "bike-rental" : "ebike-rental");
+      if (STYLE[q.type]) rent.set("style", q.type);
+      else if (q.type === "pedal") rent.set("style", "pedal");
+      if (q.date) rent.set("date", q.date);
+      if (q.time != null) rent.set("time", ("0" + Math.floor(q.time / 60)).slice(-2) + ":" + ("0" + q.time % 60).slice(-2));
+      rent.set("length", q.length);
+      acts.appendChild(button("btn--primary btn--sm", "/rent/?" + rent.toString(), "Book Through Us", false, "book_through_us", s.n));
+      body.appendChild(acts);
+      var more = el("a", "finder-card__more", "Full details");
+      more.href = s.u;
+      body.appendChild(more);
+      li.appendChild(body);
+      return li;
+    }
+
+    function summary(q, placeName) {
+      var bits = [];
+      var typeOpt = form.type.options[form.type.selectedIndex];
+      bits.push(typeOpt ? typeOpt.textContent.toLowerCase() : "e-bikes");
+      bits.push(placeName);
+      if (q.date) {
+        var p = q.date.split("-");
+        bits.push("on " + new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }));
+      }
+      if (q.time != null) bits.push("from " + clockText(q.time));
+      var lenOpt = form.length.options[form.length.selectedIndex];
+      if (lenOpt) bits.push("for " + lenOpt.textContent.toLowerCase());
+      return bits.join(" ");
+    }
+
+    function render(res, q, origin, placeName) {
+      out.textContent = "";
+      var head = el("div", "finder-results__head");
+      var n = res.list.length;
+      head.appendChild(el("h2", "", n ? n + (n === 1 ? " shop matches" : " shops match") + " your search" : "No exact matches"));
+      head.appendChild(el("p", "muted", "Showing " + summary(q, placeName) + "." +
+        (origin.town && res.local < n ? " Fewer than six shops in town fit, so we added nearby towns within 25 miles." : "")));
+      out.appendChild(head);
+      if (!n) {
+        out.appendChild(el("p", "", "No shop we list fits all of that. Try another day or start time, a shorter rental, \"Any e-bike\", or fewer must-haves."));
+        return;
+      }
+      var ol = el("ol", "finder-list");
+      res.list.forEach(function (m, i) { ol.appendChild(card(m, q, origin, i)); });
+      out.appendChild(ol);
+      out.appendChild(el("p", "finder-results__fine", "Booking times and availability aren't guaranteed. Matches use each shop's public Google listing: the bike styles it names, its posted hours and its services. Check the shop's own website or call for final details before you go."));
+    }
+
+    var STEPS = ["Checking " + "every shop we list...", "Matching your bike...", "Checking opening hours...", "Ranking by rating..."];
+    function animate(ms) {
+      loading.hidden = false;
+      out.textContent = "";
+      var i = 0;
+      stepText.textContent = STEPS[0];
+      var t = setInterval(function () { i = (i + 1) % STEPS.length; stepText.textContent = STEPS[i]; }, Math.max(300, ms / STEPS.length));
+      return new Promise(function (r) { setTimeout(function () { clearInterval(t); loading.hidden = true; r(); }, ms); });
+    }
+
+    function where(q) {
+      if (q.town !== "near") return Promise.resolve({ town: q.town });
+      return new Promise(function (resolve, reject) {
+        if (!navigator.geolocation) return reject(new Error("Your browser can't share your location. Pick a town instead."));
+        navigator.geolocation.getCurrentPosition(
+          function (p) { resolve({ coords: [p.coords.latitude, p.coords.longitude] }); },
+          function () { reject(new Error("We couldn't get your location. Pick a town instead.")); },
+          { timeout: 10000, maximumAge: 600000 }
+        );
+      });
+    }
+
+    function run(scroll) {
+      var q = readQuery();
+      errBox.hidden = true;
+      if (!q.town) {
+        errBox.textContent = "Choose a town, or \"Near me\", to search.";
+        errBox.hidden = false;
+        form.town.focus();
+        return;
+      }
+      var params = new URLSearchParams();
+      ["town", "type", "date", "length"].forEach(function (k) { if (q[k]) params.set(k, q[k]); });
+      if (q.time != null) params.set("time", q.time);
+      q.f.forEach(function (x) { params.append("f", x); });
+      if (window.history && history.replaceState) history.replaceState(null, "", "/?" + params.toString() + "#results");
+      box.hidden = false;
+      if (scroll) box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      var placeName = q.town === "near" ? "near you" : "in " + form.town.options[form.town.selectedIndex].textContent;
+      Promise.all([load(), where(q), animate(reduceMotion ? 500 : 2800)]).then(function (r) {
+        var origin = r[1];
+        if (origin.town) origin.coords = townCentre(origin.town);
+        render(search(q, origin), q, origin, placeName);
+      }).catch(function (e) {
+        loading.hidden = true;
+        out.textContent = "";
+        out.appendChild(el("p", "finder__error", e && e.message && !/HTTP|fetch|JSON/i.test(e.message) ? e.message : "The search didn't load. Check your connection and try again."));
+      });
+    }
+
+    // Days start today in the rider's own time zone.
+    var now = new Date();
+    form.date.min = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
+    form.addEventListener("submit", function (e) { e.preventDefault(); run(true); });
+    var params = new URLSearchParams(window.location.search);
+    if (params.toString()) {
+      fill(params);
+      if (params.get("town")) run(true);
+      else if (window.location.hash === "#finder") form.town.focus();
+    }
+  })();
+
   /* ------------------------------------------------ Rent Now request */
   /* Saves the request to the site's Supabase table with the public anon key;
      row-level security lets that key insert a lead and do nothing else. */
@@ -770,6 +1103,16 @@
         if (!isNaN(from) && h >= from && h < to) r.checked = true;
       });
     });
+    // ?time=HH:MM and ?length= from the finder's "Book Through Us" button.
+    var pTime = (params.get("time") || "").replace(/[^0-9:]/g, "");
+    var startSel = $("[data-rent-start]");
+    if (pTime && startSel.querySelector('option[value="' + pTime + '"]')) {
+      startSel.value = pTime;
+      startSel.dispatchEvent(new Event("change"));
+    }
+    var lengths = { "2h": "1-2 hours", half: "half day", full: "full day", multi: "multi-day", week: "multi-day" };
+    var pLen = lengths[params.get("length")];
+    if (pLen && rentForm.duration.querySelector('option[value="' + pLen + '"]')) rentForm.duration.value = pLen;
     // Bike style only matters for rentals; tours and repairs hide it.
     var styleBox = $("[data-rent-styles]");
     var styleServices = (styleBox.getAttribute("data-style-services") || "").split(" ");
@@ -1197,7 +1540,40 @@
       return true;
     };
 
+    /* Facet checkboxes (name="f"): a card must carry every checked key in data-f.
+       "open-now" is worked out from data-hours against the visitor's clock. */
+    var facetBoxes = $$("input[name=f]", filterForm);
+    var facetCount = $("[data-facet-count]", filterForm);
+    var openNow = function (card) {
+      var raw = card.getAttribute("data-hours");
+      if (!raw) return false;
+      try {
+        var week = JSON.parse(raw), now = new Date();
+        var di = (now.getDay() + 6) % 7, mins = now.getHours() * 60 + now.getMinutes();
+        var today = week[di], yday = week[(di + 6) % 7];
+        var inside = function (w, m) { return w && w.some && w.some(function (p) { return p[0] <= m && m < p[1]; }); };
+        return inside(today, mins) || inside(yday, mins + 1440);
+      } catch (e) { return false; }
+    };
+    var matchesFacets = function (card) {
+      var have = card.getAttribute("data-f") || "";
+      for (var i = 0; i < facetBoxes.length; i++) {
+        var b = facetBoxes[i];
+        if (!b.checked) continue;
+        if (b.value === "open-now") { if (!openNow(card)) return false; }
+        else if (have.indexOf("|" + b.value + "|") === -1) return false;
+      }
+      return true;
+    };
+    var clearFacets = $("[data-facet-clear]", filterForm);
+    if (clearFacets) clearFacets.addEventListener("click", function () {
+      facetBoxes.forEach(function (b) { b.checked = false; });
+      filterForm.dispatchEvent(new Event("change"));
+    });
+
     var apply = function () {
+      var on = facetBoxes.filter(function (b) { return b.checked; }).length;
+      if (facetCount) { facetCount.hidden = !on; facetCount.textContent = on ? String(on) : ""; }
       var q = ($("[name=q]", filterForm) || {}).value || "";
       var city = ($("[name=city]", filterForm) || {}).value || "";
       var tag = ($("[name=tag]", filterForm) || {}).value || "";
@@ -1209,7 +1585,7 @@
         var ok = (!q || hay.indexOf(q) !== -1) &&
                  (!city || card.getAttribute("data-city") === city) &&
                  (!tag || (card.getAttribute("data-tags") || "").indexOf("|" + tag + "|") !== -1) &&
-                 matchesExtras(card);
+                 matchesExtras(card) && matchesFacets(card);
         card.hidden = !ok;
         if (ok) shown++;
       });

@@ -1,30 +1,30 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import {
-  esc, attr, ratingBlock, formatRating, formatReviews, phoneHref, hostOf,
+  esc, attr, ratingBlock, formatRating, formatReviews, phoneHref, hostOf, trackedUrl,
   commaList, plural, clamp, todayIndex,
 } from "./util.mjs";
 import { ROOT, loadSite } from "./data.mjs";
 
-/** The site's own rental line, shown in place of business phone numbers. */
-const SITE = loadSite();
-export function rentalLine() {
-  const p = SITE.phone || {};
-  return p.number ? { tel: p.number, display: p.display || p.number } : null;
-}
-
-/** Link to the booking request form, carrying the town and shop it came from. */
-export function rentNowHref({ town = "", listing = "" } = {}) {
-  const q = [town && `town=${encodeURIComponent(town)}`, listing && `listing=${encodeURIComponent(listing)}`].filter(Boolean).join("&");
-  return `/rent/${q ? `?${q}` : ""}`;
-}
-
-/** The "Rent Now" button that replaced the old call button. */
-export function rentNowButton(className = "btn btn--primary btn--sm", where = {}) {
-  return `<a class="${attr(className)}" href="${attr(rentNowHref(where))}" rel="nofollow">Book Now</a>`;
+/**
+ * A shop's own ways to rent: its phone, its online booking page (when its
+ * Google profile has one) or its website, each a button.
+ */
+export function contactButtons(listing, { size = "btn--sm", primary = true, campaign = "directory" } = {}) {
+  const out = [];
+  const tel = listing.phone ? phoneHref(listing.phone) : "";
+  const track = (type) => ` data-out="${attr(type)}" data-partner="${attr(listing.name)}"`;
+  if (tel) out.push(`<a class="btn ${primary ? "btn--primary" : "btn--outline"} ${size}" href="tel:${attr(tel)}"${track("call")}>Call ${esc(listing.phone)}</a>`);
+  if (listing.booking_link && listing.booking_link !== listing.website) {
+    out.push(`<a class="btn btn--blue ${size}" href="${attr(trackedUrl(listing.booking_link, campaign, "booking"))}" rel="nofollow noopener" target="_blank"${track("booking")}>Book online</a>`);
+  } else if (listing.website) {
+    out.push(`<a class="btn btn--blue ${size}" href="${attr(trackedUrl(listing.website, campaign))}" rel="nofollow noopener" target="_blank"${track("website")}>Website</a>`);
+  }
+  return out.join("");
 }
 import { sceneForRegion } from "./images.mjs";
 import { bikeTypeRow } from "./bike-types.mjs";
+import { facetsOf, hoursAttr } from "./facets.mjs";
 
 /**
  * Maps are switched off site-wide from data/site.json (`map.enabled`). The
@@ -65,47 +65,58 @@ function hashOf(text) {
   return value;
 }
 
-/** A unique, data-driven paragraph for each listing (no boilerplate cloning). */
+/** What a shop does beyond renting, as verb phrases, from its listing data. */
+const EXTRAS = [
+  ["delivery", "delivers to rental houses and hotels"],
+  ["tours", "runs guided rides"],
+  ["repairs", "fixes bikes"],
+  ["battery", "handles e-bike batteries"],
+  ["sales", "sells e-bikes"],
+  ["scooters", "rents scooters"],
+  ["golf", "has golf carts"],
+  ["water", "rents kayaks and paddleboards"],
+];
+
+/** A short paragraph in plain English for each listing, built from its own data and worded differently shop to shop. */
 export function summaryFor(listing) {
   const kind = kindOf(listing);
   const seed = hashOf(listing.slug || listing.name);
   const opener = OPENERS[seed % OPENERS.length]({ ...listing, kind });
-
+  const f = new Set(facetsOf(listing));
   const bits = [];
+
+  const r = formatRating(listing.rating || 0), n = formatReviews(listing.reviews || 0);
   if (listing.rating && listing.reviews >= 5) {
     bits.push(
-      `It holds a ${formatRating(listing.rating)}-star Google rating from ${formatReviews(listing.reviews)} ${plural(
-        listing.reviews,
-        "review"
-      )}`
+      [
+        `Riders give it ${r} stars across ${n} Google reviews`,
+        `It averages ${r} stars from ${n} Google reviews`,
+        `${n} Google reviewers rate it ${r} stars`,
+      ][seed % 3]
     );
   } else if (listing.rating) {
-    bits.push(`Google reviewers rate it ${formatRating(listing.rating)} stars so far`);
+    bits.push(`Its first few Google reviews average ${r} stars`);
   } else {
-    bits.push("It has not gathered enough Google reviews to show a star rating yet");
+    bits.push("It doesn't have enough Google reviews for a star rating yet");
   }
 
-  const features = (listing.tags || []).filter((t) => t !== "Beach town" && t !== "Electric bikes");
-  if (features.length) {
-    bits.push(`Listed services include ${commaList(features.map((f) => f.toLowerCase()))}`);
+  const does = EXTRAS.filter(([k]) => f.has(k)).map(([, v]) => v);
+  if (does.length) bits.push(`${listing.is_rental && f.has("ebike") ? "Besides e-bike rentals, it" : "It"} ${commaList(does.slice(0, 3))}`);
+
+  if (f.has("open-7")) bits.push(f.has("early") ? "It's open every day, from 9 AM or earlier" : "It's open seven days a week");
+  else if (f.has("sunday")) bits.push("It opens on Sundays");
+  else if (!(listing.hours || []).length) bits.push("It doesn't post opening hours, so call before you go");
+
+  if (bits.length < 3 && listing.neighborhood && listing.neighborhood !== listing.city) {
+    bits.push(`You'll find it in ${listing.neighborhood}`);
   }
-
-  const openDays = (listing.hours || []).filter((h) => !h.closed).length;
-  if (openDays === 7) bits.push("The shop posts hours seven days a week");
-  else if (openDays) bits.push(`Google shows opening hours on ${openDays} ${plural(openDays, "day")} a week`);
-
-  if (listing.neighborhood && listing.neighborhood !== listing.city) {
-    bits.push(`You will find it in the ${listing.neighborhood} area`);
-  }
-
   return `${opener}. ${bits.slice(0, 3).join(". ")}.`;
 }
 
 export function metaDescriptionFor(listing) {
-  const parts = [`${listing.name} in ${listing.city}, FL`];
-  if (listing.rating) parts.push(`rated ${formatRating(listing.rating)} from ${formatReviews(listing.reviews)} Google reviews`);
-  parts.push("See hours, address, services and directions for your e-bike rental.");
-  return clamp(parts.join(" — "));
+  const rating = listing.rating ? `: ${formatRating(listing.rating)} stars from ${formatReviews(listing.reviews)} Google reviews` : "";
+  const contact = listing.phone ? `Phone ${listing.phone}, hours, website and directions` : "Hours, address and directions";
+  return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for your e-bike rental.`);
 }
 
 /* -------------------------------------------------------------- atoms */
@@ -221,17 +232,11 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
   const url = attr(listing.url);
   const facts = [];
   facts.push(`<li><b>Address</b> <span>${esc(listing.address || `${listing.city}, FL`)}</span></li>`);
-  if (listing.phone) {
-    const tel = phoneHref(listing.phone);
-    facts.push(
-      `<li><b>Phone</b> <span>${tel ? `<a href="tel:${attr(tel)}">${esc(listing.phone)}</a>` : esc(listing.phone)}</span></li>`
-    );
-  }
   const today = hoursToday(listing);
   if (today) facts.push(`<li><b>Hours</b> <span>${esc(today)}</span></li>`);
   if (listing.website) {
     facts.push(
-      `<li><b>Website</b> <span><a href="${attr(listing.website)}" rel="nofollow noopener" target="_blank">${esc(
+      `<li><b>Website</b> <span><a href="${attr(trackedUrl(listing.website, "directory"))}" rel="nofollow noopener" target="_blank" data-out="website" data-partner="${attr(listing.name)}">${esc(
         hostOf(listing.website)
       )}</a></span></li>`
     );
@@ -247,7 +252,9 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
     (listing.tags || []).join("|")
   )}|" data-search="${attr(search)}" data-rating="${attr(listing.rating || 0)}" data-reviews="${attr(
     listing.reviews || 0
-  )}" data-score="${attr(listing.score || 0)}" data-name="${attr(listing.name)}"${
+  )}" data-score="${attr(listing.score || 0)}" data-name="${attr(listing.name)}" data-f="|${attr(facetsOf(listing).join("|"))}|"${
+    (listing.hours || []).length ? ` data-hours="${attr(hoursAttr(listing))}"` : ""
+  }${
     typeof listing.lat === "number" ? ` data-lat="${attr(listing.lat)}" data-lng="${attr(listing.lng)}"` : ""
   }>
   <div class="listicle__inner">
@@ -265,8 +272,8 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
       ${tagList(listing.tags, 4)}
       <ul class="listicle__facts">${facts.join("")}</ul>
       <div class="listicle__actions">
-        ${rentOnly ? "" : `<a class="btn btn--blue btn--sm" href="${url}">Full details</a>`}
-        ${rentNowButton("btn btn--primary btn--sm", { town: listing.citySlug, listing: listing.slug })}
+        ${contactButtons(listing)}
+        ${rentOnly ? "" : `<a class="btn btn--outline btn--sm" href="${url}">Full details</a>`}
         ${
           !rentOnly && listing.maps_link
             ? `<a class="btn btn--outline btn--sm" href="${attr(

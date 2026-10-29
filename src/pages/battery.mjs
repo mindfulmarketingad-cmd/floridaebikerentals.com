@@ -7,6 +7,7 @@
  *      Their profiles do not mention batteries, and the page says so: we do
  *      not claim a service a shop has not listed.
  */
+import { facetPanel } from "../facets.mjs";
 import { esc, attr, plural, clamp, miles, formatReviews } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { listicle, faqBlock, faqSchema, itemListSchema, adSlot, adSlotScript, ADSENSE_INLINE } from "../components.mjs";
@@ -88,6 +89,7 @@ ${findHero({
   index,
   current: "/find/",
   tags: tagsIn([...local, ...nearby]),
+  facets: facetPanel([...local, ...nearby]),
   placeholder: `Search ${city.name} shops`,
 })}
 
@@ -199,6 +201,7 @@ ${findHero({
   index,
   current: "/find/",
   tags: tagsIn(all),
+  facets: facetPanel(all),
   placeholder: "Town or shop name",
 })}
 

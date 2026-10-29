@@ -34,11 +34,13 @@ export function jsonLd(data) {
 const SMALL_WORDS = new Set(
   "a an and as at but by en for if in nor of on or per so the to up via vs yet from into onto with".split(" ")
 );
-export function titleCase(text) {
+export function titleCase(text, { first = true, last = true } = {}) {
   const parts = String(text).split(/(\s+)/);
   const words = parts.map((p, i) => (i % 2 ? null : p));
-  const lastIndex = words.reduce((last, w, i) => (w ? i : last), -1);
-  let afterBreak = true;
+  // A piece of a longer heading (text either side of a tag) only opens or
+  // closes the title when it really is the first or last piece.
+  const lastIndex = last ? words.reduce((l, w, i) => (w ? i : l), -1) : -1;
+  let afterBreak = first;
   return parts
     .map((part, i) => {
       if (i % 2) return part;
@@ -201,4 +203,24 @@ export function shortName(name, max = 40) {
 /** Builds "<name> <suffix>" so the whole title stays inside the SERP budget. */
 export function fitTitle(name, suffix, budget = 62) {
   return `${shortName(name, Math.max(18, budget - suffix.length))}${suffix}`;
+}
+
+/**
+ * A shop's website or booking link tagged with UTM parameters, so the shop's
+ * analytics (and ours, via the partner_click event) can attribute the visit.
+ * `campaign` says where on the site the click came from: finder, directory or
+ * listing; `content` which link it was: website or booking.
+ */
+export function trackedUrl(url, campaign, content = "website") {
+  try {
+    const u = new URL(url);
+    if (!/^https?:$/.test(u.protocol)) return url;
+    u.searchParams.set("utm_source", "floridaebikerentals.com");
+    u.searchParams.set("utm_medium", "referral");
+    u.searchParams.set("utm_campaign", campaign);
+    u.searchParams.set("utm_content", content);
+    return u.toString();
+  } catch {
+    return url;
+  }
 }

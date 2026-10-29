@@ -1,12 +1,12 @@
 import { bikeIcon } from "../bike-icons.mjs";
 import {
-  esc, attr, formatReviews, formatRating, phoneHref, hostOf, plural, clamp, commaList, ratingBlock,
+  esc, attr, formatReviews, formatRating, phoneHref, hostOf, trackedUrl, plural, clamp, commaList, ratingBlock,
 } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
-import { rentNowHref,
+import { contactButtons,
   scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
-  summaryFor, metaDescriptionFor, logoMark, rentalLine,
+  summaryFor, metaDescriptionFor, logoMark,
 } from "../components.mjs";
 import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
@@ -206,9 +206,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
         ? { href: town.url, label: `${c.name} in ${listing.city}` }
         : { href: c.url, label: `${c.name} in Florida` };
     });
-  // Calls go to the site's rental line, labelled as ours, never as the shop's.
-  const line = rentalLine();
-  const tel = line ? line.tel : "";
+  const tel = listing.phone ? phoneHref(listing.phone) : "";
   const rankInCity = city ? city.listings.findIndex((l) => l.slug === listing.slug) + 1 : 0;
 
   const faqs = [
@@ -244,13 +242,19 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
     },
     {
       q: `How do I rent from ${listing.name}?`,
-      a: `<p>Send a <a href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">booking request</a> and we will check with ${esc(listing.name)} and get back to you${
-        tel ? `, or call our rental line on <a href="tel:${attr(tel)}">${esc(line.display)}</a>` : ""
+      a: `<p>${
+        tel ? `Call ${esc(listing.name)} on <a href="tel:${attr(tel)}">${esc(listing.phone)}</a>` : `Contact ${esc(listing.name)} directly`
+      }${
+        listing.booking_link && listing.booking_link !== listing.website
+          ? `, or <a href="${attr(trackedUrl(listing.booking_link, "listing", "booking"))}" rel="nofollow noopener" target="_blank" data-out="booking" data-partner="${attr(listing.name)}">book online</a>`
+          : listing.website
+          ? `, or check <a href="${attr(trackedUrl(listing.website, "listing"))}" rel="nofollow noopener" target="_blank" data-out="website" data-partner="${attr(listing.name)}">its website</a>`
+          : ""
       }. You can also ${
         listing.maps_link
-          ? `use <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> to visit ${esc(listing.name)}`
-          : `visit ${esc(listing.name)} at ${esc(listing.address || listing.city)}`
-      }. Confirm prices, availability and rental terms before you pay.</p>`,
+          ? `get <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> and walk in`
+          : `visit at ${esc(listing.address || listing.city)}`
+      }. Ask about the price, the deposit and what the rental includes before you pay.</p>`,
     },
   ];
 
@@ -264,7 +268,9 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
       <span>${esc(listing.address || `${listing.city}, FL`)}</span>
       ${rankInCity ? `<span>Ranked #${rankInCity} of ${city.listings.length} in ${esc(listing.city)}</span>` : ""}
     </div>
-    <p class="detail-hero__biz"><a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a> <a class="btn btn--outline-light" href="/business/">Get More Leads</a></p>
+    <p class="detail-hero__biz">${contactButtons(listing, { size: "", campaign: "listing" })}${
+      listing.maps_link ? ` <a class="btn btn--outline-light" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>` : ""
+    }</p>
   </div>
 </section>
 
@@ -343,18 +349,20 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
 
   <aside class="sidebar">
     <div class="panel panel--cta">
-      <h2>Rent from ${esc(listing.name)}</h2>
-      <p><a class="btn btn--primary btn--block" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a></p>
-      <p class="small muted">Tell us when and what you need, and we will check with ${esc(listing.name)} and confirm with you.${
-        tel ? ` Prefer to call? Our rental line is <a href="tel:${attr(tel)}">${esc(line.display)}</a> (ours, not the shop's).` : ""
-      }</p>
-      ${
+      <h2>Contact ${esc(listing.name)}</h2>
+      <dl class="datalist">
+        ${listing.phone ? `<div><dt>Phone</dt><dd><a href="tel:${attr(tel)}">${esc(listing.phone)}</a></dd></div>` : ""}
+        ${listing.website ? `<div><dt>Website</dt><dd><a href="${attr(trackedUrl(listing.website, "listing"))}" rel="nofollow noopener" target="_blank" data-out="website" data-partner="${attr(listing.name)}">${esc(hostOf(listing.website))}</a></dd></div>` : ""}
+        ${listing.booking_link && listing.booking_link !== listing.website ? `<div><dt>Booking</dt><dd><a href="${attr(trackedUrl(listing.booking_link, "listing", "booking"))}" rel="nofollow noopener" target="_blank" data-out="booking" data-partner="${attr(listing.name)}">Book online</a></dd></div>` : ""}
+        <div><dt>Address</dt><dd>${esc(listing.address || `${listing.city}, FL`)}</dd></div>
+      </dl>
+      <div class="panel-actions">${contactButtons(listing, { size: "btn--block", campaign: "listing" })}${
         listing.maps_link
-          ? `<p><a class="btn btn--outline btn--block" href="${attr(
-              listing.maps_link
-            )}" rel="nofollow noopener" target="_blank">Get directions</a></p>`
+          ? `<a class="btn btn--outline btn--block" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Get directions</a>`
           : ""
-      }
+      }</div>
+      <p class="small muted">Details from ${esc(listing.name)}'s public Google listing. Confirm prices and availability with the shop.</p>
+      <p class="small mb-0">Own this shop? <a href="/business/">Get more leads</a>.</p>
     </div>
 
     <div class="panel">
@@ -391,7 +399,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
 </div>
 
 <div class="action-bar">
-  <a class="btn btn--primary" href="${attr(rentNowHref({ town: listing.citySlug, listing: listing.slug }))}" rel="nofollow">Book Now</a>
+  ${contactButtons(listing, { size: "", campaign: "listing" })}
   ${
     listing.maps_link
       ? `<a class="btn btn--outline" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>`
@@ -440,9 +448,7 @@ function bikePanel(listing, cityTypeList) {
     <p class="small muted">${
       specific.length
         ? `${specific.some((t) => t.source === "owner") ? "Styles confirmed by us or named" : "Styles named"} in ${esc(possessive(listing.name))} own Google profile. Fleets change, so confirm before you go.`
-        : `${esc(possessive(listing.name))} public listing doesn't say which styles it rents, so we show only the general kind. Ask the shop, or <a href="${attr(
-            `/rent/?town=${listing.citySlug}&listing=${listing.slug}`
-          )}" rel="nofollow">send a booking request</a> with the style you want and we check for you.`
+        : `${esc(possessive(listing.name))} public listing doesn't say which styles it rents, so we show only the general kind. Call the shop to ask which styles it has today.`
     }</p>
   </div>`;
 }

@@ -411,10 +411,9 @@ export function loadListings({ raw = false } = {}) {
             logoWidth: logo ? logo.width : 0,
             logoHeight: logo ? logo.height : 0,
           }),
-      // Business phone numbers and websites are never shown: calls go to the
-      // site's own rental line (site.phone). hadWebsite keeps the indexing
-      // rule, which counts a website as a sign of an established business.
-      ...(raw ? {} : { phone: "", website: "", site: "", hadWebsite: Boolean(l.site || l.website) }),
+      // hadWebsite feeds the indexing rule, which counts a website as a sign
+      // of an established business.
+      ...(raw ? {} : { hadWebsite: Boolean(l.site || l.website) }),
       url: listingUrl(l),
       citySlug: citySlug(l.city),
       regionSlug: regionSlug(l.region),

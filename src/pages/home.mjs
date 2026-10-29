@@ -6,8 +6,9 @@ import {
   listicle, mapPanel, faqBlock, faqSchema, linkCard, linkCloud, statRow, ctaBand,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta, photo,
 } from "../components.mjs";
+import { finderForm, finderResults, finderHref } from "../finder.mjs";
 
-/** Bike style tiles: each books that style through /rent/. */
+/** Bike style tiles: each opens the finder set to that style. */
 const HOME_TILES = [
   { style: "cruiser", title: "Beach Cruiser E-bikes", text: "Upright seat, wide bars and a basket. The easy choice for beach paths and town rides.", guide: "/electric-bike-types/cruiser-electric-bikes/" },
   { style: "fat-tire", title: "Fat-Tire E-bikes", text: "Wide tires for packed sand, shell paths and rougher trails.", guide: "/electric-bike-types/fat-tire-electric-bikes/" },
@@ -19,10 +20,10 @@ const HOME_TILES = [
 
 const svg = (d) => `<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 const HOW_STEPS = [
-  { title: "Request your rental", text: "Pick the town, the day, the time and the style of e-bike.", icon: svg('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>') },
-  { title: "We find the shop", text: "We contact shops in your town on your behalf and find a bike that is free.", icon: svg('<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>') },
-  { title: "Approve one quote", text: "You get one quote by text or email. Pay it securely online.", icon: svg('<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>') },
-  { title: "We book it. You ride.", text: "We book the shop for you and send the details. Pick up and go.", icon: svg('<circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17 10 9h5l3 8M10 9 8 6H6M15 9l-3 8"/>') },
+  { title: "Tell us what you need", text: "Your town, the bike you want, the day, the start time and how long you'll ride.", icon: svg('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>') },
+  { title: "We check every shop", text: "Bike types, opening hours on your day, delivery and ratings, across every shop we list.", icon: svg('<circle cx="11" cy="11" r="6"/><path d="m20 20-4.5-4.5"/>') },
+  { title: "Compare your matches", text: "See each shop's hours that day, rating, phone, website and directions side by side.", icon: svg('<path d="M4 6h16M4 12h10M4 18h6"/>') },
+  { title: "Book with the shop", text: "Call or book online with the shop you pick. No middleman, no extra fees.", icon: svg('<circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17 10 9h5l3 8M10 9 8 6H6M15 9l-3 8"/>') },
 ];
 
 export const HOME_FAQS = [
@@ -56,7 +57,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Is Florida Ebike Rentals a rental company?",
-    a: "<p>No. We are a free, independent directory. We do not own bikes. We list the shops that rent them, with their hours, directions and Google ratings, and when you tap Book Now we find a shop with a bike free and book it on your behalf. Read more <a href=\"/about/\">about how the site works</a>.</p>",
+    a: "<p>No. We are a free, independent directory. We don't own bikes or take bookings. We list the shops that rent them, with their hours, phone numbers, websites and Google ratings, and our finder matches you to the ones that fit your trip. You book with the shop. Read more <a href=\"/about/\">about how the site works</a>.</p>",
   },
   {
     q: "How often is the directory updated?",
@@ -64,7 +65,7 @@ export const HOME_FAQS = [
   },
 ];
 
-export function homePage(site, { listings, index, blog, stats }) {
+export function homePage(site, { listings, index, blog, stats, finderUrl }) {
   const topTen = listings.filter((l) => l.is_rental && l.reviews >= 40).slice(0, 10);
   const topCities = index.cities.slice(0, 24);
 
@@ -78,31 +79,31 @@ export function homePage(site, { listings, index, blog, stats }) {
     <div class="hero__grid hero__grid--single">
       <div>
         <span class="eyebrow" style="background:#ffd267;color:#0b1f4d">Florida's e-bike rental directory · ${esc(String(stats.total))} shops · ${esc(String(stats.cities))} towns</span>
-        <p class="home-slogan">Ride Florida.<br>We book the bike.</p>
+        <p class="home-slogan">Find your<br>Florida e-bike.</p>
         <h1>Electric Bike Rentals in Florida - Rent Now</h1>
-        <p class="lede">Find electric bike rentals, beach cruisers and guided tours in ${esc(
+        <p class="lede">Tell us where and when you want to ride. We check ${esc(String(stats.total))} rental shops in ${esc(
           String(stats.cities)
-        )} Florida towns, from <a href="/blog/30a-ebike-rentals-guide/">30A and the Timpoochee Trail</a> to Key West. See <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>, or rent an ebike today: tap Book Now and we find you a bike.</p>
-        <div class="hero__actions">
-          <a class="btn btn--primary btn--lg" href="/rent/">Book Now</a>
-        </div>
+        )} towns, from <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West, and show you the ones that fit. Or browse <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
+        ${finderForm(index, { dataUrl: finderUrl })}
       </div>
     </div>
   </div>
 </section>
+
+${finderResults()}
 
 <section class="section">
   <div class="wrap home-split">
     <div class="prose">
       <span class="eyebrow">Why choose us</span>
       <h2>Why Choose Florida Ebike Rentals</h2>
-      <p>One request is all it takes. Tell us the town, the day and the style of e-bike you would like. We contact
-      rental shops in that town on your behalf, find one with a bike free, and send you one quote. Pay it online and
-      we book the rental for you.</p>
-      <p>We track <strong>${esc(String(stats.total))} rental partners across ${esc(String(stats.cities))} Florida
-      towns</strong>, carrying ${esc(formatReviews(stats.reviews))} Google reviews between them, so we know which
-      shops to ask. Nothing is charged until you accept a quote, and you get a full refund if you cancel 24 hours or
-      more before your rental.</p>
+      <p>Searching "e-bike rental" in a beach town gets you a mix of booking sites, shops that closed last season and
+      places an hour up the coast. We built this site to fix that. We list <strong>${esc(String(stats.total))} rental
+      shops across ${esc(String(stats.cities))} Florida towns</strong>, with ${esc(formatReviews(stats.reviews))} Google
+      reviews between them, and we remove shops that close.</p>
+      <p>Our finder does the comparing for you. Pick your town, your bike and your day, and it shows the shops open
+      when you want to ride, with their hours, rating, phone number and website. Then you book directly with the
+      shop. It's free, and we don't add a fee.</p>
     </div>
     ${sitePhoto("trail-ebikes-pair", { className: "home-split__photo" })}
   </div>
@@ -113,8 +114,8 @@ export function homePage(site, { listings, index, blog, stats }) {
     <div class="section__head text-center" style="margin-inline:auto">
       <span class="eyebrow">Pick your ride</span>
       <h2>E-bike Rentals for Every Rider</h2>
-      <p>Choose a style and we look for it at shops in your town. The style is a preference: each shop has its own
-      fleet, and your quote says what it has before you pay.</p>
+      <p>Pick a style and the finder shows shops that name it in their listing first, then other e-bike shops worth
+      asking. Fleets change, so confirm the bike with the shop when you book.</p>
     </div>
     <div class="ride-tiles">
       ${HOME_TILES.map(
@@ -122,7 +123,7 @@ export function homePage(site, { listings, index, blog, stats }) {
         <div class="ride-tile__art">${bikeIcon(t.style)}</div>
         <h3>${esc(t.title)}</h3>
         <p>${esc(t.text)}</p>
-        <a class="btn btn--primary" href="/rent/?service=ebike-rental&amp;style=${attr(t.style)}" rel="nofollow">Book Now</a>
+        <a class="btn btn--primary" href="${attr(finderHref({ type: t.style }))}">Find Shops</a>
         ${t.guide ? `<a class="ride-tile__more" href="${attr(t.guide)}">${esc(t.title)} guide</a>` : `<span class="ride-tile__more" aria-hidden="true">&nbsp;</span>`}
       </article>`
       ).join("")}
@@ -135,7 +136,7 @@ export function homePage(site, { listings, index, blog, stats }) {
     <div class="section__head text-center" style="margin-inline:auto">
       <span class="eyebrow">How it works</span>
       <h2>How Does Florida Ebike Rentals Work?</h2>
-      <p>Four steps, no account, and we do the calling.</p>
+      <p>Four steps and no account. The whole search takes about a minute.</p>
     </div>
     <ol class="how-steps">
       ${HOW_STEPS.map(
@@ -144,16 +145,16 @@ export function homePage(site, { listings, index, blog, stats }) {
         )}</h3><p>${esc(s.text)}</p></li>`
       ).join("")}
     </ol>
-    <p class="text-center mt-2"><a class="btn btn--primary btn--lg" href="/rent/">Book Now</a></p>
+    <p class="text-center mt-2"><a class="btn btn--primary btn--lg" href="#finder">Start Your Search</a></p>
   </div>
 </section>
 
 <section class="section section--tint">
   <div class="wrap">
     <div class="info-boxes">
-      <a class="info-box" href="/rent/">
+      <a class="info-box" href="#finder">
         <h3>Ride today</h3>
-        <p>Send a request with today's date and a time. Same-day rentals depend on what shops have left, so the earlier you ask, the better.</p>
+        <p>Search with today's date and a start time, and we show only the shops open then. Call ahead: same-day bikes go fast on weekends.</p>
       </a>
       <a class="info-box" href="/find/ebike-rentals-with-delivery-in-florida/">
         <h3>Delivery to your door</h3>
@@ -178,15 +179,15 @@ export function homePage(site, { listings, index, blog, stats }) {
       <span class="eyebrow">Your best choice</span>
       <h2>What Makes Florida EBike Rentals Your Best Choice</h2>
       <ul class="check-list">
-        <li><strong>One request, every shop.</strong> We contact shops in your town for you instead of you calling around.</li>
-        <li><strong>${esc(String(stats.total))} shops in ${esc(String(stats.cities))} towns.</strong> From the Panhandle to the Keys.</li>
-        <li><strong>One clear quote.</strong> The shop's price and our booking fee are shown separately before you pay.</li>
-        <li><strong>Nothing to pay up front.</strong> You are only charged when you accept a quote.</li>
-        <li><strong>Full refund 24 hours out.</strong> Cancel 24 hours or more before your rental for a full refund.</li>
-        <li><strong>Pick your style.</strong> Cruisers, fat-tire, step-through, cargo and more.</li>
-        <li><strong>Rankings are never paid.</strong> Shop rankings come from public Google rating data.</li>
+        <li><strong>Every shop in one search.</strong> ${esc(String(stats.total))} shops in ${esc(String(stats.cities))} towns, from the Panhandle to the Keys.</li>
+        <li><strong>Open when you need it.</strong> We match your day and start time against each shop's posted hours.</li>
+        <li><strong>The bike you want.</strong> Cruisers, fat-tire, step-through, cargo, trikes and guided tours.</li>
+        <li><strong>Everything to decide.</strong> Rating, review count, hours, phone, website and directions on one card.</li>
+        <li><strong>Book direct.</strong> You deal with the shop, so you pay the shop's own price with no fee from us.</li>
+        <li><strong>Rankings are never paid.</strong> We rank by Google rating weighted against review count.</li>
+        <li><strong>Kept current.</strong> We refresh the directory and remove shops marked closed.</li>
       </ul>
-      <p class="mt-2"><a class="btn btn--primary btn--lg" href="/rent/">Book Now</a></p>
+      <p class="mt-2"><a class="btn btn--primary btn--lg" href="#finder">Find My E-bike</a></p>
     </div>
     ${ownPhoto()}
   </div>
@@ -196,7 +197,7 @@ export function homePage(site, { listings, index, blog, stats }) {
   <div class="wrap">
     <div class="section__head text-center" style="margin-inline:auto">
       <span class="eyebrow">Ratings</span>
-      <h2>Top Rated Shops We Work With</h2>
+      <h2>Top Rated Shops in Our Directory</h2>
       <p>Google ratings of shops in our directory, with the number of reviews behind each one. These are the shops'
       own Google reviews, not reviews of our site.</p>
     </div>
@@ -298,9 +299,8 @@ ${adSlot(site, "")}
       <p>Our <a href="/blog/best-ebike-rides-florida/">ten best e-bike rides in Florida</a> covers each
       of them, with the town page for renting nearby, our <a href="/trails/">trail guides</a> cover the routes
       in detail, and our <a href="/electric-bike-types/">guide to the types of electric bikes</a> helps you pick one.</p>
-      <p>We are not a rental company and we hold no deposits. When you book through us, you see the shop's price and
-      our booking fee separately before you pay. Read more <a href="/about/">about how the site works</a> and our
-      <a href="/disclaimer/">disclaimer</a>.</p>
+      <p>We're a directory, not a rental company: we don't take bookings, deposits or payments. You rent directly from
+      the shop. Read more <a href="/about/">about how the site works</a> and our <a href="/disclaimer/">disclaimer</a>.</p>
     </div>
   </div>
 </section>
@@ -344,8 +344,8 @@ ${adSlot(site, "")}
   <div class="wrap ready-band__inner">
     <div>
       <h2>Ready to Ride?</h2>
-      <p>Tell us the town, the day and the style of bike. We find the shop and book it for you.</p>
-      <a class="btn btn--primary btn--lg" href="/rent/">Book Now</a>
+      <p>Pick your town, your bike and your day. We'll show you every shop that fits.</p>
+      <a class="btn btn--primary btn--lg" href="#finder">Find My E-bike</a>
     </div>
     ${sitePhoto("cruiser-ebikes-baskets", { className: "ready-band__photo" })}
   </div>
@@ -375,7 +375,7 @@ ${adSlotScript(site, 2)}
 
   return page(site, {
     title: "Electric Bike Rentals in Florida - Rent Now",
-    description: `Rent an electric bicycle ebike today in Florida. Compare ${stats.total} e-bike rental shops in ${stats.cities} towns, from 30A to Key West, or tap Book Now.`,
+    description: `Rent an electric bicycle ebike today in Florida. Our finder checks ${stats.total} rental shops in ${stats.cities} towns, from 30A to Key West, for your bike, day and time.`,
     path: "/",
     body,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE.repeat(2)] : [],

@@ -32,8 +32,9 @@ what you need to choose one.
   distances, surfaces and the Florida e-bike rules that apply.
 - **[Guides](/blog/)**: regional roundups, Florida e-bike law, what rentals cost, and checklists
   for a first rental.
-- **[Rent Now](/rent/)**: tell us the town, the date and what you need, and we find a shop that has
-  it and get back to you to confirm. Prefer to call? Our rental line is (305) 363-1922.
+- **[The e-bike finder](/#finder)**: pick your town, the bike you want, the day, the start time and how
+  long you'll ride. It checks every shop's listing and opening hours and shows the ones that fit, with
+  their phone numbers and websites.
 
 ## How we choose and rank shops
 
@@ -61,11 +62,11 @@ specialists from repair shops you should call to check.
 
 ## What we are not
 
-We are not a rental company. We do not own bikes, set shops' prices or hold deposits. When you send a
-[Rent Now](/rent/) request, we find a shop that has what you need, send you a quote (the shop's price
-plus our booking fee, shown separately) and, if you pay it, book the rental for you. If you contact a
-shop directly instead, your agreement is with the shop, so confirm price, deposit, helmet policy,
-minimum age and cancellation terms with them before you pay.
+We are not a rental company. We do not own bikes, set shops' prices or hold deposits. Most riders call
+or book with the shop they pick, and then the agreement is with the shop, so confirm the price, deposit,
+helmet policy, minimum age and cancellation terms before you pay. If you'd rather we handle it, choose
+Book Through Us on a finder result: we check with the shop, send you a quote (the shop's price plus our
+booking fee, shown separately) and, if you pay it, book the rental for you.
 
 We do not write the reviews either. Star ratings and review counts are Google's, shown as data and
 refreshed on a schedule. They can lag behind reality, so treat them as a starting point.
@@ -90,5 +91,4 @@ detail is in our [disclaimer](/disclaimer/) and [privacy policy](/privacy/).
 ## Get in touch
 
 Corrections, listing requests, partnership questions and press enquiries all go to our
-[contact page](/contact/). To rent, send a [Rent Now request](/rent/) or call our rental line on
-[(305) 363-1922](tel:+13053631922).
+[contact page](/contact/). To find a rental, start with the [e-bike finder](/#finder).

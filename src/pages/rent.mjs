@@ -151,13 +151,13 @@ export function rentPage(site, { index, listings }) {
   const shopNames = Object.fromEntries(listings.map((l) => [l.slug, [l.name, l.citySlug]]));
   const crumbs = [
     { href: "/", label: "Home" },
-    { href: RENT_URL, label: "Book Now" },
+    { href: RENT_URL, label: "Book Through Us" },
   ];
 
   const body = `
 <section class="section rent">
   <div class="wrap wrap-narrow">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Book Now</li></ol></nav>
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li aria-current="page">Book Through Us</li></ol></nav>
     <h1>Rent an Ebike Today in Florida</h1>
     <p class="lede">Rent an ebike now: send one request and we handle the rest. We find a shop near you with an
     electric bike free, send you one quote, and book the rental on your behalf once you pay. Nothing is
@@ -259,7 +259,7 @@ export function rentPage(site, { index, listings }) {
       <label class="rent-form__consent">
         <input type="checkbox" name="consent" required>
         <span>You can call or text me about this request, and share the booking details with the shop you book.
-        See our <a href="/privacy/">privacy policy</a> and <a href="/terms/#rent-now-bookings">booking terms</a>.</span>
+        See our <a href="/privacy/">privacy policy</a> and <a href="/terms/#book-through-us">booking terms</a>.</span>
       </label>
       <p class="small muted">Give us a phone number or an email, so we can reach you.</p>
       <button class="btn btn--primary btn--block" type="submit">Send my request</button>
@@ -275,7 +275,7 @@ export function rentPage(site, { index, listings }) {
     </div>
 
     <p class="small muted mt-3">Full refund if you cancel 24 hours or more before your rental; no refund after that. If the
-    shop cancels or can't provide your booking, you get a full refund. <a href="/terms/#rent-now-bookings">Booking terms</a>.</p>
+    shop cancels or can't provide your booking, you get a full refund. <a href="/terms/#book-through-us">Booking terms</a>.</p>
 
     <h2 class="mt-3">Ebike rental today, or any day</h2>
     <p>Most Florida rental shops can hand over an electric bike the same day when they have bikes free, and the
@@ -315,7 +315,7 @@ export function rentPaidPage(site) {
     <p>Stripe emails your receipt to the address you gave at checkout. Need to change or cancel? Reply to your quote
     message${line ? `, call us on <a href="tel:${attr(line.number)}">${esc(line.display)}</a>,` : ""} or use our
     <a href="/contact/">contact page</a>. Cancel 24 hours or more before your rental for a full refund
-    (<a href="/terms/#rent-now-bookings">booking terms</a>).</p>
+    (<a href="/terms/#book-through-us">booking terms</a>).</p>
     <p><a class="btn btn--outline" href="/trails/">Find somewhere to ride</a></p>
     ${ownPhoto()}
   </div>

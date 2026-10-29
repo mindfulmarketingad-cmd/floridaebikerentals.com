@@ -9,7 +9,7 @@ updated: 2026-10-20
 
 Florida Ebike Rentals is a static directory. We do not require an account, we do not sell personal
 information, and we collect as little as the site can function on. The two places data does get
-involved are advertising and analytics, which are run by Google, and the contact and Rent Now
+involved are advertising and analytics, which are run by Google, and the contact and Book Through Us
 forms, which you choose to send us.
 
 ## Information we collect
@@ -18,7 +18,7 @@ forms, which you choose to send us.
 in it: your name, email address, and the content of your message. We use it to answer you and to
 correct the directory. We do not add you to a marketing list.
 
-**Rent Now requests.** If you send a request on the [Rent Now](/rent/) page, we receive the town, the
+**Book Through Us requests.** If you send a request through our [Book Through Us](/rent/) form, we receive the town, the
 date and service you asked for, the number of bikes, your name, your phone number and/or email, and
 any note you add. It is stored in our database, hosted by Supabase, and only we can read it. We use
 it to find a shop for your rental, to send you a quote and confirmation, and to book the rental; we
@@ -41,7 +41,7 @@ your own browser to sort the list of listings and are never transmitted to us or
 Decline the prompt and the site works normally, showing top-rated statewide results instead.
 
 **What we do not collect.** No accounts and no passwords for visitors. We never see or store card
-numbers: card payments for Rent Now bookings go through Stripe.
+numbers: card payments for Book Through Us bookings go through Stripe.
 
 ## Cookies and similar technologies
 
@@ -101,7 +101,7 @@ businesses listed on this site unless you specifically ask us to pass it on.
 ## Data retention
 
 Contact-form messages are kept for as long as needed to handle your request and to maintain a
-record of listing corrections, then deleted. Rent Now requests are kept for up to 12 months after
+record of listing corrections, then deleted. Book Through Us requests are kept for up to 12 months after
 your rental date, then deleted, except that records of paid bookings are kept as long as tax and
 accounting law requires; ask us on the [contact page](/contact/) to delete yours sooner. Server logs are retained by our hosting provider on
 their standard schedule, typically a short rolling window.

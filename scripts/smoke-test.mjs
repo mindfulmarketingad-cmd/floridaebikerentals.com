@@ -53,7 +53,7 @@ await page.close();
   await page.waitForTimeout(1200);
   const hero=await page.evaluate(()=>{const h=document.querySelector(".hero"); const img=h.querySelector(".hero__bg img");
     return {carousel:h.querySelectorAll(".carousel,.slide").length, bubbles:document.querySelectorAll(".bubbles").length,
-      bg:img&&img.currentSrc, loaded:!!(img&&img.naturalWidth), rentNow:!!h.querySelector('a.btn[href="/rent/"]')};});
+      bg:img&&img.currentSrc, loaded:!!(img&&img.naturalWidth), rentNow:!!h.querySelector('form[data-finder] select[name=town]')};});
   ok(`home hero: photo ${hero.bg&&hero.bg.split("/").pop()} loaded, ${hero.carousel} carousel nodes, ${hero.bubbles} bubbles, location asked: ${askedLocation}`,
      hero.loaded && /hero-ebike-waterfront\.(avif|jpg)$/.test(hero.bg) && hero.carousel===0 && hero.bubbles===0 && hero.rentNow && !askedLocation);
   await page.close(); await ctx.close();
@@ -90,8 +90,8 @@ await page.close();
 page=await b.newPage();
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
 const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
-const rentNow=await page.$eval('.hero a.btn[href="/rent/"]',e=>e.textContent.trim());
-ok(`CTAs are square (border-radius: ${radius}) and the hero CTA is "${rentNow}" to /rent/`, radius==="0px"&&/Book Now/i.test(rentNow));
+const rentNow=await page.$eval('.hero .finder__go',e=>e.textContent.trim());
+ok(`CTAs are square (border-radius: ${radius}) and the hero finder button reads "${rentNow}"`, radius==="0px"&&/Find E-bike Shops/i.test(rentNow));
 await page.close();
 
 // 4g. sitewide promo banner: present, correctly attributed, dismissible
@@ -192,18 +192,23 @@ const heroFirst=await page.evaluate(()=>{
 });
 const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
 ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
-   /^Ebike Rentals Near Me In Daytona Beach 20\d\d$/.test(dTitle) && dH1===dTitle);
+   dTitle==="Electric Bike Rentals in Daytona Beach, FL - Rent an E-Bike Today" && dH1==="Rent an Electric Bike in Daytona Beach, Florida");
 ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
    heroFirst && where==="Daytona Beach" && statRows===0);
 
 const allShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
 const noRestaurant=!(await page.content()).includes("Food Trends Restaurant");
-await page.selectOption("#fs-tag","Scooters");
+await page.click(".facets > summary");
+await page.check('.facets input[value="scooters"]');
 await page.waitForTimeout(250);
 const scooterShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
-ok(`Daytona service filter narrows ${allShops} -> ${scooterShops} scooter shops; restaurant listing excluded`,
-   scooterShops>0 && scooterShops<allShops && noRestaurant);
-await page.selectOption("#fs-tag","");
+await page.locator('.facets input[name="f"]:not([value="scooters"])').first().check();
+await page.waitForTimeout(250);
+const both=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
+const groups=await page.$$eval(".facets__group legend",n=>n.map(x=>x.textContent));
+ok(`Daytona filters narrow ${allShops} -> ${scooterShops} scooter shops -> ${both} with a second filter; groups: ${groups.join(", ")}; restaurant listing excluded`,
+   scooterShops>0 && scooterShops<allShops && both<=scooterShops && groups.includes("Hours") && groups.includes("Rentals and services") && noRestaurant);
+await page.click("[data-facet-clear]");
 await page.fill("#fs-q","avocado");
 await page.waitForTimeout(250);
 const typed=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
@@ -366,7 +371,7 @@ await page.close();
       if(!a) return null; const r=a.getBoundingClientRect();
       return {href:a.getAttribute("href"),text:a.textContent.replace(/\s+/g," ").trim(),visible:r.width>0&&r.right<=innerWidth,overflow:document.documentElement.scrollWidth>innerWidth};});
     ok(`${path}: header shows "${call&&call.text}" -> ${call&&call.href} at 390px`,
-       call && call.href==="/rent/" && call.text==="Book Now" && call.visible && !call.overflow);
+       call && call.href==="/#finder" && call.text==="Find an E-bike" && call.visible && !call.overflow);
   }
   await page.close();
 }
@@ -381,7 +386,7 @@ await page.close();
      rows===shops && /id="pricing"/.test(h) && !/id="pricing"[\s\S]{0,1500}\$\d/.test(h));
 }
 
-// 4t. no business phone numbers or websites anywhere; calls go to the site's line
+// 4t. listings show each shop's own phone and website, and every link out to a shop is UTM-tagged
 {
   const { readFileSync, readdirSync } = await import("node:fs");
   const L=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/listings.json","utf8")).listings;
@@ -392,8 +397,11 @@ await page.close();
       for(const m of t.matchAll(/href="tel:([^"]+)"/g)) tels.add(m[1]);
       for(const m of t.matchAll(/\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}/g)) if(phones.has(m[0].replace(/\D/g,"").slice(-10))) leaks++;}}};
   walk(DIST);
-  ok(`no business phone numbers on the site (${leaks}); every tel: link is the rental line (${[...tels].join(", ")})`,
-     leaks===0 && tels.size===1 && tels.has("+13053631922"));
+  const lp=readFileSync(DIST+"/cities/santa-rosa-beach/rideit-electric-bike-rentals-sales/index.html","utf8");
+  const shop=L.find(l=>l.slug==="rideit-electric-bike-rentals-sales");
+  const outs=[...lp.matchAll(/<a [^>]*data-out="(website|booking)"[^>]*>/g)].map(m=>m[0]);
+  ok(`listing pages show the shop's own phone (${shop.phone}) and website; ${outs.length} outbound links, all UTM-tagged; ${tels.size} distinct tel: links site-wide`,
+     lp.includes(shop.phone) && outs.length>0 && outs.every(a=>/utm_source=floridaebikerentals\.com&amp;utm_medium=referral&amp;utm_campaign=listing/.test(a)) && tels.size>100);
 }
 
 // 4u. /business/: header link, Costs out of the header, a Stripe checkout per open region
@@ -409,8 +417,8 @@ await page.close();
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
      h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"'));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
-  ok("listing page: hero has 'Book Now' (with town and shop) and 'Get More Leads' to /business/",
-     /class="detail-hero__biz"><a [^>]*href="\/rent\/\?town=[a-z0-9-]+&amp;listing=[a-z0-9-]+"[^>]*>Book Now<\/a> <a [^>]*href="\/business\/">Get More Leads<\/a>/.test(lp));
+  ok("listing page: hero has the shop's Call button and its website or booking link; 'Get more leads' still links /business/",
+     /class="detail-hero__biz"><a [^>]*href="tel:/.test(lp) && /data-out="(website|booking)"/.test(lp) && lp.includes('href="/business/"'));
 }
 
 // 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town
@@ -445,8 +453,8 @@ await page.close();
   const sitemap=readFileSync(DIST+"/sitemap-pages.xml","utf8");
   const shops=JSON.parse(readFileSync(DIST+"/admin/shops.json","utf8"));
   const fields=["town","service","start_date","duration","bikes","name","phone","email","notes","consent"].every(n=>rent.includes(`name="${n}"`));
-  ok(`/rent/: form with every field, in the sitemap; city hero Rent Now carries the town; /admin/ noindex, disallowed, ${shops.shops.length} shops for matching`,
-     fields && sitemap.includes("/rent/</loc>") && /class="find-hero__cta"><a [^>]*href="\/rent\/\?town=key-west"/.test(city) &&
+  ok(`/rent/: form with every field, in the sitemap; city hero opens the finder for the town; /admin/ noindex, disallowed, ${shops.shops.length} shops for matching`,
+     fields && sitemap.includes("/rent/</loc>") && /class="find-hero__cta"><a [^>]*href="\/\?town=key-west#results"/.test(city) &&
      /<meta name="robots" content="noindex/.test(adm) && !sitemap.includes("/admin/") && robots.includes("Disallow: /admin/") && shops.shops.length>400);
 }
 
@@ -459,7 +467,7 @@ await page.close();
   const allLinked=types.every(t=>hubHtml.includes(`href="/cities/sarasota/${t}/"`)&&existsSync(DIST+`/cities/sarasota/${t}/index.html`));
   const ft=R("/cities/sarasota/fat-tire-electric-bike-rentals/");
   const ftOk=/<title>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/title>/.test(ft) && /<h1[^>]*>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/h1>/.test(ft) &&
-    /<form class="quick-rent"[\s\S]*?name="style" value="fat-tire"[\s\S]*?<option value="sarasota" selected>/.test(ft) && ft.includes('href="/cities/sarasota/"') && ft.includes("More about Sarasota");
+    /<form class="quick-rent"[\s\S]*?name="type" value="fat-tire"[\s\S]*?<option value="sarasota" selected>/.test(ft) && ft.includes('href="/cities/sarasota/"') && ft.includes("More about Sarasota");
   const sm=readFileSync(DIST+"/sitemap-bike-type-towns.xml","utf8"); const smN=(sm.match(/<loc>/g)||[]).length;
   const idx=readFileSync(DIST+"/sitemap.xml","utf8").includes("sitemap-bike-type-towns.xml");
   const guide=R("/electric-bike-types/fat-tire-electric-bikes/");

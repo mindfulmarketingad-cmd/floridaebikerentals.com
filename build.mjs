@@ -26,6 +26,8 @@ import { cityTypePages, cityTypePage } from "./src/pages/city-types.mjs";
 import { makeCityLinker } from "./src/city-links.mjs";
 import { assignBikeTypes } from "./src/bike-types.mjs";
 import { galleryPage, GALLERY_URL } from "./src/pages/gallery.mjs";
+import { finderData } from "./src/finder.mjs";
+import { createHash } from "node:crypto";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -59,7 +61,11 @@ function resolveLinks(html) {
 /** Every page's H1 in Title Case, text only (tags and attributes untouched). */
 function titleCaseH1(html) {
   return html.replace(/(<h1\b[^>]*>)([\s\S]*?)(<\/h1>)/g, (_, open, inner, close) =>
-    open + inner.replace(/(^|>)([^<]+)/g, (m, gt, text) => gt + titleCase(text)) + close
+    open +
+    inner.replace(/(^|>)([^<]+)/g, (m, gt, text, offset) =>
+      gt + titleCase(text, { first: offset === 0, last: !inner.slice(offset + m.length).replace(/<[^>]*>/g, "").trim() })
+    ) +
+    close
   );
 }
 
@@ -122,6 +128,13 @@ const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySl
 ctx.batteryTownList = batteryTowns(listings, index);
 ctx.cityTypeList = cityTypePages(index, hubEntries, cityGuides);
 ctx.cityLinker = makeCityLinker({ index, blog, hubEntries, cityGuides, batteryTownList: ctx.batteryTownList, cityTypeList: ctx.cityTypeList, queries });
+
+/* the finder's copy of the directory, fingerprinted so a new build is never served stale */
+{
+  const json = JSON.stringify(finderData(listings));
+  writeRaw("data/finder.json", json);
+  ctx.finderUrl = `/data/finder.json?v=${createHash("sha256").update(json).digest("hex").slice(0, 10)}`;
+}
 
 /* home */
 write("/", homePage(site, ctx), {
@@ -226,12 +239,12 @@ write(BUSINESS_URL, businessPage(site, ctx), {
   search: { u: BUSINESS_URL, t: "For businesses", s: "Page", d: "Priority caller status for rental shops.", k: "business partner priority calls rental shop advertise list my shop", w: 5 },
 });
 
-/* Rent Now: booking requests, and the owner's private lead desk */
+/* Book Through Us: the request form the finder's result cards link to, and the owner's private lead desk */
 write(RENT_URL, rentPage(site, ctx), {
   priority: 0.7,
   changefreq: "monthly",
   group: "pages",
-  search: { u: RENT_URL, t: "Rent Now", s: "Page", d: "Send a rental request and we find a shop for you.", k: "rent book booking reserve request e-bike rental now", w: 6 },
+  search: { u: RENT_URL, t: "Book an e-bike through us", s: "Page", d: "Send one request and we find and book a shop for you.", k: "rent book booking reserve request e-bike rental now", w: 6 },
 });
 write(RENT_PAID_URL, rentPaidPage(site), { skipSitemap: true });
 write(ADMIN_LEADS_URL, adminLeadsPage(site), { skipSitemap: true });

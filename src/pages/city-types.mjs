@@ -19,7 +19,7 @@ import { nearbyCities } from "../data.mjs";
 import { sceneForRegion, sitePhoto, figure, secondPhotoFor } from "../images.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 import { findHero } from "../find-hero.mjs";
-import { quickRent } from "./rent.mjs";
+import { quickFind } from "../finder.mjs";
 
 const TYPES_HUB = "electric-bike-types";
 const UNPAVED = /gravel|sand|unpaved|dirt/i;
@@ -206,20 +206,20 @@ function typeFaqs(p, facts) {
       a: named.length
         ? `<p>${names(named)} ${named.length === 1 ? "names" : "name"} ${esc(type.shortPlural)} in ${
             named.length === 1 ? "its" : "their"
-          } Google profile. Fleets change, so confirm before you go, or send one booking request and we check with shops in ${esc(name)} for you.</p>`
+          } Google profile. Fleets change, so call to confirm before you go.</p>`
         : `<p>None of the ${rentals.length} rental ${plural(rentals.length, "shop")} we list in ${esc(name)} names ${esc(
             type.shortPlural
           )} in ${rentals.length === 1 ? "its" : "their"} Google profile, so we won't guess which have them. ${
             ebike.length && !type.pedalToo
               ? `The e-bike shops (${names(ebike)}) are the ones to ask. `
               : ""
-          }Send one booking request and we check with shops in ${esc(name)} for you.</p>`,
+          }Call and ask, or use our finder to see which ${esc(name)} shops are open on your day.</p>`,
     },
     {
       q: `Can I rent ${an(type.short)} ${type.short} in ${name} today?`,
-      a: `<p>Often, if a shop has one free. Send a booking request with today's date and the time you want to ride, and we ask shops in ${esc(
+      a: `<p>Often, if a shop has one free. Search our finder with today's date and your start time to see which ${esc(
         name
-      )} on your behalf. The earlier in the day you ask, the better your chances, and weekends and holidays book up first.</p>`,
+      )} shops are open then, and call the first one or two. The earlier in the day you call, the better your chances. Weekends and holidays go first.</p>`,
     },
     facts
       ? { q: `Is ${an(type.short)} ${type.short} a good fit for riding in ${name}?`, a: `<p>${facts.text}</p>` }
@@ -234,8 +234,8 @@ function typeFaqs(p, facts) {
       a: delivers.length
         ? `<p>${delivers.length} of the ${rentals.length} rental shops we list in ${esc(name)} ${delivers.length === 1 ? "lists" : "list"} delivery: ${names(
             delivers
-          )}. Mention your address in the booking request and we ask about delivery for you.</p>`
-        : `<p>None of the ${esc(name)} rental shops we list advertise delivery, though many arrange it for multi-day rentals. Mention your address in the booking request and we ask.</p>`,
+          )}. Ask about the delivery fee and radius when you call.</p>`
+        : `<p>None of the ${esc(name)} rental shops we list advertise delivery, though many arrange it for multi-day rentals if you ask.</p>`,
     },
     {
       q: `Will I get exactly ${an(type.short)} ${type.short}?`,
@@ -263,11 +263,9 @@ export function cityTypePage(site, p, ctx) {
     .map((c) => sameType.find((x) => x.city.slug === c.slug))
     .filter(Boolean);
   const listed = shops.slice(0, 10);
-  const lead = `Want ${an(type.short)} ${type.short} in ${city.name}? Send one request and we handle the rest: we ask ${city.name}'s rental shops for you, find one with ${an(
-    type.short
-  )} ${type.short} free on your day, and book it on your behalf. ${rentals.length} rental ${plural(rentals.length, "shop")} in ${city.name}${
+  const lead = `Looking for ${an(type.short)} ${type.short} in ${city.name}? We list ${rentals.length} rental ${plural(rentals.length, "shop")} in town${
     ebike.length && !type.pedalToo ? `, ${ebike.length} of them e-bike ${plural(ebike.length, "shop")}` : ""
-  }.`;
+  }. Pick your day below and we'll show the ones open when you want to ride, with their phone numbers and websites.`;
 
   const body = `
 ${findHero({
@@ -277,10 +275,10 @@ ${findHero({
   scene,
   index,
   current: city.url,
-  form: quickRent(index, {
-    style: type.style,
+  form: quickFind(index, {
+    type: type.style,
     town: city.slug,
-    heading: `Book ${an(type.short)} ${type.short} in ${city.name}`,
+    heading: `Find ${an(type.short)} ${type.short} in ${city.name}`,
   }),
 })}
 
@@ -297,7 +295,7 @@ ${findHero({
       type.pedalToo
         ? `These are the ${esc(city.name)} shops that rent bikes, ranked by Google rating and review count. Cruisers are a beach-town staple, with pedals only or with a motor.`
         : `${ebike.length ? "E-bike shops come next, then the other rental shops," : "These are the shops that rent bikes,"} ranked by Google rating and review count.`
-    } Fleets change, so confirm before you go, or book through us and we check for you.</p>
+    } Fleets change, so call ahead to make sure the bike you want is free.</p>
     ${listicle(listed)}
     <p class="mt-2"><a class="btn btn--outline" href="${attr(city.url)}">All ${city.listings.length} shops in ${esc(city.name)}</a></p>
   </div>
@@ -386,10 +384,10 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title,
     description: clamp(
-      `Book ${an(type.short)} ${type.short} in ${city.name}, FL: one request and we find a shop with one free and book it for you. ${rentals.length} rental ${plural(
+      `Rent ${an(type.short)} ${type.short} in ${city.name}, FL. ${rentals.length} rental ${plural(
         rentals.length,
         "shop"
-      )} compared${named.length ? `, ${named.length} naming ${type.shortPlural}` : ""}.`,
+      )} compared${named.length ? `, ${named.length} naming ${type.shortPlural}` : ""}, with hours, phone numbers, ratings and the best local routes.`,
       160
     ),
     path: url,

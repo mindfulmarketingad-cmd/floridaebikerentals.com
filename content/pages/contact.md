@@ -32,11 +32,10 @@ timing. We will reply with what is available.
 
 ## What we cannot do
 
-We are an independent directory, not a rental company. If you booked through our Rent Now service,
-contact us here to change or cancel it ([our cancellation terms](/terms/#rent-now-bookings)). If you
-booked directly with a shop, changes, refunds and deposits go to that shop. For a new rental, send a
-[Rent Now request](/rent/) and we will find a shop that has what you need, or call our
-rental line on (305) 363-1922. Every [listing](/partners/) has directions to the shop.
+We are an independent directory, not a rental company. If you booked through us with Book Through Us,
+contact us here to change or cancel it ([our cancellation terms](/terms/#book-through-us)). If you
+booked directly with a shop, changes, refunds and deposits go to that shop. For a new rental, use our
+[e-bike finder](/#finder): every listing has the shop's phone number, website and directions.
 
 ## Response times
 

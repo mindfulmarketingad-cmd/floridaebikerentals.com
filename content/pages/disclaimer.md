@@ -15,9 +15,9 @@ particular business, product or activity. You use the information on this site a
 
 Florida Ebike Rentals does not own, operate, staff, insure, inspect or control any of the
 businesses listed on this site. We do not own or rent out bicycles or electric bikes, run tours, or
-hold deposits. The one exception to "we do not book" is our [Rent Now](/rent/) service, where we book
+hold deposits. The one exception to "we do not book" is our [Book Through Us](/rent/) service, where we book
 a rental with a shop on your behalf and take payment for it; its terms are in our
-[terms of use](/terms/#rent-now-bookings).
+[terms of use](/terms/#book-through-us).
 
 When you contact or book directly with a business you found here, you enter into an agreement with that
 business alone. Florida Ebike Rentals is not a party to it. Any dispute over price, availability,
@@ -29,12 +29,12 @@ Business names, addresses, opening hours, categories, photos, star ratings and r
 compiled from publicly available sources, primarily Google Business Profile data, and are refreshed
 periodically.
 
-**Rent Now requests.** When you send a request on our [Rent Now](/rent/) page, we look for a shop in or
+**Book Through Us requests.** When you send a request through our [Book Through Us](/rent/) form, we look for a shop in or
 near your town that offers what you asked for, check with them, and send you a quote: the shop's price plus our
 booking fee, shown separately. If you pay it, we book the rental for you. The shop's own rental
 agreement, waiver and deposit rules still apply when you collect the bikes.
 
-**Bike style is a preference.** We do not own bikes, so a Rent Now request asks for a preferred style of
+**Bike style is a preference.** We do not own bikes, so a Book Through Us request asks for a preferred style of
 bike (a beach cruiser e-bike or a fat-tire e-bike, for example). Shops' fleets vary, so the exact style may
 or may not be available, and the make and model are up to the shop. Your quote says what the shop has
 before you pay, and nothing is charged unless you accept it.
