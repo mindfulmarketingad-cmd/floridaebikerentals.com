@@ -138,7 +138,12 @@ export function tagList(tags, limit = 5) {
 export function photo(listing, { className = "", sizes = "", eager = false, prefer = "logo" } = {}) {
   const loading = `loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"`;
   const logoTile = () =>
-    `<span class="logo-tile"><img src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" ${loading} width="${listing.logoWidth}" height="${listing.logoHeight}"></span>`;
+    // Card tiles draw logos at 280px or less, so they take the 320px WebP;
+    // the eager hero tile keeps the full-size one.
+    `<span class="logo-tile">${webpPicture(
+      eager ? listing.logoWebp : listing.logoSmall || listing.logoWebp,
+      `<img src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" ${loading} width="${listing.logoWidth}" height="${listing.logoHeight}">`
+    )}</span>`;
   const photoImg = () =>
     `<img src="${attr(listing.photo)}" alt="${attr(`${listing.name} in ${listing.city}, Florida`)}"${
       className ? ` class="${attr(className)}"` : ""
@@ -160,9 +165,18 @@ export function photo(listing, { className = "", sizes = "", eager = false, pref
 export function logoMark(listing, size = 72) {
   if (!listing.logo) return "";
   const px = Math.min(size, listing.logoWidth);
-  return `<img class="logo-mark" src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" width="${px}" height="${Math.round(
-    (px * listing.logoHeight) / listing.logoWidth
-  )}" decoding="async">`;
+  // A 72px mark only needs the small WebP, even on a 3x screen.
+  return webpPicture(
+    listing.logoSmall || listing.logoWebp,
+    `<img class="logo-mark" src="${attr(listing.logo)}" alt="${attr(`${listing.name} logo`)}" width="${px}" height="${Math.round(
+      (px * listing.logoHeight) / listing.logoWidth
+    )}" decoding="async">`
+  );
+}
+
+/** Wraps an <img> in a <picture> with a WebP source when one exists. */
+export function webpPicture(webp, img) {
+  return webp ? `<picture><source type="image/webp" srcset="${attr(webp)}">${img}</picture>` : img;
 }
 
 /** Resolves a placement key to a real AdSense slot ID, or "" if none is set. */

@@ -104,7 +104,7 @@ export function finderData(listings) {
       f: facetsOf(l),
       a: l.address || `${l.city}, FL`,
       m: l.maps_link || "",
-      im: l.logo || l.photo || "",
+      im: l.logoSmall || l.logo || l.photo || "",
       lg: l.logo ? 1 : 0,
       h: weekHours(l),
       hs: (l.hours || []).length ? DAYS.map((d) => (l.hours.find((x) => x.day === d) || {}).hours || "") : null,

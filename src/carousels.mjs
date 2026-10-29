@@ -8,6 +8,7 @@
 import { esc, attr, formatReviews } from "./util.mjs";
 import { facetsOf } from "./facets.mjs";
 import { bikeIcon } from "./bike-icons.mjs";
+import { webpPicture } from "./components.mjs";
 
 export const CAROUSELS = [
   { key: "ebike", title: "Ebike Rentals Near Me", category: "ebike-rentals", seeAll: "/find/ebike-rentals-near-me/", test: (f) => f.includes("ebike") },
@@ -19,13 +20,25 @@ export const CAROUSELS = [
 
 const PER_ROW = 12;
 
+/** A card's logo (small WebP, original as fallback) or photo, with its real size. */
+function cardImg(l) {
+  if (l.logo) {
+    const w = l.logoSmallWidth || l.logoWidth;
+    const h = l.logoSmallHeight || l.logoHeight;
+    return webpPicture(l.logoSmall, `<img src="${attr(l.logo)}" alt="" loading="lazy" decoding="async" width="${w}" height="${h}">`);
+  }
+  return `<img src="${attr(l.photo)}" alt="" loading="lazy" decoding="async"${
+    l.photoWidth ? ` width="${l.photoWidth}" height="${l.photoHeight}"` : ""
+  }>`;
+}
+
 /** One shop card. The browser builds the same markup when it personalises a row. */
 function card(l) {
   const img = l.logo || l.photo;
   return `<li class="carousel-card">
   <a class="carousel-card__link" href="${attr(l.url)}">
     <span class="carousel-card__media${l.logo ? " is-logo" : ""}">${
-      img ? `<img src="${attr(img)}" alt="" loading="lazy" decoding="async">` : bikeIcon("cruiser")
+      img ? cardImg(l) : bikeIcon("cruiser")
     }</span>
     <span class="carousel-card__body">
       <span class="carousel-card__name">${esc(l.name)}</span>

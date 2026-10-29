@@ -2,1901 +2,3421 @@
   "30-a-bonito-beach-service": {
     "src": "/assets/img/logos/30-a-bonito-beach-service.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/30-a-bonito-beach-service.webp",
+    "webpSmall": "/assets/img/logos/30-a-bonito-beach-service-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "305-tours-and-rentals-bikes-segway": {
     "src": "/assets/img/logos/305-tours-and-rentals-bikes-segway.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/305-tours-and-rentals-bikes-segway.webp",
+    "webpSmall": "/assets/img/logos/305-tours-and-rentals-bikes-segway-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "30a-bike-rentals": {
     "src": "/assets/img/logos/30a-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/30a-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/30a-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "30a-electric-bike-co": {
     "src": "/assets/img/logos/30a-electric-bike-co.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/30a-electric-bike-co.webp",
+    "webpSmall": "/assets/img/logos/30a-electric-bike-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "30a-electric-bike-co-santa-rosa-beach": {
     "src": "/assets/img/logos/30a-electric-bike-co-santa-rosa-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/30a-electric-bike-co-santa-rosa-beach.webp",
+    "webpSmall": "/assets/img/logos/30a-electric-bike-co-santa-rosa-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "5-star-rides": {
     "src": "/assets/img/logos/5-star-rides.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/5-star-rides.webp",
+    "webpSmall": "/assets/img/logos/5-star-rides-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "8-mile-e-bike-rentals": {
     "src": "/assets/img/logos/8-mile-e-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/8-mile-e-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/8-mile-e-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "88-cycling": {
     "src": "/assets/img/logos/88-cycling.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/88-cycling.webp",
+    "webpSmall": "/assets/img/logos/88-cycling-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "a-m-rentals": {
     "src": "/assets/img/logos/a-m-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/a-m-rentals.webp",
+    "webpSmall": "/assets/img/logos/a-m-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "adrenaline-bike-works": {
     "src": "/assets/img/logos/adrenaline-bike-works.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/adrenaline-bike-works.webp",
+    "webpSmall": "/assets/img/logos/adrenaline-bike-works-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "advanced-cycles-orlando-fl": {
     "src": "/assets/img/logos/advanced-cycles-orlando-fl.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/advanced-cycles-orlando-fl.webp",
+    "webpSmall": "/assets/img/logos/advanced-cycles-orlando-fl-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "adventure-cycling": {
     "src": "/assets/img/logos/adventure-cycling.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/adventure-cycling.webp",
+    "webpSmall": "/assets/img/logos/adventure-cycling-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ajs-bikes-llc": {
     "src": "/assets/img/logos/ajs-bikes-llc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ajs-bikes-llc.webp",
+    "webpSmall": "/assets/img/logos/ajs-bikes-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "all-bicycles": {
     "src": "/assets/img/logos/all-bicycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/all-bicycles.webp",
+    "webpSmall": "/assets/img/logos/all-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "all-keys-cycles": {
     "src": "/assets/img/logos/all-keys-cycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/all-keys-cycles.webp",
+    "webpSmall": "/assets/img/logos/all-keys-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "allure-boat-rentals": {
     "src": "/assets/img/logos/allure-boat-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/allure-boat-rentals.webp",
+    "webpSmall": "/assets/img/logos/allure-boat-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "alpha-electric-bikes": {
     "src": "/assets/img/logos/alpha-electric-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/alpha-electric-bikes.webp",
+    "webpSmall": "/assets/img/logos/alpha-electric-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "am-island-ebikes": {
     "src": "/assets/img/logos/am-island-ebikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/am-island-ebikes.webp",
+    "webpSmall": "/assets/img/logos/am-island-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "amelias-wheels": {
     "src": "/assets/img/logos/amelias-wheels.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/amelias-wheels.webp",
+    "webpSmall": "/assets/img/logos/amelias-wheels-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ami-beach-fun-rentals-sales-service": {
     "src": "/assets/img/logos/ami-beach-fun-rentals-sales-service.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ami-beach-fun-rentals-sales-service.webp",
+    "webpSmall": "/assets/img/logos/ami-beach-fun-rentals-sales-service-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "art-bikes-jax": {
     "src": "/assets/img/logos/art-bikes-jax.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/art-bikes-jax.webp",
+    "webpSmall": "/assets/img/logos/art-bikes-jax-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "astro-cycles": {
     "src": "/assets/img/logos/astro-cycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/astro-cycles.webp",
+    "webpSmall": "/assets/img/logos/astro-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "aventura-e-bike-shop": {
     "src": "/assets/img/logos/aventura-e-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/aventura-e-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/aventura-e-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "avocado-bikes-daytona-beach": {
     "src": "/assets/img/logos/avocado-bikes-daytona-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/avocado-bikes-daytona-beach.webp",
+    "webpSmall": "/assets/img/logos/avocado-bikes-daytona-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "b-j-bicycles-trek-bike-shop-authorized-dearer": {
     "src": "/assets/img/logos/b-j-bicycles-trek-bike-shop-authorized-dearer.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/b-j-bicycles-trek-bike-shop-authorized-dearer.webp",
+    "webpSmall": "/assets/img/logos/b-j-bicycles-trek-bike-shop-authorized-dearer-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "back-to-eden-bikes-llc": {
     "src": "/assets/img/logos/back-to-eden-bikes-llc.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/back-to-eden-bikes-llc.webp",
+    "webpSmall": "/assets/img/logos/back-to-eden-bikes-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "barefoot-billys-key-west-jetski-tours-golf-cart-rentals": {
     "src": "/assets/img/logos/barefoot-billys-key-west-jetski-tours-golf-cart-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/barefoot-billys-key-west-jetski-tours-golf-cart-rentals.webp",
+    "webpSmall": "/assets/img/logos/barefoot-billys-key-west-jetski-tours-golf-cart-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "barefoot-rentals": {
     "src": "/assets/img/logos/barefoot-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/barefoot-rentals.webp",
+    "webpSmall": "/assets/img/logos/barefoot-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-bums-recreational-rentals-gift-shop": {
     "src": "/assets/img/logos/beach-bums-recreational-rentals-gift-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-bums-recreational-rentals-gift-shop.webp",
+    "webpSmall": "/assets/img/logos/beach-bums-recreational-rentals-gift-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-e-bikes-rentals-sales": {
     "src": "/assets/img/logos/beach-e-bikes-rentals-sales.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-e-bikes-rentals-sales.webp",
+    "webpSmall": "/assets/img/logos/beach-e-bikes-rentals-sales-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-e-bikes-rentals-sales-jacksonville": {
     "src": "/assets/img/logos/beach-e-bikes-rentals-sales-jacksonville.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-e-bikes-rentals-sales-jacksonville.webp",
+    "webpSmall": "/assets/img/logos/beach-e-bikes-rentals-sales-jacksonville-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-e-bikes-sales-office": {
     "src": "/assets/img/logos/beach-e-bikes-sales-office.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-e-bikes-sales-office.webp",
+    "webpSmall": "/assets/img/logos/beach-e-bikes-sales-office-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-life-rentals": {
     "src": "/assets/img/logos/beach-life-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-life-rentals.webp",
+    "webpSmall": "/assets/img/logos/beach-life-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "beach-vibe-cycle-rentals": {
     "src": "/assets/img/logos/beach-vibe-cycle-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/beach-vibe-cycle-rentals.webp",
+    "webpSmall": "/assets/img/logos/beach-vibe-cycle-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "benefit-electric-bikes": {
     "src": "/assets/img/logos/benefit-electric-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/benefit-electric-bikes.webp",
+    "webpSmall": "/assets/img/logos/benefit-electric-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bicikleta-bike-shop": {
     "src": "/assets/img/logos/bicikleta-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bicikleta-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/bicikleta-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bicycle-doctor-house-calls": {
     "src": "/assets/img/logos/bicycle-doctor-house-calls.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bicycle-doctor-house-calls.webp",
+    "webpSmall": "/assets/img/logos/bicycle-doctor-house-calls-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bicycles-etc": {
     "src": "/assets/img/logos/bicycles-etc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bicycles-etc.webp",
+    "webpSmall": "/assets/img/logos/bicycles-etc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bicycles-etc-ponte-vedra-beach": {
     "src": "/assets/img/logos/bicycles-etc-ponte-vedra-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bicycles-etc-ponte-vedra-beach.webp",
+    "webpSmall": "/assets/img/logos/bicycles-etc-ponte-vedra-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bicycles-international": {
     "src": "/assets/img/logos/bicycles-international.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bicycles-international.webp",
+    "webpSmall": "/assets/img/logos/bicycles-international-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-bam-ebikes": {
     "src": "/assets/img/logos/big-bam-ebikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-bam-ebikes.webp",
+    "webpSmall": "/assets/img/logos/big-bam-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-boys-bike-shop": {
     "src": "/assets/img/logos/big-boys-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-boys-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/big-boys-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-daddys-bike-shop": {
     "src": "/assets/img/logos/big-daddys-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-daddys-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/big-daddys-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-fish-bike-and-beach-rentals": {
     "src": "/assets/img/logos/big-fish-bike-and-beach-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-fish-bike-and-beach-rentals.webp",
+    "webpSmall": "/assets/img/logos/big-fish-bike-and-beach-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-pine-kayak-adventures-inc": {
     "src": "/assets/img/logos/big-pine-kayak-adventures-inc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-pine-kayak-adventures-inc.webp",
+    "webpSmall": "/assets/img/logos/big-pine-kayak-adventures-inc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "big-pine-key-bicycle-center": {
     "src": "/assets/img/logos/big-pine-key-bicycle-center.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/big-pine-key-bicycle-center.webp",
+    "webpSmall": "/assets/img/logos/big-pine-key-bicycle-center-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-bistro": {
     "src": "/assets/img/logos/bike-bistro.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-bistro.webp",
+    "webpSmall": "/assets/img/logos/bike-bistro-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-dude-rentals": {
     "src": "/assets/img/logos/bike-dude-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-dude-rentals.webp",
+    "webpSmall": "/assets/img/logos/bike-dude-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-me": {
     "src": "/assets/img/logos/bike-me.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-me.webp",
+    "webpSmall": "/assets/img/logos/bike-me-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-pcb": {
     "src": "/assets/img/logos/bike-pcb.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-pcb.webp",
+    "webpSmall": "/assets/img/logos/bike-pcb-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-ride-sobe": {
     "src": "/assets/img/logos/bike-ride-sobe.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-ride-sobe.webp",
+    "webpSmall": "/assets/img/logos/bike-ride-sobe-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-roll-miami-bicycle-rentals-and-segway-tours": {
     "src": "/assets/img/logos/bike-roll-miami-bicycle-rentals-and-segway-tours.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-roll-miami-bicycle-rentals-and-segway-tours.webp",
+    "webpSmall": "/assets/img/logos/bike-roll-miami-bicycle-rentals-and-segway-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-sultan": {
     "src": "/assets/img/logos/bike-sultan.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-sultan.webp",
+    "webpSmall": "/assets/img/logos/bike-sultan-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-the-beach-30a": {
     "src": "/assets/img/logos/bike-the-beach-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-the-beach-30a.webp",
+    "webpSmall": "/assets/img/logos/bike-the-beach-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-the-beach-30a-santa-rosa-beach": {
     "src": "/assets/img/logos/bike-the-beach-30a-santa-rosa-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-the-beach-30a-santa-rosa-beach.webp",
+    "webpSmall": "/assets/img/logos/bike-the-beach-30a-santa-rosa-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-the-beach-gulf-highlands": {
     "src": "/assets/img/logos/bike-the-beach-gulf-highlands.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-the-beach-gulf-highlands.webp",
+    "webpSmall": "/assets/img/logos/bike-the-beach-gulf-highlands-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-the-beach-pcb": {
     "src": "/assets/img/logos/bike-the-beach-pcb.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-the-beach-pcb.webp",
+    "webpSmall": "/assets/img/logos/bike-the-beach-pcb-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bike-with-beats-coconut-grove": {
     "src": "/assets/img/logos/bike-with-beats-coconut-grove.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bike-with-beats-coconut-grove.webp",
+    "webpSmall": "/assets/img/logos/bike-with-beats-coconut-grove-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bikes-and-segway-tours-rentals": {
     "src": "/assets/img/logos/bikes-and-segway-tours-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bikes-and-segway-tours-rentals.webp",
+    "webpSmall": "/assets/img/logos/bikes-and-segway-tours-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bikes-plus": {
     "src": "/assets/img/logos/bikes-plus.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bikes-plus.webp",
+    "webpSmall": "/assets/img/logos/bikes-plus-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bikes-plus-south-stuart": {
     "src": "/assets/img/logos/bikes-plus-south-stuart.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bikes-plus-south-stuart.webp",
+    "webpSmall": "/assets/img/logos/bikes-plus-south-stuart-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "billys-rentals": {
     "src": "/assets/img/logos/billys-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/billys-rentals.webp",
+    "webpSmall": "/assets/img/logos/billys-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "blue-coast-shop": {
     "src": "/assets/img/logos/blue-coast-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/blue-coast-shop.webp",
+    "webpSmall": "/assets/img/logos/blue-coast-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "blue-ocean-water-bikes-llc": {
     "src": "/assets/img/logos/blue-ocean-water-bikes-llc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/blue-ocean-water-bikes-llc.webp",
+    "webpSmall": "/assets/img/logos/blue-ocean-water-bikes-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bobs-beach-bicycle-works": {
     "src": "/assets/img/logos/bobs-beach-bicycle-works.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bobs-beach-bicycle-works.webp",
+    "webpSmall": "/assets/img/logos/bobs-beach-bicycle-works-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bobs-bicycle-shop": {
     "src": "/assets/img/logos/bobs-bicycle-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bobs-bicycle-shop.webp",
+    "webpSmall": "/assets/img/logos/bobs-bicycle-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "boca-bike-shop": {
     "src": "/assets/img/logos/boca-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/boca-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/boca-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "boca-scooters": {
     "src": "/assets/img/logos/boca-scooters.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/boca-scooters.webp",
+    "webpSmall": "/assets/img/logos/boca-scooters-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "bone-island-rentals": {
     "src": "/assets/img/logos/bone-island-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/bone-island-rentals.webp",
+    "webpSmall": "/assets/img/logos/bone-island-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "boogie-down-golf-carts-bicycles": {
     "src": "/assets/img/logos/boogie-down-golf-carts-bicycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/boogie-down-golf-carts-bicycles.webp",
+    "webpSmall": "/assets/img/logos/boogie-down-golf-carts-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "breezy-bees-rentals": {
     "src": "/assets/img/logos/breezy-bees-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/breezy-bees-rentals.webp",
+    "webpSmall": "/assets/img/logos/breezy-bees-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "broward-motorsports-bicycles": {
     "src": "/assets/img/logos/broward-motorsports-bicycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/broward-motorsports-bicycles.webp",
+    "webpSmall": "/assets/img/logos/broward-motorsports-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "butterfly-bike-kayak": {
     "src": "/assets/img/logos/butterfly-bike-kayak.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/butterfly-bike-kayak.webp",
+    "webpSmall": "/assets/img/logos/butterfly-bike-kayak-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "california-cycles": {
     "src": "/assets/img/logos/california-cycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/california-cycles.webp",
+    "webpSmall": "/assets/img/logos/california-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "california-cycles-motorcycle-scooter-rentals": {
     "src": "/assets/img/logos/california-cycles-motorcycle-scooter-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/california-cycles-motorcycle-scooter-rentals.webp",
+    "webpSmall": "/assets/img/logos/california-cycles-motorcycle-scooter-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "capt-yak-llc": {
     "src": "/assets/img/logos/capt-yak-llc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/capt-yak-llc.webp",
+    "webpSmall": "/assets/img/logos/capt-yak-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "carvelle-bikes": {
     "src": "/assets/img/logos/carvelle-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/carvelle-bikes.webp",
+    "webpSmall": "/assets/img/logos/carvelle-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "celebration-bike-rentals-e-bikes-tours-deliveries-and-more": {
     "src": "/assets/img/logos/celebration-bike-rentals-e-bikes-tours-deliveries-and-more.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/celebration-bike-rentals-e-bikes-tours-deliveries-and-more.webp",
+    "webpSmall": "/assets/img/logos/celebration-bike-rentals-e-bikes-tours-deliveries-and-more-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "citrus-park-bikes": {
     "src": "/assets/img/logos/citrus-park-bikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/citrus-park-bikes.webp",
+    "webpSmall": "/assets/img/logos/citrus-park-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "clearwater-beach-scooter-and-bike-rentals": {
     "src": "/assets/img/logos/clearwater-beach-scooter-and-bike-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/clearwater-beach-scooter-and-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/clearwater-beach-scooter-and-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "clearwater-fun-rentals-escooters-and-ebikes": {
     "src": "/assets/img/logos/clearwater-fun-rentals-escooters-and-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/clearwater-fun-rentals-escooters-and-ebikes.webp",
+    "webpSmall": "/assets/img/logos/clearwater-fun-rentals-escooters-and-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "contes-bike-shop": {
     "src": "/assets/img/logos/contes-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/contes-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/contes-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "cruiser-30a-electric-bike-beach-rentals": {
     "src": "/assets/img/logos/cruiser-30a-electric-bike-beach-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/cruiser-30a-electric-bike-beach-rentals.webp",
+    "webpSmall": "/assets/img/logos/cruiser-30a-electric-bike-beach-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "current-riders": {
     "src": "/assets/img/logos/current-riders.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/current-riders.webp",
+    "webpSmall": "/assets/img/logos/current-riders-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "custom-cyber-bike": {
     "src": "/assets/img/logos/custom-cyber-bike.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/custom-cyber-bike.webp",
+    "webpSmall": "/assets/img/logos/custom-cyber-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "cycle-joint": {
     "src": "/assets/img/logos/cycle-joint.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/cycle-joint.webp",
+    "webpSmall": "/assets/img/logos/cycle-joint-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "cyclevolution-bicycle-shop": {
     "src": "/assets/img/logos/cyclevolution-bicycle-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/cyclevolution-bicycle-shop.webp",
+    "webpSmall": "/assets/img/logos/cyclevolution-bicycle-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "downtown-bicycles": {
     "src": "/assets/img/logos/downtown-bicycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/downtown-bicycles.webp",
+    "webpSmall": "/assets/img/logos/downtown-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "drift-rentals-e-bike-rentals": {
     "src": "/assets/img/logos/drift-rentals-e-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/drift-rentals-e-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/drift-rentals-e-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "drifters-rentals": {
     "src": "/assets/img/logos/drifters-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/drifters-rentals.webp",
+    "webpSmall": "/assets/img/logos/drifters-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "drive-srq": {
     "src": "/assets/img/logos/drive-srq.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/drive-srq.webp",
+    "webpSmall": "/assets/img/logos/drive-srq-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-bike-bicycle-rentals-and-tours-naples-florida": {
     "src": "/assets/img/logos/e-bike-bicycle-rentals-and-tours-naples-florida.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-bike-bicycle-rentals-and-tours-naples-florida.webp",
+    "webpSmall": "/assets/img/logos/e-bike-bicycle-rentals-and-tours-naples-florida-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-cycle-adventures": {
     "src": "/assets/img/logos/e-cycle-adventures.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-cycle-adventures.webp",
+    "webpSmall": "/assets/img/logos/e-cycle-adventures-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-cycle-adventures-brooksville": {
     "src": "/assets/img/logos/e-cycle-adventures-brooksville.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-cycle-adventures-brooksville.webp",
+    "webpSmall": "/assets/img/logos/e-cycle-adventures-brooksville-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-cycle-adventures-port-richey": {
     "src": "/assets/img/logos/e-cycle-adventures-port-richey.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-cycle-adventures-port-richey.webp",
+    "webpSmall": "/assets/img/logos/e-cycle-adventures-port-richey-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-motion-e-bike-rentals-sales": {
     "src": "/assets/img/logos/e-motion-e-bike-rentals-sales.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-motion-e-bike-rentals-sales.webp",
+    "webpSmall": "/assets/img/logos/e-motion-e-bike-rentals-sales-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-power-bike-shop": {
     "src": "/assets/img/logos/e-power-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-power-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/e-power-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "easy-bike-delivery-fort-lauderdale": {
     "src": "/assets/img/logos/easy-bike-delivery-fort-lauderdale.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/easy-bike-delivery-fort-lauderdale.webp",
+    "webpSmall": "/assets/img/logos/easy-bike-delivery-fort-lauderdale-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "eaton-bikes-key-west-bike-rentals-bicycle-repair": {
     "src": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair.webp",
+    "webpSmall": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west": {
     "src": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west.webp",
+    "webpSmall": "/assets/img/logos/eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ecarve-llc-e-ride-pro-e-motos-electric-scooters-onewheels-sales-rentals": {
     "src": "/assets/img/logos/ecarve-llc-e-ride-pro-e-motos-electric-scooters-onewheels-sales-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ecarve-llc-e-ride-pro-e-motos-electric-scooters-onewheels-sales-rentals.webp",
+    "webpSmall": "/assets/img/logos/ecarve-llc-e-ride-pro-e-motos-electric-scooters-onewheels-sales-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "eccentric-cycle-e-bikes-scooters": {
     "src": "/assets/img/logos/eccentric-cycle-e-bikes-scooters.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/eccentric-cycle-e-bikes-scooters.webp",
+    "webpSmall": "/assets/img/logos/eccentric-cycle-e-bikes-scooters-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ego-depot": {
     "src": "/assets/img/logos/ego-depot.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ego-depot.webp",
+    "webpSmall": "/assets/img/logos/ego-depot-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "el-ebike-doc-y-mas": {
     "src": "/assets/img/logos/el-ebike-doc-y-mas.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/el-ebike-doc-y-mas.webp",
+    "webpSmall": "/assets/img/logos/el-ebike-doc-y-mas-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "elecruiser-electric-bikes-since-2021-scooters-repairs-tires": {
     "src": "/assets/img/logos/elecruiser-electric-bikes-since-2021-scooters-repairs-tires.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/elecruiser-electric-bikes-since-2021-scooters-repairs-tires.webp",
+    "webpSmall": "/assets/img/logos/elecruiser-electric-bikes-since-2021-scooters-repairs-tires-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electric-bike-miami": {
     "src": "/assets/img/logos/electric-bike-miami.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electric-bike-miami.webp",
+    "webpSmall": "/assets/img/logos/electric-bike-miami-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electric-bike-shop": {
     "src": "/assets/img/logos/electric-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electric-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/electric-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electric-bike-shop-express": {
     "src": "/assets/img/logos/electric-bike-shop-express.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electric-bike-shop-express.webp",
+    "webpSmall": "/assets/img/logos/electric-bike-shop-express-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electric-bikes-usa": {
     "src": "/assets/img/logos/electric-bikes-usa.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electric-bikes-usa.webp",
+    "webpSmall": "/assets/img/logos/electric-bikes-usa-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electric-scooter-doctors": {
     "src": "/assets/img/logos/electric-scooter-doctors.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electric-scooter-doctors.webp",
+    "webpSmall": "/assets/img/logos/electric-scooter-doctors-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "electrix-bikes": {
     "src": "/assets/img/logos/electrix-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/electrix-bikes.webp",
+    "webpSmall": "/assets/img/logos/electrix-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "emerald-coast-ebikes": {
     "src": "/assets/img/logos/emerald-coast-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/emerald-coast-ebikes.webp",
+    "webpSmall": "/assets/img/logos/emerald-coast-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "emerald-coast-tours": {
     "src": "/assets/img/logos/emerald-coast-tours.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/emerald-coast-tours.webp",
+    "webpSmall": "/assets/img/logos/emerald-coast-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "emoto-supply-co": {
     "src": "/assets/img/logos/emoto-supply-co.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/emoto-supply-co.webp",
+    "webpSmall": "/assets/img/logos/emoto-supply-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "endless-summer-e-bikes": {
     "src": "/assets/img/logos/endless-summer-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/endless-summer-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/endless-summer-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "epic-cycles-fort-lauderdale": {
     "src": "/assets/img/logos/epic-cycles-fort-lauderdale.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/epic-cycles-fort-lauderdale.webp",
+    "webpSmall": "/assets/img/logos/epic-cycles-fort-lauderdale-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "epic-erides-electric-bikes-e-moto-electric-scooters-eucs-repairs": {
     "src": "/assets/img/logos/epic-erides-electric-bikes-e-moto-electric-scooters-eucs-repairs.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/epic-erides-electric-bikes-e-moto-electric-scooters-eucs-repairs.webp",
+    "webpSmall": "/assets/img/logos/epic-erides-electric-bikes-e-moto-electric-scooters-eucs-repairs-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "epik-ridez-bikes": {
     "src": "/assets/img/logos/epik-ridez-bikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/epik-ridez-bikes.webp",
+    "webpSmall": "/assets/img/logos/epik-ridez-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "espresso-bicycle-repairs-south-sarasota": {
     "src": "/assets/img/logos/espresso-bicycle-repairs-south-sarasota.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/espresso-bicycle-repairs-south-sarasota.webp",
+    "webpSmall": "/assets/img/logos/espresso-bicycle-repairs-south-sarasota-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "espresso-bikes": {
     "src": "/assets/img/logos/espresso-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/espresso-bikes.webp",
+    "webpSmall": "/assets/img/logos/espresso-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "eventure-florida-30a": {
     "src": "/assets/img/logos/eventure-florida-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/eventure-florida-30a.webp",
+    "webpSmall": "/assets/img/logos/eventure-florida-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "eventure-panama-city-beach": {
     "src": "/assets/img/logos/eventure-panama-city-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/eventure-panama-city-beach.webp",
+    "webpSmall": "/assets/img/logos/eventure-panama-city-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "extreme-family-fun-spot": {
     "src": "/assets/img/logos/extreme-family-fun-spot.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/extreme-family-fun-spot.webp",
+    "webpSmall": "/assets/img/logos/extreme-family-fun-spot-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ez-riders-key-west-e-bike-rentals": {
     "src": "/assets/img/logos/ez-riders-key-west-e-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ez-riders-key-west-e-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/ez-riders-key-west-e-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "family-bicycle": {
     "src": "/assets/img/logos/family-bicycle.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/family-bicycle.webp",
+    "webpSmall": "/assets/img/logos/family-bicycle-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "flint-creek-outfitters": {
     "src": "/assets/img/logos/flint-creek-outfitters.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/flint-creek-outfitters.webp",
+    "webpSmall": "/assets/img/logos/flint-creek-outfitters-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "florida-bike-beach": {
     "src": "/assets/img/logos/florida-bike-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/florida-bike-beach.webp",
+    "webpSmall": "/assets/img/logos/florida-bike-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "florida-fun-rides": {
     "src": "/assets/img/logos/florida-fun-rides.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/florida-fun-rides.webp",
+    "webpSmall": "/assets/img/logos/florida-fun-rides-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "florida-powersports": {
     "src": "/assets/img/logos/florida-powersports.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/florida-powersports.webp",
+    "webpSmall": "/assets/img/logos/florida-powersports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fmb-rentals": {
     "src": "/assets/img/logos/fmb-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fmb-rentals.webp",
+    "webpSmall": "/assets/img/logos/fmb-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "forgotten-coast-beach-co": {
     "src": "/assets/img/logos/forgotten-coast-beach-co.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/forgotten-coast-beach-co.webp",
+    "webpSmall": "/assets/img/logos/forgotten-coast-beach-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fort-myers-beach-sun-n-fun-sport-rentals": {
     "src": "/assets/img/logos/fort-myers-beach-sun-n-fun-sport-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fort-myers-beach-sun-n-fun-sport-rentals.webp",
+    "webpSmall": "/assets/img/logos/fort-myers-beach-sun-n-fun-sport-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "frankies-bike-shop": {
     "src": "/assets/img/logos/frankies-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/frankies-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/frankies-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-and-more-rentals": {
     "src": "/assets/img/logos/fun-and-more-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-and-more-rentals.webp",
+    "webpSmall": "/assets/img/logos/fun-and-more-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-in-the-sun-naples-electric-trike-tours-electric-moped-tours-naples-florida-u": {
     "src": "/assets/img/logos/fun-in-the-sun-naples-electric-trike-tours-electric-moped-tours-naples-florida-u.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-in-the-sun-naples-electric-trike-tours-electric-moped-tours-naples-florida-u.webp",
+    "webpSmall": "/assets/img/logos/fun-in-the-sun-naples-electric-trike-tours-electric-moped-tours-naples-florida-u-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-n-sun-beach-bike-rentals": {
     "src": "/assets/img/logos/fun-n-sun-beach-bike-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-n-sun-beach-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/fun-n-sun-beach-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-rentals-downtown-key-west": {
     "src": "/assets/img/logos/fun-rentals-downtown-key-west.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-rentals-downtown-key-west.webp",
+    "webpSmall": "/assets/img/logos/fun-rentals-downtown-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-rentals-key-west": {
     "src": "/assets/img/logos/fun-rentals-key-west.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-rentals-key-west.webp",
+    "webpSmall": "/assets/img/logos/fun-rentals-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fun-rentals-st-augustine": {
     "src": "/assets/img/logos/fun-rentals-st-augustine.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fun-rentals-st-augustine.webp",
+    "webpSmall": "/assets/img/logos/fun-rentals-st-augustine-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "fury-key-west-bike-rentals": {
     "src": "/assets/img/logos/fury-key-west-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/fury-key-west-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/fury-key-west-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "gasparilla-adventures-golf-cart-bike-rentals": {
     "src": "/assets/img/logos/gasparilla-adventures-golf-cart-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/gasparilla-adventures-golf-cart-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/gasparilla-adventures-golf-cart-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "gear4here-electric-bike-rentals-sales": {
     "src": "/assets/img/logos/gear4here-electric-bike-rentals-sales.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/gear4here-electric-bike-rentals-sales.webp",
+    "webpSmall": "/assets/img/logos/gear4here-electric-bike-rentals-sales-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "get-wet-surf-shop-skate-shop": {
     "src": "/assets/img/logos/get-wet-surf-shop-skate-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/get-wet-surf-shop-skate-shop.webp",
+    "webpSmall": "/assets/img/logos/get-wet-surf-shop-skate-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "get-wet-watersports-jet-ski-rentals-singer-island-palm-beach": {
     "src": "/assets/img/logos/get-wet-watersports-jet-ski-rentals-singer-island-palm-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/get-wet-watersports-jet-ski-rentals-singer-island-palm-beach.webp",
+    "webpSmall": "/assets/img/logos/get-wet-watersports-jet-ski-rentals-singer-island-palm-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "get-wet-watersports-paddle-boarding-snorkeling-kayaking-singer": {
     "src": "/assets/img/logos/get-wet-watersports-paddle-boarding-snorkeling-kayaking-singer.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/get-wet-watersports-paddle-boarding-snorkeling-kayaking-singer.webp",
+    "webpSmall": "/assets/img/logos/get-wet-watersports-paddle-boarding-snorkeling-kayaking-singer-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "go-volt-co": {
     "src": "/assets/img/logos/go-volt-co.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/go-volt-co.webp",
+    "webpSmall": "/assets/img/logos/go-volt-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "green-iguana-rentals": {
     "src": "/assets/img/logos/green-iguana-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/green-iguana-rentals.webp",
+    "webpSmall": "/assets/img/logos/green-iguana-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "grey-carts-and-e-bikes": {
     "src": "/assets/img/logos/grey-carts-and-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/grey-carts-and-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/grey-carts-and-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "grey-carts-and-e-bikes-ormond-beach": {
     "src": "/assets/img/logos/grey-carts-and-e-bikes-ormond-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/grey-carts-and-e-bikes-ormond-beach.webp",
+    "webpSmall": "/assets/img/logos/grey-carts-and-e-bikes-ormond-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "hakuna-matata-motunui-boat-cruises-by-visit-palm-beach": {
     "src": "/assets/img/logos/hakuna-matata-motunui-boat-cruises-by-visit-palm-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/hakuna-matata-motunui-boat-cruises-by-visit-palm-beach.webp",
+    "webpSmall": "/assets/img/logos/hakuna-matata-motunui-boat-cruises-by-visit-palm-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "haulover-bike-rentals": {
     "src": "/assets/img/logos/haulover-bike-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/haulover-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/haulover-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "high-voltage-ebikes": {
     "src": "/assets/img/logos/high-voltage-ebikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/high-voltage-ebikes.webp",
+    "webpSmall": "/assets/img/logos/high-voltage-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "hollywood-beach-trikke": {
     "src": "/assets/img/logos/hollywood-beach-trikke.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/hollywood-beach-trikke.webp",
+    "webpSmall": "/assets/img/logos/hollywood-beach-trikke-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "hollywood-bicycle-shop": {
     "src": "/assets/img/logos/hollywood-bicycle-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/hollywood-bicycle-shop.webp",
+    "webpSmall": "/assets/img/logos/hollywood-bicycle-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "hydro-thunder-of-key-west": {
     "src": "/assets/img/logos/hydro-thunder-of-key-west.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/hydro-thunder-of-key-west.webp",
+    "webpSmall": "/assets/img/logos/hydro-thunder-of-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "inokim-miami-beach-sale-service": {
     "src": "/assets/img/logos/inokim-miami-beach-sale-service.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/inokim-miami-beach-sale-service.webp",
+    "webpSmall": "/assets/img/logos/inokim-miami-beach-sale-service-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-adventures": {
     "src": "/assets/img/logos/island-adventures.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-adventures.webp",
+    "webpSmall": "/assets/img/logos/island-adventures-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-bike-shop-bicycle-rentals": {
     "src": "/assets/img/logos/island-bike-shop-bicycle-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-bike-shop-bicycle-rentals.webp",
+    "webpSmall": "/assets/img/logos/island-bike-shop-bicycle-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-bike-shop-east-south-naples": {
     "src": "/assets/img/logos/island-bike-shop-east-south-naples.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-bike-shop-east-south-naples.webp",
+    "webpSmall": "/assets/img/logos/island-bike-shop-east-south-naples-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-bikeworks": {
     "src": "/assets/img/logos/island-bikeworks.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-bikeworks.webp",
+    "webpSmall": "/assets/img/logos/island-bikeworks-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-breeze-ebikes": {
     "src": "/assets/img/logos/island-breeze-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-breeze-ebikes.webp",
+    "webpSmall": "/assets/img/logos/island-breeze-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-ebikes": {
     "src": "/assets/img/logos/island-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-ebikes.webp",
+    "webpSmall": "/assets/img/logos/island-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-life-bikes": {
     "src": "/assets/img/logos/island-life-bikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-life-bikes.webp",
+    "webpSmall": "/assets/img/logos/island-life-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-marine-rentals": {
     "src": "/assets/img/logos/island-marine-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-marine-rentals.webp",
+    "webpSmall": "/assets/img/logos/island-marine-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "island-safari-rental-inc": {
     "src": "/assets/img/logos/island-safari-rental-inc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/island-safari-rental-inc.webp",
+    "webpSmall": "/assets/img/logos/island-safari-rental-inc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "its-electrique-scooter-and-e-bike-repair-tires-sales-in-deerfield-beach": {
     "src": "/assets/img/logos/its-electrique-scooter-and-e-bike-repair-tires-sales-in-deerfield-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/its-electrique-scooter-and-e-bike-repair-tires-sales-in-deerfield-beach.webp",
+    "webpSmall": "/assets/img/logos/its-electrique-scooter-and-e-bike-repair-tires-sales-in-deerfield-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "iwireless-orlando-chickasaw-electronics-e-bikes-e-scooters": {
     "src": "/assets/img/logos/iwireless-orlando-chickasaw-electronics-e-bikes-e-scooters.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/iwireless-orlando-chickasaw-electronics-e-bikes-e-scooters.webp",
+    "webpSmall": "/assets/img/logos/iwireless-orlando-chickasaw-electronics-e-bikes-e-scooters-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "iwireless-orlando-phones-l-electronics-l-ebikes": {
     "src": "/assets/img/logos/iwireless-orlando-phones-l-electronics-l-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/iwireless-orlando-phones-l-electronics-l-ebikes.webp",
+    "webpSmall": "/assets/img/logos/iwireless-orlando-phones-l-electronics-l-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jack-the-bike-man-inc": {
     "src": "/assets/img/logos/jack-the-bike-man-inc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jack-the-bike-man-inc.webp",
+    "webpSmall": "/assets/img/logos/jack-the-bike-man-inc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jax-beach-surf-shop": {
     "src": "/assets/img/logos/jax-beach-surf-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jax-beach-surf-shop.webp",
+    "webpSmall": "/assets/img/logos/jax-beach-surf-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jax-surf-paddle": {
     "src": "/assets/img/logos/jax-surf-paddle.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jax-surf-paddle.webp",
+    "webpSmall": "/assets/img/logos/jax-surf-paddle-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jcs-bikes-boards-llc": {
     "src": "/assets/img/logos/jcs-bikes-boards-llc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jcs-bikes-boards-llc.webp",
+    "webpSmall": "/assets/img/logos/jcs-bikes-boards-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jealse-scooters-us-llc": {
     "src": "/assets/img/logos/jealse-scooters-us-llc.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jealse-scooters-us-llc.webp",
+    "webpSmall": "/assets/img/logos/jealse-scooters-us-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jersey-joes-bike-and-ebike-rental": {
     "src": "/assets/img/logos/jersey-joes-bike-and-ebike-rental.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jersey-joes-bike-and-ebike-rental.webp",
+    "webpSmall": "/assets/img/logos/jersey-joes-bike-and-ebike-rental-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jupiter-electric-bikes": {
     "src": "/assets/img/logos/jupiter-electric-bikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jupiter-electric-bikes.webp",
+    "webpSmall": "/assets/img/logos/jupiter-electric-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jupiter-outdoor-center": {
     "src": "/assets/img/logos/jupiter-outdoor-center.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jupiter-outdoor-center.webp",
+    "webpSmall": "/assets/img/logos/jupiter-outdoor-center-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "just-4-fun-beach-rentals": {
     "src": "/assets/img/logos/just-4-fun-beach-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/just-4-fun-beach-rentals.webp",
+    "webpSmall": "/assets/img/logos/just-4-fun-beach-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "jv-rent-all": {
     "src": "/assets/img/logos/jv-rent-all.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/jv-rent-all.webp",
+    "webpSmall": "/assets/img/logos/jv-rent-all-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "key-lime-bike-tours": {
     "src": "/assets/img/logos/key-lime-bike-tours.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/key-lime-bike-tours.webp",
+    "webpSmall": "/assets/img/logos/key-lime-bike-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "keys-vacation-supply-rentals": {
     "src": "/assets/img/logos/keys-vacation-supply-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/keys-vacation-supply-rentals.webp",
+    "webpSmall": "/assets/img/logos/keys-vacation-supply-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "kyles-bike-shop": {
     "src": "/assets/img/logos/kyles-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/kyles-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/kyles-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "la-dolce-vita": {
     "src": "/assets/img/logos/la-dolce-vita.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/la-dolce-vita.webp",
+    "webpSmall": "/assets/img/logos/la-dolce-vita-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "la-dolce-vita-bike-rentals-blue-mountain-beach": {
     "src": "/assets/img/logos/la-dolce-vita-bike-rentals-blue-mountain-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/la-dolce-vita-bike-rentals-blue-mountain-beach.webp",
+    "webpSmall": "/assets/img/logos/la-dolce-vita-bike-rentals-blue-mountain-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "la-dolce-vita-bike-rentals-watercolor-bike-barn": {
     "src": "/assets/img/logos/la-dolce-vita-bike-rentals-watercolor-bike-barn.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/la-dolce-vita-bike-rentals-watercolor-bike-barn.webp",
+    "webpSmall": "/assets/img/logos/la-dolce-vita-bike-rentals-watercolor-bike-barn-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "la-dolce-vita-panama-city-beach": {
     "src": "/assets/img/logos/la-dolce-vita-panama-city-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/la-dolce-vita-panama-city-beach.webp",
+    "webpSmall": "/assets/img/logos/la-dolce-vita-panama-city-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "la-dolce-vita-pensacola-beach": {
     "src": "/assets/img/logos/la-dolce-vita-pensacola-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/la-dolce-vita-pensacola-beach.webp",
+    "webpSmall": "/assets/img/logos/la-dolce-vita-pensacola-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "lapps-bike-rentals": {
     "src": "/assets/img/logos/lapps-bike-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/lapps-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/lapps-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "lazy-turtle-beach-rentals": {
     "src": "/assets/img/logos/lazy-turtle-beach-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/lazy-turtle-beach-rentals.webp",
+    "webpSmall": "/assets/img/logos/lazy-turtle-beach-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ldv-golf-cart-and-bike-rentals": {
     "src": "/assets/img/logos/ldv-golf-cart-and-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ldv-golf-cart-and-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/ldv-golf-cart-and-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "legacy-trail-bike-and-electric-bike-rentals": {
     "src": "/assets/img/logos/legacy-trail-bike-and-electric-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/legacy-trail-bike-and-electric-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/legacy-trail-bike-and-electric-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "leroys-bikeworks": {
     "src": "/assets/img/logos/leroys-bikeworks.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/leroys-bikeworks.webp",
+    "webpSmall": "/assets/img/logos/leroys-bikeworks-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "letsgoev": {
     "src": "/assets/img/logos/letsgoev.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/letsgoev.webp",
+    "webpSmall": "/assets/img/logos/letsgoev-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "lopifitus-the-walking-bike": {
     "src": "/assets/img/logos/lopifitus-the-walking-bike.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/lopifitus-the-walking-bike.webp",
+    "webpSmall": "/assets/img/logos/lopifitus-the-walking-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "mad-beach-paddlesports": {
     "src": "/assets/img/logos/mad-beach-paddlesports.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/mad-beach-paddlesports.webp",
+    "webpSmall": "/assets/img/logos/mad-beach-paddlesports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "magnolia-beach-service": {
     "src": "/assets/img/logos/magnolia-beach-service.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/magnolia-beach-service.webp",
+    "webpSmall": "/assets/img/logos/magnolia-beach-service-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "makin-waves": {
     "src": "/assets/img/logos/makin-waves.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/makin-waves.webp",
+    "webpSmall": "/assets/img/logos/makin-waves-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "marathon-bikeworks": {
     "src": "/assets/img/logos/marathon-bikeworks.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/marathon-bikeworks.webp",
+    "webpSmall": "/assets/img/logos/marathon-bikeworks-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "marco-fun-rentals": {
     "src": "/assets/img/logos/marco-fun-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/marco-fun-rentals.webp",
+    "webpSmall": "/assets/img/logos/marco-fun-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "marco-island-bike-rentals": {
     "src": "/assets/img/logos/marco-island-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/marco-island-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/marco-island-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "marco-island-bike-rentals-golf-cart-rentals": {
     "src": "/assets/img/logos/marco-island-bike-rentals-golf-cart-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/marco-island-bike-rentals-golf-cart-rentals.webp",
+    "webpSmall": "/assets/img/logos/marco-island-bike-rentals-golf-cart-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "maverick-board-riding-company": {
     "src": "/assets/img/logos/maverick-board-riding-company.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/maverick-board-riding-company.webp",
+    "webpSmall": "/assets/img/logos/maverick-board-riding-company-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "mega-cycle-by-epic-cycles": {
     "src": "/assets/img/logos/mega-cycle-by-epic-cycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/mega-cycle-by-epic-cycles.webp",
+    "webpSmall": "/assets/img/logos/mega-cycle-by-epic-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "miami-beach-bicycle-center": {
     "src": "/assets/img/logos/miami-beach-bicycle-center.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/miami-beach-bicycle-center.webp",
+    "webpSmall": "/assets/img/logos/miami-beach-bicycle-center-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "miami-beach-bike-rental-segway-tours": {
     "src": "/assets/img/logos/miami-beach-bike-rental-segway-tours.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/miami-beach-bike-rental-segway-tours.webp",
+    "webpSmall": "/assets/img/logos/miami-beach-bike-rental-segway-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "miami-bikes-electric-bicycle-shop": {
     "src": "/assets/img/logos/miami-bikes-electric-bicycle-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/miami-bikes-electric-bicycle-shop.webp",
+    "webpSmall": "/assets/img/logos/miami-bikes-electric-bicycle-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "mias-voltmoto-of-swfl-llc": {
     "src": "/assets/img/logos/mias-voltmoto-of-swfl-llc.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/mias-voltmoto-of-swfl-llc.webp",
+    "webpSmall": "/assets/img/logos/mias-voltmoto-of-swfl-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "mobil-planet": {
     "src": "/assets/img/logos/mobil-planet.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/mobil-planet.webp",
+    "webpSmall": "/assets/img/logos/mobil-planet-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "mobile-bicycle-er": {
     "src": "/assets/img/logos/mobile-bicycle-er.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/mobile-bicycle-er.webp",
+    "webpSmall": "/assets/img/logos/mobile-bicycle-er-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "naples-bay-resort-boat-rentals": {
     "src": "/assets/img/logos/naples-bay-resort-boat-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/naples-bay-resort-boat-rentals.webp",
+    "webpSmall": "/assets/img/logos/naples-bay-resort-boat-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "naples-bike-rentals-beach-chair-rentals-paddle-board-rentals-naples-florida-usa": {
     "src": "/assets/img/logos/naples-bike-rentals-beach-chair-rentals-paddle-board-rentals-naples-florida-usa.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/naples-bike-rentals-beach-chair-rentals-paddle-board-rentals-naples-florida-usa.webp",
+    "webpSmall": "/assets/img/logos/naples-bike-rentals-beach-chair-rentals-paddle-board-rentals-naples-florida-usa-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "naples-electric-trike-tours-electric-moped-tours-scooter-tours-naples-florida-us": {
     "src": "/assets/img/logos/naples-electric-trike-tours-electric-moped-tours-scooter-tours-naples-florida-us.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/naples-electric-trike-tours-electric-moped-tours-scooter-tours-naples-florida-us.webp",
+    "webpSmall": "/assets/img/logos/naples-electric-trike-tours-electric-moped-tours-scooter-tours-naples-florida-us-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "national-ebike-mokwheel-electric-bikes-ebikes-etrikes": {
     "src": "/assets/img/logos/national-ebike-mokwheel-electric-bikes-ebikes-etrikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/national-ebike-mokwheel-electric-bikes-ebikes-etrikes.webp",
+    "webpSmall": "/assets/img/logos/national-ebike-mokwheel-electric-bikes-ebikes-etrikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "nexgen-cycle": {
     "src": "/assets/img/logos/nexgen-cycle.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/nexgen-cycle.webp",
+    "webpSmall": "/assets/img/logos/nexgen-cycle-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "nicks-e-bike-repair-and-sales": {
     "src": "/assets/img/logos/nicks-e-bike-repair-and-sales.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/nicks-e-bike-repair-and-sales.webp",
+    "webpSmall": "/assets/img/logos/nicks-e-bike-repair-and-sales-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "no-boundaries-sport": {
     "src": "/assets/img/logos/no-boundaries-sport.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/no-boundaries-sport.webp",
+    "webpSmall": "/assets/img/logos/no-boundaries-sport-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "no-boundaries-sport-coral-gables": {
     "src": "/assets/img/logos/no-boundaries-sport-coral-gables.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/no-boundaries-sport-coral-gables.webp",
+    "webpSmall": "/assets/img/logos/no-boundaries-sport-coral-gables-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "no-boundaries-sport-miami": {
     "src": "/assets/img/logos/no-boundaries-sport-miami.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/no-boundaries-sport-miami.webp",
+    "webpSmall": "/assets/img/logos/no-boundaries-sport-miami-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ocala-e-bike-company": {
     "src": "/assets/img/logos/ocala-e-bike-company.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ocala-e-bike-company.webp",
+    "webpSmall": "/assets/img/logos/ocala-e-bike-company-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "oceanside-e-bikes-electric-bike-sales-rentals": {
     "src": "/assets/img/logos/oceanside-e-bikes-electric-bike-sales-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/oceanside-e-bikes-electric-bike-sales-rentals.webp",
+    "webpSmall": "/assets/img/logos/oceanside-e-bikes-electric-bike-sales-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "off-the-hook-disposable-vapes-delta-skateboards-bike-rentals-bait-and-tackle-sou": {
     "src": "/assets/img/logos/off-the-hook-disposable-vapes-delta-skateboards-bike-rentals-bait-and-tackle-sou.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/off-the-hook-disposable-vapes-delta-skateboards-bike-rentals-bait-and-tackle-sou.webp",
+    "webpSmall": "/assets/img/logos/off-the-hook-disposable-vapes-delta-skateboards-bike-rentals-bait-and-tackle-sou-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "orlando-ev-mobility-solutions": {
     "src": "/assets/img/logos/orlando-ev-mobility-solutions.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/orlando-ev-mobility-solutions.webp",
+    "webpSmall": "/assets/img/logos/orlando-ev-mobility-solutions-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-motos": {
     "src": "/assets/img/logos/outlaw-motos.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-motos.webp",
+    "webpSmall": "/assets/img/logos/outlaw-motos-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-30a-santa-rosa-beach": {
     "src": "/assets/img/logos/outlaw-rentals-30a-santa-rosa-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-30a-santa-rosa-beach.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-30a-santa-rosa-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-edgewater-plaza": {
     "src": "/assets/img/logos/outlaw-rentals-edgewater-plaza.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-edgewater-plaza.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-edgewater-plaza-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-middle-beach": {
     "src": "/assets/img/logos/outlaw-rentals-middle-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-middle-beach.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-middle-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-pier-park": {
     "src": "/assets/img/logos/outlaw-rentals-pier-park.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-pier-park.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-pier-park-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-thomas-drive": {
     "src": "/assets/img/logos/outlaw-rentals-thomas-drive.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-thomas-drive.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-thomas-drive-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outlaw-rentals-west-pcb": {
     "src": "/assets/img/logos/outlaw-rentals-west-pcb.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outlaw-rentals-west-pcb.webp",
+    "webpSmall": "/assets/img/logos/outlaw-rentals-west-pcb-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outspokin-bicycles-clearwater": {
     "src": "/assets/img/logos/outspokin-bicycles-clearwater.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outspokin-bicycles-clearwater.webp",
+    "webpSmall": "/assets/img/logos/outspokin-bicycles-clearwater-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "outspokin-bicycles-tampa": {
     "src": "/assets/img/logos/outspokin-bicycles-tampa.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/outspokin-bicycles-tampa.webp",
+    "webpSmall": "/assets/img/logos/outspokin-bicycles-tampa-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "padl-virginia-key-north-point-park-and-trails": {
     "src": "/assets/img/logos/padl-virginia-key-north-point-park-and-trails.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/padl-virginia-key-north-point-park-and-trails.webp",
+    "webpSmall": "/assets/img/logos/padl-virginia-key-north-point-park-and-trails-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "palm-beach-ebike-rentals": {
     "src": "/assets/img/logos/palm-beach-ebike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/palm-beach-ebike-rentals.webp",
+    "webpSmall": "/assets/img/logos/palm-beach-ebike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "paradise-bicycles": {
     "src": "/assets/img/logos/paradise-bicycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/paradise-bicycles.webp",
+    "webpSmall": "/assets/img/logos/paradise-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "peddlers-30a": {
     "src": "/assets/img/logos/peddlers-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/peddlers-30a.webp",
+    "webpSmall": "/assets/img/logos/peddlers-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pedego-30a": {
     "src": "/assets/img/logos/pedego-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pedego-30a.webp",
+    "webpSmall": "/assets/img/logos/pedego-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pedego-electric-bikes-naples": {
     "src": "/assets/img/logos/pedego-electric-bikes-naples.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pedego-electric-bikes-naples.webp",
+    "webpSmall": "/assets/img/logos/pedego-electric-bikes-naples-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pedego-electric-bikes-new-smyrna-beach": {
     "src": "/assets/img/logos/pedego-electric-bikes-new-smyrna-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pedego-electric-bikes-new-smyrna-beach.webp",
+    "webpSmall": "/assets/img/logos/pedego-electric-bikes-new-smyrna-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pedelec-sqb-electric-bicycles": {
     "src": "/assets/img/logos/pedelec-sqb-electric-bicycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pedelec-sqb-electric-bicycles.webp",
+    "webpSmall": "/assets/img/logos/pedelec-sqb-electric-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pedritos-bike-shop": {
     "src": "/assets/img/logos/pedritos-bike-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pedritos-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/pedritos-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "perdido-key-bike-rentals": {
     "src": "/assets/img/logos/perdido-key-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/perdido-key-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/perdido-key-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pev-connection-llc": {
     "src": "/assets/img/logos/pev-connection-llc.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pev-connection-llc.webp",
+    "webpSmall": "/assets/img/logos/pev-connection-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pirate-scooter-rentals": {
     "src": "/assets/img/logos/pirate-scooter-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pirate-scooter-rentals.webp",
+    "webpSmall": "/assets/img/logos/pirate-scooter-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "punk-ride": {
     "src": "/assets/img/logos/punk-ride.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/punk-ride.webp",
+    "webpSmall": "/assets/img/logos/punk-ride-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "pure-cycles": {
     "src": "/assets/img/logos/pure-cycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/pure-cycles.webp",
+    "webpSmall": "/assets/img/logos/pure-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "quicky-cycles": {
     "src": "/assets/img/logos/quicky-cycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/quicky-cycles.webp",
+    "webpSmall": "/assets/img/logos/quicky-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "quicky-rentals": {
     "src": "/assets/img/logos/quicky-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/quicky-rentals.webp",
+    "webpSmall": "/assets/img/logos/quicky-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "r-r-outfitters-of-florida": {
     "src": "/assets/img/logos/r-r-outfitters-of-florida.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/r-r-outfitters-of-florida.webp",
+    "webpSmall": "/assets/img/logos/r-r-outfitters-of-florida-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "rad-rizzi-co-golf-cart-rentals": {
     "src": "/assets/img/logos/rad-rizzi-co-golf-cart-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/rad-rizzi-co-golf-cart-rentals.webp",
+    "webpSmall": "/assets/img/logos/rad-rizzi-co-golf-cart-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "regino-bike-co": {
     "src": "/assets/img/logos/regino-bike-co.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/regino-bike-co.webp",
+    "webpSmall": "/assets/img/logos/regino-bike-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "relentless-bicycles": {
     "src": "/assets/img/logos/relentless-bicycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/relentless-bicycles.webp",
+    "webpSmall": "/assets/img/logos/relentless-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "rent-beach-stuff": {
     "src": "/assets/img/logos/rent-beach-stuff.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/rent-beach-stuff.webp",
+    "webpSmall": "/assets/img/logos/rent-beach-stuff-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "rent-electric-bikes-30a": {
     "src": "/assets/img/logos/rent-electric-bikes-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/rent-electric-bikes-30a.webp",
+    "webpSmall": "/assets/img/logos/rent-electric-bikes-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "retro-city-cycles-longwood": {
     "src": "/assets/img/logos/retro-city-cycles-longwood.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/retro-city-cycles-longwood.webp",
+    "webpSmall": "/assets/img/logos/retro-city-cycles-longwood-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ride-electric": {
     "src": "/assets/img/logos/ride-electric.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ride-electric.webp",
+    "webpSmall": "/assets/img/logos/ride-electric-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ride-on-e-bikes": {
     "src": "/assets/img/logos/ride-on-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ride-on-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/ride-on-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ride-paddle-by-siesta-sports-rentals": {
     "src": "/assets/img/logos/ride-paddle-by-siesta-sports-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ride-paddle-by-siesta-sports-rentals.webp",
+    "webpSmall": "/assets/img/logos/ride-paddle-by-siesta-sports-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "rideit-electric-bike-rentals-sales": {
     "src": "/assets/img/logos/rideit-electric-bike-rentals-sales.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/rideit-electric-bike-rentals-sales.webp",
+    "webpSmall": "/assets/img/logos/rideit-electric-bike-rentals-sales-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "riptide-watersports-rentals-and-tours": {
     "src": "/assets/img/logos/riptide-watersports-rentals-and-tours.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/riptide-watersports-rentals-and-tours.webp",
+    "webpSmall": "/assets/img/logos/riptide-watersports-rentals-and-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "roadshark-powersports": {
     "src": "/assets/img/logos/roadshark-powersports.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/roadshark-powersports.webp",
+    "webpSmall": "/assets/img/logos/roadshark-powersports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "robin-hood-rentals-siesta-key": {
     "src": "/assets/img/logos/robin-hood-rentals-siesta-key.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/robin-hood-rentals-siesta-key.webp",
+    "webpSmall": "/assets/img/logos/robin-hood-rentals-siesta-key-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "robinhood-rentals-of-anna-maria": {
     "src": "/assets/img/logos/robinhood-rentals-of-anna-maria.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/robinhood-rentals-of-anna-maria.webp",
+    "webpSmall": "/assets/img/logos/robinhood-rentals-of-anna-maria-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "rogan-e-bikes-st-petersburg": {
     "src": "/assets/img/logos/rogan-e-bikes-st-petersburg.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/rogan-e-bikes-st-petersburg.webp",
+    "webpSmall": "/assets/img/logos/rogan-e-bikes-st-petersburg-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "runaway-rentals-bike-golf-cart-rentals": {
     "src": "/assets/img/logos/runaway-rentals-bike-golf-cart-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/runaway-rentals-bike-golf-cart-rentals.webp",
+    "webpSmall": "/assets/img/logos/runaway-rentals-bike-golf-cart-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sage-golf-cart-rentals": {
     "src": "/assets/img/logos/sage-golf-cart-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sage-golf-cart-rentals.webp",
+    "webpSmall": "/assets/img/logos/sage-golf-cart-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sage-paddle-company": {
     "src": "/assets/img/logos/sage-paddle-company.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sage-paddle-company.webp",
+    "webpSmall": "/assets/img/logos/sage-paddle-company-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "saint-george-island-beach-bum-essentials": {
     "src": "/assets/img/logos/saint-george-island-beach-bum-essentials.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/saint-george-island-beach-bum-essentials.webp",
+    "webpSmall": "/assets/img/logos/saint-george-island-beach-bum-essentials-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "saint-george-island-golf-cart-and-bike-rentals": {
     "src": "/assets/img/logos/saint-george-island-golf-cart-and-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/saint-george-island-golf-cart-and-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/saint-george-island-golf-cart-and-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "salt-air-30a": {
     "src": "/assets/img/logos/salt-air-30a.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/salt-air-30a.webp",
+    "webpSmall": "/assets/img/logos/salt-air-30a-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "san-flea-beach-service": {
     "src": "/assets/img/logos/san-flea-beach-service.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/san-flea-beach-service.webp",
+    "webpSmall": "/assets/img/logos/san-flea-beach-service-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "santos-bike-shop-ocala": {
     "src": "/assets/img/logos/santos-bike-shop-ocala.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/santos-bike-shop-ocala.webp",
+    "webpSmall": "/assets/img/logos/santos-bike-shop-ocala-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "scootermania": {
     "src": "/assets/img/logos/scootermania.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/scootermania.webp",
+    "webpSmall": "/assets/img/logos/scootermania-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "seaside-transit-authority-bike-rentals": {
     "src": "/assets/img/logos/seaside-transit-authority-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/seaside-transit-authority-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/seaside-transit-authority-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "shark-valley-tram-tours": {
     "src": "/assets/img/logos/shark-valley-tram-tours.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/shark-valley-tram-tours.webp",
+    "webpSmall": "/assets/img/logos/shark-valley-tram-tours-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "shock-e-bike-sales-rental-tours-with-delivery": {
     "src": "/assets/img/logos/shock-e-bike-sales-rental-tours-with-delivery.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/shock-e-bike-sales-rental-tours-with-delivery.webp",
+    "webpSmall": "/assets/img/logos/shock-e-bike-sales-rental-tours-with-delivery-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "siesta-key-bike-and-kayak": {
     "src": "/assets/img/logos/siesta-key-bike-and-kayak.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/siesta-key-bike-and-kayak.webp",
+    "webpSmall": "/assets/img/logos/siesta-key-bike-and-kayak-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "siesta-key-e-bikes": {
     "src": "/assets/img/logos/siesta-key-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/siesta-key-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/siesta-key-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "smart-phone-fix-phone-repair-ebikes": {
     "src": "/assets/img/logos/smart-phone-fix-phone-repair-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/smart-phone-fix-phone-repair-ebikes.webp",
+    "webpSmall": "/assets/img/logos/smart-phone-fix-phone-repair-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "smile-motors": {
     "src": "/assets/img/logos/smile-motors.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/smile-motors.webp",
+    "webpSmall": "/assets/img/logos/smile-motors-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "smile-scooter": {
     "src": "/assets/img/logos/smile-scooter.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/smile-scooter.webp",
+    "webpSmall": "/assets/img/logos/smile-scooter-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sobe-tours-and-rentals-bikes-segway": {
     "src": "/assets/img/logos/sobe-tours-and-rentals-bikes-segway.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sobe-tours-and-rentals-bikes-segway.webp",
+    "webpSmall": "/assets/img/logos/sobe-tours-and-rentals-bikes-segway-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "solano-cycle-of-st-augustine": {
     "src": "/assets/img/logos/solano-cycle-of-st-augustine.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/solano-cycle-of-st-augustine.webp",
+    "webpSmall": "/assets/img/logos/solano-cycle-of-st-augustine-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "solano-cycle-rentals": {
     "src": "/assets/img/logos/solano-cycle-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/solano-cycle-rentals.webp",
+    "webpSmall": "/assets/img/logos/solano-cycle-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "somi-bike": {
     "src": "/assets/img/logos/somi-bike.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/somi-bike.webp",
+    "webpSmall": "/assets/img/logos/somi-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "southernmost-park-and-play-e-bike-rentals-key-west": {
     "src": "/assets/img/logos/southernmost-park-and-play-e-bike-rentals-key-west.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/southernmost-park-and-play-e-bike-rentals-key-west.webp",
+    "webpSmall": "/assets/img/logos/southernmost-park-and-play-e-bike-rentals-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sparkys-green-rides": {
     "src": "/assets/img/logos/sparkys-green-rides.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sparkys-green-rides.webp",
+    "webpSmall": "/assets/img/logos/sparkys-green-rides-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "specialized-miami-coconut-grove": {
     "src": "/assets/img/logos/specialized-miami-coconut-grove.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/specialized-miami-coconut-grove.webp",
+    "webpSmall": "/assets/img/logos/specialized-miami-coconut-grove-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "st-pete-bike-rentals": {
     "src": "/assets/img/logos/st-pete-bike-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/st-pete-bike-rentals.webp",
+    "webpSmall": "/assets/img/logos/st-pete-bike-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "st-pete-biking": {
     "src": "/assets/img/logos/st-pete-biking.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/st-pete-biking.webp",
+    "webpSmall": "/assets/img/logos/st-pete-biking-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "steves-bike-shop": {
     "src": "/assets/img/logos/steves-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/steves-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/steves-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "streetside-scooters-powersports": {
     "src": "/assets/img/logos/streetside-scooters-powersports.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/streetside-scooters-powersports.webp",
+    "webpSmall": "/assets/img/logos/streetside-scooters-powersports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "suncycling-cycle-and-fitness-shop": {
     "src": "/assets/img/logos/suncycling-cycle-and-fitness-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/suncycling-cycle-and-fitness-shop.webp",
+    "webpSmall": "/assets/img/logos/suncycling-cycle-and-fitness-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sunny-rentals": {
     "src": "/assets/img/logos/sunny-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sunny-rentals.webp",
+    "webpSmall": "/assets/img/logos/sunny-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sunshine-e-ride": {
     "src": "/assets/img/logos/sunshine-e-ride.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sunshine-e-ride.webp",
+    "webpSmall": "/assets/img/logos/sunshine-e-ride-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sunshine-e-ride-coral-springs": {
     "src": "/assets/img/logos/sunshine-e-ride-coral-springs.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sunshine-e-ride-coral-springs.webp",
+    "webpSmall": "/assets/img/logos/sunshine-e-ride-coral-springs-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sunshine-scooters-inc": {
     "src": "/assets/img/logos/sunshine-scooters-inc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sunshine-scooters-inc.webp",
+    "webpSmall": "/assets/img/logos/sunshine-scooters-inc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "sunshine-scooters-inc-key-west": {
     "src": "/assets/img/logos/sunshine-scooters-inc-key-west.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/sunshine-scooters-inc-key-west.webp",
+    "webpSmall": "/assets/img/logos/sunshine-scooters-inc-key-west-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "surf-n-turf-e-bike-bike-paddleboard-rentals-free-delivery-miramar-beach-destin-o": {
     "src": "/assets/img/logos/surf-n-turf-e-bike-bike-paddleboard-rentals-free-delivery-miramar-beach-destin-o.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/surf-n-turf-e-bike-bike-paddleboard-rentals-free-delivery-miramar-beach-destin-o.webp",
+    "webpSmall": "/assets/img/logos/surf-n-turf-e-bike-bike-paddleboard-rentals-free-delivery-miramar-beach-destin-o-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "surf-wheels-n-e-bikes": {
     "src": "/assets/img/logos/surf-wheels-n-e-bikes.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/surf-wheels-n-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/surf-wheels-n-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "surfari-surf-shop-ormond-beach-camps-lessons-rentals": {
     "src": "/assets/img/logos/surfari-surf-shop-ormond-beach-camps-lessons-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/surfari-surf-shop-ormond-beach-camps-lessons-rentals.webp",
+    "webpSmall": "/assets/img/logos/surfari-surf-shop-ormond-beach-camps-lessons-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tampa-bay-ebikes": {
     "src": "/assets/img/logos/tampa-bay-ebikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tampa-bay-ebikes.webp",
+    "webpSmall": "/assets/img/logos/tampa-bay-ebikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tampa-bay-ebikes-dunedin": {
     "src": "/assets/img/logos/tampa-bay-ebikes-dunedin.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tampa-bay-ebikes-dunedin.webp",
+    "webpSmall": "/assets/img/logos/tampa-bay-ebikes-dunedin-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tampa-bay-ebikes-st-petersburg": {
     "src": "/assets/img/logos/tampa-bay-ebikes-st-petersburg.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tampa-bay-ebikes-st-petersburg.webp",
+    "webpSmall": "/assets/img/logos/tampa-bay-ebikes-st-petersburg-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tampa-riverwalk-rentals": {
     "src": "/assets/img/logos/tampa-riverwalk-rentals.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tampa-riverwalk-rentals.webp",
+    "webpSmall": "/assets/img/logos/tampa-riverwalk-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tarpon-toms-bike-shop": {
     "src": "/assets/img/logos/tarpon-toms-bike-shop.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tarpon-toms-bike-shop.webp",
+    "webpSmall": "/assets/img/logos/tarpon-toms-bike-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "teked-mobile-bike-services-llc": {
     "src": "/assets/img/logos/teked-mobile-bike-services-llc.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/teked-mobile-bike-services-llc.webp",
+    "webpSmall": "/assets/img/logos/teked-mobile-bike-services-llc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-beach-store-more": {
     "src": "/assets/img/logos/the-beach-store-more.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-beach-store-more.webp",
+    "webpSmall": "/assets/img/logos/the-beach-store-more-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-bike-route": {
     "src": "/assets/img/logos/the-bike-route.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-bike-route.webp",
+    "webpSmall": "/assets/img/logos/the-bike-route-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-bike-route-inc-fort-myers": {
     "src": "/assets/img/logos/the-bike-route-inc-fort-myers.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-bike-route-inc-fort-myers.webp",
+    "webpSmall": "/assets/img/logos/the-bike-route-inc-fort-myers-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-bikery-coffee-bicycle-shop": {
     "src": "/assets/img/logos/the-bikery-coffee-bicycle-shop.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-bikery-coffee-bicycle-shop.webp",
+    "webpSmall": "/assets/img/logos/the-bikery-coffee-bicycle-shop-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-fun-store": {
     "src": "/assets/img/logos/the-fun-store.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-fun-store.webp",
+    "webpSmall": "/assets/img/logos/the-fun-store-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-hub-cycling": {
     "src": "/assets/img/logos/the-hub-cycling.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-hub-cycling.webp",
+    "webpSmall": "/assets/img/logos/the-hub-cycling-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-ride-xperience-by-regino-bike-co": {
     "src": "/assets/img/logos/the-ride-xperience-by-regino-bike-co.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-ride-xperience-by-regino-bike-co.webp",
+    "webpSmall": "/assets/img/logos/the-ride-xperience-by-regino-bike-co-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "the-space-coast-e-bike-store": {
     "src": "/assets/img/logos/the-space-coast-e-bike-store.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/the-space-coast-e-bike-store.webp",
+    "webpSmall": "/assets/img/logos/the-space-coast-e-bike-store-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tiki-ev-lithium-battery-conversion-golf-carts-and-e-bikes": {
     "src": "/assets/img/logos/tiki-ev-lithium-battery-conversion-golf-carts-and-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tiki-ev-lithium-battery-conversion-golf-carts-and-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/tiki-ev-lithium-battery-conversion-golf-carts-and-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "toysfortourists": {
     "src": "/assets/img/logos/toysfortourists.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/toysfortourists.webp",
+    "webpSmall": "/assets/img/logos/toysfortourists-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trail-sport-bicycles": {
     "src": "/assets/img/logos/trail-sport-bicycles.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trail-sport-bicycles.webp",
+    "webpSmall": "/assets/img/logos/trail-sport-bicycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trailwinds-e-bikes": {
     "src": "/assets/img/logos/trailwinds-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trailwinds-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/trailwinds-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "treasure-coast-cycle-werks": {
     "src": "/assets/img/logos/treasure-coast-cycle-werks.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/treasure-coast-cycle-werks.webp",
+    "webpSmall": "/assets/img/logos/treasure-coast-cycle-werks-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-altamonte-springs": {
     "src": "/assets/img/logos/trek-bicycle-altamonte-springs.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-altamonte-springs.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-altamonte-springs-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-gainesville": {
     "src": "/assets/img/logos/trek-bicycle-gainesville.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-gainesville.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-gainesville-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-inverness": {
     "src": "/assets/img/logos/trek-bicycle-inverness.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-inverness.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-inverness-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-jacksonville-beach": {
     "src": "/assets/img/logos/trek-bicycle-jacksonville-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-jacksonville-beach.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-jacksonville-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-lake-mary": {
     "src": "/assets/img/logos/trek-bicycle-lake-mary.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-lake-mary.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-lake-mary-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-lakeland": {
     "src": "/assets/img/logos/trek-bicycle-lakeland.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-lakeland.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-lakeland-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-melbourne": {
     "src": "/assets/img/logos/trek-bicycle-melbourne.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-melbourne.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-melbourne-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-orlando-college-park": {
     "src": "/assets/img/logos/trek-bicycle-orlando-college-park.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-orlando-college-park.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-orlando-college-park-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-orlando-southchase": {
     "src": "/assets/img/logos/trek-bicycle-orlando-southchase.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-orlando-southchase.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-orlando-southchase-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-ormond-beach": {
     "src": "/assets/img/logos/trek-bicycle-ormond-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-ormond-beach.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-ormond-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-seminole": {
     "src": "/assets/img/logos/trek-bicycle-seminole.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-seminole.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-seminole-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-store-clermont": {
     "src": "/assets/img/logos/trek-bicycle-store-clermont.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-store-clermont.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-store-clermont-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-tallahassee": {
     "src": "/assets/img/logos/trek-bicycle-tallahassee.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-tallahassee.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-tallahassee-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-tampa-carrollwood": {
     "src": "/assets/img/logos/trek-bicycle-tampa-carrollwood.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-tampa-carrollwood.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-tampa-carrollwood-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-tampa-south": {
     "src": "/assets/img/logos/trek-bicycle-tampa-south.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-tampa-south.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-tampa-south-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-wildwood": {
     "src": "/assets/img/logos/trek-bicycle-wildwood.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-wildwood.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-wildwood-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bicycle-winter-garden": {
     "src": "/assets/img/logos/trek-bicycle-winter-garden.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bicycle-winter-garden.webp",
+    "webpSmall": "/assets/img/logos/trek-bicycle-winter-garden-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-boynton-beach": {
     "src": "/assets/img/logos/trek-bike-shop-of-boynton-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-boynton-beach.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-boynton-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-cape-coral": {
     "src": "/assets/img/logos/trek-bike-shop-of-cape-coral.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-cape-coral.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-cape-coral-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-estero": {
     "src": "/assets/img/logos/trek-bike-shop-of-estero.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-estero.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-estero-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-fort-lauderdale": {
     "src": "/assets/img/logos/trek-bike-shop-of-fort-lauderdale.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-fort-lauderdale.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-fort-lauderdale-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-fort-myers": {
     "src": "/assets/img/logos/trek-bike-shop-of-fort-myers.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-fort-myers.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-fort-myers-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-naples": {
     "src": "/assets/img/logos/trek-bike-shop-of-naples.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-naples.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-naples-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bike-shop-of-sunrise": {
     "src": "/assets/img/logos/trek-bike-shop-of-sunrise.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bike-shop-of-sunrise.webp",
+    "webpSmall": "/assets/img/logos/trek-bike-shop-of-sunrise-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "trek-bikes-wellington": {
     "src": "/assets/img/logos/trek-bikes-wellington.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/trek-bikes-wellington.webp",
+    "webpSmall": "/assets/img/logos/trek-bikes-wellington-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tressel": {
     "src": "/assets/img/logos/tressel.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tressel.webp",
+    "webpSmall": "/assets/img/logos/tressel-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tt-motos-miami": {
     "src": "/assets/img/logos/tt-motos-miami.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tt-motos-miami.webp",
+    "webpSmall": "/assets/img/logos/tt-motos-miami-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tt-motos-miami-pembroke-park": {
     "src": "/assets/img/logos/tt-motos-miami-pembroke-park.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tt-motos-miami-pembroke-park.webp",
+    "webpSmall": "/assets/img/logos/tt-motos-miami-pembroke-park-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "tvc-go": {
     "src": "/assets/img/logos/tvc-go.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/tvc-go.webp",
+    "webpSmall": "/assets/img/logos/tvc-go-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ubc-university-bicycle-center": {
     "src": "/assets/img/logos/ubc-university-bicycle-center.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ubc-university-bicycle-center.webp",
+    "webpSmall": "/assets/img/logos/ubc-university-bicycle-center-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "ubc-university-bicycle-center-at-alafia-river-state-park": {
     "src": "/assets/img/logos/ubc-university-bicycle-center-at-alafia-river-state-park.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/ubc-university-bicycle-center-at-alafia-river-state-park.webp",
+    "webpSmall": "/assets/img/logos/ubc-university-bicycle-center-at-alafia-river-state-park-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "unlimited-biking": {
     "src": "/assets/img/logos/unlimited-biking.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/unlimited-biking.webp",
+    "webpSmall": "/assets/img/logos/unlimited-biking-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "unlimited-biking-sanibel": {
     "src": "/assets/img/logos/unlimited-biking-sanibel.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/unlimited-biking-sanibel.webp",
+    "webpSmall": "/assets/img/logos/unlimited-biking-sanibel-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "urban-e-rides": {
     "src": "/assets/img/logos/urban-e-rides.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/urban-e-rides.webp",
+    "webpSmall": "/assets/img/logos/urban-e-rides-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "us1-scooters-fort-lauderdale": {
     "src": "/assets/img/logos/us1-scooters-fort-lauderdale.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/us1-scooters-fort-lauderdale.webp",
+    "webpSmall": "/assets/img/logos/us1-scooters-fort-lauderdale-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "village-bike": {
     "src": "/assets/img/logos/village-bike.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/village-bike.webp",
+    "webpSmall": "/assets/img/logos/village-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "village-cycle-shoppe": {
     "src": "/assets/img/logos/village-cycle-shoppe.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/village-cycle-shoppe.webp",
+    "webpSmall": "/assets/img/logos/village-cycle-shoppe-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "viver-bicycle": {
     "src": "/assets/img/logos/viver-bicycle.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/viver-bicycle.webp",
+    "webpSmall": "/assets/img/logos/viver-bicycle-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "voltaire-cycles": {
     "src": "/assets/img/logos/voltaire-cycles.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/voltaire-cycles.webp",
+    "webpSmall": "/assets/img/logos/voltaire-cycles-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "voltaire-cycles-and-e-bikes-venice": {
     "src": "/assets/img/logos/voltaire-cycles-and-e-bikes-venice.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/voltaire-cycles-and-e-bikes-venice.webp",
+    "webpSmall": "/assets/img/logos/voltaire-cycles-and-e-bikes-venice-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wave-wheels-golf-cart-ebike-rentals-and-sales-of-ormond-beach": {
     "src": "/assets/img/logos/wave-wheels-golf-cart-ebike-rentals-and-sales-of-ormond-beach.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wave-wheels-golf-cart-ebike-rentals-and-sales-of-ormond-beach.webp",
+    "webpSmall": "/assets/img/logos/wave-wheels-golf-cart-ebike-rentals-and-sales-of-ormond-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wc-powersports": {
     "src": "/assets/img/logos/wc-powersports.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wc-powersports.webp",
+    "webpSmall": "/assets/img/logos/wc-powersports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "we-cycle-key-west-bike-rental-new-town": {
     "src": "/assets/img/logos/we-cycle-key-west-bike-rental-new-town.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/we-cycle-key-west-bike-rental-new-town.webp",
+    "webpSmall": "/assets/img/logos/we-cycle-key-west-bike-rental-new-town-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "we-cycle-key-west-bike-rental-old-town": {
     "src": "/assets/img/logos/we-cycle-key-west-bike-rental-old-town.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/we-cycle-key-west-bike-rental-old-town.webp",
+    "webpSmall": "/assets/img/logos/we-cycle-key-west-bike-rental-old-town-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "western-bike": {
     "src": "/assets/img/logos/western-bike.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/western-bike.webp",
+    "webpSmall": "/assets/img/logos/western-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wet": {
     "src": "/assets/img/logos/wet.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wet.webp",
+    "webpSmall": "/assets/img/logos/wet-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wheel-fun-rentals-honeymoon-island": {
     "src": "/assets/img/logos/wheel-fun-rentals-honeymoon-island.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wheel-fun-rentals-honeymoon-island.webp",
+    "webpSmall": "/assets/img/logos/wheel-fun-rentals-honeymoon-island-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wheel-fun-rentals-lakes-regional-park": {
     "src": "/assets/img/logos/wheel-fun-rentals-lakes-regional-park.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wheel-fun-rentals-lakes-regional-park.webp",
+    "webpSmall": "/assets/img/logos/wheel-fun-rentals-lakes-regional-park-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wheel-fun-rentals-merry-pier": {
     "src": "/assets/img/logos/wheel-fun-rentals-merry-pier.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wheel-fun-rentals-merry-pier.webp",
+    "webpSmall": "/assets/img/logos/wheel-fun-rentals-merry-pier-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wheel-fun-rentals-safety-harbor-resort-and-spa": {
     "src": "/assets/img/logos/wheel-fun-rentals-safety-harbor-resort-and-spa.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wheel-fun-rentals-safety-harbor-resort-and-spa.webp",
+    "webpSmall": "/assets/img/logos/wheel-fun-rentals-safety-harbor-resort-and-spa-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "wheel-works-bicycle-rentals": {
     "src": "/assets/img/logos/wheel-works-bicycle-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/wheel-works-bicycle-rentals.webp",
+    "webpSmall": "/assets/img/logos/wheel-works-bicycle-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "willies-bicycle": {
     "src": "/assets/img/logos/willies-bicycle.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/willies-bicycle.webp",
+    "webpSmall": "/assets/img/logos/willies-bicycle-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "world-of-cycling": {
     "src": "/assets/img/logos/world-of-cycling.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/world-of-cycling.webp",
+    "webpSmall": "/assets/img/logos/world-of-cycling-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yellowfin-ocean-sports": {
     "src": "/assets/img/logos/yellowfin-ocean-sports.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yellowfin-ocean-sports.webp",
+    "webpSmall": "/assets/img/logos/yellowfin-ocean-sports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yew-e-bikes": {
     "src": "/assets/img/logos/yew-e-bikes.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yew-e-bikes.webp",
+    "webpSmall": "/assets/img/logos/yew-e-bikes-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yew-e-bikes-ormond-beach": {
     "src": "/assets/img/logos/yew-e-bikes-ormond-beach.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yew-e-bikes-ormond-beach.webp",
+    "webpSmall": "/assets/img/logos/yew-e-bikes-ormond-beach-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yoan-scooter-rentals": {
     "src": "/assets/img/logos/yoan-scooter-rentals.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yoan-scooter-rentals.webp",
+    "webpSmall": "/assets/img/logos/yoan-scooter-rentals-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yolo-board-bike": {
     "src": "/assets/img/logos/yolo-board-bike.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yolo-board-bike.webp",
+    "webpSmall": "/assets/img/logos/yolo-board-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "yolo-watersports-inc": {
     "src": "/assets/img/logos/yolo-watersports-inc.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/yolo-watersports-inc.webp",
+    "webpSmall": "/assets/img/logos/yolo-watersports-inc-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "zencog-bicycle-company": {
     "src": "/assets/img/logos/zencog-bicycle-company.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/zencog-bicycle-company.webp",
+    "webpSmall": "/assets/img/logos/zencog-bicycle-company-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "zoo-keeper-e-bike": {
     "src": "/assets/img/logos/zoo-keeper-e-bike.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/zoo-keeper-e-bike.webp",
+    "webpSmall": "/assets/img/logos/zoo-keeper-e-bike-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "zoomx-powersports": {
     "src": "/assets/img/logos/zoomx-powersports.jpg",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/zoomx-powersports.webp",
+    "webpSmall": "/assets/img/logos/zoomx-powersports-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   }
 }

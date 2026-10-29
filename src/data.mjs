@@ -417,6 +417,11 @@ export function loadListings({ raw = false } = {}) {
             logo: logo ? logo.src : "",
             logoWidth: logo ? logo.width : 0,
             logoHeight: logo ? logo.height : 0,
+            // WebP copies written by scripts/optimize-logos.py; the original stays the fallback.
+            logoWebp: logo && logo.webp ? logo.webp : "",
+            logoSmall: logo && logo.webpSmall ? logo.webpSmall : "",
+            logoSmallWidth: logo && logo.webpSmallWidth ? logo.webpSmallWidth : 0,
+            logoSmallHeight: logo && logo.webpSmallHeight ? logo.webpSmallHeight : 0,
             googleReviews: reviews[l.place_id] || [],
           }),
       // hadWebsite feeds the indexing rule, which counts a website as a sign
