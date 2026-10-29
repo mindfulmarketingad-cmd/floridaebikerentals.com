@@ -1718,3 +1718,8 @@ img.is-stock { object-fit: cover; }
 .facets--finder { margin-top: .6rem; }
 .find-search:has(.facets) { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.6fr) minmax(0, 1fr) auto; }
 @media (max-width: 760px) { .find-search:has(.facets) { grid-template-columns: 1fr 1fr; } }
+
+/* "Tell them we sent you" */
+.finder-card__sent, .sent-you { margin: 0; font-size: max(12px, .85rem); font-weight: 700; color: var(--blue-700); }
+.sent-you { margin: .6rem 0; padding: .5rem .7rem; background: var(--blue-50); border-radius: var(--radius-s); }
+.finder-results__sent { margin: .6rem 0 0; font-weight: 800; color: var(--blue-900); }

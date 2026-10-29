@@ -947,6 +947,7 @@
       rent.set("length", q.length);
       acts.appendChild(button("btn--primary btn--sm", "/rent/?" + rent.toString(), "Book Through Us", false, "book_through_us", s.n));
       body.appendChild(acts);
+      body.appendChild(el("p", "finder-card__sent", "When you call, tell them Florida Ebike Rentals sent you \ud83d\ude42"));
       var more = el("a", "finder-card__more", "Full details");
       more.href = s.u;
       body.appendChild(more);
@@ -981,6 +982,7 @@
         out.appendChild(el("p", "", "No shop we list fits all of that. Try another day or start time, a shorter rental, \"Any e-bike\", or fewer must-haves."));
         return;
       }
+      out.appendChild(el("p", "finder-results__sent", "Found your ride? Tell the shop Florida Ebike Rentals sent you \ud83d\ude42"));
       var ol = el("ol", "finder-list");
       res.list.forEach(function (m, i) { ol.appendChild(card(m, q, origin, i)); });
       out.appendChild(ol);
