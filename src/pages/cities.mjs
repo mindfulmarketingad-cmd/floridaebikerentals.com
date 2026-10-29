@@ -18,6 +18,7 @@ import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
 import { typeTiles } from "./city-types.mjs";
 import { finderHref } from "../finder.mjs";
+import { floridaMap } from "../fl-map.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const YEAR = new Date().getFullYear();
@@ -26,18 +27,13 @@ export const CITIES_CRUMB = { href: "/cities/", label: "Cities" };
 /* ------------------------------------------------------------ hub */
 
 export function citiesHub(site, { index, stats }) {
-  const regions = [...index.regions].sort((a, b) => a.name.localeCompare(b.name));
-  const allTowns = (region) =>
-    [...region.cities, ...(region.thinCities || [])].sort(
-      (a, b) => b.listings.length - a.listings.length || a.name.localeCompare(b.name)
-    );
   const townTotal = index.cities.length + index.thinCities.length;
 
   const body = `
 ${findHero({
   crumbs: [HOME_CRUMB, CITIES_CRUMB],
   h1: "Florida Cities With Bike & E-Bike Rentals",
-  lead: `We list ${stats.total} rental shops in ${townTotal} Florida towns. Pick a town to see its shops ranked, or let us sort every shop by distance from you.`,
+  lead: `We list ${stats.total} rental shops in ${townTotal} Florida towns. Search for your town, or tap it on the map below to see its shops ranked.`,
   scene: photoFor("cities"),
   index,
   current: "/cities/",
@@ -54,29 +50,23 @@ ${findHero({
 
 <section class="section">
   <div class="wrap">
-    <nav class="region-jump" aria-label="Jump to a region">${regions
-      .map((r) => `<a href="#${attr(r.slug)}">${esc(r.name)}</a>`)
-      .join("")}</nav>
-    ${regions
-      .map(
-        (region) => `<section class="city-region" id="${attr(region.slug)}" data-region="${attr(region.name)}">
-      ${
-        // Full-width banners only from photos wide enough not to be stretched.
-        stockFor(region.slug) && stockFor(region.slug).width >= 1180
-          ? `<div class="city-region__banner">${stockImg(stockFor(region.slug), { alt: `${region.name}, Florida`, large: true })}</div>`
-          : ""
-      }
-      <div class="city-region__head">
-        <h2>${esc(region.name)}</h2>
-        <p class="muted">${region.listings.length} ${plural(region.listings.length, "shop")} in ${allTowns(region).length} ${plural(
-          allTowns(region).length,
-          "town"
-        )}</p>
-      </div>
-      ${townCards(allTowns(region))}
-    </section>`
-      )
-      .join("")}
+    <div class="section__head">
+      <h2>Pick Your Town on the Map</h2>
+      <p class="muted">Every town we list, drawn on its real town limits. Tap one to see its rental shops.</p>
+    </div>
+    ${floridaMap(index)}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section__head">
+      <h2>All ${townTotal} Towns, A to Z</h2>
+      <p class="muted">${stats.total} shops in total. The number on each town is how many shops we list there.</p>
+    </div>
+    <div class="city-region" data-region="Florida">${townCards(
+      [...index.cities, ...index.thinCities].sort((a, b) => a.name.localeCompare(b.name))
+    )}</div>
   </div>
 </section>
 
@@ -85,8 +75,7 @@ ${adSlot(site, "")}
 <section class="section section--tint">
   <div class="wrap wrap-narrow prose">
     ${stockCredits([
-      ...regions.map((r) => stockFor(r.slug)),
-      ...regions.flatMap((r) => allTowns(r).map((t) => stockFor(`town-${t.slug}`))),
+      ...[...index.cities, ...index.thinCities].map((t) => stockFor(`town-${t.slug}`)),
     ])}
     <h2>How we build these lists</h2>
     <p>We start from public Google Maps data for bike and e-bike rental, sales and repair businesses
@@ -106,7 +95,7 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title: `Florida Bike Rentals by City - ${townTotal} Towns, ${stats.total} Shops`,
     description: clamp(
-      `Every Florida town in our bike and e-bike rental directory, grouped by region with the number of shops in each. ${stats.total} shops across ${townTotal} towns.`
+      `Every Florida town in our bike and e-bike rental directory on one clickable map, with the number of shops in each. ${stats.total} shops across ${townTotal} towns.`
     ),
     path: "/cities/",
     body,

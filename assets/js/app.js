@@ -1294,6 +1294,98 @@
     }
   })();
 
+  /* ------------------------------------------------ /cities/ Florida map */
+  /* Zoom with the buttons, the mouse wheel or a pinch; drag to pan. A drag never
+     counts as a click on a town. */
+  (function () {
+    var map = $("[data-fl-map]");
+    if (!map) return;
+    var svg = $("svg", map), tip = $("[data-fl-tip]", map);
+    var W = +svg.getAttribute("data-w"), H = +svg.getAttribute("data-h");
+    var view = { x: 0, y: 0, w: W, h: H }, MIN = W / 14;
+    var dots = $$(".fl-map__dot", svg).map(function (c) { return [c, +c.getAttribute("r")]; });
+    var labels = $$(".fl-map__labels text", svg);
+    function apply() {
+      view.w = Math.max(MIN, Math.min(W, view.w)); view.h = view.w * H / W;
+      view.x = Math.max(0, Math.min(W - view.w, view.x)); view.y = Math.max(0, Math.min(H - view.h, view.y));
+      svg.setAttribute("viewBox", view.x + " " + view.y + " " + view.w + " " + view.h);
+      // Dots and labels keep the same size on screen at any zoom or screen width.
+      var px = svg.getBoundingClientRect().width || W, u = view.w / px;
+      dots.forEach(function (d) { d[0].setAttribute("r", (d[1] * 1.25 * u).toFixed(2)); });
+      labels.forEach(function (t) { t.style.fontSize = (12 * u) + "px"; t.style.strokeWidth = (3 * u) + "px"; });
+      // On a small screen the town names only appear once you zoom in.
+      if (labelGroup) labelGroup.style.display = px * W / view.w < 600 ? "none" : "";
+    }
+    var labelGroup = $(".fl-map__labels", svg);
+    window.addEventListener("resize", function () { apply(); });
+    var focus = (svg.getAttribute("data-focus") || "").split(" ").map(Number);
+    function zoom(f, cx, cy) {
+      if (cx == null && view.w === W && focus.length === 2) { cx = focus[0]; cy = focus[1]; }
+      if (cx == null) { cx = view.x + view.w / 2; cy = view.y + view.h / 2; }
+      var nw = Math.max(MIN, Math.min(W, view.w * f)), r = nw / view.w;
+      view.x = cx - (cx - view.x) * r; view.y = cy - (cy - view.y) * r; view.w = nw;
+      apply();
+    }
+    function toMap(e) {
+      var b = svg.getBoundingClientRect();
+      return [view.x + (e.clientX - b.left) / b.width * view.w, view.y + (e.clientY - b.top) / b.height * view.h];
+    }
+    $$("[data-zoom]", map).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var z = btn.getAttribute("data-zoom");
+        if (z === "reset") { view = { x: 0, y: 0, w: W, h: H }; apply(); }
+        else zoom(z === "in" ? 0.6 : 1 / 0.6);
+      });
+    });
+    svg.addEventListener("wheel", function (e) {
+      if (!e.ctrlKey && !e.metaKey && view.w === W && e.deltaY > 0) return;
+      e.preventDefault();
+      var p = toMap(e); zoom(e.deltaY < 0 ? 0.8 : 1.25, p[0], p[1]);
+    }, { passive: false });
+    var pointers = {}, start = null, moved = false, pinch = null;
+    svg.addEventListener("pointerdown", function (e) {
+      pointers[e.pointerId] = e;
+      var ids = Object.keys(pointers);
+      if (ids.length === 1) { start = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y }; moved = false; }
+      if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]]; pinch = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), w: view.w }; }
+    });
+    svg.addEventListener("pointermove", function (e) {
+      if (!pointers[e.pointerId]) return;
+      pointers[e.pointerId] = e;
+      var ids = Object.keys(pointers), b = svg.getBoundingClientRect();
+      if (ids.length === 2 && pinch) {
+        var p1 = pointers[ids[0]], p2 = pointers[ids[1]];
+        var dist = Math.hypot(p1.clientX - p2.clientX, p1.clientY - p2.clientY);
+        var mid = toMap({ clientX: (p1.clientX + p2.clientX) / 2, clientY: (p1.clientY + p2.clientY) / 2 });
+        zoom((pinch.w * pinch.d / dist) / view.w, mid[0], mid[1]); moved = true;
+        return;
+      }
+      if (!start) return;
+      var dx = e.clientX - start.x, dy = e.clientY - start.y;
+      if (!moved && Math.hypot(dx, dy) < 6) return;
+      if (!moved) { moved = true; try { svg.setPointerCapture(e.pointerId); } catch (err) {} }
+      map.classList.add("is-dragging");
+      view.x = start.vx - dx / b.width * view.w; view.y = start.vy - dy / b.height * view.h; apply();
+    });
+    function end(e) {
+      delete pointers[e.pointerId];
+      if (Object.keys(pointers).length < 2) pinch = null;
+      if (!Object.keys(pointers).length) { start = null; map.classList.remove("is-dragging"); }
+    }
+    svg.addEventListener("pointerup", end);
+    svg.addEventListener("pointercancel", end);
+    svg.addEventListener("click", function (e) { if (moved) { e.preventDefault(); moved = false; } }, true);
+    $$(".fl-map__town", svg).forEach(function (t) {
+      function show() {
+        var n = +t.getAttribute("data-count");
+        tip.textContent = t.getAttribute("data-name") + ": " + n + (n === 1 ? " shop" : " shops") + ". Tap to open.";
+      }
+      t.addEventListener("pointerenter", show);
+      t.addEventListener("focus", show);
+    });
+    apply();
+  })();
+
   /* ------------------------------------------------ Rent Now request */
   /* Saves the request to the site's Supabase table with the public anon key;
      row-level security lets that key insert a lead and do nothing else. */
@@ -1728,6 +1820,11 @@
         region.hidden = shown === 0;
       });
       if (townJump) townJump.hidden = !!q;
+      $$(".fl-map__town").forEach(function (t) {
+        var hit = q && norm(t.getAttribute("data-name")).indexOf(q) !== -1;
+        t.classList.toggle("is-match", !!hit);
+        t.classList.toggle("is-dim", !!q && !hit);
+      });
       d.body.classList.toggle("is-town-search", !!q);
       if (!q) townStatus.textContent = "";
       else if (!townMatches.length) townStatus.textContent = "No town by that name. Press Search to look through shop names and services instead.";

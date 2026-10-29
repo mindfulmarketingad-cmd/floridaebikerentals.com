@@ -1955,3 +1955,28 @@ img.is-stock { object-fit: cover; }
   .mascot { width: 90px; height: 122px; bottom: calc(100% - 30px); right: 50%; margin-right: -45px; }
   .mascot__say { display: none; }
 }
+
+/* ------------------------------------------------- /cities/ Florida map */
+.fl-map { position: relative; max-width: 900px; margin: 0 auto; }
+.fl-map__svg {
+  display: block; width: 100%; height: auto; max-height: 82vh; border-radius: var(--radius-l); border: 1px solid var(--line-soft);
+  background: linear-gradient(180deg, #e8f2ff, #d6e8fb); touch-action: none; cursor: grab; user-select: none;
+}
+.fl-map.is-dragging .fl-map__svg { cursor: grabbing; }
+.fl-map__state { fill: #fff; stroke: var(--blue-600); stroke-width: 1.4; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.fl-map__area { fill: #ffd35c; stroke: var(--blue-700); stroke-width: .8; vector-effect: non-scaling-stroke; transition: fill .15s; }
+.fl-map__dot { fill: var(--blue-700); stroke: #fff; stroke-width: 1.2; vector-effect: non-scaling-stroke; transition: fill .15s; }
+.fl-map__town.is-pin .fl-map__dot { fill: var(--blue-500, #2f6fe0); }
+.fl-map__town:hover .fl-map__area, .fl-map__town:focus .fl-map__area, .fl-map__town.is-match .fl-map__area { fill: var(--blue-600); }
+.fl-map__town:hover .fl-map__dot, .fl-map__town:focus .fl-map__dot, .fl-map__town.is-match .fl-map__dot { fill: #ffc233; stroke: var(--blue-900); }
+.fl-map__town:focus { outline: none; }
+.fl-map__town.is-dim { opacity: .25; }
+.fl-map__labels text { font: 700 12px/1 system-ui, sans-serif; fill: var(--blue-900); paint-order: stroke; stroke: #fff; stroke-width: 3px; pointer-events: none; }
+.fl-map__tools { position: absolute; top: .7rem; right: .7rem; z-index: 1; display: flex; gap: .3rem; }
+.fl-map__tools button {
+  min-width: 2.5rem; height: 2.5rem; padding: 0 .7rem; border-radius: 999px; border: 2px solid var(--blue-600); background: #fff;
+  color: var(--blue-700); font: inherit; font-weight: 800; font-size: 1.05rem; cursor: pointer; box-shadow: 0 2px 8px rgba(11, 31, 77, .12);
+}
+.fl-map__tools button[data-zoom=reset] { font-size: .85rem; }
+.fl-map__tip { margin: .7rem 0 0; text-align: center; font-weight: 700; color: var(--blue-900); min-height: 1.5em; }
+.fl-map__credit { margin: .2rem 0 0; text-align: center; }

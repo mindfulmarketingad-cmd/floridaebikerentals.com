@@ -328,11 +328,12 @@ await page.close();
   await page.goto("http://localhost:8099/cities/",{waitUntil:"load"});
   const hub=await page.evaluate(()=>({
     h1:document.querySelector("h1").textContent.trim(),
-    regions:document.querySelectorAll(".city-region").length,
+    mapTowns:document.querySelectorAll(".fl-map__town[href^='/cities/']").length,
+    areas:document.querySelectorAll(".fl-map__area").length,
     cards:document.querySelectorAll(".city-region .town-card").length,
     counted:[...document.querySelectorAll(".city-region .town-card__meta")].every(m=>/\d+ listings?/.test(m.textContent)),
   }));
-  ok(`/cities/ hub: ${hub.regions} regions, ${hub.cards} town cards, each with its listing count`, hub.regions>=8 && hub.cards>150 && hub.counted);
+  ok(`/cities/ hub: map links ${hub.mapTowns} towns (${hub.areas} drawn on their town limits), ${hub.cards} town cards, each with its listing count`, hub.mapTowns>150 && hub.areas>=70 && hub.cards>150 && hub.counted);
 
   await page.goto("http://localhost:8099/find/",{waitUntil:"load"});
   const tiles=await page.$$eval(".category-tile .category-tile__name",n=>n.map(x=>x.textContent.trim()));
