@@ -143,6 +143,7 @@ function startTimes() {
 /** The full finder form for the homepage hero. */
 export function finderForm(index, { dataUrl }) {
   return `<form class="finder" id="finder" data-finder data-src="${attr(dataUrl)}" role="search" aria-label="Find an e-bike rental shop">
+  <p class="finder__title">Your Next Ride Starts Here</p>
   <div class="finder__grid">
     <div class="finder__field finder__field--where town-pick" data-town-pick>
       <label for="finder-town"><span>Where</span></label>
