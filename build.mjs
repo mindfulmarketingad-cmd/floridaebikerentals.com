@@ -28,6 +28,7 @@ import { assignBikeTypes } from "./src/bike-types.mjs";
 import { galleryPage, GALLERY_URL } from "./src/pages/gallery.mjs";
 import { finderData } from "./src/finder.mjs";
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { regionPosts } from "./src/region-posts.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
@@ -41,6 +42,23 @@ import { summaryFor } from "./src/components.mjs";
 
 const DIST = join(ROOT, "dist");
 const written = new Map(); // url path -> { lastmod, priority, changefreq, group }
+
+/* Sitemap lastmod for generated pages (listings, towns, /find/, bike types):
+   the date the shop data last changed, not the build date, so the value only
+   moves when the pages' content does and Google can keep trusting it. Taken
+   from the last commit touching data/; falls back to today where git history
+   is not available. */
+const DATA_LASTMOD = (() => {
+  try {
+    const out = execFileSync("git", ["log", "-1", "--format=%cs", "--", "data"], {
+      cwd: new URL(".", import.meta.url),
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(out)) return out;
+  } catch { /* no git here */ }
+  return isoDate(new Date());
+})();
 const searchIndex = [];
 let redirectsBySource = new Map();
 
@@ -81,7 +99,7 @@ function write(urlPath, html, meta = {}) {
   const noindex = /<meta name="robots" content="noindex/.test(html);
   if (!meta.skipSitemap && !noindex) {
     written.set(urlPath, {
-      lastmod: meta.lastmod || isoDate(new Date()),
+      lastmod: meta.lastmod || DATA_LASTMOD,
       priority: meta.priority ?? 0.5,
       changefreq: meta.changefreq || "monthly",
       group: meta.group || "pages",
@@ -516,6 +534,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 // Every content hub gets its own sitemap, so a new hub can't drop its guides.
 const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "shop", "search"])];
 const sitemapFiles = [];
+const sitemapLastmod = new Map(); // sitemap file -> newest lastmod among its URLs
 for (const group of GROUPS) {
   const entries = [...written.entries()].filter(([, meta]) => meta.group === group);
   if (!entries.length) continue;
@@ -530,6 +549,7 @@ for (const group of GROUPS) {
       .join("\n") +
     "\n</urlset>\n";
   const name = `sitemap-${group}.xml`;
+  sitemapLastmod.set(name, entries.map(([, meta]) => meta.lastmod).sort().pop());
   writeRaw(name, xml);
   sitemapFiles.push(name);
 }
@@ -538,7 +558,7 @@ writeRaw(
   "sitemap.xml",
   '<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     sitemapFiles
-      .map((name) => `  <sitemap>\n    <loc>${site.url}/${name}</loc>\n    <lastmod>${isoDate(new Date())}</lastmod>\n  </sitemap>`)
+      .map((name) => `  <sitemap>\n    <loc>${site.url}/${name}</loc>\n    <lastmod>${sitemapLastmod.get(name) || DATA_LASTMOD}</lastmod>\n  </sitemap>`)
       .join("\n") +
     "\n</sitemapindex>\n"
 );
