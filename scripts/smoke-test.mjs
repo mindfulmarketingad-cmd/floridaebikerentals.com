@@ -417,8 +417,8 @@ await page.close();
      links.length===open && links.every(u=>/client_reference_id=region-\d-/.test(u)) &&
      h.includes('src="/assets/video/how-priority-calls-work.mp4"') && h.includes('class="data-table region-table"'));
   const lp=readFileSync(DIST+"/cities/miami-beach/"+(await import("node:fs")).readdirSync(DIST+"/cities/miami-beach").find(d=>!d.includes("."))+"/index.html","utf8");
-  ok("listing page: hero has the shop's Call button and its website or booking link; 'Get more leads' still links /business/",
-     /class="detail-hero__biz"><a [^>]*href="tel:/.test(lp) && /data-out="(website|booking)"/.test(lp) && lp.includes('href="/business/"'));
+  ok("listing page: hero has the shop's Call button and its website or booking link, and no 'Get more leads' CTA",
+     /class="detail-hero__biz"><a [^>]*href="tel:/.test(lp) && /data-out="(website|booking)"/.test(lp) && !/get more leads/i.test(lp));
 }
 
 // 4v. /cities/: typing a city filters the town cards; Enter on an exact name opens that town

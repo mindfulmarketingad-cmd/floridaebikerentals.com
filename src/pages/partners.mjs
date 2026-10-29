@@ -363,7 +363,6 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
       }</div>
       <p class="sent-you">When you call ${esc(listing.name)}, tell them Florida Ebike Rentals sent you &#128578;</p>
       <p class="small muted">Details from ${esc(listing.name)}'s public Google listing. Confirm prices and availability with the shop.</p>
-      <p class="small mb-0">Own this shop? <a href="/business/">Get more leads</a>.</p>
     </div>
 
     <div class="panel">
