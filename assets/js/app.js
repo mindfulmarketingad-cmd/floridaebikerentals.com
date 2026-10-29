@@ -1274,6 +1274,18 @@
     var now = new Date();
     form.date.min = now.getFullYear() + "-" + ("0" + (now.getMonth() + 1)).slice(-2) + "-" + ("0" + now.getDate()).slice(-2);
     form.addEventListener("submit", function (e) { e.preventDefault(); run(true); });
+    // Sparky looks at the town box while people type, and cheers when they search.
+    var stage = form.closest("[data-mascot]");
+    if (stage) {
+      var say = $("[data-mascot-say]", stage);
+      townInput.addEventListener("focus", function () { stage.classList.add("is-looking"); if (say) say.textContent = "Type your town and I'll find the shops."; });
+      townInput.addEventListener("blur", function () { stage.classList.remove("is-looking"); });
+      form.addEventListener("submit", function () {
+        if (!form.town.value && !townInput.value.trim()) return;
+        stage.classList.remove("is-cheering"); void stage.offsetWidth; stage.classList.add("is-cheering");
+        if (say) say.textContent = "On it! Finding your e-bike...";
+      });
+    }
     var params = new URLSearchParams(window.location.search);
     if (params.toString()) {
       fill(params);

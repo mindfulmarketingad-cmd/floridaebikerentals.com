@@ -1885,3 +1885,73 @@ img.is-stock { object-fit: cover; }
   .carousel-row__arrow { display: none; }
   .carousel-row__track { grid-auto-columns: 72%; }
 }
+
+/* ================================================== one button system
+   Every primary call to action (header, finder Search, Book Through Us, Find
+   Shops...) is the same yellow pill with navy text and a bolt; every secondary
+   one is the same white pill with a blue outline. Yellow reads on white and on
+   the blue sections alike, so no button changes colour by context. */
+:root { --cta-bg: #ffc233; --cta-bg-hover: #ffd35c; --cta-edge: #e3a514; --cta-ink: var(--blue-900); }
+.btn, .header-call, .finder__go { border-radius: 999px; }
+.btn--primary, .header-call, .finder__go, .hero--home .finder__go {
+  background: var(--cta-bg); color: var(--cta-ink); border: 2px solid var(--cta-edge);
+  box-shadow: 0 4px 14px rgba(11, 31, 77, .18); font-weight: 800; animation: none;
+}
+.btn--primary:hover, .header-call:hover, .finder__go:hover, .hero--home .finder__go:hover {
+  background: var(--cta-bg-hover); color: var(--cta-ink); border-color: var(--cta-edge);
+  box-shadow: 0 6px 20px rgba(11, 31, 77, .24); transform: translateY(-1px);
+}
+.btn--primary::before, .header-call::before, .finder__go::before { color: var(--cta-ink); }
+.finder__go { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; position: relative; overflow: hidden; isolation: isolate; }
+.finder__go::before {
+  content: ""; width: 1em; height: 1em; flex-shrink: 0; background: currentColor;
+  -webkit-mask: var(--bolt) center / contain no-repeat; mask: var(--bolt) center / contain no-repeat;
+}
+.header-call { padding: .6rem 1.2rem; }
+.btn--blue, .btn--outline {
+  background: var(--white); color: var(--blue-700); border: 2px solid var(--blue-600); box-shadow: none;
+}
+.btn--blue:hover, .btn--outline:hover { background: var(--blue-50); color: var(--blue-800); border-color: var(--blue-700); box-shadow: none; }
+.btn--ghost, .btn--outline-light { background: transparent; color: #fff; border: 2px solid rgba(255, 255, 255, .8); }
+.btn--ghost:hover, .btn--outline-light:hover { background: rgba(255, 255, 255, .14); color: #fff; }
+.action-bar .btn { border-radius: 999px; }
+
+/* ------------------------------------------- Sparky, the finder mascot */
+.finder-stage { position: relative; max-width: 1180px; margin: 0 auto; }
+.finder-stage > .finder { position: relative; z-index: 1; }
+.mascot { position: absolute; right: 4%; bottom: calc(100% - 50px); width: 150px; height: 204px; pointer-events: none; }
+.mascot svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.mascot--back { z-index: 0; }
+.mascot--front { z-index: 2; }
+.mascot__bolt { fill: var(--cta-bg, #ffc233); stroke: var(--cta-edge, #e3a514); stroke-width: 5; stroke-linejoin: round; }
+.mascot__arm { fill: none; stroke: var(--cta-edge, #e3a514); stroke-width: 6; stroke-linecap: round; }
+.mascot__pupils circle:not([fill]) { fill: var(--blue-900); }
+.mascot__cheek { fill: #ff8a7a; opacity: .55; }
+.mascot__smile { fill: var(--blue-900); stroke: var(--blue-900); stroke-width: 2.4; stroke-linejoin: round; }
+.mascot__helmet { fill: var(--blue-600); stroke: var(--blue-900); stroke-width: 2.5; stroke-linejoin: round; }
+.mascot__vents { fill: none; stroke: #fff; stroke-width: 2.4; stroke-linecap: round; opacity: .85; }
+.mascot__hands ellipse { fill: var(--cta-bg, #ffc233); stroke: var(--cta-edge, #e3a514); stroke-width: 3; }
+.mascot__hands path { fill: none; stroke: var(--cta-edge, #e3a514); stroke-width: 1.6; stroke-linecap: round; }
+.mascot__body { transform-origin: 70px 120px; animation: mascot-bob 3.2s ease-in-out infinite; }
+.mascot__eyes { transform-origin: 72px 38px; animation: mascot-blink 5s infinite; }
+.mascot__pupils { transition: transform .35s ease; }
+[data-mascot].is-looking .mascot__pupils { transform: translate(-3px, 2px); }
+[data-mascot].is-cheering .mascot__body { animation: mascot-hop .5s ease-in-out 3; }
+.mascot__say {
+  position: absolute; right: calc(100% - 22px); top: -18px; margin: 0; width: max-content; max-width: 200px;
+  padding: .5rem .8rem; border-radius: 16px 16px 4px 16px; background: #fff; color: var(--blue-900);
+  font-size: .9rem; font-weight: 700; line-height: 1.3; box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+  animation: mascot-pop .4s ease-out .6s both;
+}
+@keyframes mascot-bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(-2deg); } }
+@keyframes mascot-hop { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px) rotate(4deg); } }
+@keyframes mascot-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes mascot-pop { from { opacity: 0; transform: translateY(6px) scale(.9); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .mascot__body, .mascot__eyes, .mascot__say, [data-mascot].is-cheering .mascot__body { animation: none; } }
+@media (max-width: 1100px) { .mascot__say { display: none; } }
+@media (max-width: 900px) { .mascot { width: 105px; height: 143px; bottom: calc(100% - 35px); right: 5%; } }
+@media (max-width: 640px) {
+  .hero--home .home-hero__title { margin-bottom: 4.6rem; }
+  .mascot { width: 90px; height: 122px; bottom: calc(100% - 30px); right: 50%; margin-right: -45px; }
+  .mascot__say { display: none; }
+}

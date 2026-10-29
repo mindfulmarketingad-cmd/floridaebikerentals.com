@@ -86,12 +86,14 @@ ok(`Destin listicle: ${postBits.items} shops, ${postBits.faqs} FAQs, ${postBits.
    postBits.items>=8&&postBits.faqs>=5&&postBits.toc>=3&&postBits.author&&postBits.imgs>=2&&!postBits.shortcodes);
 await page.close();
 
-// 4f. CTAs are square
+// 4f. one button style: header CTA, hero Search and every primary button share colour and shape
 page=await b.newPage();
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
-const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
+const look=(sel)=>page.$eval(sel,e=>{const c=getComputedStyle(e);return c.backgroundColor+"|"+c.borderTopLeftRadius+"|"+c.color;});
+const lookHeader=await look(".site-header .header-call"), lookSearch=await look(".finder__go"), lookPrimary=await look("main .btn--primary");
 const rentNow=await page.$eval('.hero .finder__go',e=>e.textContent.trim());
-ok(`CTAs are square (border-radius: ${radius}) and the hero search button reads "${rentNow}"`, radius==="0px"&&/^Search$/.test(rentNow));
+ok(`CTAs are one style (header ${lookHeader}, search ${lookSearch}, primary ${lookPrimary}) and the hero search button reads "${rentNow}"`,
+   lookHeader===lookSearch && lookSearch===lookPrimary && /^Search$/.test(rentNow));
 await page.close();
 
 // 4g. sitewide promo banner: present, correctly attributed, dismissible

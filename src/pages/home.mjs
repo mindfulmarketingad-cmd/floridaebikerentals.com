@@ -8,6 +8,7 @@ import {
 } from "../components.mjs";
 import { finderForm, finderResults, finderHref } from "../finder.mjs";
 import { homeCarousels } from "../carousels.mjs";
+import { withMascot } from "../mascot.mjs";
 
 /** Bike style tiles: each opens the finder set to that style. */
 const HOME_TILES = [
@@ -79,7 +80,7 @@ export function homePage(site, { listings, index, blog, stats, finderUrl }) {
   <div class="wrap hero__inner home-hero">
     <h1 class="home-hero__kicker">Electric Bike Rentals in Florida - Rent Now</h1>
     <p class="home-hero__title">Your next ride starts here</p>
-    ${finderForm(index, { dataUrl: finderUrl })}
+    ${withMascot(finderForm(index, { dataUrl: finderUrl }))}
     <p class="home-hero__more">${esc(String(stats.total))} rental shops in ${esc(String(stats.cities))} Florida towns, from <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West. Or browse <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
   </div>
 </section>
