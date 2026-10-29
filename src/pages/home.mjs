@@ -77,9 +77,10 @@ export function homePage(site, { listings, index, blog, stats, finderUrl }) {
   </picture>
   <div class="wrap hero__inner home-hero">
     <h1 class="home-hero__title">Electric Bike Rentals in Florida - Rent Now</h1>
-    <p class="home-hero__sub">Find your e-bike in seconds. We check ${esc(String(stats.total))} shops in ${esc(String(stats.cities))} Florida towns for you.</p>
+    <p class="home-hero__sub">Find your e-bike in seconds. We check ${esc(String(stats.total))} shops in ${esc(String(stats.cities))} Florida towns, from
+    <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West, and show you the ones open when you want to ride. Or browse
+    <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
     ${finderForm(index, { dataUrl: finderUrl })}
-    <p class="home-hero__more">From <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West: pick where and when you want to ride and we show the shops that fit. Or browse <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
   </div>
 </section>
 
