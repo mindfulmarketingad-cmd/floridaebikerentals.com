@@ -383,6 +383,12 @@ export function loadListingLogos() {
   return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
 }
 
+/** Google reviews by place_id, from scripts/import_reviews.py. */
+export function loadListingReviews() {
+  const file = join(ROOT, "data", "listing-reviews.json");
+  return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+}
+
 export function listingUrl(l) {
   return `/cities/${citySlug(l.city)}/${l.slug}/`;
 }
@@ -396,6 +402,7 @@ export function loadListings({ raw = false } = {}) {
   const excluded = excludedSlugs();
   const photos = raw ? {} : loadListingPhotos();
   const logos = raw ? {} : loadListingLogos();
+  const reviews = raw ? {} : loadListingReviews();
   return payload.listings.filter((l) => !excluded.has(l.slug)).map((l) => {
     const cached = photos[l.slug];
     const logo = logos[l.slug];
@@ -410,6 +417,7 @@ export function loadListings({ raw = false } = {}) {
             logo: logo ? logo.src : "",
             logoWidth: logo ? logo.width : 0,
             logoHeight: logo ? logo.height : 0,
+            googleReviews: reviews[l.place_id] || [],
           }),
       // hadWebsite feeds the indexing rule, which counts a website as a sign
       // of an established business.

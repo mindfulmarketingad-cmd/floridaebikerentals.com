@@ -306,6 +306,8 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
 
     ${bikePanel(listing, cityTypeList)}
 
+    ${reviewsPanel(listing)}
+
     ${featureGroups(listing) ? `<div class="panel mt-2"><h2>Services and features</h2>${featureGroups(listing)}</div>` : ""}
 
     ${
@@ -422,6 +424,38 @@ ${adSlotScript(site, 1)}
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [breadcrumbSchema(site, crumbs), localBusinessSchema(site, listing), faqSchema(faqs)],
   });
+}
+
+/** Google reviews of this shop, as written, newest first. */
+function reviewsPanel(listing) {
+  const reviews = listing.googleReviews || [];
+  if (!reviews.length) return "";
+  const stars = (n) => `<span class="review-card__stars" aria-label="${n} out of 5 stars">${"&#9733;".repeat(n)}<span aria-hidden="true">${"&#9733;".repeat(5 - n)}</span></span>`;
+  const when = (d) => (d ? new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" }) : "");
+  const card = (r) => `<li class="review-card">
+      <div class="review-card__head">
+        <span class="review-card__avatar" aria-hidden="true">${esc(r.author.charAt(0))}</span>
+        <span><strong>${esc(r.author)}</strong><span class="review-card__date">${esc(when(r.date))}</span></span>
+        ${stars(Math.max(1, Math.min(5, Number(r.rating) || 0)))}
+      </div>
+      <p class="review-card__text">${esc(r.text)}</p>
+      ${r.reply ? `<p class="review-card__reply"><strong>Reply from the owner:</strong> ${esc(r.reply)}</p>` : ""}
+      ${r.link ? `<a class="review-card__link small" href="${attr(r.link)}" rel="nofollow noopener" target="_blank">Read on Google</a>` : ""}
+    </li>`;
+  const shown = reviews.length <= 6 ? reviews.length : 4;
+  const first = reviews.slice(0, shown), rest = reviews.slice(shown);
+  return `<section class="panel mt-2 reviews-panel" id="reviews">
+      <h2>What Riders Say About ${esc(listing.name)}</h2>
+      <p class="small muted">${reviews.length} recent Google ${plural(reviews.length, "review")}, shown as written${
+        listing.reviews ? `, from ${formatReviews(listing.reviews)} in total` : ""
+      }.${listing.reviews_link ? ` <a href="${attr(listing.reviews_link)}" rel="nofollow noopener" target="_blank">See every review on Google</a>.` : ""}</p>
+      <ul class="review-list">${first.map(card).join("")}</ul>
+      ${
+        rest.length
+          ? `<details class="reviews-more"><summary>Show ${rest.length} more ${plural(rest.length, "review")}</summary><ul class="review-list">${rest.map(card).join("")}</ul></details>`
+          : ""
+      }
+    </section>`;
 }
 
 /**

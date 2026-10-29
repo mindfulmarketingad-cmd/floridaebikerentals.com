@@ -1980,3 +1980,24 @@ img.is-stock { object-fit: cover; }
 .fl-map__tools button[data-zoom=reset] { font-size: .85rem; }
 .fl-map__tip { margin: .7rem 0 0; text-align: center; font-weight: 700; color: var(--blue-900); min-height: 1.5em; }
 .fl-map__credit { margin: .2rem 0 0; text-align: center; }
+
+/* ------------------------------------------- Google reviews on listings */
+.review-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem; }
+.review-card { padding: 1rem 1.1rem; border: 1px solid var(--line-soft); border-radius: var(--radius-l, 16px); background: #fff; }
+.review-card__head { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; margin-bottom: .45rem; }
+.review-card__head > span:nth-child(2) { display: flex; flex-direction: column; line-height: 1.25; }
+.review-card__avatar {
+  display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 50%;
+  background: var(--blue-600); color: #fff; font-weight: 800; flex-shrink: 0;
+}
+.review-card__date { color: var(--muted, #5b6478); font-size: .85rem; }
+.review-card__stars { margin-left: auto; color: #f5a700; letter-spacing: .05em; font-size: 1.05rem; }
+.review-card__stars span { color: #d9dde6; }
+.review-card__text { margin: 0; white-space: pre-line; }
+.review-card__reply { margin: .6rem 0 0; padding: .6rem .8rem; border-left: 3px solid var(--blue-600); background: var(--blue-50, #f1f6ff); font-size: .93rem; }
+.review-card__link { display: inline-block; margin-top: .5rem; }
+.reviews-more { margin-top: .8rem; }
+.reviews-more > summary { cursor: pointer; font-weight: 700; color: var(--blue-700); margin-bottom: .8rem; }
+/* The fixed bottom bar is short on room: "Call" alone, one line per button. */
+.action-bar .btn { white-space: nowrap; padding-left: .5rem; padding-right: .5rem; }
+.action-bar .btn__phone { display: none; }

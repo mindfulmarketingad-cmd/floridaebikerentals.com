@@ -14,7 +14,7 @@ export function contactButtons(listing, { size = "btn--sm", primary = true, camp
   const out = [];
   const tel = listing.phone ? phoneHref(listing.phone) : "";
   const track = (type) => ` data-out="${attr(type)}" data-partner="${attr(listing.name)}"`;
-  if (tel) out.push(`<a class="btn ${primary ? "btn--primary" : "btn--outline"} ${size}" href="tel:${attr(tel)}"${track("call")}>Call ${esc(listing.phone)}</a>`);
+  if (tel) out.push(`<a class="btn ${primary ? "btn--primary" : "btn--outline"} ${size}" href="tel:${attr(tel)}"${track("call")}>Call<span class="btn__phone"> ${esc(listing.phone)}</span></a>`);
   if (listing.booking_link && listing.booking_link !== listing.website) {
     out.push(`<a class="btn btn--blue ${size}" href="${attr(trackedUrl(listing.booking_link, campaign, "booking"))}" rel="nofollow noopener" target="_blank"${track("booking")}>Book online</a>`);
   } else if (listing.website) {
