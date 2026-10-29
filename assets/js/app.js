@@ -730,6 +730,135 @@
     });
   });
 
+  /* The directory the finder and the homepage carousels search, loaded once. */
+  var directoryCache = {};
+  function loadDirectory(url) {
+    if (!directoryCache[url]) {
+      directoryCache[url] = fetch(url).then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
+    }
+    return directoryCache[url];
+  }
+
+  /* ------------------------------------------------ homepage carousels */
+  /* Five category rows. The page ships Florida's best shops; once we know where
+     the visitor is (location already shared, a town they searched, or the
+     "Use my location" button) each row is rebuilt with the nearest shops. */
+  (function () {
+    var root = $("[data-carousels]");
+    if (!root) return;
+    var whereText = $("[data-carousel-where]", root);
+    var locateBtn = $("[data-carousel-locate]", root);
+    var townPages = {};
+    try { townPages = JSON.parse(($("[data-carousel-towns]", root) || {}).textContent || "{}"); } catch (e) {}
+    var TESTS = {
+      ebike: function (s) { return s.f.indexOf("ebike") !== -1; },
+      top: function (s) { return s.f.indexOf("ebike") !== -1 && s.ra >= 4.5 && s.rv >= 25; },
+      delivery: function (s) { return s.f.indexOf("delivery") !== -1 && s.f.indexOf("bike") !== -1; },
+      tours: function (s) { return s.f.indexOf("tours") !== -1; },
+      repair: function (s) { return s.f.indexOf("repairs") !== -1 || s.f.indexOf("battery") !== -1; },
+    };
+    var miles = function (a, b, c, e) {
+      var R = 3958.8, r = Math.PI / 180, x = Math.sin((c - a) * r / 2), y = Math.sin((e - b) * r / 2);
+      return 2 * R * Math.asin(Math.sqrt(x * x + Math.cos(a * r) * Math.cos(c * r) * y * y));
+    };
+
+    // Arrows scroll a row by most of its width.
+    $$(".carousel-row", root).forEach(function (row) {
+      var track = $("[data-carousel-track]", row);
+      var step = function (dir) { track.scrollBy({ left: dir * track.clientWidth * 0.85, behavior: reduceMotion ? "auto" : "smooth" }); };
+      $("[data-carousel-prev]", row).addEventListener("click", function () { step(-1); });
+      $("[data-carousel-next]", row).addEventListener("click", function () { step(1); });
+    });
+
+    function card(s, dist) {
+      var li = el("li", "carousel-card");
+      var a = el("a", "carousel-card__link");
+      a.href = s.u;
+      var media = el("span", "carousel-card__media" + (s.lg ? " is-logo" : ""));
+      if (s.im) { var img = el("img"); img.src = s.im; img.alt = ""; img.loading = "lazy"; img.decoding = "async"; media.appendChild(img); }
+      else {
+        var tpl = $('template[data-bike-icon="cruiser"]');
+        if (tpl) media.appendChild(tpl.content.firstElementChild.cloneNode(true));
+      }
+      a.appendChild(media);
+      var body = el("span", "carousel-card__body");
+      body.appendChild(el("span", "carousel-card__name", s.n));
+      if (s.ra) {
+        var r = el("span", "carousel-card__rating");
+        r.appendChild(el("b", "", "\u2605 " + s.ra.toFixed(1)));
+        r.appendChild(d.createTextNode(" (" + s.rv.toLocaleString() + ")"));
+        body.appendChild(r);
+      }
+      body.appendChild(el("span", "carousel-card__town", s.c + (dist != null ? " \u00b7 " + (dist < 10 ? dist.toFixed(1) : Math.round(dist)) + " mi" : "")));
+      a.appendChild(body);
+      li.appendChild(a);
+      return li;
+    }
+
+    function personalise(place) {
+      var url = root.getAttribute("data-src");
+      loadDirectory(url).then(function (data) {
+        var centre = place.coords, label = place.label;
+        if (!centre && place.town) {
+          var la = 0, lo = 0, n = 0;
+          data.forEach(function (s) { if (s.cs === place.town && s.la != null) { la += s.la; lo += s.lo; n++; } if (s.cs === place.town && !label) label = s.c; });
+          if (n) centre = [la / n, lo / n];
+        }
+        if (!centre) return;
+        var nearestTown = null, best = Infinity;
+        data.forEach(function (s) {
+          if (s.la == null) return;
+          s._d = miles(centre[0], centre[1], s.la, s.lo);
+          if (s._d < best) { best = s._d; nearestTown = s; }
+        });
+        if (!label && nearestTown) label = nearestTown.c;
+        var town = place.town || (nearestTown && best < 15 ? nearestTown.cs : "");
+        $$(".carousel-row", root).forEach(function (row) {
+          var key = row.getAttribute("data-carousel");
+          var pool = data.filter(function (s) { return s.la != null && TESTS[key](s); });
+          var near = pool.filter(function (s) { return s._d <= 40; });
+          if (near.length < 3) near = pool.slice().sort(function (a, b) { return a._d - b._d; }).slice(0, 12);
+          near.sort(key === "top" ? function (a, b) { return b.sc - a.sc; } : function (a, b) { return a._d - b._d; });
+          var track = $("[data-carousel-track]", row);
+          track.textContent = "";
+          near.slice(0, 12).forEach(function (s) { track.appendChild(card(s, s._d)); });
+          track.scrollLeft = 0;
+          var all = $("[data-see-all]", row), cat = row.getAttribute("data-category");
+          var pages = townPages[cat] || [];
+          all.href = town && pages.indexOf(town) !== -1 ? "/find/" + cat + "/" + town + "/" : all.getAttribute("data-base");
+        });
+        whereText.textContent = "Showing shops near " + label + ".";
+        locateBtn.textContent = "\ud83d\udccd Update my location";
+      });
+    }
+
+    locateBtn.addEventListener("click", function () {
+      if (!navigator.geolocation) { whereText.textContent = "Your browser can't share your location."; return; }
+      whereText.textContent = "Finding shops near you...";
+      navigator.geolocation.getCurrentPosition(
+        function (p) { personalise({ coords: [p.coords.latitude, p.coords.longitude] }); },
+        function () { whereText.textContent = "We couldn't get your location. Search a town above instead."; },
+        { timeout: 10000, maximumAge: 600000 }
+      );
+    });
+    d.addEventListener("fer:place", function (e) { personalise(e.detail || {}); });
+
+    // On arrival: use a location the visitor already shared with us (no prompt), else the town they last searched.
+    var lastTown = "";
+    try { lastTown = localStorage.getItem("fer_town") || ""; } catch (e) {}
+    var fromTown = function () { if (lastTown) personalise({ town: lastTown }); };
+    if (navigator.permissions && navigator.permissions.query && navigator.geolocation) {
+      navigator.permissions.query({ name: "geolocation" }).then(function (st) {
+        if (st.state === "granted") {
+          navigator.geolocation.getCurrentPosition(function (p) { personalise({ coords: [p.coords.latitude, p.coords.longitude] }); }, fromTown, { timeout: 8000, maximumAge: 600000 });
+        } else fromTown();
+      }, fromTown);
+    } else fromTown();
+  })();
+
   /* ------------------------------------------------------ e-bike finder */
   /* The homepage search. Loads the directory (src/finder.mjs writes it), plays
      the e-bike animation while it matches, then lists the shops that fit. Every
@@ -844,13 +973,7 @@
     var STYLE = { cruiser: "beach cruiser e-bikes", "fat-tire": "fat-tire e-bikes", "step-through": "step-through e-bikes", hybrid: "commuter e-bikes", cargo: "cargo e-bikes", trike: "electric trikes" };
 
     function load() {
-      if (!dataPromise) {
-        dataPromise = fetch(form.getAttribute("data-src")).then(function (r) {
-          if (!r.ok) throw new Error("HTTP " + r.status);
-          return r.json();
-        }).then(function (d) { data = d; return d; });
-      }
-      return dataPromise;
+      return loadDirectory(form.getAttribute("data-src")).then(function (d) { data = d; return d; });
     }
     function miles(a, b, c, d) {
       var R = 3958.8, toR = Math.PI / 180, dLa = (c - a) * toR, dLo = (d - b) * toR;
@@ -1134,6 +1257,12 @@
         var origin = r[1];
         if (origin.town) origin.coords = townCentre(origin.town);
         render(search(q, origin), q, origin, placeName);
+        if (origin.town) {
+          try { localStorage.setItem("fer_town", origin.town); } catch (e) {}
+          d.dispatchEvent(new CustomEvent("fer:place", { detail: { town: origin.town } }));
+        } else if (origin.coords) {
+          d.dispatchEvent(new CustomEvent("fer:place", { detail: { coords: origin.coords } }));
+        }
       }).catch(function (e) {
         loading.hidden = true;
         out.textContent = "";

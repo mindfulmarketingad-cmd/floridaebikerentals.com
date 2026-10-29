@@ -7,6 +7,7 @@ import {
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, bookingCta, photo,
 } from "../components.mjs";
 import { finderForm, finderResults, finderHref } from "../finder.mjs";
+import { homeCarousels } from "../carousels.mjs";
 
 /** Bike style tiles: each opens the finder set to that style. */
 const HOME_TILES = [
@@ -84,6 +85,8 @@ export function homePage(site, { listings, index, blog, stats, finderUrl }) {
 </section>
 
 ${finderResults()}
+
+${homeCarousels(listings, index, { dataUrl: finderUrl })}
 
 <section class="section">
   <div class="wrap home-split">
