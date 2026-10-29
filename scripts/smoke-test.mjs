@@ -198,7 +198,7 @@ ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", 
 
 const allShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);
 const noRestaurant=!(await page.content()).includes("Food Trends Restaurant");
-await page.click(".facets > summary");
+const facetsOpen=await page.$eval(".facets",d=>d.open); if(!facetsOpen) throw new Error("city filters should be open by default");
 await page.check('.facets input[value="scooters"]');
 await page.waitForTimeout(250);
 const scooterShops=await page.$$eval("[data-filter-item]",n=>n.filter(x=>!x.hidden).length);

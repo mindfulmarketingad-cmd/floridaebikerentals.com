@@ -223,7 +223,7 @@ ${findHero({
   index,
   current: city.url,
   tags: tagsIn(local),
-  facets: facetPanel(local),
+  facets: facetPanel(local, { open: true }),
   placeholder: `Search ${city.name} shops`,
   cta: `<a class="btn btn--primary" href="${attr(finderHref({ town: city.slug }))}">Find an E-bike in ${esc(city.name)}</a>`,
 })}
