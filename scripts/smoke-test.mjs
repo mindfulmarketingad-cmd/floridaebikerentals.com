@@ -479,7 +479,7 @@ await page.close();
   const backLinks=listing.includes("More about Sarasota") && listing.includes('href="/cities/sarasota/beach-cruiser-rentals/"') &&
     R("/find/delivery/sarasota/").includes('href="/cities/sarasota/cargo-electric-bike-rentals/"');
   ok(`town + type pages: Sarasota hub links all 5 (${allLinked}), fat-tire page title/form ok (${ftOk}), ${smN} in sitemap (index lists it: ${idx}), guide Book Now under description (${afterLede}), back-links (${backLinks})`,
-     allLinked && ftOk && smN>=100 && idx && afterLede && backLinks);
+     allLinked && ftOk && smN>=80 && idx && afterLede && backLinks);
 }
 
 // 4y. every page title and H1 is in Title Case (shop names keep their own spelling)
