@@ -458,7 +458,18 @@ export const MIN_TOWN_LISTINGS = 2;
  */
 export const INDEX_LISTING_MIN_REVIEWS = 10;
 
+/**
+ * Shop pages Google already shows (data/gsc-shop-demand.json, from the Search
+ * Console Pages export) stay indexable whatever the rule below says: searchers
+ * are finding them by name, and noindexing them in October cut 42% of clicks.
+ */
+const GSC_FILE = join(ROOT, "data", "gsc-shop-demand.json");
+export const GSC_SHOP_DEMAND = new Set(
+  Object.keys(existsSync(GSC_FILE) ? JSON.parse(readFileSync(GSC_FILE, "utf8")).shops || {} : {}),
+);
+
 export function isIndexableListing(l) {
+  if (GSC_SHOP_DEMAND.has(l.slug)) return true;
   return (
     (l.reviews || 0) >= INDEX_LISTING_MIN_REVIEWS &&
     (l.hours || []).some((h) => !h.closed) &&
@@ -608,17 +619,37 @@ export function statsFor(listings) {
  * broken with the neighbourhood, then the street, then a numeral — and the
  * whole string is refitted afterwards so it still fits a search result.
  */
+const SEO_TITLE_MAX = 70;
+
 export function assignTitles(listings) {
   const build = (listing, kind, extra) => {
     // Listing pages use the owner's format, "<Name> - <City> Florida", with the
     // full name; a clash adds the street or neighbourhood in brackets.
     if (kind === "partner") return `${listing.name}${extra ? ` (${extra})` : ""} - ${listing.city} Florida`;
+    // The <title> of a listing page. Search Console shows people search shop
+    // names, often with "reviews", so the title says what the page has:
+    // "<Name>: Reviews, Hours & E-Bike Rentals in <City>, FL". Only shops that
+    // rent say "Rentals", and only e-bike rental shops say "E-Bike".
+    if (kind === "seo") {
+      const name = `${listing.name}${extra ? ` (${extra})` : ""}`;
+      // A name that already says "Rental" doesn't repeat it.
+      const what = listing.is_rental && !/rental/i.test(listing.name) ? (listing.is_ebike ? "E-Bike Rentals" : "Bike Rentals") : "";
+      const options = [
+        what && `: Reviews, Hours & ${what} in ${listing.city}, FL`,
+        what && `: Reviews, Hours & Rentals - ${listing.city}, FL`,
+        `: Reviews & Hours - ${listing.city}, FL`,
+      ].filter(Boolean);
+      const fits = options.find((o) => name.length + o.length <= SEO_TITLE_MAX);
+      // A long name is kept whole rather than cut mid-phrase; Google shortens
+      // the displayed title itself, and the shop name is what people search.
+      return fits ? `${name}${fits}` : `${name}: Reviews & Hours${name.length <= 60 ? ` - ${listing.city}, FL` : ""}`;
+    }
     const name = extra ? `${listing.name} ${extra}` : listing.name;
     return fitTitle(name, ` Reviews - ${listing.city}, FL`);
   };
 
-  for (const kind of ["partner", "review"]) {
-    const field = kind === "partner" ? "pageTitle" : "reviewTitle";
+  for (const kind of ["partner", "review", "seo"]) {
+    const field = { partner: "pageTitle", review: "reviewTitle", seo: "seoTitle" }[kind];
     const taken = new Map();
     for (const listing of listings) {
       const extras = [

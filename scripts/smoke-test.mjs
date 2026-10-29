@@ -140,14 +140,14 @@ for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminol
   await page.close();
 }
 
-// 4i. the tours section is gone: hub and every tour page 301 to the homepage
+// 4i. the tours section is gone: the hub and any unmapped tour page 301 to the e-bike tours list
 {
   const { readFileSync, existsSync: has } = await import("node:fs");
   const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
   const hub=vercel.find(r=>r.source==="/tours/"), each=vercel.find(r=>r.source==="/tours/:slug/");
   const linked=readFileSync(DIST+"/index.html","utf8").includes('href="/tours/');
-  ok("/tours/ and /tours/<tour>/ redirect permanently to / and nothing links to them",
-     hub&&each&&hub.destination==="/"&&each.destination==="/"&&hub.permanent&&each.permanent&&!has(DIST+"/tours")&&!linked);
+  ok("/tours/ and /tours/<tour>/ redirect permanently to /find/ebike-tours/ and nothing links to them",
+     hub&&each&&hub.destination==="/find/ebike-tours/"&&each.destination==="/find/ebike-tours/"&&hub.permanent&&each.permanent&&!has(DIST+"/tours")&&!linked);
 }
 
 // 4l. /find/ebike-rentals-near-me/ sorts by distance from three different
@@ -194,7 +194,7 @@ const heroFirst=await page.evaluate(()=>{
 });
 const statRows=await page.$$eval(".stat-row,.stats,.statrow",n=>n.length);
 ok(`Daytona page: "${dTitle}" / H1 "${dH1}"`,
-   dTitle==="Electric Bike Rentals in Daytona Beach, FL - Rent an E-Bike Today" && dH1==="Rent an Electric Bike in Daytona Beach, Florida");
+   /^Bike & E-Bike Rentals in Daytona Beach, FL \(\d+ Shops?\)$/.test(dTitle) && dH1==="Rent an Electric Bike in Daytona Beach, Florida");
 ok(`Daytona page opens on the title + search bar, "Where" preset to "${where}", no stat callouts`,
    heroFirst && where==="Daytona Beach" && statRows===0);
 
@@ -228,7 +228,7 @@ await Promise.all([page.waitForURL(/key-west/),page.selectOption("[data-destinat
 ok(`/find/ hub: "Where" preset "${hubWhere}" and picking a town opens it`, hubWhere==="All of Florida" && /key-west/.test(page.url()));
 await page.close();
 
-// 4n. thin towns: no page, and a permanent redirect to the homepage in both
+// 4n. thin towns: no page, and a permanent redirect to the town's one shop in both
 // host formats; old listicle URLs redirect to the town page that replaced them
 {
   const { readFileSync, existsSync: has } = await import("node:fs");
@@ -237,8 +237,9 @@ await page.close();
   const thin="/find/ebike-rentals-in-daytona-beach-shores/";
   const legacy="/blog/5-best-ebike-rental-shops-in-daytona-beach-florida/";
   const vThin=vercel.find(r=>r.source===thin), vLegacy=vercel.find(r=>r.source===legacy);
-  ok(`thin town page removed and redirected to / (${vercel.length} redirects in vercel.json)`,
-     !has(DIST+thin+"index.html") && vThin && vThin.destination==="/" && vThin.permanent===true && netlify.includes(`${thin}  /  301!`));
+  const shop="/cities/daytona-beach-shores/blue-coast-shop/";
+  ok(`thin town page removed and redirected to its shop (${vercel.length} redirects in vercel.json)`,
+     !has(DIST+thin+"index.html") && vThin && vThin.destination===shop && vThin.permanent===true && netlify.includes(`${thin}  ${shop}  301!`));
   ok(`legacy Daytona listicle URL redirects to the town page`,
      vLegacy && vLegacy.destination==="/cities/daytona-beach/");
 }
@@ -315,12 +316,15 @@ await page.close();
   const chained=vercel.filter(r=>sources.has(r.destination.split("#")[0]));
   ok(`old town, region and topic URLs redirect in one hop (${vercel.length} rules, ${chained.length} chains)`,
      to("/find/ebike-rentals-in-key-west/")==="/cities/key-west/" &&
-     to("/find/ebike-rentals-in-the-florida-keys/")==="/cities/" &&
+     to("/find/ebike-rentals-in-the-florida-keys/")==="/blog/best-ebike-rentals-in-florida-keys/" &&
+     to("/trails/gainesville-hawthorne-trail/")==="/trails/e-bike-routes-rules-in-gainesville-florida/" &&
+     to("/rules/")==="/blog/florida-ebike-laws/" &&
+     !vercel.some(r=>r.destination==="/") &&
      to("/find/guided-ebike-tours-in-florida/")==="/find/ebike-tours/" &&
      chained.length===0 && vercel.length<2000);
-  ok("one-shop town: /cities/<town>/ redirects to its shop, old /find/ URL to /",
+  ok("one-shop town: /cities/<town>/ and its old /find/ URL redirect to its shop",
      to("/cities/daytona-beach-shores/")==="/cities/daytona-beach-shores/blue-coast-shop/" &&
-     to("/find/ebike-rentals-in-daytona-beach-shores/")==="/" && has(DIST+"/cities/daytona-beach-shores/blue-coast-shop/index.html"));
+     to("/find/ebike-rentals-in-daytona-beach-shores/")==="/cities/daytona-beach-shores/blue-coast-shop/" && has(DIST+"/cities/daytona-beach-shores/blue-coast-shop/index.html"));
   ok("no page lives at an old /partners/<shop>/ or /find/ebike-rentals-in-<town>/ address",
      !has(DIST+"/partners/bike-man-bike-rentals") && !has(DIST+"/find/ebike-rentals-in-key-west"));
 
@@ -471,15 +475,17 @@ await page.close();
   const ft=R("/cities/sarasota/fat-tire-electric-bike-rentals/");
   const ftOk=/<title>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/title>/.test(ft) && /<h1[^>]*>Fat Tire Electric Bike Rentals Near Sarasota, Florida<\/h1>/.test(ft) &&
     /<form class="quick-rent"[\s\S]*?name="type" value="fat-tire"[\s\S]*?<option value="sarasota" selected>/.test(ft) && ft.includes('href="/cities/sarasota/"') && ft.includes("More about Sarasota");
-  const sm=readFileSync(DIST+"/sitemap-bike-type-towns.xml","utf8"); const smN=(sm.match(/<loc>/g)||[]).length;
+  // Town + type pages are all noindex until shop-bike-types.json has data, so none is in a sitemap.
+  const smN=existsSync(DIST+"/sitemap-bike-type-towns.xml") ? (readFileSync(DIST+"/sitemap-bike-type-towns.xml","utf8").match(/<loc>/g)||[]).length : 0;
   const idx=readFileSync(DIST+"/sitemap.xml","utf8").includes("sitemap-bike-type-towns.xml");
+  const noindex=types.every(t=>/<meta name="robots" content="noindex, follow">/.test(R(`/cities/sarasota/${t}/`)));
   const guide=R("/electric-bike-types/fat-tire-electric-bikes/");
-  const afterLede=/<p class="lede muted">[^<]*<\/p>\s*<form class="quick-rent"/.test(guide) && guide.includes('href="/cities/sarasota/fat-tire-electric-bike-rentals/"');
+  const afterLede=/<p class="lede muted">[^<]*<\/p>\s*<form class="quick-rent"/.test(guide);
   const listing=R("/cities/sarasota/legacy-trail-e-bike-rentals/");
   const backLinks=listing.includes("More about Sarasota") && listing.includes('href="/cities/sarasota/beach-cruiser-rentals/"') &&
     R("/find/delivery/sarasota/").includes('href="/cities/sarasota/cargo-electric-bike-rentals/"');
-  ok(`town + type pages: Sarasota hub links all 5 (${allLinked}), fat-tire page title/form ok (${ftOk}), ${smN} in sitemap (index lists it: ${idx}), guide Book Now under description (${afterLede}), back-links (${backLinks})`,
-     allLinked && ftOk && smN>=80 && idx && afterLede && backLinks);
+  ok(`town + type pages: Sarasota hub links all 5 (${allLinked}), fat-tire page title/form ok (${ftOk}), all noindex (${noindex}), ${smN} in sitemap (index lists it: ${idx}), guide Book Now under description (${afterLede}), back-links (${backLinks})`,
+     allLinked && ftOk && noindex && smN===0 && !idx && afterLede && backLinks);
 }
 
 // 4y. every page title and H1 is in Title Case (shop names keep their own spelling)

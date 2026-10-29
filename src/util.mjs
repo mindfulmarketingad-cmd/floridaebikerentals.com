@@ -197,7 +197,10 @@ export function shortName(name, max = 40) {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
   const space = cut.lastIndexOf(" ");
-  return (space > 12 ? cut.slice(0, space) : cut).replace(/[,\-–—:|&\s]+$/, "");
+  return (space > 12 ? cut.slice(0, space) : cut)
+    .replace(/[,\-–—:|&\s]+$/, "")
+    .replace(/[,\s]+(?:and|or|of|the|at|in|for|with|by)$/i, "")
+    .replace(/[,\-–—:|&\s]+$/, "");
 }
 
 /** Builds "<name> <suffix>" so the whole title stays inside the SERP budget. */

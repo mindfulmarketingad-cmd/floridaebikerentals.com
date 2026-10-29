@@ -146,7 +146,6 @@ export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList
   // anything with "near me" and a town name, so the title leads with that phrase
   // and the H1 carries the "rent an electric bike in <town>" form.
   const h1 = `Rent an Electric Bike in ${city.name}, Florida`;
-  const longTitle = `Electric Bike Rentals in ${city.name}, FL - Rent an E-Bike Today`;
   const facts = townFacts(city, local);
   // The owner's format for town descriptions: "[count] [what the town offers] in [town], Florida. Browse ...".
   const offered = offerings(local);
@@ -367,7 +366,10 @@ ${cityGallery(city, index)}
 ${adSlotScript(site, 1)}
 `;
 
-  const title = longTitle.length <= 70 ? longTitle : `Electric Bike Rentals in ${city.name}, FL`;
+  // Most town searches say "bike rental", not "e-bike", so the title names
+  // both and gives the shop count Google can show beside it.
+  const counted = `Bike & E-Bike Rentals in ${city.name}, FL (${n} ${plural(n, "Shop")})`;
+  const title = counted.length <= 70 ? counted : `Bike & E-Bike Rentals in ${city.name}, FL`;
 
   return page(site, {
     title,

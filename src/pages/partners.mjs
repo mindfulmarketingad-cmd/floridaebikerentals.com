@@ -9,7 +9,7 @@ import { contactButtons,
   summaryFor, metaDescriptionFor, logoMark,
 } from "../components.mjs";
 import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, sceneForRegion } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
 const PARTNERS_CRUMB = { href: "/partners/", label: "Partners" };
@@ -279,8 +279,10 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
     ${
       listing.photo || listing.logo
         ? `<div class="photo-hero mb-2">${photo(listing, { eager: true, prefer: "photo" })}</div>`
-        : banner(photoFor(listing.slug), {
-            alt: `E-bike rentals in ${listing.city}, Florida - ${photoFor(listing.slug).alt}`,
+        : // No photo of its own: the shop's region scene (Atlantic surf for
+          // Daytona, Gulf sunset for the west coast), not a random one.
+          banner(sceneForRegion(listing.regionSlug), {
+            alt: `E-bike rentals in ${listing.city}, Florida - ${sceneForRegion(listing.regionSlug).alt}`,
           })
     }
 
@@ -413,14 +415,14 @@ ${adSlotScript(site, 1)}
 `;
 
   return page(site, {
-    title: listing.pageTitle,
+    title: listing.seoTitle || listing.pageTitle,
     description: metaDescriptionFor(listing),
     path: listing.url,
     noindex: !isIndexableListing(listing),
     body,
     bodyAttrs: 'class="has-action-bar"',
     ogType: "business.business",
-    ogImage: listing.photo || photoFor(listing.slug).src,
+    ogImage: listing.photo || sceneForRegion(listing.regionSlug).og || sceneForRegion(listing.regionSlug).src,
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [breadcrumbSchema(site, crumbs), localBusinessSchema(site, listing), faqSchema(faqs)],
   });

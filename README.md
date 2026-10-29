@@ -19,7 +19,7 @@ Old URLs (`/find/ebike-rentals-in-<town>/`, `/find/ebike-rentals-in-<region>/`,
 | Find hub | `/find/` | 1 |
 | Town map (all towns A-Z) | `/cities/` | 1 |
 | Town pages | `/cities/<town>/` | 164 |
-| Bike-type town pages | `/cities/<town>/<type>-rentals/` (noindex unless 5+ shops or a shop names the type) | 405 |
+| Bike-type town pages | `/cities/<town>/<type>-rentals/` (all noindex until `shop-bike-types.json` has data) | 405 |
 | Topic pages | `/find/<topic>/` | 8 |
 | Partner hub (paginated) | `/partners/`, `/partners/page/N/` | 15 |
 | Shop listings | `/cities/<town>/<business>/` | 560 |
@@ -90,10 +90,12 @@ matters for a listing that already ranks, add a redirect in your host config.
   that it is left out of the index entirely — no page, no sitemap entry, no internal links — and its
   shops stay on the region page and `/partners/`.
 
-- **Redirects** — derived from the data in `src/redirects.mjs`: each thin town's old URL goes to the
-  homepage, and each legacy `/blog/5-best-ebike-rental-shops-in-<town>-florida/` URL (from the site
-  that served this domain before this build, still holding impressions in Search Console) goes to
-  that town's page, or the homepage if it has none. Vercel reads redirects from the committed
+- **Redirects** — derived from the data in `src/redirects.mjs`: each thin town's old URL goes to its
+  one shop, each old region page to that region's "Best Ebike Rentals" post, and each legacy
+  `/blog/5-best-ebike-rental-shops-in-<town>-florida/` URL (from the site that served this domain
+  before this build, still holding impressions in Search Console) goes to that town's page or shop.
+  Old trail, cost, `/find/`, `/tours/` and `/rules/` URLs that Search Console still shows are mapped
+  one by one to their closest live page in `src/legacy-redirects.mjs`. Nothing redirects to the homepage. Vercel reads redirects from the committed
   `vercel.json`, so after a data refresh run `npm run redirects`; `npm run verify` fails if it has
   drifted, if a redirect would shadow a live page, or if one would chain into another. The build also
   writes `dist/_redirects` for Netlify / Cloudflare Pages.
@@ -103,7 +105,9 @@ matters for a listing that already ranks, add a redirect in your host config.
   Viator data, against about 24 pages of original writing.
   - **Partner pages** are indexable only when the listing can stand alone: at least
     `INDEX_LISTING_MIN_REVIEWS` (10) reviews, published hours and a website (`isIndexableListing` in
-    `src/data.mjs`). The rest are `noindex, follow` and stay listed in full on their town page.
+    `src/data.mjs`), or when Search Console already shows the page (`data/gsc-shop-demand.json`, shop
+    pages with clicks or impressions in the Sep 2 - Oct 27, 2026 export). The rest are
+    `noindex, follow` and stay listed in full on their town page.
   - **Tour detail pages** are `noindex`: their description, photos and rating are Viator's, which is
     the "thin affiliate" pattern in Google's spam policies. The `/tours/` hub is indexable and no
     longer reprints Viator's descriptions.

@@ -1,0 +1,2018 @@
+{
+ "_note": "Shop pages with Google Search Console clicks or impressions (Pages export, floridaebikerentals.com, Sep 2 - Oct 27, 2026; old /partners/ and /reviews/ URLs counted under the shop they redirect to). Values are [clicks, impressions]. isIndexableListing in src/data.mjs keeps every page listed here indexable.",
+ "source": "GSC Performance on Search export, 2026-10-29",
+ "shops": {
+  "27-scooter-shop": [
+   2,
+   56
+  ],
+  "30-a-bonito-beach-service": [
+   0,
+   2
+  ],
+  "305-tours-and-rentals-bikes-segway": [
+   0,
+   10
+  ],
+  "30a-bike-rentals": [
+   0,
+   235
+  ],
+  "30a-electric-bike-co-santa-rosa-beach": [
+   0,
+   6
+  ],
+  "5-star-rides": [
+   1,
+   4
+  ],
+  "8-mile-e-bike-rentals": [
+   1,
+   42
+  ],
+  "88-cycling": [
+   0,
+   8
+  ],
+  "a-m-rentals": [
+   0,
+   5
+  ],
+  "a1a-beach-rentals-outdoor-center": [
+   0,
+   18
+  ],
+  "adrenaline-bike-works": [
+   0,
+   32
+  ],
+  "advanced-cycles-orlando-fl": [
+   0,
+   12
+  ],
+  "adventure-cycling": [
+   0,
+   8
+  ],
+  "ajs-bikes-llc": [
+   0,
+   92
+  ],
+  "alexs-bicycle-pro-shop": [
+   0,
+   110
+  ],
+  "all-bicycles": [
+   1,
+   5
+  ],
+  "all-keys-cycles": [
+   0,
+   51
+  ],
+  "allure-boat-rentals": [
+   1,
+   48
+  ],
+  "alpha-electric-bikes": [
+   4,
+   93
+  ],
+  "am-island-ebikes": [
+   0,
+   30
+  ],
+  "amalfi-bikes": [
+   0,
+   14
+  ],
+  "amelias-wheels": [
+   0,
+   15
+  ],
+  "ami-beach-fun-rentals-sales-service": [
+   0,
+   20
+  ],
+  "arlington-e-bike-repair": [
+   2,
+   29
+  ],
+  "art-bikes-jax": [
+   0,
+   4
+  ],
+  "astro-cycles": [
+   0,
+   26
+  ],
+  "aventura-e-bike-shop": [
+   3,
+   205
+  ],
+  "avocado-bikes-daytona-beach": [
+   0,
+   8
+  ],
+  "b-j-bicycles-trek-bike-shop-authorized-dearer": [
+   0,
+   47
+  ],
+  "b-m-bike-rental": [
+   3,
+   23
+  ],
+  "back-to-eden-bikes-llc": [
+   0,
+   8
+  ],
+  "bamboo-bicycle-company": [
+   0,
+   23
+  ],
+  "barefoot-billys-key-west-jetski-tours-golf-cart-rentals": [
+   0,
+   33
+  ],
+  "bayshore-bike-rental": [
+   0,
+   1
+  ],
+  "bayshore-cart-rentals": [
+   1,
+   2
+  ],
+  "bcycle-convention-center-at-17th-st": [
+   1,
+   16
+  ],
+  "beach-bums-recreational-rentals-gift-shop": [
+   0,
+   21
+  ],
+  "beach-e-bikes-rentals-sales": [
+   1,
+   44
+  ],
+  "beach-e-bikes-rentals-sales-jacksonville": [
+   0,
+   41
+  ],
+  "beach-e-bikes-sales-office": [
+   0,
+   31
+  ],
+  "beach-life-rentals": [
+   0,
+   17
+  ],
+  "beach-vibe-cycle-rentals": [
+   0,
+   11
+  ],
+  "bee-rentals": [
+   1,
+   22
+  ],
+  "better-on-bikes": [
+   0,
+   70
+  ],
+  "bicikleta-bike-shop": [
+   0,
+   20
+  ],
+  "bicycle-doctor-house-calls": [
+   0,
+   4
+  ],
+  "bicycle-rental": [
+   0,
+   5
+  ],
+  "bicycles-etc": [
+   0,
+   24
+  ],
+  "bicycles-etc-ponte-vedra-beach": [
+   0,
+   19
+  ],
+  "bicycles-international": [
+   0,
+   96
+  ],
+  "big-bam-ebikes": [
+   0,
+   38
+  ],
+  "big-boys-bike-shop": [
+   1,
+   112
+  ],
+  "big-cat-bikes": [
+   0,
+   13
+  ],
+  "big-fish-bike-and-beach-rentals": [
+   0,
+   6
+  ],
+  "big-lake-bike-rental": [
+   3,
+   30
+  ],
+  "big-pine-kayak-adventures-inc": [
+   0,
+   32
+  ],
+  "big-pine-key-bicycle-center": [
+   0,
+   26
+  ],
+  "bike-amelia": [
+   0,
+   43
+  ],
+  "bike-bistro": [
+   0,
+   16
+  ],
+  "bike-dude-rentals": [
+   0,
+   43
+  ],
+  "bike-man-bike-rentals": [
+   0,
+   47
+  ],
+  "bike-me": [
+   0,
+   11
+  ],
+  "bike-pcb": [
+   0,
+   5
+  ],
+  "bike-ride-sobe": [
+   0,
+   49
+  ],
+  "bike-roll-miami-bicycle-rentals-and-segway-tours": [
+   1,
+   13
+  ],
+  "bike-share-at-al-lang-stadium-1st-st-1st-ave-s": [
+   0,
+   13
+  ],
+  "bike-shop-inc": [
+   0,
+   7
+  ],
+  "bike-sultan": [
+   0,
+   8
+  ],
+  "bike-the-beach-30a": [
+   0,
+   29
+  ],
+  "bike-the-beach-30a-santa-rosa-beach": [
+   0,
+   58
+  ],
+  "bike-the-beach-gulf-highlands": [
+   0,
+   10
+  ],
+  "bike-the-beach-pcb": [
+   0,
+   28
+  ],
+  "bike-with-beats-coconut-grove": [
+   2,
+   22
+  ],
+  "bike-with-nature": [
+   0,
+   20
+  ],
+  "bikes-and-segway-tours-rentals": [
+   0,
+   11
+  ],
+  "bikes-for-rental": [
+   0,
+   23
+  ],
+  "bikes-plus": [
+   0,
+   25
+  ],
+  "bikes-plus-south-stuart": [
+   0,
+   3
+  ],
+  "bikes-r-us": [
+   0,
+   8
+  ],
+  "billys-rentals": [
+   0,
+   9
+  ],
+  "billys-rentals-and-bike-shop-warehouse-bikes-boats-beach-stuff-rentals-inc": [
+   1,
+   13
+  ],
+  "bimini-bay-e-bikes-and-trikes": [
+   1,
+   110
+  ],
+  "blue-coast-shop": [
+   0,
+   24
+  ],
+  "blue-ocean-water-bikes-llc": [
+   0,
+   26
+  ],
+  "blue-sky-rentals": [
+   0,
+   14
+  ],
+  "blue-sky-rentals-key-west": [
+   0,
+   7
+  ],
+  "boatdega-coastal-market": [
+   1,
+   17
+  ],
+  "bobs-beach-bicycle-works": [
+   0,
+   248
+  ],
+  "bobs-bicycle-shop": [
+   0,
+   11
+  ],
+  "boca-beach-bikes": [
+   1,
+   4
+  ],
+  "boca-bike-shop": [
+   0,
+   46
+  ],
+  "boca-scooters": [
+   1,
+   210
+  ],
+  "bone-island-rentals": [
+   0,
+   23
+  ],
+  "boogie-down-golf-carts-bicycles": [
+   0,
+   20
+  ],
+  "breezy-bees-rentals": [
+   1,
+   74
+  ],
+  "broward-bikes": [
+   0,
+   12
+  ],
+  "broward-motorsports-bicycles": [
+   0,
+   38
+  ],
+  "butterfly-bike-kayak": [
+   0,
+   6
+  ],
+  "california-cycles": [
+   0,
+   16
+  ],
+  "cantonment-on-wheels-llc": [
+   7,
+   550
+  ],
+  "cape-coral-cycling": [
+   0,
+   8
+  ],
+  "captain-bills-beach-bike-rentals": [
+   0,
+   38
+  ],
+  "captain-kyes-beach-bikes": [
+   6,
+   190
+  ],
+  "care-center-bicycle-rentals": [
+   0,
+   11
+  ],
+  "carvelle-bikes": [
+   1,
+   17
+  ],
+  "celebration-bike-rentals-e-bikes-tours-deliveries-and-more": [
+   0,
+   14
+  ],
+  "chain-reaction-cycles-fl-llc": [
+   1,
+   18
+  ],
+  "citi-bike-miami-beach": [
+   0,
+   1
+  ],
+  "citrus-park-bikes": [
+   0,
+   70
+  ],
+  "city-bike-tampa": [
+   0,
+   10
+  ],
+  "clearwater-beach-scooter-and-bike-rentals": [
+   0,
+   107
+  ],
+  "clearwater-fun-rentals-escooters-and-ebikes": [
+   2,
+   59
+  ],
+  "contes-bike-shop": [
+   0,
+   9
+  ],
+  "cosmic-bicycle-shop": [
+   0,
+   13
+  ],
+  "crank-works-bicycles-brick-city": [
+   0,
+   10
+  ],
+  "crank-works-bicycles-good-neighbor-rentals": [
+   0,
+   40
+  ],
+  "cruiser-30a-electric-bike-beach-rentals": [
+   0,
+   38
+  ],
+  "current-riders": [
+   0,
+   6
+  ],
+  "custom-cyber-bike": [
+   0,
+   2
+  ],
+  "cycle-joint": [
+   0,
+   13
+  ],
+  "cyclevolution-bicycle-shop": [
+   0,
+   41
+  ],
+  "darrels-e-bike-rentals": [
+   0,
+   12
+  ],
+  "daytona-fun-rental": [
+   0,
+   18
+  ],
+  "decobike-surfside-rent-a-bike": [
+   0,
+   5
+  ],
+  "downtown-bicycles": [
+   0,
+   56
+  ],
+  "dreamrider-bike-share-residence-inn-clearwater-beach": [
+   2,
+   47
+  ],
+  "dreamrider-bike-share-sunset-vistas": [
+   7,
+   112
+  ],
+  "drift-rentals-e-bike-rentals": [
+   14,
+   70
+  ],
+  "drifters-rentals": [
+   0,
+   17
+  ],
+  "e-bike-bicycle-rentals-and-tours-naples-florida": [
+   0,
+   14
+  ],
+  "e-bike-superstore-authorized-pedego-dealer": [
+   0,
+   61
+  ],
+  "e-bike-superstore-authorized-pedego-dealer-sarasota": [
+   0,
+   14
+  ],
+  "e-cycle-adventures-brooksville": [
+   0,
+   13
+  ],
+  "e-cycle-adventures-port-richey": [
+   0,
+   4
+  ],
+  "e-motion-e-bike-rentals-sales": [
+   0,
+   86
+  ],
+  "e-power-bike-shop": [
+   0,
+   42
+  ],
+  "e-technologies-lab": [
+   3,
+   31
+  ],
+  "easy-bike-delivery-fort-lauderdale": [
+   1,
+   40
+  ],
+  "easy-bikes-miami": [
+   0,
+   35
+  ],
+  "eaton-bikes-key-west-bike-rentals-bicycle-repair": [
+   0,
+   808
+  ],
+  "eaton-bikes-key-west-bike-rentals-bicycle-repair-key-west": [
+   0,
+   57
+  ],
+  "ebb-n-flow-sup-tours-rentals": [
+   0,
+   8
+  ],
+  "ebike-naples-tours": [
+   0,
+   1
+  ],
+  "ecarve-llc-e-ride-pro-e-motos-electric-scooters-onewheels-sales-rentals": [
+   2,
+   37
+  ],
+  "eccentric-cycle": [
+   1,
+   62
+  ],
+  "eccentric-cycle-e-bikes-scooters": [
+   0,
+   113
+  ],
+  "ego-depot": [
+   0,
+   17
+  ],
+  "el-ebike-doc-y-mas": [
+   0,
+   11
+  ],
+  "elecruiser-electric-bikes-since-2021-scooters-repairs-tires": [
+   1,
+   60
+  ],
+  "electric-bike-miami": [
+   0,
+   6
+  ],
+  "electric-bike-shop-express": [
+   0,
+   1
+  ],
+  "electric-scooter-doctors": [
+   0,
+   17
+  ],
+  "electric-scooters-bikes-llc": [
+   0,
+   50
+  ],
+  "electro-cycle": [
+   4,
+   117
+  ],
+  "emerald-coast-e-bikes": [
+   0,
+   16
+  ],
+  "emerald-coast-ebikes": [
+   0,
+   9
+  ],
+  "emerald-coast-tours": [
+   0,
+   6
+  ],
+  "emoschin-electric-bikes": [
+   3,
+   99
+  ],
+  "emoto-supply-co": [
+   2,
+   14
+  ],
+  "endless-summer-e-bikes": [
+   0,
+   63
+  ],
+  "epic-cycles-fort-lauderdale": [
+   0,
+   164
+  ],
+  "epic-erides-electric-bikes-e-moto-electric-scooters-eucs-repairs": [
+   0,
+   263
+  ],
+  "epik-ridez-bikes": [
+   1,
+   10
+  ],
+  "espresso-bicycle-repairs-south-sarasota": [
+   0,
+   22
+  ],
+  "espresso-bikes": [
+   0,
+   5
+  ],
+  "eventure-florida-30a": [
+   0,
+   19
+  ],
+  "eventure-panama-city-beach": [
+   1,
+   76
+  ],
+  "evolve-bicycles-and-ebikes": [
+   0,
+   10
+  ],
+  "ez-riders-key-west-e-bike-rentals": [
+   0,
+   42
+  ],
+  "family-bicycle": [
+   0,
+   23
+  ],
+  "feet-wet-bike-rentals-stuart": [
+   1,
+   9
+  ],
+  "finish-line-scooters": [
+   1,
+   46
+  ],
+  "finnimores-bike-and-beach-rentals": [
+   0,
+   77
+  ],
+  "flint-creek-outfitters": [
+   0,
+   10
+  ],
+  "florida-bike-beach": [
+   0,
+   19
+  ],
+  "florida-outdoor-activities": [
+   0,
+   22
+  ],
+  "fmb-rentals": [
+   0,
+   5
+  ],
+  "forgotten-coast-beach-co": [
+   0,
+   11
+  ],
+  "fort-myers-beach-sun-n-fun-sport-rentals": [
+   0,
+   16
+  ],
+  "frankies-bike-shop": [
+   3,
+   98
+  ],
+  "fun-in-the-sun-naples-electric-trike-tours-electric-moped-tours-naples-florida-u": [
+   0,
+   1
+  ],
+  "fun-in-the-sun-rentals-inc": [
+   0,
+   2
+  ],
+  "fun-n-sun-beach-bike-rentals": [
+   0,
+   4
+  ],
+  "fun-rentals-downtown-key-west": [
+   0,
+   7
+  ],
+  "fun-rentals-key-west": [
+   0,
+   14
+  ],
+  "fun-rentals-st-augustine": [
+   0,
+   10
+  ],
+  "fun-ride-rentals": [
+   0,
+   20
+  ],
+  "fury-key-west-bike-rentals": [
+   0,
+   16
+  ],
+  "gasparilla-adventures-golf-cart-bike-rentals": [
+   0,
+   24
+  ],
+  "gear4here-electric-bike-rentals-sales": [
+   0,
+   14
+  ],
+  "get-wet-surf-shop-skate-shop": [
+   0,
+   4
+  ],
+  "get-wet-watersports-jet-ski-rentals-singer-island-palm-beach": [
+   0,
+   14
+  ],
+  "get-wet-watersports-paddle-boarding-snorkeling-kayaking-singer": [
+   0,
+   14
+  ],
+  "green-iguana-rentals": [
+   0,
+   10
+  ],
+  "grey-carts-and-e-bikes": [
+   0,
+   22
+  ],
+  "grey-carts-and-e-bikes-ormond-beach": [
+   0,
+   24
+  ],
+  "grit-bike-lab": [
+   1,
+   237
+  ],
+  "gunner-pontoon-rentals": [
+   0,
+   7
+  ],
+  "hakuna-matata-motunui-boat-cruises-by-visit-palm-beach": [
+   0,
+   39
+  ],
+  "happy-beach-cruisers": [
+   0,
+   1
+  ],
+  "haulover-bike-rentals": [
+   2,
+   61
+  ],
+  "hbh-beach-rentals": [
+   0,
+   11
+  ],
+  "high-voltage-ebikes": [
+   0,
+   6
+  ],
+  "hollywood-beach-trikke": [
+   1,
+   14
+  ],
+  "homestead-bicycle-shop": [
+   0,
+   10
+  ],
+  "horsing-around-recreation-rentals": [
+   2,
+   31
+  ],
+  "hydro-thunder-of-key-west": [
+   0,
+   33
+  ],
+  "island-adventures": [
+   0,
+   18
+  ],
+  "island-bicycles": [
+   0,
+   29
+  ],
+  "island-bike-rental": [
+   0,
+   39
+  ],
+  "island-bike-shop-bicycle-rentals": [
+   0,
+   7
+  ],
+  "island-bike-shop-east-south-naples": [
+   0,
+   12
+  ],
+  "island-bikeworks": [
+   0,
+   33
+  ],
+  "island-comfort-mobility": [
+   0,
+   9
+  ],
+  "island-ebikes": [
+   0,
+   32
+  ],
+  "island-life-bikes": [
+   0,
+   207
+  ],
+  "island-marine-rentals": [
+   0,
+   6
+  ],
+  "island-safari-rental-inc": [
+   0,
+   17
+  ],
+  "its-electrique-scooter-and-e-bike-repair-tires-sales-in-deerfield-beach": [
+   0,
+   6
+  ],
+  "iwireless-orlando-chickasaw-electronics-e-bikes-e-scooters": [
+   9,
+   453
+  ],
+  "iwireless-orlando-phones-l-electronics-l-ebikes": [
+   1,
+   67
+  ],
+  "j-town-bicycle": [
+   1,
+   49
+  ],
+  "jack-the-bike-man-inc": [
+   0,
+   4
+  ],
+  "jacks-bike": [
+   0,
+   49
+  ],
+  "jax-beach-surf-shop": [
+   1,
+   18
+  ],
+  "jcs-bikes-boards-llc": [
+   2,
+   251
+  ],
+  "jealse-scooters-us-llc": [
+   0,
+   52
+  ],
+  "jersey-joes-bike-and-ebike-rental": [
+   0,
+   5
+  ],
+  "jnkns": [
+   0,
+   3
+  ],
+  "jupiter-electric-bikes": [
+   0,
+   17
+  ],
+  "jupiter-outdoor-center": [
+   0,
+   8
+  ],
+  "just-4-fun-beach-rentals": [
+   0,
+   14
+  ],
+  "jv-rent-all": [
+   0,
+   19
+  ],
+  "kayak-king-watersports": [
+   0,
+   14
+  ],
+  "kennys-retro-cruisers-llc": [
+   0,
+   1
+  ],
+  "key-lime-bike-tours": [
+   0,
+   9
+  ],
+  "key-west-bike-rentals": [
+   0,
+   8
+  ],
+  "key-west-wheels": [
+   0,
+   14
+  ],
+  "keys-vacation-supply-rentals": [
+   0,
+   149
+  ],
+  "kona-swim-bike-run": [
+   0,
+   54
+  ],
+  "kyles-bike-shop": [
+   0,
+   45
+  ],
+  "la-dolce-vita": [
+   0,
+   1
+  ],
+  "la-dolce-vita-bike-rentals-blue-mountain-beach": [
+   0,
+   19
+  ],
+  "la-dolce-vita-bike-rentals-watercolor-bike-barn": [
+   0,
+   65
+  ],
+  "la-dolce-vita-panama-city-beach": [
+   0,
+   1
+  ],
+  "lakeland-bicycle-co": [
+   0,
+   19
+  ],
+  "lapps-bike-rentals": [
+   5,
+   96
+  ],
+  "lazy-turtle-beach-rentals": [
+   0,
+   1
+  ],
+  "ldv-golf-cart-and-bike-rentals": [
+   0,
+   16
+  ],
+  "legacy-trail-bike-and-electric-bike-rentals": [
+   0,
+   14
+  ],
+  "legacy-trail-e-bike-rentals": [
+   0,
+   11
+  ],
+  "leroys-bikeworks": [
+   0,
+   11
+  ],
+  "letsgoev": [
+   2,
+   22
+  ],
+  "llamaebike": [
+   0,
+   6
+  ],
+  "lopifitus-the-walking-bike": [
+   0,
+   9
+  ],
+  "louies-bicycles": [
+   0,
+   47
+  ],
+  "mad-beach-paddlesports": [
+   0,
+   25
+  ],
+  "magnolia-beach-service": [
+   0,
+   15
+  ],
+  "mai-dcor-rentals": [
+   4,
+   158
+  ],
+  "makin-waves": [
+   0,
+   2
+  ],
+  "marathon-bikeworks": [
+   0,
+   28
+  ],
+  "marco-fun-rentals": [
+   0,
+   3
+  ],
+  "marco-island-bike-rentals-golf-cart-rentals": [
+   0,
+   13
+  ],
+  "maverick-board-riding-company": [
+   0,
+   2
+  ],
+  "medusa-e-bikes": [
+   2,
+   85
+  ],
+  "mega-cycle-by-epic-cycles": [
+   0,
+   9
+  ],
+  "miami-beach-bike-rental-segway-tours": [
+   1,
+   129
+  ],
+  "miami-bikes-electric-bicycle-shop": [
+   0,
+   6
+  ],
+  "mias-voltmoto-of-swfl-llc": [
+   2,
+   72
+  ],
+  "midpoint-rec-meet-up-spot": [
+   1,
+   9
+  ],
+  "mobil-planet": [
+   0,
+   52
+  ],
+  "mobile-bicycle-er": [
+   0,
+   85
+  ],
+  "momo-co-bike-rental-delivery-point-only": [
+   0,
+   11
+  ],
+  "morcos-international-motors": [
+   7,
+   73
+  ],
+  "mr-bikes-rental-scooters": [
+   1,
+   14
+  ],
+  "naples-bay-resort-boat-rentals": [
+   0,
+   15
+  ],
+  "naples-bike-rentals-beach-chair-rentals-paddle-board-rentals-naples-florida-usa": [
+   0,
+   5
+  ],
+  "naples-cyclery": [
+   0,
+   9
+  ],
+  "naples-electric-trike-tours-electric-moped-tours-scooter-tours-naples-florida-us": [
+   0,
+   2
+  ],
+  "national-ebike-mokwheel-electric-bikes-ebikes-etrikes": [
+   1,
+   46
+  ],
+  "nature-recreation-management": [
+   0,
+   5
+  ],
+  "new-smyrna-rentals": [
+   0,
+   11
+  ],
+  "nexgen-cycle": [
+   0,
+   20
+  ],
+  "nicks-e-bike-repair-and-sales": [
+   4,
+   210
+  ],
+  "no-boundaries-sport": [
+   0,
+   49
+  ],
+  "no-boundaries-sport-coral-gables": [
+   1,
+   84
+  ],
+  "no-boundaries-sport-miami": [
+   0,
+   11
+  ],
+  "ocala-e-bike-company": [
+   1,
+   32
+  ],
+  "ocean-e-bikes": [
+   1,
+   18
+  ],
+  "oceanside-e-bikes-electric-bike-sales-rentals": [
+   0,
+   17
+  ],
+  "off-the-hook-disposable-vapes-delta-skateboards-bike-rentals-bait-and-tackle-sou": [
+   0,
+   20
+  ],
+  "on-your-mark-performance-center-bike-shop": [
+   0,
+   5
+  ],
+  "open-road-bicycles": [
+   0,
+   24
+  ],
+  "orlando-bicycle-rental-delivery": [
+   0,
+   30
+  ],
+  "orlando-ev-mobility-solutions": [
+   0,
+   223
+  ],
+  "outlaw-motos": [
+   1,
+   104
+  ],
+  "outlaw-rentals-30a-santa-rosa-beach": [
+   0,
+   29
+  ],
+  "outlaw-rentals-edgewater-plaza": [
+   0,
+   256
+  ],
+  "outlaw-rentals-middle-beach": [
+   0,
+   13
+  ],
+  "outlaw-rentals-pier-park": [
+   0,
+   67
+  ],
+  "outlaw-rentals-thomas-drive": [
+   0,
+   98
+  ],
+  "outlaw-rentals-west-pcb": [
+   0,
+   43
+  ],
+  "outspokin-bicycles-tampa": [
+   0,
+   70
+  ],
+  "palm-beach-ebike-rentals": [
+   0,
+   5
+  ],
+  "paradise-bicycles": [
+   0,
+   65
+  ],
+  "peddlers-30a": [
+   0,
+   12
+  ],
+  "pedego-30a": [
+   0,
+   1
+  ],
+  "pedego-electric-bikes-amelia-island": [
+   0,
+   9
+  ],
+  "pedego-electric-bikes-and-e-bikes-in-juno-beach": [
+   0,
+   18
+  ],
+  "pedego-electric-bikes-boca": [
+   0,
+   17
+  ],
+  "pedego-electric-bikes-dunedin": [
+   0,
+   20
+  ],
+  "pedego-electric-bikes-fort-myers": [
+   0,
+   1
+  ],
+  "pedego-electric-bikes-naples": [
+   0,
+   2
+  ],
+  "pedego-electric-bikes-new-smyrna-beach": [
+   0,
+   31
+  ],
+  "pedego-electric-bikes-tampa": [
+   0,
+   4
+  ],
+  "pedelec-sqb-electric-bicycles": [
+   0,
+   34
+  ],
+  "pedritos-bike-shop": [
+   1,
+   22
+  ],
+  "perdido-key-bike-rentals": [
+   0,
+   20
+  ],
+  "pev-connection-llc": [
+   0,
+   46
+  ],
+  "pirate-scooter-rentals": [
+   0,
+   20
+  ],
+  "playtri-fort-walton-beach": [
+   0,
+   31
+  ],
+  "plug-play-e-bikes-llc": [
+   7,
+   90
+  ],
+  "prime-ride": [
+   14,
+   236
+  ],
+  "punk-ride": [
+   0,
+   6
+  ],
+  "quicky-cycles": [
+   0,
+   12
+  ],
+  "quicky-rentals": [
+   0,
+   5
+  ],
+  "r-r-bike-and-scooter-shop": [
+   3,
+   177
+  ],
+  "r3new-rides": [
+   1,
+   68
+  ],
+  "rad-bikes-beach-surf-and-rentals": [
+   0,
+   10
+  ],
+  "rad-rizzi-co-golf-cart-rentals": [
+   0,
+   7
+  ],
+  "rds-e-bikes": [
+   0,
+   24
+  ],
+  "real-bikes-englewood": [
+   0,
+   12
+  ],
+  "real-deal-bicycles": [
+   0,
+   40
+  ],
+  "reef-beach-services-rentals": [
+   0,
+   33
+  ],
+  "regino-bike-co": [
+   1,
+   25
+  ],
+  "relentless-bicycles": [
+   1,
+   43
+  ],
+  "rent-beach-stuff": [
+   0,
+   13
+  ],
+  "rent-electric-bikes-30a": [
+   0,
+   75
+  ],
+  "rentabikenow-for-store-223": [
+   0,
+   8
+  ],
+  "rentabikenow-for-store-230": [
+   1,
+   13
+  ],
+  "rentabikenow-for-store-341": [
+   0,
+   12
+  ],
+  "rentabikenow-for-store-369": [
+   0,
+   14
+  ],
+  "rentabikenow-for-store-382": [
+   0,
+   11
+  ],
+  "rentabikenow-for-store-40": [
+   1,
+   2
+  ],
+  "rentabikenow-for-store-78": [
+   0,
+   2
+  ],
+  "retro-city-cycles-longwood": [
+   1,
+   19
+  ],
+  "ride-electric": [
+   0,
+   5
+  ],
+  "ride-on-e-bikes": [
+   0,
+   13
+  ],
+  "ride-paddle-by-siesta-sports-rentals": [
+   0,
+   61
+  ],
+  "rideit-electric-bike-rentals-sales": [
+   0,
+   83
+  ],
+  "ridethepower": [
+   0,
+   1
+  ],
+  "riptide-watersports-rentals-and-tours": [
+   0,
+   38
+  ],
+  "roadshark-powersports": [
+   0,
+   23
+  ],
+  "robin-hood-rentals-siesta-key": [
+   0,
+   16
+  ],
+  "robinhood-rentals-of-anna-maria": [
+   0,
+   15
+  ],
+  "rogan-e-bikes-st-petersburg": [
+   0,
+   8
+  ],
+  "rogan-e-bikes-wesley-chapel": [
+   0,
+   18
+  ],
+  "ruedas-miami-rental-repair": [
+   0,
+   15
+  ],
+  "runaway-rentals-bike-golf-cart-rentals": [
+   0,
+   16
+  ],
+  "sage-golf-cart-rentals": [
+   0,
+   13
+  ],
+  "sage-paddle-company": [
+   0,
+   3
+  ],
+  "saint-george-island-beach-bum-essentials": [
+   0,
+   114
+  ],
+  "saint-george-island-golf-cart-and-bike-rentals": [
+   0,
+   18
+  ],
+  "salt-air-30a": [
+   0,
+   16
+  ],
+  "salty-rentals-sales-service": [
+   0,
+   27
+  ],
+  "san-flea-beach-service": [
+   0,
+   5
+  ],
+  "san-flea-rentals": [
+   0,
+   6
+  ],
+  "santos-bike-shop": [
+   0,
+   10
+  ],
+  "santos-bike-shop-ocala": [
+   0,
+   36
+  ],
+  "santos-bike-shop-wec-rentals": [
+   0,
+   4
+  ],
+  "sarasota-cycle": [
+   0,
+   9
+  ],
+  "scootermania": [
+   0,
+   90
+  ],
+  "seaside-transit-authority-bike-rentals": [
+   0,
+   11
+  ],
+  "shark-valley-tram-tours": [
+   0,
+   9
+  ],
+  "shock-e-bike-sales-rental-tours-with-delivery": [
+   0,
+   15
+  ],
+  "shoreline-beach-service": [
+   0,
+   8
+  ],
+  "siesta-key-bike-and-kayak": [
+   0,
+   25
+  ],
+  "siesta-key-e-bikes": [
+   0,
+   17
+  ],
+  "smart-phone-fix-phone-repair-ebikes": [
+   0,
+   15
+  ],
+  "smile": [
+   0,
+   2
+  ],
+  "smile-motors": [
+   2,
+   50
+  ],
+  "smile-scooter": [
+   0,
+   37
+  ],
+  "sobe-tours-and-rentals-bikes-segway": [
+   0,
+   13
+  ],
+  "soflo-e-bike-shop": [
+   0,
+   1
+  ],
+  "solano-cycle-of-st-augustine": [
+   0,
+   106
+  ],
+  "solano-cycle-rentals": [
+   0,
+   20
+  ],
+  "somi-bike": [
+   0,
+   2
+  ],
+  "sparkys-green-rides": [
+   0,
+   61
+  ],
+  "sparkys-green-rides-inverness": [
+   1,
+   45
+  ],
+  "sparkys-green-rides-wildwood": [
+   7,
+   371
+  ],
+  "speedy-tech-phones-accessories": [
+   0,
+   12
+  ],
+  "spinway-bike-rental": [
+   3,
+   41
+  ],
+  "spinway-on-the-gulf": [
+   1,
+   15
+  ],
+  "spoke-cycles": [
+   0,
+   8
+  ],
+  "sprockets-bike-shop-in-tradition": [
+   1,
+   71
+  ],
+  "st-augustine-ac-electric-bike-rentals": [
+   0,
+   31
+  ],
+  "st-pete-bike-rentals": [
+   0,
+   27
+  ],
+  "st-pete-biking": [
+   0,
+   21
+  ],
+  "steves-bike-shop": [
+   0,
+   50
+  ],
+  "streetside-scooters-powersports": [
+   0,
+   99
+  ],
+  "sun-fun-cycles": [
+   0,
+   18
+  ],
+  "sunny-e-bike-scooter-golf-cart-rental": [
+   0,
+   8
+  ],
+  "sunny-rentals": [
+   2,
+   267
+  ],
+  "sunnyplace-beach-bike-golfcart-rental-llc": [
+   0,
+   26
+  ],
+  "sunshine-e-ride": [
+   0,
+   33
+  ],
+  "sunshine-e-ride-coral-springs": [
+   0,
+   10
+  ],
+  "sunshine-scooters-inc": [
+   0,
+   17
+  ],
+  "sunshine-scooters-inc-key-west": [
+   0,
+   18
+  ],
+  "surf-n-turf-e-bike-bike-paddleboard-rentals-free-delivery-miramar-beach-destin-o": [
+   0,
+   16
+  ],
+  "surf-wheels-n-e-bikes": [
+   0,
+   48
+  ],
+  "surfari-surf-shop-ormond-beach-camps-lessons-rentals": [
+   0,
+   10
+  ],
+  "surrey-bike-rentals": [
+   0,
+   20
+  ],
+  "tampa-bay-ebikes": [
+   1,
+   37
+  ],
+  "tampa-bay-ebikes-dunedin": [
+   0,
+   71
+  ],
+  "tampa-bay-ebikes-st-petersburg": [
+   0,
+   36
+  ],
+  "tampa-riverwalk-rentals": [
+   0,
+   13
+  ],
+  "tarpon-toms-bike-shop": [
+   0,
+   51
+  ],
+  "teked-mobile-bike-services-llc": [
+   0,
+   6
+  ],
+  "the-beach-store-more": [
+   0,
+   2
+  ],
+  "the-bike-lab": [
+   0,
+   13
+  ],
+  "the-bike-route": [
+   0,
+   26
+  ],
+  "the-bike-route-inc-fort-myers": [
+   0,
+   7
+  ],
+  "the-bike-shack": [
+   0,
+   294
+  ],
+  "the-bikery-coffee-bicycle-shop": [
+   1,
+   182
+  ],
+  "the-boardwalk-shop": [
+   0,
+   1
+  ],
+  "the-fun-store": [
+   0,
+   4
+  ],
+  "the-hub-cycling": [
+   0,
+   16
+  ],
+  "the-ride-xperience-by-regino-bike-co": [
+   0,
+   13
+  ],
+  "the-space-coast-e-bike-store": [
+   2,
+   88
+  ],
+  "three-wheelz-better-llc": [
+   0,
+   5
+  ],
+  "tiki-ev-lithium-battery-conversion-golf-carts-and-e-bikes": [
+   0,
+   31
+  ],
+  "tms-electric-rides": [
+   1,
+   19
+  ],
+  "toysfortourists": [
+   0,
+   5
+  ],
+  "trail-sport-bicycles": [
+   0,
+   13
+  ],
+  "trailwinds-e-bikes": [
+   4,
+   97
+  ],
+  "treasure-coast-cycle-werks": [
+   0,
+   14
+  ],
+  "trek-bicycle-altamonte-springs": [
+   0,
+   4
+  ],
+  "trek-bicycle-bradenton": [
+   0,
+   12
+  ],
+  "trek-bicycle-gainesville": [
+   0,
+   51
+  ],
+  "trek-bicycle-inverness": [
+   0,
+   96
+  ],
+  "trek-bicycle-jacksonville-beach": [
+   0,
+   51
+  ],
+  "trek-bicycle-lake-mary": [
+   1,
+   40
+  ],
+  "trek-bicycle-lakeland": [
+   0,
+   9
+  ],
+  "trek-bicycle-melbourne": [
+   0,
+   16
+  ],
+  "trek-bicycle-orlando-college-park": [
+   0,
+   26
+  ],
+  "trek-bicycle-orlando-southchase": [
+   0,
+   27
+  ],
+  "trek-bicycle-ormond-beach": [
+   0,
+   32
+  ],
+  "trek-bicycle-seminole": [
+   1,
+   120
+  ],
+  "trek-bicycle-store-clermont": [
+   0,
+   72
+  ],
+  "trek-bicycle-tallahassee": [
+   0,
+   18
+  ],
+  "trek-bicycle-tampa-carrollwood": [
+   0,
+   157
+  ],
+  "trek-bicycle-tampa-south": [
+   0,
+   31
+  ],
+  "trek-bicycle-wildwood": [
+   0,
+   30
+  ],
+  "trek-bicycle-winter-garden": [
+   0,
+   36
+  ],
+  "trek-bike-shop-of-boynton-beach": [
+   0,
+   27
+  ],
+  "trek-bike-shop-of-cape-coral": [
+   0,
+   13
+  ],
+  "trek-bike-shop-of-fort-lauderdale": [
+   0,
+   3
+  ],
+  "trek-bike-shop-of-naples": [
+   0,
+   13
+  ],
+  "trek-bike-shop-of-sunrise": [
+   0,
+   10
+  ],
+  "trek-bikes-wellington": [
+   0,
+   26
+  ],
+  "tressel": [
+   0,
+   8
+  ],
+  "tropical-bike-rental-of-south-beach": [
+   0,
+   1
+  ],
+  "tt-motos-miami": [
+   0,
+   152
+  ],
+  "tt-motos-miami-pembroke-park": [
+   1,
+   76
+  ],
+  "tucker-cycles": [
+   0,
+   107
+  ],
+  "tuttioecycle": [
+   1,
+   1
+  ],
+  "tvc-go": [
+   0,
+   57
+  ],
+  "ubc-university-bicycle-center": [
+   0,
+   25
+  ],
+  "ubc-university-bicycle-center-at-alafia-river-state-park": [
+   0,
+   7
+  ],
+  "ucf-bike-n-gold": [
+   1,
+   100
+  ],
+  "unlimited-biking": [
+   0,
+   7
+  ],
+  "unlimited-biking-sanibel": [
+   0,
+   44
+  ],
+  "urban-e-rides": [
+   0,
+   72
+  ],
+  "us1-scooters-fort-lauderdale": [
+   0,
+   5
+  ],
+  "venom-e-bikes-and-mobility-scooters": [
+   1,
+   19
+  ],
+  "village-bike": [
+   0,
+   12
+  ],
+  "village-cycle-shoppe": [
+   0,
+   6
+  ],
+  "village-cycles": [
+   0,
+   12
+  ],
+  "viver-bicycle": [
+   0,
+   28
+  ],
+  "voltaire-cycles": [
+   0,
+   26
+  ],
+  "voltaire-cycles-and-e-bikes-north-port": [
+   0,
+   35
+  ],
+  "voltaire-cycles-and-e-bikes-venice": [
+   2,
+   39
+  ],
+  "wave-wheels-golf-cart-ebike-rentals-and-sales-of-ormond-beach": [
+   0,
+   9
+  ],
+  "wc-powersports": [
+   0,
+   12
+  ],
+  "we-cycle-key-west-bike-rental-new-town": [
+   0,
+   152
+  ],
+  "we-cycle-key-west-bike-rental-old-town": [
+   0,
+   19
+  ],
+  "west-orange-trail-bikes-and-blades": [
+   0,
+   42
+  ],
+  "western-bike": [
+   0,
+   23
+  ],
+  "wheel-fun-rentals-honeymoon-island": [
+   0,
+   25
+  ],
+  "wheel-fun-rentals-lakes-regional-park": [
+   1,
+   66
+  ],
+  "wheel-fun-rentals-safety-harbor-resort-and-spa": [
+   0,
+   4
+  ],
+  "wheel-works-bicycle-rentals": [
+   0,
+   6
+  ],
+  "willies-bicycle": [
+   0,
+   8
+  ],
+  "wittmer-bike-rental": [
+   3,
+   27
+  ],
+  "yachty-rentals": [
+   0,
+   14
+  ],
+  "yellowfin-ocean-sports": [
+   0,
+   2
+  ],
+  "yew-e-bikes": [
+   0,
+   220
+  ],
+  "yew-e-bikes-ormond-beach": [
+   0,
+   224
+  ],
+  "yoan-scooter-rentals": [
+   1,
+   51
+  ],
+  "yolo-board-bike": [
+   0,
+   7
+  ],
+  "zencog-bicycle-company": [
+   0,
+   25
+  ],
+  "zoo-keeper-e-bike": [
+   2,
+   186
+  ],
+  "zoomx-powersports": [
+   0,
+   60
+  ]
+ }
+}

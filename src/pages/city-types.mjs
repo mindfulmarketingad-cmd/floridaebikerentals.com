@@ -111,15 +111,16 @@ function naming(guides, listings) {
 
 /**
  * Every town + type page. A town gets pages when it has at least one rental
- * shop. A page is offered to search engines only when it has substance of its
- * own: a rental shop whose own profile names the type, or five or more rental
- * shops plus mapped routes or at least two e-bike rental shops.
- *
- * Towns with three or four shops used to qualify too, but those pages list
- * the same few shops as the town page and share about 84% of their text with
- * their sibling type pages, so they stay live and linked from the town page
- * with noindex, follow (and out of the sitemap) instead.
+ * shop. None is offered to search engines for now: in the Search Console
+ * export (Sep 2 - Oct 27, 2026) the 147 that were indexed earned no
+ * impressions, and data/shop-bike-types.json does not yet record which bike
+ * types any shop rents, so each page only restates its town page. They stay
+ * live and linked from the town page with noindex, follow (and out of the
+ * sitemap). Set TYPE_PAGES_INDEXABLE once there is per-shop type data; the
+ * rule it switches back on is a rental shop whose own profile names the
+ * type, or five or more rental shops plus mapped routes or two e-bike shops.
  */
+const TYPE_PAGES_INDEXABLE = false;
 const MIN_TYPE_PAGE_RENTALS = 5;
 
 export function cityTypePages(index, hubEntries, cityGuides) {
@@ -156,6 +157,7 @@ export function cityTypePages(index, hubEntries, cityGuides) {
         shops,
         trail,
         indexable:
+          TYPE_PAGES_INDEXABLE &&
           rentals.length >= 3 &&
           (named.length > 0 || (rentals.length >= MIN_TYPE_PAGE_RENTALS && (Boolean(trail) || ebike.length >= 2))),
       });
