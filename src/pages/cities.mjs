@@ -6,7 +6,7 @@
  * page; a town with one links straight to that shop, because a "list" of one
  * would only repeat the shop's own page.
  */
-import { facetPanel, facetsOf } from "../facets.mjs";
+import { facetPanel, facetsOf, FACETS_WIDE_OPEN } from "../facets.mjs";
 import { esc, attr, formatReviews, commaList, plural, clamp, phoneHref, seededPick } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
 import {
@@ -212,23 +212,10 @@ ${findHero({
   index,
   current: city.url,
   tags: tagsIn(local),
-  facets: facetPanel(local, { open: true }),
+  facets: facetPanel(local, { open: "wide" }),
   placeholder: `Search ${city.name} shops`,
   cta: `<a class="btn btn--primary" href="${attr(finderHref({ town: city.slug }))}">Find an E-bike in ${esc(city.name)}</a>`,
 })}
-
-${(() => {
-  const types = cityTypeList.filter((x) => x.city.slug === city.slug);
-  return types.length
-    ? `<section class="section section--tint">
-  <div class="wrap">
-    <h2>Rent by bike type in ${esc(city.name)}</h2>
-    <p class="muted">Pick a style to see the ${esc(city.name)} shops to ask, where to ride it, and a booking form set to that bike.</p>
-    ${typeTiles(types)}
-  </div>
-</section>`
-    : "";
-})()}
 
 <section class="section section--results">
   <div class="wrap">
@@ -247,6 +234,19 @@ ${(() => {
     })()}
   </div>
 </section>
+
+${(() => {
+  const types = cityTypeList.filter((x) => x.city.slug === city.slug);
+  return types.length
+    ? `<section class="section">
+  <div class="wrap">
+    <h2>Rent by bike type in ${esc(city.name)}</h2>
+    <p class="muted">Pick a style to see the ${esc(city.name)} shops to ask, where to ride it, and a booking form set to that bike.</p>
+    ${typeTiles(types)}
+  </div>
+</section>`
+    : "";
+})()}
 
 <section class="section section--tint" id="location">
   <div class="wrap">
@@ -375,7 +375,7 @@ ${adSlotScript(site, 1)}
     path: city.url,
     body,
     ogImage: best && best.photo ? best.photo : scene.og,
-    inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
+    inlineScripts: [FACETS_WIDE_OPEN, ...(site.adsense?.enabled ? [ADSENSE_INLINE] : [])],
     schema: [
       breadcrumbSchema(site, crumbs),
       faqSchema(faqs),

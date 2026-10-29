@@ -120,6 +120,13 @@ export function hoursAttr(listing) {
  * The filter panel for a page's listings: every facet at least one of them
  * has, grouped, with counts. Checkboxes named "f"; a shop must have them all.
  */
+/* Inline script for facetPanel(..., { open: "wide" }): opens the panel on
+   wide screens before first paint, so phones get it collapsed and see the
+   shops first while desktop keeps the filters showing. Pages using it must
+   pass this string in inlineScripts so the CSP hash covers it. */
+export const FACETS_WIDE_OPEN =
+  'if(matchMedia("(min-width: 761px)").matches)document.currentScript.previousElementSibling.open=true;';
+
 export function facetPanel(listings, { open = false } = {}) {
   const groups = FACET_GROUPS.map((g) => ({
     title: g.title,
@@ -128,7 +135,7 @@ export function facetPanel(listings, { open = false } = {}) {
       .filter((f) => f.count > 0 && !(f.count === listings.length && !f.live && listings.length > 1)),
   })).filter((g) => g.facets.length);
   if (!groups.length) return "";
-  return `<details class="facets"${open ? " open" : ""}>
+  return `<details class="facets"${open === true ? " open" : ""}>
   <summary><span>Filters</span> <span class="facets__on" data-facet-count hidden></span></summary>
   <div class="facets__body">
     ${groups
@@ -146,7 +153,7 @@ export function facetPanel(listings, { open = false } = {}) {
     <p class="facets__note small">From each shop's public Google listing. Bike styles show only where a shop's listing names them.</p>
     <button class="btn btn--outline btn--sm" type="button" data-facet-clear>Clear filters</button>
   </div>
-</details>`;
+</details>${open === "wide" ? `<script>${FACETS_WIDE_OPEN}</script>` : ""}`;
 }
 
 /** The same groups for the homepage finder, without counts (it covers the whole state). */
