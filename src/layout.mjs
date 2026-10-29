@@ -73,6 +73,11 @@ const ADSENSE_HOSTS = [
   "https://googleads.g.doubleclick.net",
   "https://www.google.com",
   "https://adservice.google.com",
+  // Consent (Funding Choices) message script and ad-traffic-quality checks
+  // that adsbygoogle.js loads; without them the console logs CSP violations.
+  "https://fundingchoicesmessages.google.com",
+  "https://ep1.adtrafficquality.google",
+  "https://ep2.adtrafficquality.google",
 ];
 
 /* ------------------------------------------------------------ security */
@@ -153,7 +158,13 @@ function cspMeta(inlineScripts, { ads, analytics, embeds = [], tileOrigin = "", 
     `frame-src ${
       [
         ...(ads
-          ? ["https://googleads.g.doubleclick.net", "https://tpc.googlesyndication.com", "https://www.google.com"]
+          ? [
+              "https://googleads.g.doubleclick.net",
+              "https://tpc.googlesyndication.com",
+              "https://www.google.com",
+              "https://fundingchoicesmessages.google.com",
+              "https://ep2.adtrafficquality.google",
+            ]
           : []),
         ...embeds.flatMap((name) => EMBED_HOSTS[name]?.frame || []),
       ].join(" ") || "'none'"
