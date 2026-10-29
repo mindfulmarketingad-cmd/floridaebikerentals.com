@@ -1675,7 +1675,7 @@ img.is-stock { object-fit: cover; }
 .finder-card__title a { color: var(--blue-900); text-decoration: none; }
 .finder-card__title a:hover { text-decoration: underline; }
 .finder-card__meta { margin: 0; color: var(--ink-soft); font-size: .92rem; }
-.finder-card__stars { color: #b57900; font-weight: 800; }
+.finder-card__stars { color: #8a5a00; font-weight: 800; }
 .finder-card__tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
 .finder-card__tags li { margin: 0; padding: .2rem .55rem; border-radius: 999px; background: var(--blue-50); color: var(--blue-900); font-size: max(12px, .8rem); font-weight: 700; }
 .finder-card__tags .is-ok { background: #e7f7ee; color: #0f6b3c; }
@@ -1881,7 +1881,7 @@ img.is-stock { object-fit: cover; }
 .carousel-card__body { display: flex; flex-direction: column; gap: .2rem; padding: .8rem .9rem 1rem; }
 .carousel-card__name { font-weight: 800; color: var(--blue-900); line-height: 1.25; }
 .carousel-card__rating { font-size: .9rem; color: var(--ink-soft); }
-.carousel-card__rating b { color: #b57900; }
+.carousel-card__rating b { color: #8a5a00; }
 .carousel-card__town { font-size: .9rem; color: var(--ink-soft); }
 @media (max-width: 640px) {
   .carousel-row__arrow { display: none; }

@@ -9,17 +9,20 @@ zero-dependency Node build script.
 
 ## What gets built
 
+Old URLs (`/find/ebike-rentals-in-<town>/`, `/find/ebike-rentals-in-<region>/`,
+`/partners/<business>/`, `/reviews/...`) 301 to the `/cities/` scheme via
+`_redirects` / `vercel.json` (`npm run redirects`).
+
 | Section | URL pattern | Count |
 | --- | --- | --- |
 | Homepage | `/` | 1 |
 | Find hub | `/find/` | 1 |
-| Region pages | `/find/ebike-rentals-in-<region>/` | 11 |
-| Town pages | `/find/ebike-rentals-in-<town>/` | 164 |
+| Town map (all towns A-Z) | `/cities/` | 1 |
+| Town pages | `/cities/<town>/` | 164 |
+| Bike-type town pages | `/cities/<town>/<type>-rentals/` (noindex unless 5+ shops or a shop names the type) | 405 |
 | Topic pages | `/find/<topic>/` | 8 |
 | Partner hub (paginated) | `/partners/`, `/partners/page/N/` | 15 |
-| Partner listings | `/partners/<business>/` | 561 |
-| Reviews hub (paginated) | `/reviews/`, `/reviews/page/N/` | 9 |
-| Review pages | `/reviews/<business>/` | 561 |
+| Shop listings | `/cities/<town>/<business>/` | 560 |
 | Blog hub + guides | `/blog/`, `/blog/<slug>/` | 14 |
 | Trails hub + guides | `/trails/`, `/trails/<slug>/` | 5 |
 | Costs hub + guides | `/costs/`, `/costs/<slug>/` | 5 |
@@ -66,7 +69,7 @@ matters for a listing that already ranks, add a redirect in your host config.
 
 ## Editing content
 
-- **Town pages (`/find/ebike-rentals-in-<town>/`)** — open on the page title over a full-width
+- **Town pages (`/cities/<town>/`)** — open on the page title over a full-width
   scene with the search bar directly under it, already set to that town (`src/find-hero.mjs`, shared
   by every `/find` page). "Where" is a destination picker that moves to another town, region or the
   near-me page; the search, service and sort fields filter the list on the page. No stat callouts.
