@@ -44,7 +44,8 @@ Rent in [Key West](/find/ebike-rentals-in-key-west/).
 
 **About 20 miles, paved rail trail.** A genuine long-distance ride with shade, bridges and a
 well-maintained surface, running south from Sarasota through Osprey and Nokomis into Venice. The
-extension north into downtown Sarasota makes an out-and-back of 40 miles realistic on assist.
+extension north into downtown Sarasota makes an out-and-back of nearly 40 miles realistic on assist.
+Trailheads, sections and rules are in our [Legacy Trail guide](/trails/legacy-trail-sarasota-venice/).
 
 Rent in [Sarasota](/find/ebike-rentals-in-sarasota/) or [Venice](/find/ebike-rentals-in-venice/).
 

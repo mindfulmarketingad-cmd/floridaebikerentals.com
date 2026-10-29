@@ -64,7 +64,7 @@ The Legacy Trail is the anchor — a genuine 20-mile rail trail from Sarasota to
 island riding on Siesta Key, Lido Key, Longboat Key and Anna Maria Island. Anna Maria in particular
 is built for bikes: a small island, a free trolley for when you are done, and low traffic speeds.
 
-**Best for:** distance riding on the Legacy Trail, island hopping.
+**Best for:** distance riding on the [Legacy Trail](/trails/legacy-trail-sarasota-venice/), island hopping.
 **Browse:** [Sarasota and Bradenton rentals](/find/ebike-rentals-in-sarasota-and-bradenton/).
 
 ## Tampa Bay
