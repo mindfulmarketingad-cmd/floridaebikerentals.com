@@ -53,7 +53,7 @@ await page.close();
   await page.waitForTimeout(1200);
   const hero=await page.evaluate(()=>{const h=document.querySelector(".hero"); const img=h.querySelector(".hero__bg img");
     return {carousel:h.querySelectorAll(".carousel,.slide").length, bubbles:document.querySelectorAll(".bubbles").length,
-      bg:img&&img.currentSrc, loaded:!!(img&&img.naturalWidth), rentNow:!!h.querySelector('form[data-finder] select[name=town]')};});
+      bg:img&&img.currentSrc, loaded:!!(img&&img.naturalWidth), rentNow:!!h.querySelector('form[data-finder] input[data-town-input]')};});
   ok(`home hero: photo ${hero.bg&&hero.bg.split("/").pop()} loaded, ${hero.carousel} carousel nodes, ${hero.bubbles} bubbles, location asked: ${askedLocation}`,
      hero.loaded && /hero-ebike-waterfront\.(avif|jpg)$/.test(hero.bg) && hero.carousel===0 && hero.bubbles===0 && hero.rentNow && !askedLocation);
   await page.close(); await ctx.close();

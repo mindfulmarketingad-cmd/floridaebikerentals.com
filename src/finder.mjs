@@ -125,6 +125,12 @@ function townOptions(index, selected = "") {
     .join("");
 }
 
+/** Every town with a shop, for the type-ahead: [slug, name, region, shops]. */
+function townList(index) {
+  const towns = index.regions.flatMap((r) => [...r.cities, ...(r.thinCities || [])].map((t) => [t.slug, t.name, r.name, t.listings.length]));
+  return towns.sort((a, b) => b[3] - a[3] || a[1].localeCompare(b[1]));
+}
+
 function startTimes() {
   const out = ['<option value="">Any time</option>'];
   for (let h = 7; h <= 18; h++) {
@@ -138,14 +144,14 @@ function startTimes() {
 export function finderForm(index, { dataUrl }) {
   return `<form class="finder" id="finder" data-finder data-src="${attr(dataUrl)}" role="search" aria-label="Find an e-bike rental shop">
   <div class="finder__grid">
-    <label class="finder__field finder__field--where">
-      <span>Where</span>
-      <select name="town">
-        <option value="">Choose a town</option>
-        <option value="near">Near me (use my location)</option>
-        ${townOptions(index)}
-      </select>
-    </label>
+    <div class="finder__field finder__field--where town-pick" data-town-pick>
+      <label for="finder-town"><span>Where</span></label>
+      <input id="finder-town" type="text" data-town-input placeholder="Type your town, e.g. Destin" autocomplete="off" spellcheck="false"
+        role="combobox" aria-autocomplete="both" aria-expanded="false" aria-controls="finder-town-list">
+      <input type="hidden" name="town">
+      <ul id="finder-town-list" class="town-pick__list" role="listbox" hidden></ul>
+      <script type="application/json" data-town-data>${JSON.stringify(townList(index)).replace(/</g, "\\u003c")}</script>
+    </div>
     <label class="finder__field">
       <span>Bike</span>
       <select name="type">${FINDER_STYLES.map((s) => `<option value="${attr(s.value)}">${esc(s.label)}</option>`).join("")}</select>

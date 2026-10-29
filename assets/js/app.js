@@ -745,6 +745,102 @@
     var data = null, dataPromise = null;
     var DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     var LEN = { "2h": 120, half: 240, full: 480, multi: 0, week: 0 };
+    /* Town type-ahead: completes the town inline as the rider types and lists
+       matching towns from the directory, with "Near me" always on offer. */
+    var townInput = $("[data-town-input]", form);
+    var townHidden = form.querySelector("input[name=town]");
+    var townList = $(".town-pick__list", form);
+    var towns = [];
+    try { towns = JSON.parse(($("[data-town-data]", form) || {}).textContent || "[]"); } catch (e) {}
+    var townName = function (slug) {
+      if (slug === "near") return "Near me";
+      for (var i = 0; i < towns.length; i++) if (towns[i][0] === slug) return towns[i][1];
+      return "";
+    };
+    var norm = function (t) { return t.toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\bst\b/g, "saint").trim(); };
+    var matches = function (q) {
+      q = norm(q);
+      if (!q) return towns.slice(0, 8);
+      var starts = [], words = [], inside = [];
+      towns.forEach(function (t) {
+        var n = norm(t[1]);
+        if (n.indexOf(q) === 0) starts.push(t);
+        else if ((" " + n).indexOf(" " + q) !== -1) words.push(t);
+        else if (n.indexOf(q) !== -1 || norm(t[2]).indexOf(q) !== -1) inside.push(t);
+      });
+      return starts.concat(words, inside).slice(0, 8);
+    };
+    var active = -1, shown = [], typedText = "";
+    var choose = function (slug, name) {
+      townHidden.value = slug;
+      townInput.value = name;
+      closeList();
+      errBox.hidden = true;
+    };
+    var closeList = function () { townList.hidden = true; townInput.setAttribute("aria-expanded", "false"); active = -1; };
+    var paint = function () {
+      townList.textContent = "";
+      var near = el("li", "town-pick__opt town-pick__opt--near", "\ud83d\udccd Near me (use my location)");
+      near.setAttribute("role", "option");
+      near.dataset.slug = "near";
+      shown = [["near", "Near me"]].concat(matches(typedText));
+      townList.appendChild(near);
+      shown.slice(1).forEach(function (t) {
+        var li = el("li", "town-pick__opt");
+        li.setAttribute("role", "option");
+        li.dataset.slug = t[0];
+        li.appendChild(el("strong", "", t[1]));
+        li.appendChild(el("span", "town-pick__meta", t[2] + " \u00b7 " + t[3] + (t[3] === 1 ? " shop" : " shops")));
+        townList.appendChild(li);
+      });
+      if (shown.length === 1 && typedText.trim()) townList.appendChild(el("li", "town-pick__none", "No town matches. Try a nearby town, or Near me."));
+      $$(".town-pick__opt", townList).forEach(function (li, i) {
+        li.id = "town-opt-" + i;
+        li.classList.toggle("is-active", i === active);
+        li.addEventListener("mousedown", function (e) { e.preventDefault(); choose(li.dataset.slug, shown[i][1]); });
+      });
+      townInput.setAttribute("aria-activedescendant", active >= 0 ? "town-opt-" + active : "");
+      townList.hidden = false;
+      townInput.setAttribute("aria-expanded", "true");
+    };
+    if (townInput) {
+      townInput.addEventListener("focus", function () { typedText = ""; townInput.select(); paint(); });
+      townInput.addEventListener("input", function (e) {
+        typedText = townInput.value;
+        townHidden.value = "";
+        active = -1;
+        paint();
+        // Finish the town name inline when the typed text starts it.
+        var typed = townInput.value;
+        if (e.inputType && e.inputType.indexOf("insert") === 0 && typed.length >= 2) {
+          var top = shown[1];
+          if (top && top[1].toLowerCase().indexOf(typed.toLowerCase()) === 0 && top[1].length > typed.length) {
+            townInput.value = typed + top[1].slice(typed.length);
+            townInput.setSelectionRange(typed.length, top[1].length);
+            townHidden.value = top[0];
+            active = 1;
+            paint();
+          }
+        }
+      });
+      townInput.addEventListener("keydown", function (e) {
+        if (townList.hidden && (e.key === "ArrowDown" || e.key === "ArrowUp")) { paint(); return; }
+        if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(active + 1, shown.length - 1); paint(); }
+        else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(active - 1, 0); paint(); }
+        else if (e.key === "Enter" && !townList.hidden && active >= 0) { e.preventDefault(); choose(shown[active][0], shown[active][1]); }
+        else if (e.key === "Escape") closeList();
+        else if (e.key === "Tab" && !townHidden.value && shown.length > 1 && townInput.value.trim()) choose(shown[1][0], shown[1][1]);
+      });
+      townInput.addEventListener("blur", function () {
+        setTimeout(closeList, 120);
+        if (townHidden.value) townInput.value = townName(townHidden.value);
+        if (!townHidden.value && townInput.value.trim()) {
+          var m = matches(townInput.value);
+          if (m.length && norm(m[0][1]).indexOf(norm(townInput.value)) === 0) choose(m[0][0], m[0][1]);
+        }
+      });
+    }
+
     var STYLE = { cruiser: "beach cruiser e-bikes", "fat-tire": "fat-tire e-bikes", "step-through": "step-through e-bikes", hybrid: "commuter e-bikes", cargo: "cargo e-bikes", trike: "electric trikes" };
 
     function load() {
@@ -796,7 +892,9 @@
       };
     }
     function fill(params) {
-      ["town", "type", "date", "time", "length"].forEach(function (k) {
+      var pt = params.get("town");
+      if (pt && townName(pt)) { townHidden.value = pt; townInput.value = townName(pt); }
+      ["type", "date", "time", "length"].forEach(function (k) {
         var v = params.get(k);
         if (v == null || !form[k]) return;
         if (form[k].tagName === "SELECT" && !form[k].querySelector('option[value="' + v.replace(/"/g, "") + '"]')) return;
@@ -1014,10 +1112,14 @@
     function run(scroll) {
       var q = readQuery();
       errBox.hidden = true;
+      if (!q.town && townInput.value.trim()) {
+        var guess = matches(townInput.value);
+        if (guess.length) { choose(guess[0][0], guess[0][1]); q.town = guess[0][0]; }
+      }
       if (!q.town) {
-        errBox.textContent = "Choose a town, or \"Near me\", to search.";
+        errBox.textContent = townInput.value.trim() ? "We don't list a town by that name yet. Pick one from the list, or use Near me." : "Type your town, or choose \"Near me\", to search.";
         errBox.hidden = false;
-        form.town.focus();
+        townInput.focus();
         return;
       }
       var params = new URLSearchParams();
@@ -1027,7 +1129,7 @@
       if (window.history && history.replaceState) history.replaceState(null, "", "/?" + params.toString() + "#results");
       box.hidden = false;
       if (scroll) box.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-      var placeName = q.town === "near" ? "near you" : "in " + form.town.options[form.town.selectedIndex].textContent;
+      var placeName = q.town === "near" ? "near you" : "in " + townName(q.town);
       Promise.all([load(), where(q), animate(reduceMotion ? 500 : 2800)]).then(function (r) {
         var origin = r[1];
         if (origin.town) origin.coords = townCentre(origin.town);
@@ -1047,7 +1149,7 @@
     if (params.toString()) {
       fill(params);
       if (params.get("town")) run(true);
-      else if (window.location.hash === "#finder") form.town.focus();
+      else if (window.location.hash === "#finder") townInput.focus();
     }
   })();
 
