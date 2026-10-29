@@ -91,7 +91,7 @@ page=await b.newPage();
 await page.goto("http://localhost:8099/",{waitUntil:"domcontentloaded"});
 const radius=await page.$eval(".btn--primary",e=>getComputedStyle(e).borderRadius);
 const rentNow=await page.$eval('.hero .finder__go',e=>e.textContent.trim());
-ok(`CTAs are square (border-radius: ${radius}) and the hero finder button reads "${rentNow}"`, radius==="0px"&&/Find E-bike Shops/i.test(rentNow));
+ok(`CTAs are square (border-radius: ${radius}) and the hero search button reads "${rentNow}"`, radius==="0px"&&/^Search$/.test(rentNow));
 await page.close();
 
 // 4g. sitewide promo banner: present, correctly attributed, dismissible

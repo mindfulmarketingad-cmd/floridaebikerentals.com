@@ -132,7 +132,7 @@ function townList(index) {
 }
 
 function startTimes() {
-  const out = ['<option value="">Any time</option>'];
+  const out = ['<option value="">Any start time</option>'];
   for (let h = 7; h <= 18; h++) {
     const label = `${h % 12 || 12}${h < 12 ? " AM" : " PM"}`;
     out.push(`<option value="${h * 60}">${label}</option>`);
@@ -141,44 +141,60 @@ function startTimes() {
 }
 
 /** The full finder form for the homepage hero. */
+const ICON = (d) => `<svg class="finder__ico" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONS = {
+  pin: ICON('<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'),
+  bike: ICON('<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 9h6l3.5 7.5M9 9 7.5 6H6M15 9l-3 7.5"/>'),
+  day: ICON('<rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'),
+  time: ICON('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>'),
+  length: ICON('<path d="M7 3.5h10M7 20.5h10M8 3.5c0 4 8 5 8 8.5s-8 4.5-8 8.5M16 3.5c0 4-8 5-8 8.5"/>'),
+};
+
+/**
+ * The full finder for the homepage hero: one clean search bar (where, bike,
+ * day, start time, length, Search) and a light strip underneath with the
+ * must-haves and the rest of the filters.
+ */
 export function finderForm(index, { dataUrl }) {
   return `<form class="finder" id="finder" data-finder data-src="${attr(dataUrl)}" role="search" aria-label="Find an e-bike rental shop">
-  <p class="finder__title">Your Next Ride Starts Here</p>
-  <div class="finder__grid">
-    <div class="finder__field finder__field--where town-pick" data-town-pick>
-      <label for="finder-town"><span>Where</span></label>
-      <input id="finder-town" type="text" data-town-input placeholder="Type your town, e.g. Destin" autocomplete="off" spellcheck="false"
+  <div class="finder__bar">
+    <div class="finder__seg finder__seg--where town-pick" data-town-pick>
+      ${ICONS.pin}
+      <label for="finder-town" class="visually-hidden">Where</label>
+      <input id="finder-town" type="text" data-town-input placeholder="Town, beach or area, e.g. Destin" autocomplete="off" spellcheck="false"
         role="combobox" aria-autocomplete="both" aria-expanded="false" aria-controls="finder-town-list">
       <input type="hidden" name="town">
       <ul id="finder-town-list" class="town-pick__list" role="listbox" hidden></ul>
       <script type="application/json" data-town-data>${JSON.stringify(townList(index)).replace(/</g, "\\u003c")}</script>
     </div>
-    <label class="finder__field">
-      <span>Bike</span>
+    <label class="finder__seg">
+      ${ICONS.bike}<span class="visually-hidden">Bike</span>
       <select name="type">${FINDER_STYLES.map((s) => `<option value="${attr(s.value)}">${esc(s.label)}</option>`).join("")}</select>
     </label>
-    <label class="finder__field">
-      <span>Day</span>
+    <label class="finder__seg">
+      ${ICONS.day}<span class="visually-hidden">Day</span>
       <input type="date" name="date">
     </label>
-    <label class="finder__field">
-      <span>Start time</span>
+    <label class="finder__seg">
+      ${ICONS.time}<span class="visually-hidden">Start time</span>
       <select name="time">${startTimes()}</select>
     </label>
-    <label class="finder__field">
-      <span>How long</span>
+    <label class="finder__seg">
+      ${ICONS.length}<span class="visually-hidden">How long</span>
       <select name="length">${FINDER_LENGTHS.map((l, i) => `<option value="${attr(l.value)}"${i === 1 ? " selected" : ""}>${esc(l.label)}</option>`).join("")}</select>
     </label>
-    <button class="btn btn--primary finder__go" type="submit">Find E-bike Shops</button>
+    <button class="finder__go" type="submit">Search</button>
   </div>
-  <fieldset class="finder__extras">
-    <legend>Must have</legend>
-    <label><input type="checkbox" name="f" value="delivery"> Delivers to you</label>
-    <label><input type="checkbox" name="f" value="repairs"> Repairs</label>
-    <label><input type="checkbox" name="f" value="online"> Online booking</label>
-    <label><input type="checkbox" name="f" value="r45"> 4.5+ stars</label>
-  </fieldset>
-  ${finderFacets()}
+  <div class="finder__under">
+    <fieldset class="finder__extras">
+      <legend class="visually-hidden">Must have</legend>
+      <label><input type="checkbox" name="f" value="delivery"> Delivers to you</label>
+      <label><input type="checkbox" name="f" value="repairs"> Repairs</label>
+      <label><input type="checkbox" name="f" value="online"> Online booking</label>
+      <label><input type="checkbox" name="f" value="r45"> 4.5+ stars</label>
+    </fieldset>
+    ${finderFacets()}
+  </div>
   <p class="finder__error" data-finder-error role="alert" hidden></p>
 </form>`;
 }

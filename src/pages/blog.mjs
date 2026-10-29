@@ -1,7 +1,7 @@
 import { esc, attr, prettyDate, isoDate, clamp } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbSchema } from "../layout.mjs";
 import { linkCard, linkCloud, adSlot, adSlotScript, ADSENSE_INLINE, faqBlock, faqSchema, ctaBand } from "../components.mjs";
-import { photoFor, secondPhotoFor, figure, banner } from "../images.mjs";
+import { photoFor, secondPhotoFor, figure, banner, sitePhoto } from "../images.mjs";
 import { byline, authorCard } from "./hub.mjs";
 import { expandShortcodes } from "../shortcodes.mjs";
 
@@ -134,6 +134,7 @@ export function blogPost(site, post, ctx) {
 <article class="post-body">
   <div class="wrap wrap-narrow">
     ${banner(hero, { alt: `${post.title} - ${hero.alt}` })}
+    ${post.image ? sitePhoto(post.image, { className: "type-photo" }) : ""}
     ${toc}
     <div class="prose">
       ${html}

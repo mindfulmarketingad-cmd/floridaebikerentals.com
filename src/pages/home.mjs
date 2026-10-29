@@ -76,11 +76,10 @@ export function homePage(site, { listings, index, blog, stats, finderUrl }) {
     <img src="/assets/img/original/hero-ebike-waterfront.jpg" alt="" width="1125" height="750" fetchpriority="high" decoding="async">
   </picture>
   <div class="wrap hero__inner home-hero">
-    <h1 class="home-hero__title">Electric Bike Rentals in Florida - Rent Now</h1>
-    <p class="home-hero__sub">Find your e-bike in seconds. We check ${esc(String(stats.total))} shops in ${esc(String(stats.cities))} Florida towns, from
-    <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West, and show you the ones open when you want to ride. Or browse
-    <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
+    <h1 class="home-hero__kicker">Electric Bike Rentals in Florida - Rent Now</h1>
+    <p class="home-hero__title">Your next ride starts here</p>
     ${finderForm(index, { dataUrl: finderUrl })}
+    <p class="home-hero__more">${esc(String(stats.total))} rental shops in ${esc(String(stats.cities))} Florida towns, from <a href="/blog/30a-ebike-rentals-guide/">30A</a> to Key West. Or browse <a href="/find/ebike-rentals-near-me/">e-bike rentals near me</a>.</p>
   </div>
 </section>
 
