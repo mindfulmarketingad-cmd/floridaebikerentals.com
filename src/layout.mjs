@@ -251,7 +251,7 @@ function header(current, site) {
   return `<header class="site-header">
   <div class="wrap site-header__inner">
     <a class="brand" href="/" aria-label="Florida Ebike Rentals home">
-      <img src="/assets/img/logo.svg" width="190" height="40" alt="Florida Ebike Rentals" fetchpriority="high">
+      <img src="/assets/img/logo.svg" width="190" height="40" alt="Florida Ebike Rentals">
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
       <span class="nav-toggle__bars" aria-hidden="true"></span> Menu

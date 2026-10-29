@@ -13,7 +13,7 @@
  */
 import { esc, attr, plural } from "./util.mjs";
 import { breadcrumbsBare } from "./layout.mjs";
-import { stockFor, stockImg, sceneForTown } from "./images.mjs";
+import { stockFor, stockImg, sceneForTown, pictureImg } from "./images.mjs";
 
 /** Lives here, not in near-me.mjs, so pages can link to it without an import cycle. */
 export const NEAR_ME_URL = "/find/ebike-rentals-near-me/";
@@ -81,7 +81,12 @@ const SORTS = [
  */
 export function findHero({ crumbs, h1, lead, scene, index, current, category = null, tags = [], placeholder = "Shop name or service", filters = true, whereOptions = "", form = "", cta = "", facets = "" }) {
   return `<section class="find-hero">
-  <img class="find-hero__art" src="${attr(scene.src)}" alt="${attr(scene.alt)}" width="${scene.width}" height="${scene.height}" fetchpriority="high" decoding="async">
+  ${pictureImg(
+    scene,
+    `class="find-hero__art" alt="${attr(scene.alt)}" width="${scene.width}" height="${scene.height}" fetchpriority="high" decoding="async"`,
+    // Cover-fit over a tall box, so phones need the full-width file too: WebP only.
+    { srcset: false }
+  )}
   <div class="find-hero__shade" aria-hidden="true"></div>
   <div class="wrap find-hero__inner">
     ${breadcrumbsBare(crumbs)}

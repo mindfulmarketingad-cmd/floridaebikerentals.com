@@ -22,7 +22,7 @@ export function contactButtons(listing, { size = "btn--sm", primary = true, camp
   }
   return out.join("");
 }
-import { sceneForRegion } from "./images.mjs";
+import { sceneForRegion, pictureImg } from "./images.mjs";
 import { bikeTypeRow } from "./bike-types.mjs";
 import { facetsOf, hoursAttr } from "./facets.mjs";
 
@@ -156,7 +156,10 @@ export function photo(listing, { className = "", sizes = "", eager = false, pref
   const scene = sceneForRegion(listing.regionSlug);
   if (scene.stock) {
     // Labelled, so a stock picture is never taken for the shop's own photo.
-    return `<img src="${attr(scene.stock.small)}" alt="" class="is-stock${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.stock.smallWidth}" height="${scene.stock.smallHeight}"><span class="stock-tag">Stock photo</span>`;
+    return `${pictureImg(
+      { src: scene.stock.small, width: scene.stock.smallWidth, height: scene.stock.smallHeight },
+      `alt="" class="is-stock${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.stock.smallWidth}" height="${scene.stock.smallHeight}"`
+    )}<span class="stock-tag">Stock photo</span>`;
   }
   return `<img src="${attr(scene.src)}" alt="" class="is-illustration${className ? ` ${attr(className)}` : ""}" ${loading} width="${scene.width}" height="${scene.height}">`;
 }

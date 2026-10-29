@@ -84,7 +84,10 @@ export function ownPhoto(id = "beach-cruiser-ride", { className = "" } = {}) {
 /** A stock photo as an <img>, the 800px file by default, never wider than its file. */
 export function stockImg(photo, { alt, large = false, eager = false } = {}) {
   const [src, w, h] = large ? [photo.src, photo.width, photo.height] : [photo.small, photo.smallWidth, photo.smallHeight];
-  return `<img src="${attr(src)}" alt="${attr(alt || photo.title || "")}" width="${w}" height="${h}" loading="${eager ? "eager" : "lazy"}" decoding="async">`;
+  return pictureImg(
+    { src, width: w, height: h },
+    `alt="${attr(alt || photo.title || "")}" width="${w}" height="${h}" loading="${eager ? "eager" : "lazy"}" decoding="async"`
+  );
 }
 
 const LICENCE_NAMES = { cc0: "CC0", pdm: "Public domain", by: "CC BY", "by-sa": "CC BY-SA" };
@@ -276,6 +279,10 @@ export const SCENES = DRAWN.map((scene) => {
     src: big.src,
     width: big.width,
     height: big.height,
+    // The 800px copy, so banners and figures can offer a srcset.
+    small: big.small || "",
+    smallWidth: big.smallWidth || 0,
+    smallHeight: big.smallHeight || 0,
     og: big.src,
     alt,
     caption: `Stock photo: ${alt}`,
@@ -371,6 +378,37 @@ export function photoById(id) {
   return BY_ID.get(id) || PHOTOS[0];
 }
 
+const ROOT_URL = new URL("../", import.meta.url);
+const WEBP_SEEN = new Map();
+/** The .webp written beside a local JPEG by scripts/optimize-stock.py, or "". */
+function webpOf(url) {
+  if (WEBP_SEEN.has(url)) return WEBP_SEEN.get(url);
+  const webp = typeof url === "string" && url.startsWith("/") ? url.replace(/\.jpe?g$/i, ".webp") : url;
+  const found = webp !== url && existsSync(new URL(`.${webp}`, ROOT_URL)) ? webp : "";
+  WEBP_SEEN.set(url, found);
+  return found;
+}
+
+/**
+ * A photo as <img>, with an 800w/1600w srcset when the photo has a small copy
+ * and a WebP <source> when WebP copies exist; the JPEG stays the fallback.
+ * `attrs` is the rest of the <img> attributes (alt, size, loading...).
+ */
+export function pictureImg(photo, attrs, { sizes = "100vw", srcset = true } = {}) {
+  const set =
+    srcset && photo.small && photo.smallWidth && photo.width > photo.smallWidth
+      ? [[photo.small, photo.smallWidth], [photo.src, photo.width]]
+      : null;
+  const sizesAttr = set ? ` sizes="${attr(sizes)}"` : "";
+  const img = `<img src="${attr(photo.src)}"${
+    set ? ` srcset="${attr(set.map(([u, w]) => `${u} ${w}w`).join(", "))}"${sizesAttr}` : ""
+  } ${attrs}>`;
+  const webps = (set || [[photo.src, photo.width]]).map(([u, w]) => [webpOf(u), w]);
+  if (!webps.every(([u]) => u)) return img;
+  const webpSet = set ? webps.map(([u, w]) => `${u} ${w}w`).join(", ") : webps[0][0];
+  return `<picture><source type="image/webp" srcset="${attr(webpSet)}"${sizesAttr}>${img}</picture>`;
+}
+
 /**
  * Renders a photo. `alt` should be page-specific; it falls back to the
  * library's generic description, which never names a business.
@@ -378,10 +416,12 @@ export function photoById(id) {
 export function figure(photo, { alt, caption, className = "", eager = false, sizes = "" } = {}) {
   const text = alt || photo.alt;
   return `<figure class="figure ${attr(className)}">
-  <img src="${attr(photo.src)}" alt="${attr(text)}" width="${photo.width}" height="${photo.height}"
-    loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"${
-    sizes ? ` sizes="${attr(sizes)}"` : ""
-  }>
+  ${pictureImg(
+    photo,
+    `alt="${attr(text)}" width="${photo.width}" height="${photo.height}"
+    loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"`,
+    { sizes: sizes || "(max-width: 860px) calc(100vw - 2rem), 800px" }
+  )}
   ${caption === null ? "" : `<figcaption>${esc(caption || photo.caption)}</figcaption>`}
 </figure>`;
 }
@@ -389,8 +429,12 @@ export function figure(photo, { alt, caption, className = "", eager = false, siz
 /** Wide banner used as the featured image at the top of a page. */
 export function banner(photo, { alt, eager = true, className = "" } = {}) {
   return `<div class="page-banner ${attr(className)}">
-  <img src="${attr(photo.src)}" alt="${attr(alt || photo.alt)}" width="${photo.width}" height="${photo.height}"
-    loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async">
+  ${pictureImg(
+    photo,
+    `alt="${attr(alt || photo.alt)}" width="${photo.width}" height="${photo.height}"
+    loading="${eager ? "eager" : "lazy"}"${eager ? ' fetchpriority="high"' : ""} decoding="async"`,
+    { sizes: "(max-width: 860px) calc(100vw - 2rem), 820px" }
+  )}
 </div>`;
 }
 
