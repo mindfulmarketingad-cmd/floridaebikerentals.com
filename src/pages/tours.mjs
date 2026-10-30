@@ -318,8 +318,9 @@ function ranked(group) {
   return [...bikes, ...rest].slice(0, 12);
 }
 
-export function tourCityPage(site, group, tours, { index }) {
+export function tourCityPage(site, group, tours, { index, blog = [], hubEntries = {} }) {
   const city = group.city;
+  const guides = localGuides(group, blog, hubEntries);
   const list = ranked(group);
   const all = group.tours;
   const bikes = all.filter(isBike);
@@ -452,6 +453,15 @@ ${breadcrumbs(crumbs)}
       <li><strong>E-bike rules:</strong> Florida treats most e-bikes like bicycles, so bike lanes and many multi-use paths are open to them, but local rules vary. See our <a href="/blog/florida-ebike-laws/">guide to Florida e-bike laws</a>.</li>
     </ul>
     ${
+      guides.length
+        ? `<h2>Plan your ride in ${esc(group.name)}</h2>
+    <p>Our own guides for ${esc(group.name)}: where to ride, the local rules and what renting costs.</p>
+    <ul class="checklist">${guides
+            .map((g) => `<li><a href="${attr(g.url)}"><strong>${esc(g.title)}</strong></a>${g.description ? ` &mdash; ${esc(g.description)}` : ""}</li>`)
+            .join("")}</ul>`
+        : ""
+    }
+    ${
       city
         ? `<div class="tour-rent-cta"><h2>Rather ride on your own?</h2><p>${shops} ${plural(shops, "shop rents", "shops rent")} bikes and e-bikes in ${esc(
             group.name
@@ -507,6 +517,23 @@ ${
       faqSchema(faqs),
     ],
   });
+}
+
+/**
+ * The site's own hand-written guides for a tour town: blog posts tagged with
+ * the town's name, and trail / cost guides that list the town in `towns`.
+ * Ties the ranked Viator list to original writing, so a tour page is never a
+ * dead end of affiliate cards.
+ */
+export function localGuides(group, blog = [], hubEntries = {}, max = 6) {
+  const name = String(group.name || "").toLowerCase();
+  const slug = group.city?.slug || group.key;
+  const posts = blog.filter((p) => (p.tags || []).some((t) => String(t).toLowerCase() === name));
+  const hubs = Object.values(hubEntries)
+    .flat()
+    .filter((e) => (e.towns || []).includes(slug));
+  const seen = new Set();
+  return [...posts, ...hubs].filter((g) => g.url && !seen.has(g.url) && seen.add(g.url)).slice(0, max);
 }
 
 function formatMinutes(min) {

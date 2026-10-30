@@ -53,7 +53,8 @@ than visitors.
 
 Naples, Fort Myers, Fort Myers Beach, Sanibel and Marco Island. Sanibel's separated path network is
 the best family riding in the region and arguably in the state. Naples has excellent flat riding
-through old town and along Gulf Shore Boulevard. Marco Island suits shorter loops.
+through old town and along Gulf Shore Boulevard, on the street: the city keeps e-bikes off its
+sidewalks and paths, as our [Naples e-bike guide](/blog/naples-ebike-rules-where-to-ride/) explains. Marco Island suits shorter loops.
 
 **Best for:** relaxed family riding on separated paths.
 **Browse:** [Southwest Florida rentals](/find/ebike-rentals-in-southwest-florida/).
