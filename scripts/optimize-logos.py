@@ -27,7 +27,15 @@ def save_webp(img, dest):
     img.save(dest, "WEBP", quality=82, method=6)
 
 
+# --missing-only: only write WebP files that do not exist yet. Used in CI,
+# where a fresh checkout gives every file the same mtime, so the mtime test
+# would rebuild (and re-commit) every WebP for no reason.
+MISSING_ONLY = "--missing-only" in sys.argv[1:]
+
+
 def fresh(dest, src):
+    if MISSING_ONLY:
+        return dest.exists()
     return dest.exists() and dest.stat().st_mtime >= src.stat().st_mtime
 
 

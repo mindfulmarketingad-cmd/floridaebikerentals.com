@@ -830,7 +830,11 @@
   "e-bike-superstore-authorized-pedego-dealer": {
     "src": "/assets/img/logos/e-bike-superstore-authorized-pedego-dealer.png",
     "width": 512,
-    "height": 512
+    "height": 512,
+    "webp": "/assets/img/logos/e-bike-superstore-authorized-pedego-dealer.webp",
+    "webpSmall": "/assets/img/logos/e-bike-superstore-authorized-pedego-dealer-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
   },
   "e-cycle-adventures": {
     "src": "/assets/img/logos/e-cycle-adventures.png",

@@ -26,6 +26,8 @@ const OUT_DIR = join(ROOT, "assets/img/listings");
 const MANIFEST = join(ROOT, "data/listing-photos.json");
 const LOGO_DIR = join(ROOT, "assets/img/logos");
 const LOGO_MANIFEST = join(ROOT, "data/listing-logos.json");
+/** Manifest keys that point at WebP copies made by scripts/optimize-logos.py. */
+const WEBP_KEYS = ["webp", "webpSmall"];
 const force = process.argv.includes("--force");
 const POOL = 6;
 
@@ -186,6 +188,12 @@ async function cacheLogos(all) {
           if (got.error) { failures[got.error] = (failures[got.error] || 0) + 1; continue; }
           const file = `${l.slug}.${got.size.type}`;
           writeFileSync(join(LOGO_DIR, file), got.buf);
+          // A new original makes its old WebP copies stale: remove them so
+          // scripts/optimize-logos.py (run next in the workflow) rebuilds them.
+          for (const key of WEBP_KEYS) {
+            const old = manifest[l.slug] && manifest[l.slug][key];
+            if (old && existsSync(join(ROOT, old))) unlinkSync(join(ROOT, old));
+          }
           manifest[l.slug] = { src: `/assets/img/logos/${file}`, width: got.size.width, height: got.size.height };
           fetched++;
         } catch (err) {
@@ -196,7 +204,11 @@ async function cacheLogos(all) {
     })
   );
   for (const slug of Object.keys(manifest)) if (!live.has(slug)) delete manifest[slug];
-  const keep = new Set(Object.values(manifest).map((m) => m.src.split("/").pop()));
+  // Keep every file the manifest points at: the original AND its WebP copies
+  // (webp, webpSmall). Only files no manifest entry references are pruned.
+  const keep = new Set(
+    Object.values(manifest).flatMap((m) => [m.src, ...WEBP_KEYS.map((k) => m[k])].filter(Boolean).map((p) => p.split("/").pop()))
+  );
   for (const file of readdirSync(LOGO_DIR)) if (!file.startsWith(".") && !keep.has(file)) unlinkSync(join(LOGO_DIR, file));
   const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
   writeFileSync(LOGO_MANIFEST, `${JSON.stringify(sorted, null, 2)}\n`);

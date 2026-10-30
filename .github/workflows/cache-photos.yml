@@ -38,6 +38,23 @@ jobs:
         timeout-minutes: 20
         run: node scripts/cache-photos.mjs ${{ inputs.force == true && '--force' || '' }}
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Make WebP copies of new logos
+        run: |
+          pip install --quiet Pillow
+          python scripts/optimize-logos.py --missing-only
+
+      - name: Check every manifest logo file exists
+        run: |
+          node -e "
+          const fs=require('fs');const m=JSON.parse(fs.readFileSync('data/listing-logos.json','utf8'));
+          const miss=[];for(const e of Object.values(m))for(const k of ['src','webp','webpSmall'])if(e[k]&&!fs.existsSync('.'+e[k]))miss.push(e[k]);
+          if(miss.length){console.error('Missing logo files referenced by data/listing-logos.json:',miss.length,miss.slice(0,20));process.exit(1)}
+          console.log('All logo files referenced by the manifest exist.')"
+
       - name: Build and verify
         run: npm run verify
 
