@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" width="720" height="480" role="img" aria-label="Florida Ebike Rentals">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f63e6"/>
+      <stop offset="1" stop-color="#12307a"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="480" fill="url(#bg)"/>
+  <circle cx="600" cy="110" r="54" fill="#ffc233" opacity=".9"/>
+  <path d="M0 380 C120 350 220 400 360 372 S600 340 720 362 V480 H0 Z" fill="#ffffff" opacity=".12"/>
+  <path d="M0 412 C140 392 260 430 400 408 S620 384 720 400 V480 H0 Z" fill="#ffffff" opacity=".18"/>
+  <g transform="translate(296 150) scale(2)" fill="none" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="20.5" cy="41" r="11"/>
+    <circle cx="45" cy="41" r="11"/>
+    <path d="M20.5 41 L29 24 h11"/>
+    <path d="M29 41 h16"/>
+  </g>
+  <path transform="translate(296 150) scale(2)" d="M40.5 8 L29.5 26.5 h7.5 L33 44 l14.5-20.5H39.5 L44.5 8 Z" fill="#ffc233" stroke="#12307a" stroke-width="1.6" stroke-linejoin="round"/>
+  <text x="360" y="320" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="34" font-weight="700" fill="#ffffff">Florida E-Bike Rentals</text>
+  <text x="360" y="356" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" fill="#e2ebfe">Tours &amp; experiences</text>
+</svg>

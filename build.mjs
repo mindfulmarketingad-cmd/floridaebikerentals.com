@@ -630,7 +630,7 @@ Disallow: /404.html
 Disallow: /admin/
 
 Sitemap: ${site.url}/sitemap.xml
-`
+${tours.tours.length ? `Sitemap: ${site.url}/sitemap-tours.xml\n` : ""}`
 );
 
 writeRaw("ads.txt", `${site.adsense.adsTxt}\n`);

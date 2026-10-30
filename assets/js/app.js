@@ -2196,3 +2196,26 @@
     sync();
   })();
 })();
+
+/* Tour photos come from Viator's CDN. If one fails (removed photo, blocked
+   host, flaky network), swap in the branded placeholder. Same 3:2 box, so
+   nothing moves. A capture listener catches failures after this script runs;
+   the sweep catches ones that failed before it loaded. */
+(function () {
+  var FALLBACK = "/assets/img/tour-fallback.svg";
+  function swap(img) {
+    if (!img || img.hasAttribute("data-fallback")) return;
+    img.setAttribute("data-fallback", "");
+    img.removeAttribute("srcset");
+    img.src = FALLBACK;
+  }
+  document.addEventListener("error", function (e) {
+    var t = e.target;
+    if (t && t.tagName === "IMG" && t.hasAttribute("data-tour-img")) swap(t);
+  }, true);
+  var imgs = document.querySelectorAll("img[data-tour-img]");
+  for (var i = 0; i < imgs.length; i++) {
+    if (imgs[i].complete && imgs[i].naturalWidth === 0 && imgs[i].getAttribute("loading") !== "lazy") swap(imgs[i]);
+    else if (imgs[i].complete && imgs[i].naturalWidth === 0 && imgs[i].currentSrc) swap(imgs[i]);
+  }
+})();

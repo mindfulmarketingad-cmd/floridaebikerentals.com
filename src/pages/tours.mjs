@@ -31,13 +31,16 @@ const CAT_SINGULAR = {
 
 /* ------------------------------------------------------------ pieces */
 
+const TOUR_FALLBACK = "/assets/img/tour-fallback.svg";
+
 function tourImg(t, { eager = false } = {}) {
-  if (!t.image) return `<img src="/assets/img/og-default.png" alt="" width="1200" height="630" loading="lazy" decoding="async">`;
+  const alt = attr(`${t.name} in ${t.cityName}`);
+  const loading = eager ? 'fetchpriority="high"' : 'loading="lazy"';
+  // A missing image still gets a branded 3:2 placeholder so the card keeps its shape.
+  if (!t.image) return `<img src="${TOUR_FALLBACK}" alt="${alt}" width="720" height="480" ${loading} decoding="async" data-tour-img data-fallback>`;
   const w = t.imageWidth || 720;
   const h = t.imageHeight || 480;
-  return `<img src="${attr(t.image)}" alt="${attr(`${t.name} in ${t.cityName}`)}" width="${w}" height="${h}" ${
-    eager ? 'fetchpriority="high"' : 'loading="lazy"'
-  } decoding="async">`;
+  return `<img src="${attr(t.image)}" alt="${alt}" width="${w}" height="${h}" ${loading} decoding="async" data-tour-img>`;
 }
 
 function ratingText(t) {

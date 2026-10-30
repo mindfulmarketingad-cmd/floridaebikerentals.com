@@ -115,12 +115,23 @@ function originOf(url) {
 }
 
 /** Distinct https origins from a list of URLs, for a page-scoped img-src. */
+/* Image CDNs that answer with a redirect to another host. CSP checks every hop,
+   so the target has to be allowed too or the browser shows a broken image.
+   media-cdn.tripadvisor.com (Viator's photo host) 301s most photos to
+   dynamic-media-cdn.tripadvisor.com. */
+const IMAGE_REDIRECT_ORIGINS = {
+  "https://media-cdn.tripadvisor.com": ["https://dynamic-media-cdn.tripadvisor.com"],
+};
+
 function originsOf(urls) {
   const origins = new Set();
   for (const url of urls) {
     try {
       const { origin, protocol } = new URL(String(url));
-      if (protocol === "https:") origins.add(origin);
+      if (protocol === "https:") {
+        origins.add(origin);
+        for (const extra of IMAGE_REDIRECT_ORIGINS[origin] || []) origins.add(extra);
+      }
     } catch { /* not a URL we can serve anyway */ }
   }
   return [...origins].sort();
