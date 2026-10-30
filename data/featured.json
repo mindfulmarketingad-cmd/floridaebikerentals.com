@@ -1,0 +1,4 @@
+{
+  "_readme": "Paid Featured placements ($19.99/month, Stripe payment link). Each entry pins one shop to the top of the listed city pages: /cities/<city>/, its /cities/<city>/<type>/ pages and every /find/<category>/<city>/ page the shop belongs on, with a 'Featured' badge and a highlighted card. 'slug' is the listing slug from data/listings.json; 'cities' are city slugs (the shop's own town, or nearby towns too); 'start' and optional 'end' are YYYY-MM-DD and are checked at build time, so a placement goes live or drops off with the next daily build. To remove one, delete its entry or set 'end'. Keep the Stripe ids so a cancelled subscription can be matched to its entry.",
+  "featured": []
+}

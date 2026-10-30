@@ -395,6 +395,24 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 .listicle__facts b { color: var(--ink); font-weight: 700; }
 .listicle__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
 
+/* Featured (paid) placement: pinned first on city pages, see src/featured.mjs. */
+.listicle__item--featured {
+  border: 2px solid var(--sun-500); background: linear-gradient(180deg, var(--sun-100), var(--white) 60%);
+  box-shadow: 0 0 0 4px rgba(255, 194, 51, .18), var(--shadow-s);
+}
+.featured-badge {
+  position: absolute; left: 0; top: 0; z-index: 3; background: var(--sun-500); color: var(--blue-900);
+  font-family: var(--font-display); font-weight: 800; font-size: .95rem; letter-spacing: .04em; text-transform: uppercase;
+  height: 2.6rem; padding: 0 .9rem; display: grid; place-items: center; border-radius: 0 0 var(--radius) 0;
+}
+
+/* Thank-you note after the Featured checkout (/?featured=thanks). */
+.featured-thanks {
+  background: var(--sun-100); border-bottom: 2px solid var(--sun-500); color: var(--blue-900);
+  font-weight: 700; text-align: center; padding: .9rem 1rem; margin: 0;
+}
+.featured-thanks[hidden] { display: none; }
+
 .rating { display: inline-flex; align-items: center; gap: .4rem; font-weight: 800; font-size: .95rem; color: var(--ink); }
 .stars { display: inline-flex; gap: 1px; color: var(--sun-500); }
 .stars svg { width: 16px; height: 16px; }

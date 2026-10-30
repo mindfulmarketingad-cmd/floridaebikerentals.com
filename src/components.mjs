@@ -273,7 +273,10 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
 
   const search = [listing.name, listing.city, listing.region, ...(listing.tags || [])].join(" ");
 
-  return `<li class="listicle__item" data-filter-item data-city="${attr(listing.city)}" data-tags="|${attr(
+  const featured = Boolean(listing.featured);
+  const showDirections = (featured || !rentOnly) && listing.maps_link;
+
+  return `<li class="listicle__item${featured ? " listicle__item--featured" : ""}"${featured ? " data-featured" : ""} data-filter-item data-city="${attr(listing.city)}" data-tags="|${attr(
     (listing.tags || []).join("|")
   )}|" data-search="${attr(search)}" data-rating="${attr(listing.rating || 0)}" data-reviews="${attr(
     listing.reviews || 0
@@ -284,11 +287,15 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
   }>
   <div class="listicle__inner">
     <div class="listicle__media">
-      <span class="listicle__rank" aria-hidden="true">${rank}</span>
+      ${
+        featured
+          ? `<span class="featured-badge" title="Paid placement">Featured</span>`
+          : `<span class="listicle__rank" aria-hidden="true">${rank}</span>`
+      }
       ${photo(listing)}
     </div>
     <div class="listicle__body">
-      <h3 class="listicle__title"><span class="visually-hidden">Number ${rank}: </span><a href="${url}">${esc(
+      <h3 class="listicle__title"><span class="visually-hidden">${featured ? "Featured: " : `Number ${rank}: `}</span><a href="${url}">${esc(
     listing.name
   )}</a></h3>
       <div>${ratingBlock(listing)}</div>
@@ -300,7 +307,7 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
         ${contactButtons(listing)}
         ${rentOnly ? "" : `<a class="btn btn--outline btn--sm" href="${url}">Full details</a>`}
         ${
-          !rentOnly && listing.maps_link
+          showDirections
             ? `<a class="btn btn--outline btn--sm" href="${attr(
                 listing.maps_link
               )}" rel="nofollow noopener" target="_blank">Directions</a>`
@@ -313,9 +320,11 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
 }
 
 export function listicle(listings, options = {}) {
-  const start = options.start || 1;
+  // Featured shops (src/featured.mjs) carry a badge, not a rank, so the ranked
+  // shops below them still count from 1.
+  let rank = (options.start || 1) - 1;
   return `<ol class="listicle">${listings
-    .map((l, i) => listicleItem(l, start + i, options))
+    .map((l) => listicleItem(l, l.featured ? 0 : ++rank, options))
     .join("")}</ol>`;
 }
 

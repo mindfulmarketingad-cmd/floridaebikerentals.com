@@ -30,6 +30,7 @@ import { finderData } from "./src/finder.mjs";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { regionPosts } from "./src/region-posts.mjs";
+import { initFeatured } from "./src/featured.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
@@ -139,6 +140,8 @@ mkdirSync(DIST, { recursive: true });
 const site = loadSite();
 const listings = assignTitles(loadListings());
 const index = buildIndex(listings);
+// Paid Featured placements (data/featured.json), pinned on city and /find/ town pages.
+initFeatured(listings, index.citiesBySlug);
 const blog = loadBlog();
 const pages = loadStaticPages();
 const stats = statsFor(listings);

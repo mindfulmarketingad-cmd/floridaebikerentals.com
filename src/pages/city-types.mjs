@@ -16,6 +16,7 @@ import { esc, attr, plural, commaList, clamp, formatReviews } from "../util.mjs"
 import { page, breadcrumbSchema } from "../layout.mjs";
 import { listicle, faqBlock, faqSchema, itemListSchema, adSlot, adSlotScript, ADSENSE_INLINE, linkCloud } from "../components.mjs";
 import { nearbyCities } from "../data.mjs";
+import { featuredFirst } from "../featured.mjs";
 import { sceneForRegion, sitePhoto, figure, secondPhotoFor } from "../images.mjs";
 import { bikeIcon } from "../bike-icons.mjs";
 import { findHero } from "../find-hero.mjs";
@@ -273,7 +274,8 @@ export function cityTypePage(site, p, ctx) {
   const near = nearbyCities(city, index.cities.filter((c) => sameTypeSlugs.has(c.slug)), 8)
     .map((c) => sameType.find((x) => x.city.slug === c.slug))
     .filter(Boolean);
-  const listed = shops.slice(0, 10);
+  // Featured shops first (src/featured.mjs), then the top of the ranking.
+  const listed = featuredFirst(shops, city.slug, { accept: (l) => Boolean(l.is_rental) }).slice(0, 10);
   const lead = `Looking for ${an(type.short)} ${type.short} in ${city.name}? We list ${rentals.length} rental ${plural(rentals.length, "shop")} in town${
     ebike.length && !type.pedalToo ? `, ${ebike.length} of them e-bike ${plural(ebike.length, "shop")}` : ""
   }. Pick your day below and we'll show the ones open when you want to ride, with their phone numbers and websites.`;

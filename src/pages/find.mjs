@@ -6,6 +6,7 @@ import {
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, summaryFor,
 } from "../components.mjs";
 import { statsFor } from "../data.mjs";
+import { featuredFirst } from "../featured.mjs";
 import { photoFor, secondPhotoFor, figure, sceneForRegion } from "../images.mjs";
 import { findHero, resultsHead, NEAR_ME_URL } from "../find-hero.mjs";
 
@@ -293,6 +294,8 @@ const TOWN_PHRASE = {
 
 export function categoryTownPage(site, category, town, { index, cityLinker }) {
   const { city, listings: local } = town;
+  // Featured shops first (src/featured.mjs), when they belong in this category.
+  const shown = featuredFirst(local, city.slug, { accept: category.match || (() => false) });
   const n = local.length;
   const phrase = (TOWN_PHRASE[category.slug] || ((t) => `${category.name} in ${t}`))(city.name);
   const crumbs = [
@@ -323,7 +326,7 @@ ${findHero({
 <section class="section section--results">
   <div class="wrap">
     ${resultsHead(`${n} ${plural(n, "shop")} in ${city.name}`, n, "shops")}
-    ${listicle(local)}
+    ${listicle(shown)}
     <p class="mt-2"><a class="btn btn--outline" href="${attr(city.url)}">All ${city.listings.length} shops in ${esc(
       city.name
     )}</a> <a class="btn btn--outline" href="${attr(category.url)}">${esc(category.name)} across Florida</a></p>
@@ -371,7 +374,7 @@ ${adSlotScript(site, 1)}
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE] : [],
     schema: [
       breadcrumbSchema(site, crumbs),
-      itemListSchema(site, local, { name: `${phrase}, Florida`, url: town.url }),
+      itemListSchema(site, shown, { name: `${phrase}, Florida`, url: town.url }),
     ],
   });
 }

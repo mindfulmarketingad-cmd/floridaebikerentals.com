@@ -73,6 +73,7 @@ export function homePage(site, { listings, index, blog, stats, finderUrl, tours 
   const topCities = index.cities.slice(0, 24);
 
   const body = `
+<p class="featured-thanks" role="status" data-featured-thanks hidden>Thanks! Your Featured listing will be live within 24 hours.</p>
 <section class="hero hero--photo hero--home">
   <picture class="hero__bg">
     <source type="image/avif" srcset="/assets/img/original/hero-ebike-waterfront.avif">

@@ -13,6 +13,7 @@ import {
   listicle, faqBlock, faqSchema, linkCard, adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, photo,
 } from "../components.mjs";
 import { nearbyCities } from "../data.mjs";
+import { featuredFirst } from "../featured.mjs";
 import { secondPhotoFor, figure, sceneForRegion, photoFor, stockFor, stockImg, stockCredits, SITE_PHOTOS, OWN_PHOTOS } from "../images.mjs";
 import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
@@ -127,6 +128,8 @@ ${adSlotScript(site, 1)}
 export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList = [], cityLinker, tours }) {
   const tourGroup = tours ? tours.cities.find((c) => c.citySlug === city.slug) : null;
   const local = city.listings;
+  // Featured shops first (src/featured.mjs); `local` keeps the ranking for the copy.
+  const shown = featuredFirst(local, city.slug);
   const n = local.length;
   const notes = (townNotes && townNotes.get(city.slug)) || {};
   const fill = (text) => String(text || "").replace(/\{count\}/g, String(n));
@@ -223,7 +226,7 @@ ${findHero({
 <section class="section section--results">
   <div class="wrap">
     ${resultsHead(`${city.name} electric bike rental shops`, n, "shops")}
-    ${listicle(local)}
+    ${listicle(shown)}
     ${(() => {
       const guides = guidesFor([city.name], blog);
       return guides.length
@@ -388,7 +391,7 @@ ${adSlotScript(site, 1)}
     schema: [
       breadcrumbSchema(site, crumbs),
       faqSchema(faqs),
-      itemListSchema(site, local, { name: `Bike and e-bike rentals in ${city.name}, Florida`, url: city.url }),
+      itemListSchema(site, shown, { name: `Bike and e-bike rentals in ${city.name}, Florida`, url: city.url }),
     ],
   });
 }

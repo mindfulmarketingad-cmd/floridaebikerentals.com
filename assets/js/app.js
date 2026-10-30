@@ -610,7 +610,7 @@
         card.dataset.distance = d.toFixed(2);
         placed++;
 
-        var host = $(".listicle__rank", card);
+        var host = $(".listicle__rank", card) || $(".featured-badge", card);
         if (host && !$(".distance-badge", card)) {
           var badge = el("span", "distance-badge", d.toFixed(d < 10 ? 1 : 0) + " mi away");
           var title = $(".listicle__title", card);
@@ -621,12 +621,19 @@
         }
       });
 
+      var ranked = 0;
       cards.slice()
-        .sort(function (a, b) { return parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance); })
-        .forEach(function (card, i) {
+        .sort(function (a, b) {
+          /* Featured (paid) cards stay pinned on top. */
+          var pin = (b.hasAttribute("data-featured") ? 1 : 0) - (a.hasAttribute("data-featured") ? 1 : 0);
+          return pin || parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance);
+        })
+        .forEach(function (card) {
           parent.appendChild(card);
+          if (card.hasAttribute("data-featured")) return;
+          ranked++;
           var rank = $(".listicle__rank", card);
-          if (rank) rank.textContent = String(i + 1);
+          if (rank) rank.textContent = String(ranked);
         });
       return placed;
     };
@@ -715,6 +722,18 @@
       });
     }
   });
+
+  /* ------------------------------------- Featured checkout thank-you */
+  /* The Stripe payment link for a Featured listing returns to /?featured=thanks. */
+  (function () {
+    var note = d.querySelector("[data-featured-thanks]");
+    if (!note) return;
+    var q;
+    try { q = new URLSearchParams(window.location.search); } catch (err) { return; }
+    if (q.get("featured") !== "thanks") return;
+    note.hidden = false;
+    if (typeof window.gtag === "function") window.gtag("event", "featured_purchase_return", {});
+  })();
 
   /* ------------------------------------------- partner click tracking */
   /* Every link out to a listed shop (website, booking page, phone) and every
@@ -1937,15 +1956,21 @@
           /* "field-asc" sorts ascending; anything else sorts descending. */
           var asc = /-asc$/.test(sort);
           var key = sort.replace(/-asc$/, "");
+          var ranked = 0;
           cards.slice().sort(function (a, b) {
+            /* Featured (paid) cards stay pinned on top whatever the sort. */
+            var pin = (b.hasAttribute("data-featured") ? 1 : 0) - (a.hasAttribute("data-featured") ? 1 : 0);
+            if (pin) return pin;
             if (key === "name") return (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
             var av = parseFloat(a.getAttribute("data-" + key) || "0");
             var bv = parseFloat(b.getAttribute("data-" + key) || "0");
             return asc ? av - bv : bv - av;
           }).forEach(function (node, i) {
             parent.appendChild(node);
+            if (node.hasAttribute("data-featured")) return;
+            ranked++;
             var rank = $(".listicle__rank", node);
-            if (rank && node.hasAttribute("data-renumber")) rank.textContent = String(i + 1);
+            if (rank && node.hasAttribute("data-renumber")) rank.textContent = String(ranked);
           });
         }
       }
