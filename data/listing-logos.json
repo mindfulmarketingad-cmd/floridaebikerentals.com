@@ -953,15 +953,6 @@
     "webpSmallWidth": 320,
     "webpSmallHeight": 320
   },
-  "electric-bike-miami": {
-    "src": "/assets/img/logos/electric-bike-miami.jpg",
-    "width": 512,
-    "height": 512,
-    "webp": "/assets/img/logos/electric-bike-miami.webp",
-    "webpSmall": "/assets/img/logos/electric-bike-miami-320.webp",
-    "webpSmallWidth": 320,
-    "webpSmallHeight": 320
-  },
   "electric-bike-shop": {
     "src": "/assets/img/logos/electric-bike-shop.jpg",
     "width": 512,
