@@ -1129,6 +1129,11 @@
       "permanent": true
     },
     {
+      "source": "/cities/miami-beach/electric-bike-miami/",
+      "destination": "/cities/miami-beach/haulover-bike-rentals/",
+      "permanent": true
+    },
+    {
       "source": "/cities/mt-dora/",
       "destination": "/cities/mt-dora/adrenaline-bike-works/",
       "permanent": true
@@ -3285,7 +3290,7 @@
     },
     {
       "source": "/partners/electric-bike-miami/",
-      "destination": "/cities/miami-beach/electric-bike-miami/",
+      "destination": "/cities/miami-beach/haulover-bike-rentals/",
       "permanent": true
     },
     {
@@ -6085,7 +6090,7 @@
     },
     {
       "source": "/reviews/electric-bike-miami/",
-      "destination": "/cities/miami-beach/electric-bike-miami/",
+      "destination": "/cities/miami-beach/haulover-bike-rentals/",
       "permanent": true
     },
     {

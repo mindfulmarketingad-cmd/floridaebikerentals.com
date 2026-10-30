@@ -4,6 +4,10 @@
     {
       "slug": "food-trends-restaurant-garden",
       "reason": "Restaurant, caterer and wedding venue in Daytona Beach. 'Bicycle rental service' is one of ten Google categories; one review, rated 1.0."
+    },
+    {
+      "slug": "electric-bike-miami",
+      "reason": "Duplicate Google profile for Electribike's 10801 Collins Ave (Haulover/Bal Harbour) location, same address and phone as haulover-bike-rentals. Merged into haulover-bike-rentals, which 301-redirects from this slug."
     }
   ]
 }

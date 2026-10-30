@@ -1,6 +1,6 @@
 {
  "generated_from": "647e9ec6-Outscraper20260902230858s0250.xlsx",
- "count": 561,
+ "count": 560,
  "listings": [
   {
    "place_id": "ChIJQbZUjbWk2YgRNnrodR3-WE0",
@@ -5533,7 +5533,7 @@
    ],
    "description": "",
    "verified": true,
-   "booking_link": "https://beelinebikes.com/companies/electribike",
+   "booking_link": "https://book.peek.com/s/b0bfb7f6-7fe6-4634-b3df-d946fb1fd833/wqYAe",
    "price_range": "",
    "time_spent": "",
    "hours": [
@@ -16167,7 +16167,7 @@
    ],
    "description": "",
    "verified": true,
-   "booking_link": "",
+   "booking_link": "https://book.peek.com/s/b0bfb7f6-7fe6-4634-b3df-d946fb1fd833/wqYAe",
    "price_range": "",
    "time_spent": "",
    "hours": [
@@ -24029,7 +24029,7 @@
    ],
    "description": "",
    "verified": true,
-   "booking_link": "",
+   "booking_link": "https://book.peek.com/s/b0bfb7f6-7fe6-4634-b3df-d946fb1fd833/wqYAe",
    "price_range": "",
    "time_spent": "",
    "hours": [
@@ -42123,110 +42123,6 @@
    "slug": "jax-surf-paddle"
   },
   {
-   "place_id": "ChIJN_nEDmat2YgRT6O2F0W8jXg",
-   "name": "Electric Bike Miami",
-   "city": "Miami Beach",
-   "neighborhood": "",
-   "state": "FL",
-   "postal_code": "33154",
-   "street": "10801 Collins Ave",
-   "address": "10801 Collins Ave, Miami Beach, FL 33154",
-   "phone": "+1 786-200-9675",
-   "website": "http://www.electribike.net/",
-   "lat": 25.902725,
-   "lng": -80.1227601,
-   "rating": 4.5,
-   "reviews": 48,
-   "reviews_link": "https://search.google.com/local/reviews?placeid=ChIJN_nEDmat2YgRT6O2F0W8jXg&q=*&authuser=0&hl=en&gl=US",
-   "maps_link": "https://www.google.com/maps/place/Electric+Bike+Miami/@25.902725,-80.1227601,14z/data=!4m8!1m2!2m1!1sElectric+Bike+Miami!3m4!1s0x88d9ad660ec4f937:0x788dbc4517b6a34f!8m2!3d25.902725!4d-80.1227601",
-   "photo": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmGv04FkGb1PzfkDr7dshvgQlcWyw4ntqdWKEqQMIPBWLbpfrj74PQZEDBMQfXCG0Em5JAFK_AvMqy9MDMDpa8boXcjofGsG5-zgs7g4SGybD9mjYM1tvVVhZ5z5DZIS6MZTCBo=w800-h500-k-no",
-   "street_view": "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmGv04FkGb1PzfkDr7dshvgQlcWyw4ntqdWKEqQMIPBWLbpfrj74PQZEDBMQfXCG0Em5JAFK_AvMqy9MDMDpa8boXcjofGsG5-zgs7g4SGybD9mjYM1tvVVhZ5z5DZIS6MZTCBo=w1600-h1000-k-no",
-   "logo": "https://lh3.googleusercontent.com/-uva5ZyPSuEw/AAAAAAAAAAI/AAAAAAAAAAA/Jnw98IIomys/s44-p-k-no-ns-nd/photo.jpg",
-   "category": "Bicycle rental service",
-   "type": "Bicycle rental service",
-   "subtypes": [
-    "Bicycle rental service"
-   ],
-   "description": "",
-   "verified": true,
-   "booking_link": "https://www.electribike.net/rentals",
-   "price_range": "",
-   "time_spent": "",
-   "hours": [
-    {
-     "day": "Monday",
-     "hours": "11AM - 5PM",
-     "closed": false
-    },
-    {
-     "day": "Tuesday",
-     "hours": "11AM - 5PM",
-     "closed": false
-    },
-    {
-     "day": "Wednesday",
-     "hours": "11AM - 5PM",
-     "closed": false
-    },
-    {
-     "day": "Thursday",
-     "hours": "11AM - 5PM",
-     "closed": false
-    },
-    {
-     "day": "Friday",
-     "hours": "11AM - 5PM",
-     "closed": false
-    },
-    {
-     "day": "Saturday",
-     "hours": "10AM - 7PM",
-     "closed": false
-    },
-    {
-     "day": "Sunday",
-     "hours": "10AM - 7PM",
-     "closed": false
-    }
-   ],
-   "about": [
-    {
-     "group": "Accessibility",
-     "items": [
-      "Wheelchair accessible entrance",
-      "Wheelchair accessible parking lot"
-     ]
-    },
-    {
-     "group": "Payments",
-     "items": [
-      "Credit cards",
-      "Debit cards",
-      "NFC mobile payments"
-     ]
-    }
-   ],
-   "scores": {
-    "1": 5,
-    "2": 0,
-    "3": 0,
-    "4": 2,
-    "5": 41
-   },
-   "region": "Greater Miami & Fort Lauderdale",
-   "tags": [
-    "Electric bikes",
-    "Rentals",
-    "Repairs & service",
-    "Beach town"
-   ],
-   "relevance": 8,
-   "score": 16.5716,
-   "is_ebike": true,
-   "is_rental": true,
-   "slug": "electric-bike-miami"
-  },
-  {
    "place_id": "ChIJ2VWqPeg024gR7XMXrYFFoHk",
    "name": "YOLO Watersports, Inc.",
    "city": "Captiva",
@@ -45592,7 +45488,7 @@
    ],
    "description": "",
    "verified": true,
-   "booking_link": "https://www.electribike.net/rentals",
+   "booking_link": "https://book.peek.com/s/b0bfb7f6-7fe6-4634-b3df-d946fb1fd833/wqYAe",
    "price_range": "",
    "time_spent": "",
    "hours": [
@@ -45664,15 +45560,19 @@
    },
    "region": "Greater Miami & Fort Lauderdale",
    "tags": [
+    "Electric bikes",
     "Rentals",
     "Repairs & service",
     "Beach town"
    ],
    "relevance": 5,
    "score": 15.416,
-   "is_ebike": false,
+   "is_ebike": true,
    "is_rental": true,
-   "slug": "haulover-bike-rentals"
+   "slug": "haulover-bike-rentals",
+   "merged_from": [
+    "electric-bike-miami"
+   ]
   },
   {
    "place_id": "ChIJf86qKD232YgR4CNox-QJbmw",

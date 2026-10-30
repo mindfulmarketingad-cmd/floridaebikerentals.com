@@ -7,7 +7,8 @@
  *     /cities/<town>/. A town with fewer than MIN_TOWN_LISTINGS shops has no
  *     page: its old /find/ URL and /cities/<town>/ both go to its one shop.
  *  2. Shops. /partners/<shop>/ and the older /reviews/<shop>/ both go to
- *     /cities/<town>/<shop>/.
+ *     /cities/<town>/<shop>/. A duplicate merged into another listing
+ *     ("merged_from") sends its old shop URLs to the surviving listing.
  *  3. Regions. Old region pages go to that region's "Best Ebike Rentals"
  *     post, which ranks the region's shops (the /cities/ hub if it has none).
  *  4. Categories. The old topic pages moved to /find/<category>/.
@@ -46,6 +47,14 @@ export function computeRedirects(index, listings) {
   for (const listing of listings) {
     out.push({ source: `/partners/${listing.slug}/`, destination: listing.url });
     out.push({ source: `/reviews/${listing.slug}/`, destination: listing.url });
+    // Duplicate listings merged into this one (data/listings.json "merged_from");
+    // the dropped slug is also in data/excluded-listings.json so a re-import
+    // cannot bring it back. Its old pages all go to the surviving listing.
+    for (const old of listing.merged_from || []) {
+      out.push({ source: listing.url.replace(`/${listing.slug}/`, `/${old}/`), destination: listing.url });
+      out.push({ source: `/partners/${old}/`, destination: listing.url });
+      out.push({ source: `/reviews/${old}/`, destination: listing.url });
+    }
   }
 
   for (const region of index.regions) {
