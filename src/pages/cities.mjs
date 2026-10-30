@@ -18,6 +18,7 @@ import { findHero, resultsHead, townCards, townGrid } from "../find-hero.mjs";
 import { tagsIn, guidesFor, categoryTile, townFacts } from "./find.mjs";
 import { typeTiles } from "./city-types.mjs";
 import { finderHref } from "../finder.mjs";
+import { cityToursSection } from "./tours.mjs";
 import { floridaMap } from "../fl-map.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
@@ -123,7 +124,8 @@ ${adSlotScript(site, 1)}
  * title and search bar come first; the ranked list follows immediately; local
  * detail, FAQs and the links out to other towns come after.
  */
-export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList = [], cityLinker }) {
+export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList = [], cityLinker, tours }) {
+  const tourGroup = tours ? tours.cities.find((c) => c.citySlug === city.slug) : null;
   const local = city.listings;
   const n = local.length;
   const notes = (townNotes && townNotes.get(city.slug)) || {};
@@ -188,7 +190,9 @@ export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList
       q: `Are there guided e-bike tours in ${city.name}?`,
       a: withTours.length
         ? `<p>Yes — ${names(withTours)} ${withTours.length === 1 ? "runs" : "run"} guided rides as well as renting bikes. Tours are usually priced per person and run two to three hours.</p>`
-        : `<p>No ${esc(city.name)} shop in our directory advertises guided tours right now. See every Florida operator that does on our <a href="/find/ebike-tours/">e-bike tours page</a>.</p>`,
+        : `<p>No ${esc(city.name)} shop in our directory advertises guided tours right now. See every Florida operator that does on our <a href="/find/ebike-tours/">e-bike tours page</a>${
+            tourGroup ? `, or compare the <a href="${attr(tourGroup.url)}">${tourGroup.tours.length} ${esc(city.name)} tours bookable on Viator</a>` : ""
+          }.</p>`,
     },
     openSeven.length
       ? {
@@ -345,6 +349,8 @@ ${adSlot(site, "")}
   </div>
 </section>
 
+${tours ? cityToursSection(city, tours) : ""}
+
 <section class="section section--tint">
   <div class="wrap wrap-narrow">
     <h2>${esc(city.name)} bike rental FAQs</h2>
@@ -377,6 +383,7 @@ ${adSlotScript(site, 1)}
     path: city.url,
     body,
     ogImage: best && best.photo ? best.photo : scene.og,
+    imageUrls: tourGroup ? tourGroup.tours.slice(0, 12).map((t) => t.image).filter(Boolean) : [],
     inlineScripts: [FACETS_WIDE_OPEN, ...(site.adsense?.enabled ? [ADSENSE_INLINE] : [])],
     schema: [
       breadcrumbSchema(site, crumbs),

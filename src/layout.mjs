@@ -18,6 +18,7 @@ const JS_URL = `/assets/js/app.js?v=${fingerprint("assets/js/app.js")}`;
 export const HEADER_LINKS = [
   { href: "/cities/", label: "Cities" },
   { href: "/find/", label: "Find" },
+  { href: "/tours/", label: "Tours" },
   {
     href: "/electric-bike-types/",
     label: "Bike Types",
@@ -56,6 +57,7 @@ export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
   { href: "/costs/", label: "Costs" },
+  { href: "/tours/", label: "Tours" },
   { href: "/electric-bike-types/", label: "E-bike types" },
   { href: "/gallery/", label: "Gallery" },
   { href: "/business/", label: "For businesses" },

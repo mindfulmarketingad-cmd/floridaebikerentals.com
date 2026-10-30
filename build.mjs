@@ -39,6 +39,8 @@ import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
 import { contentHub, contentEntry, authorsHub, authorPage } from "./src/pages/hub.mjs";
 import { shopHub, productPage } from "./src/pages/shop.mjs";
 import { summaryFor } from "./src/components.mjs";
+import { loadTours } from "./src/tours.mjs";
+import { toursHub, tourCityPage } from "./src/pages/tours.mjs";
 
 const DIST = join(ROOT, "dist");
 const written = new Map(); // url path -> { lastmod, priority, changefreq, group }
@@ -116,6 +118,20 @@ function writeRaw(name, contents) {
 
 /* ------------------------------------------------------------- build */
 
+/* Viator tours. A production build on Vercel (the only place the API key
+   lives) refreshes the committed snapshot inside the build container, inside a
+   fixed time budget; anywhere else, or if the API fails, the committed
+   data/tours.json is used as is. Visitors never trigger an API call. */
+if (process.env.VIATOR_API_KEY && process.env.VERCEL_ENV === "production" && process.env.TOURS_REFRESH !== "0") {
+  try {
+    const { refreshTours } = await import("./scripts/refresh-tours.mjs");
+    const n = await refreshTours({ budgetMs: 75_000 });
+    console.log(`tours: refreshed ${n} from Viator for this build`);
+  } catch (error) {
+    console.warn(`tours: refresh skipped (${error.message}); using the committed snapshot`);
+  }
+}
+
 console.time("build");
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
@@ -141,7 +157,8 @@ const cityGuides = cityTrailGuides(index, trailData);
 // Region roundups join the blog, newest first.
 blog.push(...regionPosts({ listings, index, cityGuides, date: "2026-10-15" }));
 blog.sort((a, b) => String(b.date).localeCompare(String(a.date)));
-const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, townNotes };
+const tours = loadTours(index);
+const ctx = { listings, index, blog, stats, queries, pages, authors, authorsBySlug, hubEntries, shop, townNotes, tours };
 // Town + bike type pages, and the block that links every page about a town together.
 ctx.batteryTownList = batteryTowns(listings, index);
 ctx.cityTypeList = cityTypePages(index, hubEntries, cityGuides);
@@ -161,6 +178,39 @@ write("/", homePage(site, ctx), {
   group: "pages",
   search: { u: "/", t: "Florida Ebike Rentals", s: "Home", d: site.description, k: "florida ebike rentals home directory electric bike", w: 20 },
 });
+
+/* /tours/: browse every Viator experience; /tours/<town>/: ranked guides */
+write("/tours/", toursHub(site, tours, ctx), {
+  priority: 0.8,
+  changefreq: "weekly",
+  group: "tours",
+  lastmod: tours.updated || undefined,
+  skipSitemap: tours.tours.length === 0,
+  search: {
+    u: "/tours/",
+    t: "Florida e-bike tours & experiences",
+    s: "Tours",
+    d: `${tours.tours.length} bookable tours across Florida, filterable by city, type, price and rating.`,
+    k: `tours guided ebike bike boat kayak airboat jet ski viator ${tours.cities.map((c) => c.name).join(" ")}`.toLowerCase(),
+    w: 12,
+  },
+});
+for (const group of tours.cities.filter((c) => c.page)) {
+  write(group.url, tourCityPage(site, group, tours, ctx), {
+    priority: 0.7,
+    changefreq: "weekly",
+    group: "tours",
+    lastmod: tours.updated || undefined,
+    search: {
+      u: group.url,
+      t: `Best tours in ${group.name}, FL`,
+      s: "Tours",
+      d: `${group.tours.length} bookable tours in ${group.name}, ranked.`,
+      k: `${group.name} tours ebike bike guided ${group.tours.slice(0, 8).map((t) => t.name).join(" ")}`.toLowerCase(),
+      w: 7,
+    },
+  });
+}
 
 /* /cities/: the directory by place */
 write("/cities/", citiesHub(site, ctx), {
@@ -532,7 +582,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 /* ----------------------------------------------------------- sitemaps */
 
 // Every content hub gets its own sitemap, so a new hub can't drop its guides.
-const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "shop", "search"])];
+const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "tours", "shop", "search"])];
 const sitemapFiles = [];
 const sitemapLastmod = new Map(); // sitemap file -> newest lastmod among its URLs
 for (const group of GROUPS) {

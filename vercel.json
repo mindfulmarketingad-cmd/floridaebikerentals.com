@@ -8054,11 +8054,6 @@
       "permanent": true
     },
     {
-      "source": "/tours/",
-      "destination": "/find/ebike-tours/",
-      "permanent": true
-    },
-    {
       "source": "/tours/1-hour-jet-ski-rental-in-jacksonville-fl-jax-jet-skis/",
       "destination": "/cities/jacksonville/",
       "permanent": true
@@ -8431,11 +8426,6 @@
     {
       "source": "/trails/upper-tampa-bay-trail/",
       "destination": "/trails/e-bike-routes-rules-in-tampa-florida/",
-      "permanent": true
-    },
-    {
-      "source": "/tours/:slug/",
-      "destination": "/find/ebike-tours/",
       "permanent": true
     },
     {

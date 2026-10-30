@@ -8,6 +8,7 @@ import {
 } from "../components.mjs";
 import { finderForm, finderResults, finderHref } from "../finder.mjs";
 import { homeCarousels } from "../carousels.mjs";
+import { homeToursCarousel } from "./tours.mjs";
 import { withMascot } from "../mascot.mjs";
 
 /** Bike style tiles: each opens the finder set to that style. */
@@ -67,7 +68,7 @@ export const HOME_FAQS = [
   },
 ];
 
-export function homePage(site, { listings, index, blog, stats, finderUrl }) {
+export function homePage(site, { listings, index, blog, stats, finderUrl, tours }) {
   const topTen = listings.filter((l) => l.is_rental && l.reviews >= 40).slice(0, 10);
   const topCities = index.cities.slice(0, 24);
 
@@ -88,6 +89,8 @@ export function homePage(site, { listings, index, blog, stats, finderUrl }) {
 ${finderResults()}
 
 ${homeCarousels(listings, index, { dataUrl: finderUrl })}
+
+${tours ? homeToursCarousel(tours) : ""}
 
 <section class="section">
   <div class="wrap home-split">
@@ -375,6 +378,7 @@ ${adSlotScript(site, 2)}
     description: `Rent an electric bicycle ebike today in Florida. Our finder checks ${stats.total} rental shops in ${stats.cities} towns, from 30A to Key West, for your bike, day and time.`,
     path: "/",
     body,
+    imageUrls: tours ? tours.tours.map((t) => t.image).filter(Boolean).slice(0, 40) : [],
     inlineScripts: site.adsense?.enabled ? [ADSENSE_INLINE.repeat(2)] : [],
     schema: [
       {

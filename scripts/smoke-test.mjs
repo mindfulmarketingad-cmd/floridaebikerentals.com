@@ -140,14 +140,14 @@ for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminol
   await page.close();
 }
 
-// 4i. the tours section is gone: the hub and any unmapped tour page 301 to the e-bike tours list
+// 4i. /tours/ is a static browse page with town guides; no catch-all redirect sends it away
 {
   const { readFileSync, existsSync: has } = await import("node:fs");
   const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
-  const hub=vercel.find(r=>r.source==="/tours/"), each=vercel.find(r=>r.source==="/tours/:slug/");
-  const linked=readFileSync(DIST+"/index.html","utf8").includes('href="/tours/');
-  ok("/tours/ and /tours/<tour>/ redirect permanently to /find/ebike-tours/ and nothing links to them",
-     hub&&each&&hub.destination==="/find/ebike-tours/"&&each.destination==="/find/ebike-tours/"&&hub.permanent&&each.permanent&&!has(DIST+"/tours")&&!linked);
+  const blocked=vercel.some(r=>r.source==="/tours/"||r.source==="/tours/:slug/");
+  const home=readFileSync(DIST+"/index.html","utf8");
+  ok("/tours/ exists, is linked from the header and the homepage carousel, and nothing redirects it",
+     !blocked&&has(DIST+"/tours/index.html")&&home.includes('href="/tours/"')&&home.includes("data-tours-track"));
 }
 
 // 4l. /find/ebike-rentals-near-me/ sorts by distance from three different
@@ -263,8 +263,8 @@ await page.close();
   const sitemaps=readdirSync(DIST).filter(f=>/^sitemap-.*\.xml$/.test(f));
   const locs=sitemaps.flatMap(f=>[...readFileSync(DIST+"/"+f,"utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]));
   const offHost=locs.filter(u=>!u.startsWith("https://www.floridaebikerentals.com/"));
-  const thin=locs.filter(u=>/\/(tours|search)\/[^/]+\/$/.test(u)||/\/reviews\//.test(u));
-  ok(`sitemap: ${locs.length} URLs, all on www, none for tour details, search results or reviews`,
+  const thin=locs.filter(u=>/\/search\/[^/]+\/$/.test(u)||/\/reviews\//.test(u));
+  ok(`sitemap: ${locs.length} URLs, all on www, none for search results or reviews`,
      locs.length>300 && offHost.length===0 && thin.length===0);
 
   const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];

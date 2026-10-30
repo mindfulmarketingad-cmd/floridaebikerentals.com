@@ -82,7 +82,6 @@ export const RETIRED_PAGES = [
   { source: "/authors/dev-okafor/", destination: "/authors/editorial-team/" },
   { source: "/authors/marisa-donnelly/", destination: "/authors/editorial-team/" },
   { source: "/authors/priya-raman/", destination: "/authors/editorial-team/" },
-  { source: "/tours/", destination: "/find/ebike-tours/" },
 ];
 
 /**
@@ -91,9 +90,9 @@ export const RETIRED_PAGES = [
  * URL for a shop no longer listed. Kept last so the specific rules win.
  */
 export const MERGED_SECTIONS = [
-  // The Viator tours section was removed. Tour pages with search history have
-  // their own rules (legacy-redirects.mjs); any other goes to the e-bike tours list.
-  { source: "/tours/:slug/", destination: "/find/ebike-tours/" },
+  // /tours/ is back as a browse page with /tours/<town>/ guides, so there is no
+  // catch-all here: old per-tour pages with search history keep their own rules
+  // in legacy-redirects.mjs.
   { source: "/reviews/", destination: "/partners/" },
   { source: "/reviews/page/:n/", destination: "/partners/" },
   { source: "/reviews/:slug/", destination: "/partners/" },

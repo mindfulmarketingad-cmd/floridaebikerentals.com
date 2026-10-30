@@ -2077,4 +2077,122 @@
       if (status) status.textContent = "Opening your email app with the message ready to send.";
     });
   }
+  /* ------------------------------------------------ tours browser */
+  // Filters the tour cards already in the page; nothing is fetched. The state
+  // lives in the URL (?city=&type=&price=&duration=&rating=&sort=&q=) so a
+  // filtered view can be linked to and shared.
+  $$("[data-tour-browser]").forEach(function (root) {
+    var form = $("[data-tour-filters]", root);
+    var grid = $("[data-tour-grid]", root);
+    if (!form || !grid) return;
+    var cards = $$("[data-tour]", grid);
+    var count = $("[data-tour-count]", root);
+    var empty = $("[data-tour-empty]", root);
+    var fixed = root.getAttribute("data-fixed-city") || "";
+    var useUrl = !fixed && root.id === "tour-browser";
+    var names = ["city", "type", "price", "duration", "rating", "sort", "q"];
+    form.hidden = false;
+
+    function range(v) {
+      if (!v) return null;
+      var p = v.split("-");
+      return [p[0] === "" ? 0 : Number(p[0]), p[1] === "" || p[1] == null ? Infinity : Number(p[1])];
+    }
+    function read() {
+      var st = {};
+      names.forEach(function (n) { var f = form.elements[n]; st[n] = f ? String(f.value || "").trim() : ""; });
+      return st;
+    }
+    function apply(push) {
+      var st = read();
+      var price = range(st.price), dur = range(st.duration), minRating = Number(st.rating) || 0;
+      var q = st.q.toLowerCase();
+      var shown = cards.filter(function (c) {
+        var ok = true;
+        if (st.city && c.getAttribute("data-city") !== st.city) ok = false;
+        if (ok && st.type && c.getAttribute("data-type") !== st.type) ok = false;
+        if (ok && price) {
+          var pr = c.getAttribute("data-price");
+          ok = pr !== "" && Number(pr) >= price[0] && Number(pr) <= price[1];
+        }
+        if (ok && dur) {
+          var m = c.getAttribute("data-min");
+          ok = m !== "" && Number(m) >= dur[0] && Number(m) <= dur[1];
+        }
+        if (ok && minRating) ok = Number(c.getAttribute("data-rating")) >= minRating;
+        if (ok && q) ok = c.getAttribute("data-text").indexOf(q) !== -1;
+        c.hidden = !ok;
+        return ok;
+      });
+      var key = { price: "data-price", "price-desc": "data-price", rating: "data-rating", duration: "data-min" }[st.sort] || "data-score";
+      var dir = st.sort === "price" || st.sort === "duration" ? 1 : -1;
+      var sorted = cards.slice().sort(function (a, b) {
+        var av = a.getAttribute(key), bv = b.getAttribute(key);
+        // Missing prices or durations sort last either way.
+        if (av === "" && bv === "") return 0;
+        if (av === "") return 1;
+        if (bv === "") return -1;
+        var diff = (Number(av) - Number(bv)) * dir;
+        return diff || Number(b.getAttribute("data-reviews")) - Number(a.getAttribute("data-reviews"));
+      });
+      sorted.forEach(function (c) { grid.appendChild(c); });
+      if (count) count.textContent = shown.length + (shown.length === 1 ? " experience" : " experiences") + (shown.length < cards.length ? " of " + cards.length : "");
+      if (empty) empty.hidden = shown.length > 0;
+      if (useUrl && push !== false && window.history && history.replaceState) {
+        var params = new URLSearchParams();
+        names.forEach(function (n) { if (st[n]) params.set(n, st[n]); });
+        var qs = params.toString();
+        history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+      }
+    }
+    if (useUrl) {
+      var params = new URLSearchParams(location.search);
+      names.forEach(function (n) {
+        var f = form.elements[n], v = params.get(n);
+        if (!f || v == null) return;
+        if (f.tagName === "SELECT") {
+          if ($$("option", f).some(function (o) { return o.value === v; })) f.value = v;
+        } else f.value = v.slice(0, 60);
+      });
+    }
+    form.addEventListener("change", function () { apply(); });
+    var timer;
+    form.addEventListener("input", function (e) {
+      if (e.target.name !== "q") return;
+      clearTimeout(timer);
+      timer = setTimeout(apply, 150);
+    });
+    form.addEventListener("submit", function (e) { e.preventDefault(); apply(); });
+    $$("[data-tour-reset]", root).forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        form.reset();
+        names.forEach(function (n) { var f = form.elements[n]; if (f) f.value = ""; });
+        apply();
+      });
+    });
+    apply(false);
+  });
+
+  /* ------------------------------------------------ homepage tours carousel */
+  (function () {
+    var track = $("[data-tours-track]");
+    if (!track) return;
+    var prev = $("[data-tours-prev]"), next = $("[data-tours-next]");
+    function step(dir) {
+      var first = track.firstElementChild;
+      var w = first ? first.getBoundingClientRect().width + 16 : 260;
+      track.scrollBy({ left: dir * w * 2, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    }
+    if (prev) prev.addEventListener("click", function () { step(-1); });
+    if (next) next.addEventListener("click", function () { step(1); });
+    track.addEventListener("scroll", function () { window.requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener("resize", sync, { passive: true });
+    sync();
+  })();
 })();
