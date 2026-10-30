@@ -38121,7 +38121,7 @@
     "Electric bicycle store",
     "Sporting goods store"
    ],
-   "description": "",
+   "description": "Viver Bicycle is a bicycle shop in St. Cloud for bike sales, maintenance and repairs, including mechanical service for e-bikes. It does not rent bikes or e-bikes.",
    "verified": true,
    "booking_link": "",
    "price_range": "",
@@ -38201,6 +38201,8 @@
    "score": 17.9971,
    "is_ebike": true,
    "is_rental": false,
+   "listing_kind": "service",
+   "service_label": "Bike sales, service & e-bike repair",
    "slug": "viver-bicycle"
   },
   {

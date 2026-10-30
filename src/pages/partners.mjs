@@ -3,7 +3,7 @@ import {
   esc, attr, formatReviews, formatRating, phoneHref, hostOf, trackedUrl, plural, clamp, commaList, ratingBlock,
 } from "../util.mjs";
 import { page, breadcrumbs, breadcrumbsBare, breadcrumbSchema } from "../layout.mjs";
-import { contactButtons,
+import { contactButtons, isServiceOnly,
   scoreBars, listicle, mapPanel, singleMap, faqBlock, faqSchema, linkCard, linkCloud, statRow, photo,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor, logoMark,
@@ -190,7 +190,8 @@ function featureGroups(listing) {
 export function partnerPage(site, listing, { listings, index, blog, cityLinker, cityTypeList = [] }) {
   const city = index.citiesBySlug.get(listing.citySlug);
   const region = index.regionsBySlug.get(listing.regionSlug);
-  const nearby = nearbyListings(listing, listings, 6);
+  const service = isServiceOnly(listing);
+  const nearby = nearbyListings(listing, listings.filter((l) => !isServiceOnly(l)), 6);
   const crumbs = [
     HOME_CRUMB,
     { href: "/cities/", label: "Cities" },
@@ -207,7 +208,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
         : { href: c.url, label: `${c.name} in Florida` };
     });
   const tel = listing.phone ? phoneHref(listing.phone) : "";
-  const rankInCity = city ? city.listings.findIndex((l) => l.slug === listing.slug) + 1 : 0;
+  const rankInCity = city && !service ? city.listings.findIndex((l) => l.slug === listing.slug) + 1 : 0;
 
   const faqs = [
     {
@@ -241,7 +242,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
         : `<p>This business does not have enough Google reviews to show a star rating yet. That is common for new shops and for businesses that do not ask for reviews — it is not a negative signal on its own.</p>`,
     },
     {
-      q: `How do I rent from ${listing.name}?`,
+      q: service ? `How do I book a repair or service at ${listing.name}?` : `How do I rent from ${listing.name}?`,
       a: `<p>${
         tel ? `Call ${esc(listing.name)} on <a href="tel:${attr(tel)}">${esc(listing.phone)}</a>` : `Contact ${esc(listing.name)} directly`
       }${
@@ -254,7 +255,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
         listing.maps_link
           ? `get <a href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">directions in Google Maps</a> and walk in`
           : `visit at ${esc(listing.address || listing.city)}`
-      }. Ask about the price, the deposit and what the rental includes before you pay.</p>`,
+      }. ${service ? `${esc(listing.name)} sells and repairs bikes, including e-bikes, but does not rent them. Ask about turnaround time and the price of parts and labour before you drop a bike off.` : "Ask about the price, the deposit and what the rental includes before you pay."}</p>`,
     },
   ];
 
@@ -290,11 +291,11 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
       <h2>About ${esc(listing.name)}</h2>
       <p>${esc(summaryFor(listing))}</p>
       ${listing.description ? `<p>${esc(listing.description)}</p>` : ""}
-      <p>${esc(listing.name)} appears in our directory for ${
+      <p>${esc(listing.name)} appears in our directory ${service ? `as a ${esc((listing.service_label || "Bike sales, service & e-bike repair").toLowerCase())} shop in ${esc(listing.city)}, not a rental` : `for ${
         city
           ? `<a href="${attr(city.url)}">e-bike rentals in ${esc(listing.city)}</a>`
           : esc(listing.city)
-      }${
+      }`}${
         region ? ` and in the wider <a href="${attr(region.url)}">${esc(listing.region)}</a> region` : ""
       }. ${
         listing.tags && listing.tags.length
@@ -302,11 +303,11 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
           : ""
       }</p>
       <p class="small muted">Details below come from this business's public Google listing and are
-      refreshed periodically. Confirm prices, availability and rental terms directly with the shop.
+      refreshed periodically. ${service ? "Confirm services, prices and turnaround directly with the shop." : "Confirm prices, availability and rental terms directly with the shop."}
       Spot an error? <a href="/contact/">Tell us</a>.</p>
     </div>
 
-    ${bikePanel(listing, cityTypeList)}
+    ${service ? "" : bikePanel(listing, cityTypeList)}
 
     ${reviewsPanel(listing)}
 
@@ -333,7 +334,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
         : ""
     }
 
-    <h2 class="mt-3">Other e-bike rentals near ${esc(listing.city)}</h2>
+    <h2 class="mt-3">${service ? "E-bike rentals" : "Other e-bike rentals"} near ${esc(listing.city)}</h2>
     <div class="town-cards town-cards--3">
       ${nearby
         .map(

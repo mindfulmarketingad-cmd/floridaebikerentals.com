@@ -113,9 +113,13 @@ export function summaryFor(listing) {
   return `${opener}. ${bits.slice(0, 3).join(". ")}.`;
 }
 
+/** A shop we list for sales and repairs only: it told us it does not rent. */
+export const isServiceOnly = (listing) => listing.listing_kind === "service";
+
 export function metaDescriptionFor(listing) {
   const rating = listing.rating ? `: ${formatRating(listing.rating)} stars from ${formatReviews(listing.reviews)} Google reviews` : "";
   const contact = listing.phone ? `Phone ${listing.phone}, hours, website and directions` : "Hours, address and directions";
+  if (isServiceOnly(listing)) return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for bike sales, service and e-bike repairs.`);
   return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for your e-bike rental.`);
 }
 
@@ -542,6 +546,10 @@ export function localBusinessSchema(site, listing) {
   const hours = (listing.hours || []).filter((h) => !h.closed && /\d/.test(h.hours));
   if (hours.length) {
     data.openingHours = hours.map((h) => `${h.day.slice(0, 2)} ${h.hours.replace(/\s/g, "")}`);
+  }
+  if (isServiceOnly(listing)) {
+    if (listing.description) data.description = listing.description;
+    data.knowsAbout = ["Bicycle sales", "Bicycle repair", "E-bike repair"];
   }
   return data;
 }
