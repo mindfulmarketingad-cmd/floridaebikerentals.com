@@ -175,6 +175,20 @@ function hoursTable(listing) {
 </table>`;
 }
 
+/** "Monday to Friday 10 AM to 6 PM, Saturday 10 AM to 3 PM, Sunday closed" from the hours rows. */
+function serviceHoursLine(listing) {
+  const rows = listing.hours || [];
+  const fmt = (h) => (h.closed ? "closed" : h.hours.replace(/(\d)(AM|PM)/g, "$1 $2").replace(/\s*-\s*/, " to "));
+  const out = [];
+  for (let i = 0; i < rows.length; ) {
+    let j = i;
+    while (j + 1 < rows.length && fmt(rows[j + 1]) === fmt(rows[i])) j++;
+    out.push(`${rows[i].day}${j > i ? ` to ${rows[j].day}` : ""} ${fmt(rows[i])}`);
+    i = j + 1;
+  }
+  return out.join(", ");
+}
+
 function featureGroups(listing) {
   if (!listing.about || !listing.about.length) return "";
   return `<div class="feature-groups">${listing.about
@@ -309,6 +323,18 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
 
     ${service ? "" : bikePanel(listing, cityTypeList)}
 
+    ${
+      service && (listing.services || []).length
+        ? `<div class="panel mt-2"><h2>Services at ${esc(listing.name)}</h2>
+      <ul>${listing.services.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
+      ${listing.not_offered ? `<p><strong>Please note:</strong> ${esc(listing.not_offered)}</p>` : ""}
+      <p><strong>Rentals:</strong> ${esc(listing.name)} does not rent bikes or e-bikes.</p>
+      ${(listing.hours || []).length ? `<p><strong>Hours:</strong> ${esc(serviceHoursLine(listing))}</p>` : ""}
+      ${listing.details_from_shop ? `<p class="small muted">Services, address, phone and hours confirmed by ${esc(listing.name)} in ${esc(listing.details_from_shop)}.</p>` : ""}
+    </div>`
+        : ""
+    }
+
     ${reviewsPanel(listing)}
 
     ${featureGroups(listing) ? `<div class="panel mt-2"><h2>Services and features</h2>${featureGroups(listing)}</div>` : ""}
@@ -367,7 +393,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
           : ""
       }</div>
       <p class="sent-you">When you call ${esc(listing.name)}, tell them Florida Ebike Rentals sent you &#128578;</p>
-      <p class="small muted">Details from ${esc(listing.name)}'s public Google listing. Confirm prices and availability with the shop.</p>
+      <p class="small muted">${listing.details_from_shop ? `Details confirmed by ${esc(listing.name)} in ${esc(listing.details_from_shop)}.` : `Details from ${esc(listing.name)}'s public Google listing.`} Confirm prices and availability with the shop.</p>
     </div>
 
     <div class="panel">

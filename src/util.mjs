@@ -113,6 +113,7 @@ export function formatReviews(count) {
 
 export function phoneHref(phone) {
   const digits = String(phone || "").replace(/[^\d+]/g, "");
+  if (/^\d{10}$/.test(digits)) return `+1${digits}`;
   return digits.length >= 10 ? digits : "";
 }
 

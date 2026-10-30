@@ -38099,8 +38099,8 @@
    "state": "FL",
    "postal_code": "34769",
    "street": "4267 Neptune Rd",
-   "address": "4267 Neptune Rd, St Cloud, FL 34769",
-   "phone": "+1 689-342-1056",
+   "address": "4267 Neptune Rd, St. Cloud, FL 34769",
+   "phone": "(689) 342-1056",
    "website": "http://www.viverbicycle.com/",
    "lat": 28.2482513,
    "lng": -81.3122047,
@@ -38121,7 +38121,7 @@
     "Electric bicycle store",
     "Sporting goods store"
    ],
-   "description": "Viver Bicycle is a bicycle shop in St. Cloud for bike sales, maintenance and repairs, including mechanical service for e-bikes. It does not rent bikes or e-bikes.",
+   "description": "Viver Bicycle is a full-service bicycle shop in St. Cloud, Florida, specializing in bicycle sales, maintenance and repairs, including mechanical maintenance and repairs for e-bikes. It does not rent bikes or e-bikes.",
    "verified": true,
    "booking_link": "",
    "price_range": "",
@@ -38203,6 +38203,17 @@
    "is_rental": false,
    "listing_kind": "service",
    "service_label": "Bike sales, service & e-bike repair",
+   "services": [
+    "Complete bicycle tune-ups and preventive maintenance",
+    "Brake and drivetrain adjustments and repairs",
+    "Tire and tube replacements, including flat repairs",
+    "Wheel truing",
+    "Hydraulic brake bleeding",
+    "Mechanical maintenance and repairs for e-bikes"
+   ],
+   "not_offered": "Viver Bicycle does not provide battery, motor or electrical system repairs for e-bikes.",
+   "no_battery_repair": true,
+   "details_from_shop": "October 2026",
    "slug": "viver-bicycle"
   },
   {

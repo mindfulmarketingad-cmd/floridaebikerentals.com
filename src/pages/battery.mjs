@@ -20,9 +20,10 @@ export const BATTERY_URL = "/find/battery-replacement/";
 const subtypes = (l) => [].concat(l.subtypes || []).map(String);
 
 export function batteryShops(listings) {
-  const specialists = listings.filter((l) => subtypes(l).includes("Battery store"));
+  const specialists = listings.filter((l) => !l.no_battery_repair && subtypes(l).includes("Battery store"));
   const repairers = listings.filter(
     (l) =>
+      !l.no_battery_repair &&
       !specialists.includes(l) &&
       subtypes(l).includes("Electric bicycle store") &&
       (subtypes(l).includes("Bicycle repair shop") || subtypes(l).includes("Electric motor repair shop"))

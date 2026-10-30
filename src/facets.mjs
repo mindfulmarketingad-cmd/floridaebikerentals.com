@@ -21,7 +21,7 @@ const openAfter = (l, mins) => windows(l).some(([, c]) => c >= mins);
 
 /** Battery replacement uses the same rule as the battery pages. */
 const battery = (l) =>
-  hasSub(l, "Battery store") || (hasSub(l, "Electric bicycle store") && hasSub(l, "Bicycle repair shop", "Electric motor repair shop"));
+  !l.no_battery_repair && (hasSub(l, "Battery store") || (hasSub(l, "Electric bicycle store") && hasSub(l, "Bicycle repair shop", "Electric motor repair shop")));
 
 export const FACET_GROUPS = [
   {

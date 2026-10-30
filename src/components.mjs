@@ -266,6 +266,10 @@ export function listicleItem(listing, rank, { showSummary = true, rentOnly = fal
     facts.push(`<li><b>Reviews</b> <span>${formatReviews(listing.reviews)} on Google</span></li>`);
   }
   if (listing.price_range) facts.push(`<li><b>Price</b> <span>${esc(listing.price_range)}</span></li>`);
+  if (isServiceOnly(listing)) {
+    facts.push(`<li><b>Rentals</b> <span>Does not rent bikes or e-bikes</span></li>`);
+    if (listing.not_offered) facts.push(`<li><b>Note</b> <span>${esc(listing.not_offered)}</span></li>`);
+  }
 
   const search = [listing.name, listing.city, listing.region, ...(listing.tags || [])].join(" ");
 
@@ -550,6 +554,33 @@ export function localBusinessSchema(site, listing) {
   if (isServiceOnly(listing)) {
     if (listing.description) data.description = listing.description;
     data.knowsAbout = ["Bicycle sales", "Bicycle repair", "E-bike repair"];
+    if ((listing.services || []).length) {
+      data.hasOfferCatalog = {
+        "@type": "OfferCatalog",
+        name: `${listing.name} services`,
+        itemListElement: listing.services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s } })),
+      };
+    }
+    if (hours.length) {
+      const DAY = { Mo: "Monday", Tu: "Tuesday", We: "Wednesday", Th: "Thursday", Fr: "Friday", Sa: "Saturday", Su: "Sunday" };
+      const to24 = (t) => {
+        const m = /^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)$/i.exec(t.trim());
+        if (!m) return null;
+        let h = Number(m[1]) % 12;
+        if (/PM/i.test(m[3])) h += 12;
+        return `${String(h).padStart(2, "0")}:${m[2] || "00"}`;
+      };
+      const spec = hours
+        .map((h) => {
+          const [o, c] = h.hours.split("-").map(to24);
+          return o && c ? { "@type": "OpeningHoursSpecification", dayOfWeek: DAY[h.day.slice(0, 2)] || h.day, opens: o, closes: c } : null;
+        })
+        .filter(Boolean);
+      if (spec.length) {
+        data.openingHoursSpecification = spec;
+        delete data.openingHours;
+      }
+    }
   }
   return data;
 }
