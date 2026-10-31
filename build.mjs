@@ -12,7 +12,7 @@ import { join, dirname } from "node:path";
 
 import { titleCase, slugify, isoDate } from "./src/util.mjs";
 import {
-  ROOT, loadSite, loadListings, loadTownNotes, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
+  ROOT, loadSite, loadListings, loadTownNotes, loadTrailNotes, loadBlog, loadStaticPages, loadAuthors, loadHubEntries,
   buildIndex, statsFor, assignTitles, loadShop, SEARCH_QUERIES, CONTENT_HUBS,
 } from "./src/data.mjs";
 import { homePage } from "./src/pages/home.mjs";
@@ -152,6 +152,7 @@ const hubEntries = Object.fromEntries(CONTENT_HUBS.map((hub) => [hub.slug, loadH
 assignBikeTypes(listings, hubEntries["electric-bike-types"]);
 const shop = loadShop();
 const townNotes = loadTownNotes();
+const trailNotes = loadTrailNotes();
 const redirects = computeRedirects(index, listings);
 redirectsBySource = redirectMap(redirects);
 const trailFile = join(ROOT, "data", "city-trails.json");
@@ -414,7 +415,7 @@ for (const post of blog) {
 /* town riding guides under /trails/, from OpenStreetMap route data */
 ctx.cityTrailSection = cityTrailHubSection(cityGuides);
 for (const guide of cityGuides) {
-  write(guide.url, cityTrailPage(site, guide, { ...ctx, trailData, guides: cityGuides }), {
+  write(guide.url, cityTrailPage(site, guide, { ...ctx, trailData, guides: cityGuides, trailNotes }), {
     priority: 0.7,
     changefreq: "monthly",
     group: "trails",

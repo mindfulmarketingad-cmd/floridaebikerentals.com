@@ -1254,6 +1254,11 @@
       "permanent": true
     },
     {
+      "source": "/cities/tampa/coast-bike-share/",
+      "destination": "/cities/tampa/",
+      "permanent": true
+    },
+    {
       "source": "/cities/tarpon-springs/",
       "destination": "/cities/tarpon-springs/tarpon-toms-bike-shop/",
       "permanent": true
@@ -3060,7 +3065,7 @@
     },
     {
       "source": "/partners/coast-bike-share/",
-      "destination": "/cities/tampa/coast-bike-share/",
+      "destination": "/cities/tampa/",
       "permanent": true
     },
     {
@@ -5860,7 +5865,7 @@
     },
     {
       "source": "/reviews/coast-bike-share/",
-      "destination": "/cities/tampa/coast-bike-share/",
+      "destination": "/cities/tampa/",
       "permanent": true
     },
     {

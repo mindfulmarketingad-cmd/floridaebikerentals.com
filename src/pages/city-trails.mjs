@@ -7,6 +7,8 @@
  * printed as recorded, never estimated. The rules are the statewide points
  * from our Florida e-bike law guide, which cites the statutes; nothing local
  * is stated that we cannot source, so local questions point to the shop.
+ * A town can add sourced local routes and rules in content/trail-notes/<slug>.md
+ * (loadTrailNotes), shown in their own section with their FAQs merged in.
  */
 import { esc, attr, plural, clamp, slugify, formatReviews } from "../util.mjs";
 import { page, breadcrumbSchema } from "../layout.mjs";
@@ -71,7 +73,7 @@ export function cityTrailGuides(index, trailData) {
 
 const LAW = "/blog/florida-ebike-laws/";
 
-export function cityTrailPage(site, guide, { index, trailData, guides, cityLinker }) {
+export function cityTrailPage(site, guide, { index, trailData, guides, cityLinker, trailNotes }) {
   const { city, data, url, title } = guide;
   const routes = data.routes;
   const top3 = routes.slice(0, 3).map((r) => r.name);
@@ -88,6 +90,7 @@ export function cityTrailPage(site, guide, { index, trailData, guides, cityLinke
     .concat(others.filter((g) => g.city.regionSlug !== city.regionSlug))
     .slice(0, 8);
   const photo = stockFor(`town-${city.slug}`);
+  const notes = (trailNotes && trailNotes.get(city.slug)) || null;
 
   const faqs = [
     {
@@ -106,6 +109,7 @@ export function cityTrailPage(site, guide, { index, trailData, guides, cityLinke
       q: `Do I need lights to ride at night?`,
       a: `<p>Yes. Between sunset and sunrise Florida requires a white front light and a red rear reflector or light, the same as any bicycle.</p>`,
     },
+    ...((notes && notes.faqs) || []),
   ];
 
   const body = `
@@ -127,7 +131,7 @@ ${findHero({
 <section class="section">
   <div class="wrap">
     <nav class="trail-jump" aria-label="On this page">
-      <a href="#where-to-ride">Where to ride</a><a href="#rules">Law summary</a><a href="#switch-city">Switch city</a>
+      <a href="#where-to-ride">Where to ride</a>${notes ? `<a href="#local">Local routes &amp; rules</a>` : ""}<a href="#rules">Law summary</a><a href="#switch-city">Switch city</a>
     </nav>
     <div class="fact-cards">
       <div class="fact-card"><span class="fact-card__label">Where to ride</span><strong>${routes.length} mapped routes</strong><span>${esc(String(data.totalMiles))} miles of named bike and shared-use paths within about five miles${paved ? `, ${paved} of them paved` : ""}.</span></div>
@@ -165,7 +169,16 @@ ${findHero({
   </div>
 </section>
 
-<section class="section" id="rules">
+${
+  notes
+    ? `<section class="section" id="local">
+  <div class="wrap wrap-narrow prose">
+    ${notes.html}
+  </div>
+</section>
+`
+    : ""
+}<section class="section" id="rules">
   <div class="wrap">
     <h2>The Florida rules that matter in ${esc(city.name)}</h2>
     <p class="muted">The statewide rules, from our <a href="${LAW}">Florida e-bike law guide</a>. Local rules on sidewalks, beaches and specific paths are set by the city, county or path manager, so check signs and ask your rental shop.</p>

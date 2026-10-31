@@ -1,5 +1,5 @@
 {
-  "_readme": "Listings the Outscraper import lets through that are not bike rental businesses. Google lists 'Bicycle rental service' among a business's categories when it is not what the business does, so the importer cannot catch these on its own. Each entry is dropped from every page, index and sitemap. Keep a reason on each so the list stays auditable.",
+  "_readme": "Listings the Outscraper import lets through that are not bike rental businesses. Google lists 'Bicycle rental service' among a business's categories when it is not what the business does, so the importer cannot catch these on its own. Each entry is dropped from every page, index and sitemap. Keep a reason on each so the list stays auditable. A reason starting with 'Closed' marks a business that has shut down: its old shop URLs (/cities/<town>/<shop>/, /partners/<shop>/, /reviews/<shop>/) 301 to its town page, or to /cities/ when the town has no page.",
   "listings": [
     {
       "slug": "food-trends-restaurant-garden",
@@ -8,6 +8,10 @@
     {
       "slug": "electric-bike-miami",
       "reason": "Duplicate Google profile for Electribike's 10801 Collins Ave (Haulover/Bal Harbour) location, same address and phone as haulover-bike-rentals. Merged into haulover-bike-rentals, which 301-redirects from this slug."
+    },
+    {
+      "slug": "coast-bike-share",
+      "reason": "Closed. Coast Bike Share (powered by HOPR), a Tampa bike-share system, closed all of its Tampa sites and no longer operates in Florida (gohopr.com/coast/, checked 2026-10-31). Its old URLs 301 to the Tampa town page."
     }
   ]
 }

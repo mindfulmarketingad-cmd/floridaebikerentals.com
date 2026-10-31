@@ -14,14 +14,16 @@
  *  4. Categories. The old topic pages moved to /find/<category>/.
  *  5. Legacy listicles: /blog/5-best-ebike-rental-shops-in-<town>-florida/,
  *     from before this build, go to the town page or the town's one shop.
- *  6. Old URLs with Search Console history (src/legacy-redirects.mjs): old
+ *  6. Closed shops (reason "Closed..." in data/excluded-listings.json): the
+ *     shop page and its /partners/ and /reviews/ URLs go to the town page.
+ *  7. Old URLs with Search Console history (src/legacy-redirects.mjs): old
  *     trail, cost, /find, /tours and /rules pages, each to its closest page.
  *
  * The same list is written to vercel.json (the live host) by
  * `npm run redirects`, and to dist/_redirects for Netlify and Cloudflare Pages.
  * `npm run verify` fails if vercel.json has drifted from it.
  */
-import { CATEGORIES } from "./data.mjs";
+import { CATEGORIES, closedListings, citySlug } from "./data.mjs";
 import { slugify } from "./util.mjs";
 import { POST_REGIONS } from "./region-posts.mjs";
 import { GSC_LEGACY_REDIRECTS } from "./legacy-redirects.mjs";
@@ -55,6 +57,14 @@ export function computeRedirects(index, listings) {
       out.push({ source: `/partners/${old}/`, destination: listing.url });
       out.push({ source: `/reviews/${old}/`, destination: listing.url });
     }
+  }
+
+  for (const shop of closedListings()) {
+    const town = index.citiesBySlug.get(citySlug(shop.city));
+    const destination = town ? town.url : "/cities/";
+    out.push({ source: shop.url, destination });
+    out.push({ source: `/partners/${shop.slug}/`, destination });
+    out.push({ source: `/reviews/${shop.slug}/`, destination });
   }
 
   for (const region of index.regions) {
