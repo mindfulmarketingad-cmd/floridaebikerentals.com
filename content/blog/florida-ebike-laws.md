@@ -91,8 +91,9 @@ Realistic expectations for a Florida rental:
   districts; some ban them; some allow bikes but not e-bikes. Key West, Miami Beach, Naples and
   many beach towns each handle it differently. Naples, for one, has banned e-bikes from its
   sidewalks, parks and shared-use paths since May 2026 - see our [Naples e-bike rules guide](/blog/naples-ebike-rules-where-to-ride/).
-  Hillsborough County is weighing countywide speed limits for e-bikes on sidewalks, trails and
-  roads - see the rules section of our [Tampa e-bike rentals guide](/blog/best-ebike-rentals-tampa-florida/).
+  In Tampa, the shared Lime and Spin e-bikes are banned from the Riverwalk, Bayshore Boulevard and
+  7th Avenue in Ybor, though shop rentals are not - see our
+  [Tampa guide to app bikes vs rental shops](/blog/best-ebike-rentals-tampa-florida/).
 - **The beach itself.** Almost always off limits, except where a town specifically permits fat-tyre
   riding on hard-packed sand in defined hours. Do not assume.
 - **State parks and nature preserves.** Rules vary by park and by trail within a park. Natural

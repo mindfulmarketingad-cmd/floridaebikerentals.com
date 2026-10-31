@@ -74,8 +74,9 @@ St. Petersburg, Clearwater, Dunedin, Treasure Island and Tampa itself. The Pinel
 draw: 45 miles of rail trail linking St. Pete to Tarpon Springs through a series of towns that are
 genuinely worth stopping in. Clearwater Beach and St. Pete Beach have holiday rental counters;
 Dunedin and Gulfport have shops aimed at people who actually ride. On the Tampa side, the
-Riverwalk and Bayshore Boulevard make a flat waterfront half-day - see our
-[Tampa e-bike rentals guide](/blog/best-ebike-rentals-tampa-florida/).
+Riverwalk and Bayshore Boulevard make a flat waterfront half-day - on a shop rental, since Tampa's
+Lime and Spin app bikes are not allowed on either. See our
+[Tampa guide to app bikes vs rental shops](/blog/best-ebike-rentals-tampa-florida/).
 
 **Best for:** long trail rides with real towns along the way.
 **Browse:** [Tampa Bay rentals](/find/ebike-rentals-in-tampa-bay/).
