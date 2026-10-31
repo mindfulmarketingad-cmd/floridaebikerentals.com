@@ -76,8 +76,7 @@ You park in a corral, then walk.
 A bike you rent from a shop is just an e-bike in the eyes of the law, so the shared-program
 restrictions do not apply. The City of Tampa's greenways and trails FAQ lists electric bicycles as
 allowed on City trails, with a 15 mph limit, and the Riverwalk is part of that trail system. The
-slower Riverwalk guideline still applies to everyone - it has been 5 mph, and the path is busy with
-people on foot. Our [Tampa routes and rules page](/trails/e-bike-routes-rules-in-tampa-florida/)
+Riverwalk is busy with people on foot, so ride it slowly. Our [Tampa routes and rules page](/trails/e-bike-routes-rules-in-tampa-florida/)
 lists the mapped paths and the statewide rules, and our
 [Florida e-bike laws guide](/blog/florida-ebike-laws/) covers classes, ages and helmets.
 
@@ -163,7 +162,7 @@ corral nearby. To ride the Riverwalk itself, rent from a shop or bring your own 
 
 Yes. The City allows electric bicycles on its trails, with a 15 mph limit, and the restriction on
 the Riverwalk and Bayshore applies to the shared Lime and Spin fleets, not to bikes you rent from a
-shop. Ride slowly on the Riverwalk - its guideline has been 5 mph - and use the on-road bike lanes on
+shop. Ride slowly on the busy Riverwalk, and use the on-road bike lanes on
 Bayshore if you want to go faster.
 
 ### How old do you have to be to rent a Lime or Spin bike in Tampa?
