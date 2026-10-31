@@ -1219,6 +1219,11 @@
       "permanent": true
     },
     {
+      "source": "/cities/punta-gorda/ocean-e-bikes/",
+      "destination": "/cities/punta-gorda/",
+      "permanent": true
+    },
+    {
       "source": "/cities/redington-shores/",
       "destination": "/cities/redington-shores/rad-bikes-beach-surf-and-rentals/",
       "permanent": true
@@ -4075,7 +4080,7 @@
     },
     {
       "source": "/partners/ocean-e-bikes/",
-      "destination": "/cities/punta-gorda/ocean-e-bikes/",
+      "destination": "/cities/punta-gorda/",
       "permanent": true
     },
     {
@@ -6875,7 +6880,7 @@
     },
     {
       "source": "/reviews/ocean-e-bikes/",
-      "destination": "/cities/punta-gorda/ocean-e-bikes/",
+      "destination": "/cities/punta-gorda/",
       "permanent": true
     },
     {

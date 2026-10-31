@@ -161,9 +161,9 @@ export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList
     ...(notes.faqs || []),
     {
       q: `Where can I rent a bike or e-bike in ${city.name}?`,
-      a: `<p>We track ${n} rental ${plural(n, "shop")} in ${esc(city.name)}. ${esc(best.name)} leads our ranking${
-        best.rating ? ` with ${best.rating.toFixed(1)} stars from ${formatReviews(best.reviews)} Google reviews` : ""
-      }. Every listing above shows the address, today's hours and directions.</p>`,
+      // Count only shops that rent: a town can list e-bike stores that sell and
+      // service bikes but don't rent, and those shouldn't be called rental shops.
+      a: rentalFaq(city, local, best, n),
     },
     specialists.length
       ? {
@@ -470,4 +470,21 @@ function offerings(local) {
   if (out.length < 3 && has("golf")) out.push("golf cart rentals");
   if (out.length < 3 && has("repairs")) out.push("e-bike repairs");
   return out.length ? out.slice(0, 3) : ["e-bike shops"];
+}
+
+function rentalFaq(city, local, best, n) {
+  const rentals = local.filter((l) => l.is_rental);
+  const others = n - rentals.length;
+  const top = rentals[0] || best;
+  const rating = top.rating ? ` with ${top.rating.toFixed(1)} stars from ${formatReviews(top.reviews)} Google reviews` : "";
+  const extra = others
+    ? ` We also list ${others} ${plural(others, "shop")} that ${others === 1 ? "sells or services" : "sell or service"} bikes but ${others === 1 ? "doesn't" : "don't"} rent.`
+    : "";
+  if (!rentals.length) {
+    return `<p>None of the ${n} ${plural(n, "shop")} we track in ${esc(city.name)} ${n === 1 ? "lists" : "list"} rentals, so call ahead and ask. ${esc(best.name)} leads our ranking${rating}. Every listing above shows the address, today's hours and directions.</p>`;
+  }
+  const lead = rentals.length === 1
+    ? `${esc(top.name)} is the only rental shop we track in ${esc(city.name)}${rating ? `,${rating}` : ""}.`
+    : `We track ${rentals.length} rental shops in ${esc(city.name)}. ${esc(top.name)} leads our ranking${rating}.`;
+  return `<p>${lead}${extra} Every listing above shows the address, today's hours and directions.</p>`;
 }

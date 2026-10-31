@@ -12,6 +12,10 @@
     {
       "slug": "coast-bike-share",
       "reason": "Closed. Coast Bike Share (powered by HOPR), a Tampa bike-share system, closed all of its Tampa sites and no longer operates in Florida (gohopr.com/coast/, checked 2026-10-31). Its old URLs 301 to the Tampa town page."
+    },
+    {
+      "slug": "ocean-e-bikes",
+      "reason": "Closed. Ocean E-Bikes, a Punta Gorda e-bike rental, went out of business at least two years ago, as reported on 2026-10-31 by the owner of Jersey Joe's Bike and Ebike Rental, a neighboring Punta Gorda rental shop. Its Google profile has no website and no reviews. Its old URLs 301 to the Punta Gorda town page."
     }
   ]
 }
