@@ -94,6 +94,8 @@ faster classes are the ones most often restricted on shared paths.
 
 Dunedin and St. Petersburg have the most rental options close to the trail, with Clearwater and
 Largo also within easy reach. Renting in Dunedin puts you in the middle of the best section.
+Staying in Tampa instead? Our [Tampa e-bike rentals guide](/blog/best-ebike-rentals-tampa-florida/)
+covers the shops there and the Riverwalk and Bayshore Boulevard rides.
 
 ### Is there shade on the Pinellas Trail?
 

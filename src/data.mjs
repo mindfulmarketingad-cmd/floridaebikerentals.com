@@ -621,8 +621,33 @@ export function statsFor(listings) {
  */
 const SEO_TITLE_MAX = 70;
 
+/* Separators that end a shop's brand name and start a keyword list or a
+ * location tag: " | ", " - ", " / ", ": ", ", ", " (", " @ ", and ". " after a
+ * real word (so "St. Pete" is never split). */
+const NAME_BREAK = /\s*\|\s*|\s+[-\u2013\u2014/]\s+|-\s+(?=")|:\s+|,\s+|(?<=[a-z]{3})\.\s+|\s+\(|\s+@\s+/g;
+
+/** A shop name, then shorter versions cut back at each separator, longest first. */
+export function titleNames(name) {
+  const full = String(name || "").trim();
+  const out = [full];
+  let seen = false;
+  for (const m of full.matchAll(NAME_BREAK)) {
+    // A comma only ends the brand when it is the first separator ("eCarve
+    // LLC, E-Ride Pro..."); after that it is just part of a keyword list.
+    const comma = m[0].trim() === ",";
+    const first = !seen;
+    seen = true;
+    if (comma && !first) continue;
+    const cut = full.slice(0, m.index).replace(/[\s,.;:&\-\u2013\u2014/|]+$/, "").trim();
+    // Keep only cuts that still read as a name, not a fragment.
+    const balanced = (cut.match(/"/g) || []).length % 2 === 0 && !/\([^)]*$/.test(cut);
+    if (cut.length >= 6 && /[a-z]{2}/i.test(cut) && balanced) out.push(cut);
+  }
+  return [...new Set(out)].sort((a, b) => b.length - a.length);
+}
+
 export function assignTitles(listings) {
-  const build = (listing, kind, extra) => {
+  const build = (listing, kind, extra, taken) => {
     // Listing pages use the owner's format, "<Name> - <City> Florida", with the
     // full name; a clash adds the street or neighbourhood in brackets.
     if (kind === "partner") return `${listing.name}${extra ? ` (${extra})` : ""} - ${listing.city} Florida`;
@@ -631,7 +656,6 @@ export function assignTitles(listings) {
     // "<Name>: Reviews, Hours & E-Bike Rentals in <City>, FL". Only shops that
     // rent say "Rentals", and only e-bike rental shops say "E-Bike".
     if (kind === "seo") {
-      const name = `${listing.name}${extra ? ` (${extra})` : ""}`;
       // A name that already says "Rental" doesn't repeat it.
       const what = listing.is_rental && !/rental/i.test(listing.name) ? (listing.is_ebike ? "E-Bike Rentals" : "Bike Rentals") : "";
       const options = [
@@ -639,10 +663,26 @@ export function assignTitles(listings) {
         what && `: Reviews, Hours & Rentals - ${listing.city}, FL`,
         `: Reviews & Hours - ${listing.city}, FL`,
       ].filter(Boolean);
-      const fits = options.find((o) => name.length + o.length <= SEO_TITLE_MAX);
-      // A long name is kept whole rather than cut mid-phrase; Google shortens
-      // the displayed title itself, and the shop name is what people search.
-      return fits ? `${name}${fits}` : `${name}: Reviews & Hours${name.length <= 60 ? ` - ${listing.city}, FL` : ""}`;
+      // Google Business names often carry keyword lists after the brand
+      // ("Surf N Turf: E-Bike ... | Free Delivery | Miramar Beach, Destin").
+      // Try the full name first, then the name cut back at each separator, and
+      // use the longest version that fits the title with the town; the brand
+      // is never cut mid-phrase. The H1 and page body keep the full name.
+      // A cut that clashes with another shop's title (two "La Dolce Vita Bike
+      // Rentals") falls back to the longer, distinct version that still fits.
+      const names = titleNames(listing.name).map((n) => `${n}${extra ? ` (${extra})` : ""}`);
+      const fitted = names
+        .map((name) => {
+          const fits = options.find((o) => name.length + o.length <= SEO_TITLE_MAX);
+          return fits ? `${name}${fits}` : "";
+        })
+        .filter(Boolean);
+      const free = fitted.find((t) => !taken.has(t));
+      if (free) return free;
+      // Nothing fits: use the brand (shortest cut) and let Google shorten the
+      // displayed title. Every fit already taken: use the full, distinct name.
+      const name = fitted.length ? names[0] : names[names.length - 1];
+      return `${name}: Reviews & Hours${name.length <= 60 ? ` - ${listing.city}, FL` : ""}`;
     }
     const name = extra ? `${listing.name} ${extra}` : listing.name;
     return fitTitle(name, ` Reviews - ${listing.city}, FL`);
@@ -661,7 +701,7 @@ export function assignTitles(listings) {
 
       let title = "";
       for (const extra of extras) {
-        title = build(listing, kind, extra);
+        title = build(listing, kind, extra, taken);
         if (!taken.has(title)) break;
       }
       // The name is truncated to fit the title budget, so only a suffix applied
