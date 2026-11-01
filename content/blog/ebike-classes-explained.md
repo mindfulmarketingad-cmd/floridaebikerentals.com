@@ -56,7 +56,8 @@ permitted almost everywhere a bike is.
 
 **Long paved rail trails, distance riding — Class 1 or 3.** Class 1 has the broadest access. Class 3
 covers more ground, but check the trail's rules first: many multi-use paths in Florida allow Class 1
-and 2 while excluding Class 3.
+and 2 while excluding Class 3, and a few go further: Sanibel's shared use path is
+[Class 1 only](/blog/sanibel-ebike-rules-where-to-ride/).
 
 **Riding with children who are riding their own bikes — Class 1.** Nobody in the group needs 28 mph,
 and the absence of a throttle removes a temptation.

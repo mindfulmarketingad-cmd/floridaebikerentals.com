@@ -86,7 +86,9 @@ Realistic expectations for a Florida rental:
   the same rules a bicycle does.
 - **Paved multi-use trails.** Usually open to Class 1 and 2. The Timpoochee Trail along 30A, the
   Pinellas Trail, the Legacy Trail and the Shark Valley loop are all popular e-bike rides. Speed
-  limits on shared paths are common and enforced in places.
+  limits on shared paths are common and enforced in places. Some paths are stricter: Sanibel
+  allows only Class 1 e-bikes, riders 16 and up, on its shared use path - see our
+  [Sanibel e-bike rules guide](/blog/sanibel-ebike-rules-where-to-ride/).
 - **Sidewalks.** Depends entirely on the city. Some allow bicycles on sidewalks outside business
   districts; some ban them; some allow bikes but not e-bikes. Key West, Miami Beach, Naples and
   many beach towns each handle it differently. Naples, for one, has banned e-bikes from its

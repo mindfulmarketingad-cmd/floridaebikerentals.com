@@ -64,7 +64,8 @@ Three rules cover most of it.
 
 **Separated from cars.** A dedicated path is worth more than scenery. The Timpoochee Trail on 30A,
 Sanibel's path network, the West Orange Trail in Winter Garden and the Legacy Trail near Sarasota
-all qualify.
+all qualify. On Sanibel, e-bike riders must be 16 or older, so younger children ride pedal bikes
+(see our [Sanibel e-bike rules](/blog/sanibel-ebike-rules-where-to-ride/)).
 
 **Plan for half the distance you think.** Children measure a ride in stops, not miles. Four miles
 with an ice cream in the middle beats ten miles of scenery.

@@ -64,7 +64,9 @@ Rent in [St. Petersburg](/find/ebike-rentals-in-st-petersburg/) or
 for nearly its entire length, which makes it one of the most relaxed family rides in Florida. The
 ride out to the lighthouse and back, with a stop at Ding Darling, fills a morning comfortably.
 
-Rent on [Sanibel](/find/ebike-rentals-in-sanibel/).
+Only Class 1 e-bikes (no throttle) are allowed on the path, riders 16 and up; our
+[Sanibel e-bike rules and rides guide](/blog/sanibel-ebike-rules-where-to-ride/) has the details.
+Rent on [Sanibel](/cities/sanibel/).
 
 ## 7. Miami Beach and the Venetian Causeway
 

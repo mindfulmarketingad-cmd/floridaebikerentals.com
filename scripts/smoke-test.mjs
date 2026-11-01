@@ -444,9 +444,11 @@ await page.close();
   const pg=await b.newPage(); const blocked=[]; const ga=[];
   pg.on("console",m=>{ if(/Content Security Policy/.test(m.text()) && /google/.test(m.text())) blocked.push(m.text()); });
   pg.on("request",r=>{ if(/googletagmanager\.com\/gtag\/js\?id=G-DX557E1PNG/.test(r.url())) ga.push(r.url()); });
-  await pg.goto("http://localhost:8099/cities/key-west/"); await pg.waitForTimeout(500);
+  await pg.goto("http://localhost:8099/cities/key-west/");
+  // gtag.js is deferred until after load + idle (at most ~2 s), so wait for it rather than a fixed pause.
+  await pg.waitForRequest(r=>/googletagmanager\.com\/gtag\/js/.test(r.url()),{timeout:6000}).catch(()=>{}); await pg.waitForTimeout(300);
   const dl=await pg.evaluate(()=>(window.dataLayer||[]).map(a=>Array.from(a)[0]));
-  ok(`GA4 tag G-DX557E1PNG loads and configures, no CSP blocks (${blocked.length})`, ga.length===1 && dl.includes("config") && blocked.length===0);
+  ok(`GA4 tag G-DX557E1PNG loads (deferred until after load) and configures, no CSP blocks (${blocked.length})`, ga.length===1 && dl.includes("config") && blocked.length===0);
   await pg.close();
 }
 

@@ -342,13 +342,23 @@ const GA_HOSTS = [
 function gaInlineConfig(site) {
   const id = site.analytics?.ga4;
   if (!id || !/^G-[A-Z0-9]+$/.test(id)) return "";
-  return `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}');`;
+  // gtag.js (about 180 KB) is fetched only after the page's load event, when the browser is idle
+  // (or after 2 s at most), so it no longer competes with the hero image and the page's own CSS
+  // and JS. Calls made before then, including the page_view config and app.js events, wait in
+  // dataLayer and are sent once it arrives.
+  const src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
+  return (
+    `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${id}');` +
+    `(function(){function l(){var s=document.createElement('script');s.async=true;s.src='${src}';document.head.appendChild(s)}` +
+    `function i(){if('requestIdleCallback' in window)requestIdleCallback(l,{timeout:2000});else setTimeout(l,1)}` +
+    `if(document.readyState==='complete')i();else addEventListener('load',i,{once:true})})();`
+  );
 }
 
 function gaLoader(site) {
   const inline = gaInlineConfig(site);
   if (!inline) return "";
-  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${attr(site.analytics.ga4)}"></script>\n<script>${inline}</script>`;
+  return `<script>${inline}</script>`;
 }
 
 function adsenseLoader(site) {
