@@ -78,7 +78,7 @@ final day is not really a riding day.
 
 Many do, especially in beach towns where visitors stay in rental houses and condos. Delivery is
 often free within a few miles of the shop and charged beyond that. Browse the shops whose profiles
-list delivery on our [delivery page](/find/ebike-rentals-with-delivery-in-florida/).
+list delivery on our [delivery page](/find/delivery/).
 
 ### How much does e-bike delivery cost in Florida?
 

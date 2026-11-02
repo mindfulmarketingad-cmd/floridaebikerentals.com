@@ -111,8 +111,8 @@ Off-season — late autumn and January — you can often walk up and rent same d
 
 Santa Rosa Beach has the deepest choice, but there are shops the length of the corridor. Compare
 what is open, rated and nearby on our
-[Santa Rosa Beach e-bike rentals page](/find/ebike-rentals-in-santa-rosa-beach/), or browse the
-whole [Emerald Coast and 30A region](/find/ebike-rentals-in-emerald-coast-and-30a/).
+[Santa Rosa Beach e-bike rentals page](/cities/santa-rosa-beach/), or browse the
+whole [Emerald Coast and 30A region](/blog/best-ebike-rentals-in-panhandle-30a-destin-florida/).
 
 ## Related reading
 

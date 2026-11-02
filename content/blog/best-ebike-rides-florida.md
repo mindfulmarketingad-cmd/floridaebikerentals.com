@@ -20,7 +20,7 @@ length of 30A past Grayton Beach, Seaside, Alys Beach and Rosemary Beach. Beach 
 stops and restaurants the whole way, which is why families ride sections of it rather than the
 whole thing. Busy in season; ride early.
 
-Rent in [Santa Rosa Beach](/find/ebike-rentals-in-santa-rosa-beach/).
+Rent in [Santa Rosa Beach](/cities/santa-rosa-beach/).
 
 ## 2. Shark Valley Loop, Everglades National Park
 
@@ -29,7 +29,7 @@ sawgrass prairie, alligators sunning themselves on the verge, and an observation
 halfway point. The full loop on a regular bike in August is an endurance event. On an e-bike it is a
 morning. Bring water, sun cover and patience for wildlife on the path.
 
-Rent in the [Miami area](/find/ebike-rentals-in-miami/).
+Rent in the [Miami area](/cities/miami/).
 
 ## 3. Key West, end to end
 
@@ -38,7 +38,7 @@ to explore by e-bike: compact, flat, terrible for parking, and full of one-way s
 driving slower than riding. Old Town, the Southernmost Point, Fort Zachary Taylor and Smathers Beach
 link together into an easy loop.
 
-Rent in [Key West](/find/ebike-rentals-in-key-west/).
+Rent in [Key West](/cities/key-west/).
 
 ## 4. The Legacy Trail, Sarasota to Venice
 
@@ -47,7 +47,7 @@ well-maintained surface, running south from Sarasota through Osprey and Nokomis 
 extension north into downtown Sarasota makes an out-and-back of nearly 40 miles realistic on assist.
 Trailheads, sections and rules are in our [Legacy Trail guide](/trails/legacy-trail-sarasota-venice/).
 
-Rent in [Sarasota](/find/ebike-rentals-in-sarasota/) or [Venice](/find/ebike-rentals-in-venice/).
+Rent in [Sarasota](/cities/sarasota/) or [Venice](/cities/venice/).
 
 ## 5. The Pinellas Trail, St. Petersburg to Tarpon Springs
 
@@ -55,8 +55,8 @@ Rent in [Sarasota](/find/ebike-rentals-in-sarasota/) or [Venice](/find/ebike-ren
 Dunedin is the popular stretch, ending at a town built for a mid-ride lunch. Dunedin to Tarpon
 Springs adds sponge docks and Greek bakeries.
 
-Rent in [St. Petersburg](/find/ebike-rentals-in-st-petersburg/) or
-[Dunedin](/find/ebike-rentals-in-dunedin/).
+Rent in [St. Petersburg](/cities/st-petersburg/) or
+[Dunedin](/cities/dunedin/).
 
 ## 6. Sanibel Island
 
@@ -75,7 +75,7 @@ Venetian Causeway toward the city with the skyline on one side and Biscayne Bay 
 causeway is the highlight — a chain of low bridges and islands with far less traffic than the
 MacArthur.
 
-Rent in [Miami Beach](/find/ebike-rentals-in-miami-beach/).
+Rent in [Miami Beach](/cities/miami-beach/).
 
 ## 8. St. Augustine, old town and the island
 
@@ -83,14 +83,16 @@ Rent in [Miami Beach](/find/ebike-rentals-in-miami-beach/).
 Lions to Anastasia Island for beach access and the lighthouse. The bridge is the reason to be on an
 e-bike; the historic district is the reason to be on a bike at all, given how little parking exists.
 
-Rent in [St. Augustine](/find/ebike-rentals-in-st-augustine/).
+Visiting between late November and mid-January? See our [Nights of Lights by bike guide](/blog/st-augustine-nights-of-lights-by-bike/) for the downtown no-ride zones and night-riding rules.
+
+Rent in [St. Augustine](/cities/st-augustine/).
 
 ## 9. Amelia Island and Fernandina Beach
 
 **10 to 20 miles.** Downtown Fernandina, the shrimp docks, and a run south along the island past
 Fort Clinch. Quiet roads, big oaks, and a genuinely different feel from the rest of coastal Florida.
 
-Rent in [Fernandina Beach](/find/ebike-rentals-in-fernandina-beach/).
+Rent in [Fernandina Beach](/cities/fernandina-beach/).
 
 ## 10. The West Orange Trail, Winter Garden
 
@@ -98,7 +100,7 @@ Rent in [Fernandina Beach](/find/ebike-rentals-in-fernandina-beach/).
 Garden's downtown sits directly on the trail, with a brick main street, a farmers market and enough
 restaurants to justify the ride on its own.
 
-Rent in [Winter Garden](/find/ebike-rentals-in-winter-garden/).
+Rent in [Winter Garden](/cities/winter-garden/).
 
 ## Choosing a ride for your group
 

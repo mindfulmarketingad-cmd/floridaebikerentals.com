@@ -116,13 +116,13 @@ will meet plenty of dogs on the popular sections at weekends.
 
 Most rental shops for the trail are in Sarasota and Venice, and several Sarasota shops sit within
 easy reach of a trailhead. The full lists, with Google ratings, hours and directions, are on our
-[Sarasota bike rentals](/find/ebike-rentals-in-sarasota/) and
-[Venice bike rentals](/find/ebike-rentals-in-venice/) pages, and the shops nearest each end appear at
+[Sarasota bike rentals](/cities/sarasota/) and
+[Venice bike rentals](/cities/venice/) pages, and the shops nearest each end appear at
 the foot of this guide.
 
 A Class 1 or Class 2 cruiser is the right bike. A fat-tyre bike is extra weight for no benefit on a
 paved trail, unless you also plan to ride sand elsewhere in your stay. If you are staying on Siesta
-Key or Lido and want bikes for the week, ask about [delivery](/find/ebike-rentals-with-delivery-in-florida/)
+Key or Lido and want bikes for the week, ask about [delivery](/find/delivery/)
 and compare [daily and weekly rates](/costs/daily-vs-weekly-ebike-rental-rates/) before you book.
 
 Before you set off, check the battery is full and ask what range the shop expects for the distance

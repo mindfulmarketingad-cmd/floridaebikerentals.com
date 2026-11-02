@@ -24,7 +24,7 @@ riding — busier roads, fewer separated paths. Pensacola Beach is a good flat r
 road. Panama City Beach has plenty of rentals aimed at the resort strip.
 
 **Best for:** families, long paved-path riding, a car-free week.
-**Browse:** [Emerald Coast and 30A rentals](/find/ebike-rentals-in-emerald-coast-and-30a/).
+**Browse:** [Emerald Coast and 30A rentals](/blog/best-ebike-rentals-in-panhandle-30a-destin-florida/).
 
 ## The Florida Keys
 
@@ -34,7 +34,7 @@ separated path along US-1 with water on both sides.
 
 **Best for:** town exploring, one-of-a-kind riding on the Overseas Heritage Trail.
 **Watch for:** theft risk in Key West, and heat with almost no shade in the middle Keys.
-**Browse:** [Florida Keys rentals](/find/ebike-rentals-in-the-florida-keys/).
+**Browse:** [Florida Keys rentals](/blog/best-ebike-rentals-in-florida-keys/).
 
 ## Greater Miami and Fort Lauderdale
 
@@ -47,7 +47,7 @@ road and the New River area are pleasant. Elsewhere in the metro, riding is for 
 than visitors.
 
 **Best for:** city and waterfront riding, evening rides, a wide choice of shops.
-**Browse:** [Miami and Fort Lauderdale rentals](/find/ebike-rentals-in-greater-miami-and-fort-lauderdale/).
+**Browse:** [Miami and Fort Lauderdale rentals](/blog/best-ebike-rentals-in-miami-fort-lauderdale-florida/).
 
 ## Southwest Florida
 
@@ -58,7 +58,7 @@ through old town and along Gulf Shore Boulevard, on the street: the city keeps e
 sidewalks and paths, as our [Naples e-bike guide](/blog/naples-ebike-rules-where-to-ride/) explains. Marco Island suits shorter loops.
 
 **Best for:** relaxed family riding on separated paths.
-**Browse:** [Southwest Florida rentals](/find/ebike-rentals-in-southwest-florida/).
+**Browse:** [Southwest Florida rentals](/blog/best-ebike-rentals-in-sarasota-to-naples-florida/).
 
 ## Sarasota and Bradenton
 
@@ -67,7 +67,7 @@ island riding on Siesta Key, Lido Key, Longboat Key and Anna Maria Island. Anna 
 is built for bikes: a small island, a free trolley for when you are done, and low traffic speeds.
 
 **Best for:** distance riding on the [Legacy Trail](/trails/legacy-trail-sarasota-venice/), island hopping.
-**Browse:** [Sarasota and Bradenton rentals](/find/ebike-rentals-in-sarasota-and-bradenton/).
+**Browse:** [Sarasota and Bradenton rentals](/blog/best-ebike-rentals-in-sarasota-to-naples-florida/).
 
 ## Tampa Bay
 
@@ -80,7 +80,7 @@ Lime and Spin app bikes are not allowed on either. See our
 [Tampa guide to app bikes vs rental shops](/blog/best-ebike-rentals-tampa-florida/).
 
 **Best for:** long trail rides with real towns along the way.
-**Browse:** [Tampa Bay rentals](/find/ebike-rentals-in-tampa-bay/).
+**Browse:** [Tampa Bay rentals](/blog/best-ebike-rentals-in-tampa-bay-st-pete-florida/).
 
 ## Daytona and the Space Coast
 
@@ -89,16 +89,17 @@ the west coast for rentals, but New Smyrna and Cocoa Beach both have good flat r
 Titusville area gives you the Space Coast wildlife refuges.
 
 **Best for:** quieter beach town riding, wildlife.
-**Browse:** [Daytona and Space Coast rentals](/find/ebike-rentals-in-daytona-and-the-space-coast/).
+**Browse:** [Daytona and Space Coast rentals](/blog/best-ebike-rentals-in-daytona-space-coast-florida/).
 
 ## First Coast
 
 Jacksonville, Jacksonville Beach, Ponte Vedra, St. Augustine and Fernandina Beach on Amelia Island.
 St. Augustine is the best visitor ride in the region — a historic district with no parking and a
-bridge to a barrier island. Fernandina Beach is the quiet alternative.
+bridge to a barrier island (in winter, see [Nights of Lights by bike](/blog/st-augustine-nights-of-lights-by-bike/)).
+Fernandina Beach is the quiet alternative.
 
 **Best for:** historic town riding, quieter beaches.
-**Browse:** [First Coast rentals](/find/ebike-rentals-in-first-coast/).
+**Browse:** [First Coast rentals](/blog/best-ebike-rentals-in-jacksonville-st-augustine-north-florida/).
 
 ## Palm Beaches and Treasure Coast
 
@@ -107,7 +108,7 @@ a standout flat waterfront ride, and Jupiter's beach road is excellent. The Trea
 quieter and less rental-dense.
 
 **Best for:** waterfront cruising, upmarket town riding.
-**Browse:** [Palm Beaches and Treasure Coast rentals](/find/ebike-rentals-in-palm-beaches-and-treasure-coast/).
+**Browse:** [Palm Beaches and Treasure Coast rentals](/blog/best-ebike-rentals-in-palm-beach-treasure-coast-florida/).
 
 ## Orlando and Central Florida
 
@@ -115,7 +116,7 @@ Not coastal, but worth knowing: Winter Garden's West Orange Trail is one of the 
 state and a genuine antidote to a theme park week. Ocala, Clermont and the Lake County trail network
 give you the only rolling terrain in Florida, which is where pedal assist earns its keep.
 
-**Browse:** [Orlando and Central Florida rentals](/find/ebike-rentals-in-orlando-and-central-florida/).
+**Browse:** [Orlando and Central Florida rentals](/blog/best-ebike-rentals-in-orlando-central-florida/).
 
 ## How to choose
 

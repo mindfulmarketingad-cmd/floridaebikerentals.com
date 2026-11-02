@@ -107,8 +107,8 @@ Key West's side streets are dim.
 
 Key West has one of the largest concentrations of rental shops in the directory. Compare hours,
 ratings and locations on our
-[Key West e-bike rentals page](/find/ebike-rentals-in-key-west/), or look at the wider
-[Florida Keys region](/find/ebike-rentals-in-the-florida-keys/).
+[Key West e-bike rentals page](/cities/key-west/), or look at the wider
+[Florida Keys region](/blog/best-ebike-rentals-in-florida-keys/).
 
 ## Related reading
 

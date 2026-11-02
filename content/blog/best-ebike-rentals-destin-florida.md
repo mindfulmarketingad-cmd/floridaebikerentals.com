@@ -127,7 +127,7 @@ $300 per bike.
 
 Many do, and in a condo-heavy town like Destin it is close to standard. Delivery is often free
 within a few miles and charged beyond that. Filter for shops that list delivery on our
-[delivery page](/find/ebike-rentals-with-delivery-in-florida/).
+[delivery page](/find/delivery/).
 
 ### Can I ride an e-bike on the beach in Destin?
 
