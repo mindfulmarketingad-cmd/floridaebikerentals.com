@@ -54,11 +54,6 @@
     "width": 800,
     "height": 500
   },
-  "coast-bike-share": {
-    "src": "/assets/img/listings/coast-bike-share.jpg",
-    "width": 800,
-    "height": 500
-  },
   "crank-works-bicycles-good-neighbor-rentals": {
     "src": "/assets/img/listings/crank-works-bicycles-good-neighbor-rentals.jpg",
     "width": 800,
@@ -131,11 +126,6 @@
   },
   "llamaebike": {
     "src": "/assets/img/listings/llamaebike.jpg",
-    "width": 800,
-    "height": 500
-  },
-  "ocean-e-bikes": {
-    "src": "/assets/img/listings/ocean-e-bikes.jpg",
     "width": 800,
     "height": 500
   },

@@ -2276,6 +2276,15 @@
     "webpSmallWidth": 320,
     "webpSmallHeight": 320
   },
+  "retro-city-cycles-orlando": {
+    "src": "/assets/img/logos/retro-city-cycles-orlando.png",
+    "width": 512,
+    "height": 512,
+    "webp": "/assets/img/logos/retro-city-cycles-orlando.webp",
+    "webpSmall": "/assets/img/logos/retro-city-cycles-orlando-320.webp",
+    "webpSmallWidth": 320,
+    "webpSmallHeight": 320
+  },
   "ride-electric": {
     "src": "/assets/img/logos/ride-electric.jpg",
     "width": 512,
