@@ -140,7 +140,8 @@ export function cityPage(site, city, { index, townNotes, blog = [], cityTypeList
   const tagged = (tag) => local.filter((l) => (l.tags || []).includes(tag));
   const withDelivery = tagged("Delivery available");
   const withTours = tagged("Guided tours");
-  const withScooters = tagged("Scooters");
+  // Only shops that rent: a sales/repair-only shop tagged Scooters does not rent them.
+  const withScooters = tagged("Scooters").filter((l) => l.is_rental);
   const withCarts = tagged("Golf carts");
   const specialists = tagged("Electric bikes");
   const openSeven = local.filter((l) => (l.hours || []).filter((h) => !h.closed).length === 7);

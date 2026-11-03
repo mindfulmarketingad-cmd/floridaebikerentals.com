@@ -1,6 +1,6 @@
 {
  "generated_from": "647e9ec6-Outscraper20260902230858s0250.xlsx",
- "count": 560,
+ "count": 561,
  "listings": [
   {
    "place_id": "ChIJQbZUjbWk2YgRNnrodR3-WE0",
@@ -17359,9 +17359,9 @@
     "Parking lot for bicycles",
     "Used bicycle shop"
    ],
-   "description": "",
+   "description": "Retro City Cycles is a family-owned bike shop with two Central Florida locations, Longwood and Orlando. Rentals at the Longwood shop are booked online through Rent a Bike Now (use the Book online button). The Orlando shop is at 1810 N. Orange Ave.",
    "verified": true,
-   "booking_link": "https://www.retrocitycycles.com/book-an-appointment/",
+   "booking_link": "https://www.retrocitycycles.com/rentals/longwood-bicycle-rentals/",
    "price_range": "",
    "time_spent": "",
    "hours": [
@@ -17475,6 +17475,106 @@
    "is_ebike": false,
    "is_rental": true,
    "slug": "retro-city-cycles-longwood"
+  },
+  {
+   "place_id": "",
+   "name": "Retro City Cycles - Orlando",
+   "city": "Orlando",
+   "neighborhood": "",
+   "state": "FL",
+   "postal_code": "32804",
+   "street": "1810 N Orange Ave",
+   "address": "1810 N Orange Ave, Orlando, FL 32804",
+   "phone": "+1 407-895-2700",
+   "website": "https://www.retrocitycycles.com/",
+   "lat": 28.5679048,
+   "lng": -81.372786,
+   "rating": 4.8,
+   "reviews": 284,
+   "reviews_link": "",
+   "maps_link": "https://www.google.com/maps/search/?api=1&query=Retro%20City%20Cycles%2C%201810%20N%20Orange%20Ave%2C%20Orlando%2C%20FL%2032804",
+   "photo": "",
+   "street_view": "",
+   "logo": "https://lh4.googleusercontent.com/-GR3R8t5KKp8/AAAAAAAAAAI/AAAAAAAAAAA/dR6MlpVMCf8/s44-p-k-no-ns-nd/photo.jpg",
+   "category": "Bicycle store",
+   "type": "Bicycle Shop",
+   "subtypes": [
+    "Bicycle Shop",
+    "Bicycle club",
+    "Bicycle rental service",
+    "Bicycle repair shop",
+    "Parking lot for bicycles",
+    "Used bicycle shop"
+   ],
+   "description": "Retro City Cycles is a family-owned bike shop with two Central Florida locations, Orlando and Longwood. Rentals at the Orlando shop on N. Orange Ave are booked online through Rent a Bike Now (use the Book online button).",
+   "verified": true,
+   "booking_link": "https://www.rentabikenow.com/store/?loc=retrocitycycles",
+   "price_range": "",
+   "time_spent": "",
+   "hours": [
+    {
+     "day": "Monday",
+     "hours": "10AM - 6PM",
+     "closed": false
+    },
+    {
+     "day": "Tuesday",
+     "hours": "10AM - 6PM",
+     "closed": false
+    },
+    {
+     "day": "Wednesday",
+     "hours": "10AM - 6PM",
+     "closed": false
+    },
+    {
+     "day": "Thursday",
+     "hours": "10AM - 6PM",
+     "closed": false
+    },
+    {
+     "day": "Friday",
+     "hours": "10AM - 6PM",
+     "closed": false
+    },
+    {
+     "day": "Saturday",
+     "hours": "10AM - 5PM",
+     "closed": false
+    },
+    {
+     "day": "Sunday",
+     "hours": "Closed",
+     "closed": true
+    }
+   ],
+   "about": [
+    {
+     "group": "Activities",
+     "items": [
+      "Bicycle rental"
+     ]
+    },
+    {
+     "group": "Service options",
+     "items": [
+      "In-store shopping",
+      "Onsite services"
+     ]
+    }
+   ],
+   "scores": {},
+   "region": "Orlando & Central Florida",
+   "tags": [
+    "Rentals",
+    "Repairs & service"
+   ],
+   "relevance": 8,
+   "score": 22.0,
+   "is_ebike": false,
+   "is_rental": true,
+   "slug": "retro-city-cycles-orlando",
+   "source_note": "Added 2026-11-03 at the owner's request (Dano Kinnee, founder). Address, phone and hours from retrocitycycles.com/service/; rating from Google via public directories (Oct 2026)."
   },
   {
    "place_id": "ChIJv8CKP87B2YgRE4IkPsfK978",
@@ -32555,7 +32655,7 @@
    "street": "1831 N Highland Ave Ste 50",
    "address": "1831 N Highland Ave Ste 50, Clearwater, FL 33755",
    "phone": "+1 727-223-4766",
-   "website": "http://pevconnection.com/",
+   "website": "https://www.pevconnection.com/",
    "lat": 27.987991,
    "lng": -82.77390659999999,
    "rating": 4.9,
@@ -32572,7 +32672,7 @@
     "Electric motor scooter dealer",
     "Scooter repair shop"
    ],
-   "description": "",
+   "description": "PEV Connection is a personal electric vehicle (PEV) shop in Clearwater. It sells electric unicycles and runs a busy service department that repairs all brands and types of PEV, including e-bikes, electric scooters, Onewheels, hoverboards and electric unicycles, even no-name online-store models. It does not rent e-bikes or scooters.",
    "verified": true,
    "booking_link": "",
    "price_range": "",
@@ -32668,7 +32768,26 @@
    "score": 19.4594,
    "is_ebike": true,
    "is_rental": false,
-   "slug": "pev-connection-llc"
+   "slug": "pev-connection-llc",
+   "listing_kind": "service",
+   "service_label": "Personal electric vehicle sales & repair",
+   "services": [
+    "Electric unicycle sales",
+    "E-bike repair",
+    "Electric scooter repair",
+    "Onewheel repair",
+    "Hoverboard repair",
+    "Electric unicycle repair"
+   ],
+   "knows_about": [
+    "Electric unicycles",
+    "Personal electric vehicle repair",
+    "E-bike repair",
+    "Electric scooter repair",
+    "Onewheel repair",
+    "Hoverboard repair"
+   ],
+   "meta_services": "PEV sales and repairs"
   },
   {
    "place_id": "ChIJswWOvmz_5IgRDmJwCbPnY0c",

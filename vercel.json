@@ -4399,6 +4399,11 @@
       "permanent": true
     },
     {
+      "source": "/partners/retro-city-cycles-orlando/",
+      "destination": "/cities/orlando/retro-city-cycles-orlando/",
+      "permanent": true
+    },
+    {
       "source": "/partners/ride-electric/",
       "destination": "/cities/pensacola/ride-electric/",
       "permanent": true
@@ -7196,6 +7201,11 @@
     {
       "source": "/reviews/retro-city-cycles-longwood/",
       "destination": "/cities/longwood/retro-city-cycles-longwood/",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/retro-city-cycles-orlando/",
+      "destination": "/cities/orlando/retro-city-cycles-orlando/",
       "permanent": true
     },
     {

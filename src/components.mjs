@@ -100,7 +100,11 @@ export function summaryFor(listing) {
     bits.push("It doesn't have enough Google reviews for a star rating yet");
   }
 
-  const does = EXTRAS.filter(([k]) => f.has(k)).map(([, v]) => v);
+  // A sales/repair-only shop does not rent, so its scooter facet means repairs.
+  const svc = isServiceOnly(listing);
+  const does = EXTRAS.filter(([k]) => f.has(k))
+    .map(([k, v]) => (svc && k === "scooters" ? "repairs electric scooters" : v))
+    .filter((v) => !(svc && /^rents /.test(v)));
   if (does.length) bits.push(`${listing.is_rental && f.has("ebike") ? "Besides e-bike rentals, it" : "It"} ${commaList(does.slice(0, 3))}`);
 
   if (f.has("open-7")) bits.push(f.has("early") ? "It's open every day, from 9 AM or earlier" : "It's open seven days a week");
@@ -119,7 +123,7 @@ export const isServiceOnly = (listing) => listing.listing_kind === "service";
 export function metaDescriptionFor(listing) {
   const rating = listing.rating ? `: ${formatRating(listing.rating)} stars from ${formatReviews(listing.reviews)} Google reviews` : "";
   const contact = listing.phone ? `Phone ${listing.phone}, hours, website and directions` : "Hours, address and directions";
-  if (isServiceOnly(listing)) return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for bike sales, service and e-bike repairs.`);
+  if (isServiceOnly(listing)) return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for ${listing.meta_services || "bike sales, service and e-bike repairs"}.`);
   return clamp(`${listing.name} in ${listing.city}, FL${rating}. ${contact} for your e-bike rental.`);
 }
 
@@ -562,7 +566,7 @@ export function localBusinessSchema(site, listing) {
   }
   if (isServiceOnly(listing)) {
     if (listing.description) data.description = listing.description;
-    data.knowsAbout = ["Bicycle sales", "Bicycle repair", "E-bike repair"];
+    data.knowsAbout = listing.knows_about || ["Bicycle sales", "Bicycle repair", "E-bike repair"];
     if ((listing.services || []).length) {
       data.hasOfferCatalog = {
         "@type": "OfferCatalog",
