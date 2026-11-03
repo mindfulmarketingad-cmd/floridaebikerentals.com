@@ -419,6 +419,9 @@ for (const guide of cityGuides) {
     priority: 0.7,
     changefreq: "monthly",
     group: "trails",
+    // A town with hand-written notes reports when they were last checked, so the
+    // sitemap tells Google the page changed when its local rules do.
+    lastmod: trailNotes.get(guide.city.slug)?.checked || undefined,
     search: {
       u: guide.url,
       t: guide.title,

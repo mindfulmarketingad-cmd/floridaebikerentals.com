@@ -42,7 +42,8 @@ The biggest concentration of shops in the state by raw count, and the most varia
 actually do — some are beach rental counters, some are serious e-bike retailers, some are scooter
 shops with a few bikes.
 
-Miami Beach is the ride: Beach Walk, South Pointe, and the Venetian Causeway. Fort Lauderdale's beach
+Miami Beach is the ride: the South Beach bike lanes and the Venetian Causeway. E-bikes are banned
+on the Beachwalk and sidewalks, so check our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/) first. Fort Lauderdale's beach
 road and the New River area are pleasant. Elsewhere in the metro, riding is for commuters rather
 than visitors.
 

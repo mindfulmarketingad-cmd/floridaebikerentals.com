@@ -70,8 +70,9 @@ Rent on [Sanibel](/cities/sanibel/).
 
 ## 7. Miami Beach and the Venetian Causeway
 
-**8 to 12 miles depending on the loop.** Beach Walk from South Pointe north, then across the
-Venetian Causeway toward the city with the skyline on one side and Biscayne Bay on the other. The
+**8 to 12 miles depending on the loop.** The bike lanes from South Pointe north (e-bikes are banned
+on the Beachwalk itself; see our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/)),
+then across the Venetian Causeway toward the city with the skyline on one side and Biscayne Bay on the other. The
 causeway is the highlight — a chain of low bridges and islands with far less traffic than the
 MacArthur.
 

@@ -229,7 +229,9 @@ ${adSlotScript(site, 1)}
 
   return page(site, {
     title,
-    description: clamp(
+    // Hand-written local notes can carry their own meta description (front matter),
+    // so a town with sourced local rules is described by them, not the route count.
+    description: (notes && notes.description) || clamp(
       `${city.name} e-bike routes: ${routes.length} named bike paths mapped within five miles, starting with ${top3[0]}, with distances, surfaces and Florida e-bike rules.`,
       160
     ),
