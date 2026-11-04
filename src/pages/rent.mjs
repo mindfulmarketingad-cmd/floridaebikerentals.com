@@ -293,7 +293,7 @@ export function rentPage(site, { index, listings }) {
   return page(site, {
     title: "Rent an Ebike Today in Florida - Ebike Rental Now",
     description:
-      "Rent an ebike now or for any day: pick your town, day and time, and we find a Florida shop with an electric bike for you. Ebike rental today, quoted before you pay.",
+      "Rent an ebike today or any day: pick your town, day and time, and we find a Florida shop with an electric bike for you. Quoted before you pay.",
     path: RENT_URL,
     body,
     connectHosts: cfg ? [cfg.url] : [],

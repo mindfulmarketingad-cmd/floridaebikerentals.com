@@ -216,8 +216,8 @@ ${adSlotScript(site, 1)}
   return page(site, {
     title: `E-Bike Rentals Near Me - ${stats.total} Florida Shops by Distance`,
     description: clamp(
-      `Find e-bike rentals near you in Florida. Allow location and this page sorts ${stats.total} rental shops across ${stats.cities} towns by distance, closest first, with ratings and directions.`,
-      170
+      `Find e-bike rentals near you in Florida. Allow location and we sort ${stats.total} rental shops in ${stats.cities} towns by distance, with ratings and directions.`,
+      160
     ),
     path: NEAR_ME_URL,
     body,

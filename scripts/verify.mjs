@@ -58,7 +58,8 @@ export function verify(dist, site, { redirects = [], vercelConfig = null } = {})
 
     const desc = decode(/<meta name="description" content="([\s\S]*?)">/.exec(html)?.[1] || "");
     if (!desc) problems.push(`${pageUrl}: missing meta description`);
-    else if (desc.length > 175) problems.push(`${pageUrl}: description is ${desc.length} chars`);
+    // Google cuts snippets at about 160 characters.
+    else if (desc.length > 160) problems.push(`${pageUrl}: description is ${desc.length} chars`);
     else {
       const seen = descriptions.get(desc);
       if (seen) problems.push(`${pageUrl}: duplicate description with ${seen}`);

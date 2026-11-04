@@ -53,7 +53,8 @@ where a [fat-tire e-bike](/electric-bike-types/fat-tire-electric-bikes/) is the 
 
 ## Who a commuter e-bike suits
 
-- **Riders planning long days** on Florida's paved rail trails.
+- **Riders planning long days** on Florida's paved rail trails, such as the
+  [Withlacoochee State Trail](/trails/withlacoochee-state-trail/).
 - **City visitors** who want to cover a lot of ground quickly.
 - **Experienced riders** who find cruisers slow and heavy.
 - **Anyone riding in traffic,** where lights and a slightly higher, more alert position help.

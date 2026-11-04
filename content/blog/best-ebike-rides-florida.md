@@ -111,6 +111,9 @@ Orange Trail out of Winter Garden. Wide, separated from traffic, easy to bail ou
 **First time on an e-bike:** anywhere with a rail trail. The Legacy and Pinellas trails have long
 uninterrupted sections where you can get used to the assist before dealing with junctions.
 
+**A full day in the saddle:** the [Withlacoochee State Trail](/trails/withlacoochee-state-trail/)
+out of Inverness, about 46 paved miles of quiet rail trail through Floral City and the state forest.
+
 **Heat management:** the Pinellas and Legacy trails have real shade. Shark Valley and the 30A
 corridor have very little — ride those before 10am in summer.
 
