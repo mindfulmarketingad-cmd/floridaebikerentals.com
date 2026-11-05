@@ -112,7 +112,9 @@ Orange Trail out of Winter Garden. Wide, separated from traffic, easy to bail ou
 uninterrupted sections where you can get used to the assist before dealing with junctions.
 
 **A full day in the saddle:** the [Withlacoochee State Trail](/trails/withlacoochee-state-trail/)
-out of Inverness, about 46 paved miles of quiet rail trail through Floral City and the state forest.
+out of Inverness, about 46 paved miles of quiet rail trail through Floral City and the state forest,
+or the [Van Fleet State Trail](/trails/van-fleet-state-trail/) through the Green Swamp (29.2 paved
+miles, even quieter).
 
 **Heat management:** the Pinellas and Legacy trails have real shade. Shark Valley and the 30A
 corridor have very little — ride those before 10am in summer.

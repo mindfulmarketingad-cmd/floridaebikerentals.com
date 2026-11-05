@@ -54,7 +54,8 @@ where a [fat-tire e-bike](/electric-bike-types/fat-tire-electric-bikes/) is the 
 ## Who a commuter e-bike suits
 
 - **Riders planning long days** on Florida's paved rail trails, such as the
-  [Withlacoochee State Trail](/trails/withlacoochee-state-trail/).
+  [Withlacoochee State Trail](/trails/withlacoochee-state-trail/) or the
+  [Van Fleet State Trail](/trails/van-fleet-state-trail/).
 - **City visitors** who want to cover a lot of ground quickly.
 - **Experienced riders** who find cruisers slow and heavy.
 - **Anyone riding in traffic,** where lights and a slightly higher, more alert position help.
@@ -66,6 +67,8 @@ Florida has some excellent long paved trails, and they are commuter country:
 - **The [Pinellas Trail](/trails/pinellas-trail/),** running from St. Petersburg towards Tarpon Springs.
 - **The [West Orange Trail](/trails/west-orange-trail/)** from Winter Garden, and the
   [Cross Seminole Trail](/trails/cross-seminole-trail/) north of Orlando.
+- **The [Van Fleet State Trail](/trails/van-fleet-state-trail/)** through the Green Swamp,
+  29.2 remote paved miles between Polk City and Mabel.
 - **City riding in [Orlando](/cities/orlando/), [St. Petersburg](/cities/st-petersburg/) and
   [Miami](/cities/miami/),** where distances are longer than in beach towns.
 
