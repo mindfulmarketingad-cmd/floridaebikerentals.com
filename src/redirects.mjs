@@ -14,8 +14,9 @@
  *  4. Categories. The old topic pages moved to /find/<category>/.
  *  5. Legacy listicles: /blog/5-best-ebike-rental-shops-in-<town>-florida/,
  *     from before this build, go to the town page or the town's one shop.
- *  6. Closed shops (reason "Closed..." in data/excluded-listings.json): the
- *     shop page and its /partners/ and /reviews/ URLs go to the town page.
+ *  6. Closed or removed shops (reason "Closed..." or "Removed..." in
+ *     data/excluded-listings.json): the shop page and its /partners/ and
+ *     /reviews/ URLs go to the town page.
  *  7. Old URLs with Search Console history (src/legacy-redirects.mjs): old
  *     trail, cost, /find, /tours and /rules pages, each to its closest page.
  *
@@ -101,6 +102,11 @@ export const RETIRED_PAGES = [
   { source: "/authors/dev-okafor/", destination: "/authors/editorial-team/" },
   { source: "/authors/marisa-donnelly/", destination: "/authors/editorial-team/" },
   { source: "/authors/priya-raman/", destination: "/authors/editorial-team/" },
+  // North Port's only listing (Louie's Bicycles) was removed at the owner's
+  // request; the town has no page, so its old thin-town URLs go to /cities/.
+  { source: "/cities/north-port/", destination: "/cities/" },
+  { source: "/find/ebike-rentals-in-north-port/", destination: "/cities/" },
+  { source: "/blog/5-best-ebike-rental-shops-in-north-port-florida/", destination: "/cities/" },
 ];
 
 /**

@@ -580,7 +580,7 @@
     },
     {
       "source": "/blog/5-best-ebike-rental-shops-in-north-port-florida/",
-      "destination": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
       "permanent": true
     },
     {
@@ -944,6 +944,11 @@
       "permanent": true
     },
     {
+      "source": "/cities/bradenton/venom-e-bikes-and-mobility-scooters/",
+      "destination": "/cities/bradenton/",
+      "permanent": true
+    },
+    {
       "source": "/cities/cantonment/",
       "destination": "/cities/cantonment/cantonment-on-wheels-llc/",
       "permanent": true
@@ -1160,7 +1165,12 @@
     },
     {
       "source": "/cities/north-port/",
-      "destination": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
+      "permanent": true
+    },
+    {
+      "source": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
       "permanent": true
     },
     {
@@ -1920,7 +1930,7 @@
     },
     {
       "source": "/find/ebike-rentals-in-north-port/",
-      "destination": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
       "permanent": true
     },
     {
@@ -3905,7 +3915,7 @@
     },
     {
       "source": "/partners/louies-bicycles/",
-      "destination": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
       "permanent": true
     },
     {
@@ -5105,7 +5115,7 @@
     },
     {
       "source": "/partners/venom-e-bikes-and-mobility-scooters/",
-      "destination": "/cities/bradenton/venom-e-bikes-and-mobility-scooters/",
+      "destination": "/cities/bradenton/",
       "permanent": true
     },
     {
@@ -6710,7 +6720,7 @@
     },
     {
       "source": "/reviews/louies-bicycles/",
-      "destination": "/cities/north-port/louies-bicycles/",
+      "destination": "/cities/",
       "permanent": true
     },
     {
@@ -7910,7 +7920,7 @@
     },
     {
       "source": "/reviews/venom-e-bikes-and-mobility-scooters/",
-      "destination": "/cities/bradenton/venom-e-bikes-and-mobility-scooters/",
+      "destination": "/cities/bradenton/",
       "permanent": true
     },
     {

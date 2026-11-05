@@ -387,16 +387,17 @@ function excludedSlugs() {
 }
 
 /**
- * Raw listings for businesses that have shut down: entries in
- * data/excluded-listings.json whose reason starts with "Closed". They are
- * dropped like any other exclusion, but src/redirects.mjs sends their old
- * URLs to the town page so links and search history are not lost.
+ * Raw listings for businesses taken off the site: entries in
+ * data/excluded-listings.json whose reason starts with "Closed" (shut down) or
+ * "Removed" (owner asked to be taken down). They are dropped like any other
+ * exclusion, but src/redirects.mjs sends their old URLs to the town page so
+ * links and search history are not lost.
  */
 export function closedListings() {
   const file = join(ROOT, "data", "excluded-listings.json");
   if (!existsSync(file)) return [];
   const closed = new Set(
-    (JSON.parse(readFileSync(file, "utf8")).listings || []).filter((e) => /^closed\b/i.test(e.reason || "")).map((e) => e.slug)
+    (JSON.parse(readFileSync(file, "utf8")).listings || []).filter((e) => /^(closed|removed)\b/i.test(e.reason || "")).map((e) => e.slug)
   );
   if (!closed.size) return [];
   const payload = JSON.parse(readFileSync(join(ROOT, "data", "listings.json"), "utf8"));

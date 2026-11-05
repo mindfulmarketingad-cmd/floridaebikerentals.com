@@ -1,5 +1,5 @@
 {
-  "_readme": "Listings the Outscraper import lets through that are not bike rental businesses. Google lists 'Bicycle rental service' among a business's categories when it is not what the business does, so the importer cannot catch these on its own. Each entry is dropped from every page, index and sitemap. Keep a reason on each so the list stays auditable. A reason starting with 'Closed' marks a business that has shut down: its old shop URLs (/cities/<town>/<shop>/, /partners/<shop>/, /reviews/<shop>/) 301 to its town page, or to /cities/ when the town has no page.",
+  "_readme": "Listings the Outscraper import lets through that are not bike rental businesses. Google lists 'Bicycle rental service' among a business's categories when it is not what the business does, so the importer cannot catch these on its own. Each entry is dropped from every page, index and sitemap. Keep a reason on each so the list stays auditable. A reason starting with 'Closed' marks a business that has shut down; a reason starting with 'Removed' marks one taken down at the owner's request. In both cases its old shop URLs (/cities/<town>/<shop>/, /partners/<shop>/, /reviews/<shop>/) 301 to its town page, or to /cities/ when the town has no page.",
   "listings": [
     {
       "slug": "food-trends-restaurant-garden",
@@ -16,6 +16,14 @@
     {
       "slug": "ocean-e-bikes",
       "reason": "Closed. Ocean E-Bikes, a Punta Gorda e-bike rental, went out of business at least two years ago, as reported on 2026-10-31 by the owner of Jersey Joe's Bike and Ebike Rental, a neighboring Punta Gorda rental shop. Its Google profile has no website and no reviews. Its old URLs 301 to the Punta Gorda town page."
+    },
+    {
+      "slug": "venom-e-bikes-and-mobility-scooters",
+      "reason": "Removed at owner's request 2026-11-05 (venomtransporters@gmail.com): confirmed they do not rent. Bradenton sales/mobility shop; old URLs 301 to the Bradenton town page."
+    },
+    {
+      "slug": "louies-bicycles",
+      "reason": "Removed at owner's request 2026-11-05 (Lonny, late711@verizon.net): confirmed they do not rent e-bikes or pedal bikes. North Port shop; old URLs 301 to /cities/ (North Port has no other listed shops)."
     }
   ]
 }
