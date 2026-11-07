@@ -13,6 +13,7 @@ difficulty: Easy
 region: Emerald Coast & 30A
 rwgps: 49962558
 routeNote: 40.9 mile out-and-back covering the full trail, starting mid-corridor at Grayton Beach State Park
+photo: emerald
 readingTime: 7
 towns: [santa-rosa-beach, miramar-beach, panama-city-beach]
 tags: [30A, Timpoochee Trail, Emerald Coast]

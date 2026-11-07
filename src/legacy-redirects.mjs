@@ -8,7 +8,6 @@ export const GSC_LEGACY_REDIRECTS = [
   // Old trail pages: the nearest town trail guide, town or shop on that trail.
   { source: "/trails/east-central-regional-rail-trail/", destination: "/trails/e-bike-routes-rules-in-new-smyrna-beach-florida/" },
   { source: "/trails/florida-coast-to-coast-trail/", destination: "/trails/" },
-  { source: "/trails/florida-keys-overseas-heritage-trail/", destination: "/blog/best-ebike-rentals-in-florida-keys/" },
   { source: "/trails/gainesville-hawthorne-trail/", destination: "/trails/e-bike-routes-rules-in-gainesville-florida/" },
   { source: "/trails/general-james-a-van-fleet-state-trail/", destination: "/trails/e-bike-routes-rules-in-clermont-florida/" },
   { source: "/trails/good-neighbor-trail/", destination: "/cities/brooksville/" },

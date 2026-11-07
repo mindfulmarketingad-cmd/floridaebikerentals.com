@@ -29,7 +29,7 @@ road. Panama City Beach has plenty of rentals aimed at the resort strip.
 ## The Florida Keys
 
 Key West is the standout — flat, compact, terrible for parking and full of rental shops. Islamorada,
-Marathon and Key Largo have fewer shops but the Overseas Heritage Trail gives you long stretches of
+Marathon and Key Largo have fewer shops but the [Overseas Heritage Trail](/trails/florida-keys-overseas-heritage-trail/) gives you long stretches of
 separated path along US-1 with water on both sides.
 
 **Best for:** town exploring, one-of-a-kind riding on the Overseas Heritage Trail.

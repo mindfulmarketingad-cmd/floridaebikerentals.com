@@ -13,6 +13,7 @@ difficulty: Easy
 region: Orlando & Central Florida
 rwgps: 49320511
 routeNote: About 29.2 miles one way from Polk City to Mabel through the Green Swamp
+photo: trail
 readingTime: 7
 towns: [lakeland, clermont]
 tags: [Van Fleet State Trail, Green Swamp, Polk City, rail trail]

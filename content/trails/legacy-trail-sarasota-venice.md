@@ -13,6 +13,7 @@ difficulty: Easy
 region: Sarasota & Bradenton
 rwgps: 50169669
 routeNote: 18.5 miles one way from the Venice Train Depot to Fruitville Road in Sarasota, +85 ft
+photo: lifeguard
 readingTime: 7
 towns: [sarasota, venice]
 tags: [Legacy Trail, Sarasota, Venice, rail trail]

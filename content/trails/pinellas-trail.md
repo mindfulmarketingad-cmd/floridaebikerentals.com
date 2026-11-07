@@ -13,6 +13,7 @@ difficulty: Easy to moderate
 region: Tampa Bay
 rwgps: 35199992
 routeNote: 46.1 miles end to end from St. Petersburg to Tarpon Springs, +555 ft
+photo: tampa
 readingTime: 7
 towns: [st-petersburg, dunedin, clearwater, largo, tarpon-springs]
 tags: [Pinellas Trail, rail trail, Tampa Bay]

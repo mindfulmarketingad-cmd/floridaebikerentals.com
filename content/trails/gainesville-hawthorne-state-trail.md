@@ -13,6 +13,7 @@ difficulty: Easy
 region: North Florida
 rwgps: 35312163
 routeNote: About 16 miles one way from Boulware Springs in Gainesville to Hawthorne through Paynes Prairie
+photo: trail
 readingTime: 7
 towns: [gainesville]
 tags: [Gainesville-Hawthorne State Trail, Paynes Prairie, Boulware Springs, rail trail]

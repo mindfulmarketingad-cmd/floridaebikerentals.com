@@ -38,7 +38,9 @@ to explore by e-bike: compact, flat, terrible for parking, and full of one-way s
 driving slower than riding. Old Town, the Southernmost Point, Fort Zachary Taylor and Smathers Beach
 link together into an easy loop.
 
-Rent in [Key West](/cities/key-west/).
+Rent in [Key West](/cities/key-west/). For longer rides up the island chain, including the car-free
+Old Seven Mile Bridge to Pigeon Key, see our
+[Overseas Heritage Trail guide](/trails/florida-keys-overseas-heritage-trail/).
 
 ## 4. The Legacy Trail, Sarasota to Venice
 

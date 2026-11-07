@@ -112,6 +112,7 @@ ratings and locations on our
 
 ## Related reading
 
+- [The Florida Keys Overseas Heritage Trail by e-bike](/trails/florida-keys-overseas-heritage-trail/)
 - [The Best E-Bike Rides in Florida](/blog/best-ebike-rides-florida/)
 - [Florida E-Bike Laws Explained](/blog/florida-ebike-laws/)
 - [How Much Does It Cost to Rent an E-Bike in Florida?](/blog/ebike-rental-cost-florida/)

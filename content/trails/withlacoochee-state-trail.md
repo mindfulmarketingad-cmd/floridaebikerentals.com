@@ -13,6 +13,7 @@ difficulty: Easy
 region: Orlando & Central Florida
 rwgps: 35224587
 routeNote: About 46 miles one way from Gulf Junction (Citrus Springs) to Owensboro Junction near Dade City
+photo: trail
 readingTime: 7
 towns: [inverness, brooksville]
 tags: [Withlacoochee State Trail, Inverness, Floral City, rail trail]

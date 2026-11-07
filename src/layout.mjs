@@ -48,6 +48,7 @@ export const HEADER_LINKS = [
       { href: "/trails/withlacoochee-state-trail/", label: "Withlacoochee State Trail" },
       { href: "/trails/van-fleet-state-trail/", label: "Van Fleet State Trail" },
       { href: "/trails/gainesville-hawthorne-state-trail/", label: "Gainesville-Hawthorne State Trail" },
+      { href: "/trails/florida-keys-overseas-heritage-trail/", label: "Overseas Heritage Trail, Keys" },
       { href: "/trails/#city-guides", label: "City riding guides" },
     ],
   },
