@@ -85,7 +85,7 @@ Realistic expectations for a Florida rental:
 - **Roads and bike lanes.** Generally fine. Ride with traffic, use lights after dark, and follow
   the same rules a bicycle does.
 - **Paved multi-use trails.** Usually open to Class 1 and 2. The Timpoochee Trail along 30A, the
-  Pinellas Trail, the Legacy Trail and the Shark Valley loop are all popular e-bike rides. Speed
+  Pinellas Trail, the Legacy Trail and the [Shark Valley loop](/trails/shark-valley/) are all popular e-bike rides. Speed
   limits on shared paths are common and enforced in places. Some paths are stricter: Sanibel
   allows only Class 1 e-bikes, riders 16 and up, on its shared use path - see our
   [Sanibel e-bike rules guide](/blog/sanibel-ebike-rules-where-to-ride/).

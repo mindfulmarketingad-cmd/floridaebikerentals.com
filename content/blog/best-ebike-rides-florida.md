@@ -27,7 +27,9 @@ Rent in [Santa Rosa Beach](/cities/santa-rosa-beach/).
 **15 mile paved loop.** One of the most extraordinary rides in North America: a flat loop through
 sawgrass prairie, alligators sunning themselves on the verge, and an observation tower at the
 halfway point. The full loop on a regular bike in August is an endurance event. On an e-bike it is a
-morning. Bring water, sun cover and patience for wildlife on the path.
+morning. Bring water, sun cover and patience for wildlife on the path. The loop, NPS
+e-bike rules, hours, parking and how rentals work are in our
+[Shark Valley guide](/trails/shark-valley/).
 
 Rent in the [Miami area](/cities/miami/).
 

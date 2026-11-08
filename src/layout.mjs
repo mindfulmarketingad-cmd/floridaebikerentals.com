@@ -49,6 +49,7 @@ export const HEADER_LINKS = [
       { href: "/trails/van-fleet-state-trail/", label: "Van Fleet State Trail" },
       { href: "/trails/gainesville-hawthorne-state-trail/", label: "Gainesville-Hawthorne State Trail" },
       { href: "/trails/florida-keys-overseas-heritage-trail/", label: "Overseas Heritage Trail, Keys" },
+      { href: "/trails/shark-valley/", label: "Shark Valley, Everglades" },
       { href: "/trails/#city-guides", label: "City riding guides" },
     ],
   },
@@ -61,6 +62,9 @@ export const HEADER_LINKS = [
 export const FOOTER_LINKS = [
   { href: "/", label: "Home" },
   { href: "/about/", label: "About" },
+  { href: "/cities/", label: "Cities" },
+  { href: "/trails/", label: "Trails" },
+  { href: "/blog/", label: "Blog" },
   { href: "/costs/", label: "Costs" },
   { href: "/tours/", label: "Tours" },
   { href: "/electric-bike-types/", label: "E-bike types" },

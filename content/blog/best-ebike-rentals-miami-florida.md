@@ -59,7 +59,8 @@ bridge - which is where the motor earns its money. Crandon Park and Bill Baggs a
 
 **Shark Valley, Everglades.** Not Miami, but an hour west and one of the best rides in the country: a
 15-mile paved loop through sawgrass prairie with alligators on the verge. Bring water and sun cover.
-It appears in our [ten best rides guide](/blog/best-ebike-rides-florida/).
+It appears in our [ten best rides guide](/blog/best-ebike-rides-florida/). Our
+[Shark Valley trail guide](/trails/shark-valley/) covers the loop, park rules and rentals.
 
 **Coconut Grove and Coral Gables.** Shaded residential streets, good for a slower ride.
 
