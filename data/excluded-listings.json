@@ -24,6 +24,10 @@
     {
       "slug": "louies-bicycles",
       "reason": "Removed at owner's request 2026-11-05 (Lonny, late711@verizon.net): confirmed they do not rent e-bikes or pedal bikes. North Port shop; old URLs 301 to /cities/ (North Port has no other listed shops)."
+    },
+    {
+      "slug": "streetside-scooters-powersports",
+      "reason": "Removed at owner's request 2026-11-09 (Joe Romano, info@streetsidescooters.com): confirmed they are not a rental shop. Largo sales/powersports shop; old URLs 301 to the Largo town page."
     }
   ]
 }

@@ -1119,6 +1119,11 @@
       "permanent": true
     },
     {
+      "source": "/cities/largo/streetside-scooters-powersports/",
+      "destination": "/cities/largo/",
+      "permanent": true
+    },
+    {
       "source": "/cities/lithia/",
       "destination": "/cities/lithia/ubc-university-bicycle-center-at-alafia-river-state-park/",
       "permanent": true
@@ -4705,7 +4710,7 @@
     },
     {
       "source": "/partners/streetside-scooters-powersports/",
-      "destination": "/cities/largo/streetside-scooters-powersports/",
+      "destination": "/cities/largo/",
       "permanent": true
     },
     {
@@ -7510,7 +7515,7 @@
     },
     {
       "source": "/reviews/streetside-scooters-powersports/",
-      "destination": "/cities/largo/streetside-scooters-powersports/",
+      "destination": "/cities/largo/",
       "permanent": true
     },
     {
