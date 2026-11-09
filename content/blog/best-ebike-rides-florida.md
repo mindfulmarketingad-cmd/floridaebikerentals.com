@@ -88,6 +88,10 @@ Rent in [Miami Beach](/cities/miami-beach/).
 Lions to Anastasia Island for beach access and the lighthouse. The bridge is the reason to be on an
 e-bike; the historic district is the reason to be on a bike at all, given how little parking exists.
 
+For a longer paved day southwest of town, the
+[Palatka-to-St. Augustine State Trail](/trails/palatka-to-st-augustine-state-trail/) runs about 19
+miles from Vermont Heights toward East Palatka — rent in town, then drive to the trailhead.
+
 Visiting between late November and mid-January? See our [Nights of Lights by bike guide](/blog/st-augustine-nights-of-lights-by-bike/) for the downtown no-ride zones and night-riding rules.
 
 Rent in [St. Augustine](/cities/st-augustine/).

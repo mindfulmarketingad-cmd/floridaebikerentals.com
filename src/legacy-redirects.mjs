@@ -14,7 +14,6 @@ export const GSC_LEGACY_REDIRECTS = [
   { source: "/trails/jacksonville-baldwin-rail-trail/", destination: "/trails/e-bike-routes-rules-in-jacksonville-florida/" },
   { source: "/trails/lake-okeechobee-scenic-trail/", destination: "/cities/okeechobee/big-lake-bike-rental/" },
   { source: "/trails/nature-coast-state-trail/", destination: "/trails/e-bike-routes-rules-in-gainesville-florida/" },
-  { source: "/trails/palatka-to-st-augustine-state-trail/", destination: "/cities/st-augustine/" },
   { source: "/trails/upper-tampa-bay-trail/", destination: "/trails/e-bike-routes-rules-in-tampa-florida/" },
   // Old regional cost pages: the Florida rental cost guide (e-bikes) or the scooter rental list.
   { source: "/costs/ebike-rental-costs-in-daytona-and-the-space-coast/", destination: "/blog/ebike-rental-cost-florida/" },

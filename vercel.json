@@ -8449,11 +8449,6 @@
       "permanent": true
     },
     {
-      "source": "/trails/palatka-to-st-augustine-state-trail/",
-      "destination": "/cities/st-augustine/",
-      "permanent": true
-    },
-    {
       "source": "/trails/upper-tampa-bay-trail/",
       "destination": "/trails/e-bike-routes-rules-in-tampa-florida/",
       "permanent": true

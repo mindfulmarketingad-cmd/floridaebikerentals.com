@@ -161,6 +161,7 @@ an app.
 
 - [St. Augustine bike rentals](/cities/st-augustine/) - every shop we track
 - [Best e-bike rentals in Jacksonville, St. Augustine and North Florida](/blog/best-ebike-rentals-in-jacksonville-st-augustine-north-florida/)
+- [Palatka-to-St. Augustine State Trail](/trails/palatka-to-st-augustine-state-trail/) — the paved day ride southwest of town
 - [The best e-bike rides in Florida](/blog/best-ebike-rides-florida/)
 - [Florida e-bike laws](/blog/florida-ebike-laws/)
 - [E-bike rental checklist](/blog/ebike-rental-checklist/)

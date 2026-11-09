@@ -50,6 +50,7 @@ export const HEADER_LINKS = [
       { href: "/trails/gainesville-hawthorne-state-trail/", label: "Gainesville-Hawthorne State Trail" },
       { href: "/trails/florida-keys-overseas-heritage-trail/", label: "Overseas Heritage Trail, Keys" },
       { href: "/trails/shark-valley/", label: "Shark Valley, Everglades" },
+      { href: "/trails/palatka-to-st-augustine-state-trail/", label: "Palatka-to-St. Augustine State Trail" },
       { href: "/trails/#city-guides", label: "City riding guides" },
     ],
   },

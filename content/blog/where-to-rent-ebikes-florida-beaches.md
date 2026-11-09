@@ -97,7 +97,9 @@ Titusville area gives you the Space Coast wildlife refuges.
 Jacksonville, Jacksonville Beach, Ponte Vedra, St. Augustine and Fernandina Beach on Amelia Island.
 St. Augustine is the best visitor ride in the region — a historic district with no parking and a
 bridge to a barrier island (in winter, see [Nights of Lights by bike](/blog/st-augustine-nights-of-lights-by-bike/)).
-Fernandina Beach is the quiet alternative.
+Southwest of town, the
+[Palatka-to-St. Augustine State Trail](/trails/palatka-to-st-augustine-state-trail/) adds a 19-mile
+paved rail-trail day. Fernandina Beach is the quiet alternative.
 
 **Best for:** historic town riding, quieter beaches.
 **Browse:** [First Coast rentals](/blog/best-ebike-rentals-in-jacksonville-st-augustine-north-florida/).
