@@ -4,7 +4,7 @@ metaTitle: Pinellas Trail E-Bike Guide - Route, Sections and Rentals
 description: Riding the Pinellas Trail by e-bike - the full 45-mile route, the best sections for a day ride, shade, trailheads and where to rent in St. Petersburg, Dunedin and Tarpon Springs.
 author: editorial-team
 date: 2026-04-22
-updated: 2026-09-02
+updated: 2026-11-10
 category: Tampa Bay
 order: 2
 distance: 45 miles
@@ -87,9 +87,11 @@ directly on the trail. Dunedin to Tarpon Springs is the quieter alternative.
 
 ### Can I ride an e-bike on the Pinellas Trail?
 
-E-bikes are widely ridden on the trail and every local rental shop supplies them. Class 1 and Class
-2 are the usual rentals; if you are bringing a Class 3, check the current local rules first, since
-faster classes are the ones most often restricted on shared paths.
+E-bikes are widely ridden on the trail and every local rental shop supplies them.
+[State law](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets you ride an e-bike where
+bicycles are allowed, and it lets the trail manager restrict that. Class 1 and Class 2 are the usual
+rentals. We have not found a published Class 3 ban for this trail; if you are bringing a Class 3,
+read the signs.
 
 ### Where should I rent a bike for the Pinellas Trail?
 

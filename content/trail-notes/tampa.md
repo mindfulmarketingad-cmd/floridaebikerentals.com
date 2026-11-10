@@ -1,5 +1,5 @@
 ---
-checked: 2026-10-31
+checked: 2026-11-10
 ---
 
 ## The Riverwalk and Bayshore Boulevard
@@ -34,30 +34,16 @@ These are the local rules on top of the statewide ones below, as of October 31, 
 moving quickly in Tampa Bay, so read the signs where you ride and ask your rental shop what applies
 on the day.
 
-- **In force: e-bikes are allowed on City of Tampa trails, at up to 15 mph.** The City's greenways
-  and trails FAQ lists electric bicycles as allowed on city trails and says all city trails have a
-  15 mph speed limit; the city code adds "unless otherwise posted", so a sign can set a lower limit.
-  Gas-powered bikes are not allowed.
-- **In force: app bikes stay off the Riverwalk and Bayshore.** Under the City's shared micromobility
-  program, rented Lime and Spin e-bikes and scooters may not be ridden on the Riverwalk, Bayshore
-  Boulevard or 7th Avenue in Ybor. That rule is for the app fleets; a bike from a rental shop or your
-  own bike follows the trail rule above.
-- **Rejected: a 10 mph city trail limit.** In December 2025 Tampa City Council unanimously voted down
-  an ordinance that would have set a 10 mph limit on city park trails and banned wheelies and riding
-  more than two abreast. Council's wider bike and pedestrian safety discussion has been continued to
-  January 7, 2027, so the issue may return.
-- **Proposed, not law: Hillsborough County speed limits.** A county ordinance requested by the
-  Sheriff's Office would cap e-bikes, scooters and ordinary bicycles at 10 mph on sidewalks, 15 mph
-  on shared-use paths and trails, and 28 mph on roads, bike lanes and bike paths. As reported, it
-  would also ban wheelies, stunts and street takeovers, require riders to yield to people walking and
-  call out before passing, and let deputies cite riders and impound bikes. County commissioners have
-  set a public hearing for November 10, 2026. If adopted, it would apply in Tampa wherever the city
-  has not set its own rules. Until then, none of it is in force.
+- **In force: e-bikes are allowed on City of Tampa trails, at up to 15 mph.** The City's greenways and trails FAQ lists electric bicycles as allowed on city trails and says all city trails have a 15 mph speed limit; the city code adds "unless otherwise posted", so a sign can set a lower limit. Gas-powered bikes are not allowed.
+- **In force: app bikes stay off the Riverwalk and Bayshore.** Under the City's shared micromobility program, rented Lime and Spin e-bikes and scooters may not be ridden on the Riverwalk, Bayshore Boulevard or 7th Avenue in Ybor. That rule is for the app fleets; a bike from a rental shop or your own bike follows the trail rule above.
+- **Rejected: a 10 mph city trail limit.** In December 2025 Tampa City Council unanimously voted down an ordinance that would have set a 10 mph limit on city park trails and banned wheelies and riding more than two abreast. Council's wider bike and pedestrian safety discussion has been continued to January 7, 2027, so the issue may return.
+- **Proposed, not law: Hillsborough County speed limits.** A county ordinance requested by the Sheriff's Office would cap e-bikes, scooters and ordinary bicycles at 10 mph on sidewalks, 15 mph on shared-use paths and trails, and 28 mph on roads, bike lanes and bike paths. As reported, it would also ban wheelies, stunts and street takeovers, require riders to yield to people walking and call out before passing, and let deputies cite riders and impound bikes. County commissioners set a public hearing for November 10, 2026. Checked that day, we had not seen an adopted ordinance. If it is adopted later, it would apply in Tampa wherever the city has not set its own rules. Until then, none of it is in force.
 
 None of that changes what a sensible rider does anyway: ride slowly where people are walking, ring
 or call out before passing, and use the road bike lanes on Bayshore if you want to go faster.
 
-Sources: [City of Tampa greenways and trails FAQ](https://www.tampa.gov/parks-and-recreation/programs/parks-and-facilities/greenways-and-trails/faq),
+Sources: [City of Tampa shared micromobility program](https://www.tampa.gov/tss-transportation/programs/shared-micromobility-program),
+[City of Tampa greenways and trails FAQ](https://www.tampa.gov/parks-and-recreation/programs/parks-and-facilities/greenways-and-trails/faq),
 [City of Tampa Bayshore Boulevard Greenway](https://www.tampa.gov/parks-and-recreation/programs/parks-and-facilities/greenways-and-trails/projects-under-development/bayshore-boulevard-greenway),
 [THEA Selmon Greenway](https://tampa-xway.com/for-travelers/maps/selmon-greenway/),
 [ABC Action News on the council vote](https://www.tampabay28.com/news/region-hillsborough/tampa-city-council-unanimously-rejects-ordinance-aimed-at-limiting-bikes-on-trails-like-riverwalk-after-strong-community-opposition),

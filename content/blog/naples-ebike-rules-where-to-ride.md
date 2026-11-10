@@ -3,7 +3,7 @@ title: Naples E-Bike Rules (2026) and the Best Places to Ride
 metaTitle: Naples FL E-Bike Rules 2026 - Where You Can Ride & Rent
 description: Naples' 2026 e-bike ordinance in plain English - no sidewalks, parks or shared-use paths in city limits - plus the street routes that work and where to rent.
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-10
 author: editorial-team
 category: Destinations
 tags: [Naples, Southwest Florida, e-bike laws]
@@ -21,31 +21,26 @@ ordinance actually says, where it applies, and the rides that fit inside it.
 
 ## What the 2026 ordinance says
 
-The City of Naples rewrote the bicycle section of its traffic code (Chapter 36) with Ordinance
-26-15864. It passed first reading on April 15, 2026, was adopted at second reading on May 6, 2026,
-and took effect on adoption. The parts a rider needs to know:
+The City of Naples rewrote the bicycle section of its traffic code (Chapter 36) with
+[Ordinance 26-15864](https://library.municode.com/fl/naples/ordinances/code_of_ordinances?nodeId=1427070).
+It passed first reading on April 15, 2026, was adopted at second reading on May 6, 2026, and took
+effect on adoption. The rider rules are now in
+[section 36-4 of the city code](https://library.municode.com/fl/naples/codes/code_of_ordinances?nodeId=PTIICOOR_CH36TRVE).
+The parts a rider needs to know:
 
-- **No e-bikes on sidewalks, shared-use paths or in parks.** No electric bicycle, micromobility
-  device or motorized scooter may be ridden on a shared-use path, within a park or on a sidewalk.
-  The only standing exemption is for mobility devices designed for disabled riders. The council can
-  approve exceptions for specific signed roads or paths, case by case.
-- **No bikes of any kind on business-district sidewalks.** This one covers ordinary bicycles too:
-  nobody may ride on a public or private sidewalk in a business district - including the 5th Avenue
-  South overlay district - or in a shopping center.
-- **Class 3 is 16 and over.** Riders under 16 may not ride a Class 3 e-bike, the pedal-assist type
-  that keeps helping up to 28 mph. Our [e-bike classes guide](/blog/ebike-classes-explained/)
-  explains the three classes.
-- **Park the bike properly.** Bikes and e-bikes must leave at least five feet of clear sidewalk for
-  pedestrians and may not be parked in marked car parking spaces.
-- **Yield on paths.** On paths away from roads, people on bicycles must give way to pedestrians and
-  sound a warning before passing.
+- **No e-bikes on sidewalks, shared-use paths or in parks.** No electric bicycle, micromobility device or motorized scooter may be ridden on a shared-use path, within a park or on a sidewalk. The only standing exemption is for mobility devices designed for disabled riders. The council can approve exceptions for specific signed roads or paths, case by case.
+- **No bikes of any kind on business-district sidewalks.** This one covers ordinary bicycles too: nobody may ride on a public or private sidewalk in a business district - including the 5th Avenue South overlay district - or in a shopping center.
+- **Class 3 is 16 and over.** Riders under 16 may not ride a Class 3 e-bike, the pedal-assist type that keeps helping up to 28 mph. Our [e-bike classes guide](/blog/ebike-classes-explained/) explains the three classes.
+- **Park the bike properly.** Bikes and e-bikes must leave at least five feet of clear sidewalk for pedestrians and may not be parked in marked car parking spaces.
+- **Yield on paths.** On paths away from roads, people on bicycles must give way to pedestrians and sound a warning before passing.
 
 In practice: on an e-bike in Naples you ride in the street or the bike lane, and when there is
 nowhere safe to ride you get off and walk the bike.
 
-A second, separate proposal covering motorized scooters, trikes and the companies that run e-bike
-and scooter tours passed first reading in June 2026. We have not been able to confirm whether it has
-since been adopted, so if you are booking a guided ride, ask the operator how they are routing it.
+A second, separate proposal, on motorized scooters, trikes and the companies that run e-bike and
+scooter tours, passed first reading on June 3, 2026. It is not in Chapter 36 as Municode publishes
+it. The adopted chapter still reflects Ordinance 26-15864, so this guide does not treat the tour
+proposal as in force. If you are booking a guided ride, ask the operator how they are routing it.
 
 ## Where the rules apply - and where they do not
 
@@ -59,9 +54,17 @@ rental shops sit along Tamiami Trail North, outside city limits, while most visi
 them. So the rule of thumb is simple: if you are anywhere near the beach south of Seagate Drive,
 assume the city ordinance applies; further north, ask your rental shop what the county allows.
 
-Florida law still sets the baseline everywhere: an e-bike with a motor of 750 W or less and working
-pedals is treated as a bicycle, with no licence or registration needed. Our
-[Florida e-bike law guide](/blog/florida-ebike-laws/) covers the statewide rules.
+Florida law still sets the baseline everywhere. An e-bike with working pedals and a motor of less
+than 750 watts is treated as a bicycle, with no licence, registration or insurance, under
+[sections 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003) and
+[316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655). Our
+[Florida e-bike law guide](/blog/florida-ebike-laws/) covers the statewide rules. North of the city,
+in unincorporated Collier County, the county's own pedestrian-safety ordinance applies. Adopted
+April 22, 2025, it allows e-bikes on sidewalks, caps sidewalk riding at 15 mph, bars riders under 16
+from Class 3 e-bikes, and tells Class 3 riders over 16 to use a bike lane when one is available.
+The [Collier MPO's summary](https://colliermpo.org/other-bicycle-and-pedestrian-plans-and-studies/)
+and [Ordinance 2025-22](https://library.municode.com/fl/collier_county/ordinances/code_of_ordinances?nodeId=1361570)
+are the county sources.
 
 {{PHOTO|id:cruiser|alt:Rider on an electric beach cruiser on a quiet seafront street, the kind of road riding Naples' rules point visitors towards}}
 
@@ -98,11 +101,12 @@ and walk. Mid-morning on a weekday is the calm time; weekend evenings are busy w
 ## Places to think twice
 
 **The Gordon River Greenway.** About 2.5 miles of asphalt, boardwalk and mulch path through mangrove
-and pine flatwoods between Golden Gate Parkway and the edge of downtown. It is managed by Collier
-County, which welcomes bicycles but lists motorized vehicles as prohibited and does not spell out
-how that applies to e-bike classes - and it is exactly the kind of park path the city ordinance
-keeps e-bikes off. Treat it as a pedal-bike or walking trip unless posted signs or the county tell
-you otherwise.
+and pine flatwoods between Golden Gate Parkway and Central Avenue. Collier County Parks describes it
+for walking, jogging, biking, rollerblading and skateboarding, and does not say whether that
+"biking" includes e-bikes
+([Gordon River Greenway](https://www.collierparks.com/Parks-and-Beaches/Regional-Parks/Gordon-River-Greenway)).
+The city's ordinance keeps e-bikes off city parks and shared-use paths. Unless a sign at the
+trailhead says e-bikes are allowed, treat it as a pedal-bike or walking trip.
 
 **The beach and the pier.** Rental fleets here are street bikes, and shops commonly ask you to keep
 them off the sand: salt and grit get into motors and brakes. Lock up at the beach end and walk.
@@ -121,10 +125,8 @@ list delivery, which is worth asking about if you are staying in a condo or vaca
 When you book, ask three Naples-specific questions:
 
 1. **Which class is the bike?** It matters for anyone under 16, who may not ride a Class 3.
-2. **Will you brief me on the city rules?** A good shop covers sidewalks, parks and parking at
-   handover.
-3. **Is the drop-off inside city limits?** If you are staying in Pelican Bay or Vanderbilt Beach,
-   your first and last mile is under county rules, not the city's.
+2. **Will you brief me on the city rules?** A good shop covers sidewalks, parks and parking at handover.
+3. **Is the drop-off inside city limits?** If you are staying in Pelican Bay or Vanderbilt Beach, your first and last mile is under county rules, not the city's.
 
 If you would rather follow a guide, our [Naples tours page](/tours/naples/) ranks the guided rides
 and other outings bookable in town. For the wider coast from Sarasota down, see the
@@ -141,10 +143,11 @@ thunderstorms. Atlantic hurricane season runs from June 1 to November 30.
 
 ### Can you ride an e-bike on the sidewalk in Naples, Florida?
 
-Not within the City of Naples. Since Ordinance 26-15864 was adopted on May 6, 2026, electric bicycles
-may not be ridden on sidewalks, shared-use paths or within city parks, and no bicycle of any kind may
-be ridden on a sidewalk in a business district such as 5th Avenue South. Ride in the street or bike
-lane, or walk the bike.
+Not within the City of Naples. Since Ordinance 26-15864 was adopted on May 6, 2026,
+[section 36-4](https://library.municode.com/fl/naples/codes/code_of_ordinances?nodeId=PTIICOOR_CH36TRVE)
+says electric bicycles may not be ridden on sidewalks, shared-use paths or within city parks, and no
+bicycle of any kind may be ridden on a sidewalk in a business district such as 5th Avenue South.
+Ride in the street or bike lane, or walk the bike.
 
 ### Where can you ride an e-bike in Naples?
 
@@ -154,26 +157,30 @@ roads with bike lanes or shared-lane markings.
 
 ### Can a 14-year-old ride an e-bike in Naples?
 
-Not a Class 3. The city bars riders under 16 from Class 3 e-bikes. Class 1 and Class 2 bikes are not
-covered by that age rule, though rental shops set their own minimum ages, and Florida requires
-helmets for every bicycle rider under 16.
+Not a Class 3. Section 36-4 bars riders under 16 from Class 3 e-bikes. Class 1 and Class 2 bikes are
+not covered by that age rule, though rental shops set their own minimum ages, and
+[Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires a helmet for every
+bicycle rider or passenger under 16.
 
 ### Do the Naples e-bike rules apply in North Naples and Vanderbilt Beach?
 
-No. The ordinance covers the City of Naples, which ends around Seagate Drive. Pelican Bay, Vanderbilt
-Beach and North Naples are unincorporated Collier County, which sets its own rules, so ask your
-rental shop what applies there.
+No. Ordinance 26-15864 covers the City of Naples, which ends around Seagate Drive. Pelican Bay,
+Vanderbilt Beach and North Naples are unincorporated Collier County. The county's April 2025
+ordinance, summarized by the
+[Collier MPO](https://colliermpo.org/other-bicycle-and-pedestrian-plans-and-studies/), allows e-bikes
+on sidewalks at no more than 15 mph and bars riders under 16 from Class 3 bikes. Ask the shop if a
+particular path posts something stricter.
 
 ### Can I ride an e-bike on the Gordon River Greenway?
 
-It is unclear, so plan not to. Collier County, which manages the greenway, welcomes bicycles but lists
-motorized vehicles as prohibited without addressing e-bike classes, and the city's ordinance keeps
-e-bikes off shared-use paths and parks. Follow the posted signs, or bring a pedal bike.
+Plan not to, unless a sign says otherwise. The county parks page lists biking and does not mention
+e-bikes, and the city ordinance keeps e-bikes off city parks and shared-use paths. Follow the posted
+signs, or bring a pedal bike.
 
 ### Where do I park a rented e-bike in downtown Naples?
 
-At a bike rack. City code bars parking bikes in marked car spaces and requires at least five feet of
-clear sidewalk to be left for pedestrians.
+At a bike rack. Section 36-4 bars parking bikes in marked car spaces and requires at least five feet
+of clear sidewalk for pedestrians.
 
 ## Related reading
 

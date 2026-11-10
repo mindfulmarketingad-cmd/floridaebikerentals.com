@@ -3,7 +3,7 @@ title: Where to Rent E-Bikes on Florida's Beaches - Region by Region
 metaTitle: Florida Beach E-Bike Rentals - Best Regions and Towns
 description: A region-by-region look at where to rent e-bikes on the Florida coast, from the Emerald Coast and 30A to Tampa Bay, Southwest Florida, the Keys and the Atlantic side.
 date: 2026-08-26
-updated: 2026-09-02
+updated: 2026-11-10
 category: Destinations
 tags: [Florida beaches, regions, where to rent]
 readingTime: 8
@@ -43,7 +43,9 @@ actually do — some are beach rental counters, some are serious e-bike retailer
 shops with a few bikes.
 
 Miami Beach is the ride: the South Beach bike lanes and the Venetian Causeway. E-bikes are banned
-on the Beachwalk and sidewalks, so check our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/) first. Fort Lauderdale's beach
+on the Beachwalk and sidewalks
+([City of Miami Beach](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/)),
+so check our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/) first. Fort Lauderdale's beach
 road and the New River area are pleasant. Elsewhere in the metro, riding is for commuters rather
 than visitors.
 
@@ -54,9 +56,13 @@ than visitors.
 
 Naples, Fort Myers, Fort Myers Beach, Sanibel and Marco Island. Sanibel's separated path network is
 the best family riding in the region and arguably in the state, though only Class 1 e-bikes are
-allowed on it (see our [Sanibel e-bike guide](/blog/sanibel-ebike-rules-where-to-ride/)). Naples has excellent flat riding
+allowed on it, riders 16 and up
+([City of Sanibel](https://www.mysanibel.com/318/Bike-Hike-on-the-Shared-Use-Path);
+see our [Sanibel e-bike guide](/blog/sanibel-ebike-rules-where-to-ride/)). Naples has excellent flat riding
 through old town and along Gulf Shore Boulevard, on the street: the city keeps e-bikes off its
-sidewalks and paths, as our [Naples e-bike guide](/blog/naples-ebike-rules-where-to-ride/) explains. Marco Island suits shorter loops.
+sidewalks and paths
+([Naples code section 36-4](https://library.municode.com/fl/naples/codes/code_of_ordinances?nodeId=PTIICOOR_CH36TRVE)),
+as our [Naples e-bike guide](/blog/naples-ebike-rules-where-to-ride/) explains. Marco Island suits shorter loops.
 
 **Best for:** relaxed family riding on separated paths.
 **Browse:** [Southwest Florida rentals](/blog/best-ebike-rentals-in-sarasota-to-naples-florida/).
@@ -77,7 +83,8 @@ draw: 45 miles of rail trail linking St. Pete to Tarpon Springs through a series
 genuinely worth stopping in. Clearwater Beach and St. Pete Beach have holiday rental counters;
 Dunedin and Gulfport have shops aimed at people who actually ride. On the Tampa side, the
 Riverwalk and Bayshore Boulevard make a flat waterfront half-day - on a shop rental, since Tampa's
-Lime and Spin app bikes are not allowed on either. See our
+Lime and Spin app bikes are not allowed on either
+([City of Tampa](https://www.tampa.gov/tss-transportation/programs/shared-micromobility-program)). See our
 [Tampa guide to app bikes vs rental shops](/blog/best-ebike-rentals-tampa-florida/).
 
 **Best for:** long trail rides with real towns along the way.

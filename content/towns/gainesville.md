@@ -41,7 +41,9 @@ toward the trailhead. Details are in our
 ### Are e-bikes allowed on the Gainesville-Hawthorne State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. Ride at a safe speed and yield to walkers and horses.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law
+([Florida State Parks](https://www.floridastateparks.org/learn/explore-bike)). Ride at a safe speed
+and yield to walkers and horses.
 
 ### What kind of bike should I rent in Gainesville?
 

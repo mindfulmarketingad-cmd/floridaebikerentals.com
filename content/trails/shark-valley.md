@@ -4,7 +4,7 @@ metaTitle: Shark Valley by E-Bike: Loop, NPS Rules & Bike Rentals
 description: Riding Shark Valley in Everglades National Park by e-bike - the 15-mile paved loop, observation tower, NPS e-bike rules, hours, fees and rentals.
 author: editorial-team
 date: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-10
 category: South Florida
 order: 10
 distance: 15-mile paved loop
@@ -45,15 +45,9 @@ quickly.
 The loop starts behind the Shark Valley Visitor Center. The Park Service recommends riding it
 counterclockwise, from the west side of the parking area:
 
-- **West road to the observation tower (about 7 miles).** A long, straight paved road that follows a
-  canal south. This is the stretch where you are most likely to see alligators, turtles, snakes and
-  wading birds along the bank. The [Shark Valley Observation Tower](https://www.nps.gov/ever/planyourvisit/svdirections.htm)
-  sits at the halfway point.
-- **The tower.** Walk up for the view over the sawgrass. The Park Service notes a short trail through
-  a tropical hardwood hammock below the tower, and a water fountain here, about seven miles from the
-  parking lot. Do not count on that fountain as your only water.
-- **East return to the visitor center (about 8 miles).** A more winding road back, with wider vistas
-  and borrow-pit lakes where animals often show up. Together the two legs make the 15-mile loop.
+- **West road to the observation tower (about 7 miles).** A long, straight paved road that follows a canal south. This is the stretch where you are most likely to see alligators, turtles, snakes and wading birds along the bank. The [Shark Valley Observation Tower](https://www.nps.gov/ever/planyourvisit/svdirections.htm) sits at the halfway point.
+- **The tower.** Walk up for the view over the sawgrass. The Park Service notes a short trail through a tropical hardwood hammock below the tower, and a water fountain here, about seven miles from the parking lot. Do not count on that fountain as your only water.
+- **East return to the visitor center (about 8 miles).** A more winding road back, with wider vistas and borrow-pit lakes where animals often show up. Together the two legs make the 15-mile loop.
 
 Two short **walking** trails leave the tram road near the visitor center. Leave the bike secured and
 go on foot: the Bobcat Boardwalk (about 0.2 miles, an accessible boardwalk through slough and hammock)
@@ -87,59 +81,25 @@ wait and go around at a distance rather than crowding them.
 ## Rules on the trail
 
 These are National Park Service rules for Everglades National Park, not Florida State Parks rules.
-Section 316.20655 of Florida law is the statewide e-bike framework; it does not replace the
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law is the statewide e-bike framework; it does not replace the
 superintendent's rules inside the park.
 
-- **E-bikes are allowed** on the Shark Valley Tram Road if they have fully operable pedals and an
-  electric motor of less than 750 watts (1 horsepower). That is the Park Service's definition on its
-  [biking page](https://www.nps.gov/ever/planyourvisit/biking.htm) and its
-  [Shark Valley biking page](https://www.nps.gov/thingstodo/biking-at-shark-valley.htm). The speed
-  limit on the tram road is **15 miles per hour**. Other bicycle trails in the park are posted at 10
-  miles per hour. Fully electric bikes that do not require pedaling are treated like motor vehicles:
-  they belong on public roadways, not on the tram road. Our
-  [e-bike classes guide](/blog/ebike-classes-explained/) explains Class 1, 2 and 3; whatever you
-  bring, stay under the posted 15 mph and yield to people on foot.
+- **E-bikes are allowed** on the Shark Valley Tram Road if they have fully operable pedals and an electric motor of less than 750 watts (1 horsepower). That is the Park Service's definition on its [biking page](https://www.nps.gov/ever/planyourvisit/biking.htm) and its [Shark Valley biking page](https://www.nps.gov/thingstodo/biking-at-shark-valley.htm). The speed limit on the tram road is **15 miles per hour**. Other bicycle trails in the park are posted at 10 miles per hour. Fully electric bikes that do not require pedaling are treated like motor vehicles: they belong on public roadways, not on the tram road. Our [e-bike classes guide](/blog/ebike-classes-explained/) explains Class 1, 2 and 3; whatever you bring, stay under the posted 15 mph and yield to people on foot.
 - **Stop for the tram and for authorized park vehicles.** They share the same narrow road.
-- **Roller blades, skateboards, longboards, scooters (except mobility scooters) and other
-  motorized vehicles are not allowed** on the tram/bicycle trail. E-bikes that meet the definition
-  above are the exception.
-- **Helmets** are required for riders under 16, which matches Florida law and is restated by the
-  Park Service at Shark Valley. Helmets are a good idea for everyone; the concession offers them
-  with its rental bikes.
-- **Pets** (other than service animals) are not allowed on the tram road. They may stay in the
-  parking lot only. The Park Service is blunt about why: alligators take prey about the size of a
-  dog.
-- **No fishing** at Shark Valley, and do not assume there will be shade or services once you leave
-  the visitor center.
+- **Roller blades, skateboards, longboards, scooters (except mobility scooters) and other motorized vehicles are not allowed** on the tram/bicycle trail. E-bikes that meet the definition above are the exception.
+- **Helmets** are required for riders under 16, which matches [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) and is restated by the Park Service at Shark Valley. Helmets are a good idea for everyone; the concession offers them with its rental bikes.
+- **Pets** (other than service animals) are not allowed on the tram road. They may stay in the parking lot only. The Park Service is blunt about why: alligators take prey about the size of a dog.
+- **No fishing** at Shark Valley, and do not assume there will be shade or services once you leave the visitor center.
 
 Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the statewide rules that apply
 once you are back on ordinary roads and paths around Miami.
 
 ## Hours, parking and fees
 
-- **Entrance gate.** The Shark Valley area is open daily from 8:30 a.m. to 6:00 p.m. Vehicles cannot
-  enter after 6:00 p.m. The Park Service says you may bike at Shark Valley at any time of day; if
-  you arrive or leave outside the gate hours, you need to park along Highway 41 and enter on foot or
-  by bicycle.
-- **Parking.** The lot is small for the demand. The Park Service warns of long waits between 10 a.m.
-  and 3 p.m., and that the lot may run as one car in, one car out. During the peak months, typically
-  December into April, it says parking is extremely limited and usually fills by 10 a.m. Arriving on
-  a weekday, before 10 a.m. or after 3 p.m., is the advice on the
-  [Shark Valley Visitor Center page](https://www.nps.gov/ever/planyourvisit/svdirections.htm), which
-  also posts a phone line (305-221-8776) for current access conditions. The busy visitor season here
-  runs from November through April.
-- **Entrance fees.** Everglades National Park charges an entrance fee, separate from any bike rental
-  or tram ticket. The park's
-  [fees page](https://www.nps.gov/ever/planyourvisit/fees.htm) lists a private-vehicle pass at $35
-  and a motorcycle pass at $30, each good for seven consecutive days at all park entrances; someone
-  arriving by bicycle or on foot (age 16 or older) pays $20, and children 15 and under are free.
-  America the Beautiful and other federal passes are accepted. The park does not take cash. Digital
-  passes can be bought ahead of time. Non-U.S. residents should read that fees page before they go,
-  because additional charges can apply unless they hold an annual or America the Beautiful pass.
-- **Visitor center hours** vary by season and staffing. The park's
-  [hours page](https://www.nps.gov/ever/planyourvisit/hours.htm) gives typical ranges (generally
-  8 a.m. to 5 p.m. in the drier months and 9 a.m. to 5 p.m. in the wetter months) and tells you to
-  confirm on the visitor center page or by calling the main park line at 305-242-7700.
+- **Entrance gate.** The Shark Valley area is open daily from 8:30 a.m. to 6:00 p.m. Vehicles cannot enter after 6:00 p.m. The Park Service says you may bike at Shark Valley at any time of day; if you arrive or leave outside the gate hours, you need to park along Highway 41 and enter on foot or by bicycle.
+- **Parking.** The lot is small for the demand. The Park Service warns of long waits between 10 a.m. and 3 p.m., and that the lot may run as one car in, one car out. During the peak months, typically December into April, it says parking is extremely limited and usually fills by 10 a.m. Arriving on a weekday, before 10 a.m. or after 3 p.m., is the advice on the [Shark Valley Visitor Center page](https://www.nps.gov/ever/planyourvisit/svdirections.htm), which also posts a phone line (305-221-8776) for current access conditions. The busy visitor season here runs from November through April.
+- **Entrance fees.** Everglades National Park charges an entrance fee, separate from any bike rental or tram ticket. The park's [fees page](https://www.nps.gov/ever/planyourvisit/fees.htm) lists a private-vehicle pass at $35 and a motorcycle pass at $30, each good for seven consecutive days at all park entrances; someone arriving by bicycle or on foot (age 16 or older) pays $20, and children 15 and under are free. America the Beautiful and other federal passes are accepted. The park does not take cash. Digital passes can be bought ahead of time. Non-U.S. residents should read that fees page before they go, because additional charges can apply unless they hold an annual or America the Beautiful pass.
+- **Visitor center hours** vary by season and staffing. The park's [hours page](https://www.nps.gov/ever/planyourvisit/hours.htm) gives typical ranges (generally 8 a.m. to 5 p.m. in the drier months and 9 a.m. to 5 p.m. in the wetter months) and tells you to confirm on the visitor center page or by calling the main park line at 305-242-7700.
 
 Bring more water, sun protection and snacks than the mileage suggests. The Park Service says only
 snacks and drinks are for sale through the concession, and it recommends packing a lunch. It also

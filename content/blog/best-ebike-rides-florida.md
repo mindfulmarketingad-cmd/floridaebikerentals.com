@@ -3,7 +3,7 @@ title: The 10 Best E-Bike Rides in Florida
 metaTitle: Best E-Bike Rides in Florida - 10 Routes Worth Renting For
 description: Ten Florida rides that are better on an e-bike, from the Timpoochee Trail on 30A to Shark Valley, the Legacy Trail, Key West and the Pinellas Trail.
 date: 2026-05-06
-updated: 2026-09-02
+updated: 2026-11-10
 category: Destinations
 tags: [Florida bike trails, e-bike routes]
 readingTime: 9
@@ -68,14 +68,17 @@ Rent in [St. Petersburg](/cities/st-petersburg/) or
 for nearly its entire length, which makes it one of the most relaxed family rides in Florida. The
 ride out to the lighthouse and back, with a stop at Ding Darling, fills a morning comfortably.
 
-Only Class 1 e-bikes (no throttle) are allowed on the path, riders 16 and up; our
+Only Class 1 e-bikes (no throttle) are allowed on the path, riders 16 and up
+([City of Sanibel](https://www.mysanibel.com/318/Bike-Hike-on-the-Shared-Use-Path)); our
 [Sanibel e-bike rules and rides guide](/blog/sanibel-ebike-rules-where-to-ride/) has the details.
 Rent on [Sanibel](/cities/sanibel/).
 
 ## 7. Miami Beach and the Venetian Causeway
 
 **8 to 12 miles depending on the loop.** The bike lanes from South Pointe north (e-bikes are banned
-on the Beachwalk itself; see our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/)),
+on the Beachwalk itself
+([City of Miami Beach](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/));
+see our [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/)),
 then across the Venetian Causeway toward the city with the skyline on one side and Biscayne Bay on the other. The
 causeway is the highlight — a chain of low bridges and islands with far less traffic than the
 MacArthur.

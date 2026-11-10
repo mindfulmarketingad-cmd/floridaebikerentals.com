@@ -4,7 +4,7 @@ metaTitle: Palatka-to-St. Augustine State Trail by E-Bike: Trailheads & Rentals
 description: Riding the Palatka-to-St. Augustine State Trail by e-bike - 19 paved miles along SR 207, trailheads, e-bike rules, hours and area rentals.
 author: editorial-team
 date: 2026-11-09
-updated: 2026-11-09
+updated: 2026-11-10
 category: Northeast Florida
 order: 11
 distance: 19 miles
@@ -39,22 +39,11 @@ April is the easy season; summer heat and afternoon storms build quickly over th
 Florida State Parks lists the trailheads from east to west. Mileages below are the park's own
 round-trip figures from each eastern start to the Putnam County end and back:
 
-- **Vermont Blvd. Trailhead (GPS 29.81569, -81.40269).** Off Vermont Boulevard in St. Johns County.
-  Kiosk and roadside parking only. Farthest east access; the trail continues about a mile east and
-  dead-ends at the railroad tracks. From here west to East River Road and back is about 35 miles.
-- **Vermont Heights Trailhead (GPS 29.80313, -81.41137).** About a mile west of Vermont Boulevard.
-  Managed by St. Johns County Parks and Recreation: kiosk, parking, restroom and picnic area. The
-  usual eastern start — about 34 miles round-trip to East River Road.
-- **Armstrong Park (GPS 29.76242, -81.44736).** St. Johns County park with restrooms, parking, picnic
-  area and a playground. About 5 miles from Vermont Boulevard and about 12 miles from the Putnam
-  County end. An interpretive exhibit near the trail covers Armstrong's African-American community
-  history.
-- **Cora C. Harrison Preserve (GPS 29.71619, -81.51528).** St. Johns County trailhead with restroom,
-  parking and a picnic area. About 9 miles from Vermont Boulevard and about 7 miles from East River
-  Road — a good mid-trail base for a shorter out-and-back.
-- **East River Road Trailhead (GPS 29.66153, -81.60081).** Putnam County end of the state trail:
-  three roadside parking spaces and a map kiosk. Downtown Palatka is a short planned connector past
-  this point, not part of the 19-mile state-trail pavement itself.
+- **Vermont Blvd. Trailhead (GPS 29.81569, -81.40269).** Off Vermont Boulevard in St. Johns County. Kiosk and roadside parking only. Farthest east access; the trail continues about a mile east and dead-ends at the railroad tracks. From here west to East River Road and back is about 35 miles.
+- **Vermont Heights Trailhead (GPS 29.80313, -81.41137).** About a mile west of Vermont Boulevard. Managed by St. Johns County Parks and Recreation: kiosk, parking, restroom and picnic area. The usual eastern start — about 34 miles round-trip to East River Road.
+- **Armstrong Park (GPS 29.76242, -81.44736).** St. Johns County park with restrooms, parking, picnic area and a playground. About 5 miles from Vermont Boulevard and about 12 miles from the Putnam County end. An interpretive exhibit near the trail covers Armstrong's African-American community history.
+- **Cora C. Harrison Preserve (GPS 29.71619, -81.51528).** St. Johns County trailhead with restroom, parking and a picnic area. About 9 miles from Vermont Boulevard and about 7 miles from East River Road — a good mid-trail base for a shorter out-and-back.
+- **East River Road Trailhead (GPS 29.66153, -81.60081).** Putnam County end of the state trail: three roadside parking spaces and a map kiosk. Downtown Palatka is a short planned connector past this point, not part of the 19-mile state-trail pavement itself.
 
 Five map kiosks sit along the corridor. Two sections cross U.S. 207 — use the signals. Cross traffic
 at other intersections does not stop for trail users; you do.
@@ -80,19 +69,12 @@ than the distance suggests — shade and services thin out between the towns.
 
 ## Rules on the trail
 
-- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use
-  trails designated for bicycle use, consistent with Section 316.20655 of Florida law. The park's
-  [experiences page](https://www.floridastateparks.org/parks-and-trails/palatka-st-augustine-state-trail/experiences-amenities)
-  is the current word.
-- **Obey posted speed limits** and ride at a safe speed. Drop the assist near walkers; our
-  [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
-- **Yield and stop.** Be respectful of hikers and other users. Cross traffic at road crossings does
-  not stop — you do. Use the signals at the U.S. 207 crossings.
-- **Hours.** Florida State Parks lists the trail at 8 a.m. to sunset, 365 days a year, with **no
-  fee**.
-- **Dogs are welcome** on a leash no longer than six feet. Walk dogs near the edge of the trail and
-  pick up after them.
-- **Helmets** are recommended for everyone. Florida law requires them for riders under 16.
+- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use trails designated for bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. [Florida State Parks](https://www.floridastateparks.org/learn/explore-bike) states the same rule. The park's [experiences page](https://www.floridastateparks.org/parks-and-trails/palatka-st-augustine-state-trail/experiences-amenities) is the current word.
+- **Obey posted speed limits** and ride at a safe speed. Drop the assist near walkers; our [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
+- **Yield and stop.** Be respectful of hikers and other users. Cross traffic at road crossings does not stop — you do. Use the signals at the U.S. 207 crossings.
+- **Hours.** Florida State Parks lists the trail at 8 a.m. to sunset, 365 days a year, with **no fee**.
+- **Dogs are welcome** on a leash no longer than six feet. Walk dogs near the edge of the trail and pick up after them.
+- **Helmets** are recommended for everyone. [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires them for riders and passengers under 16.
 
 Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the rest of the state rules. For
 downtown St. Augustine riding (Bridge of Lions, Anastasia Island and winter Nights of Lights
@@ -140,7 +122,7 @@ corridor through St. Johns and Putnam counties.
 ### Are e-bikes allowed on the Palatka-to-St. Augustine State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. Ride at a safe speed and yield to other trail users.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. Ride at a safe speed and yield to other trail users.
 
 ### Does the trail go into downtown St. Augustine?
 

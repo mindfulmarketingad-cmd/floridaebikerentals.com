@@ -3,7 +3,7 @@ title: Lime, Spin or a Rental Shop? How to Rent an E-Bike in Tampa (and Where Ap
 metaTitle: Tampa Bike Rental Apps vs Shops - Lime, Spin & the Riverwalk
 description: Lime and Spin e-bikes can't ride Tampa's Riverwalk, Bayshore Boulevard or 7th Avenue in Ybor. When an app bike works, and when to rent from a shop instead.
 date: 2026-10-31
-updated: 2026-10-31
+updated: 2026-11-10
 author: editorial-team
 category: Destinations
 tags: [Tampa, Tampa Bay, bike share]
@@ -14,7 +14,10 @@ There are two ways to get on an electric bike in Tampa today. You can unlock a s
 Lime or Spin with your phone, or you can rent one from a bike shop. They look interchangeable, and
 for a lot of trips they are. But they come with very different rules, and the biggest difference
 catches visitors out every day: **the app bikes are not allowed on the Tampa Riverwalk, Bayshore
-Boulevard or 7th Avenue in Ybor City** - the three places most people want to ride.
+Boulevard or 7th Avenue in Ybor City** - the three places most people want to ride. That ban is on
+the City's [shared micromobility page](https://www.tampa.gov/tss-transportation/programs/shared-micromobility-program),
+which also says shared-bike and scooter operators must be 16 or older and carry a driver's licence
+or learner's permit. Shop rentals are not in that program.
 
 This guide explains how each option works, where each one can and cannot go, and which to pick for
 the trip you have in mind. It is not a ranking of shops. For that, see our
@@ -37,17 +40,12 @@ e-scooters run by two companies, **Lime** and **Spin**, under a City contract. T
 
 The City of Tampa sets the ground rules for both companies:
 
-- **Unlocking.** Download the Lime or Spin app, create an account, scan the QR code on the bike and
-  the trip starts. You end it in the app.
-- **Age and ID.** Riders must be 16 or older and have a valid driver's licence or learner's permit.
-  The companies can set a higher minimum age in their own terms, so check the app.
-- **Speed and range.** The City says the shared vehicles go up to about 15 mph and run 15 to 20 miles
-  on a charge.
+- **Unlocking.** Download the Lime or Spin app, create an account, scan the QR code on the bike and the trip starts. You end it in the app.
+- **Age and ID.** Riders must be 16 or older and have a valid driver's licence or learner's permit. The companies can set a higher minimum age in their own terms, so check the app.
+- **Speed and range.** The City says the shared vehicles go up to about 15 mph and run 15 to 20 miles on a charge.
 - **One rider.** No passengers.
 - **Helmets** are encouraged but not required, and the apps do not hand you one.
-- **Parking.** Trips must end in a designated corral, virtual dock, public bike rack or charging
-  station. When the City brought this in in April 2024 it said riders who leave a vehicle outside an
-  approved spot face an "out-of-hub" fee from the operator, of up to $5.
+- **Parking.** Trips must end in a designated corral, virtual dock, public bike rack or charging station. When the City brought this in in April 2024 it said riders who leave a vehicle outside an approved spot face an "out-of-hub" fee from the operator, of up to $5.
 
 Pricing is set by each company and changes, so check the current rate in the app before you unlock.
 They are priced for short hops, not for an afternoon out: for anything over an hour or two, compare
@@ -74,8 +72,10 @@ You park in a corral, then walk.
 ## Shop rentals have no such ban
 
 A bike you rent from a shop is just an e-bike in the eyes of the law, so the shared-program
-restrictions do not apply. The City of Tampa's greenways and trails FAQ lists electric bicycles as
-allowed on City trails, with a 15 mph limit, and the Riverwalk is part of that trail system. The
+restrictions do not apply. The City of Tampa's
+[greenways and trails FAQ](https://www.tampa.gov/parks-and-recreation/programs/parks-and-facilities/greenways-and-trails/faq)
+lists electric bicycles as allowed on City trails, with a 15 mph limit, and the Riverwalk is part of
+that trail system. The
 Riverwalk is busy with people on foot, so ride it slowly. Our [Tampa routes and rules page](/trails/e-bike-routes-rules-in-tampa-florida/)
 lists the mapped paths and the statewide rules, and our
 [Florida e-bike laws guide](/blog/florida-ebike-laws/) covers classes, ages and helmets.
@@ -84,12 +84,9 @@ A shop rental also gets you things an app bike will not:
 
 - **A helmet and a lock**, at many shops (ask - it is not universal).
 - **A bike that fits**: step-throughs, cruisers, fat tyres, sometimes cargo bikes or kids' bikes.
-- **Riders under 16.** The app program is 16-plus; a shop can put a family on bikes, with helmets
-  required for anyone under 16 under Florida law.
+- **Riders under 16.** The app program is 16-plus and asks for a driver's licence or permit; a shop can put a family on bikes, with helmets required for anyone under 16 under [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065).
 - **A day or more.** Shops rent by the hour, half day, day or week, and you keep the bike overnight.
-- **Delivery.** Several Tampa shops list delivery to hotels and rentals - see
-  [Tampa rentals that deliver](/find/delivery/tampa/) and our
-  [delivery fee guide](/costs/ebike-delivery-fees-florida/).
+- **Delivery.** Several Tampa shops list delivery to hotels and rentals - see [Tampa rentals that deliver](/find/delivery/tampa/) and our [delivery fee guide](/costs/ebike-delivery-fees-florida/).
 
 The trade-off is that you have to collect and return it during opening hours, the shop will take a
 card hold (see [deposits and card holds](/costs/ebike-rental-deposits-and-card-holds/)), and
@@ -134,14 +131,10 @@ just the ones with [electric bikes for rent](/find/ebike-rentals/tampa/). Want a
 
 ## Riding an app bike well in Tampa
 
-- **Cross the streetcar tracks square-on.** The TECO Line Streetcar runs through downtown, the Channel
-  District and Ybor on rails set into the road, and they can catch a narrow tyre. Cross at a right
-  angle.
-- **Check the corral before you set off.** You cannot end a trip just anywhere, and corrals near busy
-  spots fill up on event nights.
+- **Cross the streetcar tracks square-on.** The TECO Line Streetcar runs through downtown, the Channel District and Ybor on rails set into the road, and they can catch a narrow tyre. Cross at a right angle.
+- **Check the corral before you set off.** You cannot end a trip just anywhere, and corrals near busy spots fill up on event nights.
 - **Bring your own helmet** if you care about having one.
-- **Ride in the street, not on busy sidewalks.** The shared bikes must obey traffic laws and yield to
-  pedestrians, with an audible signal before passing.
+- **Ride in the street, not on busy sidewalks.** The shared bikes must obey traffic laws and yield to pedestrians, with an audible signal before passing.
 - **Do not drink and ride.** The City's program rules forbid riding under the influence.
 
 ## FAQs

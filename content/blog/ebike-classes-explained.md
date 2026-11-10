@@ -3,7 +3,7 @@ title: E-Bike Classes Explained - Class 1, 2 and 3 for Florida Renters
 metaTitle: E-Bike Classes 1, 2 and 3 Explained for Florida Rentals
 description: What Class 1, Class 2 and Class 3 e-bikes actually mean, how throttles and pedal assist differ, and which class to rent for Florida beach paths and trails.
 date: 2026-07-01
-updated: 2026-09-02
+updated: 2026-11-10
 category: Rules & Safety
 tags: [e-bike classes, pedal assist, throttle]
 readingTime: 6
@@ -12,7 +12,8 @@ readingTime: 6
 Every Florida rental contract names a class. Most renters sign without knowing what it means, then
 discover on the trail that their bike behaves differently from their friend's. The three-class
 system is genuinely simple, and knowing it helps you rent the right bike and stay legal on shared
-paths.
+paths. Florida's definitions are in
+[section 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003) of the Florida Statutes.
 
 ## The three classes
 
@@ -24,12 +25,15 @@ United States, because it behaves most like a bicycle.
 the bike without pedalling using a thumb throttle or twist grip. This is what most Florida holiday
 rentals are.
 
-**Class 3 — pedal assist only, up to 28 mph.** Faster assist, no throttle, and a speedometer is
-required. Fastest to cover ground, most restricted on shared paths, and the class rental shops are most
-likely to keep from younger riders.
+**Class 3 — pedal assist only, up to 28 mph.** Faster assist, and the motor helps only while you
+pedal. Fastest to cover ground, and the class rental shops are most likely to keep from younger
+riders. Florida's definition does not require a speedometer.
 
-All three top out at a **750 watt motor** and must have functioning pedals. Beyond those limits, it
-is not an electric bicycle in the legal sense, and different rules apply entirely.
+All three need functioning pedals and an electric motor of **less than 750 watts**. A motor rated
+at 750 watts is outside the definition. Beyond those limits, it is not an electric bicycle in the
+legal sense, and different rules apply entirely. The riding rules, including no licence,
+registration or insurance, are in
+[section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655).
 
 ## Pedal assist versus throttle, in practice
 
@@ -55,9 +59,9 @@ collisions rental shops see.
 permitted almost everywhere a bike is.
 
 **Long paved rail trails, distance riding — Class 1 or 3.** Class 1 has the broadest access. Class 3
-covers more ground, but check the trail's rules first: many multi-use paths in Florida allow Class 1
-and 2 while excluding Class 3, and a few go further: Sanibel's shared use path is
-[Class 1 only](/blog/sanibel-ebike-rules-where-to-ride/).
+covers more ground, but check the trail's rules first. State law lets the agency in charge of a path
+restrict e-bikes. Florida State Parks allow them on bicycle trails without a class split. Sanibel's
+shared use path is [Class 1 only](/blog/sanibel-ebike-rules-where-to-ride/).
 
 **Riding with children who are riding their own bikes — Class 1.** Nobody in the group needs 28 mph,
 and the absence of a throttle removes a temptation.

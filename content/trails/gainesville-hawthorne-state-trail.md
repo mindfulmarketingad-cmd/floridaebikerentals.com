@@ -4,7 +4,7 @@ metaTitle: Gainesville-Hawthorne State Trail by E-Bike: Trailheads & Rentals
 description: Riding the Gainesville-Hawthorne State Trail by e-bike - 16 paved miles through Paynes Prairie, trailheads, e-bike rules, hours and Gainesville rentals.
 author: editorial-team
 date: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-10
 category: North Central Florida
 order: 8
 distance: 16 miles
@@ -39,26 +39,14 @@ and afternoon storms build quickly over the open prairie.
 
 Mileage runs west to east from Gainesville. Florida State Parks' trail map marks the main stops:
 
-- **Boulware Springs Trailhead (mile 0).** Boulware Springs City Park on SE 15th Street, Gainesville.
-  The usual start, with parking at the old water-works building. The city manages the park; Florida
-  State Parks lists this trailhead's seasonal hours separately from the Paynes Prairie portion (see
-  Rules below). A Depot Trail connector continues toward downtown Gainesville for riders who want
-  extra paved miles before or after the state trail.
-- **Sweetwater Overlook and La Chua Trail (around miles 0.7 to 1.0).** Short spur to a prairie
-  overlook, and the junction with the La Chua hiking trail into Paynes Prairie. La Chua is for
-  walkers, not bikes; leave the e-bike secured and walk if you want the boardwalk and wildlife
-  platform.
+- **Boulware Springs Trailhead (mile 0).** Boulware Springs City Park on SE 15th Street, Gainesville. The usual start, with parking at the old water-works building. The city manages the park; Florida State Parks lists this trailhead's seasonal hours separately from the Paynes Prairie portion (see Rules below). A Depot Trail connector continues toward downtown Gainesville for riders who want extra paved miles before or after the state trail.
+- **Sweetwater Overlook and La Chua Trail (around miles 0.7 to 1.0).** Short spur to a prairie overlook, and the junction with the La Chua hiking trail into Paynes Prairie. La Chua is for walkers, not bikes; leave the e-bike secured and walk if you want the boardwalk and wildlife platform.
 - **Alachua Lake Overlook spur (around mile 1.8).** Another short paved spur to a prairie view.
-- **Red Wolf Pond and Prairie Creek Boardwalk (around miles 4.0 to 4.8).** Mid-prairie stops along
-  the corridor.
-- **Rochelle / Prairie Creek Preserve (around mile 6.4).** Parking at the intersection of county
-  roads 234 and 2082. A useful mid-trail base if you want a shorter out-and-back from either end.
-- **Phifer Flatwoods Preserve (around miles 9.3 to 9.9).** Marsh and swamp side trails off the paved
-  corridor.
-- **Lochloosa equestrian trailhead (around mile 13.8).** 7902 SE 200th Drive, off CR 2082 west of
-  Hawthorne. Parking; the equestrian trail continues alongside the pavement.
-- **Hawthorne Trailhead (around mile 15.2 to 16).** 2182 SE 71st Avenue, Hawthorne. Parking at the
-  east end of the state trail; downtown Hawthorne is a short ride farther into town.
+- **Red Wolf Pond and Prairie Creek Boardwalk (around miles 4.0 to 4.8).** Mid-prairie stops along the corridor.
+- **Rochelle / Prairie Creek Preserve (around mile 6.4).** Parking at the intersection of county roads 234 and 2082. A useful mid-trail base if you want a shorter out-and-back from either end.
+- **Phifer Flatwoods Preserve (around miles 9.3 to 9.9).** Marsh and swamp side trails off the paved corridor.
+- **Lochloosa equestrian trailhead (around mile 13.8).** 7902 SE 200th Drive, off CR 2082 west of Hawthorne. Parking; the equestrian trail continues alongside the pavement.
+- **Hawthorne Trailhead (around mile 15.2 to 16).** 2182 SE 71st Avenue, Hawthorne. Parking at the east end of the state trail; downtown Hawthorne is a short ride farther into town.
 
 Florida State Parks lists four parking trailheads: Boulware Springs, Rochelle, the Lochloosa
 equestrian lot and Hawthorne. The paved trail has a grassy equestrian trail running alongside for
@@ -84,24 +72,12 @@ more water than the distance suggests — services thin out once you leave Gaine
 
 ## Rules on the trail
 
-- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use
-  trails designated for bicycle use, consistent with Section 316.20655 of Florida law. The park's
-  [experiences page](https://www.floridastateparks.org/parks-and-trails/gainesville-hawthorne-state-trail/experiences-amenities)
-  is the current word.
-- **Obey posted speed limits** and ride at a safe speed. Drop the assist near walkers and horses; our
-  [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
-- **Cyclists yield to other users, and everyone yields to horses.** Keep right, pass on the left and
-  give a clear warning when you pass. Cross traffic at road crossings does not stop — you do.
-- **Hours.** Florida State Parks lists the trail at 8 a.m. to sunset, 365 days a year, with **no
-  fee**. The Boulware Springs trailhead has its own seasonal hours on the park's hours page (8 a.m.
-  to 6 p.m. November through April; 8 a.m. to 8 p.m. May through October), and the Paynes Prairie
-  portion is open 8 a.m. until sundown year-round. The city-managed Boulware Springs parking area is
-  listed separately on the park's main page; confirm current lot hours before you leave a car there
-  late in the day.
-- **Dogs are welcome** on a leash no longer than six feet on the Gainesville-Hawthorne State Trail.
-  Separate Paynes Prairie hiking trails (including La Chua) have their own pet rules — check before
-  you walk in with a dog.
-- **Helmets** are recommended for everyone. Florida law requires them for riders under 16.
+- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use trails designated for bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. [Florida State Parks](https://www.floridastateparks.org/learn/explore-bike) states the same rule. The park's [experiences page](https://www.floridastateparks.org/parks-and-trails/gainesville-hawthorne-state-trail/experiences-amenities) is the current word.
+- **Obey posted speed limits** and ride at a safe speed. Drop the assist near walkers and horses; our [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
+- **Cyclists yield to other users, and everyone yields to horses.** Keep right, pass on the left and give a clear warning when you pass. Cross traffic at road crossings does not stop — you do.
+- **Hours.** Florida State Parks lists the trail at 8 a.m. to sunset, 365 days a year, with **no fee**. The Boulware Springs trailhead has its own seasonal hours on the park's hours page (8 a.m. to 6 p.m. November through April; 8 a.m. to 8 p.m. May through October), and the Paynes Prairie portion is open 8 a.m. until sundown year-round. The city-managed Boulware Springs parking area is listed separately on the park's main page; confirm current lot hours before you leave a car there late in the day.
+- **Dogs are welcome** on a leash no longer than six feet on the Gainesville-Hawthorne State Trail. Separate Paynes Prairie hiking trails (including La Chua) have their own pet rules — check before you walk in with a dog.
+- **Helmets** are recommended for everyone. [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires them for riders and passengers under 16.
 
 Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the rest of the state rules.
 
@@ -134,7 +110,7 @@ Preserve State Park and other conservation lands.
 ### Are e-bikes allowed on the Gainesville-Hawthorne State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. Ride at a safe speed and yield to walkers and horses.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. Ride at a safe speed and yield to walkers and horses.
 
 ### Where is the best place to start the Gainesville-Hawthorne State Trail?
 
