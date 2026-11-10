@@ -127,7 +127,9 @@ out of Inverness, about 46 paved miles of quiet rail trail through Floral City a
 the [Van Fleet State Trail](/trails/van-fleet-state-trail/) through the Green Swamp (29.2 paved
 miles, even quieter), or the
 [Gainesville-Hawthorne State Trail](/trails/gainesville-hawthorne-state-trail/) through Paynes Prairie
-(16 paved miles, easy out-and-back from Gainesville).
+(16 paved miles, easy out-and-back from Gainesville). Around Jacksonville, the shaded
+[Jacksonville-Baldwin Rail Trail](/trails/jacksonville-baldwin-rail-trail/) gives you 14.5 paved
+miles to Baldwin (keep to 15 mph under the city's e-bike rules).
 
 **Heat management:** the Pinellas and Legacy trails have real shade. Shark Valley and the 30A
 corridor have very little — ride those before 10am in summer.

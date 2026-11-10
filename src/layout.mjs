@@ -51,6 +51,7 @@ export const HEADER_LINKS = [
       { href: "/trails/florida-keys-overseas-heritage-trail/", label: "Overseas Heritage Trail, Keys" },
       { href: "/trails/shark-valley/", label: "Shark Valley, Everglades" },
       { href: "/trails/palatka-to-st-augustine-state-trail/", label: "Palatka-to-St. Augustine State Trail" },
+      { href: "/trails/jacksonville-baldwin-rail-trail/", label: "Jacksonville-Baldwin Rail Trail" },
       { href: "/trails/#city-guides", label: "City riding guides" },
     ],
   },

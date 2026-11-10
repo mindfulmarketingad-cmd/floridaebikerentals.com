@@ -106,7 +106,9 @@ St. Augustine is the best visitor ride in the region — a historic district wit
 bridge to a barrier island (in winter, see [Nights of Lights by bike](/blog/st-augustine-nights-of-lights-by-bike/)).
 Southwest of town, the
 [Palatka-to-St. Augustine State Trail](/trails/palatka-to-st-augustine-state-trail/) adds a 19-mile
-paved rail-trail day. Fernandina Beach is the quiet alternative.
+paved rail-trail day, and west of Jacksonville the
+[Jacksonville-Baldwin Rail Trail](/trails/jacksonville-baldwin-rail-trail/) is a shaded 14.5-mile
+alternative to the beach. Fernandina Beach is the quiet alternative.
 
 **Best for:** historic town riding, quieter beaches.
 **Browse:** [First Coast rentals](/blog/best-ebike-rentals-in-jacksonville-st-augustine-north-florida/).

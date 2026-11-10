@@ -52,7 +52,7 @@ where a [fat-tire e-bike](/electric-bike-types/fat-tire-electric-bikes/) is the 
 
 ## Who a commuter e-bike suits
 
-- **Riders planning long days** on Florida's paved rail trails, such as the [Withlacoochee State Trail](/trails/withlacoochee-state-trail/), the [Van Fleet State Trail](/trails/van-fleet-state-trail/) or the [Gainesville-Hawthorne State Trail](/trails/gainesville-hawthorne-state-trail/).
+- **Riders planning long days** on Florida's paved rail trails, such as the [Withlacoochee State Trail](/trails/withlacoochee-state-trail/), the [Van Fleet State Trail](/trails/van-fleet-state-trail/) the [Gainesville-Hawthorne State Trail](/trails/gainesville-hawthorne-state-trail/) or the [Jacksonville-Baldwin Rail Trail](/trails/jacksonville-baldwin-rail-trail/).
 - **City visitors** who want to cover a lot of ground quickly.
 - **Experienced riders** who find cruisers slow and heavy.
 - **Anyone riding in traffic,** where lights and a slightly higher, more alert position help.

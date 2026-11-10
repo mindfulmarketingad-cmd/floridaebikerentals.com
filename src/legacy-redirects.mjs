@@ -11,7 +11,6 @@ export const GSC_LEGACY_REDIRECTS = [
   { source: "/trails/gainesville-hawthorne-trail/", destination: "/trails/e-bike-routes-rules-in-gainesville-florida/" },
   { source: "/trails/general-james-a-van-fleet-state-trail/", destination: "/trails/e-bike-routes-rules-in-clermont-florida/" },
   { source: "/trails/good-neighbor-trail/", destination: "/cities/brooksville/" },
-  { source: "/trails/jacksonville-baldwin-rail-trail/", destination: "/trails/e-bike-routes-rules-in-jacksonville-florida/" },
   { source: "/trails/lake-okeechobee-scenic-trail/", destination: "/cities/okeechobee/big-lake-bike-rental/" },
   { source: "/trails/nature-coast-state-trail/", destination: "/trails/e-bike-routes-rules-in-gainesville-florida/" },
   { source: "/trails/upper-tampa-bay-trail/", destination: "/trails/e-bike-routes-rules-in-tampa-florida/" },
