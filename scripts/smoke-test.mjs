@@ -1,8 +1,10 @@
 import { chromium, devices } from "playwright";
 import { createServer } from "node:http";
 import { readFileSync, existsSync, statSync } from "node:fs";
-import { join, extname } from "node:path";
-const DIST="/home/user/floridaebikerentals.com/dist";
+import { join, extname, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
+const DIST = join(ROOT, "dist");
 const TYPES={".html":"text/html",".css":"text/css",".js":"text/javascript",".json":"application/json",".svg":"image/svg+xml",".png":"image/png",".ico":"image/x-icon",".xml":"application/xml",".txt":"text/plain",".webmanifest":"application/manifest+json"};
 const server=createServer((q,r)=>{let p=decodeURIComponent(q.url.split("?")[0]);let f=join(DIST,p);if(existsSync(f)&&statSync(f).isDirectory())f=join(f,"index.html");if(!existsSync(f)){r.writeHead(404);r.end();return;}r.writeHead(200,{"Content-Type":TYPES[extname(f)]||"application/octet-stream"});r.end(readFileSync(f));});
 await new Promise(r=>server.listen(8099,r));
@@ -143,7 +145,7 @@ for (const path of ["/", "/trails/timpoochee-trail-30a/", "/trails/cross-seminol
 // 4i. /tours/ is a static browse page with town guides; no catch-all redirect sends it away
 {
   const { readFileSync, existsSync: has } = await import("node:fs");
-  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const vercel=JSON.parse(readFileSync(ROOT + "/vercel.json","utf8")).redirects||[];
   const blocked=vercel.some(r=>r.source==="/tours/"||r.source==="/tours/:slug/");
   const home=readFileSync(DIST+"/index.html","utf8");
   ok("/tours/ exists, is linked from the header and the homepage carousel, and nothing redirects it",
@@ -232,7 +234,7 @@ await page.close();
 // host formats; old listicle URLs redirect to the town page that replaced them
 {
   const { readFileSync, existsSync: has } = await import("node:fs");
-  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const vercel=JSON.parse(readFileSync(ROOT + "/vercel.json","utf8")).redirects||[];
   const netlify=readFileSync(DIST+"/_redirects","utf8");
   const thin="/find/ebike-rentals-in-daytona-beach-shores/";
   const legacy="/blog/5-best-ebike-rental-shops-in-daytona-beach-florida/";
@@ -256,31 +258,71 @@ ok(`featured images are wide stock photos (blog ${blogBanner[0].split("/").pop()
    /\/stock\//.test(blogBanner[0]) && blogBanner[1]>=1400 && /\/stock\/scene-keys\.jpg$/.test(keysHero[0]) && keysHero[1]>=1400 && !/\.svg$/.test(og) && svgs==="0");
 await page.close();
 
-// 4p. AdSense quality fixes: one canonical host, no thin pages in the
-// sitemap, reviews merged into partners, no invented authors
+// 4p. AdSense quality fixes: one canonical host, no search-result URLs in the
+// sitemap, review pages only when they have real review data, no invented authors
 {
-  const { readFileSync, readdirSync } = await import("node:fs");
+  const { readFileSync, readdirSync, existsSync: has } = await import("node:fs");
   const sitemaps=readdirSync(DIST).filter(f=>/^sitemap-.*\.xml$/.test(f));
   const locs=sitemaps.flatMap(f=>[...readFileSync(DIST+"/"+f,"utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]));
   const offHost=locs.filter(u=>!u.startsWith("https://www.floridaebikerentals.com/"));
-  const thin=locs.filter(u=>/\/search\/[^/]+\/$/.test(u)||/\/reviews\//.test(u));
-  ok(`sitemap: ${locs.length} URLs, all on www, none for search results or reviews`,
-     locs.length>300 && offHost.length===0 && thin.length===0);
+  const searchLocs=locs.filter(u=>/\/search\/[^/]+\/$/.test(u));
+  const reviewLocs=locs.filter(u=>/\/reviews\//.test(u));
+  const hubInSitemap=reviewLocs.some(u=>u.endsWith("/reviews/"));
+  ok(`sitemap: ${locs.length} URLs, all on www, no search results, ${reviewLocs.length} review URLs including the hub`,
+     locs.length>300 && offHost.length===0 && searchLocs.length===0 && hubInSitemap && reviewLocs.length>1);
 
-  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const vercel=JSON.parse(readFileSync(ROOT + "/vercel.json","utf8")).redirects||[];
   const rv=vercel.find(r=>r.source==="/reviews/bike-man-bike-rentals/");
   const pv=vercel.find(r=>r.source==="/partners/bike-man-bike-rentals/");
-  ok("/reviews/<shop>/ and /partners/<shop>/ both go straight to /cities/<town>/<shop>/",
-     rv && pv && rv.destination==="/cities/key-west/bike-man-bike-rentals/" && pv.destination===rv.destination && rv.permanent && pv.permanent);
+  const closedReview=vercel.find(r=>r.source==="/reviews/ocean-e-bikes/");
+  const removedReview=vercel.find(r=>r.source==="/reviews/louies-bicycles/");
+  const venomReview=vercel.find(r=>r.source==="/reviews/venom-e-bikes-and-mobility-scooters/");
+  const streetsideReview=vercel.find(r=>r.source==="/reviews/streetside-scooters-powersports/");
+  const mergedReview=vercel.find(r=>r.source==="/reviews/electric-bike-miami/");
+  const catchAll=vercel.find(r=>r.source==="/reviews/:slug/" || r.source==="/reviews/");
+  ok("/partners/<shop>/ still redirects to the listing; live /reviews/<shop>/ does not",
+     !rv && pv && pv.destination==="/cities/key-west/bike-man-bike-rentals/" && pv.permanent && !catchAll);
+  ok("closed and removed review URLs still leave the shop; merged slugs go to the surviving review page",
+     closedReview && closedReview.destination==="/cities/punta-gorda/" &&
+     venomReview && venomReview.destination==="/cities/bradenton/" &&
+     streetsideReview && streetsideReview.destination==="/cities/largo/" &&
+     removedReview && removedReview.destination==="/cities/" &&
+     mergedReview && mergedReview.destination==="/reviews/haulover-bike-rentals/" &&
+     !has(DIST+"/reviews/ocean-e-bikes/index.html") &&
+     !has(DIST+"/reviews/venom-e-bikes-and-mobility-scooters/index.html") &&
+     !has(DIST+"/reviews/louies-bicycles/index.html") &&
+     !has(DIST+"/reviews/streetside-scooters-powersports/index.html"));
 
   page=await b.newPage();
   await page.goto("http://localhost:8099/cities/key-west/bike-man-bike-rentals/",{waitUntil:"domcontentloaded"});
   const bars=(await page.$$(".score-bars .row")).length;
   const robots=await page.getAttribute('meta[name="robots"]',"content");
   const ld=await page.$$eval('script[type="application/ld+json"]',n=>n.map(x=>x.textContent).join(""));
-  ok(`partner page carries the star breakdown (${bars} rows), is indexable, and marks up no third-party rating`,
-     bars===5 && /^index/.test(robots) && !/aggregateRating/.test(ld));
+  const toReviews=await page.$('a[href="/reviews/bike-man-bike-rentals/"]');
+  ok(`partner page carries the star breakdown (${bars} rows), is indexable, links to its review page, and marks up no third-party rating`,
+     bars===5 && /^index/.test(robots) && !/aggregateRating/.test(ld) && !!toReviews);
+  await page.goto("http://localhost:8099/reviews/bike-man-bike-rentals/",{waitUntil:"domcontentloaded"});
+  const reviewBars=(await page.$$(".score-bars .row")).length;
+  const reviewCanon=await page.getAttribute('link[rel="canonical"]',"href");
+  const toListing=await page.$('a[href="/cities/key-west/bike-man-bike-rentals/"]');
+  const reviewRobots=await page.getAttribute('meta[name="robots"]',"content");
+  const hours=await page.$("table.hours");
+  ok("live review page is a 200, indexable, shows the star breakdown, and links to the listing",
+     reviewBars===5 && reviewCanon.endsWith("/reviews/bike-man-bike-rentals/") && !!toListing && /^index/.test(reviewRobots) && !hours);
+  await page.goto("http://localhost:8099/reviews/",{waitUntil:"domcontentloaded"});
+  const tableRows=await page.$$eval("table.reviews-table tbody tr",n=>n.length);
+  const footerReviews=await page.$('footer a[href="/reviews/"]');
+  ok(`reviews hub is a table of live shops (${tableRows} rows) and the footer links to it`,
+     tableRows>500 && !!footerReviews);
   await page.close();
+
+  const thinHtml=readFileSync(DIST+"/reviews/grit-bike-lab/index.html","utf8");
+  const quoted=readFileSync(DIST+"/reviews/rideit-electric-bike-rentals-sales/index.html","utf8");
+  ok("thin review pages stay noindex; quoted review text is the rider's own words",
+     /<meta name="robots" content="noindex/.test(thinHtml) &&
+     !reviewLocs.some(u=>u.includes("/reviews/grit-bike-lab/")) &&
+     quoted.includes("Melany L.") && quoted.includes("Had the best time!") &&
+     quoted.includes('href="/cities/santa-rosa-beach/rideit-electric-bike-rentals-sales/"'));
 
   let personas=0;
   const walk=(d)=>{for(const e of readdirSync(d,{withFileTypes:true})){const f=d+"/"+e.name;
@@ -310,7 +352,7 @@ await page.close();
 // 4r. /cities/ and /find/ restructure, photos and the header call button
 {
   const { readFileSync, existsSync: has, readdirSync } = await import("node:fs");
-  const vercel=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/vercel.json","utf8")).redirects||[];
+  const vercel=JSON.parse(readFileSync(ROOT + "/vercel.json","utf8")).redirects||[];
   const to=(src)=>(vercel.find(r=>r.source===src)||{}).destination;
   const sources=new Set(vercel.map(r=>r.source));
   const chained=vercel.filter(r=>sources.has(r.destination.split("#")[0]));
@@ -396,7 +438,7 @@ await page.close();
 // 4t. listings show each shop's own phone and website, and every link out to a shop is UTM-tagged
 {
   const { readFileSync, readdirSync } = await import("node:fs");
-  const L=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/listings.json","utf8")).listings;
+  const L=JSON.parse(readFileSync(ROOT + "/data/listings.json","utf8")).listings;
   const phones=new Set(L.filter(l=>l.phone).map(l=>l.phone.replace(/\D/g,"").slice(-10)));
   let leaks=0, tels=new Set();
   const walk=(d)=>{for(const e of readdirSync(d,{withFileTypes:true})){const f=d+"/"+e.name;
@@ -417,7 +459,7 @@ await page.close();
   const h=readFileSync(DIST+"/business/index.html","utf8");
   const nav=(/<nav class="main-nav"[\s\S]*?<\/nav>/.exec(h)||[""])[0];
   const links=[...h.matchAll(/href="(https:\/\/buy\.stripe\.com\/[^"]+)"/g)].map(m=>m[1]);
-  const offer=JSON.parse(readFileSync("/home/user/floridaebikerentals.com/data/business.json","utf8"));
+  const offer=JSON.parse(readFileSync(ROOT + "/data/business.json","utf8"));
   const open=offer.regions.filter(r=>r.status==="open").length;
   ok(`/business/: out of the header but in the footer, Gallery in the header (Costs removed), $29.99/mo, ${links.length} Stripe links for ${open} open regions, each tagged with its region`,
      !nav.includes('href="/business/"') && nav.includes('href="/gallery/"') && /<footer[\s\S]*href="\/business\/"/.test(h) && !nav.includes('href="/costs/"') && h.includes("$29.99") &&

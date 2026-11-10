@@ -429,6 +429,11 @@ export function listingUrl(l) {
   return `/cities/${citySlug(l.city)}/${l.slug}/`;
 }
 
+/** The shop's review page. Live listings only; closed shops never get one. */
+export function reviewUrl(l) {
+  return `/reviews/${l.slug}/`;
+}
+
 /**
  * Every listing, with its URL and its locally cached photo. `raw: true` keeps
  * the original Google photo URL, which only the photo cache script needs.
@@ -511,6 +516,24 @@ export function isIndexableListing(l) {
     (l.hours || []).some((h) => !h.closed) &&
     Boolean(l.hadWebsite || l.site || l.website)
   );
+}
+
+/**
+ * Whether a review page is worth putting in Google's index.
+ *
+ * The page's only content is the shop's Google review record. Written reviews
+ * are enough on their own. Without them, the same review-count line used for
+ * listing pages (INDEX_LISTING_MIN_REVIEWS) decides: a real rating history and
+ * star breakdown can stand alone, and a page with almost no review data stays
+ * live but `noindex, follow`. Hours and a website are not part of this page,
+ * so they are not part of the rule.
+ */
+export function isIndexableReview(l) {
+  const written = (l.googleReviews || []).some((r) => r && String(r.text || "").trim());
+  if (written) return true;
+  const scores = l.scores || {};
+  const hasBreakdown = [1, 2, 3, 4, 5].some((n) => scores[String(n)] > 0);
+  return (l.reviews || 0) >= INDEX_LISTING_MIN_REVIEWS && Boolean(l.rating || hasBreakdown);
 }
 
 /** Groups listings into the collections every page type needs. */
