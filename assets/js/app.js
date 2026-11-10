@@ -2220,6 +2220,41 @@
     window.addEventListener("resize", sync, { passive: true });
     sync();
   })();
+
+  /* ----------------------------------------- /reviews/ table sort */
+  var reviewTable = $("table[data-sort-table]");
+  if (reviewTable) {
+    var reviewBody = $("tbody", reviewTable);
+    var sortRows = function (key, type, dir) {
+      $$("tr", reviewBody).sort(function (a, b) {
+        var av = a.getAttribute("data-" + key) || "";
+        var bv = b.getAttribute("data-" + key) || "";
+        if (type === "text") return dir * av.localeCompare(bv);
+        var an = parseFloat(av);
+        var bn = parseFloat(bv);
+        if (!isFinite(an)) an = -1;
+        if (!isFinite(bn)) bn = -1;
+        return dir * (an - bn) || (a.getAttribute("data-name") || "").localeCompare(b.getAttribute("data-name") || "");
+      }).forEach(function (row) { reviewBody.appendChild(row); });
+    };
+    $$("th[data-sort-key]", reviewTable).forEach(function (th) {
+      th.setAttribute("role", "button");
+      if (!th.hasAttribute("tabindex")) th.tabIndex = 0;
+      var run = function () {
+        var key = th.getAttribute("data-sort-key");
+        var type = th.getAttribute("data-sort-type") || "number";
+        var current = th.getAttribute("aria-sort");
+        var next = current ? (current === "ascending" ? "descending" : "ascending") : (type === "text" ? "ascending" : "descending");
+        $$("th[data-sort-key]", reviewTable).forEach(function (other) { other.removeAttribute("aria-sort"); });
+        th.setAttribute("aria-sort", next);
+        sortRows(key, type, next === "ascending" ? 1 : -1);
+      };
+      th.addEventListener("click", run);
+      th.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); run(); }
+      });
+    });
+  }
 })();
 
 /* Tour photos come from Viator's CDN. If one fails (removed photo, blocked

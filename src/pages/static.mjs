@@ -157,6 +157,9 @@ ${section("Popular searches", queries.map((q) => ({ href: q.url, label: q.query 
     <h2>Partner listings (${esc(String(listings.length))})</h2>
     <p class="muted">Every business in the directory.</p>
     ${linkCloud(listings.map((l) => ({ href: l.url, label: `${l.name} (${l.city})` })))}
+    <h2 class="mt-3">Shop reviews (${esc(String(listings.length))})</h2>
+    <p class="muted">Google ratings and written reviews. <a href="/reviews/">The reviews table</a> lists every shop.</p>
+    ${linkCloud(listings.map((l) => ({ href: `/reviews/${l.slug}/`, label: `${l.name} reviews (${l.city})` })))}
   </div>
 </section>
 

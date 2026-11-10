@@ -66,6 +66,7 @@ export const FOOTER_LINKS = [
   { href: "/cities/", label: "Cities" },
   { href: "/trails/", label: "Trails" },
   { href: "/blog/", label: "Blog" },
+  { href: "/reviews/", label: "Reviews" },
   { href: "/costs/", label: "Costs" },
   { href: "/tours/", label: "Tours" },
   { href: "/electric-bike-types/", label: "E-bike types" },

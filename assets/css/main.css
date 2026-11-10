@@ -1164,6 +1164,25 @@ img.is-illustration { object-fit: cover; object-position: 50% 72%; }
 .data-table td:last-child { text-align: right; white-space: nowrap; }
 @media (max-width: 640px) { .data-table { min-width: 560px; } }
 
+/* /reviews/ hub. Star columns are narrow counts; the wrap scrolls on a phone.
+   On a wide screen the header stays under the site header while the table scrolls. */
+.data-table.reviews-table { min-width: 980px; }
+@media (min-width: 1100px) {
+  .reviews-scroll.table-wrap { overflow: visible; }
+  .data-table.reviews-table thead th {
+    position: sticky; top: var(--header-h); z-index: 2;
+    box-shadow: inset 0 -1px 0 var(--line);
+  }
+}
+.data-table.reviews-table th[data-sort-key] { cursor: pointer; }
+.data-table.reviews-table th[data-sort-key]:hover { color: var(--blue-600); }
+.data-table.reviews-table th[aria-sort="ascending"]::after { content: " \2191"; }
+.data-table.reviews-table th[aria-sort="descending"]::after { content: " \2193"; }
+.data-table.reviews-table td.num,
+.data-table.reviews-table th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.data-table.reviews-table td:last-child { text-align: left; }
+.reviews-table tr[hidden] { display: none !important; }
+
 /* A link card led by a picture: the image runs edge to edge above the text. */
 .card--media { padding-top: 0; overflow: hidden; }
 .card--media .card__media {

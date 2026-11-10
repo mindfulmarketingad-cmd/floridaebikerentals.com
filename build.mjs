@@ -34,6 +34,7 @@ import { initFeatured } from "./src/featured.mjs";
 import { nearMePage, NEAR_ME_URL } from "./src/pages/near-me.mjs";
 import { computeRedirects, netlifyRedirects, redirectMap } from "./src/redirects.mjs";
 import { partnersHub, partnerPage, PER_PAGE as PARTNERS_PER_PAGE } from "./src/pages/partners.mjs";
+import { reviewsHub, reviewPage } from "./src/pages/reviews.mjs";
 import { blogHub, blogPost } from "./src/pages/blog.mjs";
 import { searchHub, searchQueryPage } from "./src/pages/search.mjs";
 import { staticPage, sitemapPage, notFoundPage } from "./src/pages/static.mjs";
@@ -393,7 +394,36 @@ for (const listing of listings) {
   });
 }
 
-/* /reviews/ pages were merged into /partners/ (star breakdown included); see src/redirects.mjs */
+/* /reviews/: a table of every live shop, plus one review page per shop */
+write("/reviews/", reviewsHub(site, ctx), {
+  priority: 0.8,
+  changefreq: "weekly",
+  group: "reviews",
+  search: {
+    u: "/reviews/",
+    t: "Florida e-bike rental reviews",
+    s: "Reviews",
+    d: `Google ratings and written reviews for ${listings.length} Florida rental shops.`,
+    k: "reviews ratings google stars florida ebike rentals",
+    w: 12,
+  },
+});
+for (const listing of listings) {
+  const url = `/reviews/${listing.slug}/`;
+  write(url, reviewPage(site, listing, ctx), {
+    priority: 0.6,
+    changefreq: "monthly",
+    group: "reviews",
+    search: {
+      u: url,
+      t: listing.name,
+      s: "Reviews",
+      d: `${listing.city}, FL${listing.rating ? ` · ${listing.rating.toFixed(1)} stars from ${listing.reviews} reviews` : ""}`,
+      k: `${listing.name} reviews ${listing.city} google rating`.toLowerCase(),
+      w: 5,
+    },
+  });
+}
 
 /* blog */
 write("/blog/", blogHub(site, ctx), {
@@ -589,7 +619,7 @@ writeRaw("data/pages.json", JSON.stringify({ count: searchIndex.length, pages: s
 /* ----------------------------------------------------------- sitemaps */
 
 // Every content hub gets its own sitemap, so a new hub can't drop its guides.
-const GROUPS = [...new Set(["pages", "find", "partners", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "tours", "shop", "search"])];
+const GROUPS = [...new Set(["pages", "find", "partners", "reviews", "blog", ...CONTENT_HUBS.map((h) => h.slug), "bike-type-towns", "tours", "shop", "search"])];
 const sitemapFiles = [];
 const sitemapLastmod = new Map(); // sitemap file -> newest lastmod among its URLs
 for (const group of GROUPS) {

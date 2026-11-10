@@ -6,9 +6,11 @@
  *  1. Towns. Town pages moved from /find/ebike-rentals-in-<town>/ to
  *     /cities/<town>/. A town with fewer than MIN_TOWN_LISTINGS shops has no
  *     page: its old /find/ URL and /cities/<town>/ both go to its one shop.
- *  2. Shops. /partners/<shop>/ and the older /reviews/<shop>/ both go to
- *     /cities/<town>/<shop>/. A duplicate merged into another listing
- *     ("merged_from") sends its old shop URLs to the surviving listing.
+ *  2. Shops. /partners/<shop>/ goes to /cities/<town>/<shop>/. /reviews/<shop>/
+ *     is that shop's review page, so live shops are not redirected. A duplicate
+ *     merged into another listing ("merged_from") sends its old shop and
+ *     /partners/ URLs to the surviving listing, and its old /reviews/ URL to
+ *     the surviving shop's review page.
  *  3. Regions. Old region pages go to that region's "Best Ebike Rentals"
  *     post, which ranks the region's shops (the /cities/ hub if it has none).
  *  4. Categories. The old topic pages moved to /find/<category>/.
@@ -49,14 +51,14 @@ export function computeRedirects(index, listings) {
 
   for (const listing of listings) {
     out.push({ source: `/partners/${listing.slug}/`, destination: listing.url });
-    out.push({ source: `/reviews/${listing.slug}/`, destination: listing.url });
     // Duplicate listings merged into this one (data/listings.json "merged_from");
     // the dropped slug is also in data/excluded-listings.json so a re-import
-    // cannot bring it back. Its old pages all go to the surviving listing.
+    // cannot bring it back. Old shop and /partners/ URLs go to the surviving
+    // listing. The old review URL goes to the surviving review page.
     for (const old of listing.merged_from || []) {
       out.push({ source: listing.url.replace(`/${listing.slug}/`, `/${old}/`), destination: listing.url });
       out.push({ source: `/partners/${old}/`, destination: listing.url });
-      out.push({ source: `/reviews/${old}/`, destination: listing.url });
+      out.push({ source: `/reviews/${old}/`, destination: `/reviews/${listing.slug}/` });
     }
   }
 
@@ -110,17 +112,14 @@ export const RETIRED_PAGES = [
 ];
 
 /**
- * The /reviews/ section was merged into /partners/. Its individual pages have
- * their own rules above; these catch the hub, its pagination, and any review
- * URL for a shop no longer listed. Kept last so the specific rules win.
+ * /reviews/ is a live section again (a hub table plus one page per shop).
+ * The old paginated hub URLs have no pages of their own; send them to the hub.
+ * Kept last so the pattern cannot shadow a more specific rule. There is no
+ * /reviews/:slug/ catch-all: that would hide the live review pages, because
+ * the host applies redirects before it looks for a file.
  */
 export const MERGED_SECTIONS = [
-  // /tours/ is back as a browse page with /tours/<town>/ guides, so there is no
-  // catch-all here: old per-tour pages with search history keep their own rules
-  // in legacy-redirects.mjs.
-  { source: "/reviews/", destination: "/partners/" },
-  { source: "/reviews/page/:n/", destination: "/partners/" },
-  { source: "/reviews/:slug/", destination: "/partners/" },
+  { source: "/reviews/page/:n/", destination: "/reviews/" },
 ];
 
 /** Exact (non-pattern) rules as a map, for rewriting internal links at build time. */

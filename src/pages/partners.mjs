@@ -8,7 +8,7 @@ import { contactButtons, isServiceOnly,
   adSlot, adSlotScript, ADSENSE_INLINE, itemListSchema, localBusinessSchema, tagList,
   summaryFor, metaDescriptionFor, logoMark,
 } from "../components.mjs";
-import { statsFor, nearbyListings, isIndexableListing } from "../data.mjs";
+import { statsFor, nearbyListings, isIndexableListing, reviewUrl } from "../data.mjs";
 import { photoFor, secondPhotoFor, figure, banner, sceneForRegion } from "../images.mjs";
 
 const HOME_CRUMB = { href: "/", label: "Home" };
@@ -285,7 +285,7 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
     </div>
     <p class="detail-hero__biz">${contactButtons(listing, { size: "", campaign: "listing" })}${
       listing.maps_link ? ` <a class="btn btn--outline-light" href="${attr(listing.maps_link)}" rel="nofollow noopener" target="_blank">Directions</a>` : ""
-    }</p>
+    } <a class="btn btn--outline-light" href="${attr(reviewUrl(listing))}">Reviews</a></p>
   </div>
 </section>
 
@@ -422,9 +422,13 @@ export function partnerPage(site, listing, { listings, index, blog, cityLinker, 
       <h2>Google rating</h2>
       <div class="big-score"><strong>${formatRating(listing.rating)}</strong><div>${ratingBlock(listing)}</div></div>
       ${scoreBars(listing)}
-      <p class="small muted mb-0">From the shop's public Google profile. Read recent one- and two-star reviews on Google before you book.</p>
+      <p class="small muted">From the shop's public Google profile. Read recent one- and two-star reviews on Google before you book.</p>
+      <p class="mb-0"><a href="${attr(reviewUrl(listing))}">Reviews of ${esc(listing.name)}</a></p>
     </div>`
-        : ""
+        : `<div class="panel">
+      <h2>Google reviews</h2>
+      <p class="mb-0"><a href="${attr(reviewUrl(listing))}">Reviews of ${esc(listing.name)}</a></p>
+    </div>`
     }
   </aside>
 </div>
@@ -455,9 +459,13 @@ ${adSlotScript(site, 1)}
   });
 }
 
-/** Google reviews of this shop, as written, newest first. */
-function reviewsPanel(listing) {
-  const reviews = listing.googleReviews || [];
+/**
+ * Google reviews of this shop, as written, newest first.
+ * `all` shows every stored review (the review page). The listing page keeps
+ * the shorter set and links to the review page.
+ */
+export function reviewsPanel(listing, { all = false } = {}) {
+  const reviews = (listing.googleReviews || []).filter((r) => r && String(r.text || "").trim());
   if (!reviews.length) return "";
   const stars = (n) => `<span class="review-card__stars" aria-label="${n} out of 5 stars">${"&#9733;".repeat(n)}<span aria-hidden="true">${"&#9733;".repeat(5 - n)}</span></span>`;
   const when = (d) => (d ? new Date(`${d}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" }) : "");
@@ -471,13 +479,15 @@ function reviewsPanel(listing) {
       ${r.reply ? `<p class="review-card__reply"><strong>Reply from the owner:</strong> ${esc(r.reply)}</p>` : ""}
       ${r.link ? `<a class="review-card__link small" href="${attr(r.link)}" rel="nofollow noopener" target="_blank">Read on Google</a>` : ""}
     </li>`;
-  const shown = reviews.length <= 6 ? reviews.length : 4;
+  const shown = all || reviews.length <= 6 ? reviews.length : 4;
   const first = reviews.slice(0, shown), rest = reviews.slice(shown);
   return `<section class="panel mt-2 reviews-panel" id="reviews">
       <h2>What Riders Say About ${esc(listing.name)}</h2>
       <p class="small muted">${reviews.length} recent Google ${plural(reviews.length, "review")}, shown as written${
         listing.reviews ? `, from ${formatReviews(listing.reviews)} in total` : ""
-      }.${listing.reviews_link ? ` <a href="${attr(listing.reviews_link)}" rel="nofollow noopener" target="_blank">See every review on Google</a>.` : ""}</p>
+      }.${
+        all ? "" : ` <a href="${attr(reviewUrl(listing))}">Review page for ${esc(listing.name)}</a>.`
+      }${listing.reviews_link ? ` <a href="${attr(listing.reviews_link)}" rel="nofollow noopener" target="_blank">See every review on Google</a>.` : ""}</p>
       <ul class="review-list">${first.map(card).join("")}</ul>
       ${
         rest.length
