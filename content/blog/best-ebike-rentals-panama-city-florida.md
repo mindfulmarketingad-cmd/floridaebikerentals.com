@@ -3,7 +3,7 @@ title: Best E-Bike Rentals Near Panama City, Florida
 metaTitle: Best Ebike Rentals Near Panama City FL - Top Shops Ranked
 description: The best e-bike rentals near Panama City and Panama City Beach, ranked by Google rating and review volume, with hours, delivery, prices and where to ride.
 date: 2026-08-29
-updated: 2026-09-03
+updated: 2026-11-10
 author: editorial-team
 category: Destinations
 listicle: true
@@ -86,16 +86,22 @@ sheltering; ask about the weather policy if you are booking a full day.
 
 ## Rules and safety
 
-Florida treats an e-bike as a bicycle: no licence, registration or insurance required for a bike
-with a 750 W or smaller motor and working pedals. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
+Florida treats an e-bike as a bicycle: no licence, registration or insurance for a bike with working
+pedals and a motor of less than 750 watts
+([sections 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003) and
+[316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655)). Helmets are required under 16
+([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)). There is no statewide
+minimum age. Shops set their own, and a city may set one too, so ask before you book.
 
 Front Beach Road deserves specific respect. It carries heavy traffic, a lot of it unfamiliar with
 the area, and the separated path network is the reason to be here rather than the road itself. Use
-the paths, cross at marked crossings, and be visible after dark - lights are legally required and
-practically essential.
+the paths, cross at marked crossings, and be visible after dark. Between sunset and sunrise a bike
+needs a white front light and a red rear light and reflector
+([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)).
 
-Riding on the beach is not permitted in most of the area. Ask your shop where their bikes are
-allowed locally; they answer this question daily.
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets a city or county
+prohibit e-bikes on a beach or dune. Shops in this area generally keep rentals off the sand. Ask
+where their bikes are allowed; they answer this question daily.
 
 ## FAQs
 

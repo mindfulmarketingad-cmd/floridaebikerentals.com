@@ -4,7 +4,7 @@ metaTitle: Overseas Heritage Trail by E-Bike: Best Sections, Rules & Rentals
 description: Riding the Florida Keys Overseas Heritage Trail by e-bike - which sections to ride, Old Seven Mile Bridge, e-bike rules, hours and where to rent in the Keys.
 author: editorial-team
 date: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-10
 category: Florida Keys
 order: 9
 distance: 90+ paved miles (106-mile corridor)
@@ -42,18 +42,9 @@ afternoon storms that build quickly over the water.
 Distances below are approximate and follow the trail's own sections, south to north. Mile markers
 (MM) are the green US 1 markers that the whole Keys uses for addresses.
 
-- **Lower Keys: Key West to Bahia Honda (about 38 miles).** Starts in Key West, where Bayview Park on
-  Truman Avenue is a listed trailhead, and runs past Smathers Beach and up through Big Pine Key, home
-  of the Key Deer National Wildlife Refuge. Historic railroad bridges cross mangrove-lined channels.
-- **Middle Keys: Bahia Honda to Long Key and Channel Five (about 43 miles).** The most island-hopping
-  and the most tropical-looking section: Marathon, the Seven Mile Bridge, Curry Hammock and Long Key
-  State Parks, the Spandrel Arch Bridge at Tom's Harbor and the fishing platforms of the historic Long
-  Key Bridge.
-- **Upper Keys: Islamorada to Key Largo (about 27 miles).** The busiest, most built-up section, with
-  fewer water views and more tropical hammock between homes and businesses. Florida State Parks says
-  the **longest continuous paved stretch** is here, roughly from MM 106 in Key Largo down through
-  MM 72 in Islamorada. The northern end is Dagny Johnson Key Largo Hammock Botanical State Park, at
-  County Road 905 and MM 106.
+- **Lower Keys: Key West to Bahia Honda (about 38 miles).** Starts in Key West, where Bayview Park on Truman Avenue is a listed trailhead, and runs past Smathers Beach and up through Big Pine Key, home of the Key Deer National Wildlife Refuge. Historic railroad bridges cross mangrove-lined channels.
+- **Middle Keys: Bahia Honda to Long Key and Channel Five (about 43 miles).** The most island-hopping and the most tropical-looking section: Marathon, the Seven Mile Bridge, Curry Hammock and Long Key State Parks, the Spandrel Arch Bridge at Tom's Harbor and the fishing platforms of the historic Long Key Bridge.
+- **Upper Keys: Islamorada to Key Largo (about 27 miles).** The busiest, most built-up section, with fewer water views and more tropical hammock between homes and businesses. Florida State Parks says the **longest continuous paved stretch** is here, roughly from MM 106 in Key Largo down through MM 72 in Islamorada. The northern end is Dagny Johnson Key Largo Hammock Botanical State Park, at County Road 905 and MM 106.
 
 Some old fishing bridges along the corridor are closed for safety: Florida State Parks lists
 Ohio-Missouri, Ohio-Bahia Honda, Missouri-Little Duck, Lower Sugarloaf and Niles. Follow the posted
@@ -88,21 +79,12 @@ old bridge to Pigeon Key and turning around.
 
 ## Rules on the trail
 
-- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may be used
-  on trails designated for bicycle use, consistent with Section 316.20655 of Florida law. Some
-  sources say only Class 1 is welcome; check the park's
-  [experiences page](https://www.floridastateparks.org/parks-and-trails/florida-keys-overseas-heritage-trail/experiences-amenities)
-  for current wording, and ride at a safe speed whatever your class. Our
-  [e-bike classes guide](/blog/ebike-classes-explained/) explains the difference.
-- **No motorized vehicles on the Old Seven Mile Bridge,** per the Pigeon Key Foundation. Pedal-assist
-  rental e-bikes are ridden there by visitors daily; scooters and mopeds are not allowed.
-- **Ride with traffic and obey traffic laws** where the trail runs on road shoulders or crosses
-  driveways and side streets along US 1. Cross traffic does not stop for you.
-- **Hours and fees.** Florida State Parks lists the trail as open 8 a.m. to sunset, 365 days a year,
-  with **no fee**. State parks along the route charge their own entry fees.
-- **Helmets** are recommended for everyone. Florida law requires them for riders under 16.
-- **Pack water, sunscreen and bug spray,** which is the park's own advice. Shade and water are scarce
-  between towns, especially in the Middle Keys.
+- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may be used on trails designated for bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. [Florida State Parks](https://www.floridastateparks.org/learn/explore-bike) does not split that permission by class. Some sources say only Class 1 is welcome; check the park's [experiences page](https://www.floridastateparks.org/parks-and-trails/florida-keys-overseas-heritage-trail/experiences-amenities) for current wording, and ride at a safe speed whatever your class. Our [e-bike classes guide](/blog/ebike-classes-explained/) explains the difference.
+- **Old Seven Mile Bridge.** The [Pigeon Key Foundation](https://pigeonkey.net/old-7-mile-bridge-open-to-public/) says the bridge is open to walkers, bikers and runners, and that no motorized vehicles are allowed. It does not say whether an e-bike counts. Scooters and mopeds are motorized vehicles. If you are on an e-bike, read the sign at the gate before you ride on.
+- **Ride with traffic and obey traffic laws** where the trail runs on road shoulders or crosses driveways and side streets along US 1. Cross traffic does not stop for you.
+- **Hours and fees.** Florida State Parks lists the trail as open 8 a.m. to sunset, 365 days a year, with **no fee**. State parks along the route charge their own entry fees.
+- **Helmets** are recommended for everyone. [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires them for riders and passengers under 16.
+- **Pack water, sunscreen and bug spray,** which is the park's own advice. Shade and water are scarce between towns, especially in the Middle Keys.
 
 Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the rest of the state rules.
 
@@ -114,20 +96,11 @@ are allowed off the island, and how far a full charge goes into a headwind.
 
 From our directory, by area:
 
-- **Key Largo.** [All Keys Cycles](/cities/key-largo/all-keys-cycles/) and
-  [Jack's Bike](/cities/key-largo/jacks-bike/) on the Overseas Highway are both listed as bike shops
-  with rentals. Compare them on the [Key Largo](/cities/key-largo/) page.
-- **Islamorada.** [Mai D'cor Rentals](/cities/islamorada/mai-dcor-rentals/) is listed for bicycle
-  rentals alongside golf carts and kayaks.
-- **Marathon, for the Seven Mile Bridge.** [Marathon Bikeworks](/cities/marathon/marathon-bikeworks/)
-  is listed for bike and e-bike rentals, repairs and sales, and
-  [Keys Vacation Supply Rentals](/cities/marathon/keys-vacation-supply-rentals/) as a bike and
-  electric-bike shop. Both are on the [Marathon](/cities/marathon/) page.
-- **Big Pine Key, for the Lower Keys.**
-  [Big Pine Key Bicycle Center](/cities/big-pine-key/big-pine-key-bicycle-center/) lists rentals and
-  repairs. See the [Big Pine Key](/cities/big-pine-key/) page.
-- **Key West.** The largest choice of shops in the Keys is on our [Key West](/cities/key-west/) page;
-  our [Key West by e-bike guide](/blog/key-west-ebike-guide/) covers riding and locking up in town.
+- **Key Largo.** [All Keys Cycles](/cities/key-largo/all-keys-cycles/) and [Jack's Bike](/cities/key-largo/jacks-bike/) on the Overseas Highway are both listed as bike shops with rentals. Compare them on the [Key Largo](/cities/key-largo/) page.
+- **Islamorada.** [Mai D'cor Rentals](/cities/islamorada/mai-dcor-rentals/) is listed for bicycle rentals alongside golf carts and kayaks.
+- **Marathon, for the Seven Mile Bridge.** [Marathon Bikeworks](/cities/marathon/marathon-bikeworks/) is listed for bike and e-bike rentals, repairs and sales, and [Keys Vacation Supply Rentals](/cities/marathon/keys-vacation-supply-rentals/) as a bike and electric-bike shop. Both are on the [Marathon](/cities/marathon/) page.
+- **Big Pine Key, for the Lower Keys.** [Big Pine Key Bicycle Center](/cities/big-pine-key/big-pine-key-bicycle-center/) lists rentals and repairs. See the [Big Pine Key](/cities/big-pine-key/) page.
+- **Key West.** The largest choice of shops in the Keys is on our [Key West](/cities/key-west/) page; our [Key West by e-bike guide](/blog/key-west-ebike-guide/) covers riding and locking up in town.
 
 For the whole island chain, see the [Florida Keys rentals roundup](/blog/best-ebike-rentals-in-florida-keys/).
 A comfortable [beach cruiser](/electric-bike-types/beach-cruiser/) or step-through e-bike suits the
@@ -146,7 +119,7 @@ miles), Middle Keys (about 43 miles) and Upper Keys (about 27 miles).
 ### Are e-bikes allowed on the Overseas Heritage Trail?
 
 Yes. Florida State Parks allows bicycles, including electric bicycles, on trails designated for
-bicycle use, consistent with Section 316.20655 of Florida law. Ride at a safe speed and yield to
+bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. Ride at a safe speed and yield to
 walkers.
 
 ### Can you ride an e-bike on the Old Seven Mile Bridge?

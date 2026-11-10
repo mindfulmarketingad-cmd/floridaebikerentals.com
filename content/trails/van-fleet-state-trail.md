@@ -4,7 +4,7 @@ metaTitle: Van Fleet State Trail by E-Bike: Trailheads, Rules & Rentals
 description: Riding the Van Fleet State Trail by e-bike - 29.2 paved miles through the Green Swamp, four trailheads, e-bike rules, hours and where to rent near Polk City.
 author: editorial-team
 date: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-10
 category: Central Florida
 order: 7
 distance: 29.2 miles
@@ -41,18 +41,10 @@ afternoon storms build fast with little cover between the four trailheads.
 Mileage runs south to north. The four trailheads sit about ten miles apart, which makes half-day
 out-and-backs easy to plan:
 
-- **Polk City Trailhead (mile 0).** 7683 Berkley Road, Polk City. Parking, picnic pavilion, water and
-  a restroom about half a mile north on the trail. Freedom Park is next door. This is the busiest
-  start and the easiest one to reach from I-4. A paved connector around the lot leads under SR 33 onto
-  the short Polk City Trail, which joins the Auburndale TECO Trail.
-- **Green Pond Trailhead (mile 10).** 4903 Green Pond Road, Polk City. Parking, pavilion, water and
-  restrooms. A good mid-trail base if you want options in both directions, and the closest trailhead
-  to the three short bridges over the headwaters of the Withlacoochee River.
-- **Bay Lake Trailhead (mile 20).** 7500 Bay Lake Road, Groveland. Parking, pavilion and restrooms.
-  The most remote of the four; from here north the trail often forms the edge of the Withlacoochee
-  State Forest.
-- **Mabel Trailhead (mile 29.2).** 7981 County Road 772, Webster, just off SR 50. Parking, pavilion,
-  water and restrooms. The northern end.
+- **Polk City Trailhead (mile 0).** 7683 Berkley Road, Polk City. Parking, picnic pavilion, water and a restroom about half a mile north on the trail. Freedom Park is next door. This is the busiest start and the easiest one to reach from I-4. A paved connector around the lot leads under SR 33 onto the short Polk City Trail, which joins the Auburndale TECO Trail.
+- **Green Pond Trailhead (mile 10).** 4903 Green Pond Road, Polk City. Parking, pavilion, water and restrooms. A good mid-trail base if you want options in both directions, and the closest trailhead to the three short bridges over the headwaters of the Withlacoochee River.
+- **Bay Lake Trailhead (mile 20).** 7500 Bay Lake Road, Groveland. Parking, pavilion and restrooms. The most remote of the four; from here north the trail often forms the edge of the Withlacoochee State Forest.
+- **Mabel Trailhead (mile 29.2).** 7981 County Road 772, Webster, just off SR 50. Parking, pavilion, water and restrooms. The northern end.
 
 Florida State Parks notes that potable water is at Polk City, Green Pond and Mabel. Carry more than
 you think you need between stops. An equestrian trail uses the 5-foot mowed shoulder on both sides of
@@ -78,20 +70,12 @@ the full length.
 
 ## Rules on the trail
 
-- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use
-  trails designated for bicycle use, consistent with Section 316.20655 of Florida law. The park's
-  [experiences page](https://www.floridastateparks.org/parks-and-trails/general-james-van-fleet-state-trail/experiences-amenities)
-  is the current word.
-- **Ride at a safe speed** and yield to other users. Cyclists yield to walkers, and everyone yields to
-  horses on the shoulder. Keep right, pass on the left and give a clear warning when you pass. Our
-  [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
+- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use trails designated for bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. [Florida State Parks](https://www.floridastateparks.org/learn/explore-bike) states the same rule. The park's [experiences page](https://www.floridastateparks.org/parks-and-trails/general-james-van-fleet-state-trail/experiences-amenities) is the current word.
+- **Ride at a safe speed** and yield to other users. Cyclists yield to walkers, and everyone yields to horses on the shoulder. Keep right, pass on the left and give a clear warning when you pass. Our [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
 - **Hours are 8 a.m. to sunset**, 365 days a year, and there is **no fee**.
-- **Dogs are welcome** on a leash no longer than six feet. Dog-friendly drinking fountains are at
-  Polk City and Green Pond.
-- **Hunting seasons** run in the Green Swamp and Richloam wildlife management areas on the western
-  side of the northern half. The trail stays open; wear high-visibility clothing in season and give
-  hunters space.
-- **Helmets** are recommended for everyone. Florida law requires them for riders under 16.
+- **Dogs are welcome** on a leash no longer than six feet. Dog-friendly drinking fountains are at Polk City and Green Pond.
+- **Hunting seasons** run in the Green Swamp and Richloam wildlife management areas on the western side of the northern half. The trail stays open; wear high-visibility clothing in season and give hunters space.
+- **Helmets** are recommended for everyone. [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires them for riders and passengers under 16.
 
 Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the rest of the state rules.
 
@@ -129,7 +113,7 @@ and run through our [pre-rental checklist](/blog/ebike-rental-checklist/) before
 ### Are e-bikes allowed on the Van Fleet State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. Ride at a safe speed and yield to walkers and horses.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. Ride at a safe speed and yield to walkers and horses.
 
 ### Where is the best place to start the Van Fleet State Trail?
 

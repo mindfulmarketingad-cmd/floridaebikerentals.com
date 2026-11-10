@@ -23,9 +23,10 @@ changes the downtown plan: St. George Street, the Plaza interior and parts of th
 no-ride zones, so lock up at the edge and walk the lights. Ask the shop about evening return times
 and lights before you book a night ride.
 
-Florida treats e-bikes as bicycles on the road. Confirm Class 1–3 rules and any local sidewalk limits
-with the shop; our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the statewide
-baseline. A step-through cruiser or
+Florida treats e-bikes as bicycles on the road
+([section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655)). Downtown sidewalk rules
+are in [city code section 24-106](https://library.municode.com/fl/st._augustine/codes/code_of_ordinances).
+Our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the statewide baseline. A step-through cruiser or
 [commuter e-bike](/electric-bike-types/commuter-electric-bikes/) suits old-town streets and the rail
 trail; fat-tire beach bikes are optional on Anastasia Island sand, not required for the paved
 corridor.
@@ -43,8 +44,9 @@ zones.
 ### Are e-bikes allowed on the Palatka-to-St. Augustine State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. The trail starts southwest of town, not in the historic
-district.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655)
+([Florida State Parks](https://www.floridastateparks.org/learn/explore-bike)). The trail starts
+southwest of town, not in the historic district.
 
 ### What kind of bike should I rent in St. Augustine?
 

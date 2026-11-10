@@ -4,6 +4,7 @@ metaTitle: How Fast Can an Electric Bicycle Go? Speeds by Class, Explained
 description: How fast an electric bicycle can go, why most stop helping at 20 or 28 mph, what really sets your speed on a ride, and what it means for renting an e-bike in Florida.
 author: editorial-team
 date: 2026-10-29
+updated: 2026-11-10
 category: Rules & Safety
 tags: [e-bike speed, e-bike classes, how e-bikes work]
 readingTime: 8
@@ -22,16 +23,20 @@ actually works, what changes it on the day, and how fast you'll really be riding
 ## The short answer: 20 mph, or 28 mph for Class 3
 
 Florida sorts electric bicycles into three classes, the same way most US states do. The definitions
-are in section 316.003 of the Florida Statutes, and all three share one rule: the motor can't be more
-than 750 watts.
+are in [section 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003) of the Florida Statutes,
+and all three share one rule: the motor has to be **less than 750 watts**.
 
 - **Class 1:** the motor helps only while you pedal, and stops helping at **20 mph**.
 - **Class 2:** the motor can also run on a throttle, with no pedalling, and still stops at **20 mph**.
 - **Class 3:** the motor helps only while you pedal, and stops helping at **28 mph**.
 
-Federal product law draws a similar line. A "low-speed electric bicycle" under 15 U.S.C. 2085 has
-working pedals, a motor under 750 watts, and a top speed under 20 mph on motor power alone. That's
-why so many bikes sold in the US are tuned to 20 mph out of the box.
+Federal product law draws a similar line for what counts as a consumer product rather than a motor
+vehicle. A "low-speed electric bicycle" under
+[15 U.S.C. § 2085](https://www.govinfo.gov/content/pkg/USCODE-2023-title15/html/USCODE-2023-title15-chap47-sec2085.htm)
+has working pedals, a motor of less than 750 watts, and a top speed of less than 20 mph when powered
+only by the motor. That's why so many bikes sold in the US are tuned to 20 mph out of the box.
+Florida's Class 3 definition goes higher, to 28 mph, and that is a state rule, not the federal
+product definition.
 
 Our [e-bike classes guide](/blog/ebike-classes-explained/) goes deeper on throttles and pedal assist,
 and our [Florida e-bike law guide](/blog/florida-ebike-laws/) covers ages, helmets and where you can
@@ -73,10 +78,8 @@ easy pedalling. Speed is mostly a choice you make with the button on the handleb
 
 How the bike decides to help matters as much as how strong the motor is.
 
-- A **cadence sensor** notices that the pedals are turning and switches the motor on. It feels a bit
-  like cruise control: pedal lightly and the bike still surges forward.
-- A **torque sensor** measures how hard you're pushing and matches it. It feels more like a normal
-  bike with stronger legs, and it's smoother in crowds because the bike only goes as hard as you do.
+- A **cadence sensor** notices that the pedals are turning and switches the motor on. It feels a bit like cruise control: pedal lightly and the bike still surges forward.
+- A **torque sensor** measures how hard you're pushing and matches it. It feels more like a normal bike with stronger legs, and it's smoother in crowds because the bike only goes as hard as you do.
 
 Many rental fleets use cadence sensors because they're simple and forgiving for first-time riders.
 
@@ -89,12 +92,10 @@ power when they get hot, which matters on a July afternoon in Florida.
 
 ### Tires, weight and wind
 
-- **Fat tires** grip sand and shell beautifully, but those wide, low-pressure tires roll slower on
-  pavement. Our [fat-tire e-bike guide](/electric-bike-types/fat-tire-electric-bikes/) explains the trade.
+- **Fat tires** grip sand and shell beautifully, but those wide, low-pressure tires roll slower on pavement. Our [fat-tire e-bike guide](/electric-bike-types/fat-tire-electric-bikes/) explains the trade.
 - **Tire pressure** matters more than people think. A soft tire feels sluggish and drains the battery.
 - **Rider and cargo weight** slow acceleration and climbing, though on flat ground the motor hides most of it.
-- **Wind** is the big one on the coast. A steady headwind on a beach road can knock several mph off
-  your cruising speed, even with the motor working hard.
+- **Wind** is the big one on the coast. A steady headwind on a beach road can knock several mph off your cruising speed, even with the motor working hard.
 
 ## Why going faster costs so much more battery
 
@@ -117,26 +118,25 @@ and sidewalks, so read the signs where you ride and ask your rental shop what ap
 A few numbers worth keeping in your head:
 
 - At **20 mph** you cover about **29 feet every second**. At 15 mph it's 22 feet.
-- Stopping distance grows with the square of your speed, so going a third faster means needing
-  roughly 1.8 times the room to stop.
+- Stopping distance grows with the square of your speed, so going a third faster means needing roughly 1.8 times the room to stop.
 - E-bikes are heavier than regular bikes, so they take longer to stop from the same speed.
 
 Our view: ride a busy beach path at a pace where you could stop for a kid stepping out from behind a
 parked car, and save the top assist level for open stretches.
 ## What about e-bikes that go 30 mph or more?
 
-You'll see electric bikes online advertised at 30, 40 or even 50 mph. Those either have motors over
-750 watts, assist past 28 mph, or have been "unlocked" or modified. They don't meet Florida's
-definition of an electric bicycle, so they're not treated as bicycles under state law. Rental shops
+You'll see electric bikes online advertised at 30, 40 or even 50 mph. Those either have motors of
+750 watts or more, assist past 28 mph, or have been "unlocked" or modified. They don't meet Florida's
+definition of an electric bicycle, so they're not treated as bicycles under state law.
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) also says a person may not
+change an e-bike's motor-powered speed unless the class label is replaced afterwards. Rental shops
 in Florida rent legal Class 1, 2 or 3 e-bikes, and modifying a rental to go faster will almost
 certainly break your rental agreement.
 
 ## Which class should you rent?
 
-- **First ride, beach town, family day:** a Class 1 or Class 2 bike. The throttle on a Class 2 is
-  handy for starting from a stop on sand or at a crossing.
-- **Longer, open rides:** Class 3 can make sense on long, quiet roads, but on most Florida trails and
-  beach paths you won't use the extra speed, and some paths don't allow Class 3 at all.
+- **First ride, beach town, family day:** a Class 1 or Class 2 bike. The throttle on a Class 2 is handy for starting from a stop on sand or at a crossing.
+- **Longer, open rides:** Class 3 can make sense on long, quiet roads, but on most Florida trails and beach paths you won't use the extra speed, and some paths don't allow Class 3 at all.
 - **Not sure?** Tell the shop where you plan to ride and let them suggest the bike.
 
 Ready to try one? Use our [e-bike finder](/#finder) to see the shops open in your town on the day you
@@ -148,7 +148,8 @@ want to ride, and run through our [rental checklist](/blog/ebike-rental-checklis
 
 A legal electric bicycle in Florida gives motor assistance up to 20 mph for Class 1 and Class 2
 bikes, and up to 28 mph for Class 3 bikes. You can pedal or coast faster than that, but the motor
-stops helping at the limit. The motor can't be more than 750 watts.
+stops helping at the limit. The motor has to be less than 750 watts. The definitions are in
+[section 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003).
 
 ### Can an e-bike go faster than 20 mph?
 
@@ -158,8 +159,9 @@ much more than that on flat ground.
 
 ### How fast does a throttle e-bike go?
 
-A Class 2 e-bike's throttle can move the bike without pedalling, up to 20 mph. Class 1 and Class 3
-bikes don't have a throttle that works above walking speed.
+A Class 2 e-bike's motor can move the bike without pedalling, and it stops helping at 20 mph. Under
+[Florida's definitions](https://www.flsenate.gov/Laws/Statutes/2026/316.003), a Class 1 or Class 3
+motor helps only while you pedal.
 
 ### Why is my e-bike slower than it should be?
 
@@ -169,6 +171,8 @@ it back to the shop and ask them to check it.
 
 ### Do I need a licence to ride a fast e-bike in Florida?
 
-No licence, registration or insurance is needed for a legal Class 1, 2 or 3 e-bike in Florida. Riders
-and passengers under 16 must wear a helmet. Bikes that go beyond the legal e-bike limits aren't
-treated as bicycles, and different rules apply.
+No licence, registration or insurance is needed for a legal Class 1, 2 or 3 e-bike in Florida.
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) says so. Riders and
+passengers under 16 must wear a helmet under
+[section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065). Bikes that go beyond the
+legal e-bike limits aren't treated as bicycles, and different rules apply.

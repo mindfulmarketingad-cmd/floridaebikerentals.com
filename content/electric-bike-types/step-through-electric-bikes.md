@@ -7,6 +7,7 @@ description: What step-through electric bikes are, why the low frame matters, wh
 image: step-through-comfort-ebike
 author: editorial-team
 date: 2026-10-22
+updated: 2026-11-10
 category: E-bike types
 order: 6
 style: step-through
@@ -34,17 +35,14 @@ Step-through is a frame shape, not a separate kind of bike, so it turns up acros
 
 - **Step-through [cruisers](/electric-bike-types/cruiser-electric-bikes/)** for relaxed beach riding.
 - **Step-through [commuters](/electric-bike-types/commuter-electric-bikes/)** for city and trail riding.
-- **Step-through [fat-tire e-bikes](/electric-bike-types/fat-tire-electric-bikes/)** for sand and
-  rough ground.
+- **Step-through [fat-tire e-bikes](/electric-bike-types/fat-tire-electric-bikes/)** for sand and rough ground.
 
 The battery usually sits on the down tube or on a rear rack.
 
 ## Why the low frame matters
 
-- **Mounting and dismounting are easy.** No high kick of the leg, which matters for riders with stiff
-  hips, knees or backs, and for shorter riders.
-- **Stops are easier.** In a beach town you stop constantly: at crossings, at the beach access, at a
-  café. Putting a foot down and stepping off is simple.
+- **Mounting and dismounting are easy.** No high kick of the leg, which matters for riders with stiff hips, knees or backs, and for shorter riders.
+- **Stops are easier.** In a beach town you stop constantly: at crossings, at the beach access, at a café. Putting a foot down and stepping off is simple.
 - **You can ride in a skirt or dress.**
 - **If you have to stop suddenly, you can step off forwards** rather than getting tangled with a top tube.
 
@@ -84,8 +82,7 @@ long paved trails, a step-through commuter combines easy stops with efficient ri
 1. **Do you have step-through frames in my size?** Ask for height guidance.
 2. **Is it a cruiser, commuter or fat-tire step-through?** Each rides differently.
 3. **Is there a throttle?** It helps move off from stops.
-4. **Is a helmet included?** Riders under 16 must wear one in Florida; our
-   [Florida e-bike law guide](/blog/florida-ebike-laws/) has the details.
+4. **Is a helmet included?** Riders and passengers under 16 must wear one in Florida ([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)); our [Florida e-bike law guide](/blog/florida-ebike-laws/) has the details.
 
 ## FAQs
 

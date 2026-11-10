@@ -1,5 +1,5 @@
 ---
-checked: 2026-11-03
+checked: 2026-11-10
 description: "Miami Beach bans e-bikes on the Beachwalk, sidewalks, Lincoln Road and South Pointe Park. The full list, the 2027 rules and the bike lanes to ride instead."
 ---
 
@@ -23,28 +23,27 @@ treat the signs as meant.
 
 - **The Baywalk** along Biscayne Bay.
 - **The Ocean Drive sidewalks** between 5th and 15th Streets.
-- **Lincoln Road.** Ordinary bicycles are allowed only from 2 a.m. to 9 a.m.; motorized devices,
-  e-bikes included, are not allowed at any hour.
+- **Lincoln Road.** Ordinary bicycles are allowed only from 2 a.m. to 9 a.m.; motorized devices, e-bikes included, are not allowed at any hour.
 
 Mobility devices used by people with disabilities are allowed everywhere. Everywhere else, an
 e-bike rides on the street and follows the same traffic signals and laws as a car.
 
-**Coming in July 2027.** In September 2026 the City Commission approved a safety ordinance that
-requires helmets for riders under 16 on bicycles, e-bikes and scooters, white and red lights from
-sunset to sunrise, working brakes, and no more riders than a device is built for. It takes effect
-on July 22, 2027, with a $129 fine. Florida already requires the helmet under 16 and the lights
-after dark statewide, so a rider following state law is mostly covered today.
+**Reported for July 2027.** News reports say the City Commission approved a safety ordinance in
+September 2026 that would fine riders for helmets, lights, brakes and passenger limits, effective
+July 22, 2027. The commission item that creates those operator duties is on the
+[July 22, 2026 agenda](https://miamibeachagenda.com/agenda/07/22/2026/R5M). We have not found the
+adopted section in the published city code, so do not treat a new local fine as in force yet.
+[Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) already requires a helmet for
+riders and passengers under 16, a white front light and a red rear light and reflector after dark,
+working brakes, and no more riders than the bike is designed for.
 
 ## Where to ride an e-bike in Miami Beach instead
 
 The city has been adding green-painted bike lanes on both sides of the road. These are the
 stretches it lists, and they are where a rental belongs:
 
-- **South Beach:** Ocean Drive between South Pointe Drive and 5th Street, South Pointe Drive between
-  Alton Road and Ocean Drive, Alton Road between 5th Street and South Pointe Drive, and 16th Street
-  between West Avenue and Collins Avenue.
-- **Mid-Beach:** Prairie Avenue (West 34th to 44th Streets), Royal Palm Avenue (West 43rd to 47th
-  Streets) and West 47th Street between Alton Road and Pine Tree Drive.
+- **South Beach:** Ocean Drive between South Pointe Drive and 5th Street, South Pointe Drive between Alton Road and Ocean Drive, Alton Road between 5th Street and South Pointe Drive, and 16th Street between West Avenue and Collins Avenue.
+- **Mid-Beach:** Prairie Avenue (West 34th to 44th Streets), Royal Palm Avenue (West 43rd to 47th Streets) and West 47th Street between Alton Road and Pine Tree Drive.
 - **North Beach:** Dickens Avenue (71st to 79th Streets) and Byron Avenue (82nd to 89th Streets).
 
 **The Venetian Causeway** is the ride most visitors are really after: bike lanes the whole way
@@ -65,8 +64,10 @@ hour or two.
 
 Sources: [City of Miami Beach, pedestrians and bicycles](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/),
 [City of Miami Beach Beachwalk pilot program](https://www.miamibeachfl.gov/residents/neighborhood-affairs-division/active-projects/other/beachwalk-pilot-program/),
+[Florida bicycle regulations](https://www.flsenate.gov/Laws/Statutes/2026/316.2065),
+[the July 22, 2026 commission item](https://miamibeachagenda.com/agenda/07/22/2026/R5M),
 [NBC 6 on Beachwalk enforcement](https://www.nbcmiami.com/news/local/miami-beach-police-to-enforce-zero-tolerance-for-e-bikes-on-the-beachwalk/3301701/)
-and [NBC 6 on the 2026 safety ordinance](https://www.nbcmiami.com/news/local/miami-beach-approves-new-rules-for-e-bike-and-scooter-use/3863055/).
+and [NBC 6 on the reported 2026 safety ordinance](https://www.nbcmiami.com/news/local/miami-beach-approves-new-rules-for-e-bike-and-scooter-use/3863055/).
 For the wider Miami picture and the shop ranking, see our
 [best e-bike rentals near Miami guide](/blog/best-ebike-rentals-miami-florida/).
 

@@ -3,7 +3,7 @@ title: Key West by E-Bike - What to Know Before You Rent
 metaTitle: Key West Ebike Rentals - Routes, Rules and Rental Tips
 description: Why an e-bike is the best way to see Key West, where to ride, where you cannot, parking and cruise-ship timing, and what to ask before you rent.
 date: 2026-07-22
-updated: 2026-09-02
+updated: 2026-11-10
 category: Destinations
 tags: [Key West, Florida Keys, island riding]
 readingTime: 7
@@ -32,29 +32,26 @@ August at midday is brutal on foot and merely pleasant with assist and a breeze.
 A three to four hour ride that covers the island:
 
 1. Start in Old Town near the Historic Seaport.
-2. Ride south-west through the residential streets to the **Southernmost Point** (early, unless you
-   enjoy queuing for the photo).
-3. Continue to **Fort Zachary Taylor** — the best swimming beach on the island and worth the park
-   entry.
+2. Ride south-west through the residential streets to the **Southernmost Point** (early, unless you enjoy queuing for the photo).
+3. Continue to **Fort Zachary Taylor** — the best swimming beach on the island and worth the park entry.
 4. Loop back along the waterfront to **Mallory Square**.
 5. Head east on the **Atlantic side** past Higgs Beach and White Street Pier to **Smathers Beach**.
-6. Return through the quieter streets of the Meadows or along the **Key West First State Bike Route**
-   toward the seaport.
+6. Return through the quieter streets of the Meadows or along the **Key West First State Bike Route** toward the seaport.
 
 That is roughly 12 to 14 miles with stops. Add the ride out toward Stock Island if you want
 distance.
 
 ## Where you can and cannot ride
 
-Key West regulates bikes more actively than most Florida towns, and rules change. The stable
-generalisations:
+Key West regulates bikes more actively than most Florida towns, and rules change.
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets the city restrict
+e-bikes on sidewalks, paths and the beach. We did not find one current city page that lists every
+block, so treat the points below as the pattern shops describe, and confirm them at the counter:
 
-- **Duval Street** is chaotic. Legal to ride in sections, unpleasant in most of them, and walking
-  the bike through the busiest blocks is the sane choice in the evening.
-- **Sidewalks in the commercial core** are generally off limits to riding.
-- **Beaches** are not for riding on. Lock at the racks.
-- **One-way streets** apply to bikes. Salsa-ing the wrong way up a one-way is the fastest way to
-  meet a Key West police officer.
+- **Duval Street** is chaotic. Riding is legal in the street in places, unpleasant in most of them, and walking the bike through the busiest blocks is the sane choice in the evening.
+- **Sidewalks in the commercial core** are generally treated as off limits to riding. Do not assume a sidewalk is open.
+- **Beaches.** State law lets the city prohibit e-bikes on the sand. Lock at the racks.
+- **One-way streets** apply to bikes, the same as any other vehicle under [section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065). Riding the wrong way up a one-way is the fastest way to meet a Key West police officer.
 - **Bike lanes and the North and South Roosevelt paths** are the comfortable ways across the island.
 
 Ask your rental shop for the current local rules — they get told first when something changes.
@@ -77,8 +74,7 @@ the replacement value is well north of $1,500.
 
 - Use the lock the shop gives you, through the **frame**, to a fixed rack.
 - Never leave a bike overnight on the street. Bring it into your accommodation or use a locked area.
-- Take the **battery** with you if it detaches easily and you are stopping for more than a few
-  minutes.
+- Take the **battery** with you if it detaches easily and you are stopping for more than a few minutes.
 - Photograph the bike and lock when you park it.
 
 ## What to rent
@@ -97,8 +93,7 @@ Key West's side streets are dim.
 
 ## Practical notes
 
-- **Rain.** Afternoon storms in summer are brief and heavy. Most shops are relaxed about riders
-  sheltering; the bikes handle a soaking, the riders less so.
+- **Rain.** Afternoon storms in summer are brief and heavy. Most shops are relaxed about riders sheltering; the bikes handle a soaking, the riders less so.
 - **Chickens.** They are everywhere, they have right of way in practice, and they move unpredictably.
 - **Scooters and Conch trains** share the same narrow streets. Assume you are not seen.
 - **Bring a lock-friendly bag** rather than a rucksack in the heat.

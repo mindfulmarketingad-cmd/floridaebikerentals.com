@@ -3,7 +3,7 @@ title: Best E-Bike Rentals Near Miami, Florida
 metaTitle: Best Ebike Rentals Near Miami FL - Top Shops Ranked
 description: The best e-bike rentals near Miami and Miami Beach, ranked by Google rating and review volume, plus where to ride, the Venetian Causeway, and rules worth knowing.
 date: 2026-08-30
-updated: 2026-11-03
+updated: 2026-11-10
 author: editorial-team
 category: Destinations
 listicle: true
@@ -33,7 +33,9 @@ The two are a causeway apart and the riding is completely different.
 **Miami Beach** is where most visitors want to ride: the beach streets of South Beach and Mid-Beach,
 and the Venetian Causeway heading back toward the city. Flat, scenic, and busy. Most of the shops
 aimed at visitors are here. Note that e-bikes are banned on the Beachwalk, city sidewalks and
-Lincoln Road; our [Miami Beach e-bike routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/)
+Lincoln Road
+([City of Miami Beach](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/));
+our [Miami Beach e-bike routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/)
 has the full list and the bike lanes to use instead.
 
 **Miami proper** is a city. Riding in Brickell or downtown is commuting, not sightseeing, though
@@ -45,7 +47,8 @@ If you are here for a few days and want one good ride, rent on the Beach.
 ## Where to ride
 
 **Miami Beach's bike lanes, not the Beachwalk.** The paved Beachwalk behind the dunes is closed to
-e-bikes and every other motorized device, and police enforce it. Ride the green bike lanes instead
+e-bikes and every other motorized device, and police enforce it
+([city list](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/)). Ride the green bike lanes instead
 (Ocean Drive south of 5th Street, South Pointe Drive, 16th Street, Prairie Avenue, Dickens Avenue)
 and walk the bike onto the Beachwalk if you want the ocean view. The
 [Miami Beach routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/) lists them.
@@ -94,13 +97,19 @@ and scooters share the same space at different speeds. Use the bike lanes where 
 
 ## Rules worth knowing
 
-Florida treats an e-bike with a 750 W or smaller motor and working pedals as a bicycle - no licence,
-registration or insurance required. Helmets are required under 16. Minimum riding ages are set by rental shops and, in some places, by local rules, so ask before you book.
+Florida treats an e-bike with working pedals and a motor of less than 750 watts as a bicycle: no
+licence, registration or insurance
+([sections 316.003](https://www.flsenate.gov/Laws/Statutes/2026/316.003) and
+[316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655)). Helmets are required under 16
+([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)). There is no statewide
+minimum age. Shops set their own, and a city may set one too, so ask before you book.
 
 Miami Beach bans e-bikes and other motorized devices on the Beachwalk, all city sidewalks, South
 Pointe Park, Collins Park and Lincoln Road, and bans all bikes on the Baywalk and the Ocean Drive
-sidewalks from 5th to 15th Streets. On the Beach, ride in the street. Details, and the bike lanes
-to use, are in our [Miami Beach e-bike routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/). Our
+sidewalks from 5th to 15th Streets
+([City of Miami Beach](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/)).
+On the Beach, ride in the street. Details, and the bike lanes to use, are in our
+[Miami Beach e-bike routes and rules guide](/trails/e-bike-routes-rules-in-miami-beach-florida/). Our
 [Florida e-bike law guide](/blog/florida-ebike-laws/) covers the state-level picture.
 
 ## FAQs
@@ -119,9 +128,12 @@ card hold of $100 to $300 per bike.
 
 ### Can I ride an e-bike on the Miami Beach boardwalk?
 
-No. Miami Beach bans e-bikes and every other motorized device on the Beachwalk at all times, from
-South Pointe Park to 79th Street, and on city sidewalks. Ride the parallel streets and bike lanes,
-and walk the bike if you want to use the Beachwalk. Riding on the sand is not permitted.
+No. The [City of Miami Beach](https://www.miamibeachfl.gov/city-hall/transportation/bicycle-and-pedestrians/)
+bans e-bikes and every other motorized device on the Beachwalk at all times, from South Pointe Park
+to 79th Street, and on city sidewalks. Ride the parallel streets and bike lanes, and walk the bike
+if you want to use the Beachwalk. Don't ride on the sand either:
+[state law](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets the city prohibit e-bikes on
+a beach, and this one is not a place to assume an exception.
 
 ### Is it safe to ride an e-bike in Miami?
 

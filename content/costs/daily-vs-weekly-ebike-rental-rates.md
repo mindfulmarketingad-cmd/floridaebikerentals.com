@@ -4,7 +4,7 @@ metaTitle: Daily vs Weekly E-Bike Rental Rates - Which Is Cheaper?
 description: Where the crossover sits between daily and weekly e-bike rental rates in Florida, how season changes it, and the booking pattern that gets you an extra evening free.
 author: editorial-team
 date: 2026-06-17
-updated: 2026-09-02
+updated: 2026-11-10
 category: Rates
 order: 2
 typical: $60 - $95 per day
@@ -64,10 +64,8 @@ of those windows are noticeably cheaper and much easier to book.
 ## When weekly still is not the answer
 
 - **You only want one ride.** A half day is the right product; do not talk yourself into a week.
-- **Your accommodation has no secure storage.** A week of rentals means a week of overnight theft
-  risk, and theft is excluded from most damage waivers.
-- **Rain is forecast for most of the week.** Ask about the shop's weather policy first; some refund
-  unused days, many do not.
+- **Your accommodation has no secure storage.** A week of rentals means a week of overnight theft risk, and theft is excluded from most damage waivers.
+- **Rain is forecast for most of the week.** Ask about the shop's weather policy first; some refund unused days, many do not.
 
 ## FAQs
 
@@ -92,7 +90,8 @@ to book.
 ### Do e-bike rental prices include helmets and locks?
 
 Usually, but not always. Helmets are sometimes $5 to $10 each and are legally required for riders
-under 16. Confirm that a lock is included, because leaving an e-bike unsecured is how a $250 hold
+and passengers under 16
+([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)). Confirm that a lock is included, because leaving an e-bike unsecured is how a $250 hold
 becomes a replacement charge.
 
 ### Can I get a discount for renting several bikes?

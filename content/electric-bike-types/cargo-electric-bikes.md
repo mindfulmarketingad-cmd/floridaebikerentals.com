@@ -6,6 +6,7 @@ summary: A cargo e-bike has a long frame built to carry loads: children in seats
 description: What cargo electric bikes are, longtail vs front-loader designs, carrying children safely under Florida's helmet law, how they handle, and how to rent one for a family trip in Florida.
 author: editorial-team
 date: 2026-10-22
+updated: 2026-11-10
 category: E-bike types
 order: 3
 style: cargo
@@ -46,8 +47,7 @@ add the load. That affects everything:
 
 - **Turning** takes a wider arc; plan your turns early.
 - **Stopping** takes longer when the bike is loaded. Brake earlier than you would on a normal bike.
-- **Starting and stopping** with children aboard is easiest from a sturdy centre stand, which most cargo
-  bikes have. Load and unload with the bike on its stand.
+- **Starting and stopping** with children aboard is easiest from a sturdy centre stand, which most cargo bikes have. Load and unload with the bike on its stand.
 - **Balance** is helped by keeping the heaviest load low and central.
 
 The motor is what makes all this practical. A loaded cargo bike without assist is very hard work; with it,
@@ -56,11 +56,12 @@ the load almost disappears.
 ## Carrying children in Florida
 
 Florida's helmet law applies to e-bikes: **riders and passengers under 16 must wear a properly fitted
-helmet,** including a child in a seat. Our [Florida e-bike law guide](/blog/florida-ebike-laws/) has the
+helmet,** including a child in a seat
+([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)). A child under 4, or 40
+pounds or less, has to be in a seat or carrier designed for that child. Our [Florida e-bike law guide](/blog/florida-ebike-laws/) has the
 detail. Beyond the law:
 
-- **Use proper child seats or the bike's built-in seating,** with belts done up, never a child sitting
-  loose on a rack.
+- **Use proper child seats or the bike's built-in seating,** with belts done up, never a child sitting loose on a rack.
 - **Check the bike's load limit** and the seat's age and weight limits with the shop.
 - **Fit foot guards or wheel guards** so small feet stay out of the spokes.
 - **Practise without the children first,** in a quiet car park or side street.
@@ -73,8 +74,7 @@ that say they are good for kids.
 
 Cargo e-bikes are best on flat, paved routes with somewhere to park a long bike at the end:
 
-- **30A and the Emerald Coast,** where the [Timpoochee Trail](/trails/timpoochee-trail-30a/) links rental
-  houses to beach accesses. Our [30A guide](/blog/30a-ebike-rentals-guide/) covers it.
+- **30A and the Emerald Coast,** where the [Timpoochee Trail](/trails/timpoochee-trail-30a/) links rental houses to beach accesses. Our [30A guide](/blog/30a-ebike-rentals-guide/) covers it.
 - **Beach towns where you are staying near the sand,** carrying chairs, a cooler and an umbrella.
 - **Town centres** where you would otherwise make several trips by car.
 
@@ -94,18 +94,15 @@ They are less suited to narrow, crowded paths and anywhere you might have to lif
 1. **Is it a longtail or a front-loader, and can you show me how it handles?**
 2. **What is the maximum load, including riders and passengers?**
 3. **Which child seats fit, and are helmets for children included?**
-4. **Does it deliver?** A cargo bike is awkward to collect. See our
-   [delivery fees guide](/costs/ebike-delivery-fees-florida/) and shops that offer
-   [delivery](/find/delivery/).
-5. **What does damage cover include?** See our
-   [damage waivers guide](/costs/damage-waivers-and-insurance/).
+4. **Does it deliver?** A cargo bike is awkward to collect. See our [delivery fees guide](/costs/ebike-delivery-fees-florida/) and shops that offer [delivery](/find/delivery/).
+5. **What does damage cover include?** See our [damage waivers guide](/costs/damage-waivers-and-insurance/).
 
 ## FAQs
 
 ### Can I carry my kids on a cargo e-bike in Florida?
 
 Yes, in proper child seats or the bike's built-in seating. Riders and passengers under 16 must wear a
-helmet under Florida law. Check the bike's load limit and the seat's age and weight limits with the shop.
+helmet under [Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065). Check the bike's load limit and the seat's age and weight limits with the shop.
 
 ### Is a cargo e-bike hard to ride?
 

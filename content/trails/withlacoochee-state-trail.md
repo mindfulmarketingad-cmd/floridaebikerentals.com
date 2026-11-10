@@ -4,7 +4,7 @@ metaTitle: Withlacoochee State Trail by E-Bike: Trailheads, Rules & Rentals
 description: Riding the Withlacoochee State Trail by e-bike - 46 paved miles through Inverness and Floral City, trailheads, the best sections, e-bike rules, hours and where to rent.
 author: editorial-team
 date: 2026-11-04
-updated: 2026-11-04
+updated: 2026-11-10
 category: Central Florida
 order: 6
 distance: 46 miles
@@ -42,16 +42,12 @@ the pavement on parts of the route; that is for horses, not bikes.
 Approximate distances from the southern end, from the [Florida Hikes mile log](https://floridahikes.com/withlacoochee-state-trail/)
 (which measures about 44 miles of trail), give a feel for how the towns are spaced:
 
-- **Dade City end (0) and Ridge Manor trailhead (2.4).** The southern start, near the I-75 / SR 50
-  interchange.
-- **Croom area (around 8 to 9).** The trail runs through the Withlacoochee State Forest here, the
-  most wooded and remote-feeling section.
+- **Dade City end (0) and Ridge Manor trailhead (2.4).** The southern start, near the I-75 / SR 50 interchange.
+- **Croom area (around 8 to 9).** The trail runs through the Withlacoochee State Forest here, the most wooded and remote-feeling section.
 - **Istachatta (14.3) and Floral City (21.3).** Small trail towns about seven miles apart.
 - **Fort Cooper State Park back entrance (25.4).** A side trip to the park's lake and nature trails.
-- **Inverness (about 28).** Wallace Brooks Park on Lake Henderson, and the town's historic depot,
-  built in 1892 and now privately owned. The trail's office is in Inverness.
-- **Hernando trailhead (33.3), Citrus Springs (39.7) and Gulf Junction (44.1).** The quieter northern
-  end.
+- **Inverness (about 28).** Wallace Brooks Park on Lake Henderson, and the town's historic depot, built in 1892 and now privately owned. The trail's office is in Inverness.
+- **Hernando trailhead (33.3), Citrus Springs (39.7) and Gulf Junction (44.1).** The quieter northern end.
 
 Five trailheads have parking and restrooms: Gulf Junction, South Citrus Springs, Inverness, Ridge
 Manor and Owensboro. Gulf Junction, Inverness and Ridge Manor also have picnic areas, and there are
@@ -78,20 +74,14 @@ night in Inverness. Ask your rental shop what range to expect before you set off
 
 ## Rules on the trail
 
-- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use
-  trails designated for bicycle use, consistent with Section 316.20655 of Florida law. Some older
-  third-party guides still say otherwise; the park's own
-  [experiences page](https://www.floridastateparks.org/parks-and-trails/withlacoochee-state-trail/experiences-amenities)
-  is the current word.
-- **Obey posted speed limits** and ride at a responsible speed. Drop the assist level near walkers;
-  our [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
-- **Cyclists yield to other users, and everyone yields to horses.** Keep right, pass on the left and
-  give a clear warning when you pass.
+- **E-bikes are allowed.** Florida State Parks says bicycles, including electric bicycles, may use trails designated for bicycle use, consistent with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. [Florida State Parks](https://www.floridastateparks.org/learn/explore-bike) states the same rule. Some older third-party guides still say otherwise; the park's own [experiences page](https://www.floridastateparks.org/parks-and-trails/withlacoochee-state-trail/experiences-amenities) is the current word.
+- **Obey posted speed limits** and ride at a responsible speed. Drop the assist level near walkers; our [e-bike classes guide](/blog/ebike-classes-explained/) explains what each class can do.
+- **Cyclists yield to other users, and everyone yields to horses.** Keep right, pass on the left and give a clear warning when you pass.
 - **Hours are 8 a.m. to sunset**, 365 days a year, and there is no fee.
 - **Dogs are welcome** on a leash no longer than six feet.
 - **Watch the road crossings** and obey traffic signals.
 
-Florida law requires helmets for riders under 16. Our [Florida e-bike law guide](/blog/florida-ebike-laws/)
+[Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires helmets for riders and passengers under 16. Our [Florida e-bike law guide](/blog/florida-ebike-laws/)
 covers the rest of the state rules.
 
 ## Renting for the Withlacoochee State Trail
@@ -125,7 +115,7 @@ State Parks quotes 46 or 47 miles on different pages.
 ### Are e-bikes allowed on the Withlacoochee State Trail?
 
 Yes. Florida State Parks allows electric bicycles on trails designated for bicycle use, consistent
-with Section 316.20655 of Florida law. Obey posted speed limits and yield to walkers and horses.
+with [section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) of Florida law. Obey posted speed limits and yield to walkers and horses.
 
 ### Where is the best place to start the Withlacoochee State Trail?
 

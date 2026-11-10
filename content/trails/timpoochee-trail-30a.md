@@ -4,7 +4,7 @@ metaTitle: Timpoochee Trail Guide - Riding 30A by E-Bike
 description: A complete guide to riding the Timpoochee Trail along 30A by e-bike - distance, surface, the towns in order, parking, and where to rent at each end.
 author: editorial-team
 date: 2026-03-18
-updated: 2026-09-02
+updated: 2026-11-10
 category: Panhandle
 order: 1
 distance: 19 miles
@@ -35,14 +35,10 @@ instead, using a town as a base and turning back after lunch.
 ## The towns, west to east
 
 - **Dune Allen** - the quiet western end, and the best place to start with nervous riders.
-- **Gulf Place and Santa Rosa Beach** - the highest concentration of rental shops, restaurants and
-  public parking. The practical base for most visitors.
-- **Blue Mountain Beach** - the closest thing to a climb on 30A, which is to say a gentle rise, plus
-  one of the best ice cream stops on the route.
-- **Grayton Beach** - sandy side streets, old Florida character, and the entrance to Grayton Beach
-  State Park.
-- **WaterColor and Seaside** - the postcard stretch. Seaside's central square is the single busiest
-  point on the whole trail; walk the bike through it in season.
+- **Gulf Place and Santa Rosa Beach** - the highest concentration of rental shops, restaurants and public parking. The practical base for most visitors.
+- **Blue Mountain Beach** - the closest thing to a climb on 30A, which is to say a gentle rise, plus one of the best ice cream stops on the route.
+- **Grayton Beach** - sandy side streets, old Florida character, and the entrance to Grayton Beach State Park.
+- **WaterColor and Seaside** - the postcard stretch. Seaside's central square is the single busiest point on the whole trail; walk the bike through it in season.
 - **Seagrove Beach** - quieter, with good beach accesses and fewer crowds.
 - **Seacrest and Alys Beach** - the white-architecture stretch, immaculate verges, excellent surface.
 - **Rosemary Beach** - cobbled streets and the eastern anchor town.
@@ -62,10 +58,8 @@ traffic crossings on the corridor.
 The surface is asphalt throughout, generally in good condition, with concrete sections through the
 town centres. Two things to watch:
 
-- **Sand drift.** After wind, the path picks up sand near the western dune crossings. It behaves
-  like gravel under a narrow tyre; fat tyres barely notice.
-- **Driveway crossings.** The trail crosses residential driveways and side streets constantly, and
-  golf carts pull out of them without much ceremony.
+- **Sand drift.** After wind, the path picks up sand near the western dune crossings. It behaves like gravel under a narrow tyre; fat tyres barely notice.
+- **Driveway crossings.** The trail crosses residential driveways and side streets constantly, and golf carts pull out of them without much ceremony.
 
 Shade is limited. The scrub oak sections offer patches, but most of the trail is exposed. In July
 and August, ride before 10am or after 5pm.
@@ -96,8 +90,9 @@ Inlet Beach. Riding the full length one way takes two to three hours on an e-bik
 ### Are e-bikes allowed on the Timpoochee Trail?
 
 Class 1 and Class 2 e-bikes are widely used on the trail and are what every 30A rental shop hands
-out. Local rules can change and are set locally rather than by the state, so confirm the current
-position with the shop you rent from - it is the question they answer most.
+out. [State law](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets you ride an e-bike where
+bicycles are allowed, and it lets the county or the path manager restrict that. We have not found a
+published class ban for this trail, so confirm the signs with the shop you rent from.
 
 ### Where is the best place to rent an e-bike for the Timpoochee Trail?
 

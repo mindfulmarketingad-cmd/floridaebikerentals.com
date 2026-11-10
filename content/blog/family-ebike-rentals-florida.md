@@ -3,7 +3,7 @@ title: Renting an E-Bike With Kids - A Family Guide to Florida
 metaTitle: Family E-Bike Rentals in Florida - Ages, Seats, Safety and Tips
 description: How to rent e-bikes for a Florida family holiday - minimum ages, child seats and trailers, cargo bikes, helmet law, and how to plan a ride that kids actually enjoy.
 date: 2026-06-10
-updated: 2026-09-02
+updated: 2026-11-10
 category: Family
 tags: [family travel, child seats, e-bike safety]
 readingTime: 8
@@ -22,7 +22,7 @@ option on a busy shared path. Some confident riders in this range are fine on th
 if the route is separated from traffic.
 
 **11 to 15:** capable of riding their own bike on a good path. Helmets are legally required under 16 in
-Florida. Many shops will not rent an e-bike to anyone under 16 at all, some set the bar at 18, and
+Florida ([section 316.2065](https://www.flsenate.gov/Laws/Statutes/2026/316.2065)). Many shops will not rent an e-bike to anyone under 16 at all, some set the bar at 18, and
 few will rent a 28 mph Class 3 bike to a teenager.
 
 **16 and over:** treated as an adult rider by most shops, though a parent may need to sign.
@@ -49,8 +49,10 @@ want to feel like they are riding but cannot yet handle traffic and junctions.
 
 ## Helmets are not optional
 
-Florida law requires a helmet for any bicycle or e-bike rider or passenger under 16, properly
-fitted and fastened. That includes a toddler in a rear seat and a child in a trailer.
+[Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires a helmet for any bicycle
+or e-bike rider or passenger under 16, properly fitted and fastened. That includes a toddler in a
+rear seat and a child in a trailer. A child under 4, or 40 pounds or less, has to ride in a seat or
+carrier designed for that child.
 
 Most shops include helmets. Check the fit yourself rather than trusting the counter: level on the
 head, two fingers above the eyebrows, straps forming a V under each ear, one finger of slack under
@@ -64,8 +66,9 @@ Three rules cover most of it.
 
 **Separated from cars.** A dedicated path is worth more than scenery. The Timpoochee Trail on 30A,
 Sanibel's path network, the West Orange Trail in Winter Garden and the Legacy Trail near Sarasota
-all qualify. On Sanibel, e-bike riders must be 16 or older, so younger children ride pedal bikes
-(see our [Sanibel e-bike rules](/blog/sanibel-ebike-rules-where-to-ride/)).
+all qualify. On Sanibel, e-bike riders on the shared-use path must be 16 or older
+([City of Sanibel](https://www.mysanibel.com/318/Bike-Hike-on-the-Shared-Use-Path)), so younger
+children ride pedal bikes (see our [Sanibel e-bike rules](/blog/sanibel-ebike-rules-where-to-ride/)).
 
 **Plan for half the distance you think.** Children measure a ride in stops, not miles. Four miles
 with an ice cream in the middle beats ten miles of scenery.

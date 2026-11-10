@@ -7,6 +7,7 @@ description: What electric mountain bikes are, hardtail vs full suspension, mid-
 image: trail-ebikes-pair
 author: editorial-team
 date: 2026-10-22
+updated: 2026-11-10
 category: E-bike types
 order: 4
 style: mountain
@@ -31,12 +32,10 @@ eMTB is the bike for it.
 
 eMTBs are built to handle rough ground:
 
-- **Suspension.** A **hardtail** has a suspension fork at the front only; **full suspension** adds a rear
-  shock. Full suspension is more comfortable and grips better on rough trails.
+- **Suspension.** A **hardtail** has a suspension fork at the front only; **full suspension** adds a rear shock. Full suspension is more comfortable and grips better on rough trails.
 - **Knobby tires,** often 2.3 to 2.6 inches wide, for grip in dirt, roots and loose sand.
 - **Powerful disc brakes,** usually hydraulic.
-- **A mid-drive motor** at the pedals on most models, which uses the bike's gears and feels natural on
-  climbs.
+- **A mid-drive motor** at the pedals on most models, which uses the bike's gears and feels natural on climbs.
 - **Pedal assist only** on most eMTBs, which matters for where you may ride (see below).
 
 They are not the heaviest e-bikes, typically somewhere around 45 to 60 pounds, but they are built strong.
@@ -54,10 +53,12 @@ If your riding will mostly be on paved trails, an eMTB is the wrong tool; a
 
 ## Where you can ride an eMTB
 
-This is the most important part. **E-bikes are not allowed on every mountain bike trail.** Land managers,
-from federal and state agencies down to county parks, set their own rules, and many allow only
-traditional bikes on non-motorised trails, or allow Class 1 (pedal assist, no throttle) e-bikes only. Our
-[Florida e-bike law guide](/blog/florida-ebike-laws/) explains how local rules work, and our
+This is the most important part. **E-bikes are not allowed on every mountain bike trail.**
+[Section 316.20655](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) lets the agency in charge
+of a trail restrict or prohibit them. Florida State Parks allow e-bikes only on trails designated for
+bicycles, not on pedestrian-only or equestrian-only trails
+([Florida State Parks](https://www.floridastateparks.org/learn/explore-bike)). Some land managers
+allow only Class 1. Our [Florida e-bike law guide](/blog/florida-ebike-laws/) explains how local rules work, and our
 [e-bike classes guide](/blog/ebike-classes-explained/) explains the classes.
 
 Before you ride, check the rules posted at the trailhead or on the land manager's website, and ask the
@@ -88,8 +89,7 @@ afternoon thunderstorms.
 2. **Which local trails allow e-bikes?**
 3. **Hardtail or full suspension, and can you set the suspension for my weight?**
 4. **What tire pressure for sand?**
-5. **What is the damage policy for off-road use?** Some rental agreements exclude off-road riding; read
-   our [damage waivers guide](/costs/damage-waivers-and-insurance/).
+5. **What is the damage policy for off-road use?** Some rental agreements exclude off-road riding; read our [damage waivers guide](/costs/damage-waivers-and-insurance/).
 
 eMTBs are uncommon in Florida rental fleets, so call ahead; [e-bike shops](/find/ebike-shops/) that sell
 and service bikes are often the best place to ask.
@@ -98,9 +98,8 @@ and service bikes are often the best place to ask.
 
 ### Can I ride an electric mountain bike on any trail?
 
-No. Each land manager decides whether e-bikes are allowed, and many allow only Class 1 pedal-assist
-e-bikes or none on non-motorised trails. Check the trailhead signs and the managing agency's rules before
-you ride.
+No. The agency that manages the trail decides, and state law lets it prohibit e-bikes or limit the
+class. Check the trailhead signs and the managing agency's rules before you ride.
 
 ### Do I need an eMTB in flat Florida?
 

@@ -4,7 +4,7 @@ metaTitle: Legacy Trail E-Bike Guide - Sarasota to Venice, Trailheads & Rentals
 description: Riding the Legacy Trail by e-bike - 18.5 paved miles from Sarasota to the Venice Train Depot, trailheads by mile, the best sections, rules and where to rent.
 author: editorial-team
 date: 2026-10-29
-updated: 2026-10-29
+updated: 2026-11-10
 category: Sarasota & Venice
 order: 5
 distance: 18.5 miles
@@ -48,24 +48,16 @@ using a trailhead as a base.
 
 Mile figures are from the Friends of the Legacy Trail mile log, measured from the Venice Train Depot.
 
-- **Venice Train Depot (mile 0).** The southern end and the most scenic start, with parking, a bike
-  repair station and the connection onto the Venetian Waterway Park paths.
-- **Patriots Park (0.8) and Nokomis Community Park (1.0).** Two close-together access points on the
-  north side of Venice.
-- **Nokomis Riverview Park (1.5) and Laurel Park (2.4).** Quieter neighbourhood trailheads, with the
-  Dona Bay bridge between them.
-- **Oscar Scherer State Park access (5.3).** A side trip into the park's scrub and flatwoods. The
-  park charges an entrance fee, cyclists included. Just south of it the trail crosses an original
-  railroad trestle.
+- **Venice Train Depot (mile 0).** The southern end and the most scenic start, with parking, a bike repair station and the connection onto the Venetian Waterway Park paths.
+- **Patriots Park (0.8) and Nokomis Community Park (1.0).** Two close-together access points on the north side of Venice.
+- **Nokomis Riverview Park (1.5) and Laurel Park (2.4).** Quieter neighbourhood trailheads, with the Dona Bay bridge between them.
+- **Oscar Scherer State Park access (5.3).** A side trip into the park's scrub and flatwoods. The park charges an entrance fee, cyclists included. Just south of it the trail crosses an original railroad trestle.
 - **Osprey Junction (6.7).** A practical mid-trail trailhead with parking.
-- **McIntosh Road access (9.7) and Culverhouse Nature Park (10.5).** The Palmer Ranch section, with
-  shaded paths and a community garden at Culverhouse.
+- **McIntosh Road access (9.7) and Culverhouse Nature Park (10.5).** The Palmer Ranch section, with shaded paths and a community garden at Culverhouse.
 - **Ashton Road (12.5).** Bike repair station.
-- **Sarasota Springs Trailhead, Webber Street (14.7).** Parking and a repair station, and the start of
-  the busier northern section.
+- **Sarasota Springs Trailhead, Webber Street (14.7).** Parking and a repair station, and the start of the busier northern section.
 - **Pompano Trailhead (16.9).** Next to the Babe Ruth baseball complex, with a repair station.
-- **Payne Park (18.1) to Fruitville Road (18.5).** The northern gateway, a park with restrooms and
-  the link into downtown.
+- **Payne Park (18.1) to Fruitville Road (18.5).** The northern gateway, a park with restrooms and the link into downtown.
 
 ## The sections worth riding
 
@@ -88,19 +80,18 @@ best way to stretch a Venice ride toward the beach.
 
 ## Rules on the trail
 
-Sarasota County's rules are short and worth knowing before you ride a rented e-bike:
+Sarasota County's rules are short and worth knowing before you ride a rented e-bike. The county's
+[park rules](https://www.sarasotacountyparks.com/i-want-to/about-us/park-and-facility-rules) allow
+electric bikes in parks and on trails at a maximum of 15 mph:
 
-- **E-bikes are allowed.** Functional pedals are required, and no other motorised vehicles are
-  permitted.
-- **Speed limit 15 mph.** That is below the assisted top speed of a Class 2 or Class 3 e-bike, so set
-  a lower assist level and leave it there. See our [e-bike classes guide](/blog/ebike-classes-explained/)
-  for what each class can do.
+- **E-bikes are allowed.** Functional pedals are required, and no other motorised vehicles are permitted.
+- **Speed limit 15 mph.** That is below the assisted top speed of a Class 2 or Class 3 e-bike, so set a lower assist level and leave it there. See our [e-bike classes guide](/blog/ebike-classes-explained/) for what each class can do.
 - **Warn before passing, pass on the left, single file**, and give three feet of clearance.
 - **Bicycles yield to everyone else** on the trail, walkers included.
 - **Stop at road crossings** and use the crossing signals.
 - **Hours are 6 a.m. to sunset** on the trail itself. Payne Park opens at 7 a.m.
 
-Florida law requires helmets for riders under 16. Our [Florida e-bike law guide](/blog/florida-ebike-laws/)
+[Florida law](https://www.flsenate.gov/Laws/Statutes/2026/316.2065) requires helmets for riders and passengers under 16. Our [Florida e-bike law guide](/blog/florida-ebike-laws/)
 covers the rest of the state rules.
 
 ## Shade, heat and timing
@@ -140,8 +131,9 @@ Waterway Park paths at the Venice end, the connected paved network is about 20 m
 
 ### Are e-bikes allowed on the Legacy Trail?
 
-Yes. Sarasota County permits e-bikes with functional pedals. The speed limit is 15 mph for everyone,
-and other motorised vehicles are not allowed.
+Yes. [Sarasota County](https://www.sarasotacountyparks.com/i-want-to/about-us/park-and-facility-rules)
+permits e-bikes in parks and on trails, at a maximum of 15 mph. Other motorised vehicles are not
+allowed.
 
 ### Where is the best place to start the Legacy Trail?
 

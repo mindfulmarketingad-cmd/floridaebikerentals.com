@@ -4,7 +4,7 @@ metaTitle: West Orange Trail E-Bike Guide - Winter Garden and Clermont
 description: Riding the West Orange Trail by e-bike - 22 miles of paved rail trail through Winter Garden and Oakland, the Clermont hills, trailheads and where to rent.
 author: editorial-team
 date: 2026-05-27
-updated: 2026-09-02
+updated: 2026-11-10
 category: Central Florida
 order: 3
 distance: 22 miles
@@ -34,14 +34,10 @@ enough restaurants and breweries to make the ride the excuse rather than the poi
 
 ## The full route
 
-- **Killarney to Oakland (about 4 miles).** The western end, quiet and shaded, running close to Lake
-  Apopka.
-- **Oakland to Winter Garden (about 4 miles).** Oak canopy for much of it, the best surface on the
-  trail, and the approach into town.
-- **Winter Garden downtown.** The trail runs straight down the middle. Dismount zones apply through
-  the busiest blocks at weekends.
-- **Winter Garden to Apopka (about 14 miles).** Longer, more open, with road crossings and some
-  suburban sections. This is where an e-bike changes the calculation entirely.
+- **Killarney to Oakland (about 4 miles).** The western end, quiet and shaded, running close to Lake Apopka.
+- **Oakland to Winter Garden (about 4 miles).** Oak canopy for much of it, the best surface on the trail, and the approach into town.
+- **Winter Garden downtown.** The trail runs straight down the middle. Dismount zones apply through the busiest blocks at weekends.
+- **Winter Garden to Apopka (about 14 miles).** Longer, more open, with road crossings and some suburban sections. This is where an e-bike changes the calculation entirely.
 
 ## The Clermont option
 
@@ -81,9 +77,10 @@ fewest crossings.
 
 ### Can you ride e-bikes on the West Orange Trail?
 
-E-bikes are commonly ridden here and local shops rent them. As with all Florida shared-use paths,
-the rules are set locally and can change, and faster Class 3 bikes are the ones most often
-restricted. Ask your rental shop for the current position.
+E-bikes are commonly ridden here and local shops rent them.
+[State law](https://www.flsenate.gov/Laws/Statutes/2026/316.20655) allows an e-bike where bicycles
+are allowed and lets the trail manager restrict that. We have not found a published Class 3 ban for
+this trail. Ask your rental shop, and read the signs.
 
 ### Where do I rent an e-bike for the West Orange Trail?
 
