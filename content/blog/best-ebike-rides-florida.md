@@ -101,8 +101,10 @@ Rent in [St. Augustine](/cities/st-augustine/).
 
 ## 9. Amelia Island and Fernandina Beach
 
-**10 to 20 miles.** Downtown Fernandina, the shrimp docks, and a run south along the island past
-Fort Clinch. Quiet roads, big oaks, and a genuinely different feel from the rest of coastal Florida.
+**10 to 20 miles.** Downtown Fernandina, the shrimp docks and Fort Clinch at the north end, then
+south on the shaded, paved [Amelia Island Trail](/trails/amelia-island-trail/) — about 7 car-free
+miles to Nassau Sound, with a 10 mph limit. Quiet roads, big oaks, and a genuinely different feel
+from the rest of coastal Florida.
 
 Rent in [Fernandina Beach](/cities/fernandina-beach/).
 

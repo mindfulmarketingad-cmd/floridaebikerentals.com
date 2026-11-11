@@ -108,7 +108,8 @@ Southwest of town, the
 [Palatka-to-St. Augustine State Trail](/trails/palatka-to-st-augustine-state-trail/) adds a 19-mile
 paved rail-trail day, and west of Jacksonville the
 [Jacksonville-Baldwin Rail Trail](/trails/jacksonville-baldwin-rail-trail/) is a shaded 14.5-mile
-alternative to the beach. Fernandina Beach is the quiet alternative.
+alternative to the beach. Fernandina Beach is the quiet alternative, with the shaded, paved
+[Amelia Island Trail](/trails/amelia-island-trail/) running about 7 miles down the island.
 
 **Best for:** historic town riding, quieter beaches.
 **Browse:** [First Coast rentals](/blog/best-ebike-rentals-in-jacksonville-st-augustine-north-florida/).
